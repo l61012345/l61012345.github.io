@@ -102,6 +102,12 @@
     <content type="html"><![CDATA[<h1 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化</h1><p>对于求和的算法，有时可以转换为矩阵的乘法来进行计算<br>E.g.<br>$$H(θ)(x)=∑_{j=0}^nθ_j x_j   $$<br>如果直接求和，求和的过程会非常冗长<br>而设计两个向量$θ$ $x$<br>则有线性回归假设函数的向量形式：<br>$$h(x)=θ^T x$$<br>对更新函数：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224232957.png"></p>]]></content>
     
     
+    <categories>
+      
+      <category>2. Octave语言初步</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -114,6 +120,12 @@
     
     <content type="html"><![CDATA[<h1 id="控制和定义语句"><a href="#控制和定义语句" class="headerlink" title="控制和定义语句"></a>控制和定义语句</h1><p>for i=1:10,<br>Indices=a : b 从a到b的索引<br>Break Continue 与C语言相同<br>While, end 结构体 同C语言  </p><p>选择结构：  </p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span> condition,    <br>command   <br>end   <br></code></pre></td></tr></table></figure><p>分支选择结构： </p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span> condition,   <br>command;   <br>elseif condition,   <br>Command;  <br></code></pre></td></tr></table></figure><p>循环结构：  </p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span> condition，  <br>Conmand;  <br> end  <br></code></pre></td></tr></table></figure><p>定义函数：  </p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">function y=function(x)  <br>command with Y,x;  <br></code></pre></td></tr></table></figure><p>保存为function.m文件  </p><p>返回多个值的函数：  </p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">function [y1,y2]=function(x)  <br>Command with y1,y2,x;  <br></code></pre></td></tr></table></figure><p>加载函数：<br>定位到m文件目录下  </p><p><code>addpath（&#39;path&#39;）</code>: 加入Octave路径  </p>]]></content>
     
+    
+    <categories>
+      
+      <category>2. Octave语言初步</category>
+      
+    </categories>
     
     
   </entry>
@@ -128,6 +140,12 @@
     <content type="html"><![CDATA[<h1 id="数据计算和绘制"><a href="#数据计算和绘制" class="headerlink" title="数据计算和绘制"></a>数据计算和绘制</h1><h2 id="对元素的操作"><a href="#对元素的操作" class="headerlink" title="对元素的操作"></a>对元素的操作</h2><p><code>A.\*B</code> A矩阵和B矩阵的每一个元素对应相乘<br><code>.</code> 对每一个元素进行运算操作<br><code>abs(A)</code> 对A每一个元素取绝对值<br><code>v+1</code> 对向量v里面的每一个元素+1<br><code>A’</code> 矩阵A的转置<br><code>pinv(A)</code>对A求逆矩阵，不可逆时即为伪逆矩阵<br><code>max(A)</code> A中最大的元素的值<br><code>max(A,[], DI)</code> A中DI维度下元素最大的值（1 列 2 行）<br><code>ind()</code> 某个元素的位置<br><code>magic(n)</code> 返回n*n的幻方<br><code>find(condition)</code>查找对应条件的元素，并返回一个向量<br><code>sum(A)</code>A所有元素的和<br><code>prod(A)</code>A所有元素的乘积<br><code>ceil(A)</code> 对A向上取整<br><code>floor(A)</code>对A每个元素向下取整<br><code>flipud(A)</code>对A上下翻转  </p><h2 id="绘制图像"><a href="#绘制图像" class="headerlink" title="绘制图像"></a>绘制图像</h2><p><code>Plot(x,y,&#39;r&#39;)</code> 绘制关于x，y的图像 r表示y的函数是红色的（默认为蓝色）<br><code>hold on</code> 保存octave内存中的旧函数图像<br><code>xlabel(&#39;&#39;)</code>添加横轴标签<br><code>ylabel（‘’）</code>添加纵轴标签<br><code>legend(&#39;&#39;,&#39;&#39;)</code> 图例<br><code>title（‘’）</code>添加标题<br><code>print -dpng &#39;xx.png&#39;</code> 在当前路径下以png保存当前图像<br><code>close</code> 关闭当前图像<br><code>figure(1)</code>; 标记图像（多开图像窗口）<br><code>subplot(1,2,1)</code> 把图像分成1x2的网格 从第一个格图开始画图<br><code>axis([0.5 1 -1 1])</code>横轴0.5<del>1 纵轴-1</del>1<br><code>clf</code> 清除一幅图像<br><code>imagesc(A)</code>可视化矩阵<br><code>colorbar</code> 添加颜色条<br><code>colormap gray</code>  生成黑白图像<br><code>,</code>依次执行每一个命令  </p>]]></content>
     
     
+    <categories>
+      
+      <category>2. Octave语言初步</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -140,6 +158,12 @@
     
     <content type="html"><![CDATA[<h1 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h1><h2 id="基本运算"><a href="#基本运算" class="headerlink" title="基本运算"></a>基本运算</h2><p>代数运算：+ - * / sqrt（）<br>布尔运算：且：&amp;&amp;  或：||  非：！<br>赋值：=  </p><h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><p><code>disp()</code> 显示（）内的命令到屏幕<br><code>sprintf()</code>用法同c语言中的printf<br><code>format lone</code> 显示变量的更多小数位数<br><code>formate short</code> 显示变量的更少小数位数（4位）<br><code>help fuction</code> 显示function 函数的帮助文档  </p><h2 id="矩阵的快速操作"><a href="#矩阵的快速操作" class="headerlink" title="矩阵的快速操作"></a>矩阵的快速操作</h2><p><code>[a b; c d;]</code> 2x2矩阵<br>[]矩阵符号<br>；换行<br>快速建立步长相等的行向量：  起始参数：步长（默认为1）：终止参数<br><code>ones(a,b)</code> 快速生成axb的矩阵，且所有元素为1<br><code>zeros(a,b)</code>快速生成axb的矩阵，且所有元素为0<br><code>rand(a,b)</code>快速生成axb的矩阵，且所有元素的值为在（0，1）内的随机数<br><code>randn(a,b)</code>快速生成axb的矩阵，且所有元素的值为服从正态分布的随机数<br><code>hist()</code> 快速绘制变量的直方图<br><code>eye(a)</code> 快速生成axa的单位矩阵<br><code>size(row,column)</code>返回矩阵的大小，并将大小存入一个1x2的矩阵中<br><code>length(A)</code>返回向量A的最大维度的值<br><code>rref(A)</code> 求解矩阵A的阶梯型</p><h2 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h2><p><code>pwd</code> 返回Octave当前指向的路径<br><code>cd &#39;path&#39;</code> 使Octave指向path路径<br><code>ls</code> 返回Octave当前指向的路径下所有的文件名称  </p><p><code>Load (&#39;file.dat&#39;)</code>  加载file.dat文件<br>*file.dat 是一个编写好的仅有数据（用固定格式aaa bbb ccc）的文件<br><code>Who</code> 返回Octave当前内存中所有的变量<br><code>Whos</code> 返回Octave当前内存中所有的变量和对应的维度、数据类型、数据大小<br><code>Clear varible</code> 清除varible变量<br><code>Clear</code> 清除内存中所有的变量<br><code>Varible1=varible2(a:b)</code>将varible2中的a到b位数据赋给varible1<br><code>Save file.mat varible</code> 将varible存入file.mat中<br><code>Save file.txt varible ascii</code> 将varible存入file.txt中 编码为ascii  </p><h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p><code>varible(a,b)</code>定位到varible中的（a，b）变量<br><code>C=[A B]</code> 生成[A B]矩阵（B在A右边）<br><code>C=[A;B]</code> 生成[A B]矩阵（B在A下边）  </p>]]></content>
     
+    
+    <categories>
+      
+      <category>2. Octave语言初步</category>
+      
+    </categories>
     
     
   </entry>
@@ -154,6 +178,12 @@
     <content type="html"><![CDATA[<h1 id="多项式拟合和正规方程"><a href="#多项式拟合和正规方程" class="headerlink" title="多项式拟合和正规方程"></a>多项式拟合和正规方程</h1><h2 id="特征点的创建和合并"><a href="#特征点的创建和合并" class="headerlink" title="特征点的创建和合并"></a>特征点的创建和合并</h2><p>对于一个特定的问题，可以产生不同的特征点，<strong>通过对问题参数的重新定义和对原有特征点的数学处理合并拆分，能够得到更加优秀的特征点。</strong></p><h2 id="多项式回归"><a href="#多项式回归" class="headerlink" title="多项式回归"></a>多项式回归</h2><p>对于更多更加常见的数学模型，其拟合往往是非线性关系的，这时候就需要考虑引用多项式来进行拟合，如：$h(x)=θ_0+θ_1 x+θ_2 x^2+θ_3 x^3$  </p><h2 id="正规方程算法"><a href="#正规方程算法" class="headerlink" title="正规方程算法"></a>正规方程算法</h2><p>在微积分中，对于函数$f(x,y)$，其局部最值往往是在$f_x=0$ 且$f_y=0$处取得。<br>因此，对于代价函数$J(θ)$，求$J(θ)$对每一个$θ_i$的偏导数，令它们都为0，即：<br>$$\frac{∂J(θ)}{∂θ_i}=0<del>for</del>i=0,1,2,…,n$$<br>称为<strong>正规方程</strong>(Regular expression)。正规方程提供了一种直接求出最小值的方法，而不需要依赖迭代进行一步一步地运算。 </p><h3 id="正规方程的矩阵形式"><a href="#正规方程的矩阵形式" class="headerlink" title="正规方程的矩阵形式"></a>正规方程的矩阵形式</h3><p>对于数据集${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})}$,  其中每一个$x^{(i)}$都是一个向量：$x^{(i)}=\begin{bmatrix}x_0^{(i)}\x_1^{(i)}\…\x_n^{(i)}\end{bmatrix}$<br>构建<strong>设计矩阵</strong>（Design matrix）$X=\begin{bmatrix}(x^{(1)})^T\(x^{(2})^T\…\(x^{(m)})^T\end{bmatrix}$和值向量$y=\begin{bmatrix}  y^{(1)}\y^{(2)}\…\y^{(m)}  \end{bmatrix}$<br>将代价函数转化为矩阵方程的形式，再对其求导，令其等于0，得到代价函数取得最小值时的$θ$：<br>$$θ=(X^TX)^{-1}X^Ty$$<br>对比梯度下降算法：<br>正规方程算法不需要学习率和迭代，但<strong>对大规模数量（万数量级以上）的特征点（n），工作效率十分低下</strong>。对于一些如分类算法等等更加复杂的算法，正规方程法并不适用于求它们在极值处的θ值。  </p><h3 id="正规方程的不可逆性"><a href="#正规方程的不可逆性" class="headerlink" title="正规方程的不可逆性"></a>正规方程的不可逆性</h3><p>在使用正规方程时，要注意的问题是，<strong>如果设计矩阵X不可逆（为奇异矩阵），正规方程会无法使用。</strong>  </p><p>设计矩阵为奇异矩阵的常见情况：</p><ol><li>x-I 不满足线性关系  </li><li>正在运行的学习算法中，特征点的数量大于样本点的数量（使得$m≤n$）  </li></ol><p>当设计矩阵X不可逆时，应当尝试删除一些特征点，或者考虑正规化（Regularation）。<br>但是总体而言，<strong>矩阵X不可逆的情况是极少数的。</strong></p>]]></content>
     
     
+    <categories>
+      
+      <category>1. 线性回归</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -166,6 +196,12 @@
     
     <content type="html"><![CDATA[<h1 id="调试方法"><a href="#调试方法" class="headerlink" title="调试方法"></a>调试方法</h1><h2 id="特征缩放"><a href="#特征缩放" class="headerlink" title="特征缩放"></a>特征缩放</h2><p>对于某些不具有比较性的样本特征$x_i$ （比如对其他的x来说$x_i$ 相当大或者相当小），梯度下降的过程可能会非常漫长，并且可能来回波动才能最后收敛到全局的最小值。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131144432.png"><br>在这样的情况下，可以对$x_i$ 进行缩放（如 $x_i≔αx_i$  或者 $x_i=x_i/α$），使得$x_i$ 与其他的$x$具有可比性，以增加梯度下降的效率。<br><strong>通常将$x$缩放至⟦-1,1⟧</strong>的区间内。（只表示一个大致的范围，这不是绝对的。）</p><h2 id="均值归一"><a href="#均值归一" class="headerlink" title="均值归一"></a>均值归一</h2><p>将$x_i$  替换为$x_i−μ_i$ 使得特征值具有为0的平均值（对$x_0$ 不适用）<br>$$x_i:=(x_i−μ_i)/s_i$$<br>定义$μ_i$  为训练集$X$ 的平均值，$s_i=|x_imax−x_imin |$, 表示$x_i$ 的取值范围（近似值），或者直接设置为$s_i$ 的标准差。</p><h2 id="学习率-Learning-rate"><a href="#学习率-Learning-rate" class="headerlink" title="学习率(Learning rate)"></a>学习率(Learning rate)</h2><p>梯度下降调试的方法：</p><ol><li><p>绘制$minJ(θ)-batch$的图像<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131144740.png"><br>原则：每一个batch之后 θ 的值都应该减小，这样的图像能够通过直观地表现变化率来表现梯度下降是否收敛（变化率为0）。  </p></li><li><p>自动收敛测试<br>如果$J(θ)$在某一次迭代之后的下降值小于某个值$ε$后，就能够判断算法已经达到了收敛。<br>$ε$的值比较难取，所以通常采取1.中的方法进行观测。</p></li></ol><p>常见的α过大的$minJ(θ)-batch$的图像：<br>α过大,导致代价函数无法收敛<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131144816.png">   </p><p>α过小，导致代价函数收敛速度过慢</p>]]></content>
     
+    
+    <categories>
+      
+      <category>1. 线性回归</category>
+      
+    </categories>
     
     
   </entry>
@@ -180,6 +216,12 @@
     <content type="html"><![CDATA[<style>img{    width: 30%;    padding-left: 20%;}</style><h1 id="多变量预测"><a href="#多变量预测" class="headerlink" title="多变量预测"></a>多变量预测</h1><h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><p>对于多个特征量(Features)，规定符号表示：<br>$n$ 特征的总数量<br>$x^{(i)}$  第i个训练样本的输入特征向量，$i$表示的是一个索引(Index)<br>$x_j^i$  第i个训练样本中特征向量的第j个值  </p><p>此时的假设函数不再是单纯的$h_θ (x)=θ_0+θ_1 x$ 的形式。<br>对于多个特征量，此时的假设函数为：<br>$h_θ (x)=θ^T x=θ_0+θ_1 x^{(1)}+θ_2 x^{(2)}+…+θ_n x^{(n)}$<br>对这个样本进行简化：<br>定义$x_0^i=1$, 定义参数向量：$x=\begin{bmatrix} x_0\x_1\…\x_n\end{bmatrix}n$，系数向量：$θ=\begin{bmatrix}θ_0\θ_1\…\θ_n\end{bmatrix}$<br>有：<br>$$h_θ (x)=θ^T x$$<br>这就是假设函数的向量形式。   </p><h2 id="梯度下降算法在多元线性回归中的应用"><a href="#梯度下降算法在多元线性回归中的应用" class="headerlink" title="梯度下降算法在多元线性回归中的应用"></a>梯度下降算法在多元线性回归中的应用</h2><p>对于假设函数：$h_θ (x)=θ^T x=θ<em>0+θ_1 x^{(1)}+θ_2 x^{(2)}+…+θ_n x^{(n)}$<br>和损失函数：$J(θ_0,θ_1,…,θ_n)=\frac{1}{2m} ∑</em>{i=1}^m(h_θ (x^{(i)} )−y^{(i)} )^2$<br>此时的梯度下降算法：<br>Repeat{<br>$$θ_j≔θ<em>j−α\frac{∂J(θ)}{∂θ_j}$$<br>}<br>对$\frac{∂J(θ)}{∂θ_j}$进行等价变形：<br>Repeat{<br>$$θ_j≔θ_j−α\frac{1}{m}∑</em>{i=1}^m(h_θ (x^{(i)} )−y^{(i)})  x_j^i$$<br>}</p>]]></content>
     
     
+    <categories>
+      
+      <category>1. 线性回归</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -193,6 +235,12 @@
     <content type="html"><![CDATA[<style>img{    width: 40%;    padding-left: 20%;}</style><h1 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h1><p>在开始之前，为了方便解释，首先规定几个符号所代表的意义：<br>$m$ 训练集中训练样本的数量<br>$X$  输入变量<br>$Y$  输出变量<br>$(x,y)$ 训练样本<br>$(x^i,y^i)$第i个训练样本（i表示一个索引）  </p><h2 id="监督学习算法的流程"><a href="#监督学习算法的流程" class="headerlink" title="监督学习算法的流程"></a>监督学习算法的流程</h2><p>提供训练集&gt;学习算法得到$h$（假设函数：用于描绘x与y的关系）&gt;预测y 的值  </p><h2 id="代价-损失函数（Cost-function）"><a href="#代价-损失函数（Cost-function）" class="headerlink" title="代价/损失函数（Cost function）"></a>代价/损失函数（Cost function）</h2><p><strong>假设函数(Hypothesis function)**——$h$是用来表示某一个数据集可能存在的线性/非线性关系的函数。对于线性拟合，其假设函数为：<br>$$h_θ(x)=θ_1x+θ_0$$<br>这其中的$θ$是假设函数当中的参数。<br>也可以简化为：<br>$$h_θ(x)=θ_1x$$<br>**代价函数</strong>，在统计学上称为均方根误差函数。当假设函数中的系数$θ$取不同的值时，$\frac{1}{2m}$倍假设函数预测值$h_θ(x^{(i)})$和真实值$y^{(i)}$的差的平方的和之间的函数关系表示为代价函数$J$。<br>$$J(θ_0,θ<em>1)=\frac{1}{2m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})^2$$ </p><blockquote><p>在这里取1/2的原因是便于消除求导之后产生的2倍,同时也可以进一步缩小$θ$  </p></blockquote><blockquote><p>该函数的自变量是$θ_1$和$θ_0$，因此该函数是三维的函数（如图所示）。<br> <img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131130651.png">  </p></blockquote><p><strong>代价函数在几何上表示为数据集空间内的各点到假设函数的距离的平方的平均值的一半。</strong><br>要想使得数据能够被假设函数很好地拟合，那么代价函数要尽量地小。<strong>当代价函数取到它的最小值即$J(θ<em>1)</em>{min}$时，此时的填入假设函数的$θ$对数据的拟合程度是最好的。</strong><br>对于线性的代价函数，假设函数对数据集的拟合程度越高，对应的$(θ_0,θ_1)$越接近代价函数图像等高线的中心。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131132852.png">   </p><h2 id="梯度下降算法（Gradient-Descent）"><a href="#梯度下降算法（Gradient-Descent）" class="headerlink" title="梯度下降算法（Gradient Descent）"></a>梯度下降算法（Gradient Descent）</h2><h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>在微积分中，函数$f(x,y)$在$(x_0,y_0)$处是函数值增加最快的方向是<strong>梯度（Gradient）</strong>的方向，<strong>梯度的反方向是函数值减小最快的方向。</strong><br>梯度的计算公式：<br>$$▿f|_{(x_0,y_0)}=(f_x(x_0,y_0),f_y(x_0,y_0))$$</p><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>梯度下降算法是一种求解代价函数最小值的方法，它可以用在<strong>多维任意的假设函数</strong>当中。<br>简而言之，梯度下降算法求得$J(θ<em>1)</em>{min}$的主要思路是：   </p><ol><li>给定$θ_0$和$θ_1$的初始值，通常令$θ_0=0$，$θ_1=0$。</li><li>不断改变$θ_0$和$θ_1$的值使得$J(θ_0,θ_1$的值逐渐变小，直到找到$J(θ_0,θ_1)$的最小值或者局部最小值。<br>如果从一个初始值出发，寻找附近的最小值，重复该过程，得到上图，最后得到的值为局部最优解。  <blockquote><p>将梯度下降算法类比为爬山，从一个点开始，不断寻找“下山”的路线，最后找到一个“下山”的出口。——吴恩达  </p></blockquote></li></ol><p>当改变初始值时，会找到另一条“下山”的路径，找到第二个局部最优解（局部最小值）。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131134419.png"><br>对于线性回归的代价函数而言，只存在一个局部最小值。（见代价函数的图像）  </p><h3 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h3><p>梯度下降算法可以表示为：<br>Repeat untill convergence{<br>$$θ_j:=θ_j-α\frac{∂J(θ_0,θ_1)}{∂θ_j},j=0<del>and</del>j=1$$<br>}<br>解释：    </p><ol><li>:=  表示赋值运算符</li><li>α称为<strong>学习率</strong>，用来控制下降的<strong>步长</strong>（Padding），即更新的幅度：  <pre><code>  如果α太小，同步更新的速率会非常的慢     而α过大，同步更新时可能会越过最小值点   </code></pre></li><li>$\frac{∂J(θ<em>0,θ<em>1)}{∂θ_j}$是代价函数的梯度：<br>$$\frac{∂J(θ_0,θ_1)}{∂θ_0}=\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})$$<br>$$\frac{∂J(θ_0,θ_1)}{∂θ_1}=\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}$$<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131135144.png"><br>△在代价函数中（以简化的代价函数为例），无论初始值在最小值点的左侧还是右侧，通过同步更新都能够使该点被“移动（Update）”到最小值，在最小值点，由于导数值为0，最终同步更新停止在了$θ_j=θ_j$，如前面所说，$θ_j$即为极小值点。  </li></ol><h3 id="同步更新"><a href="#同步更新" class="headerlink" title="同步更新"></a>同步更新</h3><p><strong>同步更新</strong>（Simulaneous update）是实现梯度下降算法的最有效方式。<br>$$temp0:<del>θ_0:=θ_0-α\frac{∂J(θ_0,θ_1)}{∂θ_0}$$<br>$$temp1:</del>θ_1:=θ_1-α\frac{∂J(θ_0,θ_1)}{∂θ_1}$$<br>$$θ_0:=temp0$$<br>$$θ_1:=temp1$$<br>这个更新方程能够同时更新$θ_0$和$θ_1$：$θ_0$更新为$θ_0-J’(θ)$，对$θ_1$同理。<br>更新的方法是计算赋值号右边带入$θ_1$和$θ_2$的值进行计算，得到的两个值分别储存在temp0和temp1中，从上到下进行赋值。  </p><p>对于简化的代价函数：<br>$$θ_1：=θ_1-αJ’(θ_1)$$<br>$$\frac{dJ(θ_1,θ_0)}{dθ_j} =d(\frac{1}{2m}Σ(h_θ(x_i)-y_i))^2)$$   </p><p>将梯度代回代价函数中就得到了<strong>Batch梯度下降法</strong>的基本形式：<br>Repeat untill convergence{<br>$$θ_0:=θ<em>0-α\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})$$<br>$$θ_1:=θ<em>1-α\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}$$<br>}    </p>]]></content>
     
     
+    <categories>
+      
+      <category>1. 线性回归</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -205,6 +253,12 @@
     
     <content type="html"><![CDATA[<h1 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h1><h2 id="机器学习的定义"><a href="#机器学习的定义" class="headerlink" title="机器学习的定义"></a>机器学习的定义</h2><blockquote><p>A computer  program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E.    ——Tom Mitchelle  </p></blockquote><p>简言之，机器学习通过完成任务（T）得到经验（E），进而提升性能（P）。<br>例如：一个自我对弈的跳棋学习机器：E ：自我对弈的棋局 T：下跳棋 P：与新对手玩跳棋时的获胜概率  </p><h2 id="机器学习的主要算法类型"><a href="#机器学习的主要算法类型" class="headerlink" title="机器学习的主要算法类型"></a>机器学习的主要算法类型</h2><ul><li><strong>监督学习</strong>（Supervised）<br>人教会计算机完成任务。<br>根据统计数据做直线或曲线拟合/分离数据，来预测结果。<br>其中包括了两大问题：  <ul><li><strong>回归</strong>（Regression）<br>给算法做一个数据集，包含正确答案，（比如房价-年），用线性/非线性回归方程拟合数据,预测数据。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131124639.png"></li><li><strong>分类问题</strong>（<strong>逻辑回归</strong>问题）（Classification/Logical regression）<br>用实数对出现的可能状况分类<br>（比如：1和0表示患乳腺癌/不患乳腺癌 ；1表示患乳腺癌A，2表示患乳腺癌B，0表示不患乳腺癌），在多维坐标系中（每一个维度表示不同的属性），然后用线性或非线性的函数将不同类的数据分开。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131124726.png"></li></ul></li><li><strong>无监督学习</strong>（Unsupervised）<br>计算机自己学习，经典的算法分为两大类：    <ul><li><strong>聚类算法</strong><br>对并不明确分类的数据集，计算机根据数据特征自动将数据分为几个簇<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131124803.png"></li><li><strong>鸡尾酒会算法</strong>（Cocktail party）<br>略，这里只对鸡尾酒会问题和解决方法作一个概述：<br>鸡尾酒会问题是在计算机语音识别 领域的一个问题。<br>当前语音识别技术已经可以以较高精度识别一个人所讲的话，但是当说话的人数为两人或者多人时，语音识别率就会极大的降低，这一难题被称为鸡尾酒会问题。<br>对于的给定混合信号，分离出鸡尾酒会中 同时说话的每个人的独立信号。<br>鸡尾酒问题的解决方法是把两个收音器分别放在两个人的附近，每个收音器且与两个人的距离是不等距的，如此来分离两个人的声音。</li></ul></li></ul>]]></content>
     
+    
+    <categories>
+      
+      <category>1. 线性回归</category>
+      
+    </categories>
     
     
   </entry>
