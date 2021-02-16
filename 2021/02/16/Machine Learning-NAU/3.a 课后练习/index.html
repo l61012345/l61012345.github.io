@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
-  <title>4.4. 多元分类 - Mirror</title>
+  <title>课后练习-图像处理 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -150,7 +150,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="4.4. 多元分类">
+            <span class="h2" id="subtitle" title="课后练习-图像处理">
               
             </span>
 
@@ -160,8 +160,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-14 06:00" pubdate>
-        2021年2月14日 早上
+      <time datetime="2021-02-16 03:28" pubdate>
+        2021年2月16日 凌晨
       </time>
     </span>
   
@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      249 字
+      510 字
     </span>
   
 
@@ -182,7 +182,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      10
        分钟
     </span>
   
@@ -212,16 +212,42 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">4.4. 多元分类</h1>
+            <h1 style="display: none">课后练习-图像处理</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月14日 早上
+                  本文最后更新于：2021年2月16日 凌晨
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="多元分类"><a href="#多元分类" class="headerlink" title="多元分类"></a>多元分类</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>一对多分类的实质是对一对一分类的拓展。<br>基本方法是建立一个多输出的神经网络，因此<strong>在多元分类中，最终的输出结果将是一个n维的向量</strong>，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：$h_Θ(x)≈\begin{bmatrix}    1 \ 0 \ 0 \ 0 \end{bmatrix}$之类的向量。<br>以前我们在训练集中用一个整数y来表示分类的标签，在多元分类中，我们使用如上所示的向量来表示分类的标签。<br>现在假设函数的模型应该为：<br>$$h_Θ(x^{(i)})≈y^{(i)}$$<br>等式的左右两边输出的结果都是n维的向量。</p>
+              <style>
+img{
+    width: 40%;
+    padding-left: 10%;
+}
+</style>
+<h1 id="课后练习2"><a href="#课后练习2" class="headerlink" title="课后练习2"></a>课后练习2</h1><p>Required libs:Numpy PIL Scipy Matplotlib cv2</p>
+<h2 id="Q1-Write-a-python-script-to-open-the-“lena-png”-file-using-opencv"><a href="#Q1-Write-a-python-script-to-open-the-“lena-png”-file-using-opencv" class="headerlink" title="Q1. Write a python script to open the “lena.png” file using opencv."></a>Q1. Write a python script to open the “lena.png” file using opencv.</h2><ul>
+<li>Display the opened image in a new window named “Display Lena”</li>
+<li>Save the image to a new file named “lena_resaved.png”<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/lena.png" srcset="/img/loading.gif">  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> cv2 <span class="hljs-keyword">as</span> cv<br>img = cv.imread(<span class="hljs-string">&quot;lena.png&quot;</span>) <span class="hljs-comment"># cv2.imread(&#x27;path&#x27;)  read the img</span><br>cv.imshow(<span class="hljs-string">&quot;Display Lena&quot;</span>,img) <span class="hljs-comment">#cv2.imshow(windowname,path)</span><br>cv.waitkey(<span class="hljs-number">0</span>) <span class="hljs-comment">#to let the window display until clicking/pressing</span><br>cv.imwrite(<span class="hljs-string">&quot;lena_resaved.png&quot;</span>,img) <span class="hljs-comment">#cv2.imwrite(filename,path,params)</span><br></code></pre></td></tr></table></figure>
+<h2 id="Q2-Use-PIL-and-Matplotlib-libraries-for-Q2"><a href="#Q2-Use-PIL-and-Matplotlib-libraries-for-Q2" class="headerlink" title="Q2. Use PIL and Matplotlib libraries for Q2."></a>Q2. Use PIL and Matplotlib libraries for Q2.</h2>Use “lena.png” to perform following operations and save the images:  </li>
+<li>Crop a section from the image whose vertices are (100,100), (100,400), (400,100), (400,400).<br>(hint: convert the cv2 image into PIL Image)  </li>
+<li>Rotate the cropped image by 45 degrees counter-clockwise.</li>
+<li>Perform histogram equalization on lena.png. (hint: use ImageOps.equalize from PIL)</li>
+<li>Use matplotlib to plot the histogram figure for both original image and processed image.<br>(hint: use histogram() function in PIL)  </li>
+<li>Perform Max Filtering, Min Filtering, and Median Filter on lena.png. (hint: PIL.ImageFilter)  </li>
+<li>Perform Gaussian Blur with sigma equal to 3 and 5. (hint: PIL.ImageFilter)<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/bee.png" srcset="/img/loading.gif"> <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> Image <br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> ImageOps <br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> ImageFilter <span class="hljs-keyword">as</span> <span class="hljs-built_in">filter</span><br><span class="hljs-keyword">from</span> matplotlib <span class="hljs-keyword">import</span> pyplot <span class="hljs-keyword">as</span> plt  <br><br>pil_img=Image.<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;lena.png&quot;</span>) <span class="hljs-comment">#open img in pil </span><br><span class="hljs-comment">#(in cv2 lib, img is opened as array)</span><br><span class="hljs-comment"># load cv img: Image.fromarray()</span><br>pil_img.show() <span class="hljs-comment"># show the img</span><br>img_crop = pil_img.crop((<span class="hljs-number">100</span>,<span class="hljs-number">100</span>,<span class="hljs-number">300</span>,<span class="hljs-number">300</span>)) <span class="hljs-comment">#crop((start point,hight,width))</span><br>img_crop.show() <span class="hljs-comment">#show the img</span><br><br>img_rota = img_crop.rotate(<span class="hljs-number">45</span>) <span class="hljs-comment">#rotate(degree)</span><br>img_rota.show()<br><br>img_eql=ImageOps.equalize(pil_img) <br><span class="hljs-comment">#ImageOps.equalize(path) histogram equalize the imge</span><br><br>plt.plot(<span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">256</span>),img_eql.histogram()) <br><span class="hljs-comment">#pyplot(aix,img) plot someting   </span><br><span class="hljs-comment">#img.histogram()  return the histogram</span><br>plt.show()<br>plt.show(rang(<span class="hljs-number">0</span>,<span class="hljs-number">256</span>),pil_img.histogram())<br>plt.show()  <br><br>img_max = pil_img.<span class="hljs-built_in">filter</span>(<span class="hljs-built_in">filter</span>.maxfilter()) <br><span class="hljs-comment">#filter.(Imagefilter.parm()) add filters</span><br>img_max.show()<br><br>img_min=pil_img.<span class="hljs-built_in">filter</span>(<span class="hljs-built_in">filter</span>.minfilter())<br>img_min.show()<br><br>img_mid=pil_img.<span class="hljs-built_in">filter</span>(<span class="hljs-built_in">filter</span>.medianfilter())<br>img_mid.show()<br><br><br>img_gus3=pil_img.<span class="hljs-built_in">filter</span>(<span class="hljs-built_in">filter</span>.gaussianblur(radius=<span class="hljs-number">3</span>))<br>img_gus3.show()<br><br>img_gus10=pil_img.<span class="hljs-built_in">filter</span>(<span class="hljs-built_in">filter</span>.gaussianblur(radius=<span class="hljs-number">10</span>))<br>img_gus10.show()<br><br></code></pre></td></tr></table></figure>
+<img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210210191614.png" srcset="/img/loading.gif"></li>
+</ul>
+<h2 id="Q3-Colour-space-conversion-Use-Python-OpenCV-functions-to-perform-following-operations-on"><a href="#Q3-Colour-space-conversion-Use-Python-OpenCV-functions-to-perform-following-operations-on" class="headerlink" title="Q3. Colour space conversion. Use Python OpenCV functions to perform following operations on"></a>Q3. Colour space conversion. Use Python OpenCV functions to perform following operations on</h2><p>“bee.png” and save the images at each step.</p>
+<ul>
+<li>Read the image.</li>
+<li>Convert the image to HSV(<strong>Hu Satuation Value:包含了三个通道：单色(H)，饱和度(S)，灰度(V)</strong>) color space.</li>
+<li>Perform histogram equalization on V channel by cv2.equalizeHist().</li>
+<li>Convert the result image to BGR color space.</li>
+<li>Show the image by cv2.imshow() and save the image.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> ImageOps <br><span class="hljs-keyword">from</span> PIL <span class="hljs-keyword">import</span> ImageFilter <span class="hljs-keyword">as</span> <span class="hljs-built_in">filter</span><br><br>bee_img = cv2.imread(<span class="hljs-string">&quot;bee.png&quot;</span>)<br>bee_hsv = cv2.cvtColor(bee_img,cv2.COLOR_BGR2HSV)<br>bee_hsv.imshow()<br><br>bee_hsv[:,:,<span class="hljs-number">2</span>]= cv2.equalizeHist(bee_hsv[:,:,<span class="hljs-number">2</span>])<br><span class="hljs-comment"># 2 presents the channel 2: V</span><br>bee_rgb = cv2.cvtColor(bee_hsv,cv2.COLOR_HSV2BGR)<br>cv2.imshow(<span class="hljs-string">&quot;norm&quot;</span>,bee_rgb)<br><br>bee_img[:,:,<span class="hljs-number">2</span>]= cv2.equalizeHist(bee_rgb[:,:,<span class="hljs-number">2</span>])<br>bee_img = cv2.cvtColor(bee_hsv,cv2.COLOR_HSV2BGR)<br>cv2.imshow(<span class="hljs-string">&quot;rgb&quot;</span>,bee_img)<br></code></pre></td></tr></table></figure></li>
+</ul>
 
             </div>
             <hr>
@@ -231,7 +257,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/4-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/">4. 神经网络简介</a>
+                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/">Machine Learning-NUS 2021</a>
                     
                   </div>
                 
@@ -245,9 +271,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/16/Machine%20Learning-NAU/4.%20%E5%88%86%E7%B1%BB%E5%99%A8/">
+                      <a href="/2021/02/16/Machine%20Learning-NAU/2.%20%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">4. 分类器</span>
+                        <span class="hidden-mobile">2. 数学方法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -255,8 +281,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/14/4.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/4.3%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0/">
-                        <span class="hidden-mobile">4.3. 神经网络与逻辑函数</span>
+                      <a href="/2021/02/16/Machine%20Learning-NAU/4.%20%E5%88%86%E7%B1%BB%E5%99%A8/">
+                        <span class="hidden-mobile">4. 分类器</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

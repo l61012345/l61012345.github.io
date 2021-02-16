@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
-  <title>4.4. 多元分类 - Mirror</title>
+  <title>4. 分类器 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -150,7 +150,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="4.4. 多元分类">
+            <span class="h2" id="subtitle" title="4. 分类器">
               
             </span>
 
@@ -160,8 +160,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-14 06:00" pubdate>
-        2021年2月14日 早上
+      <time datetime="2021-02-16 03:28" pubdate>
+        2021年2月16日 凌晨
       </time>
     </span>
   
@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      249 字
+      1.7k 字
     </span>
   
 
@@ -182,7 +182,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      20
        分钟
     </span>
   
@@ -212,16 +212,57 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">4.4. 多元分类</h1>
+            <h1 style="display: none">4. 分类器</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月14日 早上
+                  本文最后更新于：2021年2月16日 凌晨
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="多元分类"><a href="#多元分类" class="headerlink" title="多元分类"></a>多元分类</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>一对多分类的实质是对一对一分类的拓展。<br>基本方法是建立一个多输出的神经网络，因此<strong>在多元分类中，最终的输出结果将是一个n维的向量</strong>，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：$h_Θ(x)≈\begin{bmatrix}    1 \ 0 \ 0 \ 0 \end{bmatrix}$之类的向量。<br>以前我们在训练集中用一个整数y来表示分类的标签，在多元分类中，我们使用如上所示的向量来表示分类的标签。<br>现在假设函数的模型应该为：<br>$$h_Θ(x^{(i)})≈y^{(i)}$$<br>等式的左右两边输出的结果都是n维的向量。</p>
+              <style>
+img{
+    width: 60%;
+    padding-left: 30%;
+}
+</style>
+<h1 id="分类器"><a href="#分类器" class="headerlink" title="分类器"></a>分类器</h1><h2 id="分类器概述"><a href="#分类器概述" class="headerlink" title="分类器概述"></a>分类器概述</h2><p>设$S={ω_1,ω_2,..,ω_c}$是表示所有特征标签ω的集合，x表示数据集空间$R^n$中的特征向量，定义：<strong>分类器</strong>（Classifier）是一种能够使$R^n→S$的函数$f$。分类器能够将特征标签（labels）指定到特征向量。  </p>
+<ul>
+<li>图像识别的基本流程<br>输入图像—&gt;预处理-&gt;获取特征-&gt;分类<h2 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h2></li>
+</ul>
+<p><strong>特征</strong>(Features)是不同类别的数据具有的用于识别其自身的属性。在机器学习中，要想对数据集进行识别和分类就必须要提取数据集的特征。<br>特征的提取并不是越多越好，不相关的特征（称为噪声（Noise features））会降低识别的准确度；具有高相关性的特征（比如：长发和女性）会让模型出现过拟合（Generalization）和模型冗余之类的其他问题。  </p>
+<ul>
+<li><p>决策边界<br><strong>决策边界</strong>（Decision boundary）是二元分类中能够依据特征的分布来分出两类的边界。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208145142.png" srcset="/img/loading.gif">   </p>
+</li>
+<li><p>过拟合问题（Generalization）<br>如果一个模型虽然可以穿过所有的数据点，但是其图像波动很大，其同样也不能描述数据的分布，（其数据的分布是无法被泛化处理），称为过拟合，或者说这个算法具有高方差的特性。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208150529.png" srcset="/img/loading.gif"></p>
+</li>
+</ul>
+<h2 id="贝叶斯分类器"><a href="#贝叶斯分类器" class="headerlink" title="贝叶斯分类器"></a>贝叶斯分类器</h2><p><strong>贝叶斯分类器</strong>(Bayes’ classifier)被理论证明是目前最好的分类器。贝叶斯分类器依赖于模式识别(Pattern recognition)<br>想象如下的情形：我们已经测量了用于识别男女性别的特征，现在要根据这些特征来对一个未知的人判断其性别。如果你对其不做任何的测量，那么你是否还能进行分类？<br>₋答案是：如果我们知道男女性别的比例，比如男性/总的人群:$P{ω<em>1}=58.8%$。将频率视为概率，那么这个概率被称为<strong>先验概率</strong>（Prior probability），由于是男性的概率大于是女性的概率，因此我们将这个识别目标<strong>总是判断为概率最高的标签</strong>——即男性，那么我们判断其为男性的正确率为58.8%。<br>如何去优化这个正确率？——对识别目标进行观测：<br>假设已经观测到目标的特征$X$，对标签集$Ω$,计算所有的如果具有特性$x$,识别目标为标签$ω<em>i$的概率，并从中找到最大的条件概率，目标特征的标签$ω^*$即为最大的条件概率。用数学公式表达为：<br>$$ω^*=arg</em>{ω_i}~maxP(ω_i|x)$$<br>由计算得出的概率$P(ω_i|x)$称为<strong>后验概率</strong>(Posteriori)。<br>由贝叶斯公式：<br>$$P(A|B)=\frac{P(B|A)×P(A)}{P(B)}$$<br>那么后验概率可以转化为：<br>$$P(ω_i|x)=\frac{P(x|ω_i)·P(ω_i)}{P(x)}$$<br>带入分类器公式：<br>$$ω^*=arg</em>{ω<em>i}~max\frac{P(x|ω_i)·P(ω_i)}{P(x)}$$<br>由于$P(x)$是一个常数，那么最大值函数可以被简化为求$P(x|ω_i)·P(ω_i)$的最大值：<br>$$ω^*=arg</em>{ω_i}~maxP(x|ω_i)·P(ω_i)$$<br>这就是贝叶斯分类器公式。    </p>
+<ul>
+<li><p>特殊情况<br>如果先验概率是均等的：<br>$$P(ω<em>i)=P(ω_1)=…=P(ω_n)=C$$<br>那么分类器公式还能被简化为：<br>$$ω^*=arg</em>{ω_i}~maxP(x|ω_i)$$<br>称为最大可能公式（Maximunm Likelihood）。   </p>
+<p>如果分类器中只有两个标签$ω_1,ω_2$:<br>那么设定：<br>$$g(x)=P(ω_1|x)-P(ω_2|x)$$<br>如果$g(x)&gt;0$则判断为$ω_1$,反之判断为另一类。$g(x)$称为判别函数（Discriminant function）。   </p>
+</li>
+<li><p>代价/损失（Cost）<br>设对于标签集${ω<em>1,ω_2,…,ω_c}∈C$,$λ</em>{ij}$是分类器判断为$ω<em>i$但实际上的标签是$ω<em>j$所作出的<strong>代价</strong>（Cost）。<br>规定在$λ$中，当$i=j$时，$λ</em>{ij}=0$。<br>那么二元的贝叶斯分类器的代价函数为：<br>$$\frac{P(x|ω_1)}{P(x|ω_2)}&gt;\frac{λ</em>{12}-λ<em>{22}}{λ</em>{21}-λ<em>{11}}·\frac{P(ω<em>2)}{P(ω_1)}…….ω_1$$<br>$$\frac{P(x|ω_1)}{P(x|ω_2)}&lt;\frac{λ</em>{12}-λ</em>{22}}{λ<em>{21}-λ</em>{11}}·\frac{P(ω<em>2)}{P(ω_1)}…….ω_2$$<br>如果$λ</em>{12}=λ<em>{21}=1$且$λ</em>{11}=λ_{22}=0$,称$P(x|ω_i)P(ω_i)$为MAP方程。</p>
+</li>
+</ul>
+<blockquote>
+<p>贝叶斯分类器被证明是理论上误差最小的分类器。     </p>
+</blockquote>
+<p>运用贝叶斯分类器需要知道在有特征$x$的条件下是分类标签$ω_i$的概率——$P(ω_i|x)$，称为可能性（Likelyhood）。在实际运用当中，一般是从数据集中估计这个概率（采用抽样检测等方法），这个估计出的概率通常是不准确的。<br>这个抽样检测的原则是：<strong>如果要创建一个D维（D是特征向量X的维度，即特征的数量）的直方图，一般而言至少需要$10^D$的训练样本。</strong></p>
+<h2 id="朴素贝叶斯分类器"><a href="#朴素贝叶斯分类器" class="headerlink" title="朴素贝叶斯分类器"></a>朴素贝叶斯分类器</h2><p>解决贝叶斯分类器需要的训练样本数量大的问题的其中一个办法是假设所有的特征之间是独立的，根据概率论，有：<br>$$P(XY)=P(X)P(Y)$$<br>假设特征向量$x=[x_1,x_2,…,x_D]^T$，有：<br>$$ω^*=arg_{ω<em>j}~maxP(x|ω_j)P(ω_j)$$<br>$$ω^*=arg</em>{ω_j}~maxP(ω<em>j)Π</em>{i=1}^DP(x_i|ω_j)$$  </p>
+<blockquote>
+<p>在实际中，由于$P(x_i|ω<em>j)∈[0,1]$，因此$Π</em>{i=1}^DP(x_i|ω_j)$的乘积可能会下溢（非常趋近0）。因此对两边取log函数将乘法项目转为加法项防止下溢。   </p>
+</blockquote>
+<p>$$ω^*=arg_{ω_j}<del>max</del>log[P(ω<em>j)]+∑</em>{i=1}^Dlog[P(x_i|ω_j)]$$<br>这种分类器公式称为朴素贝叶斯分类器（Naive Bayes）   </p>
+<h2 id="K邻近算法"><a href="#K邻近算法" class="headerlink" title="K邻近算法"></a>K邻近算法</h2><p>K邻近算法（K-Nearest Neighbor,KNN）是一种不依赖概率而直接求得决策边界的办法。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210215095611.png" srcset="/img/loading.gif"><br>如上图，设想现在样本空间内有两类样本，新加入一个x到样本空间内，设定$k=5$,计算x到样本空间内所有点的距离，最终取5个距离x最近的样本点，这五个样本点中哪一种类别的样本点多x就是哪一种类别。<br>通常情况下，标签数和K是都是奇数。<br>有数学证明在训练样本足够多的条件下， KNN的错误概率相比于贝叶斯更小。<br>$$P(error_{KNN})⪙P(error_{Bayes})$$</p>
+<ul>
+<li>距离度量（Distance Metrics）<br>设定距离度量函数$D(x,y)$,具有非负性、唯一性、和三角矢量性。<br>$$D_p(x,y)=(∑<em>{i=1}^n|x_i-y_i|^p)^{1/p}$$<br>x,y为向量。p称为范数（Norm）。<br>为了避免x，y的数值过于悬殊，人为地添加权重$w_i$，有：<br>$$D_p(x,y)=(∑</em>{i=1}^nw_i|x_i-y_i|^p)^{1/p}$$   </li>
+</ul>
+<h2 id="其他的分类器"><a href="#其他的分类器" class="headerlink" title="其他的分类器"></a>其他的分类器</h2><ul>
+<li>神经网络<br>神经网络是目前最热门的分类器方法，它模拟了神经元的传递过程，即输入信号——处理信号——接收信号。 </li>
+<li>向量机（Support vector machine,SVM）<br>向量机的目的是为了找到一个线性的决策边界。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210215102440.png" srcset="/img/loading.gif">  </li>
+</ul>
 
             </div>
             <hr>
@@ -231,7 +272,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/4-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/">4. 神经网络简介</a>
+                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/">Machine Learning-NUS 2021</a>
                     
                   </div>
                 
@@ -245,9 +286,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/16/Machine%20Learning-NAU/4.%20%E5%88%86%E7%B1%BB%E5%99%A8/">
+                      <a href="/2021/02/16/Machine%20Learning-NAU/3.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">4. 分类器</span>
+                        <span class="hidden-mobile">课后练习-图像处理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -255,8 +296,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/14/4.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/4.3%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0/">
-                        <span class="hidden-mobile">4.3. 神经网络与逻辑函数</span>
+                      <a href="/2021/02/14/4.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/4.4%20%E5%A4%9A%E5%85%83%E5%88%86%E7%B1%BB/">
+                        <span class="hidden-mobile">4.4. 多元分类</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
