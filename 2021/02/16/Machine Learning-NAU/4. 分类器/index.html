@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      2.3k 字
     </span>
   
 
@@ -182,7 +182,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      26
        分钟
     </span>
   
@@ -216,7 +216,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月16日 凌晨
+                  本文最后更新于：2021年2月17日 凌晨
                 
               </p>
             
@@ -259,10 +259,22 @@ img{
 <ul>
 <li>距离度量（Distance Metrics）<br>设定距离度量函数$D(x,y)$,具有非负性、唯一性、和三角矢量性。<br>$$D_p(x,y)=(∑<em>{i=1}^n|x_i-y_i|^p)^{1/p}$$<br>x,y为向量。p称为范数（Norm）。<br>为了避免x，y的数值过于悬殊，人为地添加权重$w_i$，有：<br>$$D_p(x,y)=(∑</em>{i=1}^nw_i|x_i-y_i|^p)^{1/p}$$   </li>
 </ul>
-<h2 id="其他的分类器"><a href="#其他的分类器" class="headerlink" title="其他的分类器"></a>其他的分类器</h2><ul>
+<h2 id="其他分类器"><a href="#其他分类器" class="headerlink" title="其他分类器"></a>其他分类器</h2><ul>
 <li>神经网络<br>神经网络是目前最热门的分类器方法，它模拟了神经元的传递过程，即输入信号——处理信号——接收信号。 </li>
 <li>向量机（Support vector machine,SVM）<br>向量机的目的是为了找到一个线性的决策边界。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210215102440.png" srcset="/img/loading.gif">  </li>
 </ul>
+<h2 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h2><p>现在要对一个分类器的效果进行评估，方法是用另一组数据集去测试分类器的性能。在实际运用中，通常把训练集划分为两部分：训练集和测试集。 测试集不会被训练。 将测试集放入分类器后，分类器得出的标签和测试集中的标签进行对比。   </p>
+<h3 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h3><p>有如下将测试结果可视化的方法，称为<strong>混淆矩阵</strong>(Confusion matrix)方法：<br>将横轴作为实际的标签，纵轴作为预测的标签，每一格表示“实际为标签i/但是预测为标签j”的频率，做出矩阵，如下图所示：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210217114634.png" srcset="/img/loading.gif"><br>对角线上频率的总和即为训练集的正确率。<br>混淆矩阵能够容易的表现出分类器错误的分类情况。  </p>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p><strong>交叉验证</strong>（K-fold cross validation）能够最大程度的避免测试集发生的“偶然正确（称为福禄克测试，Fluke test）”，具体的做法是：<br>将数据集平均分为k份，取其中一份为测试集，剩下的为训练集。重复上述步骤直到每一份都被做过训练集。 最终分类器的准确率为所有测试的准确率的平均值。    </p>
+<h3 id="错误类型与ROC曲线"><a href="#错误类型与ROC曲线" class="headerlink" title="错误类型与ROC曲线"></a>错误类型与ROC曲线</h3><ul>
+<li><p>FRR<br>False Reject Rate， 表示目标正确却识别为错误的概率。   </p>
+</li>
+<li><p>FAR<br>False Accept Rate， 表示目标错误却识别为正确的概率。</p>
+</li>
+<li><p>FTE<br>Failure to Enroll Rate, 无法识别的概率。</p>
+</li>
+</ul>
+<p>理想条件下，FRR和FAR都应该等于0。不断地改变分类器的阈值，将横轴为FAR,纵轴为1-FRR，作出<strong>ROC曲线</strong>(受试者工作特征曲线, Receiver operating characteristic curve)。这条曲线始终在y=x以上。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210217121830.png" srcset="/img/loading.gif"><br>理想条件下，ROC曲线应该是一个L形状，即FAR=FRR=0。<br>ROC曲线围成的下夹面积，即AUC表示了系统的强壮性，AUC越大越好。<br>EER(Equal error rate)，也就是FPR=FNR的值，由于FNR=1-TPR，可以画一条从（0,1）到（1,0）的直线，找到直线与ROC曲线的交点。 交点越靠近(1,1)越好。</p>
 
             </div>
             <hr>
