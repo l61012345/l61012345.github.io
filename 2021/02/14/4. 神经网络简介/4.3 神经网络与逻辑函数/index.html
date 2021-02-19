@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      584 字
+      603 字
     </span>
   
 
@@ -216,7 +216,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月14日 早上
+                  本文最后更新于：2021年2月19日 中午
                 
               </p>
             
@@ -229,7 +229,7 @@ img{
 </style>
 <h1 id="神经网络与逻辑函数"><a href="#神经网络与逻辑函数" class="headerlink" title="神经网络与逻辑函数"></a>神经网络与逻辑函数</h1><p>思考下面一个例子：<br>如果$x_1,x_2$都为二进制数，如图有四个样本分布在样本空间内，<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151549.png" srcset="/img/loading.gif"><br>那么假设函数可以写成：<br>$$y=x_1 XNOR x_2$$<br>那么神经网络是否可以生成这样的函数呢？ </p>
 <h2 id="简单逻辑函数的实现——AND-OR-NOT"><a href="#简单逻辑函数的实现——AND-OR-NOT" class="headerlink" title="简单逻辑函数的实现——AND,OR,NOT"></a>简单逻辑函数的实现——AND,OR,NOT</h2><p>为了解决这个问题，我们从AND函数入手：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151722.png" srcset="/img/loading.gif"><br>如图，输入层有两个特征$x_1$和$x_2$，他们是二进制数。目标函数为$y=x_1 AND x_2$.  </p>
-<p><strong>观察激活函数$y=g(x)$,我们发现当$x=4$时，$y=0.99$,当$x=-4$时，$y=0.01$</strong><br>由上述激活函数的性质，为了计算这样的神经网络，首先先增加一个偏置单元 【+1】，对每个单元赋予权重：-30，20,20<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png" srcset="/img/loading.gif"><br>列出真值表：<br>| $x_1$ | $x_2$ | $h_θ(x)$|<br>| —- | —- | —-|<br>|0|0|$g(-30)≈0$|<br>|0|1|$g(-10)≈0$|<br>|1|0|$g(-10)≈0$|<br>|1|1|$g(10)≈1$|</p>
+<p><strong>观察激活函数$y=g(x)$,我们发现当$x=4$时，$y=0.99$,当$x=-4$时，$y=0.01$</strong><br>由上述激活函数的性质，为了计算这样的神经网络，首先先增加一个偏置单元 【+1】，对每个单元赋予权重：-30，20,20<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png" srcset="/img/loading.gif"><br>列出真值表：<br>$$<br>\begin{array}{c|lcr}<br>T/F &amp; x_1 &amp; x_2 &amp; h_θ(x) \\<br>\hline<br>0 &amp; 0 &amp; g(-30)≈0 \\<br>0 &amp; 1 &amp; g(-10)≈0  \<br>1 &amp; 0 &amp; g(-10)≈0 \<br>1 &amp; 1 &amp; g(10)≈1 \<br>\end{array}<br>$$</p>
 <p>观察最后一列，我们发现最后一列的输出事实上很接近与AND函数的结果，那么可以认为$h_θ(x) ≈ x_1 AND x_2$</p>
 <p>那么同理，下图的神经网络最终可以生成一个类似于OR函数的假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png" srcset="/img/loading.gif">  </p>
 <p>下图的神经网络最终可以生成一个类似于NOT函数的假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png" srcset="/img/loading.gif"><br>可以发现NOT是通过给对应的单元施加一个较大的负数来实现的。</p>
