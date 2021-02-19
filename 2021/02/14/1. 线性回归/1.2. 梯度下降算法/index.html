@@ -256,7 +256,7 @@ img{
 </li>
 <li>$\frac{∂J(θ<em>0,θ<em>1)}{∂θ_j}$是代价函数的梯度：<br>$$<br>\frac{∂J(θ_0,θ_1)}{∂θ_0}=\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})<br>$$<br>$$<br>\frac{∂J(θ_0,θ_1)}{∂θ_1}=\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}<br>$$<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131135144.png" srcset="/img/loading.gif"><br>△在代价函数中（以简化的代价函数为例），无论初始值在最小值点的左侧还是右侧，通过同步更新都能够使该点被“移动（Update）”到最小值，在最小值点，由于导数值为0，最终同步更新停止在了$θ_j=θ_j$，如前面所说，$θ_j$即为极小值点。  </li>
 </ol>
-<h3 id="同步更新"><a href="#同步更新" class="headerlink" title="同步更新"></a>同步更新</h3><p><strong>同步更新</strong>（Simulaneous update）是实现梯度下降算法的最有效方式。<br>$$<br>temp0:<del>θ_0:=θ_0-α\frac{∂J(θ_0,θ_1)}{∂θ_0}<br>$$<br>$$<br>temp1:</del>θ_1:=θ_1-α\frac{∂J(θ_0,θ_1)}{∂θ_1}<br>$$<br>$$<br>θ_0:=temp0<br>$$<br>$$<br>θ_1:=temp1<br>$$<br>这个更新方程能够同时更新$θ_0$和$θ_1$：$θ_0$更新为$θ_0-J’(θ)$，对$θ_1$同理。<br>更新的方法是计算赋值号右边带入$θ_1$和$θ_2$的值进行计算，得到的两个值分别储存在temp0和temp1中，从上到下进行赋值。  </p>
+<h3 id="同步更新"><a href="#同步更新" class="headerlink" title="同步更新"></a>同步更新</h3><p><strong>同步更新</strong>（Simulaneous update）是实现梯度下降算法的最有效方式。<br>$$<br>temp0:θ_0:=θ_0-α\frac{∂J(θ_0,θ_1)}{∂θ_0}<br>$$<br>$$<br>temp1:θ_1:=θ_1-α\frac{∂J(θ_0,θ_1)}{∂θ_1}<br>$$<br>$$<br>θ_0:=temp0<br>$$<br>$$<br>θ_1:=temp1<br>$$<br>这个更新方程能够同时更新$θ_0$和$θ_1$：$θ_0$更新为$θ_0-J’(θ)$，对$θ_1$同理。<br>更新的方法是计算赋值号右边带入$θ_1$和$θ_2$的值进行计算，得到的两个值分别储存在temp0和temp1中，从上到下进行赋值。  </p>
 <p>对于简化的代价函数：<br>$$θ_1：=θ_1-αJ’(θ_1)$$<br>$$\frac{dJ(θ_1,θ_0)}{dθ_j} =d(\frac{1}{2m}Σ(h_θ(x_i)-y_i))^2)$$   </p>
 <p>将梯度代回代价函数中就得到了<strong>Batch梯度下降法</strong>的基本形式：<br>Repeat untill convergence{<br>$$<br>θ_0:=θ<em>0-α\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})<br>$$<br>$$<br>θ_1:=θ<em>1-α\frac{1}{m}∑</em>{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}$$<br>}    </p>
 
