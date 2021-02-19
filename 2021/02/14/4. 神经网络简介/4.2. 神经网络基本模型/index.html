@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      869 字
+      875 字
     </span>
   
 
@@ -236,7 +236,7 @@ img{
 <blockquote>
 <p>如果一个网络在第j层有$s_j$个单元，且在第j+1层有$s_j+1$个单元，那么矩阵$Θ^{(j)}$的维度为$s_{j+1} \times (s_j+1)$</p>
 </blockquote>
-<h2 id="神经网络的向量化-前向传输-Forward-propagation"><a href="#神经网络的向量化-前向传输-Forward-propagation" class="headerlink" title="神经网络的向量化:前向传输(Forward propagation)"></a>神经网络的向量化:前向传输(Forward propagation)</h2><p>对如上的等式，现在将$g()$中的线性加权组合以$z^{(2)}_1,z^{(2)}<em>2,z^{(2)}_3$表示，那么就有：<br>$$a_1^{(2)}=g(z_1^{(2)})$$<br>$$a_2^{(2)}=g(z_2^{(2)})$$<br>$$a_3^{(2)}=g(z_3^{(2)})$$<br>现在就能够定义三个向量使得上述等式转化为向量乘法：<br>$x= \bigl[\begin{smallmatrix} x_0 \ x_1 \ x_2 \ x_3 \end{smallmatrix}\bigr]$,<br>$z^{(2)}=\bigl[\begin{smallmatrix} z_1^{(2)}\z_2^{(2)}\z_3^{(2)}\end{smallmatrix}\bigr]=Θ^{(1)}x$，$a^{(2)}=\bigr[\begin{smallmatrix} a_1^{(2)}\a_2^{(2)}\a_3^{(2)}\end{smallmatrix}\bigr]$<br>那么上述等式最终就可以转化成：<br>$$z^{(2)}=Θ^{(1)}x$$<br>$$a^{(2)}=g(z^{(2)})$$<br>对于隐藏层的偏置单元，增加一项$a_0^{(2)}=1$.<br>最后计算$z^{(3)}=Θ^{(2)}a^{(2)}$,那么最终得到的假设模型将会是：<br>$$h</em>{Θ}(x)=a^{(3)}=g(z^{(3)})$$  </p>
+<h2 id="神经网络的向量化-前向传输-Forward-propagation"><a href="#神经网络的向量化-前向传输-Forward-propagation" class="headerlink" title="神经网络的向量化:前向传输(Forward propagation)"></a>神经网络的向量化:前向传输(Forward propagation)</h2><p>对如上的等式，现在将$g()$中的线性加权组合以$z^{(2)}_1,z^{(2)}<em>2,z^{(2)}_3$表示，那么就有：<br>$$a_1^{(2)}=g(z_1^{(2)})$$<br>$$a_2^{(2)}=g(z_2^{(2)})$$<br>$$a_3^{(2)}=g(z_3^{(2)})$$<br>现在就能够定义三个向量使得上述等式转化为向量乘法：<br>$x= \left[\begin{array}{cc|c} x_0 \ x_1 \ x_2 \ x_3 \end{array}\right]$,<br>$z^{(2)}=\left[\begin{array}{cc|c} z_1^{(2)}\z_2^{(2)}\z_3^{(2)}\end{array}\right]=Θ^{(1)}x$，$a^{(2)}=\left[\begin{array}{cc|c} a_1^{(2)}\a_2^{(2)}\a_3^{(2)}\end{array}\right]$<br>那么上述等式最终就可以转化成：<br>$$z^{(2)}=Θ^{(1)}x$$<br>$$a^{(2)}=g(z^{(2)})$$<br>对于隐藏层的偏置单元，增加一项$a_0^{(2)}=1$.<br>最后计算$z^{(3)}=Θ^{(2)}a^{(2)}$,那么最终得到的假设模型将会是：<br>$$h</em>{Θ}(x)=a^{(3)}=g(z^{(3)})$$  </p>
 <p>单看layer2 和 layer3，事实上，这两层做的就是逻辑回归，但输入进逻辑回归的特征不再是原始的特征x，而是通过原始特征生成的特征$a$。<br>而$a$与$x$之间的关系通过θ来定义。 因此可以通过改变$θ$来改变输入层和隐藏层之间的关系。</p>
 <blockquote>
 <p>下一章将说明如何调整$θ$的值来优化假设函数。</p>
