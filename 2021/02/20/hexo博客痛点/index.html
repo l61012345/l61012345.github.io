@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
-  <title>✨【置顶】本站说明 - Mirror</title>
+  <title>Hexo搭建博客记录 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -150,7 +150,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="✨【置顶】本站说明">
+            <span class="h2" id="subtitle" title="Hexo搭建博客记录">
               
             </span>
 
@@ -160,7 +160,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-20 06:25" pubdate>
+      <time datetime="2021-02-20 06:35" pubdate>
         2021年2月20日 早上
       </time>
     </span>
@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      57 字
+      1.3k 字
     </span>
   
 
@@ -182,7 +182,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      17
        分钟
     </span>
   
@@ -212,7 +212,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">✨【置顶】本站说明</h1>
+            <h1 style="display: none">Hexo搭建博客记录</h1>
             
               <p class="note note-info">
                 
@@ -221,16 +221,47 @@
               </p>
             
             <div class="markdown-body">
-              <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
-<li>建议点击右上角【📚分类】查看文章</li>
-<li>因为用的github做的图床，所以图片加载可能会有问题，请用更科学的方式访问本站⚡</li>
-<li>转载请著名来源，谢谢</li>
+              <h1 id="Hexo搭建博客记录"><a href="#Hexo搭建博客记录" class="headerlink" title="Hexo搭建博客记录"></a>Hexo搭建博客记录</h1><p>搭建这个博客前前后后花了大概一周左右的时间，基本上把能踩的雷全都踩过了，现在记录一下搭建过程中的问题和解决办法。</p>
+<h2 id="Github-Pages-相关问题"><a href="#Github-Pages-相关问题" class="headerlink" title="Github Pages 相关问题"></a>Github Pages 相关问题</h2><h3 id="Github-Pages-无法创建页面-显示“Pages-build-faild”-但是没有任何报错信息"><a href="#Github-Pages-无法创建页面-显示“Pages-build-faild”-但是没有任何报错信息" class="headerlink" title="Github Pages 无法创建页面 显示“Pages build faild” 但是没有任何报错信息"></a>Github Pages 无法创建页面 显示“Pages build faild” 但是没有任何报错信息</h3><p>第一个遇到的问题是Github Pages 始终反馈无法创建（build）页面，反馈邮件当中没有任何关于错误的信息。<br>debug非常多次之后发现是由于Git 把所有的代码都同步到了项目里：<br>自己用的VS Code来写的博客。自己的VS Code里面本来就设置好了git，因此就直接用VS Code里面的git把项目里面所有的文件都提交上去了……<br>所以解决办法是不要用VS Code里面的git来提交代码，正确的做法是用git bash里的<code>hexo g</code>生成文件后，用<code>hexo d</code>提交。  </p>
+<h3 id="Github-Pages-反馈邮件“You-are-attempting-to-use-a-Jekyll-theme-which-is-not-supported-by-GitHub-Pages-”"><a href="#Github-Pages-反馈邮件“You-are-attempting-to-use-a-Jekyll-theme-which-is-not-supported-by-GitHub-Pages-”" class="headerlink" title="Github Pages 反馈邮件“You are attempting to use a Jekyll theme, which is not supported by GitHub Pages.”"></a>Github Pages 反馈邮件“You are attempting to use a Jekyll theme, which is not supported by GitHub Pages.”</h3><p>本地build正常，但是同步到github pages后会收到来自github的邮件：   </p>
+<blockquote>
+<p>You are attempting to use a Jekyll theme, which is not supported by GitHub Pages. Please visit <a target="_blank" rel="noopener" href="https://pages.github.com/themes/">https://pages.github.com/themes/</a> for a list of supported themes. If you are using the “theme” configuration variable for something other than a Jekyll theme, we recommend you rename this variable throughout your site. For more information, see <a target="_blank" rel="noopener" href="https://help.github.com/en/articles/adding-a-jekyll-theme-to-your-github-pages-site">https://help.github.com/en/articles/adding-a-jekyll-theme-to-your-github-pages-site</a>.      </p>
+</blockquote>
+<p>这个问题是由更换主题时直接clone的主题，导致项目下面有两个repo造成的。<br>解决方法有两个：</p>
+<ol>
+<li>直接在主题的release页面中下载发布的压缩包，解压之后放theme里【推荐】</li>
+<li>在git中使用submodule：<code>git submodule add url</code></li>
 </ol>
+<h3 id="Github-Pages-显示-404-“There-isn’t-a-GitHub-Pages-site-here-”"><a href="#Github-Pages-显示-404-“There-isn’t-a-GitHub-Pages-site-here-”" class="headerlink" title="Github Pages 显示 404 “There isn’t a GitHub Pages site here.”"></a>Github Pages 显示 404 “There isn’t a GitHub Pages site here.”</h3><p>这个问题是由Github 里博客对应的项目名称不是username.github.io造成的，解决方法是把项目的名字命名为username.github.io     </p>
+<h3 id="Github-Pages-显示“The-custom-domain-for-your-GitHub-Pages-site-is-pointed-at-an-outdated-IP-address-You-must-update-your-site’s-DNS-records-if-you’d-like-it-to-be-available-via-your-custom-domain-”"><a href="#Github-Pages-显示“The-custom-domain-for-your-GitHub-Pages-site-is-pointed-at-an-outdated-IP-address-You-must-update-your-site’s-DNS-records-if-you’d-like-it-to-be-available-via-your-custom-domain-”" class="headerlink" title="Github Pages 显示“The custom domain for your GitHub Pages site is pointed at an outdated IP address. You must update your site’s DNS records if you’d like it to be available via your custom domain.”"></a>Github Pages 显示“The custom domain for your GitHub Pages site is pointed at an outdated IP address. You must update your site’s DNS records if you’d like it to be available via your custom domain.”</h3><p>原因是因为在云解析DNS控制台中没有加入github给的DNS或DNS已经失效。<br>解决方法是在[<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site]页面的">https://docs.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site]页面的</a><br>“6 To confirm that your DNS record configured correctly, use the dig command, replacing EXAMPLE.COM with your apex domain. Confirm that the results match the IP addresses for GitHub Pages above. “中找到github提供的DNS，然后加入到云解析DNS控制台的解析记录中。<br>同时还要删除很多教程中提到的用<code>ping username.github.io</code>ping出来的ip地址。  </p>
+<h3 id="Github-Pages-显示“Domain’s-DNS-record-could-not-be-retrieved-”"><a href="#Github-Pages-显示“Domain’s-DNS-record-could-not-be-retrieved-”" class="headerlink" title="Github Pages 显示“Domain’s DNS record could not be retrieved.”"></a>Github Pages 显示“Domain’s DNS record could not be retrieved.”</h3><p>原因是网站的解析设置有问题造成的，在解析控制台中的解析记录要注意解析类型和主机记录的对应关系：<br>A类对应@，CNAME对应www或者别的。<br>还有可能是项目中的CNAME文件和github settings中custom domain设置的域名前面加了www.等其他东西。<br>同时解析线路一定要选择默认。    </p>
+<h2 id="博客访问问题"><a href="#博客访问问题" class="headerlink" title="博客访问问题"></a>博客访问问题</h2><h3 id="无梯访问username-github-io-显示“已拒绝连接”"><a href="#无梯访问username-github-io-显示“已拒绝连接”" class="headerlink" title="无梯访问username.github.io 显示“已拒绝连接”"></a>无梯访问username.github.io 显示“已拒绝连接”</h3><p>解决办法是更换为自己的域名，可以在阿里云，腾讯云之类的地方购买自己的域名，然后在github上对应项目的设置中Custom domain一项中填写自己买的域名（前面不要加www.之类的，就是纯域名）。<br>同时解析线路一定要选择默认。   </p>
+<h3 id="访问博客显示“连接已关闭”"><a href="#访问博客显示“连接已关闭”" class="headerlink" title="访问博客显示“连接已关闭”"></a>访问博客显示“连接已关闭”</h3><p>通常是由于github pages在build和分发的过程中出错导致的，要去github上对应的项目的设置中看github pages的报错信息，具体问题具体分析。  </p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="git-频繁要求输入邮箱和用户名"><a href="#git-频繁要求输入邮箱和用户名" class="headerlink" title="git 频繁要求输入邮箱和用户名"></a>git 频繁要求输入邮箱和用户名</h3><p>  这个问题是由于_config.yml末尾的deploy: repo:中设置的是https网址导致的<br>  正确的填写方法是用SSH链接：<br>  <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs JAVA">deploy:<br>type: <span class="hljs-string">&#x27;git&#x27;</span><br>repo: git<span class="hljs-meta">@github</span>.com:username/username.github.io.git<br>branch: master<br></code></pre></div></td></tr></table></figure></p>
+<h3 id="博客中的LaTeX-MathJaX公式显示混乱"><a href="#博客中的LaTeX-MathJaX公式显示混乱" class="headerlink" title="博客中的LaTeX/MathJaX公式显示混乱"></a>博客中的LaTeX/MathJaX公式显示混乱</h3><p>这个是由于renderer-marked的转义与markdown本身出现了冲突所造成的。<br>解决方法：  </p>
+<ol>
+<li>卸载原来的公式渲染引擎改用kramed<figure class="highlight bash"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">npm uninstall hexo-renderer-marked --save<br>npm install hexo-renderer-kramed --save<br></code></pre></div></td></tr></table></figure></li>
+<li>然后在node_modules\kramed\lib\rules\inline.js目录下把第11行的escape变量的值做相应的修改： <figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br>escape: /^\\([`*\[\]()#$+\-.!_&gt;])/<br></code></pre></div></td></tr></table></figure>
+ 这一步是在原基础上取消了对\,{,}的转义(escape)。<br> 同时把第20行的em变量也要做相应的修改。    <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/<br></code></pre></div></td></tr></table></figure></li>
+<li>执行<code>hexo clean</code>再用<code>hexo g</code>重新生成</li>
+</ol>
+<h3 id="页面中的LaTeX-MathJaX矩阵无法换行，只有一列"><a href="#页面中的LaTeX-MathJaX矩阵无法换行，只有一列" class="headerlink" title="页面中的LaTeX/MathJaX矩阵无法换行，只有一列"></a>页面中的LaTeX/MathJaX矩阵无法换行，只有一列</h3><ol>
+<li>行内矩阵不能用<code>\begin&#123;matrix&#125;</code>，要用<code>\begin&#123;smallmatrix&#125;</code>，括号用<code>\left[</code>和<code>\right]</code>表示</li>
+<li>由于渲染问题，换行符<code>\\</code>要改为<code>\\\</code> 同时注意前后都要空格</li>
+</ol>
+<h3 id="页面中的表格无法显示"><a href="#页面中的表格无法显示" class="headerlink" title="页面中的表格无法显示"></a>页面中的表格无法显示</h3><p>这是由于mathjax不支持markdown中的表格语法造成的，正确的写法是用数组array代替:<br><figure class="highlight livescript"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs livescript">$$<br><span class="hljs-string">\begin&#123;array&#125;&#123;c|lcr&#125;</span><br>n &amp; <span class="hljs-string">\text&#123;Left&#125;</span> &amp; <span class="hljs-string">\text&#123;Center&#125;</span> &amp; <span class="hljs-string">\text&#123;Right&#125;</span> <span class="hljs-string">\\</span><br><span class="hljs-string">\hline</span><br><span class="hljs-number">1</span> &amp; <span class="hljs-number">0.24</span> &amp; <span class="hljs-number">1</span> &amp; <span class="hljs-number">125</span> <span class="hljs-string">\\</span><br><span class="hljs-number">2</span> &amp; -<span class="hljs-number">1</span> &amp; <span class="hljs-number">189</span> &amp; -<span class="hljs-number">8</span> <span class="hljs-string">\\</span><br><span class="hljs-number">3</span> &amp; -<span class="hljs-number">20</span> &amp; <span class="hljs-number">2000</span> &amp; <span class="hljs-number">1</span>+<span class="hljs-number">10i</span><br><span class="hljs-string">\end&#123;array&#125;</span><br>$$<br></code></pre></div></td></tr></table></figure></p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/">技术杂谈</a>
+                    
+                  </div>
                 
                 
               </div>
@@ -242,18 +273,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/20/hexo%E5%8D%9A%E5%AE%A2%E7%97%9B%E7%82%B9/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hexo搭建博客记录</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/18/Machine%20Learning-NAU/4.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0-MNIST/">
-                        <span class="hidden-mobile">课后练习-MNIST 手写训练集</span>
+                      <a href="/2021/02/20/%E7%BD%AE%E9%A1%B6/">
+                        <span class="hidden-mobile">✨【置顶】本站说明</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
