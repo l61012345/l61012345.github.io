@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.2k 字
     </span>
   
 
@@ -221,31 +221,40 @@
               </p>
             
             <div class="markdown-body">
-              <h1 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h1><h2 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h2><p>对于模型，如果一个模型对于数据的偏差很大，不能能够很好的拟合数据的分布，称为欠拟合，或者说这个算法具有高偏差的特性。 如果一个模型虽然可以穿过所有的数据点，但是其图像波动很大，其同样也不能描述数据的分布，（其数据的分布是无法被泛化处理），称为过拟合，或者说这个算法具有高方差的特性。 在这种情况下，模型的参数过于多（有可能代价函数正好为0），以至于可能没有足够多的数据去约束它来获得一个假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224205854.png" srcset="/img/loading.gif"><br>过拟合现象往往会发生在<strong>参数过多，而训练样本过少的情况</strong>。减小过拟合现象的思路有两种： </p>
+              <h1 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h1><h2 id="过拟合问题"><a href="#过拟合问题" class="headerlink" title="过拟合问题"></a>过拟合问题</h2><p>对于模型，如果一个模型对于数据的偏差很大，不能能够很好的拟合数据的分布，称为欠拟合，或者说这个算法具有高偏差的特性。 如果一个模型虽然可以穿过所有的数据点，但是其图像波动很大，其同样也不能描述数据的分布，（其数据的分布是无法被泛化处理），称为过拟合，或者说这个算法具有高方差的特性。 在这种情况下，模型的参数过于多（有可能代价函数正好为0），以至于可能没有足够多的数据去约束它来获得一个假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224205854.png" srcset="/img/loading.gif" alt=""><br>过拟合现象往往会发生在<strong>参数过多，而训练样本过少的情况</strong>。减小过拟合现象的思路有两种： </p>
 <ol>
 <li>尽可能的去掉那些影响因素很小的变量，这种方法虽然解决了过拟合问题，但是损失了精度。  </li>
 <li><strong>正则化</strong>（Regularization）  </li>
 </ol>
-<h2 id="代价函数的正则化"><a href="#代价函数的正则化" class="headerlink" title="代价函数的正则化"></a>代价函数的正则化</h2><p>对于代价函数：<br>$$min_{θ} \frac{1}{2m} \Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2$$<br>增加两个惩罚项$1000\theta^2_3$和$1000\theta^2_4$，代价函数变为：<br>$$min_{θ} \frac{1}{2m} \Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+1000\theta^2_3+1000\theta^2_4$$<br>如果要最小化这个函数，那么$\theta_3$与$\theta_4$就要尽可能的接近0，那么最后拟合的结果（假设函数）：$\theta_0+\theta_1x+\theta_2x^2+\theta_3x^3+\theta_4x^4$，仍然是一个类似的二次函数.<br>正则化的基本思想是<strong>如果所有的参数足够小，那么假设模型就更简单。</strong>  </p>
+<h2 id="代价函数的正则化"><a href="#代价函数的正则化" class="headerlink" title="代价函数的正则化"></a>代价函数的正则化</h2><p>对于代价函数：</p>
+<script type="math/tex; mode=display">min_{θ} \frac{1}{2m} \Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2</script><p>增加两个惩罚项$1000\theta^2_3$和$1000\theta^2_4$，代价函数变为：  </p>
+<script type="math/tex; mode=display">min_{θ} \frac{1}{2m} \Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+1000\theta^2_3+1000\theta^2_4</script><p>如果要最小化这个函数，那么$\theta_3$与$\theta_4$就要尽可能的接近0，那么最后拟合的结果（假设函数）：$\theta_0+\theta_1x+\theta_2x^2+\theta_3x^3+\theta_4x^4$，仍然是一个类似的二次函数.<br>正则化的基本思想是<strong>如果所有的参数足够小，那么假设模型就更简单。</strong>  </p>
 <blockquote>
 <p>事实上，如果参数足够小，得到的函数就会越平滑，越简单，越不容易出现过拟合的问题  </p>
 </blockquote>
-<p>在实际上，对于大量的特征和大量的参数，比如$x_1..x_{100}$和$\theta_0…\theta_{100}$，我们无法确定哪些参数是高阶项的参数，这个时候采用的方法就是对代价函数进行修改，使得所有的参数都尽可能的小。<br>修改后的代价函数方程：<br>$$ J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]$$<br>其中$λ\Sigma_{j=1}^{m}\theta_j^2$称为<strong>正则化项</strong>，它的目的是为了<strong>缩小每一项的参数</strong>。</p>
+<p>在实际上，对于大量的特征和大量的参数，比如$x_1..x_{100}$和$\theta_0…\theta_{100}$，我们无法确定哪些参数是高阶项的参数，这个时候采用的方法就是对代价函数进行修改，使得所有的参数都尽可能的小。<br>修改后的代价函数方程：  </p>
+<script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>其中$λ\Sigma_{j=1}^{m}\theta_j^2$称为<strong>正则化项</strong>，它的目的是为了<strong>缩小每一项的参数</strong>。</p>
 <blockquote>
 <p>$\theta_0$是否正则化对结果影响不大<br>λ的作用是对“+”号的前后（前：更好的拟合训练集，后：假设函数足够简单）两项进行取舍平衡，称为正则化系数  </p>
 </blockquote>
 <p>如果λ被设置的太大，那么所有参数的惩罚力度被加大，这些参数最后的结构都将全部接近于0，那么最后的假设函数将会变成$h_\theta(x)=θ_0$,最终导致欠拟合。  </p>
-<h2 id="线性回归的正则化"><a href="#线性回归的正则化" class="headerlink" title="线性回归的正则化"></a>线性回归的正则化</h2><p><strong>正则化的梯度下降算法</strong><br>在线性回归中，我们使用修改后的梯度下降算法：<br>Repeat {<br>$$θ_0:=θ<em>0-\alpha\frac{1}{m}\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}$$</p>
-<blockquote>
-<p>$θ<em>0$  不需要正则化<br>$$θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ<em>j] \tag{2}$$<br>$$j=1,2,3,…,n$$<br>}<br>事实上  $\frac{1}{m}\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ<em>j}$<br>$\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}$  </p>
+<h2 id="线性回归的正则化"><a href="#线性回归的正则化" class="headerlink" title="线性回归的正则化"></a>线性回归的正则化</h2><p><strong>正则化的梯度下降算法</strong><br>在线性回归中，我们使用修改后的梯度下降算法：<br>Repeat {   </p>
+<script type="math/tex; mode=display">θ_0:=θ_0-\alpha\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}</script><blockquote>
+<p>$θ_0$  不需要正则化  </p>
+<script type="math/tex; mode=display">θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j] \tag{2}</script><script type="math/tex; mode=display">j=1,2,3,...,n</script><p>}<br>事实上  $\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}$<br>$\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}$  </p>
 </blockquote>
-<p>如果将（2）中的$\theta_j$统一，那么就可以得到（3）：<br>$$θ_j:=θ<em>j（1-α\frac{λ}{m}）-\frac{α}{m}\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)} \tag{3}$$</p>
-<p>由于$1-α\frac{λ}{m}&lt;1$,且只比1小一点点，也就是说，梯度下降算法每次更新的时候$θ_j$在一开始都会比原来小一点点，再进行原来的梯度下降更新  </p>
-<p><strong>正则化的正规方程算法</strong><br>在之前的讲义中，探讨过设计两个矩阵：<br>$X=\begin{bmatrix} (x^{(1)})^T \ …\ (x^{(m)})^T \end{bmatrix}$ 代表有m个数据的数据集 和 $y=\begin{bmatrix} y^{(1)} \ …\ y^{(m)} \end{bmatrix}$ 代表训练集当中的所有的标签<br>通过：<br>$$θ=(X^TX)^{-1}X^Ty$$<br>（相当于对$J(θ)$中的每一个θ求偏导数，并且使其等于0）<br>可以求出最适合的θ<br>现在改变在正规方程中加入一项：<br>$$θ=(X^TX+λ<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \   0 &amp; 1 &amp; 0&amp; …&amp;0 \ 0 &amp; 0 &amp; 1&amp; …&amp;0 \… &amp; … &amp; …&amp; …&amp;…\0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix})^{-1}X^Ty$$<br>来达到同样的效果  </p>
+<p>如果将（2）中的$\theta_j$统一，那么就可以得到（3）：  </p>
+<script type="math/tex; mode=display">θ_j:=θ_j（1-α\frac{λ}{m}）-\frac{α}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)} \tag{3}</script><p>由于$1-α\frac{λ}{m}&lt;1$,且只比1小一点点，也就是说，梯度下降算法每次更新的时候$θ_j$在一开始都会比原来小一点点，再进行原来的梯度下降更新  </p>
+<p><strong>正则化的正规方程算法</strong><br>在之前的讲义中，探讨过设计两个矩阵：<br>$X=\begin{bmatrix} (x^{(1)})^T \\ …\\ (x^{(m)})^T \end{bmatrix}$ 代表有m个数据的数据集 和 $y=\begin{bmatrix} y^{(1)} \\ …\\ y^{(m)} \end{bmatrix}$ 代表训练集当中的所有的标签<br>通过：</p>
+<script type="math/tex; mode=display">θ=(X^TX)^{-1}X^Ty</script><p>（相当于对$J(θ)$中的每一个θ求偏导数，并且使其等于0）<br>可以求出最适合的θ<br>现在改变在正规方程中加入一项：</p>
+<script type="math/tex; mode=display">θ=(X^TX+λ
+\begin{bmatrix}
+0 & 0 & 0 & ...&0 \\   0 & 1 & 0& ...&0 \\ 0 & 0 & 1& ...&0 \\... & ... & ...& ...&...\\0 & 0 & 0& ...&1
+\end{bmatrix})^{-1}X^Ty</script><p>来达到同样的效果  </p>
 <blockquote>
-<p>$\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \   0 &amp; 1 &amp; 0&amp; …&amp;0 \ 0 &amp; 0 &amp; 1&amp; …&amp;0 \… &amp; … &amp; …&amp; …&amp;…\0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix}$是一个(n+1)的方阵  </p>
+<p>$\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \\   0 &amp; 1 &amp; 0&amp; …&amp;0 \\ 0 &amp; 0 &amp; 1&amp; …&amp;0 \... &amp; … &amp; …&amp; …&amp;…\\0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix}$是一个(n+1)的方阵  </p>
 </blockquote>
-<p>如果矩阵X不可逆$（m&lt;=n）$,那么$(X^TX)^{-1}$也同样不可逆,但是经过数学证明，无论如何$(X^TX+λ<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \   0 &amp; 1 &amp; 0&amp; …&amp;0 \ 0 &amp; 0 &amp; 1&amp; …&amp;0 \… &amp; … &amp; …&amp; …&amp;…\0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix})^{-1}$ 都是可逆的。</p>
+<p>如果矩阵X不可逆$（m&lt;=n）$,那么$(X^TX)^{-1}$也同样不可逆,但是经过数学证明，无论如何$(X^TX+λ<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \\   0 &amp; 1 &amp; 0&amp; …&amp;0 \\ 0 &amp; 0 &amp; 1&amp; …&amp;0 \... &amp; … &amp; …&amp; …&amp;…\\0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix})^{-1}$ 都是可逆的。</p>
 
             </div>
             <hr>
