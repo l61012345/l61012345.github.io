@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
-  <title>5.2. 神经网络的优化 - Mirror</title>
+  <title>✨【置顶】本站说明 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -150,7 +150,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="5.2. 神经网络的优化">
+            <span class="h2" id="subtitle" title="✨【置顶】本站说明">
               
             </span>
 
@@ -160,8 +160,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-14 06:00" pubdate>
-        2021年2月14日 早上
+      <time datetime="2021-02-20 06:25" pubdate>
+        2021年2月20日 早上
       </time>
     </span>
   
@@ -172,7 +172,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      762 字
+      57 字
     </span>
   
 
@@ -182,7 +182,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      1
        分钟
     </span>
   
@@ -212,40 +212,25 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">5.2. 神经网络的优化</h1>
+            <h1 style="display: none">✨【置顶】本站说明</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月14日 早上
+                  本文最后更新于：2021年2月20日 早上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h1><h2 id="参数展开"><a href="#参数展开" class="headerlink" title="参数展开"></a>参数展开</h2><p>参数展开是一种将矩阵展开为向量的方法，常用于很多高级优化中。<br>例如如下的高级优化：<br><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp">function[jVal,gradient]=costFunction(theta)<br>...<br>optTheta=fminunc(@costFunction,initialTheta,options)<br></code></pre></div></td></tr></table></figure><br>fminuc是一种高级的优化算法。这些高级优化算法的输入值的形式都是参数向量。<br>在神经网络中，很多参数并非是向量的形式，而是完整的矩阵，比如第l层的参数矩阵$Θ^{(l)}$和梯度矩阵$D^{(l)}$(见5.1.)，这时就需要应用参数展开将这些矩阵展开为向量，方法是在Octave中应用<code>[;]</code>表达将所有的元素从矩阵中取出，展开成一个长向量，并应用<code>reshape</code>语法重新合成矩阵。<br>比如如下的10层神经网络：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210204151039.png" srcset="/img/loading.gif" alt="">   </p>
-<h2 id="梯度检测"><a href="#梯度检测" class="headerlink" title="梯度检测"></a>梯度检测</h2><p>反向传播算法的实现过程非常的繁琐，因此在与其他算法一同工作的时候可能会产生一些bug，这些bug可能本身不会影响程序的运行，但是最终输出的模型准确度可能会非常低。 因此需要引入梯度检测(Gredient Check)来解决反向传播算法或类梯度下降算法中出现的这类问题。  </p>
-<ul>
-<li>从数值上近似梯度<br>要想求出代价函数$J(\Theta)$在某一点$\theta$的梯度（在二维内反映为该点的斜率），可以在$\theta$的两边取$\theta \plusmn \epsilon, \epsilon \rightarrow 0$,$\theta$处的梯度可以近似的表示为（实数形式）：<script type="math/tex; mode=display">\frac{dJ(θ )}{dθ }≈  \frac{J(θ +ε )-J(θ -ε )}{2ε }</script>称为双侧差分（Two-side difference）。<br>当$\theta$是$\Theta^{(i)}$的展开时，可以用双侧差分来估计所有的偏导数项：<script type="math/tex; mode=display">\frac{∂ J(θ)}{∂ θ_k}≈ \frac{J(θ _k+ε ,θ_1,...,θ_n )-J(θ _k-ε ,\theta_1,...,θ_n  )}{2ε }</script>在Octave中用如下的代码实现：<figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Cpp"><span class="hljs-keyword">for</span> i=<span class="hljs-number">1</span>:n,<br>  thetaPlus=theta;<br>  thetaPlus=thetaPlus(i)+epsilon;<br>  thetaMinus=theta;<br>  thetaMinus(i)=thetaMinus(i)-epsilon;<br>  gradApprox(i)=(J(thetaPlus)-J(thetaMinus))/(<span class="hljs-number">2</span>*epsilon);<br>end;<br>Check gradApprox≈DVec<br></code></pre></div></td></tr></table></figure></li>
-<li>总结流程<ol>
-<li>利用反向传播算法算出$D^{(i)}$的展开向量DVec</li>
-<li>利用双侧差分计算gradApprox</li>
-<li>DVec和gradApprox作比较    </li>
-<li>关闭双侧差分，利用反向传播进行训练（以提高训练时的算法效率）</li>
+              <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
+<li>建议点击右上角【📚分类】查看文章</li>
+<li>因为用的github做的图床，所以图片加载可能会有问题，请用更科学的方式访问本站⚡</li>
+<li>转载请著名来源，谢谢</li>
 </ol>
-</li>
-</ul>
-<h2 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h2><p>在最开始执行高级优化或者是神经网络的梯度下降时，应当对$Θ$设置一些初始值，即初始化$Θ$。<br>在逻辑回归中，将参数全部初始化为0的做法会导致神经网络中一个单元出发的所有的参数都相等，导致神经网络中所有的隐藏单元都在计算相同的特征。正确的做法是对$Θ$随机地设定一些值来初始化它，具体的做法是：<br>设置某个区间$[-ϵ,ϵ]$，使得所有$θ$都在这个区间内随机取到，用Octave代码实现：<br><figure class="highlight cpp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs cpp">theta1 = rand(<span class="hljs-number">10</span>,<span class="hljs-number">11</span>)*(<span class="hljs-number">2</span>*init_epsilon)-init_epsilon; <br><span class="hljs-meta">#rand()的作用是随机生成一个mxn的矩阵，矩阵里面所有的元素值都介于0,1之间。</span><br></code></pre></div></td></tr></table></figure></p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/5-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/">5. 神经网络拟合</a>
-                    
-                  </div>
                 
                 
               </div>
@@ -257,18 +242,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/14/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.1.%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">1.1. 什么是机器学习</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/14/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/5.1.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/">
-                        <span class="hidden-mobile">5.1 神经网络的代价函数</span>
+                      <a href="/2021/02/18/Machine%20Learning-NAU/4.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0-MNIST/">
+                        <span class="hidden-mobile">课后练习-MNIST 手写训练集</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
