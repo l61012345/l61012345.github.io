@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>6.1 性能评估</title>
+    <link href="/2021/03/02/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.1.%20%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0/"/>
+    <url>/2021/03/02/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.1.%20%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h1><h2 id="下一步做什么"><a href="#下一步做什么" class="headerlink" title="下一步做什么"></a>下一步做什么</h2><p>从第一章到现在，我们已经学习了许多中机器学习的方法。但是在面对如今眼花缭乱的算法时，应当如何选择最合适的算法来对数据集进行学习并改进这个算法？<br>思考如下的例子：<br>假设已经用波士顿房价数据集得到了线性回归的代价函数：   </p><script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>然而使用这个模型对一个新的房价数据集进行预测的时候，发现误差非常的大，如何改进这个算法的性能？<br>有如下几种解决思路：   </p><ol><li>获得更多的数据集</li><li>选用更少的特征以防止过拟合</li><li>获得更多的特征来补充特征集</li><li>增加多项式特征</li><li>增加或减小正则化参数$λ$    </li></ol><p>很多人从如上的解决思路中随机地选择几项对人工智能进行优化，然而对于某一种人工智能算法，上述的解决思路不一定每一种都有效。运用本章讲的一些技巧后，能够对如上的解决思路中每一项的有效性进行判别，从而更高效地调试神经网络。<br>下面将介绍两种评估机器学习性能的方法，它们被称为<strong>机器学习诊断法</strong>(Machine learning diagnostic)。通过运行这些方法，人们可以了解算法在哪里出现了问题，也能告诉人们做什么样的改进尝试才是有意义的。    </p><h2 id="评估假设"><a href="#评估假设" class="headerlink" title="评估假设"></a>评估假设</h2><p>在3.3.中已经介绍过了过拟合现象，因此单纯地得到预测值和标签的距离很小并不能说明这个假设模型是一个好的模型。<br>那么有什么方法能够排除过拟合地评估假设的性能呢？   </p><p>答案是划分测试集和训练集， 具体而言：将数据集划分(Split)为测试集和训练集（通常是以3：7的比例随机选择（Shuffle）），将训练集中的样本进行机器学习，测试集进行验证。<br>从训练集进行线性回归得到最适合的参数$J(θ)$，再将测试集带入其中：   </p><script type="math/tex; mode=display">J_{test}(\theta)=\frac{1}{2m_{test}}[\Sigma_{i=1}^{m_{test}}(h_θ(x_{test}^{(i)})-y_{test}^{(i)})^2+λ\Sigma_{j=1}^{m_{test}}\theta_j^2]</script><p>回归分类中对数据集的划分和验证类型大致同上，只是$J_{test}(\theta)$的形式略有差别。<br>对于回归分类还有另一形式的测试度量叫做<strong>错误分类</strong>(Misclassification Error/ 0-1 misclassification error)。<br>定义预测值和标签的误差$err(h_θ(x),y)$，有：   </p><script type="math/tex; mode=display">err(h_θ(x),y)= \begin{cases}    1  \text{   if     }   h_θ ≥ 0.5, y=0 \text{   or     } h_θ ≤ 0.5, y=1 \\    0  \text{   if     }   h_θ ≥ 0.5, y=1 \text{   or     } h_θ ≤ 0.5, y=0\end{cases}</script><p>定义测试集的误差：</p><script type="math/tex; mode=display">TestError=\frac{1}{m_{test}}∑_{i=1}^{m_{test}}err(h_θ(x^{(i)}_{test}),y^{(i)})</script>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>6. 诊断与调试</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>5.3. 回顾：神经网络的实现与梯度下降算法</title>
     <link href="/2021/03/02/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/5.3.%20%E6%95%B4%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7/"/>
     <url>/2021/03/02/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/5.3.%20%E6%95%B4%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7/</url>
