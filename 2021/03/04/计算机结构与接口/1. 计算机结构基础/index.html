@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>6.1 性能评估 - Mirror</title>
+  <title>计算机结构基础 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -156,7 +156,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="6.1 性能评估">
+            <span class="h2" id="subtitle" title="计算机结构基础">
               
             </span>
 
@@ -171,8 +171,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-02 07:55" pubdate>
-        2021年3月2日 早上
+      <time datetime="2021-03-04 01:48" pubdate>
+        2021年3月4日 凌晨
       </time>
     </span>
   
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      759 字
+      1.9k 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      21
        分钟
     </span>
   
@@ -231,34 +231,112 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">6.1 性能评估</h1>
+            <h1 style="display: none">计算机结构基础</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月2日 早上
+                  本文最后更新于：2021年3月4日 凌晨
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h1><h2 id="下一步做什么"><a href="#下一步做什么" class="headerlink" title="下一步做什么"></a>下一步做什么</h2><p>从第一章到现在，我们已经学习了许多中机器学习的方法。但是在面对如今眼花缭乱的算法时，应当如何选择最合适的算法来对数据集进行学习并改进这个算法？<br>思考如下的例子：<br>假设已经用波士顿房价数据集得到了线性回归的代价函数：   </p>
-<script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>然而使用这个模型对一个新的房价数据集进行预测的时候，发现误差非常的大，如何改进这个算法的性能？<br>有如下几种解决思路：   </p>
+              <h1 id="计算机结构基础"><a href="#计算机结构基础" class="headerlink" title="计算机结构基础"></a>计算机结构基础</h1><blockquote>
+<p>讲义复习<br>BUL EE2623 Computer Architecture and Interface<br>Dr. Takebumi Itagaki</p>
+<h2 id="冯诺依曼架构"><a href="#冯诺依曼架构" class="headerlink" title="冯诺依曼架构"></a>冯诺依曼架构</h2><p>组成部分： CPU/ALU,I/O, Buses, Main Memory<br>特征： 所有的部分都通过总线连接<br>总线的类别： 数据总线，地址总线，控制总线</p>
+</blockquote>
+<h2 id="数制"><a href="#数制" class="headerlink" title="数制"></a>数制</h2><p>十六进制，十进制，八进制，二进制的相互转化。</p>
+<h3 id="二进制整数的表达和运算"><a href="#二进制整数的表达和运算" class="headerlink" title="二进制整数的表达和运算"></a>二进制整数的表达和运算</h3><h4 id="Unsigned"><a href="#Unsigned" class="headerlink" title="Unsigned"></a>Unsigned</h4><p>  不表示负数，因此第一位比特位到最后一位都可以用来表示数   </p>
+<ul>
+<li><p>逻辑运算<br>AND（乘法）  OR（加法）  NOT（取反）  XOR（取异）</p>
+<h4 id="Signed"><a href="#Signed" class="headerlink" title="Signed"></a>Signed</h4><p>可以表示正数，负数，0， 第一位比特位表示正负号：0为正，1为负。<br>因此表示范围折半，以8比特为例，Unsigned表示的范围为0~255，而Signed表示的范围为-128~127（中间有0，故不是128）。   </p>
+<ul>
+<li>转换<br>转换为Signed的方法是先找到十进制绝对值对应的二进制数，取反码后+1得到二补码，即Signed Number。  </li>
+<li>加减法<br>二补码的加法是<strong>异或运算</strong>，比特相同取0，不同取1。<br>减法看做是与负数相加。   </li>
+</ul>
+<p>加法要注意判断是否发生溢出，有两种思路可以判断是否发生了溢出。    </p>
+</li>
+</ul>
 <ol>
-<li>获得更多的数据集</li>
-<li>选用更少的特征以防止过拟合</li>
-<li>获得更多的特征来补充特征集</li>
-<li>增加多项式特征</li>
-<li>增加或减小正则化参数$λ$    </li>
+<li>转换为十进制加减法，看是否发生了溢出</li>
+<li>遵循两个原则：<br>a. 进位值的比特位数与数据的比特位数相同<br>b. 如果进位值的前两位是”01”或者是”10”，那么就发生了溢出。</li>
 </ol>
-<p>很多人从如上的解决思路中随机地选择几项对人工智能进行优化，然而对于某一种人工智能算法，上述的解决思路不一定每一种都有效。运用本章讲的一些技巧后，能够对如上的解决思路中每一项的有效性进行判别，从而更高效地调试神经网络。<br>下面将介绍两种评估机器学习性能的方法，它们被称为<strong>机器学习诊断法</strong>(Machine learning diagnostic)。通过运行这些方法，人们可以了解算法在哪里出现了问题，也能告诉人们做什么样的改进尝试才是有意义的。    </p>
-<h2 id="评估假设"><a href="#评估假设" class="headerlink" title="评估假设"></a>评估假设</h2><p>在3.3.中已经介绍过了过拟合现象，因此单纯地得到预测值和标签的距离很小并不能说明这个假设模型是一个好的模型。<br>那么有什么方法能够排除过拟合地评估假设的性能呢？   </p>
-<p>答案是划分测试集和训练集， 具体而言：将数据集划分(Split)为测试集和训练集（通常是以3：7的比例随机选择（Shuffle）），将训练集中的样本进行机器学习，测试集进行验证。<br>从训练集进行线性回归得到最适合的参数$J(θ)$，再将测试集带入其中：   </p>
-<script type="math/tex; mode=display">J_{test}(\theta)=\frac{1}{2m_{test}}[\Sigma_{i=1}^{m_{test}}(h_θ(x_{test}^{(i)})-y_{test}^{(i)})^2+λ\Sigma_{j=1}^{m_{test}}\theta_j^2]</script><p>回归分类中对数据集的划分和验证类型大致同上，只是$J_{test}(\theta)$的形式略有差别。<br>对于回归分类还有另一形式的测试度量叫做<strong>错误分类</strong>(Misclassification Error/ 0-1 misclassification error)。<br>定义预测值和标签的误差$err(h_θ(x),y)$，有：   </p>
-<script type="math/tex; mode=display">err(h_θ(x),y)= 
-\begin{cases}
-    1  \text{   if     }   h_θ ≥ 0.5, y=0 \text{   or     } h_θ ≤ 0.5, y=1 \\
-    0  \text{   if     }   h_θ ≥ 0.5, y=1 \text{   or     } h_θ ≤ 0.5, y=0
-\end{cases}</script><p>定义测试集的误差：</p>
-<script type="math/tex; mode=display">TestError=\frac{1}{m_{test}}∑_{i=1}^{m_{test}}err(h_θ(x^{(i)}_{test}),y^{(i)})</script>
+<ul>
+<li>乘法<br>类似于十进制乘法：第一行的所有位与第二行的每一个比特位分别相乘并作移位，最后相加。 单个比特位的乘法遵循：“除了$1×1=1$外，其余结果都为0。（与0相乘都为0。）”     </li>
+</ul>
+<h3 id="IEEE-754"><a href="#IEEE-754" class="headerlink" title="IEEE 754"></a>IEEE 754</h3><p>IEEE 754是用来表示二进制浮点数的标准，其中有32位，64位，128位表示方法，以32位为例：32位机对浮点数的表示方法为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\text{Number of Bits} & 1 & 8 & 23 \\
+\text{Content}& Sign &Exponent &Fraction
+\end{array}
+bias: +127</script><ul>
+<li>Bias<br>为了让Signed更方便的进行比较，将Signed转换成二进制后的指数部分人为地加一个Bias使得指数部分转变到Unsigned的范围内（0和255特殊处理）便于比较。<br>Bias的值规定是$2^n-1$，n为总的比特位数。<br>IEEE 754 能够表示0， 正规数（Exp部分不为0），非正规数（Exp部分为0，如果Exp小于0则把Exp划到0后，剩下的部分进入小数部分），无穷和其他未规定的计算结果（NaN）。   </li>
+<li>十进制转IEEE754的方法<ol>
+<li>确定正负</li>
+<li>小数部分（$2^{-k}$）和整数部分（$2^{k}$）分别写出二进制形式，合并，中间以小数点隔开</li>
+<li>将小数点移动到第一位和第二位末尾，假设移动距离为$x$，后面的指数部分写作$2^x$。</li>
+<li>取现在的小数部分，并在末尾补0直到小数部分的总比特数为23位。  </li>
+<li>指数部分$x+bias$，并转换为二进制填入Exp中。</li>
+</ol>
+</li>
+</ul>
+<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><h3 id="分级存储"><a href="#分级存储" class="headerlink" title="分级存储"></a>分级存储</h3><p>由于CPU的速度受到内存读取速度的牵制，因此有必要将内存进行分级，读写速度越快的内存越靠近CPU，但是由于成本等原因，其储存空间越小。   将内存可以大致分为几层：  </p>
+<ul>
+<li>CPU内部的寄存器：用于存放临时数据，读写速度非常快，储存空间非常小，断电消失。  </li>
+<li>CPU外部的存储（RAM）： 用于存放程序和数据，读写速度相对快，储存空间相对大，断电消失。  </li>
+<li>外部的永久储存（硬盘）：读写速度慢，储存空间大，断电可以保存。  <h3 id="数据的组织"><a href="#数据的组织" class="headerlink" title="数据的组织"></a>数据的组织</h3><script type="math/tex; mode=display">\begin{array}{c}
+bit & 1  \\
+byte & 4  \\
+word & 8   \\
+Longword & 16 
+\end{array}</script>在主存储器中，每一个Byte都对应了一个地址，但是英特尔和摩托罗拉有两种不同的存放数据的方式，一种(Intel)是先存最低位（LSB），再存最高位(MSB)，另一种（摩托罗拉）是先存最高位（MSB），再存最低位（LSB）。<br>因此数据在两种机器间必须先要转换，才能存放再另一种机器中。  </li>
+</ul>
+<h3 id="程序与指令"><a href="#程序与指令" class="headerlink" title="程序与指令"></a>程序与指令</h3><ul>
+<li>CPU中模块的连接方式<br>寄存器： 数据总线<br>ALU： 地址总线<br>控制单元(CU): 控制总线<h4 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h4>寄存器可以分为用户可见（数据寄存器，地址寄存器，条件寄存器 ）和不可见的两种寄存器。<br>状态和控制寄存器：<br>PC（指针）：指向下一条指令对应的地址<br>MAR（内存地址寄存器），MBR（内存缓冲寄存器）：将指令从内存放入缓冲区，协调CPU与存储的速度。<br>指令寄存器： 存放当前的指令  </li>
+</ul>
+<h4 id="指令的运行"><a href="#指令的运行" class="headerlink" title="指令的运行"></a>指令的运行</h4><ol>
+<li>将PC指向的内容移到MAR,PC指向下一条指令</li>
+<li>将MAR的内容移到MBR</li>
+<li>将MBR的内容移到IR</li>
+<li>将IR的控制内容交给CU，地址内容交给MAR</li>
+<li>将MAR的内容移到MBR</li>
+<li>ALU执行</li>
+<li>ALU返回结果到指定内存<br>有两种执行指令的方式：   </li>
+</ol>
+<ul>
+<li>硬件连接（Hardwiring）<br>一种指令对应一个硬件<br>优点：<br>快速，一个时钟内就能够解码一条指令</li>
+</ul>
+<ul>
+<li>Micro-Programming<br>每条指令都转换成最原始的指令（Micro-instructions），对应了一个指定的门或者触发器等等，在CU中被执行。<br>因此Micro-Programming 是仅次于逻辑电路的第二层级，它也被称作固件，将软件与硬件连接起来。<br>优点：    <ol>
+<li>可以创建任何复杂的指令或指令集</li>
+<li>灵活，能够允许用户进行micro-program</li>
+<li>有更高级的语言层</li>
+</ol>
+</li>
+</ul>
+<h2 id="栈和缓存"><a href="#栈和缓存" class="headerlink" title="栈和缓存"></a>栈和缓存</h2><h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>原则：后进先出<br>入栈（Push）： 将新节（node）放入栈顶<br>出栈（Pop）： 将栈顶节移除栈<br>溢出： 节数量超过了栈能够容纳的最大限度<br>优点： </p>
+<ol>
+<li>分配简单  </li>
+<li>当函数退出的时候栈会自动回收    </li>
+</ol>
+<p>缺点：  </p>
+<ol>
+<li>有溢出可能</li>
+<li>由于函数结束后栈会自动回收，因此如果有别的函数想要使用当前函数的返回值时，就必须要在当前函数执行结束前复制返回值以避免被回收。  </li>
+</ol>
+<p>使用栈结构与使用寄存器结构相比：   </p>
+<ol>
+<li>指令更小，因为操作对象（操作数）不需要指定地址</li>
+<li>执行速度更慢，因为堆栈在外部内存中    </li>
+</ol>
+<h3 id="缓冲"><a href="#缓冲" class="headerlink" title="缓冲"></a>缓冲</h3><p>原则： 先进后出<br>溢出： 写速度大于读速度<br>空缓冲： 读速度大于写速度</p>
+<h2 id="拓扑结构（物理）"><a href="#拓扑结构（物理）" class="headerlink" title="拓扑结构（物理）"></a>拓扑结构（物理）</h2><p>$$<br>\begin{array}{c}<br>    类型 &amp; 优点 &amp; 缺点 \\<br>    Liner &amp; \text{1. 连接简单  2.用线短} &amp; \text{1. 如果主线断所有都断 2. 主线断时难以查错 3. 两端需要端子} \\<br>    Ring &amp; \text{1.加入简单} &amp;\text{1. 一处断，处处断} \\<br>    Star &amp; \text{1. 连接简单 2.设备之间不会有干扰 3.简单查错 4.加入和移除新设备简单 } &amp;\text{1. 需要更多的线 2. Hub断，所有断 3.成本高（Hub） }\\<br>    Tree &amp; \text{1.点对点的连线} &amp; \text{1.难以布线 2.主线断，处处断}</p>
+<p>\end{array}</p>
+<p>$$类型 &amp; 优点 &amp; 缺点</p>
+<h2 id="拓扑协议"><a href="#拓扑协议" class="headerlink" title="拓扑协议"></a>拓扑协议</h2><h3 id="以太网"><a href="#以太网" class="headerlink" title="以太网"></a>以太网</h3><p>如果网络没人广播，目标就广播。如果有人广播，目标等待其他人结束广播后广播。  </p>
+<h3 id="本地会话"><a href="#本地会话" class="headerlink" title="本地会话"></a>本地会话</h3><p>如果目标需要传输和发送空令牌，数据就会附加到空令牌上，在Token Ring中传输直到找到接收者。   </p>
+<h3 id="ATM"><a href="#ATM" class="headerlink" title="ATM"></a>ATM</h3><p>所有的数据以固定大小的小包传送，通常在两个局域网间使用。  </p>
+
             </div>
             <hr>
             <div>
@@ -267,9 +345,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/">机器学习基础课程——吴恩达</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6-%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/">6. 诊断与调试</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/">计算机结构与接口</a>
                     
                   </div>
                 
@@ -283,18 +361,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/04/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">计算机结构基础</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/02/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/5.3.%20%E6%95%B4%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7/">
-                        <span class="hidden-mobile">5.3. 回顾：神经网络的实现与梯度下降算法</span>
+                      <a href="/2021/03/02/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.1.%20%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0/">
+                        <span class="hidden-mobile">6.1 性能评估</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
