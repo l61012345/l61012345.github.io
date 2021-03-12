@@ -1,0 +1,600 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="keywords" content=""> 
+  <meta name="author" content="Oreki Kigiha">
+  <!-- searchengine verifications -->
+  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
+  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
+  <!-- Bing verification -->
+  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  
+  <title>1.2. 梯度下降算法 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/homepage.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="1.2. 梯度下降算法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Oreki Kigiha
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-14 06:00" pubdate>
+        2021年2月14日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">1.2. 梯度下降算法</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年2月22日 早上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p><style><br>img{<br>    width: 40%;<br>    padding-left: 20%;<br>}
+</style></p>
+<h1 id="梯度下降算法"><a href="#梯度下降算法" class="headerlink" title="梯度下降算法"></a>梯度下降算法</h1><p>在开始之前，为了方便解释，首先规定几个符号所代表的意义：<br>$m$ 训练集中训练样本的数量<br>$X$  输入变量<br>$Y$  输出变量<br>$(x,y)$ 训练样本<br>$(x^i,y^i)$第i个训练样本（i表示一个索引）  </p>
+<h2 id="监督学习算法的流程"><a href="#监督学习算法的流程" class="headerlink" title="监督学习算法的流程"></a>监督学习算法的流程</h2><p>提供训练集&gt;学习算法得到$h$（假设函数：用于描绘x与y的关系）&gt;预测y 的值  </p>
+<h2 id="代价-损失函数（Cost-function）"><a href="#代价-损失函数（Cost-function）" class="headerlink" title="代价/损失函数（Cost function）"></a>代价/损失函数（Cost function）</h2><p><strong>假设函数(Hypothesis function)</strong>——$h$是用来表示某一个数据集可能存在的线性/非线性关系的函数。对于线性拟合，其假设函数为：  </p>
+<script type="math/tex; mode=display">h_θ(x)=θ_1x+θ_0</script><p>这其中的$θ$是假设函数当中的参数。<br>也可以简化为：</p>
+<script type="math/tex; mode=display">h_θ(x)=θ_1x</script><p><strong>代价函数</strong>，在统计学上称为均方根误差函数。当假设函数中的系数$θ$取不同的值时，$\frac{1}{2m}$倍假设函数预测值$h_θ(x^{(i)})$和真实值$y^{(i)}$的差的平方的和之间的函数关系表示为代价函数$J$。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+J(θ_0,θ_1)= \\\  
+& \frac{1}{2m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})^2 \\\      
+\end{aligned}</script><blockquote>
+<p>在这里取1/2的原因是便于消除求导之后产生的2倍,同时也可以进一步缩小$θ$  </p>
+<p>该函数的自变量是$θ_1$和$θ_0$，因此该函数是三维的函数（如图所示）。<br> <img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131130651.png" srcset="/img/loading.gif" alt="">  </p>
+</blockquote>
+<p><strong>代价函数在几何上表示为数据集空间内的各点到假设函数的距离的平方的平均值的一半。</strong><br>要想使得数据能够被假设函数很好地拟合，那么代价函数要尽量地小。<strong>当代价函数取到它的最小值即</strong>$J(θ_1)_{min}$<strong>时，此时的填入假设函数的</strong>$θ$<strong>对数据的拟合程度是最好的</strong><br>对于线性的代价函数，假设函数对数据集的拟合程度越高，对应的$(θ_0,θ_1)$越接近代价函数图像等高线的中心。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131132852.png" srcset="/img/loading.gif" alt="">   </p>
+<h2 id="梯度下降算法（Gradient-Descent）"><a href="#梯度下降算法（Gradient-Descent）" class="headerlink" title="梯度下降算法（Gradient Descent）"></a>梯度下降算法（Gradient Descent）</h2><h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>在微积分中，函数$f(x,y)$在$(x_0,y_0)$处是函数值增加最快的方向是<strong>梯度（Gradient）</strong>的方向，<strong>梯度的反方向是函数值减小最快的方向。</strong><br>梯度的计算公式：  </p>
+<script type="math/tex; mode=display">▿f|_{(x_0,y_0)}=(f_x(x_0,y_0),f_y(x_0,y_0))</script><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>梯度下降算法是一种求解代价函数最小值的方法，它可以用在<strong>多维任意的假设函数</strong>当中。<br>简而言之，梯度下降算法求得$J(θ_1)_{min}$的主要思路是：   </p>
+<ol>
+<li>给定$θ_0$和$θ_1$的初始值，通常令$θ_0=0$，$θ_1=0$。</li>
+<li>不断改变$θ_0$和$θ_1$的值使得$J(θ_0,θ_1)$的值逐渐变小，直到找到$J(θ_0,θ_1)$的最小值或者局部最小值。<br>如果从一个初始值出发，寻找附近的最小值，重复该过程，得到上图，最后得到的值为局部最优解。  <blockquote>
+<p>将梯度下降算法类比为爬山，从一个点开始，不断寻找“下山”的路线，最后找到一个“下山”的出口。——吴恩达  </p>
+</blockquote>
+</li>
+</ol>
+<p>当改变初始值时，会找到另一条“下山”的路径，找到第二个局部最优解（局部最小值）。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131134419.png" srcset="/img/loading.gif" alt=""><br>对于线性回归的代价函数而言，只存在一个局部最小值。（见代价函数的图像）  </p>
+<h3 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h3><p>梯度下降算法可以表示为：<br>Repeat untill convergence\{  </p>
+<script type="math/tex; mode=display">
+θ_j:=θ_j-α\frac{∂J(θ_0,θ_1)}{∂θ_j},j=0~and~j=1</script><p>\}<br>解释：    </p>
+<ol>
+<li>:=  表示赋值运算符</li>
+<li>α称为<strong>学习率</strong>，用来控制下降的<strong>步长</strong>（Padding），即更新的幅度：  <ul>
+<li>α太小，同步更新的速率会非常的慢     </li>
+<li>α过大，同步更新时可能会越过最小值点   </li>
+</ul>
+</li>
+<li>$\frac{∂J(θ_0,θ_1)}{∂θ_j}$是代价函数的梯度：<script type="math/tex; mode=display">
+\frac{∂J(θ_0,θ_1)}{∂θ_0}=\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})</script><script type="math/tex; mode=display">
+\frac{∂J(θ_0,θ_1)}{∂θ_1}=\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}</script><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131135144.png" srcset="/img/loading.gif" alt=""><br>△在代价函数中（以简化的代价函数为例），无论初始值在最小值点的左侧还是右侧，通过同步更新都能够使该点被“移动（Update）”到最小值，在最小值点，由于导数值为0，最终同步更新停止在了$θ_j=θ_j$，如前面所说，$θ_j$即为极小值点。  </li>
+</ol>
+<h3 id="同步更新"><a href="#同步更新" class="headerlink" title="同步更新"></a>同步更新</h3><p><strong>同步更新</strong>（Simulaneous update）是实现梯度下降算法的最有效方式。  </p>
+<script type="math/tex; mode=display">
+temp0:θ_0:=θ_0-α\frac{∂J(θ_0,θ_1)}{∂θ_0}</script><script type="math/tex; mode=display">
+temp1:θ_1:=θ_1-α\frac{∂J(θ_0,θ_1)}{∂θ_1}</script><script type="math/tex; mode=display">
+θ_0:=temp0</script><script type="math/tex; mode=display">
+θ_1:=temp1</script><p>这个更新方程能够同时更新$θ_0$和$θ_1$：$θ_0$更新为$θ_0-J’(θ)$，对$θ_1$同理。<br>更新的方法是计算赋值号右边带入$θ_1$和$θ_2$的值进行计算，得到的两个值分别储存在temp0和temp1中，从上到下进行赋值。  </p>
+<p>对于简化的代价函数：  </p>
+<script type="math/tex; mode=display">θ_1：=θ_1-αJ'(θ_1)</script><script type="math/tex; mode=display">\frac{dJ(θ_1,θ_0)}{dθ_j} =d(\frac{1}{2m}Σ(h_θ(x_i)-y_i))^2)</script><p>将梯度代回代价函数中就得到了<strong>Batch梯度下降法</strong>的基本形式：<br>Repeat untill convergence\{  </p>
+<script type="math/tex; mode=display">
+θ_0:=θ_0-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})</script><script type="math/tex; mode=display">
+θ_1:=θ_1-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}</script><p>\}    </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/">机器学习基础课程——吴恩达</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1-%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">1. 线性回归</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/14/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.3.%20%E5%A4%9A%E5%8F%98%E9%87%8F%E9%A2%84%E6%B5%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">1.3. 多变量预测</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/14/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.1.%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+                        <span class="hidden-mobile">1.1. 什么是机器学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <!-- start webpushr code --> 
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
+  <div class="footer-content">
+     本网站基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','AEGlpbdgvBCWXqXI6PtsUzobY7TLV9gwJU8bzMktrwfrSERg_xnLVbjpCw8x2GmFmi1ZcLTz0ni6OnX5MAwoM88');}});</script></body>
+</html>

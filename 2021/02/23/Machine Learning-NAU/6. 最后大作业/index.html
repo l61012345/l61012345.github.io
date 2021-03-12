@@ -1,0 +1,565 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="keywords" content=""> 
+  <meta name="author" content="Oreki Kigiha">
+  <!-- searchengine verifications -->
+  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
+  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
+  <!-- Bing verification -->
+  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  
+  <title>6. 大作业-创建一个交通标志分类器 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/homepage.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="6. 大作业-创建一个交通标志分类器">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Oreki Kigiha
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-23 11:49" pubdate>
+        2021年2月23日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">6. 大作业-创建一个交通标志分类器</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年2月23日 中午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="Traffic-Sign-Recognition"><a href="#Traffic-Sign-Recognition" class="headerlink" title="Traffic Sign Recognition"></a>Traffic Sign Recognition</h1><p>Traffic-sign recognition (TSR) is a technology by which a vehicle is able to recognize the traffic signs<br>put on the road e.g. “speed limit” or “children” or “turn ahead”. This is a very important technology<br>in self-driving cars.<br>This project will give you the chance to train different models using various features to classify traffic<br>signs.<br>The project is divided into 3 difficulty levels. Beginner, Expert and Bonus.   </p>
+<h2 id="Beginner-Level"><a href="#Beginner-Level" class="headerlink" title="Beginner Level"></a>Beginner Level</h2><p>For this level we use the Chinese Traffic Sign Database (Traffic Sign Recogntion Database (ia.ac.cn)).<br>This is available as a zip file in your project folder under the name “Dataset_1.zip”.<br>This dataset consists of 5998 images belonging to 58 classes. Each image is named “XXX_yyyy.png”.<br>Here XXX represent the class (traffic sign type) and yyyy represents the image number within each<br>class.<br>For the beginner level, we make use of the “starter.py” code, which you can find in the project<br>directory.<br>Follow along with the tasks and fill in the blanks of the given code to complete beginner level.<br>Follow the tasks with “starter.py” and fill in the missing code for each section.</p>
+<h3 id="T1-Reading-images"><a href="#T1-Reading-images" class="headerlink" title="T1: Reading images."></a>T1: Reading images.</h3><ul>
+<li>Change the dataset_path to point to the unzipped Dataset_1/images folder in your<br>computer.</li>
+<li>The given loop will go through all the files in the folder, variable i gives each file name.</li>
+<li>Complete the code to read the images and append them to list X</li>
+<li>The labels for each image has been already appended to list y for you<br>At the end of T1, you should have X, y with 5998 entries on each.<h3 id="T2-Pre-processing-images"><a href="#T2-Pre-processing-images" class="headerlink" title="T2: Pre-processing images."></a>T2: Pre-processing images.</h3></li>
+<li>Given loop will go through all images in X and resize them to 48x48 pixels.</li>
+<li>Complete the code to convert the images to grayscale. (Hint: use the cvtColor function in<br>opencv)</li>
+<li>Complete the code to append the pre-processed images to X_processed list.<br>At the end of T2, you should have X_processed with 5998 entires of resized and grayscale images.<br>T3: Calculating Features and Splitting train/test sets.</li>
+<li>Install skimage using anaconda. (you can follow the same instructions given for installing<br>sklearn with the package name “scikit-image”)</li>
+<li>The given code will use skimage and extract hog features for you.</li>
+<li>Write code to split X_features and y into training and testing sets. Make use of the<br>“sklearn.model_selection.train_test_split” to do this. Use a 80-20 split and make sure to<br>shuffle the samples.<br>At the end of T3, you should have x_train, x_test, y_train and y_test. Training sets should have 4798<br>samples and the test sets should have 1200 samples.<br>T4: Training and testing the classifier.</li>
+<li>Use the sklearn SVM package to train a classifier using x_train and y_train.</li>
+<li>Use the x_test and y_test to evaluate the classifier and print the accuracy value.<h2 id="Expert-Level"><a href="#Expert-Level" class="headerlink" title="Expert Level:"></a>Expert Level:</h2>We will build upon the beginner level code to try out different techniques and improve our model.<br>The same dataset will be used here.<br>Complete the following tasks,<h3 id="T1-Different-pre-processing-techniques"><a href="#T1-Different-pre-processing-techniques" class="headerlink" title="T1: Different pre-processing techniques"></a>T1: Different pre-processing techniques</h3>What are other pre-processing steps you can use?<br>Examples: Keep 3 channels (RGB), add a gaussian blur to reduce noise, etc.<br>Try few other pre-processing techniques and evaluate how they affect accuracy<h3 id="T2-Different-features"><a href="#T2-Different-features" class="headerlink" title="T2: Different features"></a>T2: Different features</h3>What are other feature extraction methods you can use?<br>Explore some other feature extraction methods given in skimage (Module: feature —<br>skimage v0.19.0.dev0 docs (scikit-image.org))<br>Try few other feature extraction methods and evaluate how they affect accuracy, you can<br>also try different packages here (no need to stick with skimage)<h3 id="T3-Different-Classification-Models"><a href="#T3-Different-Classification-Models" class="headerlink" title="T3: Different Classification Models"></a>T3: Different Classification Models</h3>What are other classification models you can use?<br>Try other classifiers including but not limited to; RandomForrest, kNN and Decision Tree.<br>For each classifier, change parameters and evaluate how the parameters affect accuracy.<h2 id="Bonus-Level"><a href="#Bonus-Level" class="headerlink" title="Bonus Level"></a>Bonus Level</h2>This level is for you to apply what you learned to a more challenging dataset from scratch. The<br>dataset is, German Traffic Sign Recognition Benchmark (GTSRB) (German Traffic Sign Benchmarks<br>(rub.de)). This is available in the “Dataset_2.zip” file.<br>This dataset is already split into training and testing sets for you.<h3 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h3>Write a python program to load the images from this dataset, into X, y. Then do suitable preprocessing, feature extraction and model training to develop a Traffic Sign Recognition system.<br>Report on the methods used and the results obtained by your Traffic Sign Recognition system.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> glob<br><span class="hljs-keyword">from</span> cv2 <span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics<br><span class="hljs-keyword">from</span> skimage.feature <span class="hljs-keyword">import</span> hog<br><span class="hljs-keyword">from</span> skimage.feature <span class="hljs-keyword">import</span> canny<br><span class="hljs-keyword">from</span> skimage.feature <span class="hljs-keyword">import</span> local_binary_pattern<br><br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> svm<br><span class="hljs-keyword">import</span> sklearn.naive_bayes <span class="hljs-keyword">as</span> sk_bayes<br><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier<br><br><span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># load the dataset</span><br>dataset_path = <span class="hljs-string">&quot;Dataset_1\\images\\&quot;</span><br>X = []  <span class="hljs-comment"># 图像集</span><br>y = []  <span class="hljs-comment"># 标签集</span><br>print(<span class="hljs-string">&quot;Loading from the dataset...&quot;</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> glob.glob(dataset_path + <span class="hljs-string">&#x27;*.png&#x27;</span>, recursive=<span class="hljs-literal">True</span>):<br>    label = i.split(<span class="hljs-string">&quot;images&quot;</span>)[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]  <span class="hljs-comment"># 根据文件名开头划分标签</span><br>    y.append(label)<br>    img = cv2.imread(i)<br>    X.append(i)  <span class="hljs-comment"># 加载图像</span><br><br><span class="hljs-comment"># Preprocess</span><br>x_prossessed = []<br>print(<span class="hljs-string">&quot;Preprocessing the images...&quot;</span>)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> X:<br>    x = cv2.imread(x)<br>    temp_x = cv2.resize(x, (<span class="hljs-number">48</span>, <span class="hljs-number">48</span>))<br>    <span class="hljs-comment"># 图像处理部分，给出了如下三种图像处理的方式，可以组合，也可以单独使用，不需要的直接注释掉然后append（36行）对应的结果就行</span><br>    <span class="hljs-comment"># convert to gray 转换为灰度图</span><br>    x_process_gray = cv2.cvtColor(temp_x, cv2.COLOR_BGR2GRAY)<br>    <span class="hljs-comment"># gave the gaussian blur 高斯滤波</span><br>    x_process_gau = cv2.GaussianBlur(x_process_gray, (<span class="hljs-number">5</span>, <span class="hljs-number">5</span>), <span class="hljs-number">0</span>)<br>    <span class="hljs-comment"># gave the medianBlur 中值滤波</span><br>    x_process_md = cv2.medianBlur(x_process_gau, <span class="hljs-number">3</span>)<br>    x_prossessed.append(x_process_md)<br><br><span class="hljs-comment"># calculate features</span><br><span class="hljs-comment"># 提取特征，给出了下面的三种方法，三选一，选一个取消注释。</span><br>X_features = []<br>print(<span class="hljs-string">&quot;Calculating features...&quot;</span>)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> x_prossessed:<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    # Hog features : 提取图像的直方图信息</span><br><span class="hljs-string">    x_feature_hog = hog(x,</span><br><span class="hljs-string">                    orientations=8,</span><br><span class="hljs-string">                    pixels_per_cell=(10, 10),</span><br><span class="hljs-string">                    cells_per_block=(1, 1),</span><br><span class="hljs-string">                    visualize=False,</span><br><span class="hljs-string">                    multichannel=False)</span><br><span class="hljs-string">    X_features.append(x_feature_hog)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    # canny features： 提取图像的边缘特征</span><br><span class="hljs-string">    x_feature_canny = canny(np.array(x), sigma=1.0)</span><br><span class="hljs-string">    X_features.append(x_feature_canny)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>   <br>    <span class="hljs-comment"># LBP features: 对光照有很强的鲁棒性</span><br>    x_feature_lbp = local_binary_pattern(x, <span class="hljs-number">8</span>, <span class="hljs-number">1.0</span>, method=<span class="hljs-string">&#x27;default&#x27;</span>)<br>    X_features.append(x_feature_lbp)<br>    <br><span class="hljs-comment"># 把X_features 转换为长向量</span><br>images = np.array(X_features).reshape((<span class="hljs-built_in">len</span>(np.array(X_features)), -<span class="hljs-number">1</span>))<br><br><span class="hljs-comment"># 划分训练集和测试集</span><br>print(<span class="hljs-string">&quot;Trainning the dataset...&quot;</span>)<br>x_train, x_test, y_train, y_test = train_test_split(images,<br>                                                    y,<br>                                                    test_size=<span class="hljs-number">0.2</span>,<br>                                                    shuffle=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 分类器，下面给出了三种分类器</span><br>acc = []  <span class="hljs-comment"># 创建一个列表用于存放准确率</span><br>timecosts = []  <span class="hljs-comment"># 创建一个列表用于存放耗时</span><br><span class="hljs-comment"># 支持向量机分类器</span><br>print(<span class="hljs-string">&quot;Trainning by svm...&quot;</span>)<br>time1 = (datetime.datetime.now())  <span class="hljs-comment"># 第一个时间戳</span><br>clf1 = svm.SVC()<br>clf1.fit(x_train, y_train)  <span class="hljs-comment"># 数据拟合</span><br>time2 = (datetime.datetime.now())  <span class="hljs-comment"># 第二个时间戳</span><br>acc_svm = clf1.score(x_test, y_test)  <span class="hljs-comment"># 计算准确率</span><br>acc.append(acc_svm)<br>timecost = <span class="hljs-built_in">str</span>(time2 - time1)  <span class="hljs-comment"># 计算时间差</span><br>timecosts.append(timecost)<br><br><span class="hljs-comment"># 伯努利分布的朴素贝叶斯分类器</span><br>print(<span class="hljs-string">&quot;Trainning by BN...&quot;</span>)<br>time1 = (datetime.datetime.now())  <span class="hljs-comment"># 第一个时间戳</span><br>clf2 = sk_bayes.BernoulliNB(alpha=<span class="hljs-number">1.0</span>,<br>                            binarize=<span class="hljs-number">0.0</span>,<br>                            fit_prior=<span class="hljs-literal">True</span>,<br>                            class_prior=<span class="hljs-literal">None</span>)<br>clf2.fit(x_train, y_train)  <span class="hljs-comment"># 数据拟合</span><br>time2 = (datetime.datetime.now())  <span class="hljs-comment"># 第二个时间戳</span><br>acc_NB = clf2.score(x_test, y_test)  <span class="hljs-comment"># 计算准确率</span><br>acc.append(acc_NB)<br>timecost = <span class="hljs-built_in">str</span>(time2 - time1)  <span class="hljs-comment"># 计算时间差</span><br>timecosts.append(timecost)<br><br><span class="hljs-comment"># KNN分类器 k=1 (对于这个KNN，k越大，越不行)</span><br>print(<span class="hljs-string">&quot;Trainning by KNN...&quot;</span>)<br>time1 = (datetime.datetime.now())  <span class="hljs-comment"># 第一个时间戳</span><br>clf3 = KNeighborsClassifier(n_neighbors=<span class="hljs-number">1</span>)<br>clf3.fit(x_train, y_train)  <span class="hljs-comment"># 数据拟合</span><br>time2 = (datetime.datetime.now())  <span class="hljs-comment"># 第二个时间戳</span><br>acc_KNN = clf3.score(x_test, y_test)  <span class="hljs-comment"># 计算准确率</span><br>acc.append(acc_KNN)<br>timecost = <span class="hljs-built_in">str</span>(time2 - time1)  <span class="hljs-comment"># 计算时间差</span><br>timecosts.append(timecost)<br><br>clfname = [<span class="hljs-string">&#x27;SVM&#x27;</span>, <span class="hljs-string">&#x27;NB&#x27;</span>, <span class="hljs-string">&#x27;KNN&#x27;</span>]<br>print(<span class="hljs-string">&quot;---------result-------------&quot;</span>)<br>print(<span class="hljs-string">&quot;accurancy is:&quot;</span>)<br>print(clfname)  <span class="hljs-comment"># 输出分类器的名字</span><br>print(acc)  <span class="hljs-comment"># 输出准确率</span><br>print(<span class="hljs-string">&quot;timecost:&quot;</span>)<br>print(timecosts)<br><br>print(<span class="hljs-string">&quot;Displaying the Confusion Matrixes&quot;</span>)<br><span class="hljs-comment"># 显示混淆矩阵</span><br><span class="hljs-comment"># 混淆矩阵显示有点慢 但是三张都可以显示 【要关闭当前之后才能显示下一张】</span><br><span class="hljs-comment"># svm算法的混淆矩阵</span><br>print(<span class="hljs-string">&quot;cm of svm&quot;</span>)<br>cm1 = metrics.plot_confusion_matrix(clf1, x_test, y_test)  <span class="hljs-comment"># 创建混淆矩阵</span><br>plt.get_current_fig_manager().window.state(<span class="hljs-string">&#x27;zoomed&#x27;</span>)<br>plt.show()  <span class="hljs-comment"># 显示混淆矩阵</span><br><br><span class="hljs-comment"># BN算法的混淆矩阵</span><br>print(<span class="hljs-string">&quot;cm of bn&quot;</span>)<br>cm2 = metrics.plot_confusion_matrix(clf2, x_test, y_test)  <span class="hljs-comment"># 创建混淆矩阵</span><br>plt.get_current_fig_manager().window.state(<span class="hljs-string">&#x27;zoomed&#x27;</span>)<br>plt.show()  <span class="hljs-comment"># 显示混淆矩阵</span><br><br><span class="hljs-comment"># KNN的混淆矩阵</span><br>print(<span class="hljs-string">&quot;cm of knn&quot;</span>)<br>cm3 = metrics.plot_confusion_matrix(clf3, x_test, y_test)  <span class="hljs-comment"># 创建混淆矩阵</span><br>plt.get_current_fig_manager().window.state(<span class="hljs-string">&#x27;zoomed&#x27;</span>)<br>plt.show()  <span class="hljs-comment"># 显示混淆矩阵</span><br><br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/">Machine Learning-NUS 2021</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/">课后练习</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/23/Machine%20Learning-NAU/2.%20a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2. 课后练习-数学方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/20/hexo%E5%8D%9A%E5%AE%A2%E7%97%9B%E7%82%B9/">
+                        <span class="hidden-mobile">Hexo搭建博客记录</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <!-- start webpushr code --> 
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
+  <div class="footer-content">
+     本网站基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','AEGlpbdgvBCWXqXI6PtsUzobY7TLV9gwJU8bzMktrwfrSERg_xnLVbjpCw8x2GmFmi1ZcLTz0ni6OnX5MAwoM88');}});</script></body>
+</html>
