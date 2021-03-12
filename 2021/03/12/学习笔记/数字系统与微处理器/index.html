@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>6.1 性能评估 - Mirror</title>
+  <title>数字系统与微处理器-常考知识点 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -156,7 +156,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="6.1 性能评估">
+            <span class="h2" id="subtitle" title="数字系统与微处理器-常考知识点">
               
             </span>
 
@@ -171,8 +171,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-02 07:55" pubdate>
-        2021年3月2日 早上
+      <time datetime="2021-03-12 12:49" pubdate>
+        2021年3月12日 下午
       </time>
     </span>
   
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      724 字
     </span>
   
 
@@ -231,36 +231,71 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">6.1 性能评估</h1>
+            <h1 style="display: none">数字系统与微处理器-常考知识点</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月5日 上午
+                  本文最后更新于：2021年3月12日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h1><h2 id="下一步做什么"><a href="#下一步做什么" class="headerlink" title="下一步做什么"></a>下一步做什么</h2><p>从第一章到现在，我们已经学习了许多中机器学习的方法。但是在面对如今眼花缭乱的算法时，应当如何选择最合适的算法来对数据集进行学习并改进这个算法？<br>思考如下的例子：<br>假设已经用波士顿房价数据集得到了线性回归的代价函数：   </p>
-<script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>然而使用这个模型对一个新的房价数据集进行预测的时候，发现误差非常的大，如何改进这个算法的性能？<br>有如下几种解决思路：   </p>
-<ol>
-<li>获得更多的数据集</li>
-<li>选用更少的特征以防止过拟合</li>
-<li>获得更多的特征来补充特征集</li>
-<li>增加多项式特征</li>
-<li>增加或减小正则化参数$λ$    </li>
-</ol>
-<p>很多人从如上的解决思路中随机地选择几项对人工智能进行优化，然而对于某一种人工智能算法，上述的解决思路不一定每一种都有效。运用本章讲的一些技巧后，能够对如上的解决思路中每一项的有效性进行判别，从而更高效地调试神经网络。<br>下面将介绍两种评估机器学习性能的方法，它们被称为<strong>机器学习诊断法</strong>(Machine learning diagnostic)。通过运行这些方法，人们可以了解算法在哪里出现了问题，也能告诉人们做什么样的改进尝试才是有意义的。    </p>
-<h2 id="评估假设"><a href="#评估假设" class="headerlink" title="评估假设"></a>评估假设</h2><p>在3.3.中已经介绍过了过拟合现象，因此单纯地得到预测值和标签的距离很小并不能说明这个假设模型是一个好的模型。<br>那么有什么方法能够排除过拟合地评估假设的性能呢？   </p>
-<p>答案是划分测试集和训练集， 具体而言：将数据集划分(Split)为测试集和训练集（通常是以3：7的比例随机选择（Shuffle）），将训练集中的样本进行机器学习，测试集进行验证。<br>从训练集进行线性回归得到最适合的参数$J(θ)$，再将测试集带入其中：   </p>
-<script type="math/tex; mode=display">J_{test}(\theta)=\frac{1}{2m_{test}}[\Sigma_{i=1}^{m_{test}}(h_θ(x_{test}^{(i)})-y_{test}^{(i)})^2+λ\Sigma_{j=1}^{m_{test}}\theta_j^2]</script><p>回归分类中对数据集的划分和验证类型大致同上，只是$J_{test}(\theta)$的形式略有差别。<br>对于回归分类还有另一形式的测试度量叫做<strong>错误分类</strong>(Misclassification Error/ 0-1 misclassification error)。<br>定义预测值和标签的误差$err(h_θ(x),y)$，有：   </p>
-<script type="math/tex; mode=display">err(h_θ(x),y)= 
-\begin{cases}
-    1  \text{   if     }   h_θ ≥ 0.5, y=0 \text{   or     } h_θ ≤ 0.5, y=1 \\
-    0  \text{   if     }   h_θ ≥ 0.5, y=1 \text{   or     } h_θ ≤ 0.5, y=0
-\end{cases}</script><p>定义测试集的误差：</p>
-<script type="math/tex; mode=display">TestError=\frac{1}{m_{test}}∑_{i=1}^{m_{test}}err(h_θ(x^{(i)}_{test}),y^{(i)})</script><h2 id="训练集，测试集和验证集"><a href="#训练集，测试集和验证集" class="headerlink" title="训练集，测试集和验证集"></a>训练集，测试集和验证集</h2><p>如果要从如下的多项式中选择一个作为假设模型：  </p>
-<script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x</script><script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x+θ_2x^2</script><script type="math/tex; mode=display">...</script><script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x+θ_2x^2+...+θ_nx^n</script><p>设$d$表示多项式中$x$的最大次数，要测试它们对于样本的泛化能力（即过拟合的程度，泛化能力低意味着模型过拟合，模型能够很好的拟合当前的数据集，但是对新的数据并不敏感），最简单的思路是可以对每一个模型都投入数据集，然后得到最优化的一组向量$Θ^{(d)}$，并从测试集求出每一个$J_{test}(Θ^{(d)})$，然后看哪一个模型的$J_{test}(Θ^{(d)})$最小。  但是由于我们用测试集拟合了$d$，并选择了一个最好的$d$，因此$Θ^{(d)}$很可能是对泛化误差的乐观假设。<br>解决办法是对一个数据集分为三个部分：训练集，测试集，和<strong>交叉验证集</strong>（以CV表示）。通常的比例是60%作为训练集，20%作为测试集，20%作为交叉验证集。<br>那么定义训练误差，测试误差，验证误差分别为：   </p>
-<script type="math/tex; mode=display">J_{train}(\theta)=\frac{1}{2m}\sum_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2</script><script type="math/tex; mode=display">J_{test}(\theta)=\frac{1}{2m_{test}}\sum_{i=1}^{m_{test}}(h_θ(x_{test}^{(i)})-y_{test}^{(i)})^2</script><script type="math/tex; mode=display">J_{cv}(\theta)=\frac{1}{2m_{cv}}\sum_{i=1}^{m_{cv}}(h_θ(x_{cv}^{(i)})-y_{cv}^{(i)})^2</script><p>现在使用验证集来选择模型：<br>同样地，每一个模型都投入数据集，然后得到最优化的一组向量$Θ^{(d)}$，但是将这些Θ投入验证集并使用交叉验证得到一系列的$J_{cv}(\theta^{(d)})$,找到最合适的$d$，再放入测试集中运行。  </p>
+              <h1 id="Knowledge-points-of-Digital-Systems-and-Microprocessors"><a href="#Knowledge-points-of-Digital-Systems-and-Microprocessors" class="headerlink" title="Knowledge points of Digital Systems and Microprocessors"></a>Knowledge points of Digital Systems and Microprocessors</h1><blockquote>
+<p>*: appeared in all 3-year final tests<br> (Given table): the reference is given in the test paper</p>
+<h2 id="Basic-knowledge-of-binary-code-and-Boolean-algebra"><a href="#Basic-knowledge-of-binary-code-and-Boolean-algebra" class="headerlink" title="Basic knowledge of binary code and Boolean algebra"></a>Basic knowledge of binary code and Boolean algebra</h2><p><strong>Conversion between Dec  BCD, Hex and Binary*</strong><br>X-based to Dec:  </p>
+<script type="math/tex; mode=display">∑_{k=0}^na \times x^k</script><p>ec to X-based:<br>Successive division  </p>
+</blockquote>
+<p><strong>m-in-n/m-out-of-n/m-of-n codes</strong><br>N stands for total number bits<br>M stands for m bits must be set to 1<br>If the number of  1 in a data package is not equal to m, error happens  </p>
+<p><strong>Parity code</strong><br>The number of 1 in a line is consistently to be even/odd.<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201225125946.png" srcset="/img/loading.gif" alt="">    </p>
+<p><strong>Truth table equivalence*</strong><br>If two Boolean functions share the same truth table, they are equal.  </p>
+<h2 id="Combinational-logic"><a href="#Combinational-logic" class="headerlink" title="Combinational logic"></a>Combinational logic</h2><p><strong>1st and 2nd canonical form*</strong><br>1st canonical form: (.)+(.)<br>the result of Kmap: 0: F, 1:T<br>2nd canonical form: (+).(+)<br>the result of Kmap: 0:T, 1:F<br>Relation:   $F_{1st}+F_{2nd}=1$<br>They share the same Kmap.  </p>
+<p><strong>Conversion between NAND NOR version*</strong><br>1st canonical form to NAND version:   </p>
+<script type="math/tex; mode=display">A.B+C.D=\overline{(!A.!B).(!C.!D)}</script><p>2nd canonical form to NOR version:   </p>
+<script type="math/tex; mode=display">(A+B).(C+D)=\overline{\overline{A+B}+\overline{C+D}}</script><p><strong>Cellular Logic</strong><br>Recursive function   </p>
+<h2 id="Sequential-logic"><a href="#Sequential-logic" class="headerlink" title="Sequential logic"></a>Sequential logic</h2><p><strong>Structure of SRFF</strong><br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201225130211.png" srcset="/img/loading.gif" alt="">    </p>
+<p><strong>Characteristics of TFF and DFF*</strong><br>TFF:<br>Structure:<br>Asynchronous TFF:  J=K=1 CLK=T<br>Synchronous TFF:    J=K=T CLK=CLK<br>Functionality:<br>T=0 keep the state<br>T=1 change the state<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201225130730.png" srcset="/img/loading.gif" alt=""><br>DFF:<br>Structure:<br>$J=D$ $K=\overline{D}$<br>Functionality:<br>whenever the current state is, the next state will be D.<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201225130846.png" srcset="/img/loading.gif" alt="">                    </p>
+<p><strong>Feedback Shift Register*</strong><br>Method: move the head bits to the tail, with possible options.   </p>
+<p><strong>Counter</strong><br>Counter is used to generate a sequence.  </p>
+<p><strong>Circuit design (Transition diagram, P/N state table, Transition table, K-maps)*</strong><br>Transition diagram:<br>Set A=00 B=01 C=11 D=10<br>Input is IA/B/C/D, list the transition table.  </p>
+<h2 id="Digital-System"><a href="#Digital-System" class="headerlink" title="Digital System"></a>Digital System</h2><p><strong>Multiplexer and design*</strong><br>Simplify some variables in Boolean function, the simplified variables will be used for encoder part.<br>The meaning of n to 1: the number of control bits will be 2^k=n  </p>
+<p><strong>Memory and how to determine its size</strong><br>The memory is determined by the number of logic gates which connected to R/W line.<br>The size of memory= number of gates x number of layers bits.<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201225131054.png" srcset="/img/loading.gif" alt=""></p>
+<h2 id="Introduction-of-PIC"><a href="#Introduction-of-PIC" class="headerlink" title="Introduction of PIC"></a>Introduction of PIC</h2><p><strong>The basic information of PIC16F876A*</strong>, including:<br>The size of Program memory/Code memory is 8k bits, Data memory is 13k bits, Program counter(PCL) is 13k bits and located in data memory.<br>The maximum level of stacks is 8, with 13 bits width.<br>Number of Pins is 40 (DIP40).<br>Harvard Architecture.<br>There are 35 instructions for PIC16F876A.<br>The location and functionality of SFRs:  </p>
+<ul>
+<li>W register: outside of program memory, the data transition station  </li>
+<li>STATUS register: Program memory, determine which bank in program memory will be used  </li>
+</ul>
+<p><strong>Functionality of some assembly language instructions (Given the table)*</strong>, including:  </p>
+<ul>
+<li>BSF: set the file register to be 1  </li>
+<li>BCF: clear the file register to be 0  </li>
+<li>NOP: do nothing but create a 1 bit delay  </li>
+<li>BTFSC: bit check, if file register is cleared, then skip the following line  </li>
+<li>BTFSS: bit check, if file register is set, then skip the following line  </li>
+</ul>
+<p><strong>Conversion between Two’s complement and  Dec*</strong><br>Positive Dec number: convert to binary number, then keep it.<br>Negative Dec number: remove “-“,convert to binary number, do complement on the number, then +1.  </p>
+<p><strong>Conversion between assembly language instructions and machine code*</strong> (Give the table)<br>Structure of machine code:   </p>
+<ul>
+<li>operation code     </li>
+<li>destination     </li>
+<li>file address  </li>
+</ul>
+<p>4 kinds of characters of instruction’s 14-bit Opcoder:  </p>
+<ul>
+<li>K literal </li>
+<li>X don’t care (default to be 0)</li>
+<li>D W register (1 for W register to File register, 0 for File register to W register)</li>
+<li>F  file register’s address</li>
+<li>b  bit address within an 8-bit file register</li>
+</ul>
+<p><strong>Subroutine’s explanation by explaining instructions like CALL, GOTO and RETURN and time consumption*</strong><br>Time/Cycle consumption: Normal execution costs 1 us, GOTO and RETURN instruction costs 2us.  </p>
+<p><strong>Track the value of W register</strong><br><strong>Output Devices*</strong>  </p>
+<ul>
+<li><p>7-Segments:<br>Port A: which 7-segments will be lighten<br>Port B: display the number (0:light, 1:dark)  </p>
+</li>
+<li><p>Keypad:<br>Switch Bounce: There should be a delay to wait the time in order to let the key bounce (about10-3s) be finished, or may cause the hazard.  </p>
+</li>
+</ul>
+<p><strong>ADC</strong><br>Precession and LSB:  $LSB=\frac{Range}{2^k}$ , k is the number of bits<br>Quantity error: ⁺-0.5 LSB</p>
 
             </div>
             <hr>
@@ -270,9 +305,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/">机器学习基础课程——吴恩达</a>
-                    
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6-%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/">6. 诊断与调试</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
                   </div>
                 
@@ -286,9 +319,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/">
+                      <a href="/2021/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E4%B8%8B)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">计算机结构基础-课堂笔记</span>
+                        <span class="hidden-mobile">大学物理下-常考知识点</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -296,8 +329,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/02/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/5.3.%20%E6%95%B4%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7/">
-                        <span class="hidden-mobile">5.3. 回顾：神经网络的实现与梯度下降算法</span>
+                      <a href="/2021/03/12/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.3.%20%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF/">
+                        <span class="hidden-mobile">6.3 学习曲线</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

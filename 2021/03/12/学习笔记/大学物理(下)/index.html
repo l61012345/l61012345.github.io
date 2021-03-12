@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>6.1 性能评估 - Mirror</title>
+  <title>大学物理下-常考知识点 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -156,7 +156,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="6.1 性能评估">
+            <span class="h2" id="subtitle" title="大学物理下-常考知识点">
               
             </span>
 
@@ -171,8 +171,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-02 07:55" pubdate>
-        2021年3月2日 早上
+      <time datetime="2021-03-12 12:49" pubdate>
+        2021年3月12日 下午
       </time>
     </span>
   
@@ -183,7 +183,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      879 字
     </span>
   
 
@@ -193,7 +193,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      11
        分钟
     </span>
   
@@ -231,36 +231,90 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">6.1 性能评估</h1>
+            <h1 style="display: none">大学物理下-常考知识点</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月5日 上午
+                  本文最后更新于：2021年3月12日 下午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h1><h2 id="下一步做什么"><a href="#下一步做什么" class="headerlink" title="下一步做什么"></a>下一步做什么</h2><p>从第一章到现在，我们已经学习了许多中机器学习的方法。但是在面对如今眼花缭乱的算法时，应当如何选择最合适的算法来对数据集进行学习并改进这个算法？<br>思考如下的例子：<br>假设已经用波士顿房价数据集得到了线性回归的代价函数：   </p>
-<script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>然而使用这个模型对一个新的房价数据集进行预测的时候，发现误差非常的大，如何改进这个算法的性能？<br>有如下几种解决思路：   </p>
-<ol>
-<li>获得更多的数据集</li>
-<li>选用更少的特征以防止过拟合</li>
-<li>获得更多的特征来补充特征集</li>
-<li>增加多项式特征</li>
-<li>增加或减小正则化参数$λ$    </li>
+              <h1 id="大学物理下"><a href="#大学物理下" class="headerlink" title="大学物理下"></a>大学物理下</h1><blockquote>
+<p>整理重邮常考的知识点  </p>
+<p>参考书目为《物理学 （上）》 东南大学 第六版</p>
+<h2 id="导体和介质"><a href="#导体和介质" class="headerlink" title="导体和介质"></a>导体和介质</h2><ul>
+<li>导体的性质  <ol>
+<li>自由电荷分布在导体表面  </li>
+<li>静电平衡时，导体内部电场为0  </li>
+<li>导体表面与叠加电场垂直  </li>
+<li>越尖锐的表面，电荷积聚越多  </li>
 </ol>
-<p>很多人从如上的解决思路中随机地选择几项对人工智能进行优化，然而对于某一种人工智能算法，上述的解决思路不一定每一种都有效。运用本章讲的一些技巧后，能够对如上的解决思路中每一项的有效性进行判别，从而更高效地调试神经网络。<br>下面将介绍两种评估机器学习性能的方法，它们被称为<strong>机器学习诊断法</strong>(Machine learning diagnostic)。通过运行这些方法，人们可以了解算法在哪里出现了问题，也能告诉人们做什么样的改进尝试才是有意义的。    </p>
-<h2 id="评估假设"><a href="#评估假设" class="headerlink" title="评估假设"></a>评估假设</h2><p>在3.3.中已经介绍过了过拟合现象，因此单纯地得到预测值和标签的距离很小并不能说明这个假设模型是一个好的模型。<br>那么有什么方法能够排除过拟合地评估假设的性能呢？   </p>
-<p>答案是划分测试集和训练集， 具体而言：将数据集划分(Split)为测试集和训练集（通常是以3：7的比例随机选择（Shuffle）），将训练集中的样本进行机器学习，测试集进行验证。<br>从训练集进行线性回归得到最适合的参数$J(θ)$，再将测试集带入其中：   </p>
-<script type="math/tex; mode=display">J_{test}(\theta)=\frac{1}{2m_{test}}[\Sigma_{i=1}^{m_{test}}(h_θ(x_{test}^{(i)})-y_{test}^{(i)})^2+λ\Sigma_{j=1}^{m_{test}}\theta_j^2]</script><p>回归分类中对数据集的划分和验证类型大致同上，只是$J_{test}(\theta)$的形式略有差别。<br>对于回归分类还有另一形式的测试度量叫做<strong>错误分类</strong>(Misclassification Error/ 0-1 misclassification error)。<br>定义预测值和标签的误差$err(h_θ(x),y)$，有：   </p>
-<script type="math/tex; mode=display">err(h_θ(x),y)= 
-\begin{cases}
-    1  \text{   if     }   h_θ ≥ 0.5, y=0 \text{   or     } h_θ ≤ 0.5, y=1 \\
-    0  \text{   if     }   h_θ ≥ 0.5, y=1 \text{   or     } h_θ ≤ 0.5, y=0
-\end{cases}</script><p>定义测试集的误差：</p>
-<script type="math/tex; mode=display">TestError=\frac{1}{m_{test}}∑_{i=1}^{m_{test}}err(h_θ(x^{(i)}_{test}),y^{(i)})</script><h2 id="训练集，测试集和验证集"><a href="#训练集，测试集和验证集" class="headerlink" title="训练集，测试集和验证集"></a>训练集，测试集和验证集</h2><p>如果要从如下的多项式中选择一个作为假设模型：  </p>
-<script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x</script><script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x+θ_2x^2</script><script type="math/tex; mode=display">...</script><script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x+θ_2x^2+...+θ_nx^n</script><p>设$d$表示多项式中$x$的最大次数，要测试它们对于样本的泛化能力（即过拟合的程度，泛化能力低意味着模型过拟合，模型能够很好的拟合当前的数据集，但是对新的数据并不敏感），最简单的思路是可以对每一个模型都投入数据集，然后得到最优化的一组向量$Θ^{(d)}$，并从测试集求出每一个$J_{test}(Θ^{(d)})$，然后看哪一个模型的$J_{test}(Θ^{(d)})$最小。  但是由于我们用测试集拟合了$d$，并选择了一个最好的$d$，因此$Θ^{(d)}$很可能是对泛化误差的乐观假设。<br>解决办法是对一个数据集分为三个部分：训练集，测试集，和<strong>交叉验证集</strong>（以CV表示）。通常的比例是60%作为训练集，20%作为测试集，20%作为交叉验证集。<br>那么定义训练误差，测试误差，验证误差分别为：   </p>
-<script type="math/tex; mode=display">J_{train}(\theta)=\frac{1}{2m}\sum_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2</script><script type="math/tex; mode=display">J_{test}(\theta)=\frac{1}{2m_{test}}\sum_{i=1}^{m_{test}}(h_θ(x_{test}^{(i)})-y_{test}^{(i)})^2</script><script type="math/tex; mode=display">J_{cv}(\theta)=\frac{1}{2m_{cv}}\sum_{i=1}^{m_{cv}}(h_θ(x_{cv}^{(i)})-y_{cv}^{(i)})^2</script><p>现在使用验证集来选择模型：<br>同样地，每一个模型都投入数据集，然后得到最优化的一组向量$Θ^{(d)}$，但是将这些Θ投入验证集并使用交叉验证得到一系列的$J_{cv}(\theta^{(d)})$,找到最合适的$d$，再放入测试集中运行。  </p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>电位移矢量  </p>
+<script type="math/tex; mode=display">\vec{D}=ɛ_0ɛ_r\vec{E}</script></li>
+<li><p>静电屏蔽  </p>
+<ol>
+<li>将物体放入导体壳（法拉第笼）内部，导体壳内部的物体不会受到外电场的影响  </li>
+<li>将法拉第笼接地，里面放入电荷，导体壳内部的电荷不会对外界有影响</li>
+</ol>
+</li>
+<li><p>极化电场<br>真空中的电场$E_0$进入介质后，电场大小变为$E=ɛ_rE_0$,定义电位移矢量$D=ɛ_0ɛ_rE_0$。极化强度：$\vec{P}=\frac{∑\vec{p}}{Δv}$,它在数值上与电荷面密度$σ$相同。<br>电极化率：  </p>
+<script type="math/tex; mode=display">\chi_E=ɛ_r-1=\frac{P}{ɛ_0E}</script><blockquote>
+<p>$ɛ_r&lt;1$</p>
+</blockquote>
+</li>
+<li><p>电容器<br>电容器的最大能量：</p>
+<script type="math/tex; mode=display">W=\frac{1}{2}CU^2</script><p>电场的能量密度：</p>
+<script type="math/tex; mode=display">w_E=\frac{1}{2}ɛE^2</script></li>
+</ul>
+<h2 id="恒定磁场"><a href="#恒定磁场" class="headerlink" title="恒定磁场"></a>恒定磁场</h2><ul>
+<li><p>电场与磁场的对偶性<br>|  | 磁场 | 电场|<br>|—|—|—|<br>|高斯定理|$∫\vec{B}.d\vec{S}=0$|$∫\vec{B}.d\vec{S}=\frac{∑q_{in}}{ɛ_0}$|<br>|安培定理|$∫\vec{B}.d\vec{l}=μ_0I$|$∫\vec{E}.d\vec{S}=0$|<br>|结论|无源有旋|有源无旋|</p>
+</li>
+<li><p>左/右手定则<br>|右手定则 | 左手定则|<br>|—|—|<br>|判断电流产生的磁场|判断导体收到的安培力|<br>|判断感应电流的方向|  |   </p>
+</li>
+<li><p>洛伦兹力的应用<br>洛伦兹力提供向心力，不做功  </p>
+<script type="math/tex; mode=display">F_l=qBv=m\frac{v^2}{R}=F_向</script><ol>
+<li>磁聚焦</li>
+<li>回旋加速器</li>
+<li>霍尔效应</li>
+</ol>
+</li>
+<li><p>磁介质<br>磁化强度：$M=\frac{∑m}{ΔV}$,m表示磁矩<br>磁场强度：$B=\mu_0\mu_rH$<br>磁化率：  </p>
+<script type="math/tex; mode=display">χ_r=\mu_r-1</script><script type="math/tex; mode=display">M=(\mu_r-1)H</script><blockquote>
+<p>$\mu_r$没有大小限制  </p>
+</blockquote>
+<p>若$\mu_r<1$, 称介质为抗磁质   
+若$\mu_r>1$, 称介质为顺磁质<br>若$\mu_r&gt;&gt;1$, 称介质为铁磁质  </p>
+</li>
+</ul>
+<h2 id="电磁感应"><a href="#电磁感应" class="headerlink" title="电磁感应"></a>电磁感应</h2><ul>
+<li>涡旋电场<br>涡旋电场是有变化的磁场所产生的电场。  <script type="math/tex; mode=display">∮E_Bd\vec{l}=-\frac{dΦ_B}{dt}</script><script type="math/tex; mode=display">∯E_Bd\vec{S}=0</script>结论：涡旋电场是无源有旋的电场  </li>
+<li>自感<br>自感系数：  <script type="math/tex; mode=display">L=\frac{Φ}{I}</script>通过自感产生的电势：  <script type="math/tex; mode=display">ϵ_L=-\frac{dΦ}{dt}=-L\frac{di}{dt}</script></li>
+<li><p>互感<br>互感系数：  </p>
+<script type="math/tex; mode=display">M=\frac{Φ_{21}}{I_1}</script><p> 其中$Φ_{21}$表示在2中由1产生的磁通量，$I_1$是1的电流  </p>
+</li>
+<li><p>磁场能<br>自感耗能：  </p>
+<script type="math/tex; mode=display">W_m=\frac{1}{2}LI^2</script><p>整个电路的能量：  </p>
+<script type="math/tex; mode=display">\int_0^t ϵIdt=\frac{1}{2}LI^2+I^2Rt</script><p>能量密度：</p>
+<script type="math/tex; mode=display">W=\frac{1}{2}LI^2=\frac{B^2V}{2μ}</script><p>V为螺线管/螺绕环的体积  </p>
+<script type="math/tex; mode=display">w_M=\frac{W}{V}=\frac{B^2}{2μ}=\frac{1}{2}BH</script><p>由$B=\mu_0\mu_rH$,  </p>
+<script type="math/tex; mode=display">w_m=\frac{1}{2}\frac{B^2}{\mu_0\mu_r}=\frac{1}{2}\mu_0\mu_rH^2</script></li>
+</ul>
+<h2 id="麦克斯韦方程"><a href="#麦克斯韦方程" class="headerlink" title="麦克斯韦方程"></a>麦克斯韦方程</h2><ul>
+<li><p>光的两大特性</p>
+<script type="math/tex; mode=display">C=\frac{1}{\sqrt{\mu_0ɛ_0}}</script><p>  表示光速是恒定的  </p>
+<p>  由折射光介质比$n=\frac{C}{V}$，有  </p>
+<script type="math/tex; mode=display">n=\frac{1}{\sqrt{\mu_rɛ_r}}</script><p>  表示光是一种电磁波  </p>
+</li>
+<li><p>位移电流<br>  位移电流是假想出来的电流，它遵循所有的电传导定律<br>  全电流是<strong>传导电流</strong>和<strong>位移电流</strong> （以及运流电流*）的总称</p>
+</li>
+<li><p>麦克斯韦方程组的积分形式<br>|名称|方程$<del>~</del><del>~</del><del>~</del><del>~</del><del>~</del>~~~$|结论|<br>|—-|————————-|—-|<br>| 电场中的高斯定理| $∮\vec{D}.d\vec{S}=∫_D ρdV=q$|静电场有源|<br>| 电场中的安培环路定理 |$∮\vec{E}.d\vec{l}=-∫\frac{∂B}{\partial t}dS+0$ |涡旋电场有旋，静电场无旋|<br>|磁场中的高斯定理|$∮\vec{B}.d\vec{S}=0$|磁场无源|<br>|磁场中的安培环路定理|$∮\vec{H}.d\vec{l}=∫(j_c+\frac{\partial D}{∂t})dS$|磁场有旋|  </p>
+</li>
+</ul>
 
             </div>
             <hr>
@@ -270,9 +324,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/">机器学习基础课程——吴恩达</a>
-                    
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6-%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/">6. 诊断与调试</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
                   </div>
                 
@@ -286,9 +338,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/">
+                      <a href="/2021/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">计算机结构基础-课堂笔记</span>
+                        <span class="hidden-mobile">电路与器件-常考知识点</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -296,8 +348,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/02/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%8B%9F%E5%90%88/5.3.%20%E6%95%B4%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7/">
-                        <span class="hidden-mobile">5.3. 回顾：神经网络的实现与梯度下降算法</span>
+                      <a href="/2021/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/">
+                        <span class="hidden-mobile">数字系统与微处理器-常考知识点</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
