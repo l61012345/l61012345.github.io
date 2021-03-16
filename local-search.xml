@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>7.1 学习系统构建方法</title>
+    <link href="/2021/03/16/7.%20%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98/7.1.%20%E7%B3%BB%E7%BB%9F%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/"/>
+    <url>/2021/03/16/7.%20%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98/7.1.%20%E7%B3%BB%E7%BB%9F%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}</style></p><h1 id="学习系统构建方法"><a href="#学习系统构建方法" class="headerlink" title="学习系统构建方法"></a>学习系统构建方法</h1><h2 id="方法优先级"><a href="#方法优先级" class="headerlink" title="方法优先级"></a>方法优先级</h2><p>假设垃圾邮件中会存在一些故意拼错的单词，如何通过监督机器学习建立一个垃圾邮件分类器？<br>设$x$表示邮件的特征，分类标签$y={0,1}$分别表示不是垃圾邮件和是垃圾邮件。<br>一个简单思路是从邮件中选取100个单词作为分类器决定邮件是否是垃圾邮件的特征。<br>将这100个单词编码按照字典排序，设特征向量$x$是一个100维的向量，每一个维度代表了100个词中的某一个词在一封邮件中出现（1）或者是不出现（0），用数学的表达即为</p><script type="math/tex; mode=display">x_j=\begin{dcases}    1 \text{   if appear} \\    0 \text{   if not appear}\end{dcases}</script><p>整个过程如下图所示。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210314150605.png" alt="">    </p><p>事实上，在实际的分类器中，通常会按照训练集中邮件的词频选出10000到50000个单词来作为特征向量的维度。<br>对于上述的垃圾邮件分类器，如何在邮箱的时间内让垃圾邮件分类器具有高准确率？ 下面提供了几种常见的思路：   </p><ol><li>收集更多的数据。（比如：Honeypot Project）    </li><li>用更加复杂的特征向量。（比如包括发件人，邮件的主题等等）    </li><li>简化目前的特征向量，比如“deal”和“deals”，“discount”和“discounts”是否应该合并在同一维度？ 或者考虑大小写以及标点符号。  </li><li>检测故意拼错的单词。  </li></ol><p>这些思路中哪些才是最具效率的？ 怎样用科学和系统的方法从这些改进方法中选择出真正有效率的改进方法？ 这是本章将会聚焦的问题。   </p><h2 id="系统构建的方法"><a href="#系统构建的方法" class="headerlink" title="系统构建的方法"></a>系统构建的方法</h2><ol><li>用最简单的算法构建神经网络，训练并且用验证集验证。  </li><li>画出学习曲线决定是否需要更多的特征或者数据。  </li><li>误差分析：查看被算法分类错误的文件，找出共同的规律。  </li></ol><p>具体而言，对于垃圾邮件分类器，需要查看全部分类错误的邮件，将它们手动分类并确认它们共同的特性。思考这些共性作为特征如何帮助分类器进行识别。<br>这样做的目的是通过简单的分类算法更能够发现错误的识别，从而获取更明显的特征，进而优化算法。  </p><h3 id="数值方法"><a href="#数值方法" class="headerlink" title="数值方法"></a>数值方法</h3><p>此外，在训练过程中返回一个数学结果（比如准确率）是非常有效的。<br>比如：思考是否将“discount/discounted/discounts/discounting”作为同一个特征？<br>基本思路是通过词干提取(Stemming)软件来提取词干，但是这种软件最简单的检查单词前面的几个字母，因此可能会发生误识别的情况（比如“University/Universe”）。那么是否应该应用词干提取软件来提取特征呢？简单的办法是快速运行一下词干提取软件，获取此时的正确率，与不进行词干提取软件时的正确率进行对比。通过对比试验来辅助决策。  </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>7. 学习系统设计中的实际问题</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>1. 信号与系统概述</title>
     <link href="/2021/03/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1.%20%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/"/>
     <url>/2021/03/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1.%20%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/</url>
