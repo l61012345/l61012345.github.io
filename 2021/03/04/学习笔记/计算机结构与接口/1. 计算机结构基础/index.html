@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.6k 字
+      4.8k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      49
+      52
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月15日 上午
+                  本文最后更新于：2021年3月18日 早上
                 
               </p>
             
@@ -275,21 +275,59 @@
 <ul>
 <li>乘法<br>类似于十进制乘法：第一行的所有位与第二行的每一个比特位分别相乘并作移位，最后相加。 单个比特位的乘法遵循：“除了$1×1=1$外，其余结果都为0。（与0相乘都为0。）”     </li>
 </ul>
-<h3 id="IEEE-754"><a href="#IEEE-754" class="headerlink" title="IEEE 754"></a>IEEE 754</h3><p>IEEE 754是用来表示二进制浮点数的标准，其中有32位，64位，128位表示方法，以32位为例：32位机对浮点数的表示方法为：</p>
+<h3 id="二进制浮点数的表达"><a href="#二进制浮点数的表达" class="headerlink" title="二进制浮点数的表达"></a>二进制浮点数的表达</h3><h4 id="IEEE-754"><a href="#IEEE-754" class="headerlink" title="IEEE 754"></a><strong>IEEE 754</strong></h4><p>IEEE 754是用来表示二进制浮点数的标准，<strong>基于二进制</strong>。其中有32位，64位，128位表示方法，以32位为例：32位浮点数的表示方法为：</p>
 <script type="math/tex; mode=display">
 \begin{array}{c}
-\text{Number of Bits} & 1 & 8 & 23 \\
+\text{Width of Bits} & 1 & 8 & 23 \\
 \text{Content}& Sign &Exponent &Fraction
 \end{array}
 bias: +127</script><ul>
 <li>Bias<br>为了让Signed更方便的进行比较，将Signed转换成二进制后的指数部分人为地加一个Bias使得指数部分转变到Unsigned的范围内（0和255特殊处理）便于比较。<br>Bias的值规定是$2^n-1$，n为总的比特位数。<br>IEEE 754 能够表示0， 正规数（Exp部分不为0），非正规数（Exp部分为0，如果Exp小于0则把Exp划到0后，剩下的部分进入小数部分），无穷和其他未规定的计算结果（NaN）。   </li>
-<li>十进制转IEEE754的方法<ol>
+<li>十进制转IEEE754<ol>
 <li>确定正负</li>
 <li>小数部分（$2^{-k}$）和整数部分（$2^{k}$）分别写出二进制形式，合并，中间以小数点隔开</li>
 <li>将小数点移动到第一位和第二位末尾，假设移动距离为$x$，后面的指数部分写作$2^x$。</li>
 <li>取现在的小数部分，并在末尾补0直到小数部分的总比特数为23位。  </li>
-<li>指数部分$x+bias$，并转换为二进制填入Exp中。</li>
+<li>指数部分$x+bias$，并转换为二进制填入Exp中。  </li>
 </ol>
+</li>
+<li>IEEE754转十进制  <script type="math/tex; mode=display">(-1)^5\frac{M}{2^{23}}2^{exponent-127}</script></li>
+<li><p>运算规定<br>规定如下的情况结果会是Not A Number：  </p>
+<ol>
+<li>$⨦0 ÷ ⨦0$  </li>
+<li>$∞-∞$  </li>
+<li>$⨦∞÷⨦∞$  </li>
+<li>$⨦∞ × 0$  </li>
+</ol>
+<p>规定如下的情况结果会是无穷：  </p>
+<ol>
+<li>$∞ × ∞$  </li>
+<li>$∞ + ∞$  </li>
+<li>$nonezero ÷ 0$</li>
+</ol>
+<p>规定$n ÷ ∞=0$。  </p>
+</li>
+<li><p>范围  </p>
+<ul>
+<li>最大正数：<br>$(2-2^{-23}）2^{127}$<br>(0 | 1111 1111 | 1111 1111 11111 1111 1111 111)   </li>
+<li><p>最小非正规数：<br>$2^{-150}$<br>(0 | 0000 0000 | 0000 0000 0000 0000 0000 001)</p>
+</li>
+<li><p>最小正数：<br>$2^{-126}$<br>(0 | 0000 0001 | 0000 0000 0000 0000 0000 000)  </p>
+<h4 id="IBM-Float-System"><a href="#IBM-Float-System" class="headerlink" title="IBM Float System"></a><strong>IBM Float System</strong></h4><p>IBM Float System是基于<strong>基于十六进制</strong>的浮点数表示方法。<br>32位IBM 浮点数的表示方法为：</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}
+\text{Width of Bits} & 1 & 7 & 24 \\
+\text{Content}& Sign &Exponent &Fraction
+\end{array}
+bias: +64</script></li>
+</ul>
+</li>
+<li><p>IBM Float转十进制</p>
+<script type="math/tex; mode=display">(-1)^5\frac{M}{2^{24}}2^{exponent-64}</script></li>
+<li><p>范围</p>
+<ul>
+<li>最大正数：</li>
+</ul>
 </li>
 </ul>
 <h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><h3 id="分级存储"><a href="#分级存储" class="headerlink" title="分级存储"></a>分级存储</h3><p>由于CPU的速度受到内存读取速度的牵制，因此有必要将内存进行分级，读写速度越快的内存越靠近CPU，但是由于成本等原因，其储存空间越小。   将内存可以大致分为几层：  </p>
