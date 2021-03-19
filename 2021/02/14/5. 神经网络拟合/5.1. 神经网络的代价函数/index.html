@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年2月22日 早上
+                  本文最后更新于：2021年3月19日 下午
                 
               </p>
             
@@ -275,10 +275,10 @@ D^{(l)}_{ij}:=\begin{cases}
      \frac{1}{m}Δ^{(l)}_{ij}+λΘ^{(l)}_{ij},j \not=0 
 \end{cases}</script><p>那么最终：  </p>
 <script type="math/tex; mode=display">\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)=D^{(l)}_{ij}</script><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><ul>
-<li>回顾：前向传播模型<br>前向传播的整个过程可以用下图表示：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210204143238.png" srcset="/img/loading.gif" alt=""><br>比如：如果洋红色的部分其权重为$Θ_{10}^{(2)}$,红色的权重值为$Θ_{11}^{(2)}$，青色的权重值是$Θ_{12}^{(2)}$， 那么$z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} × a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}$。<br>反向传播的过程和前向传播非常类似，只是传播的方向不同。  </li>
+<li>回顾：前向传播模型<br>前向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png" srcset="/img/loading.gif" alt=""><br>比如：如果洋红色的部分其权重为$Θ_{10}^{(2)}$,红色的权重值为$Θ_{11}^{(2)}$，青色的权重值是$Θ_{12}^{(2)}$， 那么$z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} × a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}$。<br>反向传播的过程和前向传播非常类似，只是传播的方向不同。  </li>
 <li>反向传播的理解<br>关注反向传播的代价函数：   <script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m ∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ (x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1} (Θ_{ji}^{(l)})_j^2</script>对于单个的样本:$(x^{(i)},y^{(i)})$，只有一个输出单元并且忽略正则化，那么这个样本的代价函数：  <script type="math/tex; mode=display">Cost(i)=y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))</script>这个代价函数的功能类似于计算方差，可以近似的看做是方差函数：  <script type="math/tex; mode=display">Cost(i)≈(h_\Theta(x^{(i)})-y^{(i)})^2</script>它反应了样本模型输出值和样本值的接近程度。<br>反向传播中每个节点的误差：$δ^{(l)}_j$,表示第l层第j个节点的误差。有：   <script type="math/tex; mode=display">δ^{(l)}_j=\frac{\partial}{∂z_j^{(l)}}Cost(i)</script>$z_j^{(l)}$与$h_\Theta(x^{(i)})$相关。  </li>
 </ul>
-<p>  反向传播的整个过程可以用下图表示：<br>  <img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210204145244.png" srcset="/img/loading.gif" alt=""><br>  例如对$δ^{(2)}_2$，洋红色和红色箭头分别表示两个权重值$Θ_{12}^{(2)}$和$Θ_{22}^{(2)}$，有  </p>
+<p>  反向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212735.png" srcset="/img/loading.gif" alt=""><br>  例如对$δ^{(2)}_2$，洋红色和红色箭头分别表示两个权重值$Θ_{12}^{(2)}$和$Θ_{22}^{(2)}$，有  </p>
 <script type="math/tex; mode=display">δ^{(2)}_2=Θ_{12}^{(2)} ×δ^{(3)}_1 +Θ_{22}^{(2)} ×δ^{(3)}_2</script>
             </div>
             <hr>
