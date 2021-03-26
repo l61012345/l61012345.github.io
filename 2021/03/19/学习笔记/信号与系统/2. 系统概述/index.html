@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.2k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月22日 早上
+                  本文最后更新于：2021年3月26日 中午
                 
               </p>
             
@@ -263,12 +263,18 @@
 <h2 id="线性时不变系统的特性"><a href="#线性时不变系统的特性" class="headerlink" title="线性时不变系统的特性"></a>线性时不变系统的特性</h2><h3 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h3><p>线性包含两个内容： 齐次性和可加性。<br>若系统满足：  </p>
 <script type="math/tex; mode=display">H[af(·)]=aH[f(·)]</script><p>称系统$H(·)$具有齐次性。<br>若系统满足：  </p>
 <script type="math/tex; mode=display">H[f_1(·)+f_2(·)]=H[f_1(·)]+H[f_2(·)]</script><p>称系统$H(·)$具有可加性。<br>若以上两点系统$H(·)$都满足，即：</p>
-<script type="math/tex; mode=display">H[C_1f_1(·)+C_2f_2(·)]=C_1H[f_1(t)]+C_2H[f_2(t)]</script><p>称系统是线性的。  </p>
-<blockquote>
-<p>动态系统的响应$y(·)$与初始状态$x(0)$和系统激励$f(·)$相关，称输入信号为0时，仅有初始状态引起的响应叫零输入响应$y_{zi}$； 初始状态为0时，仅由输入信号引起的响应叫零状态响应$y_{zs}$。线性系统的全响应可以分解为这两种响应，称为线性系统的分解特性。<br>如果系统有多个初始状态或/和多个输入信号，对于每一个输入的零状态响应和对于每一个零输入响应都呈现线性，称为零状态/零输入线性。<br>如果一个系统具有分解特性、零状态/零输入线性特性，则该系统是线性系统。  </p>
-</blockquote>
+<script type="math/tex; mode=display">H[C_1f_1(·)+C_2f_2(·)]=C_1H[f_1(t)]+C_2H[f_2(t)]</script><p>称系统是线性的。<br><strong>动态系统的线性判别</strong><br>动态系统的响应$y(·)$与初始状态$x(0)$和系统激励$f(·)$相关，称<strong>输入信号为0（$f(t)=0$）时，仅有初始状态引起的响应叫零输入响应$y_{zi}$</strong>； <strong>初始状态为0（$x(0)=0$）时，仅由输入信号引起的响应叫零状态响应$y_{zs}$</strong>。线性系统的全响应可以分解为这两种响应，称为线性系统的分解特性。<br>如果系统有多个初始状态或/和多个输入信号，对于每一个输入的零状态响应和对于每一个零输入响应都呈现线性，称为零状态/零输入线性。<br><strong>如果一个系统具有分解特性、零状态/零输入线性特性，则该系统是线性系统。</strong><br>因此求解一个动态系统是否是线性系统的步骤：  </p>
+<ol>
+<li>判断系统的零状态响应和零输入响应，将其相加判断是否满足分解性。  </li>
+<li>令$f_3(t)=f_1(t)+f_2(t)$，带入零状态响应和零输入响应，看两者是否分别满足线性。  </li>
+</ol>
 <h3 id="时不变性"><a href="#时不变性" class="headerlink" title="时不变性"></a>时不变性</h3><p>如果系统的参数都是不随着时间变化的常数，称这样的系统是时不变系统。<br>判断方法：系统的输出与激励时移的时间无关，即：  </p>
-<script type="math/tex; mode=display">y(t-τ)=H[f(t-τ)],y(t)=H[f(t)]</script><h3 id="因果性"><a href="#因果性" class="headerlink" title="因果性"></a>因果性</h3><p>如果视激励为响应产生的原因，零状态响应是激励的结果，那么响应不应该出现于激励之前。 换句话说，系统的响应不应该与未来的激励有关，而只与现在和过去的激励有关。<br>称这样的系统为因果系统，因果系统只在以时间为变量的系统中出现。<br>对于系统输出$y(t_r)$,如果系统输入$x(t_i)$导致$t_i&gt;t_r$，此时系统的因果性被破坏，系统不具有因果性。  </p>
+<script type="math/tex; mode=display">y(t-τ)=H[f(t-τ)],y(t)=H[f(t)]</script><p><strong>动态系统的时不变性判别</strong>  </p>
+<ol>
+<li>找出系统的零状态。  </li>
+<li>带入$f(t-τ)$，看系统结果是否是$y(t-τ)$。  </li>
+</ol>
+<h3 id="因果性"><a href="#因果性" class="headerlink" title="因果性"></a>因果性</h3><p>如果视激励为响应产生的原因，零状态响应是激励的结果，那么响应不应该出现于激励之前。 换句话说，系统的响应不应该与未来的激励有关，而只与现在和过去的激励有关。<br>称这样的系统为因果系统，因果系统只在以时间为变量的系统中出现。<br>对于系统输出$y(t_r)$,如果系统输入$x(t_i)$导致$t_i&gt;t_r$，此时系统的因果性被破坏，系统不具有因果性。  </p>
 <h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>如果系统的激励是有界的，且零状态响应也是有界的，称这样的系统是稳定系统。  </p>
 <h2 id="LTI系统分析方法概述"><a href="#LTI系统分析方法概述" class="headerlink" title="LTI系统分析方法概述"></a>LTI系统分析方法概述</h2><h3 id="描述系统的方法"><a href="#描述系统的方法" class="headerlink" title="描述系统的方法"></a>描述系统的方法</h3><ul>
 <li>输入-输出法<br>只把输入变量和输出变量作为描述的因素，系统内部的结构视作黑箱。  </li>
@@ -309,7 +315,7 @@
                     
                       <a href="/2021/03/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3.%20%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">3. 周期信号的傅里叶变换</span>
+                        <span class="hidden-mobile">3. 信号的傅里叶级数</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
