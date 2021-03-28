@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>8.1 激活函数、代价函数和决策边界</title>
+    <link href="/2021/03/28/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C/"/>
+    <url>/2021/03/28/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C/</url>
+    
+    <content type="html"><![CDATA[<p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}</style></p><h1 id=""><a href="#" class="headerlink" title=" "></a> </h1><h2 id="逻辑回归的代价函数的线性拟合"><a href="#逻辑回归的代价函数的线性拟合" class="headerlink" title="逻辑回归的代价函数的线性拟合"></a>逻辑回归的代价函数的线性拟合</h2><p>逻辑回归的激活函数：$h(x)=\frac{1}{1+e^{-θ^Tx}}$。<br>对于单个样本$(x,y)$，逻辑回归的代价函数是：$-ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))$，将$y=1$与$y=0$时的代价函数作出，并用线性进行拟合得到$Cost_1(z)$与$Cost_0(z)$（$z=θ^Tx$）两个线性的代价函数，两者的函数图像大致如此。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328160423.png" alt=""><br>支持向量机是线性化的逻辑回归。  </p><h2 id="支持向量机的代价函数"><a href="#支持向量机的代价函数" class="headerlink" title="支持向量机的代价函数"></a>支持向量机的代价函数</h2><p>逻辑回归的代价函数：  </p><script type="math/tex; mode=display">J(θ)=min\frac{1}{m}[∑_{i=1}^m y^{(i)} -log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) -log(1−h_θ (x^{(i)}))]+\frac{λ}{2m}∑θ^2</script><p>将$-log$项替换为线性的与$Cost_1(z)$和$Cost_0(z)$，并去除$\frac{1}{m}$项（并不会改变最终结果）<br>得到支持向量机的代价函数：  </p><script type="math/tex; mode=display">J(θ)=min[∑_{i=1}^m y^{(i)} Cost_1(z))+(1−y^{(i)})Cost_0(z))]</script><p>在支持向量机中，通常通过给前项附加权重$C$而非给正则化项附加权重$λ$的方法来防止过拟合，得到正则化的支持向量机的代价函数：  </p><script type="math/tex; mode=display">J(θ)=minC[∑_{i=1}^m y^{(i)} Cost_1(z))+(1−y^{(i)})Cost_0(z))]+\frac{1}{2}∑θ^2</script><h2 id="支持向量机的激活函数"><a href="#支持向量机的激活函数" class="headerlink" title="支持向量机的激活函数"></a>支持向量机的激活函数</h2><p>与逻辑回归不同的是，逻辑回归的$h(x)$输出的是概率，而支持向量机的激活函数直接给出了预测的结果：  </p><script type="math/tex; mode=display">h_θ(x)=\begin{cases}    1, z>=0 \\      0, otherwise\end{cases}</script><h2 id="支持向量机的决策边界"><a href="#支持向量机的决策边界" class="headerlink" title="支持向量机的决策边界"></a>支持向量机的决策边界</h2><p><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328162717.png" alt="">  </p><blockquote><p>原本只需要0作为阈值，但是为了保证SVM的精确度，因此将阈值选定为-1和1，这两个阈值间的距离称为安全间距。  </p></blockquote><p>如上图所示，如果$y=1$，需要$z&gt;=1$,反之如果$y=1$，需要$z≦-1$。<br>当SVM的代价函数前的权重值$C$非常大时：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328163459.png" alt=""><br>这为SVM创造了一个相当特殊的决策边界：<br>即在样本线性可分的条件下，SVM的决策边界是一条拥有与训练样本的最小距离的直线（图中黑线）。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164253.png" alt=""><br>图中的蓝线表示了SVM决策边界与训练样本的间距。<br>因此支持向量机又被称为大间距分类器。<br>但是当正则化系数$C$被设置的非常大时，支持向量机的决策边界对异常数据非常的敏感，如下图的例子中所示。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164523.png" alt="">   </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>8. 支持向量机</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>4. 连续非周期信号的傅里叶变换</title>
     <link href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/"/>
     <url>/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/</url>
@@ -874,9 +895,9 @@
   
   
   <entry>
-    <title>3.1. 激活函数</title>
-    <link href="/2021/02/14/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/"/>
-    <url>/2021/02/14/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0/</url>
+    <title>3.1. 激活函数和代价函数</title>
+    <link href="/2021/02/14/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/"/>
+    <url>/2021/02/14/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92%E4%B8%8E%E6%AD%A3%E5%88%99%E5%8C%96/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
     
     <content type="html"><![CDATA[<p><style><br>img{<br>    width: 60%;<br>    padding-left: 20%;<br>}</style></p><h1 id="逻辑回归、激活函数及其代价函数"><a href="#逻辑回归、激活函数及其代价函数" class="headerlink" title="逻辑回归、激活函数及其代价函数"></a>逻辑回归、激活函数及其代价函数</h1><h2 id="线性回归的可行性"><a href="#线性回归的可行性" class="headerlink" title="线性回归的可行性"></a>线性回归的可行性</h2><p>对分类算法，其输出结果y只有两种结果{0，1}，分别表示负类和正类，代表没有目标和有目标。<br>在这种情况下，如果用传统的方法以线性拟合${h_θ (x)=θ^T X}$，对于得到的函数应当对y设置阈值a，高于a为一类，低于a为一类。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224223513.png" alt=""><br>对于分类方法，这种拟合的方式极易受到分散的数据集的影响而导致损失函数的变化，以至于对于特定的损失函数，其阈值的设定十分困难。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224223523.png" alt=""><br>除此之外，${h_θ(x)}$（在分类算法中称为分类器）的输出值很可能非常大或者非常小，并不与{0，1}完全相符</p><h2 id="假设表示"><a href="#假设表示" class="headerlink" title="假设表示"></a>假设表示</h2><p>基于上述情况，要使分类器的输出在[0,1]之间，可以采用假设表示的方法。<br>设$h_θ (x)=g(θ^T x)$，其中$g(z)=\frac{1}{(1+e^{−z} )}$, 称为<strong>逻辑斯蒂函数</strong>（Sigmoid function，又称为<strong>激活函数</strong>，生物学上的S型曲线），有：</p><script type="math/tex; mode=display">h_θ (x)=\frac{1}{(1+e^{−θ^T X} )}</script><p>其两条渐近线分别为h(x)=0和h(x)=1</p><p>在分类条件下，最终的输出结果是：</p><script type="math/tex; mode=display">h_θ (x)=P(y=1│x,θ)</script><p>其代表在给定x的条件下 其y=1的概率<br>有:  </p><script type="math/tex; mode=display">P(y=1│x,θ)+P(y=0│x,θ)=1</script><h2 id="决策边界-Decision-boundary"><a href="#决策边界-Decision-boundary" class="headerlink" title="决策边界(Decision boundary)"></a>决策边界(Decision boundary)</h2><p>对假设函数设定阈值$h(x)=0.5$，<br>当$h(x)≥0.5$ 时，输出结果y=1.<br>根据假设函数的性质，当 $x≥$0时，$h(x)≥0.5$<br>由于之前用$θ^T x$替换x，则当$θ^T x≥0$时，$h(x)≥0.5，y=1$<br>解出 $θ^T x≥0$，其答案将会是一个在每一个$x_i$轴上都有的不等式函数。<br>这个不等式函数将整个空间分成了y=1 和 y=0的两个部分，称之为决策边界。  </p><h2 id="激活函数的代价函数"><a href="#激活函数的代价函数" class="headerlink" title="激活函数的代价函数"></a>激活函数的代价函数</h2><p>在线性回归中的代价函数：</p><script type="math/tex; mode=display">J(θ)=\frac{1}{m}∑_{i=1}^m \frac{1}{2} (h_θ (x^{(i)} )−y^{(i)} )^2</script><p>令$Cost（hθ (x)，y）=\frac{1}{2}(h_θ (x^{(i)} )−y^{(i)} )^2$， Cost是一个非凹函数，有许多的局部最小值，不利于使用梯度下降法。对于分类算法，设置其代价函数为：</p><p>对其化简：</p><script type="math/tex; mode=display">Cost（h_θ (x),y）=−ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))</script><p>检验：<br>当 $y=1$时，$−log⁡(h_θ (x))$<br>当 $y=0$时，$−log⁡(1−h_θ (x))$  </p><p>那么代价函数可以写成：  </p><script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))]</script><p>对于代价函数，采用梯度下降算法求θ的最小值：</p><script type="math/tex; mode=display">{θ_j≔θ_j−α\frac{∂J(θ)}{∂θ_j}}</script><p>代入梯度：    </p><script type="math/tex; mode=display">θ_j≔θ_j−α∑_{i=1}^m(h_θ (x^{(i)} )−y^{(i)} ) x_j^i</script>]]></content>
     

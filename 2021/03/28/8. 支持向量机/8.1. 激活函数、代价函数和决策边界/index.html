@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>6.2 方差与偏差 - Mirror</title>
+  <title>8.1 激活函数、代价函数和决策边界 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -168,7 +168,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="6.2 方差与偏差">
+            <span class="h2" id="subtitle" title="8.1 激活函数、代价函数和决策边界">
               
             </span>
 
@@ -183,8 +183,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-07 07:17" pubdate>
-        2021年3月7日 早上
+      <time datetime="2021-03-28 07:54" pubdate>
+        2021年3月28日 早上
       </time>
     </span>
   
@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      527 字
+      616 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      7
        分钟
     </span>
   
@@ -243,20 +243,30 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">6.2 方差与偏差</h1>
+            <h1 style="display: none">8.1 激活函数、代价函数和决策边界</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月19日 下午
+                  本文最后更新于：2021年3月28日 早上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="方差和偏差"><a href="#方差和偏差" class="headerlink" title="方差和偏差"></a>方差和偏差</h1><h2 id="判断方法"><a href="#判断方法" class="headerlink" title="判断方法"></a>判断方法</h2><p>运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（<strong>高偏差（Bias）</strong>）或者过拟合（<strong>高方差（Variance）</strong>）问题。 那么如何判断算法究竟出现了哪一种问题？<br>上一讲中已经定义过训练，测试和验证误差。 通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212237.png" srcset="/img/loading.gif" alt=""><br>通过上图能够判断模型到底出现了欠拟合还是过拟合：<br><strong>如果训练和测试误差都很高，那么有高概率是发生了欠拟合问题。</strong> <strong>如果训练误差低，测试误差高（远大于训练误差），那么有高概率发生了过拟合问题。</strong>    </p>
-<h2 id="偏差和方差与正则化算法"><a href="#偏差和方差与正则化算法" class="headerlink" title="偏差和方差与正则化算法"></a>偏差和方差与正则化算法</h2><p>假设已经得到了一个$d=4$的多项式模型：</p>
-<script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x+θ_2x^2+θ_3x^3+θ_4x^4</script><p>对其代价函数增加一个正则化项使得参数尽量缩小:   </p>
-<script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>下图表示了正则化系数$λ$的大小与拟合情况的关系：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212259.png" srcset="/img/loading.gif" alt=""><br><strong>过大的$λ$容易发生欠拟合问题，而过小的$λ$（近似于$λ=0$）则无法起到规避过拟合的作用。</strong><br>如何设置合适的$λ$呢？<br>通过正则化的代价函数$J(θ)$求出最合适的一组$θ$，此时模型的<strong>训练误差$J_{train}(θ)$应当不包含正则化项</strong>，也就是：</p>
-<script type="math/tex; mode=display">J_{train}(\theta)=\frac{1}{2m}\sum_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2</script><p>在加入正则化算法后，测试一系列的$λ$的值，并得到一系列最优化的代价函数，并求到一系列的$Θ$,再用验证集计算验证集误差$J_{cv}(θ)$,最终选择验证集误差最小的那一组$θ$,使用测试集计算出测试误差$J_{test}$。<br>下图表示了$λ$的大小与训练误差和验证误差的关系：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212322.png" srcset="/img/loading.gif" alt="">   </p>
+              <p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}
+</style></p>
+<h1 id=""><a href="#" class="headerlink" title=" "></a> </h1><h2 id="逻辑回归的代价函数的线性拟合"><a href="#逻辑回归的代价函数的线性拟合" class="headerlink" title="逻辑回归的代价函数的线性拟合"></a>逻辑回归的代价函数的线性拟合</h2><p>逻辑回归的激活函数：$h(x)=\frac{1}{1+e^{-θ^Tx}}$。<br>对于单个样本$(x,y)$，逻辑回归的代价函数是：$-ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))$，将$y=1$与$y=0$时的代价函数作出，并用线性进行拟合得到$Cost_1(z)$与$Cost_0(z)$（$z=θ^Tx$）两个线性的代价函数，两者的函数图像大致如此。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328160423.png" srcset="/img/loading.gif" alt=""><br>支持向量机是线性化的逻辑回归。  </p>
+<h2 id="支持向量机的代价函数"><a href="#支持向量机的代价函数" class="headerlink" title="支持向量机的代价函数"></a>支持向量机的代价函数</h2><p>逻辑回归的代价函数：  </p>
+<script type="math/tex; mode=display">J(θ)=min\frac{1}{m}[∑_{i=1}^m y^{(i)} -log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) -log(1−h_θ (x^{(i)}))]+\frac{λ}{2m}∑θ^2</script><p>将$-log$项替换为线性的与$Cost_1(z)$和$Cost_0(z)$，并去除$\frac{1}{m}$项（并不会改变最终结果）<br>得到支持向量机的代价函数：  </p>
+<script type="math/tex; mode=display">J(θ)=min[∑_{i=1}^m y^{(i)} Cost_1(z))+(1−y^{(i)})Cost_0(z))]</script><p>在支持向量机中，通常通过给前项附加权重$C$而非给正则化项附加权重$λ$的方法来防止过拟合，得到正则化的支持向量机的代价函数：  </p>
+<script type="math/tex; mode=display">J(θ)=minC[∑_{i=1}^m y^{(i)} Cost_1(z))+(1−y^{(i)})Cost_0(z))]+\frac{1}{2}∑θ^2</script><h2 id="支持向量机的激活函数"><a href="#支持向量机的激活函数" class="headerlink" title="支持向量机的激活函数"></a>支持向量机的激活函数</h2><p>与逻辑回归不同的是，逻辑回归的$h(x)$输出的是概率，而支持向量机的激活函数直接给出了预测的结果：  </p>
+<script type="math/tex; mode=display">h_θ(x)=\begin{cases}
+    1, z>=0 \\  
+    0, otherwise
+\end{cases}</script><h2 id="支持向量机的决策边界"><a href="#支持向量机的决策边界" class="headerlink" title="支持向量机的决策边界"></a>支持向量机的决策边界</h2><p><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328162717.png" srcset="/img/loading.gif" alt="">  </p>
+<blockquote>
+<p>原本只需要0作为阈值，但是为了保证SVM的精确度，因此将阈值选定为-1和1，这两个阈值间的距离称为安全间距。  </p>
+</blockquote>
+<p>如上图所示，如果$y=1$，需要$z&gt;=1$,反之如果$y=1$，需要$z≦-1$。<br>当SVM的代价函数前的权重值$C$非常大时：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328163459.png" srcset="/img/loading.gif" alt=""><br>这为SVM创造了一个相当特殊的决策边界：<br>即在样本线性可分的条件下，SVM的决策边界是一条拥有与训练样本的最小距离的直线（图中黑线）。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164253.png" srcset="/img/loading.gif" alt=""><br>图中的蓝线表示了SVM决策边界与训练样本的间距。<br>因此支持向量机又被称为大间距分类器。<br>但是当正则化系数$C$被设置的非常大时，支持向量机的决策边界对异常数据非常的敏感，如下图的例子中所示。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164523.png" srcset="/img/loading.gif" alt="">   </p>
 
             </div>
             <hr>
@@ -268,7 +278,7 @@
                     
                       <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/">机器学习基础课程——吴恩达</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6-%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/">6. 诊断与调试</a>
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/">8. 支持向量机</a>
                     
                   </div>
                 
@@ -282,18 +292,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/12/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.3.%20%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">6.3 学习曲线</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/">
-                        <span class="hidden-mobile">计算机结构基础-课堂笔记</span>
+                      <a href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/">
+                        <span class="hidden-mobile">4. 连续非周期信号的傅里叶变换</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
