@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="keywords" content=""> 
+  <meta name="author" content="Oreki Kigiha">
+  <!-- searchengine verifications -->
+  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
+  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
+  <!-- Bing verification -->
+  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  
+  <title>1. 机器学习简介和Python的基本操作 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/homepage.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="1. 机器学习简介和Python的基本操作">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Oreki Kigiha
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-23 00:00" pubdate>
+        2021年1月23日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">1. 机器学习简介和Python的基本操作</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月20日 凌晨
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="机器学习简介和Python的基本操作"><a href="#机器学习简介和Python的基本操作" class="headerlink" title="机器学习简介和Python的基本操作"></a>机器学习简介和Python的基本操作</h1><blockquote>
+<p>新加坡国立大学(NAU)/OTH927/2021/1/23<br>Terence Sim (tsim@comp.nus.edu.sg) /Karen Boh/ Sanka Rasnayaka(Assistant)</p>
+<h2 id="Before-the-course…"><a href="#Before-the-course…" class="headerlink" title="Before the course…"></a>Before the course…</h2><ul>
+<li>Software and environment: Anaconda and Opencv  </li>
+<li>Ultimate Project: Traffic Sign Recognition   </li>
+<li>There’s a individual Quiz on lecture 5  </li>
+</ul>
+</blockquote>
+<h2 id="人工智能的产生"><a href="#人工智能的产生" class="headerlink" title="人工智能的产生"></a>人工智能的产生</h2><p>lines of codes programming forces people to find a way to teach the program to do things.<br>example: makeup transfer<br>example: auto ping-pong machine</p>
+<h2 id="计算机视觉简介"><a href="#计算机视觉简介" class="headerlink" title="计算机视觉简介"></a>计算机视觉简介</h2><p>计算机视觉可以大致的被分为三个大类：  </p>
+<ul>
+<li>3D建模(3D Construction)<br>例子：敦煌莫高窟的3D建模（来自武汉大学）  </li>
+<li>图像渲染(Image Rendering)<br>例子：Google Pixel<br>其搭载的增强现实算法能够对周围的图像进行实时渲染  </li>
+<li>图像检测(Pattern Recongnition)<br> 例子：都灵的图像识别装置<br> 人们穿戴对应的设备行走，设备能够识别他周围的物品   </li>
+</ul>
+<p>计算机视觉可以在各个领域帮助到人们，在医学领域帮助医生识别X光片，在自动驾驶领域，自动驾驶汽车依靠车身上的传感器和相机识别道路上的物体，在体育竞技领域，计算机视觉能够帮助人们更好的训练运动员的运动姿势。世界上第一张人脸检测的图片由Dr.Sung Kah Kay在1996年完成。    </p>
+<p>计算机科学的知识架构：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210123230629.png" srcset="/img/loading.gif" alt="">  </p>
+<h2 id="Python-的基本操作"><a href="#Python-的基本操作" class="headerlink" title="Python 的基本操作"></a>Python 的基本操作</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>  Python 不需要编译，是机器学习的首选语言之一，有非常多的库能够被调用。<br>  Python支持超大的数字运算<br>  编译环境（IDE）：Anaconda， 适用于大数据环境    </p>
+<blockquote>
+<p>不要使用 Python 2.x   </p>
+<ul>
+<li>Python的IDE思路：REPL<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210123231447.png" srcset="/img/loading.gif" alt=""><br>Reading： 读取来自键盘等的输入<br>Evalueate： 将输入进行Evaluate，其结果通常是一个数值，这个数值最终会被编译器输出（Print）<br>在输出后，这个程序将等待下一次的输入，形成一个循环  <h3 id="赋值和函数定义"><a href="#赋值和函数定义" class="headerlink" title="赋值和函数定义"></a>赋值和函数定义</h3>Python可以不用声明变量的类型，直接对其进行赋值，其变量的赋值类型取决于赋值<br>Python支持同时对多个变量进行赋值：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python">a,b=c,d <br>```  <br><br>定义函数的结构：  <br>``` Python<br>   <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">functionname</span>(<span class="hljs-params">variable</span>):</span>  <br>      <span class="hljs-keyword">return</span> value<br>    <span class="hljs-comment"># 也可以不需要返回值</span><br></code></pre></div></td></tr></table></figure>
+ 另一种定义方式：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python">    function= <span class="hljs-keyword">lambda</span> return_variable: options  <br>```  <br>例如：  <br>  ``` Python<br>   S= <span class="hljs-keyword">lambda</span> x: x*x  <br></code></pre></div></td></tr></table></figure>
+在Python中，函数的定义和调用有如下特点：</li>
+</ul>
+<ol>
+<li>嵌套调用：<br><code>funcationname(funcationname(variable))</code>  </li>
+<li>在Python中，变量可以传递给函数，<strong>函数也可以传递给变量</strong>。<br>例如：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">function</span> (<span class="hljs-params">n</span>):</span><br>    n*n<br>    <span class="hljs-keyword">return</span> n<br>foo=function(<span class="hljs-number">5</span>)<br><span class="hljs-comment"># 此时foo的类型是一个函数</span><br>foo(<span class="hljs-number">10</span>)<br><span class="hljs-comment"># &gt;&gt; 100</span><br></code></pre></div></td></tr></table></figure></li>
+<li>可以在定义函数的部分嵌套定义其他函数：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">function</span>(<span class="hljs-params">variable1</span>):</span><br>  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">subfuntion</span>(<span class="hljs-params">variable2</span>):</span><br>     <span class="hljs-keyword">return</span> variable2<br> <span class="hljs-keyword">return</span> variable1<br></code></pre></div></td></tr></table></figure>
+<h3 id="条件结构-if-else"><a href="#条件结构-if-else" class="headerlink" title="条件结构(if-else)"></a>条件结构(if-else)</h3>条件语句的基本结构： <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">if</span> conditon:<br>  options<br></code></pre></div></td></tr></table></figure>
+例如：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compare</span>(<span class="hljs-params">a,b</span>):</span><br>  <span class="hljs-keyword">if</span> a&gt;b:<br>    <span class="hljs-keyword">return</span> a<br>  <span class="hljs-keyword">return</span> b<br>compare(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>)<br><span class="hljs-comment">#&gt;&gt; 4</span><br></code></pre></div></td></tr></table></figure>
+在条件语句中可以同时并存多个条件：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">if</span> condition1:<br>  options<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> condition2:<br>  options<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>  condtion3:<br>  options<br><span class="hljs-keyword">else</span>:<br>  options<br></code></pre></div></td></tr></table></figure>
+<h3 id="循环结构"><a href="#循环结构" class="headerlink" title="循环结构"></a>循环结构</h3></li>
+<li>通过函数定义的返回值来进行循环 (recursion)<br>例如：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">factorial</span>(<span class="hljs-params">n</span>):</span><br>  <span class="hljs-keyword">if</span> n==<span class="hljs-number">1</span>:<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>  <span class="hljs-keyword">return</span> n*factorial(n-<span class="hljs-number">1</span>)<br>factorial(<span class="hljs-number">5</span>)<br><span class="hljs-comment">#&gt;&gt; 120</span><br><span class="hljs-comment">#5*4*3*2*1</span><br></code></pre></div></td></tr></table></figure></li>
+<li>通过for循环语句来进行循环(for-range) <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-keyword">for</span> innnervariable <span class="hljs-keyword">in</span> <span class="hljs-built_in">list</span> <span class="hljs-comment">#usually is range(a,b) a to b do n++</span><br>options<br></code></pre></div></td></tr></table></figure>
+例如：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">factorial</span>(<span class="hljs-params">n</span>):</span><br> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,n+<span class="hljs-number">1</span>)<br>   result=result*n<br> <span class="hljs-keyword">return</span> result<br> factorial(<span class="hljs-number">5</span>) <br> <span class="hljs-comment">#&gt;&gt; 120  </span><br></code></pre></div></td></tr></table></figure>
+要注意 <code>range(a,b)</code> 是不包括b的：  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span> (<span class="hljs-number">0</span>,<span class="hljs-number">4</span>)<br>   print(a) <br><span class="hljs-comment">#&gt;&gt; 3  </span><br></code></pre></div></td></tr></table></figure>
+这样的循环结构没有自增加（<code>x++</code>）的存在</li>
+</ol>
+</blockquote>
+<ol>
+<li>通过while语句进行循环<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-keyword">while</span> (condition):<br>  options<br></code></pre></div></td></tr></table></figure>
+例如：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gcd</span>(<span class="hljs-params">a,b</span>):</span> <span class="hljs-comment">#最大公约数</span><br>  <span class="hljs-keyword">while</span> (b&gt;<span class="hljs-number">0</span>):<br>    r=a&amp;b<br>    a,b=b,r<br> <span class="hljs-keyword">return</span> a<br></code></pre></div></td></tr></table></figure>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3>在Pyhton中，字符串由双引号””或者单引号’’定义。<br>字符串支持加减法：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-string">&#x27;hello&#x27;</span>+<span class="hljs-string">&#x27;world&#x27;</span><br><span class="hljs-comment">#&gt;&gt; &#x27;helloworld&#x27;</span><br></code></pre></div></td></tr></table></figure>
+也支持乘法（重复多次）：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-string">&#x27;hello&#x27;</span>*<span class="hljs-number">3</span><br><span class="hljs-comment">#&gt;&gt; &#x27;hellohellohello&#x27; </span><br></code></pre></div></td></tr></table></figure>
+<ul>
+<li>字符串的传递<br>字符串可以传值给变量（类型是字符串），可以通过[起点：终点：步长]访问字符串中的特定位置的字符。<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python">a=<span class="hljs-string">&#x27;helloworld&#x27;</span><br>print(a[<span class="hljs-number">2</span>])<br><span class="hljs-comment">#&gt;&gt;&#x27;l&#x27;</span><br>print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>])<br><span class="hljs-comment">#&gt;&gt;&#x27;hello&#x27;</span><br>&gt; Python 中的序号是从<span class="hljs-number">0</span>开始的<br>print(a[::-<span class="hljs-number">1</span>] )<br><span class="hljs-comment">#&gt;&gt;&#x27;dlrowolleh&#x27;</span><br>b=<span class="hljs-string">&#x27;abcdefghijklmnopqrstuvwxyz&#x27;</span><br>print(a[<span class="hljs-number">1</span>:<span class="hljs-number">15</span>:<span class="hljs-number">2</span>])<br><span class="hljs-comment">#&gt;&gt;&#x27;bdfhjln&#x27;</span><br></code></pre></div></td></tr></table></figure>
+<code>len()</code>函数将返回字符串的长度<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-built_in">len</span>(hello)<br><span class="hljs-comment">#&gt;&gt; 5</span><br></code></pre></div></td></tr></table></figure>
+[]默认的访问顺序是从左到右，负号（-）表示从右到左的访问顺序。   <h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3>列表（list）是一种参数类型，例如：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python">x=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]<br><span class="hljs-built_in">type</span>(x)<br><span class="hljs-comment">#&gt;&gt; list</span><br></code></pre></div></td></tr></table></figure>
+列表用[]来表示，列表也可以嵌套。<br>列表中的元素可以是任何类型。<br>和字符串一样，可以用[]来访问列表中特定的某一个或者多个元素。    </li>
+<li>列表的操作  </li>
+</ul>
+<ol>
+<li>append()<br><code>append()</code>函数将在列表最后一位加上()内的字符串后，输出整个字符串<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python">x=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]<br>x.append(<span class="hljs-number">2</span>)<br>print(x)<br><span class="hljs-comment">#&gt;&gt;[1,2,3,4,2]</span><br></code></pre></div></td></tr></table></figure></li>
+<li>列表理解（list comprehension）<br>在列表的[]中填入生成列表的方法：<br>例如：<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python">x=[a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">8</span>)]<br><span class="hljs-built_in">print</span> x<br><span class="hljs-comment">#&gt;&gt; [1,2,3,4,5,6,7]</span><br>y=[square(a) <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> x]<br><span class="hljs-built_in">print</span> y<br><span class="hljs-comment">#&gt;&gt;[1,4,9,16,25,36,49]</span><br></code></pre></div></td></tr></table></figure>
+可以利用列表理解来过滤某些元素:<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs Python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">iseven</span>(<span class="hljs-params">n</span>):</span><br>    <span class="hljs-keyword">return</span> n%<span class="hljs-number">2</span>==<span class="hljs-number">0</span><br>x=[a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">8</span>)]<br>y=[square(a) <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> x <span class="hljs-keyword">if</span> iseven(a)]<br><span class="hljs-built_in">print</span> y<br><span class="hljs-comment">#&gt;&gt;[4,16,36]  </span><br></code></pre></div></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/">Machine Learning-NUS 2021</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/%E8%AE%B2%E4%B9%89/">讲义</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/23/Machine%20Learning-NAU/1.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">1. 课后练习-机器学习简介和Python的基本操作</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <!-- start webpushr code --> 
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
+  <div class="footer-content">
+     本网站基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
+</html>
