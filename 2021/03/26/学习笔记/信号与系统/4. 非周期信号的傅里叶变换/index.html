@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      898 字
+      901 字
     </span>
   
 
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月22日 中午
+                  本文最后更新于：2021年4月24日 凌晨
                 
               </p>
             
@@ -304,11 +304,17 @@ f(t)& =∑F(nω_1)e^{jnω_1t}\\
 </li>
 </ol>
 <p>总结：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210326215249.png" srcset="/img/loading.gif" alt="">   </p>
-<h2 id="常见函数的傅里叶变换"><a href="#常见函数的傅里叶变换" class="headerlink" title="常见函数的傅里叶变换"></a>常见函数的傅里叶变换</h2><h3 id="方波"><a href="#方波" class="headerlink" title="方波"></a>方波</h3><script type="math/tex; mode=display">f(t)=E, -\frac{τ}{2}<t<\frac{τ}{2}</script><p>由于$f(t)$只在振幅处有值，因此：  </p>
+<h2 id="常见非周期信号的傅里叶变换"><a href="#常见非周期信号的傅里叶变换" class="headerlink" title="常见非周期信号的傅里叶变换"></a>常见非周期信号的傅里叶变换</h2><h3 id="方波"><a href="#方波" class="headerlink" title="方波"></a>方波</h3><script type="math/tex; mode=display">f(t)=E, -\frac{τ}{2}<t<\frac{τ}{2}</script><p>由于$f(t)$只在振幅处有值，因此：  </p>
 <script type="math/tex; mode=display">\begin{aligned}
    F(ω)=& ∫_{-\frac{τ}{2}}^{\frac{τ}{2}}Ee^{-jωt}dt \\
    & =EτSan(\frac{ωτ}{2})
-\end{aligned}</script><h3 id="单侧指数函数"><a href="#单侧指数函数" class="headerlink" title="单侧指数函数"></a>单侧指数函数</h3><script type="math/tex; mode=display">f(t)=Ee^{-αt}u(t)</script><script type="math/tex; mode=display">\begin{aligned}
+\end{aligned}</script><h3 id="直流信号"><a href="#直流信号" class="headerlink" title="直流信号"></a>直流信号</h3><script type="math/tex; mode=display">f(t)=E</script><p>由于直流信号不满足狄利克雷条件中的绝对可积，因此需要考虑其他方法对其做变换。<br>当门函数的$τ→∞$时，可以将门函数视作一个直流信号函数。  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+  F(ω) &=lim_{τ→∞}∫^τ_{-τ}Ee^{-jωt}dt \\  
+  &= Elim_{τ→∞}\frac{2sin(ωτ)}{ω} \\
+  &=2πEδ(ω)
+\end{aligned}</script><p>当$E=1$时，可以推导出</p>
+<script type="math/tex; mode=display">F(ω)=2πδ(ω)</script><h3 id="单位冲激函数"><a href="#单位冲激函数" class="headerlink" title="单位冲激函数"></a>单位冲激函数</h3><script type="math/tex; mode=display">F(ω)=∫δ(t)e^{-jωt}dt=1</script><h3 id="单位冲击偶函数"><a href="#单位冲击偶函数" class="headerlink" title="单位冲击偶函数"></a>单位冲击偶函数</h3><script type="math/tex; mode=display">F(ω)=∫δ'(t)e^{-jωt}dt=jω</script><h3 id="单侧指数函数"><a href="#单侧指数函数" class="headerlink" title="单侧指数函数"></a>单侧指数函数</h3><script type="math/tex; mode=display">f(t)=Ee^{-αt}u(t)</script><script type="math/tex; mode=display">\begin{aligned}
    F(ω)=& ∫Ee^{-αt}u(t)dt \\
    & =∫_0^∞Ee^{-αt}dt \\
    & =\frac{E}{α+jω}
@@ -316,11 +322,6 @@ f(t)& =∑F(nω_1)e^{jnω_1t}\\
 <script type="math/tex; mode=display">\begin{aligned}
 F(ω) &=\frac{E(α-jω)}{α^2+ω^2}\\   
 &= \frac{E}{√(a^2+ω^2)}e^{-jarctan\frac{ω}{α}}
-\end{aligned}</script><h3 id="直流信号"><a href="#直流信号" class="headerlink" title="直流信号"></a>直流信号</h3><script type="math/tex; mode=display">f(t)=E</script><p>由于直流信号不满足狄利克雷条件中的绝对可积，因此需要考虑其他方法对其做变换。<br>当门函数的$τ→∞$时，可以将门函数视作一个直流信号函数。  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-  F(ω) &=lim_{τ→∞}∫^τ_{-τ}Ee^{-jωt}dt \\  
-  &= Elim_{τ→∞}\frac{2sin(ωτ)}{ω} \\
-  &=2πEδ(ω)
 \end{aligned}</script><h3 id="符号函数"><a href="#符号函数" class="headerlink" title="符号函数"></a>符号函数</h3><script type="math/tex; mode=display">sgn(t)=\begin{cases}
    1,t>0\\  
    -1,t<0
@@ -336,7 +337,7 @@ F(ω) &=\frac{E(α-jω)}{α^2+ω^2}\\
    &=\frac{1}{2}[∫e^{-jωt}dt+∫sgn(t)e^{-jωt}dt\\  
    &=πδ(ω)+\frac{1}{jω}
 
-\end{aligned}</script><h3 id="单位冲激函数"><a href="#单位冲激函数" class="headerlink" title="单位冲激函数"></a>单位冲激函数</h3><script type="math/tex; mode=display">F(ω)=∫δ(t)e^{-jωt}dt=1</script><h3 id="单位冲击偶函数"><a href="#单位冲击偶函数" class="headerlink" title="单位冲击偶函数"></a>单位冲击偶函数</h3><script type="math/tex; mode=display">F(ω)=∫δ'(t)e^{-jωt}dt=jω</script>
+\end{aligned}</script>
             </div>
             <hr>
             <div>
