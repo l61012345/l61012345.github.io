@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月22日 中午
+                  本文最后更新于：2021年4月27日 凌晨
                 
               </p>
             
@@ -276,12 +276,30 @@
 <li>乘法<br>类似于十进制乘法：第一行的所有位与第二行的每一个比特位分别相乘并作移位，最后相加。 单个比特位的乘法遵循：“除了$1×1=1$外，其余结果都为0。（与0相乘都为0。）”     </li>
 </ul>
 <h3 id="二进制浮点数的表达"><a href="#二进制浮点数的表达" class="headerlink" title="二进制浮点数的表达"></a>二进制浮点数的表达</h3><h4 id="IEEE-754"><a href="#IEEE-754" class="headerlink" title="IEEE 754"></a><strong>IEEE 754</strong></h4><p>IEEE 754是用来表示二进制浮点数的标准，<strong>基于二进制</strong>。其中有32位，64位，128位表示方法，以32位为例：32位浮点数的表示方法为：</p>
-<script type="math/tex; mode=display">
-\begin{array}{c}
-\text{Width of Bits} & 1 & 8 & 23 \\
-\text{Content}& Sign &Exponent &Fraction
-\end{array}
-bias: +127</script><ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Width of Bits</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">23</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Content</td>
+<td style="text-align:center">Sign</td>
+<td style="text-align:center">Exponent</td>
+<td style="text-align:center">Fraction</td>
+</tr>
+<tr>
+<td style="text-align:center">bias: +127</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
 <li>Bias<br>为了让Signed更方便的进行比较，将Signed转换成二进制后的指数部分人为地加一个Bias使得指数部分转变到Unsigned的范围内（0和255特殊处理）便于比较。<br>Bias的值规定是exp位十进制数的中位数或中间两个数的平均数。<br>IEEE 754 能够表示0， 正规数（Exp部分不为0），非正规数（Exp部分为0，如果Exp小于0则把Exp划到0后，剩下的部分进入小数部分），无穷和其他未规定的计算结果（NaN）。   </li>
 <li>十进制转IEEE754<ol>
 <li>确定正负</li>
