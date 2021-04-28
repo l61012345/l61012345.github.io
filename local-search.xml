@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>8.3. 核函数</title>
+    <link href="/2021/04/27/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.3.%20%E6%A0%B8%E5%87%BD%E6%95%B0/"/>
+    <url>/2021/04/27/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.3.%20%E6%A0%B8%E5%87%BD%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><h2 id="非线性分类的SVM"><a href="#非线性分类的SVM" class="headerlink" title="非线性分类的SVM"></a>非线性分类的SVM</h2><p>本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png" alt=""><br>比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。<br>比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y=1$。<br>就能够得到一个假设函数：  </p><script type="math/tex; mode=display">h_θ(x)=\begin{cases} 1  \text{if} θ_0+θ_1x_1+..≥0 \\0  \text{otherwise} \\\end{cases}</script><p>这种方法的问题是假设中的某些高阶项可能是冗余的，并且对于计算机视觉而言，用高阶多项式处理矩阵的计算量非常的大。<br>改进方法是用一些新的特征$F=\{f_i\}$来替换原特征$X=\{x_i\}$。<br>具体而言，比如现在只选取三个特征$x_0$（截距项，如下推导中将被忽略）,$x_1$,$x_2$,在这三个维度上手动选取三个点（称为标记（Landmarks））：$l^{(1)}$,$l^{(2)}$,$l^{(3)}$。<br>将新特征i $f_i$表示为训练样本$x$与$l^{(i)}$的相似度，相似度度量可以用如下公式表示：  </p><script type="math/tex; mode=display">Similarity(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}</script><blockquote><p>欧氏距离：空间中两点的连线距离，表示为$d=√{∑x_i^2}$。<br>$||x-l^{(i)}||$表示空间中$x$与$l^{(i)}$的（欧式）距离。  </p></blockquote><p>这个相似度函数称为<strong>高斯核函数</strong>（Gaussian Kernel Function）。  </p><script type="math/tex; mode=display">k(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}</script><p>此外还有其他用于度量相似度的函数，这些函数统称为<strong>核函数</strong>（Kernel Function）。  </p><h2 id="核函数的意义"><a href="#核函数的意义" class="headerlink" title="核函数的意义"></a>核函数的意义</h2><p>将高斯核函数利用欧氏距离公式展开：  </p><script type="math/tex; mode=display">\begin{aligned}    k(x,l^{(i)})&=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}\\      &=e^{-\frac{∑_{j=1}^n(x_j-l^{(i)}_j)^2}{2σ^2}}\end{aligned}</script><p>对于某个特定的$i$:<br>如果$x≈l^{(i)}$（两者的欧氏距离非常近）,$f_i≈e^{-\frac{0}{2σ}}≈1$。<br>如果$x$和$l^{(i)}$的欧氏距离非常远,$f_i≈e^{-\frac{∞}{2σ}}≈0$。<br>对于任何一个样本$x$,都可以计算$f_1$,$f_2$,$f_3$三个特征。<br>在图像上反映相似度与两者距离之间的关系即为高维空间中的高斯分布，且σ越大，图像梯度越小。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png" alt=""><br>△当$l^{(1)}=[3,5]^T$时x的坐标$[x_1,x_2]^T$与相似度的关系。  </p><h2 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h2><p>再回到之前样本在特征上的分布：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png" alt=""><br>如果样本距离某个$l^{(i)}$非常近（洋红色），那么边界函数输出的结果大于0，预测$y=1$。<br>如果样本距离三个$l^{(i)}$非常远（蓝色），那么边界函数输出的结果小于0，预测$y=0$。<br>当样本足够多的时候，所有$y=1$的点的边界即为决策边界，此时的决策边界是非线性的。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png" alt="">  </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>8. 支持向量机</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Lecture 5 成像理论</title>
     <link href="/2021/04/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/5.%20%E6%88%90%E5%83%8F%E7%90%86%E8%AE%BA/"/>
     <url>/2021/04/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/5.%20%E6%88%90%E5%83%8F%E7%90%86%E8%AE%BA/</url>
@@ -113,7 +134,7 @@
     <link href="/2021/03/30/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.2.%20%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/"/>
     <url>/2021/03/30/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.2.%20%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/</url>
     
-    <content type="html"><![CDATA[<p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}</style></p><h1 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h1><h2 id="回顾：向量的点乘"><a href="#回顾：向量的点乘" class="headerlink" title="回顾：向量的点乘"></a>回顾：向量的点乘</h2><p>对于向量$u=[\begin{smallmatrix}<br>    u_1 \\<br>    u_2<br>\end{smallmatrix}]$,$v=[\begin{smallmatrix}<br>    v_1 \\<br>    v_2<br>\end{smallmatrix}]$,定义向量的点乘为：$u^Tv=||v||cosθ||u||$。<br>其中$||u||$称为$u$的模长：$||u||=√{u_1^2+u_2^2}$；定义$||v||cosθ=p$，它是v在u上的投影。  </p><h2 id="优化函数的几何意义"><a href="#优化函数的几何意义" class="headerlink" title="优化函数的几何意义"></a>优化函数的几何意义</h2><p>对于svm的目标优化函数： 即存在$min_θ\frac{1}{2}∑θ^2$,使得满足如果$y^{(i)}=1,θ^Tx^{(i)}≥1$，$y^{(i)}=0,θ^Tx^{(i)}≤-1$。<br>现在为了简化运算，假定$θ_0=0$，有且仅有两个参数，此时$\frac{1}{2}∑θ^2=\frac{1}{2}(√{θ_1^2+θ_2^2})^2$。<br>$√{θ_1^2+θ_2^2}$可以看做是向量$Θ$的模长，因此目标优化函数可以看做是0.5倍参数向量$Θ$长度的平方：  </p><script type="math/tex; mode=display">\frac{1}{2}∑θ^2=\frac{1}{2}||Θ||^2</script><p>现在来分析$,θ^Tx^{(i)}$的几何意义，按照向量的点乘法则，可以看做是向量$x^{(i)}$在$Θ$上的投影$p^{(i)}$与$||Θ||$相乘。<br>现在优化函数就可以表示成:<br>存在$min_θ\frac{1}{2}||Θ||^2$，使得：<br>如果$y^{(i)}=1,p^{(i)}||Θ||≥1$，<br>如果$y^{(i)}=0,p^{(i)}||Θ||≤-1$  </p><p>现在来考虑svm对线性可分样本的分类：<br>如果决策边界与样本边界的间距很小，由于参数向量与决策边界是始终正交的，那么每一个样本到参数向量的投影$p^{(i)}$都很小，想要使得$p^{(i)}||Θ||≥1$或者$p^{(i)}||Θ||≤-1$就需要$||Θ||$非常的大。（下图左）<br>反之如果决策边界与样本边界的间距很大，那么$||Θ||$就可以小一些。(下图右)<br>因此决策向量机总是使得决策边界具有大间距的特性。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210330151800.png" alt="">  </p><blockquote><p>参数向量与决策边界是始终正交的  </p></blockquote><p>由于决策边界的上方有$|{x^{(i)}}^TΘ|&gt;0$，下方有${x^{(i)}}^TΘ&lt;0$,因此直线上必定有${x^{(i)}}^TΘ=0$。  </p>]]></content>
+    <content type="html"><![CDATA[<p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}</style></p><h1 id="数学原理"><a href="#数学原理" class="headerlink" title="数学原理"></a>数学原理</h1><h2 id="回顾：向量的点乘"><a href="#回顾：向量的点乘" class="headerlink" title="回顾：向量的点乘"></a>回顾：向量的点乘</h2><p>对于向量$u=[\begin{smallmatrix}<br>    u_1 \\<br>    u_2<br>\end{smallmatrix}]$,$v=[\begin{smallmatrix}<br>    v_1 \\<br>    v_2<br>\end{smallmatrix}]$,定义向量的点乘为：$u^Tv=||v||cosθ||u||$。<br>其中$||u||$称为$u$的模长：$||u||=√{u_1^2+u_2^2}$；定义$||v||cosθ=p$，它是v在u上的投影。  </p><h2 id="优化函数的几何意义"><a href="#优化函数的几何意义" class="headerlink" title="优化函数的几何意义"></a>优化函数的几何意义</h2><p>对于svm的目标优化函数： 即存在$min_θ\frac{1}{2}∑θ^2$,使得满足如果$y^{(i)}=1,θ^Tx^{(i)}≥1$，$y^{(i)}=0,θ^Tx^{(i)}≤-1$。<br>现在为了简化运算，假定$θ_0=0$，有且仅有两个参数，此时$\frac{1}{2}∑θ^2=\frac{1}{2}(√{θ_1^2+θ_2^2})^2$。<br>$√{θ_1^2+θ_2^2}$可以看做是向量$Θ$的模长，因此目标优化函数可以看做是0.5倍参数向量$Θ$长度的平方：  </p><script type="math/tex; mode=display">\frac{1}{2}∑θ^2=\frac{1}{2}||Θ||^2</script><p>现在来分析$,θ^Tx^{(i)}$的几何意义，按照向量的点乘法则，可以看做是向量$x^{(i)}$在$Θ$上的投影$p^{(i)}$与$||Θ||$相乘。<br>现在优化函数就可以表示成:<br>存在$min_θ\frac{1}{2}||Θ||^2$，使得：<br>如果$y^{(i)}=1,p^{(i)}||Θ||≥1$，<br>如果$y^{(i)}=0,p^{(i)}||Θ||≤-1$  </p><p>现在来考虑svm对线性可分样本的分类：<br>如果决策边界与样本边界的间距很小，由于参数向量与决策边界是始终正交的，那么每一个样本到参数向量的投影$p^{(i)}$都很小，想要使得$p^{(i)}||Θ||≥1$或者$p^{(i)}||Θ||≤-1$就需要$||Θ||$非常的大。（下图左）<br>反之如果决策边界与样本边界的间距很大，那么$||Θ||$就可以小一些。(下图右)<br>因此决策向量机总是使得决策边界具有大间距的特性。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210330151800.png" alt="">  </p><blockquote><p>由于决策边界的上方有${x^{(i)}}^T||Θ||&gt;0$，下方有${x^{(i)}}^TΘ&lt;0$,因此直线上必定有${x^{(i)}}^T||Θ||=0$。<br>因此<strong>参数向量与决策边界是始终正交的</strong>。 </p></blockquote>]]></content>
     
     
     <categories>
