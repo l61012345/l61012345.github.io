@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>3. 信号的傅里叶级数 - Mirror</title>
+  <title>7.拉普拉斯变换 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -168,7 +168,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="3. 信号的傅里叶级数">
+            <span class="h2" id="subtitle" title="7.拉普拉斯变换">
               
             </span>
 
@@ -183,8 +183,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-20 02:12" pubdate>
-        2021年3月20日 凌晨
+      <time datetime="2021-04-30 08:11" pubdate>
+        2021年4月30日 早上
       </time>
     </span>
   
@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      797 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      10
        分钟
     </span>
   
@@ -243,52 +243,61 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">3. 信号的傅里叶级数</h1>
+            <h1 style="display: none">7.拉普拉斯变换</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月29日 早上
+                  本文最后更新于：2021年4月30日 上午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="信号的傅里叶级数"><a href="#信号的傅里叶级数" class="headerlink" title="信号的傅里叶级数"></a>信号的傅里叶级数</h1><h2 id="信号变换"><a href="#信号变换" class="headerlink" title="信号变换"></a>信号变换</h2><p>分解、响应、叠加是信号与系统中最基础的信号处理方式。对信号的变换思路来源于时域内的信号$f(t)$是以时间为变量的函数方程，在时域内噪声和有用信号往往是同时发生的，难以将噪声从信号中剥离，因此需要对信号进行变换，将信号从时域变换到频域（以频率为自变量的空间，频域中的信号可以表示为$H(ω)$），通过频率的不同就能利用滤波器将噪声剥离。  </p>
-<h2 id="正交分解"><a href="#正交分解" class="headerlink" title="正交分解"></a>正交分解</h2><h3 id="正交函数与正交函数集"><a href="#正交函数与正交函数集" class="headerlink" title="正交函数与正交函数集"></a>正交函数与正交函数集</h3><p>在信号领域，如果两个信号在$(t_1,t_2)$内有$∫_{t_1}^{t_2}f_1(t)f_2(t)dt=0$，称两个信号是正交的。<br>如果有n个函数构成的函数集：$\{ϕ_1(t),…,ϕ_n(t)\}$在$(t_1,t_2)$内有：  </p>
-<script type="math/tex; mode=display">∫_{t_1}^{t_2}ϕ_i(t)ϕ_j(t)dt=\begin{cases}
-  0,i\not=j \\ K_i \not= 0, i=j
-\end{cases}</script><p>称这是一个正交函数集。<br>如果在这个函数集以外找不到任何的另外一个函数满足其与集内函数两两正交，称这个函数集是一个完备的正交函数集。<br><strong>三角函数集$\{1,cosnΩt,sinnΩt\}$就是一个完备的正交函数集。</strong></p>
-<h3 id="信号的正交分解"><a href="#信号的正交分解" class="headerlink" title="信号的正交分解"></a>信号的正交分解</h3><p>正交分解是最简单的一种信号分解方式，任何一个函数$f_1(t)$都可以用$n$个两两正交的函数的线性组合来近似。 有：  </p>
-<script type="math/tex; mode=display">f_1(t)=∑C_iϕ_i(t)+f_e(t)</script><p>这样的分解方式称为信号的<strong>正交分解</strong>，即将目标信号$f_1(t)$分解为若干个正交信号的线性组合和误差信号$f_e(t)$，简化表示方法：    </p>
-<script type="math/tex; mode=display">f_2(t)=∑C_iϕ_i(t)</script><p>此时的$f_2(t)$不在具有限定性，是一个任意的函数。进一步得到任何一个信号$f_1(t)$都可以用一个加权的信号$f_2(t)$与误差信号$f_e(t)$表示：  </p>
-<script type="math/tex; mode=display">f_1(t)=C_{12}f_2(t)+f_e(t)</script><p>$C_{12}$是$f_2(t)$的权重，称为相关系数。$f_e(t)$是拟合误差。<br>判断拟合是否准确的标准是拟合误差的均方值，当拟合误差的均方值最小时，信号拟合度最高，均方值表示为：  </p>
-<script type="math/tex; mode=display">\overline{ɛ^2}=\overline{f^2_e(t)}=\frac{1}{t_2-t_1}∫_{t_1}^{t_2}f_e^2(t)dt</script><p>对其求导令方程等于0，可以解出：  </p>
-<script type="math/tex; mode=display">∫_{t_1}^{t_2}\frac{d}{dC_{12}}[f_1^2(t)-2C_{12}f_2(t)f_1(t)+f_2^2(t)C_{12}^2]dt=0</script><p>要使方程为0，必须每一项都为0，最终解得：  </p>
-<script type="math/tex; mode=display">C_{12}=\frac{∫_{t_1}^{t_2}f_1(t)f_2(t)dt}{∫_{t_1}^{t_2}f_2^2(t)dt}</script><p>但是正交分解依赖于$f_2(t)$的选取，如果于$f_2(t)$选取的不恰当，拟合度往往不高，在分解时容易丢失$f_1(t)$中有用的信息，因此需要其他更加准确的方法对信号进行分解。通过数学方法可知，当$f_2(t)$是一个完备正交集的线性组合时，此时的拟合效果是最好的。  </p>
-<h2 id="信号的傅里叶级数-1"><a href="#信号的傅里叶级数-1" class="headerlink" title="信号的傅里叶级数"></a>信号的傅里叶级数</h2><p>周期信号$f(t)$在一个周期内可以展开为在完正交信号空间中的无穷级数。而三角函数集正好就是一个完备正交集，因此将信号分解为三角函数集是一种理想的正交分解方法。  高等数学中，任何满足有界可积，有有限个间断点（狄利赫里条件）的函数都可以被描述为傅里叶级数：  </p>
-<script type="math/tex; mode=display">f(t)=a_0+∑_{n=1}^{∞}[a_ncos(nω_1t)+b_nsin(nω_1t)]</script><p>在信号中，$a_0$称为直流分量，是函数在周期内的均值。  </p>
-<script type="math/tex; mode=display">a_0=\frac{1}{T}∫_{t_0}^{t_0+T}f(t)dt</script><blockquote>
-<p>有时定义傅里叶级数的第一项为$\frac{a_0}{2}$，此时$a_0=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)dt$。  </p>
+              <h1 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h1><h2 id="傅里叶变换的局限性"><a href="#傅里叶变换的局限性" class="headerlink" title="傅里叶变换的局限性"></a>傅里叶变换的局限性</h2><ol>
+<li>使用傅里叶变换的条件是$f(t)$必须要满足狄利赫里条件，即必须要满足有界、绝对可积和有有限个间断点三个条件。 有些信号并不满足绝对可积的条件，因此这些信号不能被应用傅里叶变换。  </li>
+<li>傅里叶变换中的无穷积分比较困难。  </li>
+</ol>
+<p>对于不满足狄利赫里条件的信号，可以用拉普拉斯变换进行处理。  </p>
+<h2 id="拉普拉斯变换的基本原理"><a href="#拉普拉斯变换的基本原理" class="headerlink" title="拉普拉斯变换的基本原理"></a>拉普拉斯变换的基本原理</h2><p>拉普拉斯变换的基本思想是将$f(t)$乘上一个<strong>衰减系数</strong>：$AF$(Attenuation factor)以改善$f(t)$的收敛性，使得$f(t)AF$满足狄利赫里条件。<br>通用的衰减系数是$e^{-σt}$。<br>因此$f(t)AF$的傅里叶变换写作：  </p>
+<script type="math/tex; mode=display">F(ω)=F[(f(t)e^{-σt})]=∫f(t)e^{-σt}e^{-jωt}dt=∫f(t)e^{-(σ+jω)t}dt</script><p>令$s=(σ+jω)$，得到拉普拉斯变换的定义式：  </p>
+<script type="math/tex; mode=display">L[f(t)]=F(s)=F(σ+jω)=∫f(t)e^{-st}dt</script><p>对于LIT系统，$f(t)=0,t&lt;0$，因此：</p>
+<script type="math/tex; mode=display">L[f(t)]=F(s)=∫_0^∞f(t)e^{-st}dt</script><h3 id="拉普拉斯反变换"><a href="#拉普拉斯反变换" class="headerlink" title="拉普拉斯反变换"></a>拉普拉斯反变换</h3><p>傅里叶反变换的定义式：  </p>
+<script type="math/tex; mode=display">f(t)=\frac{1}{2π}∫F(ω)e^{jωt}dω</script><p>带入$f(t)e^{-σt}$:</p>
+<script type="math/tex; mode=display">f(t)e^{-σt}=\frac{1}{2π}∫F(σ+jω)e^{jωt}dω</script><p>将两边同时乘上$e^{σt}$:  </p>
+<script type="math/tex; mode=display">f(t)=\frac{1}{2π}∫F(σ+jω)e^{(σ+jω)t}dω</script><p>带入$s=σ+jω$并替换积分域，得到拉普拉斯反变换的定义式：</p>
+<script type="math/tex; mode=display">f(t)=\frac{1}{2πj}∫_{σ-j∞}^{σ+j∞}F(s)e^{st}ds</script><p>拉普拉斯变换对包含拉普拉斯变换和反变换的定义式。  </p>
+<h3 id="存在条件"><a href="#存在条件" class="headerlink" title="存在条件"></a>存在条件</h3><p>保证拉普拉斯变换存在的条件是$f(t)AF$满足满足狄利赫里条件。<br>其收敛域应当是使得$F(s)$存在的s的范围。即$f(t)$应当满足：</p>
+<script type="math/tex; mode=display">lim_{t→∞}f(t)e^{-σt}=0</script><h2 id="拉普拉斯变换的性质"><a href="#拉普拉斯变换的性质" class="headerlink" title="拉普拉斯变换的性质"></a>拉普拉斯变换的性质</h2><ol>
+<li>线性（同傅里叶变换）</li>
+<li>变换操作  <ul>
+<li>时移特性（同傅里叶变换）  </li>
+<li>频移特性:$f(t)e^{-αt}→F(s+α)$  </li>
+<li>尺度变换（同傅里叶变换）   </li>
+</ul>
+</li>
+<li>积分和微分（时域）<ul>
+<li>微分<br>一阶微分：$\frac{df(t)}{dt}→sF(s)-f(0_)$<br>二阶微分：$\frac{df^2(t)}{dt}→s[sF(s)-f(0_)]-f’(0_)$  </li>
+<li>积分<br>$∫_{-∞}^tf(τ)dτ→\frac{F(s)}{s}+\frac{f^{(-1)}(0_)}{s}$  <blockquote>
+<p>证明过程是将积分域分解为$[-∞,0]$（表示初始状态）和$[0,t]$两段。</p>
 </blockquote>
-<p>$a_n$称为基波分量，是一个偶函数:  </p>
-<script type="math/tex; mode=display">a_n=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)cos(nω_1t)dt</script><p>$b_n$称为谐波分量，是一个奇函数:  </p>
-<script type="math/tex; mode=display">b_n=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)sin(nω_1t)dt</script><h4 id="傅里叶级数的三角变形"><a href="#傅里叶级数的三角变形" class="headerlink" title="傅里叶级数的三角变形"></a><strong>傅里叶级数的三角变形</strong></h4><ul>
-<li>余弦函数形式<script type="math/tex; mode=display">f(t)=c_0+∑_{n=1}^∞c_ncos(nω_1t+ϕ_n)</script>其中$c_0=a_0$,$c_n=√{a_n^2+b_n^2}$，$ϕ_n=arctan(-\frac{b_n}{a_n})$。  </li>
+</li>
 </ul>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a><strong>参数</strong></h4><ul>
-<li>幅值<script type="math/tex; mode=display">|F(nω_1)|=√{a_n^2+b_n^2}</script></li>
-<li>相位  <script type="math/tex; mode=display">ϕ_n=acrtan(-\frac{b_n}{a_n})</script></li>
-</ul>
-<h3 id="傅里叶级数的指数形式"><a href="#傅里叶级数的指数形式" class="headerlink" title="傅里叶级数的指数形式"></a>傅里叶级数的指数形式</h3><p>周期函数能够被分解为指数信号的线性组合，因此： </p>
-<script type="math/tex; mode=display">f(t)=∑F(nω_1)e^{jnω_1t}</script><p>其中：   </p>
-<script type="math/tex; mode=display">F(nω_1)=\frac{1}{T}∫_0^Tf(t)e^{-jnω_1t}dt</script><p>代入欧拉公式：  </p>
-<script type="math/tex; mode=display">F(nω_1)=\frac{1}{T}∫_0^Tf(t)cos(nω_1t)-jf(t)sin(nω_1t)dt</script><p>可以得到</p>
-<script type="math/tex; mode=display">F(nω_1)=\frac{1}{2}(a_n-jb_n)</script><script type="math/tex; mode=display">a_n=F_n+F_{-n}</script><script type="math/tex; mode=display">b_n=j(F_n-F_{-n})</script><p>需要注意的是负的频率/角频率$-ω_1$实际并不存在，只用作数学分析。  </p>
-<h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a><strong>参数</strong></h4><ul>
-<li>幅值<script type="math/tex; mode=display">|F(nω_1)|=\frac{1}{2}√{a_n^2+b_n^2}</script><strong>指数形式的幅值是三角形式幅值的$\frac{1}{2}$。</strong><br>指数形式的傅里叶级数的幅值函数是一个<strong>偶函数</strong>。  </li>
-<li>相位<script type="math/tex; mode=display">ϕ_n=acrtan(-\frac{b_n}{a_n})</script>指数形式的傅里叶级数的相位函数是一个<strong>奇函数</strong>。</li>
-</ul>
-<h3 id="奇偶周期函数的傅里叶级数"><a href="#奇偶周期函数的傅里叶级数" class="headerlink" title="奇偶周期函数的傅里叶级数"></a>奇偶周期函数的傅里叶级数</h3><p>只需要将奇偶性带入$a_n$,$b_n$即可。<br>对于奇谐/偶谐函数则需要分n的奇偶性进行讨论。  </p>
-
+</li>
+</ol>
+<h3 id="初值定理"><a href="#初值定理" class="headerlink" title="初值定理"></a>初值定理</h3><p>如果$f(t)$可积可被拉普拉斯变换，$f(t)$在$0_+$时刻的值（即初值）可以通过如下公式求得：  </p>
+<script type="math/tex; mode=display">f(0_+)=lim_{s→∞}sF(s)</script><h3 id="终值定理"><a href="#终值定理" class="headerlink" title="终值定理"></a>终值定理</h3><h2 id="常见信号的拉普拉斯变换"><a href="#常见信号的拉普拉斯变换" class="headerlink" title="常见信号的拉普拉斯变换"></a>常见信号的拉普拉斯变换</h2><h3 id="阶跃信号"><a href="#阶跃信号" class="headerlink" title="阶跃信号"></a>阶跃信号</h3><script type="math/tex; mode=display">\begin{aligned}
+    L[u(t)] & =∫_0^∞u(t)e^{-st}dt \\
+    &=∫_0^∞e^{-st}dt \\
+    &=\frac{1}{s}
+\end{aligned}</script><blockquote>
+<p>对于直流信号（常数）信号$f(t)=t_0$，可以在其后乘上一个$u(t)$做拉普拉斯变换，得到$L[t_0]=\frac{t_0}{s}$。</p>
+</blockquote>
+<h3 id="指数信号"><a href="#指数信号" class="headerlink" title="指数信号"></a>指数信号</h3><script type="math/tex; mode=display">\begin{aligned}
+    L[e^{-(α+jβ)t}]&=∫_0^∞e^{-(α+jβ)t}e^{-st}dt \\
+    &=\frac{1}{s+α+jβ}
+\end{aligned}</script><h3 id="单位冲激信号及时移"><a href="#单位冲激信号及时移" class="headerlink" title="单位冲激信号及时移"></a>单位冲激信号及时移</h3><script type="math/tex; mode=display">L[δ(t)]=1</script><script type="math/tex; mode=display">L[δ(t-t_0)]=e^{-st_0}</script><h3 id="三角信号"><a href="#三角信号" class="headerlink" title="三角信号"></a>三角信号</h3><script type="math/tex; mode=display">\begin{aligned}
+    L[tu(t)]&=∫_0^∞te^{-st}dt\\
+    &=\frac{1}{s^2}
+\end{aligned}</script>
             </div>
             <hr>
             <div>
@@ -313,18 +322,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/23/7.%20%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98/7.2.%20%E6%9F%A5%E5%87%86%E7%8E%87%E5%92%8C%E5%8F%AC%E5%9B%9E%E7%8E%87/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">7.2. 查准率和召回率</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2.%20%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/">
-                        <span class="hidden-mobile">2. 系统概述</span>
+                      <a href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/6.%20%E5%A4%A9%E7%BA%BF%E9%98%B5%E5%88%97/">
+                        <span class="hidden-mobile">Lecture 6 天线阵列</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
