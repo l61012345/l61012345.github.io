@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月7日 早上
+                  本文最后更新于：2021年5月8日 早上
                 
               </p>
             
@@ -277,6 +277,49 @@
 <li>多根<br>本节不会讨论  </li>
 </ol>
 </blockquote>
+<h2 id="Z变换的性质"><a href="#Z变换的性质" class="headerlink" title="Z变换的性质"></a>Z变换的性质</h2><ol>
+<li><p>线性（同傅里叶变换）</p>
+<blockquote>
+<p>线性需要要求两个序列收敛域有公共部分，如果两者没有公共收敛域，那么无法Z变换不具有线性。  </p>
+</blockquote>
+</li>
+<li><p>变换操作  </p>
+<ul>
+<li>双侧时移<br>时移前后信号形状保持不变。<br>右移：$Z[x(n-m)]=z^{-m}X(z)$<br>左移：$Z[x(n+m)]=z^{m}X(z)$  </li>
+<li><p>单侧时移<br>时移后图像$n&lt;0$的部分被消去。<br>右移:$Z[x(n-m)u(n)]=z^{-m}[X(z)-∑_{k=-m}^{-1}x(k)z^{-k}]$<br>左移:$Z[x(n+m)u(n)]=z^m[X(z)-∑_{k=0}^{m-1}x(k)z^{-k}]$  </p>
+</li>
+<li><p>线性权重<br>$Z[nx(n)]=-z\frac{dX(z)}{dz}=-z^{-1}\frac{dX(z)}{dz^{-1}}$  </p>
+</li>
+<li><p>尺度变换（z频域）<br>$Z[a^nx(n)]=X(\frac{z}{a})$  </p>
+</li>
+</ul>
+<h3 id="初值定理"><a href="#初值定理" class="headerlink" title="初值定理"></a>初值定理</h3><p>如果$x(n)$具有因果性且可以被Z变换，有：</p>
+<script type="math/tex; mode=display">x(0)=\lim_{x→∞}X(z)</script><h3 id="终值定理"><a href="#终值定理" class="headerlink" title="终值定理"></a>终值定理</h3><p>如果$x(n)$具有因果性且可以被Z变换，有：</p>
+<script type="math/tex; mode=display">\lim_{x→∞}x(n)=\lim_{z→1}[(z-1)X(z)]</script><h3 id="卷积理论"><a href="#卷积理论" class="headerlink" title="卷积理论"></a>卷积理论</h3><script type="math/tex; mode=display">Z[x(n)*h(n)]=X(z)H(z)</script><script type="math/tex; mode=display">Z[x(n)h(n)]=X(z)*H(z)</script><p>收敛域为两者的公共收敛域：$max(R_{xmin},R_{hmin})&lt;|z|&lt;min(R_{xmax},R_{hmax})$  </p>
+</li>
+</ol>
+<h2 id="常见信号的z变换"><a href="#常见信号的z变换" class="headerlink" title="常见信号的z变换"></a>常见信号的z变换</h2><h3 id="单位序列"><a href="#单位序列" class="headerlink" title="单位序列"></a>单位序列</h3><script type="math/tex; mode=display">Z[δ(n)]=∑δ(n)z^{-n}=1</script><p>收敛域：整个z域  </p>
+<h3 id="单位阶跃序列"><a href="#单位阶跃序列" class="headerlink" title="单位阶跃序列"></a>单位阶跃序列</h3><script type="math/tex; mode=display">\begin{aligned}
+    Z[u(n)]&=∑u(n)z^{-n}\\
+    &=1+z^{-1}+z^{-2}+...+z^{-n}\\
+    &=\frac{z}{z+1}
+\end{aligned}</script><p>收敛域：$|z|&gt;1$  </p>
+<h3 id="斜坡序列"><a href="#斜坡序列" class="headerlink" title="斜坡序列"></a>斜坡序列</h3><p>由单位阶跃序列的变换对：$Z[u(n)]=∑_{n=0}^∞z^{-n}=\frac{z}{z+1}$求导  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    (∑_{n=0}^∞z^{-n})'&=(\frac{z}{z+1})'\\
+    -nz^{-n+1}&=-\frac{1}{(1-z^{-1})^2}\\
+    nz^{-n+1}&=\frac{1}{(1-z^{-1})^2}\\
+    两边同时乘以z^{-1}:\\
+    Z[nu(n)]&=\frac{z}{(z-1)^2}
+\end{aligned}</script><p>收敛域：$|z|&gt;1$<br>推广：</p>
+<script type="math/tex; mode=display">Z[n^mx(n)]=[z^{-1}\frac{d}{dz^{-1}}]^mX(z)</script><h3 id="指数序列"><a href="#指数序列" class="headerlink" title="指数序列"></a>指数序列</h3><script type="math/tex; mode=display">\begin{aligned}
+    Z[a^nu(n)]&=∑a^nz^{-n}\\
+    &=∑(\frac{a}{z})^n\\
+    &=\lim_{n→∞}\frac{1-(\frac{a}{z})^{n+1}}{1-\frac{a}{z}}
+\end{aligned}</script><p>当$|\frac{a}{z}|&lt;1$时序列收敛，此时可以简化为：</p>
+<script type="math/tex; mode=display">Z[a^nu(n)]=\frac{z}{z-a}</script><p>收敛域：$|z|&gt;|a|$  </p>
+<h3 id="三角函数序列"><a href="#三角函数序列" class="headerlink" title="三角函数序列"></a>三角函数序列</h3><p>由指数序列的变换对带入$sin(n)$和$cos(n)$的欧拉公式中：  </p>
+<script type="math/tex; mode=display">Z[cos(ω_0n)u(n)]=\frac{z(z-cosω_0)}{z^2-2zcosω_0+1}</script><script type="math/tex; mode=display">Z[sin(ω_0n)u(n)]=\frac{zsinω_0}{z^2-2zcosω_0+1}</script><p>收敛域：$|z|&gt;1$  </p>
 
             </div>
             <hr>
