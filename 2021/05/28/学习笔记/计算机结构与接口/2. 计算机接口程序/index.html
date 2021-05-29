@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      3.1k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      35
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月28日 下午
+                  本文最后更新于：2021年5月29日 早上
                 
               </p>
             
@@ -353,6 +353,155 @@
 <li>清除显示。<br>固定代码为:<figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs c">adcon1 = <span class="hljs-number">0x06</span>; <span class="hljs-comment">//设置adcon1接收来自portA的所有pins的数字信号</span><br>trisa = <span class="hljs-number">0xf8</span>; <span class="hljs-comment">//设置portA的PA0,PA1,PA2为输出</span><br>trisb = <span class="hljs-number">0x00</span>; <span class="hljs-comment">//设置PortB为输出</span><br>lcd_cmd(<span class="hljs-number">1</span>); <span class="hljs-comment">//清除显示</span><br>lcd_init(); <span class="hljs-comment">//初始化LCD</span><br>lcd_cmd(<span class="hljs-number">0x38</span>); <span class="hljs-comment">//设置两行，8比特，5x7点阵</span><br>lcd_cmd(<span class="hljs-number">0x0c</span>); <span class="hljs-comment">//设置打开显示，不显示光标</span><br>lcd_cmd(<span class="hljs-number">0x06</span>); <span class="hljs-comment">//设置光标右移</span><br>lcd_cmd(<span class="hljs-number">1</span>); <span class="hljs-comment">//清除显示</span><br></code></pre></div></td></tr></table></figure>
 将发送的字符串视为一个数组，每一个字符都要进行：“清零，MSB移位，清除头四位，发送MSB，清除头四位，发送LSB”的操作。  </li>
 </ol>
+<h2 id="ADC-模数转换器"><a href="#ADC-模数转换器" class="headerlink" title="ADC/模数转换器"></a>ADC/模数转换器</h2><h3 id="测量原理"><a href="#测量原理" class="headerlink" title="测量原理"></a>测量原理</h3><p>ADC的基本原理为其测量范围内的每一个可测的电压值都对应了一个二进制数。 例如8bit ADC量程为0-5V时，0-5V对应了0000 0000到1111 1111的8bit二进制数。<br>ADC的精度表示为：$\frac{测量范围}{2^n}$。   </p>
+<blockquote>
+<p>注意电压转换为二进制数时，不能整除的情况下，应当只保留整数部分。  </p>
+</blockquote>
+<h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a><strong>类型</strong></h4><p>ADC根据实现原理分类为三种类型：</p>
+<ol>
+<li>Flash ADC：每一个可以测量的电压值对应了一个比较器连接，是一种非常低下的ADC。</li>
+<li>逐次逼近式ADC：<br>下图中8bit Register的值的从MSB开始0-&gt;1，每一个比特位0-&gt;1的变化都会由DAC转换为电压与输入电压进行对比，比较器将两个电压进行对比，判断DAC的电压是否高于输入电压：如果输入电压高于DAC的电压，那么Register中这一比特位的值为1，如果低于DAC的电压，那么Register中这一位比特位的值恢复为0。<br>调整8bit Register的每一个比特位，直到LSB调整完毕，ADC的转换结束。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529140131.png" srcset="/img/loading.gif" alt="">  </li>
+<li>Dual slope ADC：由于不同电压下在固定充电时间内充入的电子数不同，通过测量电容放电的时间即可测量不同的电压。这种ADC测量速度慢，但是相比于上面两者价格相对便宜。  </li>
+</ol>
+<h3 id="寄存器结构"><a href="#寄存器结构" class="headerlink" title="寄存器结构"></a>寄存器结构</h3><h4 id="ADRESH-ADRESL"><a href="#ADRESH-ADRESL" class="headerlink" title="ADRESH/ADRESL"></a><strong>ADRESH/ADRESL</strong></h4><p>两个8bit寄存器用于存放10bit的转换结果，又两种存放方式：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529143926.png" srcset="/img/loading.gif" alt=""><br>这两种方式由ADCON1中的bit7：ADFM进行控制。  </p>
+<h4 id="ADCON1"><a href="#ADCON1" class="headerlink" title="ADCON1"></a><strong>ADCON1</strong></h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">bit</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">ADFM</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">PCFG3</td>
+<td style="text-align:center">PCFG2</td>
+<td style="text-align:center">PCFG1</td>
+<td style="text-align:center">PCFG0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>bit7：ADFM，选择寄存模式：  </p>
+<ul>
+<li>为1时10bit转换结果的bit10和bit9放入ADRESH，剩下比特放入ADRESL。  </li>
+<li>为0时10bit转换结果的bit0和bit1放入ADRESL，剩下比特放入ADRSH。<br>bit6-bit4：Don’t Care<br>bit3-bit0: PCFG3-PCFG0，选择ADC的4个pins哪些接收模拟信号（0），哪些接收数字信号（1）。  <h4 id="ADCON0"><a href="#ADCON0" class="headerlink" title="ADCON0"></a><strong>ADCON0</strong></h4></li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">bit</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">ADCS1</td>
+<td style="text-align:center">ADCS0</td>
+<td style="text-align:center">CHS2</td>
+<td style="text-align:center">CHS1</td>
+<td style="text-align:center">CHS0</td>
+<td style="text-align:center">GO/DONE</td>
+<td style="text-align:center">x</td>
+<td style="text-align:center">ADON</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>bit7-bit6： ADCS1-ADCS0，选择转换速度<br>bit5-bit3: CHS2-CHS0，选择当前接受portA的哪一个pin的信号进行转换<br>bit2： GO/DONE，转换开始和结束的flag，设定其为1使ADC转换开始，转换结束后会自动复位为0.<br>bit1: Don’t care<br>bit0: ADON，ADC的总开关，1表示开，0表示关。  </p>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>ADC需要通过给定adcon1和adcon0的值来进行初始化。<br>转换过程的思想思路为，设置GODONE的值为1，开始转换，等到GODONE的值恢复到0时，获取adresh和adresl中的10比特信息（注意移位的问题）。  </p>
+<h2 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>计时器的结构如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529144418.png" srcset="/img/loading.gif" alt=""><br>RA4/T0CK1: PortA的pin4，用于接收输入信号<br>T0SE：选择下降沿还是上升沿触发计数器计数<br>Fosc: 单片机内部的时钟信号频率 （Fosc/4表示$\frac{1}{4}$时钟信号频率）<br>T0CS： 复用器，选择用RA4还是时钟信号作为输入<br>PS2-PS0: Pre-scaler（相当于另一个计数器），用于倍数放大。<br>PSA： 复用器，选择是否使用Pre-scaler。<br>TMR0: 计数器。  </p>
+<h3 id="寄存器结构-1"><a href="#寄存器结构-1" class="headerlink" title="寄存器结构"></a>寄存器结构</h3><h4 id="TMR0"><a href="#TMR0" class="headerlink" title="TMR0"></a><strong>TMR0</strong></h4><p>8bit 计数器，每一个计数信号（1us）会计数一次，8bit计数器每256次计数（也就是每个256us）会发生一次溢出。    </p>
+<h4 id="INTCON"><a href="#INTCON" class="headerlink" title="INTCON"></a><strong>INTCON</strong></h4><p>计数器的状态寄存器。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">bit</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">T0IF</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>bit2： TMR0溢出标志，T0IF=1表明TMR0发生了溢出。  </p>
+<h4 id="OPTION"><a href="#OPTION" class="headerlink" title="OPTION"></a><strong>OPTION</strong></h4><p>用于控制计时器：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">bit</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Function</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">T0CS</td>
+<td style="text-align:center">T0SE</td>
+<td style="text-align:center">PSA</td>
+<td style="text-align:center">PS2</td>
+<td style="text-align:center">PS1</td>
+<td style="text-align:center">PS0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>bit7-bit6: 其他功能<br>bit5: T0CS，选择用RA4还是时钟信号作为输入<br>bit4: T0SE，选择下降沿还是上升沿触发计数器计数<br>bit3: PSA， 选择是否开启pre-scaler<br>bit2-bit0： 选择pre-scaler的倍率  </p>
+<h3 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h3><p>TMR0发生一次overflow的时间：</p>
+<script type="math/tex; mode=display">时钟周期 × 放大倍率 × (256- \text{TMR0}初始值)</script><h3 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h3><p>可通过给定tmr0的初始值和重置T0IF为0来实现一个精准的delay。  </p>
+<h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>通常，Programm Counter（PC）负责指向下一条运行指令的地址，IR执行这个地址对应的指令，PC移动到下一条指令。<br>如果中断程序存在，当前的PC，W register 和 STATUS register中的内容会被保存到内存中，然后PC跳转到中断程序所处的位置（固定为<code>PC=4</code>），执行完中断程序后内存中PC，W register 和 STATUS register的内容被复原。  </p>
+<p><strong>每运行一行主循环中的代码，<code>void interrupt&#123;&#125;</code>中的程序就会被执行一次。</strong>  </p>
+<p>程序框图如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529152258.png" srcset="/img/loading.gif" alt=""></p>
 
             </div>
             <hr>
