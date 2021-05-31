@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>2. 课后练习-数学方法 - Mirror</title>
+  <title>11. 滤波器设计 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -168,7 +168,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="2. 课后练习-数学方法">
+            <span class="h2" id="subtitle" title="11. 滤波器设计">
               
             </span>
 
@@ -183,8 +183,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-25 00:00" pubdate>
-        2021年1月25日 凌晨
+      <time datetime="2021-05-31 07:54" pubdate>
+        2021年5月31日 早上
       </time>
     </span>
   
@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4 字
+      432 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      5
        分钟
     </span>
   
@@ -243,16 +243,43 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">2. 课后练习-数学方法</h1>
+            <h1 style="display: none">11. 滤波器设计</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月20日 凌晨
+                  本文最后更新于：2021年5月31日 早上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="Math-Fundamentals-PDF"><a href="#Math-Fundamentals-PDF" class="headerlink" title="Math Fundamentals(PDF)"></a>Math Fundamentals(PDF)</h1><p><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/6059DD76E50982B30ABBD29933ACF908.png" srcset="/img/loading.gif" alt=""><br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/Page1(1" srcset="/img/loading.gif" alt="">.jpg)<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/EFA4476CFD3B735B19412D28A35D1BC5.png" srcset="/img/loading.gif" alt="">     </p>
+              <h1 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h1><h2 id="失真"><a href="#失真" class="headerlink" title="失真"></a>失真</h2><p>系统方程$H(s)$可以写作：</p>
+<script type="math/tex; mode=display">H(jω)=|H(jω)|e^{jϕ(jω)}</script><p>即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用$E(jω)$进行加权。<br>如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。<br>失真分为两种类型：<br>线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。<br>非线性失真：引入了新的频率信号。  </p>
+<h2 id="滤波器波形"><a href="#滤波器波形" class="headerlink" title="滤波器波形"></a>滤波器波形</h2><p>实际的滤波器波形如图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210531161932.png" srcset="/img/loading.gif" alt=""><br>滤波器波形的四个参数：</p>
+<ol>
+<li>通带边缘（Passband edge,$ω_p$）</li>
+<li>最大允许变化（Maximum allowed variation,$A_max$）</li>
+<li>阻带边缘（Stopband edge,$ω_s$）</li>
+<li>最小阻带衰减要求（Minimum required stopband attenuation,$A_min$）</li>
+</ol>
+<h2 id="滤波器设计-1"><a href="#滤波器设计-1" class="headerlink" title="滤波器设计"></a>滤波器设计</h2><h3 id="低通-滤波器类型"><a href="#低通-滤波器类型" class="headerlink" title="(低通)滤波器类型"></a>(低通)滤波器类型</h3><h4 id="巴特沃斯滤波器"><a href="#巴特沃斯滤波器" class="headerlink" title="巴特沃斯滤波器"></a><strong>巴特沃斯滤波器</strong></h4><p>传输函数：</p>
+<script type="math/tex; mode=display">|T(jω)|=\frac{1}{√(1+ɛ^2(\frac{ω}{ω_p})^(2n))}</script><p>其中：$n≥\frac{logM}{logΩ}$为电路阶数，$ɛ=√{10^{\frac{A_{max}}{10}}-1}$<br>$Ω=\frac{ω_s}{ω_p}$，$M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}$</p>
+<p>滤波器特点：  </p>
+<ol>
+<li>没有波纹</li>
+<li>$|ω_s-ω_p|$较大，无法立刻停止</li>
+</ol>
+<h4 id="切比雪夫滤波器"><a href="#切比雪夫滤波器" class="headerlink" title="切比雪夫滤波器"></a><strong>切比雪夫滤波器</strong></h4><p>传输函数：</p>
+<script type="math/tex; mode=display">|T(jω)|=\frac{1}{√1+ɛ^2C^2_n(ω/ω_p)}</script><p>其中：$n≥\frac{cosh^{-1}M}{cosh^{-1}Ω}$为电路阶数，$ɛ=√{10^{\frac{A_{max}}{10}}-1}$<br>$Ω=\frac{ω_s}{ω_p}$，$M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}$  </p>
+<blockquote>
+<p>将电感和电容对换就可以得到高通滤波器。  </p>
+</blockquote>
+<h3 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h3><ol>
+<li>确定使用的滤波器类型  </li>
+<li>找到能够拟合要求的转换方程（巴特沃斯/切比雪夫）  </li>
+<li>根据波形图求出电路的最小阶数$n$  </li>
+<li>查表找到CL的数值  </li>
+<li>连接电路  </li>
+</ol>
 
             </div>
             <hr>
@@ -262,9 +289,9 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/">Machine Learning-NUS 2021</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
-                      <a class="hover-with-bg" href="/categories/Machine-Learning-NUS-2021/%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/">课后练习</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/">信号与系统</a>
                     
                   </div>
                 
@@ -278,18 +305,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/25/Machine%20Learning-NAU/2.%20%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">2. 数学方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/23/Machine%20Learning-NAU/1.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/">
-                        <span class="hidden-mobile">1. 课后练习-机器学习简介和Python的基本操作</span>
+                      <a href="/2021/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10.%20%E5%8F%8D%E9%A6%88%E7%B3%BB%E7%BB%9F/">
+                        <span class="hidden-mobile">10. 反馈系统</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
