@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      2k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      21
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月4日 上午
+                  本文最后更新于：2021年6月7日 上午
                 
               </p>
             
@@ -272,7 +272,7 @@
 <li>$nonezero ÷ 0$</li>
 </ol>
 </li>
-<li>0：IEEE754中有正零和负零之分：两者的符号位不同，其余比特位全都是0，规定$n ÷ ∞=0$。  <h4 id="最大值和最小值-表示范围-精度"><a href="#最大值和最小值-表示范围-精度" class="headerlink" title="最大值和最小值/表示范围/精度"></a><strong>最大值和最小值/表示范围/精度</strong></h4>其最大值和最小值的求法是相同的。<br>最小数：  <script type="math/tex; mode=display">base^{-bias} × base^{-fraction}</script>最大数：  <script type="math/tex; mode=display">(base-base^{-fraction}×base^{bias})</script>fraction： 小数部分的总位数，bias：偏置，base：基数  </li>
+<li>0：IEEE754中有正零和负零之分：两者的符号位不同，其余比特位全都是0，规定$n ÷ ∞=0$。  <h4 id="最大值和最小值-表示范围-精度"><a href="#最大值和最小值-表示范围-精度" class="headerlink" title="最大值和最小值/表示范围/精度"></a><strong>最大值和最小值/表示范围/精度</strong></h4>其最大值和最小值的求法是相同的。<br>最小数：  <script type="math/tex; mode=display">base^{-bias} × base^{-fraction}</script>最大数：  <script type="math/tex; mode=display">(base-base^{-fraction})×base^{bias}</script>fraction： 小数部分的总位数，bias：偏置，base：基数  </li>
 </ul>
 <h4 id="通信"><a href="#通信" class="headerlink" title="通信"></a><strong>通信</strong></h4><p>两者之间的通信数据需要经过转换，转换步骤为：  </p>
 <ol>
@@ -314,6 +314,12 @@
 <li>运算结果出栈。  </li>
 </ol>
 <h3 id="缓冲"><a href="#缓冲" class="headerlink" title="缓冲"></a>缓冲</h3><p>缓冲遵循先进后出（FIFO）的原则，分为两种缓冲：线形缓冲和环形缓冲，环形缓冲用于流媒体加载。<br>缓冲区的大小如果过大，初始化时间会比较长，需要将缓冲区填满的时间也比较长。<br>缓冲区如果过小，容易发生溢出，如果缓冲区不能够容纳所有的扰乱（Disruption），整个缓冲就会出错。  </p>
+<h2 id="CPU的类型"><a href="#CPU的类型" class="headerlink" title="CPU的类型"></a>CPU的类型</h2><h3 id="CISC-Complex-Instruction-Set-Computer"><a href="#CISC-Complex-Instruction-Set-Computer" class="headerlink" title="CISC,Complex Instruction Set Computer"></a>CISC,Complex Instruction Set Computer</h3><p>每一条指令可以执行数条低级的操作（比如一条指令就可以实现内存加载和数学运算等）  </p>
+<h3 id="RISC-Reduced-Instruction-Set-Computer"><a href="#RISC-Reduced-Instruction-Set-Computer" class="headerlink" title="RISC,Reduced Instruction Set Computer"></a>RISC,Reduced Instruction Set Computer</h3><p>大多数指令被限制成统一的长度和相似的结构，数学运算被限制在了CPU寄存器当中，只有对内存的读取和储存是分别的指令。<br>大多数的寄存机也是通用的，只有浮点寄存器仍然被专门化。<br>RISC指令集的计算机对pipline stages的平衡更佳，且允许更高的时钟频率，也更为高效。  </p>
+<h3 id="MISC-Minimal-Instruction-Set-Computer"><a href="#MISC-Minimal-Instruction-Set-Computer" class="headerlink" title="MISC,Minimal Instruction Set Computer"></a>MISC,Minimal Instruction Set Computer</h3><p>数量非常少的操作和对应的操作码，指令集基本上是基于栈结构构造的。  </p>
+<blockquote>
+<p>ZISC和OISC在此略</p>
+</blockquote>
 <h2 id="串行连接和并行连接"><a href="#串行连接和并行连接" class="headerlink" title="串行连接和并行连接"></a>串行连接和并行连接</h2><h3 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h3><ol>
 <li>通常串行传输比并行传输速度更快。  </li>
 <li>串行传输不易出现Clock Skew（时钟信号在不同组件中到达的时间有差异）。   </li>
@@ -330,6 +336,13 @@
 <li>解码</li>
 <li>求未知数的值（注意可能性有很多种）</li>
 </ol>
+<p>汉明码的局限性：  </p>
+<ol>
+<li>当同时出现两个以上的比特位错误时，可能无法被检测到。  </li>
+<li>出现一位比特错误时，在某些情况下无法判断是校验码还是数据发生了错误。  </li>
+</ol>
+<h3 id="其他的校验方式"><a href="#其他的校验方式" class="headerlink" title="其他的校验方式"></a>其他的校验方式</h3><p><strong>循环冗余校验（CRC,Cyclic Redundancy Checks）</strong><br>通过生成独特的哈希函数来检测比特位的改变，但不能检测出恶意引入的错误。  </p>
+<p>前项校验（Forward Error Correction）<br>在卷积码和块码（通常是里德-所罗门码）之间做校验。  </p>
 
             </div>
             <hr>
