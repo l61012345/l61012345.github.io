@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.1k 字
+      3.2k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      35
+      36
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月2日 早上
+                  本文最后更新于：2021年6月8日 早上
                 
               </p>
             
@@ -330,8 +330,13 @@
 </ol>
 <h2 id="LED灯-发光二极管"><a href="#LED灯-发光二极管" class="headerlink" title="LED灯/发光二极管"></a>LED灯/发光二极管</h2><h3 id="物理原理-1"><a href="#物理原理-1" class="headerlink" title="物理原理"></a>物理原理</h3><p>发光二极管处于正向偏置时，其两端电压处于不同值，发光二极管会发出不同颜色的光（比如红色是1.6V，白色是3.5V）。<br>发光二极管通常支持的最大电压在3.5V左右，而单片机的输出电压最大可到5V，为了防止二极管被击穿，应该在二极管前加一个电阻以分压。<br>此外，PIC开发板上的单个pin的供电可到25mA，但是所有pin上的最大电流不能超过200mA，因此需要用BJT晶体管等方法在二极管的输出端限流。<br>在PIC开发板上，8个LED灯连接到PortA上，对应了PortA从PA0到PA7的8个比特位。<br><strong>当比特位为1时，对应的LED灯亮起。</strong>  </p>
 <h3 id="程序思路-1"><a href="#程序思路-1" class="headerlink" title="程序思路"></a>程序思路</h3><p>只需要使用<code>trisa</code>将指定LED灯对应的比特位设置为输出后，设定该比特位的值为1即可控制该LED灯亮起。  </p>
-<h2 id="7-8-位数码管"><a href="#7-8-位数码管" class="headerlink" title="7(8)位数码管"></a>7(8)位数码管</h2><h3 id="物理原理-2"><a href="#物理原理-2" class="headerlink" title="物理原理"></a>物理原理</h3><p>八位数码管的每一个显示笔划（Segment）（7位数码管不包括小数点显示）对应了一个比特位，<strong>当该比特位的值为0时，该笔画亮起</strong>。<br><strong>对于多个数码管组成的阵列，还需要用另一个port来控制使用哪些数码管。</strong>  </p>
-<h3 id="程序思路-2"><a href="#程序思路-2" class="headerlink" title="程序思路"></a>程序思路</h3><p>创建一个数组其对应位置上的值为该数字应当亮起的显示笔画的比特值，检测输入的值$x$，然后将数组第$x$位上的值传出到port即可。  </p>
+<h2 id="7-8-位数码管"><a href="#7-8-位数码管" class="headerlink" title="7(8)位数码管"></a>7(8)位数码管</h2><h3 id="物理原理-2"><a href="#物理原理-2" class="headerlink" title="物理原理"></a>物理原理</h3><p>八位数码管的每一个显示笔划（Segment）（7位数码管不包括小数点显示）对应了一个比特位，<strong>当该比特位的值为0时，该笔画亮起</strong>。 </p>
+<h3 id="程序思路-2"><a href="#程序思路-2" class="headerlink" title="程序思路"></a>程序思路</h3><p>创建一个数组其对应位置上的值为该数字应当亮起的显示笔画的比特值，检测输入的值$x$，然后将数组第$x$位上的值传出到port即可。<br>对于多个数码管组成的阵列：</p>
+<ol>
+<li>用另一个port来控制使用哪些数码管，当比特位为1时，对应的八位数码管亮起。  </li>
+<li>每一个数码管会在很短的时间亮起熄灭，然后下一个数码管重复，当循环闪亮的频率快到人眼无法识别的时候，表现为所有的数码管都同时亮起。  </li>
+<li>在一次循环之后，微控制器被释放然后计算新的显示值。  </li>
+</ol>
 <h2 id="LCD-液晶显示面板"><a href="#LCD-液晶显示面板" class="headerlink" title="LCD/液晶显示面板"></a>LCD/液晶显示面板</h2><h3 id="结构与原理"><a href="#结构与原理" class="headerlink" title="结构与原理"></a>结构与原理</h3><h4 id="针脚（Pin）"><a href="#针脚（Pin）" class="headerlink" title="针脚（Pin）"></a><strong>针脚（Pin）</strong></h4><p>液晶显示面板共有11个pin，其中8个用于传输8 bit数据，3个用于控制，这三个pin为:   </p>
 <ul>
 <li>RS: Register select，选择寄存器为指令寄存器还是d数据寄存器。  </li>
