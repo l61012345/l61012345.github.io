@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -343,7 +343,7 @@
 <li>R/W：Read/Write， 控制数据流的方向是从单片机到LED（通常）还是从LED到单片机。  </li>
 <li>E：Enable，控制数据发送的速度：E对应的值每发生一次变化（10），就会发生1bit的数据传输。  </li>
 </ul>
-<h4 id="显示面板"><a href="#显示面板" class="headerlink" title="显示面板"></a><strong>显示面板</strong></h4><p>显示面板被划分为8x2个区域，每个区域可以显示一个字符。 每个区域所对应了一个地址，<strong>第一排显示区域的地址是00到07，第二排显示区域的地址是从40到47</strong>。<br>在显示时需要指定显示的起始位置（操作码为0xC0+起始区域的地址）。  </p>
+<h4 id="显示面板"><a href="#显示面板" class="headerlink" title="显示面板"></a><strong>显示面板</strong></h4><p>显示面板被划分为8x2个区域，每个区域可以显示一个字符。 每个区域所对应了一个地址，<strong>第一排显示区域的地址是00到07，第二排显示区域的地址是从40到47</strong>。<br>在显示时需要指定显示的起始位置。<br>由于DDRAM，因此bit7始终为1，<strong>操作码为0xC0+起始区域的地址。</strong>  </p>
 <h4 id="显示与控制"><a href="#显示与控制" class="headerlink" title="显示与控制"></a><strong>显示与控制</strong></h4><p>每一个常用字符（字母，数字，常用符号，片假名）和指令都对应了一个8bit值，这8bit被拆分为两段：MSB和LSB分两次发送，但是先发送哪一段取决于LED的型号。（课程中为先发送MSB，再发送LSB）<br><strong>注意在发送字符/指令时，需要将操作码的头四位清零，发送MSB时，需要将MSB移动到操作码的后四位，再清零其头四位。</strong>  </p>
 <p><strong>发送指令也是8bit，其结构： 0010 | MSB/LSB</strong><br>发送指令的第一段为固定值0x20，后一段为指令的MSB或LSB。  </p>
 <p>发送字符时，发送字符的指令结构：<br><strong>发送MSB： 0011 |MSB</strong><br><strong>发送LSB： 0010 |LSB</strong>  </p>
@@ -803,5 +803,20 @@
 
   
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
