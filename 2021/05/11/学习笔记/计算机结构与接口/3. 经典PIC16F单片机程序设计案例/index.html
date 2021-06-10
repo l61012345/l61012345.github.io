@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      994 字
+      1.2k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      17
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月28日 下午
+                  本文最后更新于：2021年6月10日 早上
                 
               </p>
             
@@ -271,7 +271,7 @@
 <blockquote>
 <p>x=61时，能造成 0x2x32x256x61=0.0999424s的延迟  </p>
 </blockquote>
-
+<h3 id="PWM-控制马达"><a href="#PWM-控制马达" class="headerlink" title="PWM 控制马达"></a>PWM 控制马达</h3><figure class="highlight c"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs C">TMR0 = <span class="hljs-number">246</span>; <span class="hljs-comment">// 中断发生的时间为256-246=10us</span><br><span class="hljs-keyword">int</span> cycle; <span class="hljs-comment">// 一个周期的时间，时间设定在中断程序中设置</span><br><span class="hljs-keyword">int</span> pwm = <span class="hljs-number">400</span>; <span class="hljs-comment">// 一个周期内马达开启的时间，此处时间为400 x 10us=4ms</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">interrupt</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cycle--;<br>    <span class="hljs-keyword">if</span>(cycle == <span class="hljs-number">0</span>)<br>    &#123;<br>        cycle = <span class="hljs-number">1000</span>; <span class="hljs-comment">// 此处一个周期的时间为1000 x 10us=10ms</span><br>    &#125;<br>        <span class="hljs-keyword">if</span>(pwm == <span class="hljs-number">0</span>) <span class="hljs-comment">// 如果pwm没有设置</span><br>        &#123;<br>            pulse = <span class="hljs-number">0</span>;<br>            clear_bit(portb,<span class="hljs-number">7</span>); <span class="hljs-comment">// 关闭转子，转子不会工作</span><br>        &#125;<br>        <span class="hljs-keyword">else</span><br>        &#123;<br>        pulse = pwm; <span class="hljs-comment">// 转子开启的时间</span><br>        set_bit(portb,<span class="hljs-number">7</span>); <span class="hljs-comment">// 开启转子</span><br>        &#125;  <br>    <span class="hljs-keyword">else</span><br>    &#123;<br>        <span class="hljs-keyword">if</span>(pulse != <span class="hljs-number">0</span>)<br>        &#123;<br>            pulse--; <span class="hljs-comment">// pulse 自减</span><br>        &#125;<br>        <span class="hljs-keyword">if</span>(pulse == <span class="hljs-number">0</span>)<br>        &#123;<br>            clear_bit(portb,<span class="hljs-number">7</span>); <span class="hljs-comment">//进入转子的关闭期</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
             </div>
             <hr>
             <div>
@@ -561,20 +561,5 @@
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
