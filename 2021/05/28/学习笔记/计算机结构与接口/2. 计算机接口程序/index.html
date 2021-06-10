@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      3.6k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      36
+      41
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月8日 早上
+                  本文最后更新于：2021年6月10日 早上
                 
               </p>
             
@@ -510,6 +510,9 @@
 <h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>通常，Programm Counter（PC）负责指向下一条运行指令的地址，IR执行这个地址对应的指令，PC移动到下一条指令。<br>如果中断程序存在，当前的PC，W register 和 STATUS register中的内容会被保存到内存中，然后PC跳转到中断程序所处的位置（固定为<code>PC=4</code>），执行完中断程序后内存中PC，W register 和 STATUS register的内容被复原。  </p>
 <p><strong>每运行一行主循环中的代码，<code>void interrupt&#123;&#125;</code>中的程序就会被执行一次。</strong>  </p>
 <p>程序框图如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529152258.png" srcset="/img/loading.gif" alt=""></p>
+<h3 id="应用：-PWM-控制马达"><a href="#应用：-PWM-控制马达" class="headerlink" title="应用： PWM 控制马达"></a>应用： PWM 控制马达</h3><h4 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a><strong>原理</strong></h4><p>马达转速的调节是由输入马达的电压来进行控制的，电压越高，马达转速越快。然而单片机只能输出5v或者0v两种电压，PWM提供了一种解决思路，即在如图所示的一个周期$T$内，有一部分时间输入马达的电压为0，另一部分时间输出马达的电压为1，当$T$非常小时，输入到马达的电压近似为一个周期内电压的平均值：   </p>
+<script type="math/tex; mode=display">V_{out}=\frac{1}{T}∫_0^TV_{in}dt=\frac{t}{T}V</script><p>$t$为一个周期内电压为$V$时的时间。<br><img src="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210610144853.png" srcset="/img/loading.gif" alt="">  </p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a><strong>代码实现</strong></h4><p>在中断程序中需要有两个计数器cycle（周期计时器） 和 pulse（马达开启状态的计时器）用于控制时间，他们每运行一次中断都会自动-1，当计数器为0时表明对应的阶段已经结束。<br>在程序实现上 cycle自减1后，首先需要判断cycle的值是否为0： 如果为0，表明当前的周期已经结束，应当为cycle赋值以初始化下一个周期。  同时为pulse赋值，并使马达处于工作状态以进入下一个周期的开始（马达工作）。<br>当cycle不为0时，需要判断pulse是否为0：如果pulse的值为0，表明应当进入该周期内马达关闭的阶段，因此关闭马达。如果pulse的值不为0，那么pulse自减1。  </p>
 
             </div>
             <hr>
