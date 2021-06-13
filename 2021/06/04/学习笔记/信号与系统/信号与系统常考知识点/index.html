@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月13日 凌晨
+                  本文最后更新于：2021年6月13日 早上
                 
               </p>
             
@@ -270,7 +270,9 @@
 <p>指数形式的傅里叶级数：  </p>
 <script type="math/tex; mode=display">f(t)=∑F(nω_1)e^{jnω_1t}</script><p>$F(nω_1)=\frac{1}{2}(a_n-jb_n)$<br>幅度：$|F(nω_1)|=\frac{1}{2}√{a_n^2+b_n^2}$<br>相位：$φ_n=arctan(-\frac{b_n}{a_n})$  </p>
 <h3 id="非周期函数的傅里叶变换"><a href="#非周期函数的傅里叶变换" class="headerlink" title="非周期函数的傅里叶变换"></a>非周期函数的傅里叶变换</h3><script type="math/tex; mode=display">F(ω)=∫f(t)e^{-jωt}dt=F[f(t)]</script><p>复数形式：$F(ω)=|F(ω)|e^{jφ(ω)}$<br>傅里叶反变换：  </p>
-<script type="math/tex; mode=display">f(t)=\frac{1}{2π}∫F(ω)e^{jωt}dω</script><h3 id="傅里叶变换的运算性质"><a href="#傅里叶变换的运算性质" class="headerlink" title="傅里叶变换的运算性质"></a>傅里叶变换的运算性质</h3><div class="table-container">
+<script type="math/tex; mode=display">f(t)=\frac{1}{2π}∫F(ω)e^{jωt}dω</script><h3 id="周期信号的傅里叶变换"><a href="#周期信号的傅里叶变换" class="headerlink" title="周期信号的傅里叶变换"></a>周期信号的傅里叶变换</h3><p>如果周期函数$f_T(t)$一个周期内的子函数为$f(t)$，那么$f_T(t)$的傅里叶变换可以写作：  </p>
+<script type="math/tex; mode=display">F_T(ω)=2π∑F(nω_1)δ(ω-nω_1)</script><p>其中$F(nω_1)=\frac{1}{T}F(ω)|_{ω=nω_1}$</p>
+<h3 id="傅里叶变换的运算性质"><a href="#傅里叶变换的运算性质" class="headerlink" title="傅里叶变换的运算性质"></a>傅里叶变换的运算性质</h3><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -386,8 +388,6 @@
 </tbody>
 </table>
 </div>
-<h3 id="周期信号的傅里叶变换"><a href="#周期信号的傅里叶变换" class="headerlink" title="周期信号的傅里叶变换"></a>周期信号的傅里叶变换</h3><p>如果周期函数$f_T(t)$一个周期内的子函数为$f(t)$，那么$f_T(t)$的傅里叶变换可以写作：  </p>
-<script type="math/tex; mode=display">F_T(ω)=2π∑F(nω_1)δ(ω-nω_1)</script><p>其中$F(nω_1)=\frac{1}{T}F(ω)|_{ω=nω_1}$</p>
 <h2 id="采样定理"><a href="#采样定理" class="headerlink" title="采样定理"></a>采样定理</h2><p>奈奎斯特采样率：$f_n=2f_m$， 采样频率$f_n$是输入信号的频率的两倍。  </p>
 <h2 id="时域分析方法"><a href="#时域分析方法" class="headerlink" title="时域分析方法"></a>时域分析方法</h2><h3 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h3><p>定义：</p>
 <script type="math/tex; mode=display">∫f(t)h(τ-t)dt=f(t)*h(t)</script><p>称为信号的卷积运算。  </p>
@@ -459,6 +459,204 @@
 <li>对不满足狄利克雷条件的函数无法变换</li>
 <li>难以求解无穷积分</li>
 </ol>
+<h3 id="拉普拉斯变换对"><a href="#拉普拉斯变换对" class="headerlink" title="拉普拉斯变换对"></a>拉普拉斯变换对</h3><p>拉普拉斯变换：$F(s)=L[f(t)]=∫f(t)e^{-st}dt$<br>拉普拉斯反变换：$f(t)=\frac{1}{2πj}∫F(s)e^{st}ds$<br>拉普拉斯变换通过向傅里叶变换中添加衰减系数$e^{-σ}$来改善$f(t)$的收敛性，使其更可能满足狄利克雷条件。  </p>
+<p>实际上对于反变换，更多的是利用多项式除法，观察多项式的结构来进行反变换：<br>$F(s)=∑\frac{k}{s-p}↔f(t)=∑ke^{pt}$ （一阶实极点）  </p>
+<h3 id="拉普拉斯变换的运算性质"><a href="#拉普拉斯变换的运算性质" class="headerlink" title="拉普拉斯变换的运算性质"></a>拉普拉斯变换的运算性质</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">注解</th>
+<th style="text-align:center">时域</th>
+<th style="text-align:center">频域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">时移</td>
+<td style="text-align:center">$f(t-t_0)$</td>
+<td style="text-align:center">$F(ω)e^{-t_0s}$</td>
+</tr>
+<tr>
+<td style="text-align:center">频移</td>
+<td style="text-align:center">$f(t)e^{-at}$</td>
+<td style="text-align:center">$F(s+a)$</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">时域微分（一阶）</td>
+<td style="text-align:center">$f’(t)$</td>
+<td style="text-align:center">$sF(s)-f(0)$</td>
+</tr>
+<tr>
+<td style="text-align:center">时域微分（二阶）</td>
+<td style="text-align:center">$\frac{df^2(t)}{dt}$</td>
+<td style="text-align:center">$s[sF(s)-f(0)]-f’(0)$</td>
+</tr>
+<tr>
+<td style="text-align:center">频域微分</td>
+<td style="text-align:center">$t^nf(t)$</td>
+<td style="text-align:center">$(-1)^n\frac{d^nF(s)}{ds^n}$</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">时域积分</td>
+<td style="text-align:center">$∫f(t)dt$</td>
+<td style="text-align:center">$\frac{F(s)}{s}+\frac{f’(0)}{s}$</td>
+</tr>
+<tr>
+<td style="text-align:center">频域积分</td>
+<td style="text-align:center">$\frac{f(t)}{t}$</td>
+<td style="text-align:center">$∫F(s)ds$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>初值定理: $f(0_+)\lim_{s→∞}sF(s)$<br>终值定理：$\lim_{t→∞}f(t)=\lim_{s→0}sF(s)$<br>卷积理论：$L[f(t)h(t)]=\frac{1}{2πj}F(s)*H(s)$  </p>
+<h3 id="常见信号的拉普拉斯变换"><a href="#常见信号的拉普拉斯变换" class="headerlink" title="常见信号的拉普拉斯变换"></a>常见信号的拉普拉斯变换</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">时域函数$f(t)$</th>
+<th style="text-align:center">频域函数$L(s)$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">阶跃函数</td>
+<td style="text-align:center">$u(t)$</td>
+<td style="text-align:center">$\frac{1}{s}$</td>
+</tr>
+<tr>
+<td style="text-align:center">冲激函数</td>
+<td style="text-align:center">$δ(t)$</td>
+<td style="text-align:center">$1$</td>
+</tr>
+<tr>
+<td style="text-align:center">单侧指数函数</td>
+<td style="text-align:center">$Ee^{-at}u(t)$</td>
+<td style="text-align:center">$\frac{E}{s+a}$</td>
+</tr>
+<tr>
+<td style="text-align:center">斜坡函数</td>
+<td style="text-align:center">$tu(t)$</td>
+<td style="text-align:center">$\frac{1}{s^2}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="利用拉普拉斯变换求微分方程"><a href="#利用拉普拉斯变换求微分方程" class="headerlink" title="利用拉普拉斯变换求微分方程"></a>利用拉普拉斯变换求微分方程</h3><ol>
+<li><p>以时域函数$f(t)$的拉普拉斯变换$F(s)$的微分特性：  </p>
+<blockquote>
+<p>一阶微分：$\frac{df(t)}{dt}→sF(s)-f(0_)$<br>二阶微分：$\frac{df^2(t)}{dt}→s[sF(s)-f(0_)]-f’(0_)$  </p>
+</blockquote>
+<p>可以将微分方程以拉普拉斯变换从时域变换至频域。<br>对于描述系统的微分方程将其做拉普拉斯变换：</p>
+<script type="math/tex; mode=display">F_{out}(R(s),s)=F_{in}(E(s),s)</script></li>
+<li><p>带入初始条件和给定的题目条件中的一些$r(t)$在特定时刻下的值，得到方程  </p>
+</li>
+<li>解出频域内的$R(s)$  </li>
+<li>用待定系数法展开多项式分式并用拉普拉斯反变换得到$r(t)$</li>
+</ol>
+<blockquote>
+<p>注意初始条件  </p>
+</blockquote>
+<p>对于全响应方程$R(s)$，$R(s)$可以分解为两部分，一部分只与初始状态$r(0)$相关（零输入响应），另一部分方程只与输入$E(s)$有关(零状态响应)。对这两部分分别进行拉普拉斯反变换得到零输入响应和零状态响应。  </p>
+<h2 id="Z变换"><a href="#Z变换" class="headerlink" title="Z变换"></a>Z变换</h2><h3 id="Z变换对"><a href="#Z变换对" class="headerlink" title="Z变换对"></a>Z变换对</h3><p>Z变换：$X(z)=∑x(n)z^{-n}$<br>收敛域：$∑|x(n)z^{-n}&lt;∞|$<br>Z反变换：$X(z)=z(\frac{A}{z-p_i})⟷x(n)=∑A(p_i)^n$(一阶单极点)  </p>
+<h3 id="Z变换的运算性质"><a href="#Z变换的运算性质" class="headerlink" title="Z变换的运算性质"></a>Z变换的运算性质</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">注解</th>
+<th style="text-align:center">时域</th>
+<th style="text-align:center">频域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">双侧时移</td>
+<td style="text-align:center">$x(n+m)$</td>
+<td style="text-align:center">$z^mX(z)$</td>
+</tr>
+<tr>
+<td style="text-align:center">尺度变换（时域）</td>
+<td style="text-align:center">$nx(n)$</td>
+<td style="text-align:center">$-z\frac{dX(z)}{dz}$</td>
+</tr>
+<tr>
+<td style="text-align:center">尺度变换(z域)</td>
+<td style="text-align:center">$a^nx(n)$</td>
+<td style="text-align:center">$X(\frac{z}{a})$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>初值定理: $x(0_+)\lim_{x→∞}sX(z)$<br>终值定理：$\lim_{n→∞}x(n)=\lim_{z→1}(z-1)X(z)$<br>卷积理论：$Z[x(n)*h(n)]=X(z)H(z)$  </p>
+<h3 id="常见信号的Z变换"><a href="#常见信号的Z变换" class="headerlink" title="常见信号的Z变换"></a>常见信号的Z变换</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">时域序列$x(n)$</th>
+<th style="text-align:center">频域序列$X(z)$</th>
+<th style="text-align:center">收敛域</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">单位冲激序列</td>
+<td style="text-align:center">$δ(n)$</td>
+<td style="text-align:center">$1$</td>
+<td style="text-align:center">整个z域</td>
+</tr>
+<tr>
+<td style="text-align:center">单位阶跃序列</td>
+<td style="text-align:center">$u(n)$</td>
+<td style="text-align:center">$\frac{z}{z-1}$</td>
+<td style="text-align:center">$⃒ z ⃒ &lt;1$</td>
+</tr>
+<tr>
+<td style="text-align:center">斜坡序列</td>
+<td style="text-align:center">$nu(n)$</td>
+<td style="text-align:center">$\frac{z}{(z-1)^2}$</td>
+<td style="text-align:center">$⃒ z ⃒ &lt;1$</td>
+</tr>
+<tr>
+<td style="text-align:center">单侧指数序列</td>
+<td style="text-align:center">$a^nu(n)$</td>
+<td style="text-align:center">$\lim_{n→∞}\frac{1-(\frac{a}{z})^{n+1}}{1-\frac{a}{z}}$</td>
+<td style="text-align:center">$⃒ z ⃒ &gt;⃒ a ⃒$</td>
+</tr>
+<tr>
+<td style="text-align:center">单侧正弦序列</td>
+<td style="text-align:center">$sin(ω_0n)u(n)$</td>
+<td style="text-align:center">$\frac{zsinω_0}{z^2-2zcosω_0+1}$</td>
+<td style="text-align:center">$⃒ z ⃒ &gt;1$</td>
+</tr>
+<tr>
+<td style="text-align:center">单侧余弦序列</td>
+<td style="text-align:center">$cos(ω_0n)u(n)$</td>
+<td style="text-align:center">$\frac{z(z-cosω_0)}{z^2-2zcosω_0+1}$</td>
+<td style="text-align:center">$⃒ z ⃒ &gt;1$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="利用Z变换求差分方程"><a href="#利用Z变换求差分方程" class="headerlink" title="利用Z变换求差分方程"></a>利用Z变换求差分方程</h3><ol>
+<li>将差分方程改写成Z变换的形式  </li>
+<li>确定初始状态，解出差分方程  </li>
+<li>反变换得到$y(n)$  </li>
+</ol>
+<blockquote>
+<p>注意初始条件</p>
+</blockquote>
 
             </div>
             <hr>
