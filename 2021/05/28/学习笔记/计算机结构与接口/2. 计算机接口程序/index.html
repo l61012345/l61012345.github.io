@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月10日 早上
+                  本文最后更新于：2021年6月13日 凌晨
                 
               </p>
             
@@ -347,7 +347,7 @@
 <h4 id="显示与控制"><a href="#显示与控制" class="headerlink" title="显示与控制"></a><strong>显示与控制</strong></h4><p>每一个常用字符（字母，数字，常用符号，片假名）和指令都对应了一个8bit值，这8bit被拆分为两段：MSB和LSB分两次发送，但是先发送哪一段取决于LED的型号。（课程中为先发送MSB，再发送LSB）<br><strong>注意在发送字符/指令时，需要将操作码的头四位清零，发送MSB时，需要将MSB移动到操作码的后四位，再清零其头四位。</strong>  </p>
 <p><strong>发送指令也是8bit，其结构： 0010 | MSB/LSB</strong><br>发送指令的第一段为固定值0x20，后一段为指令的MSB或LSB。  </p>
 <p>发送字符时，发送字符的指令结构：<br><strong>发送MSB： 0011 |MSB</strong><br><strong>发送LSB： 0010 |LSB</strong>  </p>
-<h3 id="程序思路-3"><a href="#程序思路-3" class="headerlink" title="程序思路"></a>程序思路</h3><p>LED在使用前需要对其进行唤醒（初始化显示），唤醒方法为不断的向portb发送两个不同的任意非零比特值。<br>整个LED的初始化流程为：   </p>
+<h3 id="程序思路-3"><a href="#程序思路-3" class="headerlink" title="程序思路"></a>程序思路</h3><p>LCD在使用前需要对其进行唤醒（初始化显示），唤醒方法为不断的向portb发送两个不同的任意非零比特值。<br>整个LCD的初始化流程为：   </p>
 <ol>
 <li>设置adcon1接收来自portA的所有pins的数字信号。  </li>
 <li>设置portA的PA0,PA1,PA2为输出。  </li>
