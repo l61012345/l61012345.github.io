@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      270 字
+      336 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      4
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月13日 早上
+                  本文最后更新于：2021年6月14日 早上
                 
               </p>
             
@@ -259,7 +259,14 @@
 <h3 id="信号的积分和求导"><a href="#信号的积分和求导" class="headerlink" title="信号的积分和求导"></a>信号的积分和求导</h3><p>满足如下的求导规则：<br>$tu(t)→u(t)→δ(t)→δ’(t)$  </p>
 <h3 id="信号的分解"><a href="#信号的分解" class="headerlink" title="信号的分解"></a>信号的分解</h3><p>奇偶分解：$f(t)=\frac{1}{2}[f(t)+f(-t)]_{even}+\frac{1}{2}[f(t)-f(-t)]_{odd}$<br>复数分解：$f(t)=\frac{1}{2}[f(t)+f^*(t)]_{real}+\frac{1}{2}[f(t)-f^*(t)]_{img}$  </p>
 <h3 id="信号的能量（帕塞瓦尔定理）"><a href="#信号的能量（帕塞瓦尔定理）" class="headerlink" title="信号的能量（帕塞瓦尔定理）"></a>信号的能量（帕塞瓦尔定理）</h3><p>信号$f(t)$的总能量可以用如下公式表示：  </p>
-<script type="math/tex; mode=display">E=∫|f(t)|^2dt=\frac{1}{2π}|F(jω)|^2dω</script><h3 id="信号的频谱"><a href="#信号的频谱" class="headerlink" title="信号的频谱"></a>信号的频谱</h3><p><strong>周期信号的频谱是离散频谱，非周期信号的频谱是连续频谱。</strong></p>
+<script type="math/tex; mode=display">E=∫|f(t)|^2dt=\frac{1}{2π}|F(jω)|^2dω</script><h3 id="信号的频谱"><a href="#信号的频谱" class="headerlink" title="信号的频谱"></a>信号的频谱</h3><p><strong>周期信号的频谱是离散频谱，非周期信号的频谱是连续频谱。</strong><br>通过傅里叶级数写出信号频谱的办法：  </p>
+<ol>
+<li>将傅里叶级数转化为cos的形式： $f(t)=∑A_ncos(nω+ϕ_n)$  </li>
+<li>对于单边频谱，根据nω直接写出$A_n$或者$ϕ_n$的频谱  </li>
+</ol>
+<blockquote>
+<p>双边频谱的幅值谱是$\frac{A_n}{2}$</p>
+</blockquote>
 <h2 id="系统的性质"><a href="#系统的性质" class="headerlink" title="系统的性质"></a>系统的性质</h2><h3 id="因果性"><a href="#因果性" class="headerlink" title="因果性"></a>因果性</h3><p>$t_0$时刻，系统输出只与$f(t_0)$和$f(t&lt;t_0)$有关。  </p>
 <h3 id="线性"><a href="#线性" class="headerlink" title="线性"></a>线性</h3><p>满足：</p>
 <script type="math/tex; mode=display">H[C_1f_1(t)+C_2f_2(t)]=C_1H[f_1(t)]+C_2H[f_2(t)]</script><h3 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h3><p>满足：</p>
@@ -652,11 +659,52 @@
 <h3 id="利用Z变换求差分方程"><a href="#利用Z变换求差分方程" class="headerlink" title="利用Z变换求差分方程"></a>利用Z变换求差分方程</h3><ol>
 <li>将差分方程改写成Z变换的形式  </li>
 <li>确定初始状态，解出差分方程  </li>
-<li>反变换得到$y(n)$  </li>
-</ol>
-<blockquote>
+<li>反变换得到$y(n)$  <blockquote>
 <p>注意初始条件</p>
 </blockquote>
+</li>
+</ol>
+<h2 id="系统方程"><a href="#系统方程" class="headerlink" title="系统方程"></a>系统方程</h2><p>描述系统的方程$H(s)=\frac{R(s)}{E(s)}$<br><strong>$H(s)$的分子为系统微分方程输入侧的特征方程，分母为系统输出侧的特征方程。</strong>   </p>
+<p>系统输入和输出在s域内都以多项式表示，系统方程自然是两个多项式的比值：</p>
+<script type="math/tex; mode=display">H(s)=\frac{R(s)}{E(s)}=K\frac{Π(s-z_i)}{Π(s-p_k)}</script><p>其中$p_i$称为系统方程的极点，$z_k$称为系统方程的零点。   </p>
+<h3 id="系统稳定性"><a href="#系统稳定性" class="headerlink" title="系统稳定性"></a>系统稳定性</h3><p>在s域图像中，如果极点分布在s域的左半轴，表明系统是稳定的。<br>在z域图像中，如果极点分布在z域的单位圆内，表明系统是稳定的。  </p>
+<h3 id="反馈系统的方程"><a href="#反馈系统的方程" class="headerlink" title="反馈系统的方程"></a>反馈系统的方程</h3><p>如图：<br><img src="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210614142459.png" srcset="/img/loading.gif" alt=""><br>系统的闭环传输函数：  </p>
+<script type="math/tex; mode=display">\frac{C(s)}{R(s)}=\frac{G(s)}{1+G(s)H(s)}</script><p>其中：系统的开环传输函数为$G(s)H(s)$。  </p>
+<h3 id="根轨迹图"><a href="#根轨迹图" class="headerlink" title="根轨迹图"></a>根轨迹图</h3><p>系统的开环传输函数加入了一个根轨迹增益$K$以衡量闭环极点对开环传输函数的影响。<br>得到根轨迹图的步骤：  </p>
+<ol>
+<li><p>通过闭环传递函数的特征方程$1+G(s)H(s)$解出s与参数$K$之间的关系。</p>
+<blockquote>
+<p>注意开环传输函数的特征方程是$1+G(s)H(s)$  </p>
+</blockquote>
+</li>
+<li><p>在s域中标出零点。  </p>
+</li>
+<li>在s域中标出极点，即$K=0$的位置。  </li>
+<li>增加K的值，在S域中标出一系列的s的位置，并以（$K=x$）在每个点上方进行标注。  </li>
+<li>判断$k→∞$时，s的移动方向，并用箭头标注。  </li>
+</ol>
+<h2 id="切比雪夫滤波器"><a href="#切比雪夫滤波器" class="headerlink" title="切比雪夫滤波器"></a>切比雪夫滤波器</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>过渡带很小</li>
+<li>有波纹</li>
+</ol>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>实际的滤波器波形如图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210531161932.png" srcset="/img/loading.gif" alt=""><br>滤波器波形的四个参数：</p>
+<ol>
+<li>通带边缘（Passband edge,$ω_p$）</li>
+<li>最大允许变化（Maximum allowed variation,$A_max$）</li>
+<li>阻带边缘（Stopband edge,$ω_s$）</li>
+<li>最小阻带衰减要求（Minimum required stopband attenuation,$A_min$）  </li>
+</ol>
+<h3 id="传输函数"><a href="#传输函数" class="headerlink" title="传输函数"></a>传输函数</h3><script type="math/tex; mode=display">|T(jω)|=\frac{1}{√1+ɛ^2C^2_n(ω/ω_p)}</script><p>其中：$n≥\frac{cosh^{-1}M}{cosh^{-1}Ω}$为电路阶数，$ɛ=√{10^{\frac{A_{max}}{10}}-1}$<br>$Ω=\frac{ω_s}{ω_p}$，$M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}$  </p>
+<blockquote>
+<p>将电感和电容对换就可以得到高通滤波器。  </p>
+</blockquote>
+<h3 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h3><ol>
+<li>确定使用的滤波器类型  </li>
+<li>找到能够拟合要求的转换方程（巴特沃斯/切比雪夫）  </li>
+<li>根据波形图求出电路的最小阶数$n$  </li>
+<li>查表找到CL的数值，并作反归一化  </li>
+<li>连接电路  </li>
+</ol>
 
             </div>
             <hr>
