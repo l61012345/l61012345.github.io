@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月13日 凌晨
+                  本文最后更新于：2021年6月16日 早上
                 
               </p>
             
@@ -506,7 +506,7 @@
 </div>
 <p>bit7-bit6: 其他功能<br>bit5: T0CS，选择用RA4还是时钟信号作为输入<br>bit4: T0SE，选择下降沿还是上升沿触发计数器计数<br>bit3: PSA， 选择是否开启pre-scaler<br>bit2-bit0： 选择pre-scaler的倍率  </p>
 <h3 id="理论"><a href="#理论" class="headerlink" title="理论"></a>理论</h3><p>TMR0发生一次overflow的时间：</p>
-<script type="math/tex; mode=display">时钟周期 × 放大倍率 × (256- \text{TMR0}初始值)</script><h3 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h3><p>可通过给定tmr0的初始值和重置T0IF为0来实现一个精准的delay。  </p>
+<script type="math/tex; mode=display">时钟周期 × 放大倍率 × (256 × 单次计数所需要的时间 - \text{TMR0}初始值)</script><h3 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h3><p>可通过给定tmr0的初始值和重置T0IF为0来实现一个精准的delay。  </p>
 <h2 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>通常，Programm Counter（PC）负责指向下一条运行指令的地址，IR执行这个地址对应的指令，PC移动到下一条指令。<br>如果中断程序存在，当前的PC，W register 和 STATUS register中的内容会被保存到内存中，然后PC跳转到中断程序所处的位置（固定为<code>PC=4</code>），执行完中断程序后内存中PC，W register 和 STATUS register的内容被复原。  </p>
 <p><strong>每运行一行主循环中的代码，<code>void interrupt&#123;&#125;</code>中的程序就会被执行一次。</strong>  </p>
 <p>程序框图如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529152258.png" srcset="/img/loading.gif" alt=""></p>
