@@ -488,61 +488,23 @@
 <p>初始状态的值会直接影响到零状态响应：如果初始状态$x(0)=c$对应的零输入响应为$r_{zs}^i$，那么初始状态为$x(0)=2c$对应的零输入响应为$r_{zs}^{ii}=2r_{zs}^i$</p>
 </blockquote>
 <p>零状态响应：不考虑系统的初始状态，系统输入对系统造成的响应。<br><strong>系统的零状态响应</strong>可以表示为输入信号为$δ(t)$时的系统响应与系统输入信号的卷积：  </p>
-<script type="math/tex; mode=display">r_{zs}=h(t)*e(t)</script><p>系统的全响应： 系统的零状态响应和系统的零输入响应之和。</p>
-<h3 id="时域分析法解系统微分方程"><a href="#时域分析法解系统微分方程" class="headerlink" title="时域分析法解系统微分方程"></a>时域分析法解系统微分方程</h3><h4 id="求齐次解（零输入响应）"><a href="#求齐次解（零输入响应）" class="headerlink" title="求齐次解（零输入响应）"></a>求齐次解（零输入响应）</h4><p>系统的齐次解方程：  </p>
+<script type="math/tex; mode=display">r_{zs}=h(t)*e(t) ↔ R_{zs}(s)=H(s)E(s)</script><p>系统的全响应： 系统的零状态响应和系统的零输入响应之和。  </p>
+<script type="math/tex; mode=display">R(s)=H(s)E(s)+R_{zi}(s)</script><h3 id="时域分析法解系统微分方程"><a href="#时域分析法解系统微分方程" class="headerlink" title="时域分析法解系统微分方程"></a>时域分析法解系统微分方程</h3><h4 id="求齐次解（零输入响应）"><a href="#求齐次解（零输入响应）" class="headerlink" title="求齐次解（零输入响应）"></a>求齐次解（零输入响应）</h4><p>系统的齐次解方程：  </p>
 <script type="math/tex; mode=display">f[y(t)]=0</script><ol>
 <li>将特征方程转化为多项式并求解。<br>对于微分方程的特征方程，其$n$阶微分项可以被换元为$α^n$项，最终将特征方程转化为关于$α$的$n$阶多项式。<br>对于差分方程的特征方程，其0阶差分项$y(n)$可以被换元为关于$α$的最高幂项，如此类推，最终将特征方程转化为关于$α$的$n$阶多项式。  </li>
 <li><p>根据多项式的解的个数和是否有重根，可以在下表中找到齐次解的形式，并带入多项式的解。  </p>
 <p>不同特征根所对应的齐次解（微分方程）  </p>
+<p>|特征根|齐次解$y_p(t)$|<br>|:—-:|:—-:|<br>|单实根| $e^{αk}$ |<br>|r重实根|$∑C_{r-1}t^{r-1} e^{αk}$ |</p>
+<p>不同特征根所对应的齐次解（差分方程）  </p>
+<p>|特征根|齐次解$y_p(k)$|<br>|:—-:|:—-:|<br>|单实根| $Cα^k$ |<br>|r重实根|$∑C_{r-1}k^{r-1} α^k$ |</p>
 </li>
 </ol>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">特征根</th>
-<th style="text-align:center">齐次解$y_p(t)$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">单实根</td>
-<td style="text-align:center">$e^{αk}$</td>
-</tr>
-<tr>
-<td style="text-align:center">r重实根</td>
-<td style="text-align:center">$∑C_{r-1}t^{r-1} e^{αk}$</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>   不同特征根所对应的齐次解（差分方程）  </p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">特征根</th>
-<th style="text-align:center">齐次解$y_p(k)$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">单实根</td>
-<td style="text-align:center">$Cα^k$</td>
-</tr>
-<tr>
-<td style="text-align:center">r重实根</td>
-<td style="text-align:center">$∑C_{r-1}k^{r-1} α^k$</td>
-</tr>
-</tbody>
-</table>
-</div>
 <h4 id="求系统特解（单位冲激响应）"><a href="#求系统特解（单位冲激响应）" class="headerlink" title="求系统特解（单位冲激响应）"></a>求系统特解（单位冲激响应）</h4><ol>
 <li>带入具体的激励$e(t)=δ(t)$到系统的微分/差分方程。</li>
 <li>通过0阶项$r(t)$与激励中最高次数项之间系数的关系，用待定系数法猜想系统响应$r(t)$的结构。</li>
 <li>将$r(t)$的结构代回微分/差分方程，利用对应阶数项系数相等建立方程，解出$r(t)$结构中的常系数。  </li>
 </ol>
-<p>如果已知了一些特解，求另一些特解，可以使用<strong>迭代法</strong>。<br>即从$h(0)$开始列出微分方程，直到列到所求的特解对应的微分方程，将已知的特解带入，从而求出未知的特解。</p>
+<p>如果已知了一些特解，求另一些特解，可以使用<strong>迭代法</strong>。<br>即从$h(0)$开始列出微分方程，直到列到所求的特解对应的微分方程，将已知的特解带入，从而求出未知的特解。  </p>
 <h2 id="拉普拉斯变换"><a href="#拉普拉斯变换" class="headerlink" title="拉普拉斯变换"></a>拉普拉斯变换</h2><h3 id="傅里叶变换的局限性"><a href="#傅里叶变换的局限性" class="headerlink" title="傅里叶变换的局限性"></a>傅里叶变换的局限性</h3><ol>
 <li>对不满足狄利克雷条件的函数无法变换</li>
 <li>难以求解无穷积分</li>
