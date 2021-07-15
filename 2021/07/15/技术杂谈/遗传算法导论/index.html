@@ -1,0 +1,623 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="keywords" content=""> 
+  <meta name="author" content="Oreki Kigiha">
+  <!-- searchengine verifications -->
+  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
+  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
+  <!-- Bing verification -->
+  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  
+  <title>遗传算法导论 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/homepage.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="遗传算法导论">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Oreki Kigiha
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-15 12:26" pubdate>
+        2021年7月15日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      55
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">遗传算法导论</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年7月15日 中午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="遗传算法导论"><a href="#遗传算法导论" class="headerlink" title="遗传算法导论"></a>遗传算法导论</h1><blockquote>
+<p>A genetic algorithm tutorial, Darrell Whitley, 1994</p>
+</blockquote>
+<h2 id="遗传算法的概念"><a href="#遗传算法的概念" class="headerlink" title="遗传算法的概念"></a>遗传算法的概念</h2><p>遗传算法是一类将特定问题潜在的解决方案编码并组织到形如染色体（chromosome）结构的数据结构（下文直接称之为染色体）上，然后应用recommend operators 对数据结构中的特定信息进行保留的算法。<br>遗传算法的操作对象是一组这样的染色体，称之为种群（population）。遗传算法会针对这样的种群进行评价，然后筛选：对于目标问题有更优解的染色体会被赋予更高的机会进行复制（reproduce）。</p>
+<h2 id="优化问题"><a href="#优化问题" class="headerlink" title="优化问题"></a>优化问题</h2><p>遗传算法遇到的问题大多可以归结为两类：编码问题和评估函数的问题。  </p>
+<h3 id="编码（Encoding）问题"><a href="#编码（Encoding）问题" class="headerlink" title="编码（Encoding）问题"></a>编码（Encoding）问题</h3><p>对于参数的选取，通常认为参数之间应该具备线形不相关的特性，但事实上很难保证参数的这一性质，在遗传算法中，参数之间的关联称为基因关联（Epistasis）。<br>遗传算法对与参数的编码建立在一个基本的假设上：代表系统参数的变量可以用字节串（位串，Bit string）来进行表达，这也意味着这些变量能够以某种方式被离散化。离散化的范围以$2^n$表示，例如如果每个参数都用10bit来表示，那么经过离散化后，我们能至多得到1024个离散值（1024种01的组合）。对参数作离散化处理是为了在保证精度的前提下，给系统输出提供尽可能大的分辨率（resolution）以便调整系统输出。<br>字节化编码的问题在于离散值的冗余，如果变量离散化后有1200个（介于1024和2048之间）离散值，那么需要用11个字节才能表示完全，但是如此会有2048-1200=848个无用的离散值，这些无用的离散值可能会导致没有评估，或者是出现不好的评估结果。   </p>
+<h3 id="评估函数（Evaluation-function）问题"><a href="#评估函数（Evaluation-function）问题" class="headerlink" title="评估函数（Evaluation function）问题"></a>评估函数（Evaluation function）问题</h3><p>评估函数能够对系统的输出进行评估。构建评估函数的过程是一个模拟（仿真）系统的过程，这样的仿真相比与真实系统必然只能给出近似解或者是部分解。因此评估函数对系统输出的结果只是近似的，或是部分的评价。   </p>
+<p>对于遗传算法来说评估函数的计算速度是一个问题：首先，对于现有种群的评估计算量就比较大。不仅如此，种群的后代也需要进行评估。   </p>
+<h4 id="参数空间"><a href="#参数空间" class="headerlink" title="参数空间"></a>参数空间</h4><p>假设参数之间的关系是非线形的，如果用于表示参数的比特数为L，那么参数空间的大小是$2^L$, 遗传算法在这样的一个L维的超空间（hypercube）中采样。这个超空间的大小随着L指数型增长，将带来巨大的采样难度和计算量。  </p>
+<h2 id="经典遗传算法"><a href="#经典遗传算法" class="headerlink" title="经典遗传算法"></a>经典遗传算法</h2><h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><p>经典遗传算法通过对当前种群的评估（Evaluation），选择（Selection），重组（Recombinati）和突变（Mutation）  后，能够在现有种群的基础上产生下一代种群。 </p>
+<h4 id="原始种群（Initial-population）"><a href="#原始种群（Initial-population）" class="headerlink" title="原始种群（Initial population）"></a>原始种群（Initial population）</h4><p>在遗传算法中，定义种群中编码后的一条固定长度为L的字节串称为一个个体，这样的个体称为基因型（Genotype）或者是染色体（Chromosome）。  在大多数情况下，原始种群被随机的产生出来。    </p>
+<blockquote>
+<p>此处的随机指在空间内随机的取出一些编码的组合（当然也受制于编码机制等）。  </p>
+</blockquote>
+<h4 id="评估和适应度"><a href="#评估和适应度" class="headerlink" title="评估和适应度"></a>评估和适应度</h4><p>原始种群被生成后，每一个个体会通过评估函数和适应度函数（Fitness funtion）生成其对种群的适应度（Fitness）。  </p>
+<blockquote>
+<p>评估函数和适应度函数两个概念一般来说是可以替换的。事实上，评估函数是通过一组参数来实现对个体表现的衡量，而适应度函数是通过增殖（Reproductive）概率来衡量个体表现的。  评估函数的衡量不依赖于种群中的其他个体，适应度函数的衡量与种群中其他个体有关。     </p>
+</blockquote>
+<p>种群中个体$i$的适应度定义为：  </p>
+<script type="math/tex; mode=display">\frac{f_i}{\overline{f}}</script><p>其中，$f_i$表示评估函数对第$i$个个体的评估结果，$\overline{f}$表示种群的平均评估。  </p>
+<h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><p>定义在现种群经过选择后保留的种群称为中间种（Imermediate population），中间种经过突变和重组后会成为下一代种群。<br>在遗传算法中，选择的本质是概率性地将现种群中的个体进行复制，最终得到中间种的过程。<br>具体而言，对于适应度大于1的个体，适应度的整数部分表示该个体会被复制多少次。对所有的个体，适应度的小数部分表示额外被复制的概率。  比如，适应度2.3的个体能够获得2次复制，并且有0.3的概率能获得第三次复制的机会。<br>更加形象化的表述为轮盘赌：如果整个轮盘表示整个种群，每个个体所占面积与适应度成正比，每一次转动就能随机地抽取一个个体复制，更高效的办法是轮盘外围上均匀地分布着N个均等间距的指针，每一次转动就能随机抽取N个个体进行复制。  经过若干次转动后，结果的集合构成中间种。  </p>
+<h4 id="重组"><a href="#重组" class="headerlink" title="重组"></a>重组</h4><p>遗传算法中重组的本质是杂交（Crossover），其过程主要有两步： </p>
+<ol>
+<li>随机地使得个体间两两配对。  </li>
+<li>随机地选取一对个体，两者在某个随机且相同的比特位处断开，前后的两段基因型进行交叉互换。  </li>
+</ol>
+<p>新生成的两个个体称为后代（Offspring），后代能够插入到下一代的概率计作$p_c$。  </p>
+<h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p>重组之后利用突变算子对后代作突变处理，对于种群中的所有比特位，其突变的概率计作$p_m$，这是一个非常小的值，通常小于1%。  突变有可能随机地产生一些比特（并且有50%的可能性改变原本的比特值），也有可能反转原有的比特（一定能改变原本的比特值）。 中间种经过重组和突变，最终能称为新的种群。  </p>
+<h3 id="可行性分析"><a href="#可行性分析" class="headerlink" title="可行性分析"></a>可行性分析</h3><p>经典遗传算法的鲁棒性和复杂性建立在样本空间中有偏向性的超平面采样之上。   </p>
+<h4 id="搜索空间和超平面"><a href="#搜索空间和超平面" class="headerlink" title="搜索空间和超平面"></a>搜索空间和超平面</h4><p>在几何学上，称n维空间的某一个小于n维的子空间为超平面（hyperplane）， 比如二维空间的超平面是一条线，三位空间的超平面是一个面。<br>在位串长度固定位$L$的前提下，种群中所有可能的编码方式所构成的空间称为搜索空间（Search space）。 如果每一种特定的编码方式在L维搜索空间中对应了一个角（Corner），那么共超平面的几个角对应的编码中必定在相同的某几个比特位上的值是相同的，此时引入通配符（Don‘t care，以*记）的概念，那么搜索空间的一个超平面就可以表示为含有Don’t care（*）的位串（比如：0****，11*****），这样的位串称为模式（Schema），每一个模式对应了一个超平面。   </p>
+<h4 id="复制：偏向性地采样"><a href="#复制：偏向性地采样" class="headerlink" title="复制：偏向性地采样"></a>复制：偏向性地采样</h4><p>对于一个$K$维的搜索空间：***…***，该空间能够被分割为1**…***和0**…***两个超平面，对这两个超平面分别计算平均适应度，采样过程总是有高概率地采集适应度更高的超平面内的样本。在下一次采样中，这个超平面再度被等距划分为多个子部分，采样会更倾向于平均适应度更高的子部分，重复若干次采样后，采样总是更倾向于采集整个搜索空间中适应度最高的部分。因此通过这样的采样能够在搜索空间中找到适应度最高的部分。换句话说，遵循这样规律的复制总是能够有高概率地选择到种群中适应度更高的个体。  </p>
+<blockquote>
+<p>采样过程的本质是一个在搜索空间中不断寻找局部最大值的过程。  </p>
+</blockquote>
+<p>其次，定义选择后某一特定超平面$H$内留存的样本的期望数目为该超平面现有的样本数目$M（H,t）$与该超平面适应度均值$f(H,t)$的乘积：</p>
+<script type="math/tex; mode=display">E=M(H,t) \times f(H,t)</script><p>这样的采样方法会使得采样后在特定超平面的样本数与其期望大致相符合,事实上经过选择后$H$留存的样本数目$M(H,t+1)$可以被公式化为：  </p>
+<script type="math/tex; mode=display">M(H,t+1)=M(H,t)\frac{f(H,t)}{\overline{f}}</script><p>其中$\overline{f}$表示整个种群的平均适应度，近似为1。   </p>
+<h4 id="重组：产生新的样本的同时带来扰乱"><a href="#重组：产生新的样本的同时带来扰乱" class="headerlink" title="重组：产生新的样本的同时带来扰乱"></a>重组：产生新的样本的同时带来扰乱</h4><p>由于复制不会产生新的样本，而选择可能会减少种群中的样本数目，为了避免最终种群的个体数目过小，同时产生新的可能性，因此在每一次采样后需要用染色体重组（交叉）来产生新的样本。 不仅如此，染色体重组（交叉）还可以起到部分地保留当前的采样超平面倾向的作用，下面来讨论染色体重组对原来染色体中信息的扰乱（Disruption）程度：<br>对于一组一阶染色体，其染色体中的信息必不可能受到染色体重组的影响。<br>对于二阶和二阶以上的染色体组，其扰乱程度和交叉点的数目有关：<br>如果只有一点发生染色体重组，染色体组在一点交叉后发生比特变换（扰乱）的概率受Schema中确定字符（该位置上的值不是通配符）的位置决定。<br>如果有两点发生染色体重组，则在互补位置发生交叉时对染色体组的扰乱最大。<br>总而言之，<strong>染色体中的原本信息在重组中受到扰乱的程度与模式中确定字符的位置有着密切的关系。</strong><br>不管是一点交叉还是两点交叉，可以发现Schema中相邻的既定比特位受到重组带来的扰乱最小。    </p>
+<h5 id="定义距"><a href="#定义距" class="headerlink" title="定义距"></a>定义距</h5><p>称在交叉过程中被整体保留下来的确定字符称为适应性等位基因（Coadapted alleles）。在某一个模式当中，两个确定字符之间的距离称为两个字符的联系（Linkage），第一个确定字符的位置和最后一个确定字符的位置之间（这个部分称为有义部分（Significant Portion of Schema））的距离称为模式的定义距（Defining length），以$\Delta(H)$记。</p>
+<blockquote>
+<p>两点及两点以上的交叉中需要将Schema组织为首尾相连的环状形式，才能得出其定义距。  </p>
+</blockquote>
+<p>通过之前对重组扰乱的推演可以得出结论：扰乱程度与定义距的长度有关：定义距的长度越长，在交叉过程中原本染色体信息被扰乱的可能性就越大。不仅如此，定义距直接反映了交叉发生在有义部分的概率，对于一点交叉而言，一点交叉发生在有义部分的概率为： $\frac{\Delta(H)}{L-1}$。   </p>
+<h5 id="倒换"><a href="#倒换" class="headerlink" title="倒换"></a>倒换</h5><p>除了交叉和变异之外，遗传算法中还会用到的对染色体的基本操作是倒换（Inversion）。 倒换是随机的将染色体中的某一段序列进行镜像翻转。倒换可以改变染色体上确定字符之间的连接，这样具有更大非线性的确定字符在染色体上的间隔距离可能会被缩小。<br> 倒换的前提是比特以一种位置无关的方式进行编码（否则倒换就等同于大规模变异）。一种可行的编码方式是染色体上的每一个基因以（位置，值）的形式表示。比如对于010010110而言，染色体为((9,0)(6,0)(2,1)(7,1)(5,1)(8,1)(3,0)(1,0)(4,0))。 对于倒换和如此表示所带来的问题，在此不做过多叙述。  </p>
+<h2 id="模式理论"><a href="#模式理论" class="headerlink" title="模式理论"></a>模式理论</h2><h3 id="推导过程"><a href="#推导过程" class="headerlink" title="推导过程"></a>推导过程</h3><p>模式理论（Schema theorem）提供了进化时采样率的下界，推导过程如下：<br>由之前提出的经过选择后超平面$H$留存的样本（个体）数目$M(H,t+1)$：  </p>
+<script type="math/tex; mode=display">M(H,t+1)=M(H,t)\frac{f(H,t)}{\overline{f}}</script><p>考虑重组对选择后超平面$H$中种群样本数目的影响：</p>
+<ol>
+<li>重组是有概率发生的，概率为$p_c$。  </li>
+<li>对于发生重组的种群，交叉既有可能产生出现有空间内某个模式的副本（比如100和010交叉就可能产生000，使得000的副本增加一个），同时也有可能使得原有的样本消失。<br>那么现在后代中落在超平面$H$的样本数目：  <script type="math/tex; mode=display">M(H,t+1)=(1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-losses)+gains]</script>为了简化计算，忽略gain，并且假设发生在Schema上有义部分的交叉必然导致染色体扰乱，记扰乱概率为$disruption$，那么有：  <script type="math/tex; mode=display">M(H,t+1) \geq (1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-disruption)]</script>定义超平面$H$的采样率表示超平面$H$的样本数目与种群中样本数目的比，以$P(H，t)$记。由之前对定义距的理解，可以将扰乱概率定义为：  <script type="math/tex; mode=display">\frac{\Delta(H)}{L-1}(1-P(H,t))</script>那么下一代超平面$H$的采样率可以表示为：<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t))]</script>如果考虑亲代是基于适应度选择出来的：  <script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]</script>最后，考虑突变的影响：记突变发生的概率为$p_m$，超平面$H$的阶数为$o(H)$，那么表示超平面$H$的Schema不会受到突变影响的概率为：  <script type="math/tex; mode=display">(1-p_m)^{o(H)}</script>最终，超平面$H$在下一代中被采样到的概率可以表示为：  <script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}</script></li>
+</ol>
+<h3 id="突变和收敛问题"><a href="#突变和收敛问题" class="headerlink" title="突变和收敛问题"></a>突变和收敛问题</h3><p>显然，模式定理最强调交叉和超平面采样在遗传搜索中的作用。为了在选择后最大限度地保存超平面样本，应尽量减少交叉和突变的扰乱。这表明突变可能根本不应该使用，或者至少应该在非常低的水平上使用。<br>突变的积极作用是突变可以防止任何特定位点或等位基因的永久丢失（尤其是对种群中个体数目非常小的时候而言）， 同时突变也增加了种群的基因多样性。<br>随着代数的增加，选择有可能使得在某些位置上的比特全部变成相同的值，表明算法收敛。但是与此同时，个体之间适应度的差别会越来越小，选择的影响也会越来越小，最终可能导致提前收敛。可以通过对适应度的缩放来改善这一问题。     </p>
+<h3 id="重组的采样方式·均匀交叉"><a href="#重组的采样方式·均匀交叉" class="headerlink" title="重组的采样方式·均匀交叉"></a>重组的采样方式·均匀交叉</h3><h4 id="交叉点数目问题"><a href="#交叉点数目问题" class="headerlink" title="交叉点数目问题"></a>交叉点数目问题</h4><p>在某个范围内，交叉点的数目多一些，扰乱的影响随之减弱。但是过多的交叉点数目会导致出现非常大的扰乱。    </p>
+<h4 id="均匀交叉（Uniform-crossover）"><a href="#均匀交叉（Uniform-crossover）" class="headerlink" title="均匀交叉（Uniform crossover）"></a>均匀交叉（Uniform crossover）</h4><p>均匀交叉的流程是首先随机对种群中的染色体进行两两配对，和单点交叉不同的是，均匀交叉随机地选择亲代染色体中的某些位置，然后对换亲代染色体上这一位置上的比特值。 与单点交叉相比，均匀交叉的扰乱概率不受定义距的影响，均匀交叉的扰乱概率为：  </p>
+<script type="math/tex; mode=display">1-（\frac{1}{2}）^{o(H)-1}</script><p>虽然相比于单点交叉均匀交叉的扰乱概率更大，但是对于个体数目小的种群，更大的扰乱概率能解除信息量小的限制。<br>同时，在采样方式上，相比与单点交叉，理论上均匀交叉能够采集到更多的样本，具体的可由Fig 4 说明。 如果把两个位串中同一位置上的比特值不相同的位置数称为海明距离（Hamming distance），记作$\mathcal{H}$，那么理论上均匀交叉可以产生$2^\mathcal{H}-2$种不同的位串，而单点交叉只能产生$2(\mathcal {H}-1)$种不同的位串。   </p>
+<h3 id="简化取代表示"><a href="#简化取代表示" class="headerlink" title="简化取代表示"></a>简化取代表示</h3><p>对于两个位串，将同一位置上比特值相同的地方用“-”表示，不同部分保留的表示方法称为简化取代表示（Reduced surrogates）法。 例如，对于0001111011010011和0001001010010，就可以表示为——11—-1——-1和——00—-0——-0。  这样的表示法好处是可以方便的理解这两个位串的重组其实是发生在一个4维空间中的，由于均匀交叉的距离无关性，可以发现对亲dd代的扰乱就发生在这些点上，因此可以将均匀交叉简化为在这种表示方法下的一点交叉。  其次，如果至少一个交叉点存在于这种表示方法的第一个确定字符和最后一个确定字符之间，那么能够保证交叉结果绝对不同于亲代，这意味着能够在这个空间内采到新的样本。   </p>
+<h3 id="种群大小"><a href="#种群大小" class="headerlink" title="种群大小"></a>种群大小</h3><p>低阶的超平面拥有比较高的采样率。一个采样空间可被划分为$2^iC_L^i$个$i$阶的超平面。超平面的数量与研究种群大小$N$和遗传算法能够采样到的超平面数有关。通常认为超平面的数量与一开始的随机种群中的个体数量是一个指数关系：在$N$大小的种群里，$i$阶的超平面大约会被采集到$(\frac{1}{2})^i N$个样本。  </p>
+<h4 id="N-3-理论"><a href="#N-3-理论" class="headerlink" title="$N^3$理论"></a>$N^3$理论</h4><p>$N^3$理论认为，当种群大小为$N$时，遗传算法处理的有效超平面个数为$N^3$。  记$\theta$为至少复制$\phi$次后种群中超平面的最高阶数，$\theta=log_2(\frac{N}{\phi})$，那么有采样空间中$\theta$阶的超平面总数一定大于等于遗传算法处理的超平面个数：  </p>
+<script type="math/tex; mode=display">2^\theta C_L^\theta \geq N^3</script><p>长度为$L$的模式总数为$3^L$。根据上述理论，如果选用$N=3^L$，那么至多有$N$个超平面可以被遗传算法处理。  因此种群大小要根据$L$进行选择。  </p>
+<h3 id="模式理论的局限性"><a href="#模式理论的局限性" class="headerlink" title="模式理论的局限性"></a>模式理论的局限性</h3><ol>
+<li>忽略了gains和低估了losses的影响。  </li>
+<li>当搜索逐渐聚拢在一些特定的超平面的子空间内时，观察到的超平面$H$的适应度会有巨大变化。因此取平均适应度为分母的方法仅在前几代可行。  </li>
+<li>字符串采样的偏差使得用模式理论计算并预测结果并不可行。  </li>
+</ol>
+<p>总而言之，模式定理没有为遗传算法的行动轨迹提供确切的描述，也无法预测特定超平面是如何随着时间的推移而处理的。</p>
+<h2 id="具体的标准遗传算法模型"><a href="#具体的标准遗传算法模型" class="headerlink" title="具体的标准遗传算法模型"></a>具体的标准遗传算法模型</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/">技术杂谈</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/15/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">卷积神经网络简介</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/15/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.2%20Kmeans%E7%AE%97%E6%B3%95/">
+                        <span class="hidden-mobile">9.2. K均值算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <!-- start webpushr code --> 
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
+  <div class="footer-content">
+     基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
+<script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
+</html>
