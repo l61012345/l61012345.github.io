@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.5k 字
+      7.7k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      73
+      86
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年7月17日 凌晨
+                  本文最后更新于：2021年7月17日 下午
                 
               </p>
             
@@ -347,8 +347,33 @@
 <script type="math/tex; mode=display">S^TM'(:,1)s_0=P(S_0,t)\frac{f(S_0,t)}{\overline{f}}(1-losses)</script><p>记向量$\sigma$有：  </p>
 <script type="math/tex; mode=display">σ_j<s_0,...s_{2^L-1}^T>=<s_{j⊕0},...s_{j⊕2^L-1}^T></script><p>记$\mathcal{M}(s)$：  </p>
 <script type="math/tex; mode=display">\mathcal{M}(s)=<(σ_0s)^TMσ_0s,...,(σ_{V-1}s)^TMσ_{V-1}s>^T</script><p>矩阵$F$为对角线是$f(i)$的对角矩阵，有：  </p>
-<script type="math/tex; mode=display">s^{t+1}=kFM(s^t),k>0</script><h2 id="其他进化模型"><a href="#其他进化模型" class="headerlink" title="其他进化模型"></a>其他进化模型</h2><p>除了标准进化模型之外，还有一些其他的进化模型。大致可分为进化策略(Evolutionary Strategies)和进化编程(Evolutionary Programming)两种。  </p>
-
+<script type="math/tex; mode=display">s^{t+1}=kFM(s^t),k>0</script><h2 id="其他进化模型"><a href="#其他进化模型" class="headerlink" title="其他进化模型"></a>其他进化模型</h2><p>除了标准进化模型之外，还有一些其他的进化模型。大致可分为进化策略(Evolutionary Strategies,ES)和进化编程(Evolutionary Programming,EP)两种。<br>进化编程中每一个个体是一个有限状态机（Finit-state machine），在此不做过多叙述。<br>进化策略中细分为两种类型：$(μ+λ)-ES$和$(μ,λ)-ES$。<br>在$(μ+λ)-ES$机制中，亲代$μ$产生后代$λ$后，种群还会对亲代和后代共同进行选择，选择其中表现出色的个体生成下一代。在这种选择机制下，亲代会被保留直到被比亲代表现更出色的个体替代。<br>在$(μ,λ)-ES$机制中，后代被产生后就直接替代亲代，选择在后代中执行。这种进化机制在选择阶段与经典遗传算法近似。但是在重组阶段所采用的算子与经典遗传算法不同。<br>$(μ+λ)-ES$机制相比于$(μ,λ)-ES$机制，其被优化的后代数目一定是单调增加的。  </p>
+<h3 id="Genitor-算法"><a href="#Genitor-算法" class="headerlink" title="Genitor 算法"></a>Genitor 算法</h3><p>Genitor算法是一种使用$(μ+λ)-ES$机制的算法，其与经典遗传算法中的进化模型不同点有三处。  </p>
+<ol>
+<li>选择在亲代中执行，选择后的亲代产生的后代被立即投放到下一代种群中。  </li>
+<li>后代不会替代亲代，但是每一代中适应度最差的个体被直接移除以加强选择压力。  </li>
+<li>适应度函数通过排名算法（Ranking）而非比值来表现。排名也同样能够保持选择压力的有效性。  <blockquote>
+<p>排名算法：<br>设三个个体的适应度评估为：$h_1,h_2,h_3$.<br>首先对所有个体按照适应度从小到大排序，比如：$h_2,h_1,h_3$;<br>按照上面的顺序重新赋予fitness，即$f(h_2)=1,f(h_1)=2,f(h_3)=3$<br>计算选择概率:$p(h_2)=\frac{1}{1+2+3}=\frac{1}{6},p(h_1)=\frac{2}{6},p(h_3)=\frac{3}{6}$  </p>
+</blockquote>
+</li>
+</ol>
+<h3 id="CHC-算法"><a href="#CHC-算法" class="headerlink" title="CHC 算法"></a>CHC 算法</h3><p>CHC算法是另一种能够单调选择位串的算法，CHC指Cross-generational elitist selection, Heterogenous recombination, Cataclysmic mutation。<br>Genitor算法是一种使用$(μ+λ)-ES$机制的算法，具体的执行过程为：<br>在重组之后，亲代和子代中最好的$N$个个体生成中间种群，由于这样的选择已经能够制造足够的压力，因此CHC直接采用随机选择的方式从这个中间种群中进行挑选。同时，选择后的中间种中，海明距离远的两个个体才被允许进行繁殖。<br>在突变阶段，除了选择出来的优秀个体外，其余所有的个体都要经历相当大的突变，再进行交叉。   </p>
+<h3 id="Hybrid-算法"><a href="#Hybrid-算法" class="headerlink" title="Hybrid 算法"></a>Hybrid 算法</h3><p>Hybrid算法在个体编码时直接用实数进行编码，而非二进制数。其次，每个个体都在进行局部爬山算法（Local hill-climbing）来改善自身，产生后代之后，后代做爬山算法。<br>Hybrid算法通过这种多点局部搜索的方式使得搜索变得高效，局部爬山算法能够帮助改善染色体，但是不会对后代有太大的变化。基于上述特性，Hybrid算法在优化问题中的表现比较出色。  </p>
+<blockquote>
+<p>局部爬山算法：从当前的节点开始，和周围的邻居节点的值进行比较。 如果当前节点是最大的，那么返回当前节点，作为最大值 ( 既山峰最高点 ) ；反之就用最高的邻居节点来，替换当前节点，从而实现向山峰的高处攀爬的目的。如此循环直到达到最高点。</p>
+</blockquote>
+<h2 id="并行遗传算法"><a href="#并行遗传算法" class="headerlink" title="并行遗传算法"></a>并行遗传算法</h2><p>使用锦标赛算法（Tournaments）对现有种群进行选择就可以实现经典遗传算法的并行化。</p>
+<blockquote>
+<p>锦标赛算法：  </p>
+<ol>
+<li>确定每次选择的个体数量N。（二元锦标赛选择即选择2个个体）</li>
+<li>从种群中随机选择N个个体(每个个体被选择的概率相同) ，根据每个个体的适应度值，选择其中适应度值最好的个体进入下一代种群。</li>
+<li>重复步骤(2)多次（重复次数为种群的大小），直到新的种群规模达到原来的种群规模。<br>锦标赛算法相当于是有噪声的排序算法。  </li>
+</ol>
+</blockquote>
+<p>具体的实现方法有两种模型：岛模型（island）和细胞模型（cellular）。  </p>
+<h3 id="岛模型"><a href="#岛模型" class="headerlink" title="岛模型"></a>岛模型</h3><p>岛模型将一个大种群均分为多个小种群，称为亚种（Sub-population），每个小种群中进行选择，并且每隔几代就将小种群中的一部分个体与另外的小种群中的个体进行交换，这个过程称为迁徙（migration）。<br>迁徙的目的是为了让小种群之间能够部分地交换基因信息。通过迁徙，岛模型更能挖掘每一个亚种内部的信息差异。  </p>
+<h3 id="细胞模型"><a href="#细胞模型" class="headerlink" title="细胞模型"></a>细胞模型</h3>
             </div>
             <hr>
             <div>
