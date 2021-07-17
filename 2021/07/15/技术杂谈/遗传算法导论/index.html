@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -255,9 +255,9 @@
               <h1 id="遗传算法导论"><a href="#遗传算法导论" class="headerlink" title="遗传算法导论"></a>遗传算法导论</h1><blockquote>
 <p>A genetic algorithm tutorial, Darrell Whitley, 1994</p>
 </blockquote>
-<h2 id="遗传算法的概念"><a href="#遗传算法的概念" class="headerlink" title="遗传算法的概念"></a>遗传算法的概念</h2><p>遗传算法是一类将特定问题潜在的解决方案编码并组织到形如染色体（chromosome）结构的数据结构（下文直接称之为染色体）上，然后应用recommend operators 对数据结构中的特定信息进行保留的算法。<br>遗传算法的操作对象是一组这样的染色体，称之为种群（population）。遗传算法会针对这样的种群进行评价，然后筛选：对于目标问题有更优解的染色体会被赋予更高的机会进行复制（reproduce）。</p>
+<h2 id="遗传算法的概念"><a href="#遗传算法的概念" class="headerlink" title="遗传算法的概念"></a>遗传算法的概念</h2><p>遗传算法是一类将特定问题潜在的解决方案编码并组织到形如染色体（chromosome）结构的数据结构（下文直接称之为染色体）上，然后应用推荐算子(recommend operators)对数据结构中的特定信息进行保留的算法。<br>遗传算法的操作对象是一组这样的染色体，称之为<strong>种群</strong>（population）。遗传算法会针对这样的种群进行评价，然后筛选：对于目标问题有更优解的染色体会被赋予更高的机会进行\”繁殖\”（Reproduce）。</p>
 <h2 id="优化问题"><a href="#优化问题" class="headerlink" title="优化问题"></a>优化问题</h2><p>遗传算法遇到的问题大多可以归结为两类：编码问题和评估函数的问题。  </p>
-<h3 id="编码（Encoding）问题"><a href="#编码（Encoding）问题" class="headerlink" title="编码（Encoding）问题"></a>编码（Encoding）问题</h3><p>对于参数的选取，通常认为参数之间应该具备线形不相关的特性，但事实上很难保证参数的这一性质，在遗传算法中，参数之间的关联称为基因关联（Epistasis）。<br>遗传算法对与参数的编码建立在一个基本的假设上：代表系统参数的变量可以用字节串（位串，Bit string）来进行表达，这也意味着这些变量能够以某种方式被离散化。离散化的范围以$2^n$表示，例如如果每个参数都用10bit来表示，那么经过离散化后，我们能至多得到1024个离散值（1024种01的组合）。对参数作离散化处理是为了在保证精度的前提下，给系统输出提供尽可能大的分辨率（resolution）以便调整系统输出。<br>字节化编码的问题在于离散值的冗余，如果变量离散化后有1200个（介于1024和2048之间）离散值，那么需要用11个字节才能表示完全，但是如此会有2048-1200=848个无用的离散值，这些无用的离散值可能会导致没有评估，或者是出现不好的评估结果。   </p>
+<h3 id="编码（Encoding）问题"><a href="#编码（Encoding）问题" class="headerlink" title="编码（Encoding）问题"></a>编码（Encoding）问题</h3><p>对于参数的选取，通常认为参数之间应该具备线形不相关的特性，但事实上很难保证参数的这一性质，在遗传算法中，参数之间的关联称为基因关联（Epistasis）。<br>遗传算法对与参数的编码建立在一个基本的假设上：<strong>代表系统参数的变量可以用字节串（位串，Bit string）来进行表达</strong>，这也意味着这些变量能够以某种方式被离散化。离散化的范围以$2^n$表示，例如如果每个参数都用10bit来表示，那么经过离散化后，我们能至多得到1024个离散值（1024种01的组合）。对参数作离散化处理是为了在保证精度的前提下，给系统输出提供尽可能大的分辨率（Resolution）以便调整系统输出。<br>字节化编码的问题在于离散值的冗余，如果变量离散化后有1200个（介于1024和2048之间）离散值，那么需要用11个字节才能表示完全，但是如此会有2048-1200=848个无用的离散值，这些无用的离散值可能会导致没有评估，或者是出现不好的评估结果。   </p>
 <h3 id="评估函数（Evaluation-function）问题"><a href="#评估函数（Evaluation-function）问题" class="headerlink" title="评估函数（Evaluation function）问题"></a>评估函数（Evaluation function）问题</h3><p>评估函数能够对系统的输出进行评估。构建评估函数的过程是一个模拟（仿真）系统的过程，这样的仿真相比与真实系统必然只能给出近似解或者是部分解。因此评估函数对系统输出的结果只是近似的，或是部分的评价。   </p>
 <p>对于遗传算法来说评估函数的计算速度是一个问题：首先，对于现有种群的评估计算量就比较大。不仅如此，种群的后代也需要进行评估。   </p>
 <h4 id="参数空间"><a href="#参数空间" class="headerlink" title="参数空间"></a>参数空间</h4><p>假设参数之间的关系是非线形的，如果用于表示参数的比特数为L，那么参数空间的大小是$2^L$, 遗传算法在这样的一个L维的超空间（hypercube）中采样。这个超空间的大小随着L指数型增长，将带来巨大的采样难度和计算量。  </p>
@@ -662,20 +662,5 @@
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
