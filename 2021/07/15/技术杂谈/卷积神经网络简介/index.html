@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.4k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      26
        分钟
     </span>
   
@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年7月15日 中午
+                  本文最后更新于：2021年7月27日 凌晨
                 
               </p>
             
@@ -283,7 +283,31 @@
 <h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>执行反向传播的目的是为了求出每一个神经单元的误差$\delta=y-a$进而求出$\frac{\partial J}{\partial \Theta}$ 的值，以此来带入到梯度下降算法当中求得梯度并更新参数。  </p>
 <h4 id="从池化层的误差推导卷积层的误差"><a href="#从池化层的误差推导卷积层的误差" class="headerlink" title="从池化层的误差推导卷积层的误差"></a>从池化层的误差推导卷积层的误差</h4><p>以最大值池化为例，对于池化前特征图中每一个被池化卷积核照射到的区域，由于只有最大值所处的位置才会有误差，其余区域由于最大池化过滤而不会对误差有任何影响，因此原特征图被照射区域中只有最大值对应的位置（需要在前向传播时记录下来）有误差$\delta$，其余位置的误差为0.<br>对均值池化，原特征图被照射区域的所有位置上对误差均等的贡献造成了整体误差$\delta$，因此每个位置上的误差都是$\frac{\delta}{N}$.<br>通用的解决办法为：<br>当第$l$层为卷积层，第$l+1$层为池化层时，第$l$层某一个像素（神经元）的误差为第$l+1$层与其相关的所有像素（神经元）的误差与权重的乘积之和。由于激活函数的影响，当前层激活之前的特征图矩阵$X$每一个位置通过激活函数的导数处理，再将处理后的矩阵与第$l+1$层的神经元误差矩阵对应位置相乘。此处神经元误差矩阵需要做上采样处理以统一维度进行运算，该过程表示为：  </p>
 <script type="math/tex; mode=display">\delta_j^l=w_j^{l+1}(f’(x_j^l) \odot up(\delta_j^{l+1}))</script><p>$w_j^{l+1}$:$l+1$层第$j$神经元的权重，$up$：上采样，$\odot$：对应位置相乘。<br>记激活函数$f(x)=z$,矩阵化后有第$l$层的误差向量$\delta^l$：  </p>
-<script type="math/tex; mode=display">\delta^l=w_j^{l+1}（ z’^{l} \odot up(\delta^{l+1}))</script><h4 id="卷积层的反向传播"><a href="#卷积层的反向传播" class="headerlink" title="卷积层的反向传播"></a>卷积层的反向传播</h4><script type="math/tex; mode=display">\delta^{l-1} =  (\frac{\partial z^{l}}{\partial z^{l-1}})^T\delta^{l} = \delta^{l}*rot180(W^{l}) \odot  \sigma^{'}(z^{l-1})</script>
+<script type="math/tex; mode=display">\delta^l=w_j^{l+1}（ z’^{l} \odot up(\delta^{l+1}))</script><h4 id="卷积层的反向传播"><a href="#卷积层的反向传播" class="headerlink" title="卷积层的反向传播"></a>卷积层的反向传播</h4><p>从卷积层推导池化层，$l$层的误差$δ^{l-1}$，等于卷积后结果的$δ^{l}$误差经过零填充后，与卷积核旋转180度后的卷积。如图所示：<br><img src="https://grzegorzgwardys.files.wordpress.com/2016/01/screenshot-from-2016-04-17-212043.png" srcset="/img/loading.gif" alt=""></p>
+<script type="math/tex; mode=display">\delta^{l-1} =  (\frac{\partial z^{l}}{\partial z^{l-1}})^T\delta^{l} = \delta^{l}*rot180(W^{l}) \odot  \sigma^{'}(z^{l-1})</script><p>已知$δ^{l-1}$，求损失函数$C$对该层参数的导数$\frac{∂C}{∂w^l}$:  </p>
+<script type="math/tex; mode=display">\frac{∂C}{∂w^l}=δ^l*σ(z^{l-1})</script><h3 id="卷积神经网络的训练过程"><a href="#卷积神经网络的训练过程" class="headerlink" title="卷积神经网络的训练过程"></a>卷积神经网络的训练过程</h3><ol>
+<li>对神经网络进行初始化，定义好网络结构，设定好激活函数，对卷积层的卷积核$W$、偏置$b$进行随机初试化，对全连接层的权重矩阵$W$和偏置$b$进行随机初始化。<br>设置好训练的最大迭代次数，每个训练batch的大小，学习率$η$。  </li>
+<li>从训练数据中取出一个batch的数据</li>
+<li>从该batch数据中取出一个数据，包括输入$x$以及对应的正确标签$y$</li>
+<li>将$x$放入CNN的输入端利用前向传播得到$z^l$，$a^l$</li>
+<li>结合$z^l$，$a^l$和$y$，算出神经网络的损失函数</li>
+<li>计算损失函数对输出层的误差$δ^L$</li>
+<li>利用反向传播，计算前一层的误差$δ^l-1$：<ul>
+<li>全连接层：$δ^l=(W^{l+1})^Tδ^{l+1}⊙ \sigma^{‘}(z^{l})$</li>
+<li>卷积层：$\delta^{l-1} =  (\frac{\partial z^{l}}{\partial z^{l-1}})^T\delta^{l} = \delta^{l}*rot180(W^{l}) \odot  \sigma^{‘}(z^{l-1})$  </li>
+<li>池化层：$\delta^l=w_j^{l+1}（ z’^{l} \odot up(\delta^{l+1}))$  </li>
+</ul>
+</li>
+<li>利用误差求出损失函数对该层参数的导数：  <ul>
+<li>全连接层：$\frac{∂C}{∂W^l}=δ^l(a^{l-1})^T$  </li>
+<li>卷积层：$\frac{∂C}{∂w^l}=δ^l*σ(z^{l-1})$</li>
+</ul>
+</li>
+<li>将求得的导数加到该batch数据求得的导数之和上(初始化为0)，跳转到步骤3，直到该batch数据都训练完毕</li>
+<li>利用一个batch数据求得的导数之和，根据梯度下降法对参数进行更新</li>
+<li>跳转到步骤2，直到达到指定的迭代次数</li>
+</ol>
+
             </div>
             <hr>
             <div>
