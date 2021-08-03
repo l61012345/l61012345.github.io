@@ -4,11 +4,32 @@
   
   
   <entry>
+    <title>9.6. PCA算法优化</title>
+    <link href="/2021/08/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.6.%20PCA%E4%BC%98%E5%8C%96/"/>
+    <url>/2021/08/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.6.%20PCA%E4%BC%98%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="PCA算法优化"><a href="#PCA算法优化" class="headerlink" title="PCA算法优化"></a>PCA算法优化</h1><h2 id="主成分数量的选取"><a href="#主成分数量的选取" class="headerlink" title="主成分数量的选取"></a>主成分数量的选取</h2><p>$K$称作主成分的数量，通常$K$的选取与如下的两个参数有关：<br>平均投影误差的平方：  </p><script type="math/tex; mode=display">\frac{1}{m}∑_{i=1}^m|x^{(i)}-x^{(i)}_{approx}|^2</script><p>$x_approx=U_{reduce}z$，是通过$z$复原后得到的向量。<br>反应每一个数据到投影的距离之和。<br>数据的方差：  </p><script type="math/tex; mode=display">\frac{1}{m}∑_{i=1}^m|x^{(i)}|^2</script><p>反应每一个数据到原点的距离之和。<br>$K$的选取通常遵循以下规律：<br>满足最小的$K$,使得：  </p><script type="math/tex; mode=display">\frac{\frac{1}{m}∑_{i=1}^m|x^{(i)}-x^{(i)_{approx}}|^2}{\frac{1}{m}∑_{i=1}^m|x^{(i)}|^2}≤ 0.1(1\%)</script><p>表示99%的数据中的特征被保留，仅有1%的数据特征被压缩。<br>如果希望这个比例小于1%，就意味着原本数据的偏差有99%都保留下来了，如果选择保留95%的偏差，便能非常显著地降低模型中特征的维度了。  </p><blockquote><p>理解： </p><ol><li>投影误差对应的是被放弃的$n-k$个特征值$λ$之和，而均方值对应的是所有的$n$之和，因此从这一点来看，$\frac{∑_{i=1}^k λ_i}{∑_{i=1}^n λ_i}≥99\%$的说法与此处的解释并无冲突。  </li><li>1%其实是一个容错的区间，从5%到15%的区间内选取都是比较合理的，取决于具体问题。  </li></ol></blockquote><h3 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h3><p>从$k=1$开始应用PCA，计算出$U_{reduce}$和$z$，然后计算比例是否小于1%。如果不是的话再令$k=2$，如此类推，直到找到可以使得比例小于1%的最小$k$值（原因是各个特征之间通常情况存在某种相关性）。<br>这样做的问题在于奇异值分解的过程计算量非常的大。<br>实际上，在Octave中应用时，奇异值分解：<code>svd()</code>函数会返回三个矩阵U,S,V，其中U即为前文中提到的一个含有$n$个方向向量（也是特征向量）的矩阵（所有的列向量是方向向量/特征向量）。S是一个对角矩阵，对角线上的元素$s_{ii}$为特征值。<br>$\frac{\frac{1}{m}∑_{i=1}^m|x^{(i)}-z^{(i)}|^2}{\frac{1}{m}∑_{i=1}^m|x^{(i)}|^2}≤ 0.1(1\%)$可以等价为：  </p><script type="math/tex; mode=display">1-\frac{∑_{i=1}^ks_{ii}}{∑_{i=1}^ns_{ii}}≤0.01</script><p>如此则只需要应用一次<code>svd()</code>函数通过返回的特征值矩阵$S$得到所有的特征值，尝试前$k$个特征值，直到找到符合条件的最小$k$即可。  </p><h2 id="重建的压缩表示"><a href="#重建的压缩表示" class="headerlink" title="重建的压缩表示"></a>重建的压缩表示</h2><p>PCA是一个数据压缩算法，那么如何将压缩后的数据复原回原来的维度？<br>应用公式：</p><script type="math/tex; mode=display">x_approx=U_{reduce}z</script><p>可以看出$U_{reduce}$是$n × k$的矩阵，$z$是$k × 1$的向量，根据矩阵乘法的性质可以推导出$x_{approx}$是$n × 1$的向量。重构的数据$x_{approx}$在原始空间中的分布是共低维平面的。  </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>9. 非监督学习</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>9.5. 主成分分析</title>
     <link href="/2021/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.5.%20PCA/"/>
     <url>/2021/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.5.%20PCA/</url>
     
-    <content type="html"><![CDATA[<h1 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h1><p>主成分分析,PCA,是最流行的降维方法之一。  </p><h2 id="主成分分析问题"><a href="#主成分分析问题" class="headerlink" title="主成分分析问题"></a>主成分分析问题</h2><p>PCA会找一个低微平面，将所有的数据投影到这个平面内，并使得的所有数据点到这个地维平面的距离（称为投影误差）之和最短。<br>在应用PCA之前，通常会将数据归一化和特征缩放，使得所有的数据在可比的范围之内。<br>具体而言，PCA会在$n$维的数据空间中寻找到$K$个能够代表这个低维平面的方向向量$u^{(1)},…,u^{(K)}$，使得这$K$个向量所定义的低维平面，即线性代数中这些向量的张成空间$Span[u^{(1)},…,u^{(K)}]$。<br>根据线性代数的相关知识，这$K$个向量应当是线性不相关且两两正交的。  </p><h3 id="PCA与线性回归的区别"><a href="#PCA与线性回归的区别" class="headerlink" title="PCA与线性回归的区别"></a>PCA与线性回归的区别</h3><p>需要注意的是，尽管看上去比较相似，但是PCA并不是线性回归。在线性拟合中需要寻找的是数据点到直线的垂直距离，而在PCA需要找到的是数据点到直线的最短距离，如图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210802143928.png width=50%><br>而且线性回归的目的是寻找给定某个$x$的预测值$y$，而PCA只是单纯的在$x_1,..x_n$的$n$维特征空间中寻找一个低维平面。但是PCA和线性拟合运用的思想是相似的。    </p><h2 id="主成分分析流程"><a href="#主成分分析流程" class="headerlink" title="主成分分析流程"></a>主成分分析流程</h2><blockquote><p>新加坡国立大学讲义中关于PCA的部分：<a href="https://l61012345.top/2021/01/28/Machine%20Learning-NAU/5.%20%E7%89%B9%E5%BE%81/#PCA">NUS-Machine Learning:5.特征-PCA</a></p></blockquote><p>对于训练集：$x^{(1)},..,x^{(m)} ∈ \mathbb{R}^n$，首先对其进行归一化处理或者是特征缩放，使得所有的特征都具有可比性。<br>然后计算训练集的协方差矩阵$\Sigma$：  </p><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^{n}(x^{(i)})(x^{(i)})^T</script><p>Σ是一个$n × n$的矩阵。<br>对协方差矩阵应用奇异值分解，得到协方差矩阵的所有特征向量所组成的矩阵$U$。  </p><script type="math/tex; mode=display">U=[u^{(1)}|u^{(2)}…|u^{(k)}…|u^{(n)}]</script><p>$U$是一个$n × n$的矩阵。<br>现在将这些特征向量按照分别所对应的特征值从大到小的顺序排列，选择其中$k$的最大的特征向量构成主成分矩阵$U_{reduce}$。<br>新的降维后的数据集$z^{(1)},..,z^{(m)}∈ \mathbb{R}^k$可以通过投影（即乘上转置矩阵）：  </p><script type="math/tex; mode=display">z^{(i)}=U_{reduce}^Tx^{(i)}</script><p>这样每一个$z$都是一个$k$维的向量。  </p>]]></content>
+    <content type="html"><![CDATA[<h1 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h1><p>主成分分析,PCA,是最流行的降维方法之一。  </p><h2 id="主成分分析问题"><a href="#主成分分析问题" class="headerlink" title="主成分分析问题"></a>主成分分析问题</h2><p>PCA会找一个低维平面，将所有的数据投影到这个平面内，并使得的所有数据点到这个地维平面的距离（称为投影误差）之和最短。<br>在应用PCA之前，通常会将数据归一化和特征缩放，使得所有的数据在可比的范围之内。<br>具体而言，PCA会在$n$维的数据空间中寻找到$K$个能够代表这个低维平面的方向向量$u^{(1)},…,u^{(K)}$，使得这$K$个向量所定义的低维平面，即线性代数中这些向量的张成空间$Span[u^{(1)},…,u^{(K)}]$。<br>根据线性代数的相关知识，这$K$个向量应当是线性不相关且两两正交的。  </p><h3 id="PCA与线性回归的区别"><a href="#PCA与线性回归的区别" class="headerlink" title="PCA与线性回归的区别"></a>PCA与线性回归的区别</h3><p>需要注意的是，尽管看上去比较相似，但是PCA并不是线性回归。在线性拟合中需要寻找的是数据点到直线的垂直距离，而在PCA需要找到的是数据点到直线的最短距离，如图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210802143928.png width=50%><br>而且线性回归的目的是寻找给定某个$x$的预测值$y$，而PCA只是单纯的在$x_1,..x_n$的$n$维特征空间中寻找一个低维平面。但是PCA和线性拟合运用的思想是相似的。    </p><h2 id="主成分分析流程"><a href="#主成分分析流程" class="headerlink" title="主成分分析流程"></a>主成分分析流程</h2><blockquote><p>新加坡国立大学讲义中关于PCA的部分：<a href="https://l61012345.top/2021/01/28/Machine%20Learning-NAU/5.%20%E7%89%B9%E5%BE%81/#PCA">NUS-Machine Learning:5.特征-PCA</a></p></blockquote><p>对于训练集：$x^{(1)},..,x^{(m)} ∈ \mathbb{R}^n$，首先对其进行归一化处理或者是特征缩放，使得所有的特征都具有可比性。<br>然后计算训练集的协方差矩阵$\Sigma$：  </p><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^{n}(x^{(i)})(x^{(i)})^T</script><p>Σ是一个$n × n$的矩阵。<br>对协方差矩阵应用奇异值分解，得到协方差矩阵的所有特征向量所组成的矩阵$U$。  </p><script type="math/tex; mode=display">U=[u^{(1)}|u^{(2)}…|u^{(k)}…|u^{(n)}]</script><p>$U$是一个$n × n$的矩阵。<br>现在将这些特征向量按照分别所对应的特征值从大到小的顺序排列，选择其中$k$的最大的特征向量构成主成分矩阵$U_{reduce}$。<br>新的降维后的数据集$z^{(1)},..,z^{(m)}∈ \mathbb{R}^k$可以通过投影（即乘上转置矩阵）：  </p><script type="math/tex; mode=display">z^{(i)}=U_{reduce}^Tx^{(i)}</script><p>这样每一个$z$都是一个$k$维的向量。  </p>]]></content>
     
     
     <categories>
