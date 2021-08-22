@@ -359,48 +359,6 @@
   
   
   <entry>
-    <title>9.6. PCA算法优化</title>
-    <link href="/2021/08/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.6.%20PCA%E4%BC%98%E5%8C%96/"/>
-    <url>/2021/08/03/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.6.%20PCA%E4%BC%98%E5%8C%96/</url>
-    
-    <content type="html"><![CDATA[<h1 id="PCA算法优化"><a href="#PCA算法优化" class="headerlink" title="PCA算法优化"></a>PCA算法优化</h1><h2 id="主成分数量的选取"><a href="#主成分数量的选取" class="headerlink" title="主成分数量的选取"></a>主成分数量的选取</h2><p>$K$称作主成分的数量，通常$K$的选取与如下的两个参数有关：<br>平均投影误差的平方：  </p><script type="math/tex; mode=display">\frac{1}{m}∑_{i=1}^m|x^{(i)}-x^{(i)}_{approx}|^2</script><p>$x_{approx}=U_{reduce}z$，是通过$z$复原后得到的向量。<br>反应每一个数据到投影的距离之和。<br>数据的方差：  </p><script type="math/tex; mode=display">\frac{1}{m}∑_{i=1}^m|x^{(i)}|^2</script><p>反应每一个数据到原点的距离之和。<br>$K$的选取通常遵循以下规律：<br>满足最小的$K$,使得：  </p><script type="math/tex; mode=display">\frac{\frac{1}{m}∑_{i=1}^m|x^{(i)}-x^{(i)_{approx}}|^2}{\frac{1}{m}∑_{i=1}^m|x^{(i)}|^2}≤ 0.1(1\%)</script><p>表示99%的数据中的特征被保留，仅有1%的数据特征被压缩。<br>如果希望这个比例小于1%，就意味着原本数据的偏差有99%都保留下来了，如果选择保留95%的偏差，便能非常显著地降低模型中特征的维度了。  </p><blockquote><p>理解： </p><ol><li>投影误差对应的是被放弃的$n-k$个特征值$λ$之和，而均方值对应的是所有的$n$之和，因此从这一点来看，$\frac{∑_{i=1}^k λ_i}{∑_{i=1}^n λ_i}≥99\%$的说法与此处的解释并无冲突。  </li><li>1%其实是一个容错的区间，从5%到15%的区间内选取都是比较合理的，取决于具体问题。  </li></ol></blockquote><h3 id="实现过程"><a href="#实现过程" class="headerlink" title="实现过程"></a>实现过程</h3><p>从$k=1$开始应用PCA，计算出$U_{reduce}$和$z$，然后计算比例是否小于1%。如果不是的话再令$k=2$，如此类推，直到找到可以使得比例小于1%的最小$k$值（原因是各个特征之间通常情况存在某种相关性）。<br>这样做的问题在于奇异值分解的过程计算量非常的大。<br>实际上，在Octave中应用时，奇异值分解：<code>svd()</code>函数会返回三个矩阵U,S,V，其中U即为前文中提到的一个含有$n$个方向向量（也是特征向量）的矩阵（所有的列向量是方向向量/特征向量）。S是一个对角矩阵，对角线上的元素$s_{ii}$为特征值。<br>$\frac{\frac{1}{m}∑_{i=1}^m|x^{(i)}-z^{(i)}|^2}{\frac{1}{m}∑_{i=1}^m|x^{(i)}|^2}≤ 0.1(1\%)$可以等价为：  </p><script type="math/tex; mode=display">1-\frac{∑_{i=1}^ks_{ii}}{∑_{i=1}^ns_{ii}}≤0.01</script><p>如此则只需要应用一次<code>svd()</code>函数通过返回的特征值矩阵$S$得到所有的特征值，尝试前$k$个特征值，直到找到符合条件的最小$k$即可。  </p><blockquote><p>事实上，$k$的选取还与应用PCA的目的有关，如果应用PCA的目的是为了减小计算量、加速算法的学习，则应当按照上述流程选取$k$。如果应用PCA的目的只是为了可视化数据集，那么$k=2$或$k=3$。  </p></blockquote><h2 id="重建的压缩表示"><a href="#重建的压缩表示" class="headerlink" title="重建的压缩表示"></a>重建的压缩表示</h2><p>PCA是一个数据压缩算法，那么如何将压缩后的数据复原回原来的维度？<br>应用公式：</p><script type="math/tex; mode=display">x_{approx}=U_{reduce}z</script><p>可以看出$U_{reduce}$是$n × k$的矩阵，$z$是$k × 1$的向量，根据矩阵乘法的性质可以推导出$x_{approx}$是$n × 1$的向量。重构的数据$x_{approx}$在原始空间中的分布是共低维平面的。  </p><h2 id="加速监督学习"><a href="#加速监督学习" class="headerlink" title="加速监督学习"></a>加速监督学习</h2><p>如果对于高维的数据，通过应用PCA的降维效果能够显著的降低监督学习的计算量。<br>对于数据集$(x^{(i)},y^{(i)})$，先抽取所有的数据:$x^{(i)}$，然后应用PCA得到这些数据的低维表示$z^{(i)}$，现在新的数据集变为$(z^{(i)},y^{(i)})$进行训练。同样的对预测的数据$x$也需要将$x$映射到$z$再进行预测。  </p><blockquote><p>$U_{reduce}$只能通过训练集来进行定义，再将$U_{reduce}$应用到交叉验证集或者是测试集。  </p></blockquote><h2 id="不恰当的应用案例"><a href="#不恰当的应用案例" class="headerlink" title="不恰当的应用案例"></a>不恰当的应用案例</h2><h3 id="使用PCA来防止过拟合"><a href="#使用PCA来防止过拟合" class="headerlink" title="使用PCA来防止过拟合"></a>使用PCA来防止过拟合</h3><p>合理性： 由于PCA能够降维、减小数据的特征量，因此认为使用PCA来防止过拟合是合理的，但是并不是一个好的应用。<br>由于PCA不关心数据的标签$y$来降维，因此可能会在降维过程中丢失一些非常有用的特征信息。而正则化会考虑数据的标签$y$，因此正则化比PCA更不容易损失有用的信息。  </p><h3 id="滥用PCA"><a href="#滥用PCA" class="headerlink" title="滥用PCA"></a>滥用PCA</h3><p>另一个常见的错误是，默认地将主要成分分析作为学习过程中的一部分。应当先尝试使用原始数据作为机器学习算法的输入，当计算量非常大、计算速度非常慢、硬盘空间不足时，才应该应用PCA对数据进行压缩。  </p>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习基础课程——吴恩达</category>
-      
-      <category>9. 非监督学习</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>9.5. 主成分分析</title>
-    <link href="/2021/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.5.%20PCA/"/>
-    <url>/2021/08/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.5.%20PCA/</url>
-    
-    <content type="html"><![CDATA[<h1 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h1><p>主成分分析,PCA,是最流行的降维方法之一。  </p><h2 id="主成分分析问题"><a href="#主成分分析问题" class="headerlink" title="主成分分析问题"></a>主成分分析问题</h2><p>PCA会找一个低维平面，将所有的数据投影到这个平面内，并使得的所有数据点到这个地维平面的距离（称为投影误差）之和最短。<br>在应用PCA之前，通常会将数据归一化和特征缩放，使得所有的数据在可比的范围之内。<br>具体而言，PCA会在$n$维的数据空间中寻找到$K$个能够代表这个低维平面的方向向量$u^{(1)},…,u^{(K)}$，使得这$K$个向量所定义的低维平面，即线性代数中这些向量的张成空间$Span[u^{(1)},…,u^{(K)}]$。<br>根据线性代数的相关知识，这$K$个向量应当是线性不相关且两两正交的。  </p><h3 id="PCA与线性回归的区别"><a href="#PCA与线性回归的区别" class="headerlink" title="PCA与线性回归的区别"></a>PCA与线性回归的区别</h3><p>需要注意的是，尽管看上去比较相似，但是PCA并不是线性回归。在线性拟合中需要寻找的是数据点到直线的垂直距离，而在PCA需要找到的是数据点到直线的最短距离，如图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210802143928.png width=50%><br>而且线性回归的目的是寻找给定某个$x$的预测值$y$，而PCA只是单纯的在$x_1,..x_n$的$n$维特征空间中寻找一个低维平面。但是PCA和线性拟合运用的思想是相似的。    </p><h2 id="主成分分析流程"><a href="#主成分分析流程" class="headerlink" title="主成分分析流程"></a>主成分分析流程</h2><blockquote><p>新加坡国立大学讲义中关于PCA的部分：<a href="https://l61012345.top/2021/01/28/Machine%20Learning-NAU/5.%20%E7%89%B9%E5%BE%81/#PCA">NUS-Machine Learning:5.特征-PCA</a></p></blockquote><p>对于训练集：$x^{(1)},..,x^{(m)} ∈ \mathbb{R}^n$，首先对其进行归一化处理或者是特征缩放，使得所有的特征都具有可比性。<br>然后计算训练集的协方差矩阵$\Sigma$：  </p><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^{n}(x^{(i)})(x^{(i)})^T</script><p>Σ是一个$n × n$的矩阵。<br>对协方差矩阵应用奇异值分解，得到协方差矩阵的所有特征向量所组成的矩阵$U$。  </p><script type="math/tex; mode=display">U=[u^{(1)}|u^{(2)}…|u^{(k)}…|u^{(n)}]</script><p>$U$是一个$n × n$的矩阵。<br>现在将这些特征向量按照分别所对应的特征值从大到小的顺序排列，选择其中$k$的最大的特征向量构成主成分矩阵$U_{reduce}$。<br>新的降维后的数据集$z^{(1)},..,z^{(m)}∈ \mathbb{R}^k$可以通过投影（即乘上转置矩阵）：  </p><script type="math/tex; mode=display">z^{(i)}=U_{reduce}^Tx^{(i)}</script><p>这样每一个$z$都是一个$k$维的向量。  </p>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习基础课程——吴恩达</category>
-      
-      <category>9. 非监督学习</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>十级别语法</title>
     <link href="/2021/07/31/%E6%97%A5%E8%AF%AD/%E5%8D%81%E7%BA%A7%E5%88%AB/"/>
     <url>/2021/07/31/%E6%97%A5%E8%AF%AD/%E5%8D%81%E7%BA%A7%E5%88%AB/</url>
@@ -411,27 +369,6 @@
     <categories>
       
       <category>日语</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>9.4. 降维</title>
-    <link href="/2021/07/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.4.%20%E9%99%8D%E7%BB%B4/"/>
-    <url>/2021/07/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.4.%20%E9%99%8D%E7%BB%B4/</url>
-    
-    <content type="html"><![CDATA[<h1 id="降维"><a href="#降维" class="headerlink" title="降维"></a>降维</h1><p>降维是非监督学习中常用的一种算法，使用降维的目的有如下两个：  </p><h2 id="压缩数据"><a href="#压缩数据" class="headerlink" title="压缩数据"></a>压缩数据</h2><p>使用降维的其中一个目的是压缩数据，压缩数据能够减小算法的计算量的同时提高计算速度。<br>降维的手段是合并一些高度相关的特征。<br>具体而言，如果两个特征在二维空间内呈现出线性相关，那么则可以设定一个新的特征，将所有数据在这个二维空间上的分布投射至一维数轴上，如图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210730163758.png width=20%><br>对于三个特征，如果数据都分布在这个三维空间的一个平面上，那么同理能够将数据的分布投射至一个二维的平面上。  </p><h2 id="可视化数据"><a href="#可视化数据" class="headerlink" title="可视化数据"></a>可视化数据</h2><p>高维的数据很难用可视化的方法来表现它们的数据分布，这时可以将数据降维到可视化的维度（&lt;=3维）以便观察它们的分布特性。  </p>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习基础课程——吴恩达</category>
-      
-      <category>9. 非监督学习</category>
       
     </categories>
     
@@ -523,27 +460,6 @@
   
   
   <entry>
-    <title>9.3. K均值算法的优化</title>
-    <link href="/2021/07/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.3.%20Kmeans%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96/"/>
-    <url>/2021/07/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.3.%20Kmeans%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96/</url>
-    
-    <content type="html"><![CDATA[<h1 id="K均值算法的优化"><a href="#K均值算法的优化" class="headerlink" title="K均值算法的优化"></a>K均值算法的优化</h1><h2 id="多次随机初始化"><a href="#多次随机初始化" class="headerlink" title="多次随机初始化"></a>多次随机初始化</h2><p>初始化的状态不同，可能最后得到的结果是不一样的。<br>随机初始化聚类中心的其中一种方法为：<br>随机选择K个样本$μ_1…μ_k$作为$K$个聚类中心。<br>但是按如上的随机初始化方式可能导致最后的分类的结果不同，并且有可能使得代价函数$J$落入局部最优解而不是最小值。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210729123016.png width=50%><br>解决这个问题的方法是多次（比如50-100次）随机初始化聚类中心并运行K-Means算法，每运行一次都会得到代价函数的值 $J$，最后从这些代价函数的值中挑选最小的一个。<br>实验说明，当$K$的取值比较小（2-10）时，多次随机初始化能够有效改善出现局部最优解的情况，而$K$的取值很大时，这种方法不会起到比较好的改善。  </p><h2 id="正确选取-K-的数量"><a href="#正确选取-K-的数量" class="headerlink" title="正确选取$K$的数量"></a>正确选取$K$的数量</h2><h3 id="肘部法则"><a href="#肘部法则" class="headerlink" title="肘部法则"></a>肘部法则</h3><p>通常在数据集中有多少个类是不清楚的，因此用一个自动化的算法内选择聚类的数量是困难的。但是仍然有一些法则能够帮助设置聚类数量，其中一个法则称为肘部法则（Elbow method），具体方法如下：<br>通过不断改变K的值运行K-Means算法，计算出不同的代价函数值$J$，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210729125538.png width=50%><br>图示的拐点常常被用于设置聚类数据。<br>但是在实际中，往往曲线的拐点并不明确，比如如下所示，因此通过肘部法则来选取聚类数量的方法具有局限性。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210729125729.png width=50%>  </p><h3 id="根据后续目的选择-K"><a href="#根据后续目的选择-K" class="headerlink" title="根据后续目的选择$K$"></a>根据后续目的选择$K$</h3><p>很多时候运行K-Means算法是为了一些后续的目的，比如市场划分等等。如果后续的目的能够给出一个评估标准，那么决定聚类数量的最好方法是看那个聚类数量更适合这个评估标准。<br>比如要分出衣服的尺寸，可以根据衣服的尺寸：S，M，L，将K设置为3；或者根据XS,S,M,L,XL将K设置为5，如下图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210729130236.png width=50%>  </p>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习基础课程——吴恩达</category>
-      
-      <category>9. 非监督学习</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>卷积神经网络简介</title>
     <link href="/2021/07/15/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/"/>
     <url>/2021/07/15/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/</url>
@@ -573,27 +489,6 @@
     <categories>
       
       <category>技术杂谈</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>9.2. K均值算法</title>
-    <link href="/2021/07/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.2.%20Kmeans%E7%AE%97%E6%B3%95/"/>
-    <url>/2021/07/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.2.%20Kmeans%E7%AE%97%E6%B3%95/</url>
-    
-    <content type="html"><![CDATA[<h1 id="K均值算法"><a href="#K均值算法" class="headerlink" title="K均值算法"></a>K均值算法</h1><p><strong>K均值算法</strong>（K-Means）是一种流行的聚类算法。  </p><h2 id="执行过程"><a href="#执行过程" class="headerlink" title="执行过程"></a>执行过程</h2><p>以如下数据集的例子来说明K均值算法的执行过程：  </p><p><img src="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210629111841.png" alt=""></p><p>对于如图所示的数据集，使用K均值算法将其分成两类数据。<br>K均值算法的第一步是在数据集中随机生成两点，称为<strong>聚类中心</strong>（Cluster Centroid）。（要分为多少类，就要生成多少个聚类中心）<br>K均值算法是一个迭代算法，每一次迭代过程分为两部分：  </p><ol><li>簇分配<br>K均值算法会遍历每一个数据，计算该点与每一个聚类中心的距离，该点会被归属到最近的聚类中心。  </li><li>移动聚类中心<br>移动聚类中心到当前集群的平均位置。<br><img src="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210629113257.png" alt="">  </li></ol><p>之后K均值算法会重复上述两步，直到聚类中心不再移动，此时可以认为聚类已经实现。    </p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="算法输入"><a href="#算法输入" class="headerlink" title="算法输入"></a>算法输入</h3><ul><li>簇的数量： $K$</li><li>训练集: $\{x^{(1)},x^{(2)},…,x^{(m)} \}$<br>对每一个数据而言，$x^{(i)}$都是一个n维的向量。  </li></ul><h3 id="算法过程"><a href="#算法过程" class="headerlink" title="算法过程"></a>算法过程</h3><p>K均值算法首先会随机初始化聚类中心$μ_i$：<br>Repeat{   </p><div class="hljs code-wrapper"><pre><code># 计算每个聚类中心到该点的距离，并返回最近距离的聚类中心标签  for $i=1$ to $m$  $c^&#123;(i)&#125;$:=index(from 1 to $K$)  of cluster centroid closest to $x^&#123;(i)&#125;$ 或者  $c^&#123;(i)&#125;$:=$min||x^&#123;(i)&#125;-μ_k||^2$  # 移动聚类中心  for $k=1$ to $K$    $μ_k$:=arverage of points assigned to cluster $k$  </code></pre></div><p>}  </p><blockquote><p>如果此时出现所有点都不属于某一个聚类中心的情况，则可以直接移除这个聚类中心，或者重新随机初始化这个聚类中心  </p></blockquote><h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><p>K-Means算法的代价函数会重点跟踪如下的两个参数的变化规律：<br>$c^{(i)}$：当前每一个样本$x^{(i)}$所属的聚类中心$μ_c^{(i)}$对应的标签<br>$μ_k$: 聚类中心的位置<br>代价函数以如下形式表示：  </p><script type="math/tex; mode=display">J(c^{(1)}...c^{(m)},μ_1...μ_K)=\frac{1}{m}∑_{i=1}^{m}||x^{(i)}-μ_c^{(i)}||^2</script><p>代价函数的目标是找到使得$J(c^{(1)}…c^{(m)},μ_1…μ_K)$最小化的$c^{(1)}…c^{(m)},μ_1…μ_K$。  </p><p>重回K-Means算法的执行过程：<br>计算每个聚类中心到该点的距离，并返回最近距离的聚类中心标签的实质是保持$μ_1…μ_K$固定，而找到使得$J$最小化的$c^{(i)}$。<br>移动聚类中心的实质是保持$c^{(1)}…c^{(m)}$不变，找到使得$J$最小化的$μ_k$。  </p>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习基础课程——吴恩达</category>
-      
-      <category>9. 非监督学习</category>
       
     </categories>
     
@@ -804,27 +699,6 @@
       <category>学习笔记</category>
       
       <category>计算机结构与接口</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>9.1. 非监督学习的概念</title>
-    <link href="/2021/05/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.1.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%A6%82%E5%BF%B5/"/>
-    <url>/2021/05/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/9.1.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%A6%82%E5%BF%B5/</url>
-    
-    <content type="html"><![CDATA[<h1 id="非监督学习的概念"><a href="#非监督学习的概念" class="headerlink" title="非监督学习的概念"></a>非监督学习的概念</h1><h2 id="非监督学习"><a href="#非监督学习" class="headerlink" title="非监督学习"></a>非监督学习</h2><ul><li><p>回顾： 监督学习<br>数据集有一系列的标签，监督学习的目的是找到空间中不同类数据标签之间的决策边界。<br>数据集的表示：$\{(x^{(i)},y^{(i)}),…\}$  </p></li><li><p>非监督学习<br>在非监督学习中，数据集没有事先预设好的标签。非监督学习的目的是先要自动根据数据的特征对数据进行分类，再找到不同类数据之间的决策边界。<br>数据集的表示：$\{(x^{(i)})..\}$  </p></li></ul><h2 id="聚类算法"><a href="#聚类算法" class="headerlink" title="聚类算法"></a>聚类算法</h2><p>根据数据分布的聚集情况自动将数据分为多类/簇，或者是多个子集的算法称为<strong>聚类算法</strong>（Clustering Algorithm）。  </p>]]></content>
-    
-    
-    <categories>
-      
-      <category>机器学习基础课程——吴恩达</category>
-      
-      <category>9. 非监督学习</category>
       
     </categories>
     
