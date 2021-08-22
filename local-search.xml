@@ -1317,6 +1317,48 @@
   
   
   <entry>
+    <title>3.2. 分类算法的优化</title>
+    <link href="/2021/03/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/3.2.%20%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8C%96/"/>
+    <url>/2021/03/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/3.2.%20%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8C%96/</url>
+    
+    <content type="html"><![CDATA[<h1 id="分类算法的优化"><a href="#分类算法的优化" class="headerlink" title="分类算法的优化"></a>分类算法的优化</h1><h2 id="其他代价函数优化算法"><a href="#其他代价函数优化算法" class="headerlink" title="其他代价函数优化算法"></a>其他代价函数优化算法</h2><p>对于代价函数，它可以被拆分成求$J(θ)$和求$\frac{∂J(θ)}{∂θ_j }$  两个基础的部分  </p><p>事实上，除了基础的梯度下降算法能够求到最小值之外，还有如下的集中基本方法：</p><ol><li>共轭梯度算法（Conjugate Gradient）</li><li>BFGS</li><li>L-BFGS</li></ol><p>这些算法有一些共同的特点：</p><ol><li>这些算法利用线搜索算法（一种智能内循环）不需要手动选择学习率 α。</li><li>收敛的速度高于梯度下降算法</li><li>复杂度高于梯度下降算法</li></ol><h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p>对于同一个数据集x，需要分类的目标不只有两种，意味着离散取值y的值不只有0，1两个值。<br>基本思想是<strong>将一个n元分类问题转化为n个二分类问题</strong>。<br>比如对y=1，2，3:<br>可以先将2，3 设置为负类，使用之前的逻辑分类方法就能够将1与（2，3）分开，重复三次，能得到三个逻辑斯蒂函数：$h_θ^i (x)i=1,2,3$。<br>由于$h_θ^i (x)=P(y=i│x; θ)$， 因此$h_θ^i (x)$表示将1设置为正类别，分类器中是1的概率。<br>最后给定函数$max(h_θ^i (x))$， 表示选择出三个当中概率最高的部分，作为判断的结果。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>03. 逻辑回归与正则化</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>3.1. 激活函数和代价函数</title>
+    <link href="/2021/03/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/"/>
+    <url>/2021/03/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/</url>
+    
+    <content type="html"><![CDATA[<p><style><br>img{<br>    width: 60%;<br>    padding-left: 20%;<br>}</style></p><h1 id="逻辑回归、激活函数及其代价函数"><a href="#逻辑回归、激活函数及其代价函数" class="headerlink" title="逻辑回归、激活函数及其代价函数"></a>逻辑回归、激活函数及其代价函数</h1><h2 id="线性回归的可行性"><a href="#线性回归的可行性" class="headerlink" title="线性回归的可行性"></a>线性回归的可行性</h2><p>对分类算法，其输出结果y只有两种结果{0，1}，分别表示负类和正类，代表没有目标和有目标。<br>在这种情况下，如果用传统的方法以线性拟合${h_θ (x)=θ^T X}$，对于得到的函数应当对y设置阈值a，高于a为一类，低于a为一类。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224223513.png" alt=""><br>对于分类方法，这种拟合的方式极易受到分散的数据集的影响而导致损失函数的变化，以至于对于特定的损失函数，其阈值的设定十分困难。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20201224223523.png" alt=""><br>除此之外，${h_θ(x)}$（在分类算法中称为分类器）的输出值很可能非常大或者非常小，并不与{0，1}完全相符</p><h2 id="假设表示"><a href="#假设表示" class="headerlink" title="假设表示"></a>假设表示</h2><p>基于上述情况，要使分类器的输出在[0,1]之间，可以采用假设表示的方法。<br>设$h_θ (x)=g(θ^T x)$，其中$g(z)=\frac{1}{(1+e^{−z} )}$, 称为<strong>逻辑斯蒂函数</strong>（Sigmoid function，又称为<strong>激活函数</strong>，生物学上的S型曲线），有：</p><script type="math/tex; mode=display">h_θ (x)=\frac{1}{(1+e^{−θ^T X} )}</script><p>其两条渐近线分别为h(x)=0和h(x)=1</p><p>在分类条件下，最终的输出结果是：</p><script type="math/tex; mode=display">h_θ (x)=P(y=1│x,θ)</script><p>其代表在给定x的条件下 其y=1的概率<br>有:  </p><script type="math/tex; mode=display">P(y=1│x,θ)+P(y=0│x,θ)=1</script><h2 id="决策边界-Decision-boundary"><a href="#决策边界-Decision-boundary" class="headerlink" title="决策边界(Decision boundary)"></a>决策边界(Decision boundary)</h2><p>对假设函数设定阈值$h(x)=0.5$，<br>当$h(x)≥0.5$ 时，输出结果y=1.<br>根据假设函数的性质，当 $x≥$0时，$h(x)≥0.5$<br>由于之前用$θ^T x$替换x，则当$θ^T x≥0$时，$h(x)≥0.5，y=1$<br>解出 $θ^T x≥0$，其答案将会是一个在每一个$x_i$轴上都有的不等式函数。<br>这个不等式函数将整个空间分成了y=1 和 y=0的两个部分，称之为决策边界。  </p><h2 id="激活函数的代价函数"><a href="#激活函数的代价函数" class="headerlink" title="激活函数的代价函数"></a>激活函数的代价函数</h2><p>在线性回归中的代价函数：</p><script type="math/tex; mode=display">J(θ)=\frac{1}{m}∑_{i=1}^m \frac{1}{2} (h_θ (x^{(i)} )−y^{(i)} )^2</script><p>令$Cost（hθ (x)，y）=\frac{1}{2}(h_θ (x^{(i)} )−y^{(i)} )^2$， Cost是一个非凹函数，有许多的局部最小值，不利于使用梯度下降法。对于分类算法，设置其代价函数为：</p><p>对其化简：</p><script type="math/tex; mode=display">Cost（h_θ (x),y）=−ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))</script><p>检验：<br>当 $y=1$时，$−log⁡(h_θ (x))$<br>当 $y=0$时，$−log⁡(1−h_θ (x))$  </p><p>那么代价函数可以写成：  </p><script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))]</script><p>对于代价函数，采用梯度下降算法求θ的最小值：</p><script type="math/tex; mode=display">{θ_j≔θ_j−α\frac{∂J(θ)}{∂θ_j}}</script><p>代入梯度：    </p><script type="math/tex; mode=display">θ_j≔θ_j−α∑_{i=1}^m(h_θ (x^{(i)} )−y^{(i)} ) x_j^i</script>]]></content>
+    
+    
+    <categories>
+      
+      <category>机器学习基础课程——吴恩达</category>
+      
+      <category>03. 逻辑回归与正则化</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>4. 频谱·非周期信号的傅里叶变换</title>
     <link href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/"/>
     <url>/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/</url>
