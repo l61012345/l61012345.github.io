@@ -247,7 +247,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年8月12日 早上
+                  本文最后更新于：2021年8月22日 凌晨
                 
               </p>
             
@@ -259,17 +259,13 @@
 <h2 id="代价-损失函数（Cost-function）"><a href="#代价-损失函数（Cost-function）" class="headerlink" title="代价/损失函数（Cost function）"></a>代价/损失函数（Cost function）</h2><p><strong>假设函数(Hypothesis function)</strong>——$h$是用来表示某一个数据集可能存在的线性/非线性关系的函数。对于线性拟合，其假设函数为：  </p>
 <script type="math/tex; mode=display">h_θ(x)=θ_1x+θ_0</script><p>这其中的$θ$是假设函数当中的参数。<br>也可以简化为：</p>
 <script type="math/tex; mode=display">h_θ(x)=θ_1x</script><p><strong>代价函数</strong>，在统计学上称为均方根误差函数。当假设函数中的系数$θ$取不同的值时，$\frac{1}{2m}$倍假设函数预测值$h_θ(x^{(i)})$和真实值$y^{(i)}$的差的平方的和之间的函数关系表示为代价函数$J$。</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-J(θ_0,θ_1)= \\\  
-& \frac{1}{2m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})^2 \\\      
-\end{aligned}</script><blockquote>
+<script type="math/tex; mode=display">J(θ_0,θ_1)= \frac{1}{2m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})^2</script><blockquote>
 <p>在这里取1/2的原因是便于消除求导之后产生的2倍,同时也可以进一步缩小$θ$  </p>
 <p>该函数的自变量是$θ_1$和$θ_0$，因此该函数是三维的函数（如图所示）。<br> <img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131130651.png" srcset="/img/loading.gif" alt="">  </p>
 </blockquote>
 <p><strong>代价函数在几何上表示为数据集空间内的各点到假设函数的距离的平方的平均值的一半。</strong><br>要想使得数据能够被假设函数很好地拟合，那么代价函数要尽量地小。<strong>当代价函数取到它的最小值即</strong>$J(θ_1)_{min}$<strong>时，此时的填入假设函数的</strong>$θ$<strong>对数据的拟合程度是最好的</strong><br>对于线性的代价函数，假设函数对数据集的拟合程度越高，对应的$(θ_0,θ_1)$越接近代价函数图像等高线的中心。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131132852.png" srcset="/img/loading.gif" alt="">   </p>
-<h2 id="梯度下降算法（Gradient-Descent）"><a href="#梯度下降算法（Gradient-Descent）" class="headerlink" title="梯度下降算法（Gradient Descent）"></a>梯度下降算法（Gradient Descent）</h2><h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>在微积分中，函数$f(x,y)$在$(x_0,y_0)$处是函数值增加最快的方向是<strong>梯度（Gradient）</strong>的方向，<strong>梯度的反方向是函数值减小最快的方向。</strong><br>梯度的计算公式：  </p>
-<script type="math/tex; mode=display">▿f|_{(x_0,y_0)}=(f_x(x_0,y_0),f_y(x_0,y_0))</script><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>梯度下降算法是一种求解代价函数最小值的方法，它可以用在<strong>多维任意的假设函数</strong>当中。<br>简而言之，梯度下降算法求得$J(θ_1)_{min}$的主要思路是：   </p>
+<h2 id="梯度下降算法（Gradient-Descent）"><a href="#梯度下降算法（Gradient-Descent）" class="headerlink" title="梯度下降算法（Gradient Descent）"></a>梯度下降算法（Gradient Descent）</h2><h3 id="梯度"><a href="#梯度" class="headerlink" title="梯度"></a>梯度</h3><p>在微积分中，函数$f(x,y)$在$(x_0,y_0)$处是函数值增加最快的方向是<strong>梯度（Gradient）</strong>的方向，<strong>梯度的反方向是函数值减小最快的方向。</strong><br>$f(x,y)$在$(x_0,y_0)$处的梯度：  </p>
+<script type="math/tex; mode=display">▿f|_{(x_0,y_0)}=(\frac{∂}{∂x}f(x_0,y_0),\frac{∂}{∂y}f(x_0,y_0))</script><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>梯度下降算法是一种求解代价函数最小值的方法，它可以用在<strong>多维任意的假设函数</strong>当中。<br>简而言之，梯度下降算法求得$J(θ_1)_{min}$的主要思路是：   </p>
 <ol>
 <li>给定$θ_0$和$θ_1$的初始值，通常令$θ_0=0$，$θ_1=0$。</li>
 <li>不断改变$θ_0$和$θ_1$的值使得$J(θ_0,θ_1)$的值逐渐变小，直到找到$J(θ_0,θ_1)$的最小值或者局部最小值。<br>如果从一个初始值出发，寻找附近的最小值，重复该过程，得到上图，最后得到的值为局部最优解。  <blockquote>
@@ -277,7 +273,9 @@ J(θ_0,θ_1)= \\\
 </blockquote>
 </li>
 </ol>
-<p>当改变初始值时，会找到另一条“下山”的路径，找到第二个局部最优解（局部最小值）。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210131134419.png" srcset="/img/loading.gif" alt=""><br>对于线性回归的代价函数而言，只存在一个局部最小值。（见代价函数的图像）  </p>
+<p>当改变初始值时，会找到另一条“下山”的路径，找到第二个局部最优解（局部最小值）。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822101757.png width=80%>  </p>
+<p>对于线性回归的代价函数而言，只存在一个局部最小值。（见代价函数的图像）  </p>
 <h3 id="表示"><a href="#表示" class="headerlink" title="表示"></a>表示</h3><p>梯度下降算法可以表示为：<br>Repeat untill convergence\{  </p>
 <script type="math/tex; mode=display">
 θ_j:=θ_j-α\frac{∂J(θ_0,θ_1)}{∂θ_j},j=0~and~j=1</script><p>\}<br>解释：    </p>
@@ -299,7 +297,7 @@ temp1:θ_1:=θ_1-α\frac{∂J(θ_0,θ_1)}{∂θ_1}</script><script type="math/te
 θ_0:=temp0</script><script type="math/tex; mode=display">
 θ_1:=temp1</script><p>这个更新方程能够同时更新$θ_0$和$θ_1$：$θ_0$更新为$θ_0-J’(θ)$，对$θ_1$同理。<br>更新的方法是计算赋值号右边带入$θ_1$和$θ_2$的值进行计算，得到的两个值分别储存在temp0和temp1中，从上到下进行赋值。  </p>
 <p>对于简化的代价函数：  </p>
-<script type="math/tex; mode=display">θ_1：=θ_1-αJ'(θ_1)</script><script type="math/tex; mode=display">\frac{dJ(θ_1,θ_0)}{dθ_j} =d(\frac{1}{2m}Σ(h_θ(x_i)-y_i))^2)</script><p>将梯度代回代价函数中就得到了<strong>Batch梯度下降法</strong>的基本形式：<br>Repeat untill convergence\{  </p>
+<script type="math/tex; mode=display">θ_1：=θ_1-αJ'(θ_1)</script><script type="math/tex; mode=display">\frac{dJ(θ_1,θ_0)}{dθ_j} =d(\frac{1}{2m}Σ(h_θ(x_i)-y_i))^2)</script><p>将梯度代回代价函数中就得到了<strong>批量梯度下降法</strong>的基本形式：<br>Repeat untill convergence\{  </p>
 <script type="math/tex; mode=display">
 θ_0:=θ_0-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})</script><script type="math/tex; mode=display">
 θ_1:=θ_1-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x^{(i)}</script><p>\}    </p>
