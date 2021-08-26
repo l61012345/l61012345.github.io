@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>13.5. 并行计算（减少映射） - Mirror</title>
+  <title>14.2. 滑动窗口分类器 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -168,7 +168,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="13.5. 并行计算（减少映射）">
+            <span class="h2" id="subtitle" title="14.2. 滑动窗口分类器">
               
             </span>
 
@@ -183,8 +183,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-08-24 06:04" pubdate>
-        2021年8月24日 早上
+      <time datetime="2021-08-26 01:50" pubdate>
+        2021年8月26日 凌晨
       </time>
     </span>
   
@@ -195,7 +195,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      676 字
+      903 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      9
        分钟
     </span>
   
@@ -243,24 +243,22 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">13.5. 并行计算（减少映射）</h1>
+            <h1 style="display: none">14.2. 滑动窗口分类器</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年8月24日 早上
+                  本文最后更新于：2021年8月26日 凌晨
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="并行计算（减少映射）"><a href="#并行计算（减少映射）" class="headerlink" title="并行计算（减少映射）"></a>并行计算（减少映射）</h1><p><strong>减少映射</strong>（Map-reduce）是第二种能够在大规模机器学习中用于减少计算量的算法。本质上，<strong>减少映射的工作就是将机器学习算法进行并行化处理</strong>，使得多个计算机共同、同时承担梯度下降算法中的一部分计算内容以缩短计算时间和单台计算机的计算量。减少映射与随机梯度下降一样重要。<br>机器学习算法能够被减少映射的关键在于算法本身或者是其中的某些步骤能够以<strong>求和</strong>的方式表示。事实上，大规模机器学习的主要问题也来自于求和项的计算量过于庞大，并且大部分的机器学习算法都拥有求和项，因此可被减少映射。  </p>
-<h2 id="梯度下降算法的并行化"><a href="#梯度下降算法的并行化" class="headerlink" title="梯度下降算法的并行化"></a>梯度下降算法的并行化</h2><p>减少映射的思想基础来源于批量梯度下降算法。根据批量梯度下降的更新公式：  </p>
-<script type="math/tex; mode=display">θ_j:=θ_j-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}</script><p>此时如果用多台计算机平均负担求和项（或者说是代价函数的偏导项）$∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}$。比如如果有4台计算机，这四台计算机分别计算数据集中$\frac{m}{4}$份数据的求和项，最后再将这些计算结果放入一个中心计算机进行更新公式的计算。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210824142914.png width=50%>  </p>
-<h2 id="逻辑回归的并行化"><a href="#逻辑回归的并行化" class="headerlink" title="逻辑回归的并行化"></a>逻辑回归的并行化</h2><p>逻辑回归的代价函数公式：  </p>
-<script type="math/tex; mode=display">J_{train}(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))]</script><p>同样地，逻辑回归的代价函数中求和项也可以分配给多台计算机承担。<br>而且逻辑回归的代价函数的偏导项和线性回归一样：  </p>
-<script type="math/tex; mode=display">\frac{∂}{∂θ_j}J_{train}(θ)=\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}</script><p>其中的求和项也可以被并行化处理，最终以便于使用梯度下降算法。<br>这些求和项在不同的计算机上被计算出来后，传入中央计算机，并执行求和和求和之外的其他计算。  </p>
-<h2 id="多核计算"><a href="#多核计算" class="headerlink" title="多核计算"></a>多核计算</h2><p>由于GPU或者CPU的多核计算功能，并行化计算也可以在单机上运行。类似地，训练集被划分然后送入CPU中不同的处理核心中进行计算，最后整合结果。  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210824144419.png width=50%>  </p>
-<p>有些机器学习库或者线性代数库可以自动地将算法矩阵化后做并行化处理，因此不需要人为地设置减少映射。  </p>
+              <h1 id="滑动窗口分类器"><a href="#滑动窗口分类器" class="headerlink" title="滑动窗口分类器"></a>滑动窗口分类器</h1><p>上一节中照片OCR系统的流水线：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826094605.png width=70%><br>本节课将着重于“Text detection”文字检测的部分，这一部分的功能由一种称为<strong>滑动窗口分类器</strong>（Sliding window classifier）的算法承担。<br>滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。  </p>
+<h2 id="案例：行人检测"><a href="#案例：行人检测" class="headerlink" title="案例：行人检测"></a>案例：行人检测</h2><p>滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标拥有相似的长宽比。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826095820.png width=50%>  </p>
+<h3 id="制作分类器"><a href="#制作分类器" class="headerlink" title="制作分类器"></a>制作分类器</h3><p>为了识别行人，需要制作一个监督学习分类器，分类器需要识别图像是否是行人，具体的做法如下：<br>收集一个行人的数据集，这个数据集由正样本和负样本组成。其中正样本是行人的图片，要求行人需要占到这个图像的相当大的部分。负样本则是一些没有行人的街景图像，大小和行人相同，这些图像要求种类尽量多一些（比如房屋、树木等等）。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826100311.png width=60%>  </p>
+<h3 id="全幅扫描"><a href="#全幅扫描" class="headerlink" title="全幅扫描"></a>全幅扫描</h3><p>现在，给出一个有若干行人的全幅图像，算法需要在图像中选取一个矩阵块（即窗口），将这个矩阵块中的图像部分传入上一布设置好的分类器当中，并对这部分图像进行识别，判断这部分图像中是否有行人。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826100631.png width=50%><br>接着，这个窗口会稍微移动一些，并将窗口内的新内容传递给分类器，再次识别。<br>窗口移动的大小称为<strong>步长</strong>（Stride/Step size），如果步长设置的很小，那么总计需要识别的图块数量就会增多，增加计算量。如果步长设置的很大，那么窗口可能不会覆盖到图像的某些区域。<br>常见的设置是将步长设置在4-8像素。<br>滑动窗口直到图像所有的位置都被这个窗口扫过一遍。<br>接着，设置一个面积更大的图块，再次对图像进行扫描。<br>设置更大图块的目的是为了识别更多尺寸的目标。   </p>
+<h2 id="实例：文字检测"><a href="#实例：文字检测" class="headerlink" title="实例：文字检测"></a>实例：文字检测</h2><p>在文字检测中，同样地思路训练一个分类器。  </p>
+<h3 id="放大算子"><a href="#放大算子" class="headerlink" title="放大算子"></a>放大算子</h3><p>同样地运用滑动窗口识别字符，但是在识别完成之后，需要应用放大算子对监测到文字的区域进行拓展。即将识别到的文字区域稍微向四周扩展一些，以便检测这些文字区域的周围是否还有未识别到的，或者是不完整的文字。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826102506.png width=90%><br>如上图所示，左边的灰度图是一种可视化识别结果的方式：白色表示该区域滑动窗口识别到了文字，而灰色区域的灰度表示可能为文字区域的概率，黑色区域表示这些区域内没有文字。<br>右边的灰度图表示将左图应用放大算子后的结果。  </p>
+<h3 id="检测长宽比"><a href="#检测长宽比" class="headerlink" title="检测长宽比"></a>检测长宽比</h3><p>接下来对识别到的文字区域进行排除，舍弃一些长宽比较为反常的、分类器认为是文字的区域。（比如：英语中很少有竖着写的情况，因此宽度过分大于长度的区域应当被舍弃）<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826103154.png width=50%><br>上图的绿色区域是经过检测长宽比后被认为是文字的区域，而红色的区域是检测长宽比后被舍弃的区域。  </p>
 
             </div>
             <hr>
@@ -272,7 +270,7 @@
                     
                       <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/">机器学习基础课程——吴恩达</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13-%E5%A4%A7%E8%A7%84%E6%A8%A1%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">13. 大规模机器学习</a>
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14-%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9A%E5%85%89%E5%AD%A6%E5%AD%97%E7%AC%A6%E8%AF%86%E5%88%AB%EF%BC%88OCR%EF%BC%89/">14. 机器学习实例：光学字符识别（OCR）</a>
                     
                   </div>
                 
@@ -286,9 +284,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.1.%20%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/">
+                      <a href="/2021/08/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.3.%20%E6%96%87%E5%AD%97%E5%88%86%E7%A6%BB/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">14.1. 问题背景与框架设计</span>
+                        <span class="hidden-mobile">14.3. 文字分离·字符识别</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -296,8 +294,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.4.%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0/">
-                        <span class="hidden-mobile">13.4. 在线学习</span>
+                      <a href="/2021/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.1.%20%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/">
+                        <span class="hidden-mobile">14.1. 问题背景与框架设计</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
