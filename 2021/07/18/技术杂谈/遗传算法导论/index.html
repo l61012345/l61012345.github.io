@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.1k 字
+      8.3k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      89
+      93
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月13日 早上
+                  本文最后更新于：2021年9月14日 上午
                 
               </p>
             
@@ -340,11 +340,14 @@ p.spoiler {
 <p>那么现在后代中落在超平面$H$的样本数目：  </p>
 <script type="math/tex; mode=display">M(H,t+1)=(1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-losses)+gains]</script><p>为了简化计算，忽略gain，并且假设发生在Schema上有义部分的交叉必然导致染色体破坏，记破坏概率为$disruption$，那么有：  </p>
 <script type="math/tex; mode=display">M(H,t+1) \geq (1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-disruption)]</script><p>定义超平面$H$的采样率表示超平面$H$的样本数目与种群中样本数目的比，以$P(H,t)$记。由之前对定义距的理解，可以将破坏概率定义为：  </p>
-<script type="math/tex; mode=display">\frac{\Delta(H)}{L-1}(1-P(H,t))</script><p>那么下一代超平面$H$的采样率可以表示为：</p>
+<script type="math/tex; mode=display">\frac{\Delta(H)}{L-1}(1-P(H,t))</script><p>由破坏的定义可以得出如下结论：<br><strong>定义距$Δ(H)$越小，模式受到破坏的概率就越小。</strong><br>那么下一代超平面$H$的采样率可以表示为：</p>
 <script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t))]</script><p>如果考虑亲代是基于适应度选择出来的：  </p>
 <script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]</script><p>最后，考虑突变的影响：记突变发生的概率为$p_m$，超平面$H$的阶数为$o(H)$，那么表示超平面$H$的Schema不会受到突变影响的概率为：  </p>
-<script type="math/tex; mode=display">(1-p_m)^{o(H)}</script><p>最终，超平面$H$在下一代中被采样到的概率可以表示为：  </p>
-<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}</script><h3 id="突变和收敛问题"><a href="#突变和收敛问题" class="headerlink" title="突变和收敛问题"></a>突变和收敛问题</h3><p>显然，模式定理最强调交叉和超平面采样在遗传搜索中的作用。为了在选择后最大限度地保存超平面样本，应尽量减少交叉和突变的破坏。这表明突变可能根本不应该使用，或者至少应该在非常低的水平上使用。<br>突变的积极作用是突变可以防止任何特定位点或等位基因的永久丢失（尤其是对种群中个体数目非常小的时候而言）， 同时突变也增加了种群的基因多样性。<br>随着代数的增加，选择有可能使得在某些位置上的比特全部变成相同的值，表明算法收敛。但是与此同时，个体之间适应度的差别会越来越小，选择的影响也会越来越小，最终可能导致提前收敛。可以通过对适应度的缩放来改善这一问题。     </p>
+<script type="math/tex; mode=display">(1-p_m)^{o(H)}</script><p>可以得出结论：<br><strong>模式的阶数$o(H)$越小,模式不会受到突变影响的概率越大。</strong><br>最终，超平面$H$在下一代中被采样到的概率可以表示为：  </p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}</script><p>可以通过数学推算出，在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时：</p>
+<script type="math/tex; mode=display">P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]=P(H,t) \frac{f(H,t)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,t) \frac{f(H,t)}{\overline{f}} ]^2</script><p>用$t=0$代来推算$t$代时候的采样率：  </p>
+<script type="math/tex; mode=display">P(H,t) ≥ P(H,0) \frac{f(H,0)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,0) \frac{f(H,0)}{\overline{f}} ]^t(1-p_m)^{o(H)}</script><p>可以发现：<strong>在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时，采样率呈现指数型上升。</strong><br>可以总结为：<br><strong>在选择，交叉，突变算子的作用下，当某个超平面的适应度大于1时，模式的阶数$o(H)$越小，定义距$Δ(H)$越小的个体越能够被保留下来，且数目成指数型上升。</strong>  </p>
+<h3 id="突变和收敛问题"><a href="#突变和收敛问题" class="headerlink" title="突变和收敛问题"></a>突变和收敛问题</h3><p>显然，模式定理最强调交叉和超平面采样在遗传搜索中的作用。为了在选择后最大限度地保存超平面样本，应尽量减少交叉和突变的破坏。这表明突变可能根本不应该使用，或者至少应该在非常低的水平上使用。<br>突变的积极作用是突变可以防止任何特定位点或等位基因的永久丢失（尤其是对种群中个体数目非常小的时候而言）， 同时突变也增加了种群的基因多样性。<br>随着代数的增加，选择有可能使得在某些位置上的比特全部变成相同的值，表明算法收敛。但是与此同时，个体之间适应度的差别会越来越小，选择的影响也会越来越小，最终可能导致提前收敛。可以通过对适应度的缩放来改善这一问题。     </p>
 <blockquote>
 <p>关于算法的收敛：遗传算法的收敛性一直是一个问题，简单而言，当选择的代数达到一定程度后，选择压力减弱，导致种群中适应度优秀的个体数始终处于一个水平上而不发生变化，此时称遗传算法达到收敛。和深度学习不同的是，如果在收敛后继续学习，那么优秀个体的数目在理论上并不会下降。  </p>
 </blockquote>
