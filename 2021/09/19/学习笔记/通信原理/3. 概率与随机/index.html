@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      2.5k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      32
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月19日 早上
+                  本文最后更新于：2021年9月24日 早上
                 
               </p>
             
@@ -392,7 +392,53 @@ p.spoiler {
 </ol>
 </blockquote>
 <p>由于直流功率（功率的直流分量）是一个常数而不含有任何信息，对信号处理时常常使用自相关函数分解直流功率和交流功率。  </p>
-
+<h3 id="遍历随机过程"><a href="#遍历随机过程" class="headerlink" title="遍历随机过程"></a>遍历随机过程</h3><p>如果一个随机过程的任何一个样本都经历了平稳随机过程所有的可能状态，称这个随机过程是遍历随机过程（Ergodic Random Process）。便利随机过程最大的特点是过程中的任意一个随机变量$x(t)$的在时间上的统计特性和这个随机过程$ξ(t)$的统计特性相等。<br>对于遍历随机过程的期望：  </p>
+<script type="math/tex; mode=display">E[ξ(t)]=∫ξf(ξ,t)dt=\lim_{T→∞}\frac{1}{T}∫_{-\frac{T}{2}}^\frac{T}{2}x(t)dt=\overline{a}</script><p>遍历随机过程的自相关函数：  </p>
+<script type="math/tex; mode=display">R(τ)=E[ξ(t)ξ(t+τ)]=\lim_{T→∞}\frac{1}{T}∫_{-\frac{T}{2}}^\frac{T}{2}x(t)x(t+τ)dt=\overline{R(τ)}</script><p>综合上述两点，遍历随机过程必然是平稳随机过程。   </p>
+<h4 id="证明遍历性"><a href="#证明遍历性" class="headerlink" title="证明遍历性"></a>证明遍历性</h4><ol>
+<li>计算过程中任意一个随机变量的期望：$E(X(t))=∫x(t)f(x,t)dt$  </li>
+<li>计算随机过程的时间均值：$\lim_{T→∞}\frac{1}{T}∫_{-\frac{T}{2}}^\frac{T}{2}f(t)dt$</li>
+<li>证明两者相等  </li>
+</ol>
+<blockquote>
+<p>对于时间均值函数：</p>
+<script type="math/tex; mode=display">Avg.=\lim_{T→∞}\frac{1}{T}∫_{-\frac{T}{2}}^\frac{T}{2}f(t)dt</script><p><strong>当$f(t)$是一个周期函数时，其时间均值为0。</strong></p>
+</blockquote>
+<h2 id="随机过程通过系统"><a href="#随机过程通过系统" class="headerlink" title="随机过程通过系统"></a>随机过程通过系统</h2><p>由于真实的信号和噪声都是随机过程，因此有必要知道对于给定的随机过程，通过系统后，系统的输出情况。  </p>
+<h3 id="随机过程通过线性系统"><a href="#随机过程通过线性系统" class="headerlink" title="随机过程通过线性系统"></a>随机过程通过线性系统</h3><p>设系统的单位冲击响应$h(t)⇔H(ω)$，当随机过程$ξ_i(t)$通过系统后，系统的输出信号为$ξ_o(t)$，有：  </p>
+<script type="math/tex; mode=display">ξ_o(t)=h(t)*ξ_i(t)=∫_0^∞h(τ)ξ_i(t-τ)dτ</script><h4 id="输出信号的期望"><a href="#输出信号的期望" class="headerlink" title="输出信号的期望"></a>输出信号的期望</h4><script type="math/tex; mode=display">\begin{aligned}
+    E[ξ_o(t)]&=E[∫_0^∞h(τ)ξ_i(t-τ)dτ]\\
+    &=∫_0^∞h(τ)dτE[ξ_i(t-τ)]\\
+    &=∫_0^∞h(τ)dτE[ξ_i(t)]\\
+    &=H(0)E[ξ_i(t)]
+\end{aligned}</script><p>因此当输入信号是一个平稳随机过程，其期望$E[ξ_i(t)]=a$时，输出信号的期望：  </p>
+<script type="math/tex; mode=display">E[ξ_o(t)]=H(0)E[ξ_i(t)]=aH(0)</script><h4 id="输出信号的自相关函数"><a href="#输出信号的自相关函数" class="headerlink" title="输出信号的自相关函数"></a>输出信号的自相关函数</h4><script type="math/tex; mode=display">\begin{aligned}
+    R_o(t,t+τ)&=E[ξ_o(t)ξ_o(t+τ)]\\
+    &=E[∫_0^∞h(α)ξ_i(t-α)dα∫_0^∞h(β)ξ_i(t+τ-β)dβ]\\
+    &=∫_0^∞h(α)dα∫_0^∞h(β)dβE[ξ_i(t-α)ξ_i(t+τ-β)]\\
+    &=∫_0^∞h(α)dα∫_0^∞h(β)dβR_i(τ+α-β)\\
+\end{aligned}</script><p>因此，输出信号的自相关函数结果也必然是一个只与$τ$有关的函数：  </p>
+<script type="math/tex; mode=display">R_o(t,t+τ)==∫_0^∞h(α)dα∫_0^∞h(β)dβR_i(τ+α-β)=R_o(τ)</script><p>综合自相关函数和期望，可以得出结论：<strong>如果线性系统的输入信号是一个平稳随机过程，那么输出信号也必然是一个平稳随机过程。</strong>  </p>
+<h4 id="功率谱密度"><a href="#功率谱密度" class="headerlink" title="功率谱密度"></a>功率谱密度</h4><p>假设输入信号的功率谱密度为$P_{ξ_i}(ω)=∫R_i(τ)e^{-jωτ}dτ$，有：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    P_{ξ_o}(ω)&=∫R_o(τ)dτ\\
+    &=∫dτ∫_0^∞h(α)dα∫_0^∞h(β)dβR_i(τ+α-β)\\
+    &=∫_0^∞h(α)e^{jωα}dα∫_0^∞h(β)e^{-jωβ}dβ∫R_i(τ')e^{-jωτ'}dτ'\\
+    &=H^*(ω)H(ω)P_{ξ_i}(ω)\\
+    &=|H(ω)|^2P_{ξ_i}(ω)
+\end{aligned}</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210924134156.png width=60%>  </p>
+<h3 id="随机过程通过调制系统"><a href="#随机过程通过调制系统" class="headerlink" title="随机过程通过调制系统"></a>随机过程通过调制系统</h3><p>在信号中，调制系统的实质是一个乘法器，将输入信号与一个正弦信号相乘，得到输出信号。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210924134432.png width=40%>  </p>
+<p>调制系统的输出信号可以表示为：  </p>
+<script type="math/tex; mode=display">ξ_o(t)=ξ_{i}(t)cosω_0t</script><p>调制系统是一个非线性系统。  </p>
+<h4 id="输出信号的自相关函数-1"><a href="#输出信号的自相关函数-1" class="headerlink" title="输出信号的自相关函数"></a>输出信号的自相关函数</h4><script type="math/tex; mode=display">\begin{aligned}
+    R_o(t,t+τ)&=E[ξ_o(t)ξ_o(t+τ)]\\
+    &=E[ξ_i(t)ξ_i(t+τ)cosω_0tcosω_0(t+τ)]\\
+    &=\frac{1}{2}E[ξ_i(t)ξ_i(t+τ)][cosω_0t+cos(2ω_0t+ω_0τ)]\\
+    &=\frac{1}{2}R_i(τ)[cosω_0t+cos(2ω_0t+ω_0τ)]\\
+    &=\frac{1}{2}R_i(τ)cosω_0t+\frac{1}{2}R_i(τ)cos(2ω_0t+ω_0τ)\\
+\end{aligned}</script><h4 id="输出信号的功率谱密度"><a href="#输出信号的功率谱密度" class="headerlink" title="输出信号的功率谱密度"></a>输出信号的功率谱密度</h4><p>可以发现，由于$cos(2ω_0t+ω_0τ)$的存在，输出信号的自相关函数不再是一个只与$τ$相关的函数，此时如果要想通过傅里叶变换求到其频谱密度函数非常困难。<br>此时的方法是选用$cos(2ω_0t+ω_0τ)$的时间均值来近似代表其在整个时间上的变化规律。  </p>
+<script type="math/tex; mode=display">\overline{R_o(t,t+τ)}=\frac{1}{2}R_i(τ)cosω_0t+\frac{1}{2}R_i(τ)\overline{cos(2ω_0t+ω_0τ)}</script><p>由于$cos(2ω_0t+ω_0τ)$是一个周期函数，其时间均值为0。<br>因此$\overline{R_o(t,t+τ)}=\frac{1}{2}R_i(τ)cosω_0t$。<br>对其做傅里叶变换得到输出信号的功率谱密度函数：  </p>
+<script type="math/tex; mode=display">P_{ξ_o(ω)}=F[\frac{1}{2}R_i(τ)cosω_0t]=\frac{1}{4}[P_{ξ_i}(ω+ω_0)+P_{ξ_i}(ω-ω_0)]</script>
             </div>
             <hr>
             <div>
