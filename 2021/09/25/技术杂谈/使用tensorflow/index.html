@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -298,9 +298,9 @@ p.spoiler {
 <h2 id="读取训练参数并保存模型"><a href="#读取训练参数并保存模型" class="headerlink" title="读取训练参数并保存模型"></a>读取训练参数并保存模型</h2><p>将记录到的loss、准确率进行读取，并使用pyPlot函数库对训练结果进行可视化处理。<br><figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python"><span class="hljs-comment"># 记录准确率和损失值</span><br>history_dict = history.history<br>train_loss = history_dict[<span class="hljs-string">&quot;loss&quot;</span>]<br>train_accuracy = history_dict[<span class="hljs-string">&quot;accuracy&quot;</span>]<br>val_loss = history_dict[<span class="hljs-string">&quot;val_loss&quot;</span>]<br>val_accuracy = history_dict[<span class="hljs-string">&quot;val_accuracy&quot;</span>]<br><br><span class="hljs-comment"># Generate predictions (probabilities -- the output of the last layer)</span><br><span class="hljs-comment"># on new data using `predict`</span><br>print(<span class="hljs-string">&quot;Generate predictions for 3 samples&quot;</span>)<br>predictions = model.predict(x_test[:<span class="hljs-number">3</span>])<br>print(<span class="hljs-string">&quot;predictions shape:&quot;</span>, predictions.shape)<br><br>print(<span class="hljs-string">&quot;ploting..&quot;</span>)<br><span class="hljs-comment"># 绘制损失值</span><br>plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), train_loss, label=<span class="hljs-string">&#x27;train_loss&#x27;</span>)<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), val_loss, label=<span class="hljs-string">&#x27;val_loss&#x27;</span>)<br>plt.legend()<br>plt.xlabel(<span class="hljs-string">&#x27;epochs&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;loss&#x27;</span>)<br><br><span class="hljs-comment"># 绘制准确率</span><br>plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), train_accuracy, label=<span class="hljs-string">&#x27;train_accuracy&#x27;</span>)<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), val_accuracy, label=<span class="hljs-string">&#x27;val_accuracy&#x27;</span>)<br>plt.legend()<br>plt.xlabel(<span class="hljs-string">&#x27;epochs&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;accuracy&#x27;</span>)<br>plt.show()<br></code></pre></div></td></tr></table></figure><br>使用<code>model.save()</code>函数保存训练模型，训练模型的格式有两种：  </p>
 <ol>
 <li>h5，生成的是一个*.h5文件，需要使用<code>keras</code>进行读取。  </li>
-<li>tf，生成的是一个文件夹。  <figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">print(<span class="hljs-string">&quot;saving the model...&quot;</span>)<br><span class="hljs-comment"># 模型保存，注意：仅仅是多了一个save_format的参数而已</span><br><span class="hljs-comment"># 注意：这里的&#x27;path_to_saved_model&#x27;不再是模型名称，仅仅是一个文件夹，模型会保存在这个文件夹之下</span><br>model.save(<span class="hljs-string">&#x27;model/&#x27;</span>, save_format=<span class="hljs-string">&#x27;tf&#x27;</span>)<br>print(<span class="hljs-string">&quot;completed&quot;</span>)<br></code></pre></div></td></tr></table></figure>
-</li>
+<li>tf，生成的是一个模型文件夹，比较容易读取。  </li>
 </ol>
+<figure class="highlight python"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs python">print(<span class="hljs-string">&quot;saving the model...&quot;</span>)<br><span class="hljs-comment"># 模型保存，注意：仅仅是多了一个save_format的参数而已</span><br><span class="hljs-comment"># 注意：这里的&#x27;path_to_saved_model&#x27;不再是模型名称，仅仅是一个文件夹，模型会保存在这个文件夹之下</span><br>model.save(<span class="hljs-string">&#x27;model/&#x27;</span>, save_format=<span class="hljs-string">&#x27;tf&#x27;</span>)<br>print(<span class="hljs-string">&quot;completed&quot;</span>)<br></code></pre></div></td></tr></table></figure>
 
             </div>
             <hr>
@@ -583,5 +583,20 @@ p.spoiler {
 
   
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
