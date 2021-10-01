@@ -1,0 +1,643 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="keywords" content=""> 
+  <meta name="author" content="Oreki Kigiha">
+  <!-- searchengine verifications -->
+  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
+  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
+  <!-- Bing verification -->
+  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  
+  <title>4. Z变换 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/homepage.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="4. Z变换">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Oreki Kigiha
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-01 05:46" pubdate>
+        2021年10月1日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      61 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      1
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">4. Z变换</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年10月1日 早上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="Z变换"><a href="#Z变换" class="headerlink" title="Z变换"></a>Z变换</h1><h2 id="离散傅里叶变换的局限性"><a href="#离散傅里叶变换的局限性" class="headerlink" title="离散傅里叶变换的局限性"></a>离散傅里叶变换的局限性</h2><p>对于离散傅里叶变换$X(e^{jω})=∑x[n]e^{-jωn}$，要求原离散信号$x(n)$满足狄利克雷条件，即要求变换中的求和项收敛：  </p>
+<script type="math/tex; mode=display">∑|x[n]|<∞</script><p>有大量的信号不能满足这一条件。  </p>
+<h2 id="Z变换原理"><a href="#Z变换原理" class="headerlink" title="Z变换原理"></a>Z变换原理</h2><p>解决办法是在变换时添加一项$r^{-n}$，以在保留原信号特征的同时改善原信号的收敛性。</p>
+<script type="math/tex; mode=display">X_r(e^{jω})=∑x[n]r^{-n}e^{-jωn}=∑x[n](re^{jω})^{-n}</script><p>将：$re^{jω}$简记为$z$，得到Z变换的变换公式：  </p>
+<script type="math/tex; mode=display">X(z)=∑x[n]z^{-n}</script><p>Z变换可以将输入序列转变为以指数序列构成的线性组合。  </p>
+<h3 id="收敛域"><a href="#收敛域" class="headerlink" title="收敛域"></a>收敛域</h3><p>此时要求改善后的信号满足狄利克雷条件，有：  </p>
+<script type="math/tex; mode=display">∑|x[n]z^{-n}|<∞</script><p>满足这个条件的$z$的取值称为这个Z变换对的收敛域。<br>可以发现$|z|$的取值决定了整个线性组合是否满足狄利克雷条件。<br>当$|z|=1$时，Z变换退化为离散傅里叶变换，满足这一条件的所有$ω$的取值在傅里叶平面内构成一个单位圆：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001141750.png width=30%>  </p>
+<h4 id="收敛特性"><a href="#收敛特性" class="headerlink" title="收敛特性"></a>收敛特性</h4><p>序列的Z变换是否存在与收敛域有关，下面讨论不同类型序列的收敛域特征：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序列类型</th>
+<th style="text-align:center">收敛域</th>
+<th style="text-align:center">图示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">右边序列：$x[n]=a^nu[n]$</td>
+<td style="text-align:center">$\</td>
+<td style="text-align:center">z\</td>
+<td>&gt;\</td>
+<td>a\</td>
+<td>$</td>
+<td><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001142544.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">左边序列：$x[n]=-a^nu[-n-1]$</td>
+<td style="text-align:center">$\</td>
+<td style="text-align:center">z\</td>
+<td>&lt;\</td>
+<td>a\</td>
+<td>$</td>
+<td><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001142726.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">双边序列:$x[n]=a^nu[n]-b^nu[-n-1]$</td>
+<td style="text-align:center">$\</td>
+<td style="text-align:center">a\</td>
+<td>&lt;\</td>
+<td>z\</td>
+<td>&lt;\</td>
+<td>b\</td>
+<td>$</td>
+<td><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001142950.png width=50%></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由上表可以总结出Z变换的三条性质：</p>
+<ol>
+<li>当且仅当收敛域包括单位圆时，原信号才能同时满足稳定性和因果性，其离散傅里叶变换存在。  </li>
+<li>收敛域以极点（指数序列的基底）、0、无穷划分边界。  </li>
+<li>在收敛域内不存在任何极点。  </li>
+</ol>
+<h3 id="Z反变换"><a href="#Z反变换" class="headerlink" title="Z反变换"></a>Z反变换</h3><h4 id="定义式"><a href="#定义式" class="headerlink" title="定义式"></a>定义式</h4><p>定义Z反变换为：  </p>
+<script type="math/tex; mode=display">x[n]=\frac{1}{2πj}∮_{ROC}X(z)z^{n-1}dz</script><p>反变换的定义式涉及到曲线积分、计算比较困难，由于LIT系统的系统方程都能够写作多项式分数的形式，因此对LIT系统方程而言通常不采用求解定义式的方式来求解反变换，而更多地采用如下方法求解反变换式：  </p>
+<h4 id="Z变换式的一般形式"><a href="#Z变换式的一般形式" class="headerlink" title="Z变换式的一般形式"></a>Z变换式的一般形式</h4><p>序列$x(n)$的z变换式$X(z)$的一般形式可以写作由两个多项式组成的分式：  </p>
+<script type="math/tex; mode=display">X(z)=\frac{N(z)}{D(z)}=\frac{∑b_mz^m}{∑a_nz^n}</script><p>其中$b_m$称为方程的零点，$a_m$称为方程的极点。<br>当极点为一阶时,对等式两边同时除以$z$以提取常系数$A$：  </p>
+<script type="math/tex; mode=display">\frac{X(z)}{z}=∑_{i=1}^N\frac{A_i}{z-z_i}</script><p>其中$A_i=(z-z_i)\frac{X(z)}{z}|_{z=z_i}$。<br>再乘上$z$：  </p>
+<script type="math/tex; mode=display">X(z)=∑_{i=1}^N\frac{A_iz}{z-z_i}</script><p>其中$A_i$为$x(n)$的常系数，$z_i$为底数。<br>对应的$x(n)$：</p>
+<script type="math/tex; mode=display">x(n)=∑_{i=0}^∞A_i(z_i)^nu[n],n≥0</script><p>需要注意的是，需要根据$z-z_i$的正负对Z变换的收敛域进行讨论:  </p>
+<ul>
+<li>当$z&lt;z_i$时，对应分式项$\frac{A_iz}{z-z_i}$应写作$-\frac{A_iz}{z-z_i}$以保证$z-z_i$恒正。该项对应的指数序列为左边序列$-A_i(z_i)^nu[-n-1]$  </li>
+<li>当$z&lt;z_i$时，对应分式项应写作$\frac{A_iz}{z-z_i}$以保证$z-z_i$恒正。该项对应的指数序列为右边序列$A_i(z_i)^nu[n]$  </li>
+</ul>
+<h2 id="离散系统的差分方程"><a href="#离散系统的差分方程" class="headerlink" title="离散系统的差分方程"></a>离散系统的差分方程</h2><p>离散系统的差分方程可以写作：  </p>
+<script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k]</script><p>求得系统的转换方程为：  </p>
+<script type="math/tex; mode=display">H(z)=\frac{Y(z)}{X(z)}=\frac{∑b_mz^m}{∑a_nz^n}=\frac{b_0}{a_0}\frac{e^{jω(N-M)}Π_{k=1}^M(e^{jω}-b_k)}{Π_{k=1}^N(e^{jω}-a_k)}</script><p>可以发现$e^{jω}-b_k$和$e^{jω}-a_k$都表示从点$(b_k,0)$或$(a_k,0)$到单位圆上一点的向量。<br>将系统方程转化为角度表示，可以得出结论：  </p>
+<ul>
+<li>系统方程的模长：  <script type="math/tex; mode=display">|H(e^{jω})|=\frac{Π零向量的模长}{Π极向量的模长}</script></li>
+<li>系统方程的角度：  <script type="math/tex; mode=display">∠H(e^{jω})=∑零向量的角度-∑极向量的角度</script></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">数字信号处理</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/10/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/2.%20Filter/">
+                        <span class="hidden-mobile">2. 滤波器</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <!-- start webpushr code --> 
+  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
+  <div class="footer-content">
+     基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- LeanCloud 统计PV -->
+        <span id="leancloud-site-pv-container" style="display: none">
+            总访问量 
+            <span id="leancloud-site-pv"></span>
+             次
+          </span>
+      
+      
+        <!-- LeanCloud 统计UV -->
+        <span id="leancloud-site-uv-container" style="display: none">
+            总访客数 
+            <span id="leancloud-site-uv"></span>
+             人
+          </span>
+      
+
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+<script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
+</html>
