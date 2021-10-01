@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.5k 字
+      3.2k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      35
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月30日 中午
+                  本文最后更新于：2021年10月1日 早上
                 
               </p>
             
@@ -316,7 +316,31 @@ p.spoiler {
 <p><div align="center">  
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210718132905.png width=80% />  
 </div></p>
-<center>▲ 经典遗传算法的选择和重组过程</center>
+<center>▲ 经典遗传算法的选择和重组过程</center>  
+
+<h2 id="遗传算法的有效性证明"><a href="#遗传算法的有效性证明" class="headerlink" title="遗传算法的有效性证明"></a>遗传算法的有效性证明</h2><p>上述的过程中很难直观地让我们感受到重组和突变对算法带来的实际效果，也很难感受到遗传算法的有效性，下面从数学的角度说明这两点。  </p>
+<h3 id="采样空间"><a href="#采样空间" class="headerlink" title="采样空间"></a>采样空间</h3><p>在几何学上，称n维空间的某一个小于n维的子空间为<strong>超平面</strong>（hyperplane）， 比如二维空间的超平面是一条线，三位空间的超平面是一个面。<br><strong>在位串长度固定位$L$的前提下，种群中所有可能的编码方式所构成的空间称为搜索空间（Search space）。</strong> 如果每一种特定的编码方式在L维搜索空间中对应了一个角（Corner），那么共超平面的几个角对应的编码中必定在相同的某几个比特位上的值是相同的，此时引入通配符（Don‘t care，以*记）的概念，那么搜索空间的一个超平面就可以表示为含有Don’t care（*）的位串（比如：0****，11*****），这样的位串称为<strong>模式</strong>（Schema），每一个模式对应了一个超平面。   </p>
+<h3 id="模式定理"><a href="#模式定理" class="headerlink" title="模式定理"></a>模式定理</h3><h4 id="适应度选择"><a href="#适应度选择" class="headerlink" title="适应度选择"></a>适应度选择</h4><p>由之前提出的经过选择后超平面$H$留存的样本（个体）数目$M(H,t+1)$：  </p>
+<script type="math/tex; mode=display">M(H,t+1)=M(H,t)\frac{f(H,t)}{\overline{f}}</script><h4 id="重组的作用·定义距"><a href="#重组的作用·定义距" class="headerlink" title="重组的作用·定义距"></a>重组的作用·定义距</h4><p>考虑重组对选择后超平面$H$中种群样本数目的影响：</p>
+<ol>
+<li>重组是有概率发生的，概率为$p_c$。  </li>
+<li>对于发生重组的种群，交叉既有可能产生出现有空间内某个模式的副本（比如100和010交叉就可能产生000，使得000的副本增加一个）即为$gains$，单位为个数，同时也有可能使得原有的样本消失，这个消失的概率记为$losses$。    </li>
+</ol>
+<p>那么现在后代中落在超平面$H$的样本数目：  </p>
+<script type="math/tex; mode=display">M(H,t+1)=(1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-losses)+gains]</script><p>模式定理认为gain发生的概率要远远小于losses。为了简化计算，忽略gain，并且假设发生在Schema上有义部分的交叉必然导致染色体破坏，记破坏概率为$disruption$，那么有：  </p>
+<script type="math/tex; mode=display">M(H,t+1) \geq (1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-disruption)]</script><p>定义超平面$H$的采样率表示超平面$H$的样本数目与种群中样本数目的比，以$P(H,t)$记。  </p>
+<p><strong>定义距</strong>$Δ(H)$表示超平面$H$对应模式中第一个确定字符的位置和最后一个确定字符的位置之间的距离。如：$Δ( 011 ∗ 1 ∗ ∗ )=4$。<br>按照我们对重组的理解：<strong>对原信息的破坏只可能发生在定义距的区间段内。</strong>  </p>
+<p>此外，如果发生重组的位串都在平面$H$内，那么重组也不可能对原本信息造成破坏，因此要想让重组破坏原有的信息，亲本中的另一条位串必定来自于其他平面，另一个位串来自其他平面的概率为$1-P(H,t)$。<br>由这上述两点可以将破坏概率定义为：  </p>
+<script type="math/tex; mode=display">\frac{\Delta(H)}{L-1}(1-P(H,t))</script><p>由破坏的定义可以得出如下结论：<br><strong>定义距$Δ(H)$越小，模式受到破坏的概率就越小</strong>。从直观上来说，定义距越小，交叉发生在定义距内（即一定能破坏信息）的概率也越小。<br>那么下一代超平面$H$的采样率可以表示为：</p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t))]</script><p>如果考虑亲代是基于适应度选择出来的：  </p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]</script><h4 id="突变的作用·模式阶"><a href="#突变的作用·模式阶" class="headerlink" title="突变的作用·模式阶"></a>突变的作用·模式阶</h4><p>最后，考虑突变的影响：记突变发生的概率为$p_m$，超平面$H$的阶数为$o(H)$，<strong>阶数表示模式中确定字符的个数，当突变发生在这些字符上时，才会对原来的位串产生破坏。</strong><br>那么表示超平面$H$的Schema不会受到突变影响的概率为：  </p>
+<script type="math/tex; mode=display">(1-p_m)^{o(H)}</script><p>可以得出结论：<br><strong>模式的阶数$o(H)$越小,模式不会受到突变影响的概率越大</strong>。从直观上来看，模式的阶数代表着有效字符的个数，有效字符越少，在交叉过程中越容易被保留下来。<br>最终，超平面$H$在下一代中被采样到的概率可以表示为：  </p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}</script><h4 id="指数增长"><a href="#指数增长" class="headerlink" title="指数增长"></a>指数增长</h4><p>可以通过数学推算出，在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时：</p>
+<script type="math/tex; mode=display">P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]=P(H,t) \frac{f(H,t)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,t) \frac{f(H,t)}{\overline{f}} ]^2</script><p>用$t=0$代来推算$t$代时候的采样率：  </p>
+<script type="math/tex; mode=display">P(H,t) ≥ \{P(H,0) \frac{f(H,0)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,0) \frac{f(H,0)}{\overline{f}} ]\}^t(1-p_m)^{o(H)}</script><p>可以发现：<strong>在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时，采样率呈现指数型上升。</strong><br>可以总结为：<br><strong>在选择，重组，突变算子的作用下，当某个超平面的适应度大于1时，模式的阶数$o(H)$越小，定义距$Δ(H)$越小的个体越能够被保留下来，且数目成指数型上升。</strong><br>定义距和模式阶都是染色体本身的参数，通过重组和突变这两个参数被引入到进化中，并对选择起到了关键的作用。  </p>
+<h4 id="对模式定理结论的直观理解"><a href="#对模式定理结论的直观理解" class="headerlink" title="对模式定理结论的直观理解"></a>对模式定理结论的直观理解</h4><p>定义距相当于基因的长度，基因越长，在进化过程中被破坏概率就越大，因此定义距越短的个体越容易在进化中得到保留。<br>例子：兔子的性状<br>模式阶相当于个体携带性状的个数。单纯的红眼兔显然比裂唇长耳红眼兔更容易传递给后代。因此模式阶越小，个体越容易在进化中得到保留。  </p>
+<p>模式定理在数学上证明了重组和突变的有效性，并给出了采样率的下界，是遗传算法中重要的理论基础之一。  </p>
+
             </div>
             <hr>
             <div>
@@ -604,5 +628,20 @@ p.spoiler {
 
   
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
