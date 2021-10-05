@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      3.5k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      35
+      38
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月1日 早上
+                  本文最后更新于：2021年10月3日 早上
                 
               </p>
             
@@ -289,14 +289,14 @@ p.spoiler {
 <li><em>遗传算法在游戏开发中的应用</em>，杨科选等，中科院软件研究所，2009  </li>
 </ol>
 </blockquote>
-<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><h3 id="遗传算法的应用"><a href="#遗传算法的应用" class="headerlink" title="遗传算法的应用"></a>遗传算法的应用</h3><p>新干线、鸟巢的设计运用了遗传算法的设计。<br>此处能不能找一个游戏ai运用了遗传算法的例子。  </p>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><h3 id="遗传算法的应用"><a href="#遗传算法的应用" class="headerlink" title="遗传算法的应用"></a>遗传算法的应用</h3><p>举例：Github 开源项目FlappyLearning<br>项目地址：<a target="_blank" rel="noopener" href="https://xviniette.github.io/FlappyLearning/">https://xviniette.github.io/FlappyLearning/</a><br>项目通过每一代生成50个flappy bird，每一只鸟由随机的操作进行控制，通过游戏对其进行淘汰，大约在第25-50代时的鸟能够稳定地存活下去。<br>在游戏设计中，有些怪物可以应用遗传算法随机切换攻击模式，并通过进化和玩家的对抗不断地筛选出不容易被玩家打败的攻击模式，从而提升游戏可持续的难度。<br>新干线N700系的外观、大兴机场的穹顶的设计运用了遗传算法的设计。  </p>
 <h3 id="遗传算法的定义"><a href="#遗传算法的定义" class="headerlink" title="遗传算法的定义"></a>遗传算法的定义</h3><p>遗传算法是一类将特定问题潜在的解决方案编码，然后应用进化理论对解决方案进行优胜劣汰式的反复筛选的算法。   </p>
-<h2 id="遗传算法的参数"><a href="#遗传算法的参数" class="headerlink" title="遗传算法的参数"></a>遗传算法的参数</h2><h3 id="举例：遗传算法面对的问题"><a href="#举例：遗传算法面对的问题" class="headerlink" title="举例：遗传算法面对的问题"></a>举例：遗传算法面对的问题</h3><p>开始之前，我们需要明确几个概念。<br>思考如下的场景：我们需要从一口井中取水，井中水的水位是由一个水阀进行控制，这个水阀有8个档位，每一个档位对应了不同的水位高度，要想更方便地取水自然水位的高度越高越好，现在我们想要找到那个最适合我们取水的档位，就可以用遗传算法解决这个问题。<br>在遗传算法中，这个水阀的8个档位实际上就是系统的八种状态，这八种状态对应了系统不同的输出，像这样的，<strong>系统的某些或全部状态的集合称为一个种群（Population）。</strong> 称这个<strong>状态集合中的一个特定状态为个体（Individual）或者染色体（Chromosome）。</strong>  </p>
+<h2 id="遗传算法的概念"><a href="#遗传算法的概念" class="headerlink" title="遗传算法的概念"></a>遗传算法的概念</h2><h3 id="举例：遗传算法面对的问题"><a href="#举例：遗传算法面对的问题" class="headerlink" title="举例：遗传算法面对的问题"></a>举例：遗传算法面对的问题</h3><p>开始之前，我们需要明确几个概念。<br>思考如下的场景：我们需要从一口井中取水，井中水的水位是由一个水阀进行控制，这个水阀有8个档位，每一个档位对应了不同的水位高度，要想更方便地取水自然水位的高度越高越好，现在我们想要找到那个最适合我们取水的档位，就可以用遗传算法解决这个问题。<br>在遗传算法中，这个水阀的8个档位实际上就是系统的八种状态，这八种状态对应了系统不同的输出，像这样的，<strong>系统的某些或全部状态的集合称为一个种群（Population）。</strong> 称这个<strong>状态集合中的一个特定状态为个体（Individual）或者染色体（Chromosome）。</strong>  </p>
 <blockquote>
 <p>此处要注意与生物学上个体和染色体的数量关系进行区分，遗传算法领域认为一个个体只含有一条染色体。  </p>
 </blockquote>
+<h2 id="经典遗传算法的流程"><a href="#经典遗传算法的流程" class="headerlink" title="经典遗传算法的流程"></a>经典遗传算法的流程</h2><p>经典遗传算法通过对当前种群的<strong>评估（Evaluation）</strong>，<strong>选择（Selection）</strong>，<strong>重组（Recombination）</strong>和<strong>突变（Mutation）</strong>  后，能够在现有种群的基础上产生下一代种群。经过数次进化之后，遗传算法能够选择出对目标问题解决的最佳方案组合。    </p>
 <h3 id="状态编码"><a href="#状态编码" class="headerlink" title="状态编码"></a>状态编码</h3><p>当然，计算机是无法直接读懂这些状态的意义，对数学运算而言，函数的自变量也必须是一个数，因此需要对系统的所有状态进行编码（Coding）。<strong>编码的过程就是将状态用数进行编号的过程。</strong> 遗传算法中采用的编码机制是二进制编码，如上面例子当中水阀的8个档位，就可以用3个比特位（称为<strong>位串</strong>（Strings））：从000 编码到111，对这个水阀的8个档位状态进行表达。<br><strong>种群中的每一个个体都可以用位串的形式进行表达。</strong><br>编码之后的个体就能够用函数去评估它是好的还是坏的了。  </p>
-<h2 id="经典遗传算法的流程"><a href="#经典遗传算法的流程" class="headerlink" title="经典遗传算法的流程"></a>经典遗传算法的流程</h2><p>经典遗传算法通过对当前种群的<strong>评估（Evaluation）</strong>，<strong>选择（Selection）</strong>，<strong>重组（Recombination）</strong>和<strong>突变（Mutation）</strong>  后，能够在现有种群的基础上产生下一代种群。  </p>
 <h3 id="原始种群"><a href="#原始种群" class="headerlink" title="原始种群"></a>原始种群</h3><p>由于实际问题中遗传算法要面临的状态编码数量非常庞大，不可能一下子对所有的状态都进行评估，因此遗传算法需要从所有个体中随机地抓取一些个体生成<strong>原始种群</strong>（Initial population）。遗传算法最开始的操作都是对原始种群进行的。  </p>
 <h3 id="评估和适应度"><a href="#评估和适应度" class="headerlink" title="评估和适应度"></a>评估和适应度</h3><p>原始种群被生成后，每一个个体会通过评估函数和适应度函数（Fitness funtion）生成其对种群的适应度（Fitness）。  </p>
 <p>对适应度函数的直观理解：<br>我们想要从一个班的学生中选择出优等生，最简单的方法就是考试，每个学生通过考试会得到一个分数，以衡量他们的学习水平。在这里，考试就是适应度函数，而每个学生的分数就是适应度。  </p>
@@ -337,9 +337,11 @@ p.spoiler {
 <script type="math/tex; mode=display">(1-p_m)^{o(H)}</script><p>可以得出结论：<br><strong>模式的阶数$o(H)$越小,模式不会受到突变影响的概率越大</strong>。从直观上来看，模式的阶数代表着有效字符的个数，有效字符越少，在交叉过程中越容易被保留下来。<br>最终，超平面$H$在下一代中被采样到的概率可以表示为：  </p>
 <script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}</script><h4 id="指数增长"><a href="#指数增长" class="headerlink" title="指数增长"></a>指数增长</h4><p>可以通过数学推算出，在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时：</p>
 <script type="math/tex; mode=display">P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]=P(H,t) \frac{f(H,t)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,t) \frac{f(H,t)}{\overline{f}} ]^2</script><p>用$t=0$代来推算$t$代时候的采样率：  </p>
-<script type="math/tex; mode=display">P(H,t) ≥ \{P(H,0) \frac{f(H,0)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,0) \frac{f(H,0)}{\overline{f}} ]\}^t(1-p_m)^{o(H)}</script><p>可以发现：<strong>在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时，采样率呈现指数型上升。</strong><br>可以总结为：<br><strong>在选择，重组，突变算子的作用下，当某个超平面的适应度大于1时，模式的阶数$o(H)$越小，定义距$Δ(H)$越小的个体越能够被保留下来，且数目成指数型上升。</strong><br>定义距和模式阶都是染色体本身的参数，通过重组和突变这两个参数被引入到进化中，并对选择起到了关键的作用。  </p>
+<script type="math/tex; mode=display">P(H,t) ≥ \{P(H,0) \frac{f(H,0)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,0) \frac{f(H,0)}{\overline{f}} ]^2\}^t(1-p_m)^{o(H)}</script><p>可以发现：<strong>在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时，采样率呈现指数型上升。</strong><br>可以总结为：<br><strong>在选择，重组，突变算子的作用下，当某个超平面的适应度大于1时，模式的阶数$o(H)$越小，定义距$Δ(H)$越小的个体越能够被保留下来，且数目成指数型上升。</strong><br>定义距和模式阶都是染色体本身的参数，通过重组和突变这两个参数被引入到进化中，并对选择起到了关键的作用。  </p>
 <h4 id="对模式定理结论的直观理解"><a href="#对模式定理结论的直观理解" class="headerlink" title="对模式定理结论的直观理解"></a>对模式定理结论的直观理解</h4><p>定义距相当于基因的长度，基因越长，在进化过程中被破坏概率就越大，因此定义距越短的个体越容易在进化中得到保留。<br>例子：兔子的性状<br>模式阶相当于个体携带性状的个数。单纯的红眼兔显然比裂唇长耳红眼兔更容易传递给后代。因此模式阶越小，个体越容易在进化中得到保留。  </p>
 <p>模式定理在数学上证明了重组和突变的有效性，并给出了采样率的下界，是遗传算法中重要的理论基础之一。  </p>
+<h2 id="遗传算法的局限性"><a href="#遗传算法的局限性" class="headerlink" title="遗传算法的局限性"></a>遗传算法的局限性</h2><h3 id="计算量问题"><a href="#计算量问题" class="headerlink" title="计算量问题"></a>计算量问题</h3><p>对于遗传算法来说评估函数的计算速度和计算量是一个问题：首先，对于现有种群的评估计算量就比较大。不仅如此，种群的后代也需要进行评估——这会导致计算量的暴增。  </p>
+<h3 id="信息表达问题"><a href="#信息表达问题" class="headerlink" title="信息表达问题"></a>信息表达问题</h3><p>遗传算法的每个个体用位串来表示，能够存储的信息量、用于描述单个个体的精度有限。  </p>
 
             </div>
             <hr>
