@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      193 字
+      893 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -276,14 +276,87 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月1日 凌晨
+                  本文最后更新于：2021年10月8日 早上
                 
               </p>
             
             <div class="markdown-body">
               <h1 id="滤波器"><a href="#滤波器" class="headerlink" title="滤波器"></a>滤波器</h1><p>滤波器按照滤波器本身是否消耗额外的能量（由于需要额外提供能量的组件多为运算放大器，因此也可按照有无运算放大器参与滤波分类）分为被动滤波器（额外不消耗能量、无运算放大器）和主动滤波器（额外消耗能量、有运算放大器）。<br>滤波器的阶数由滤波元件（L.C）的个数决定，在实际电路中，由于电感的体积较大，在集成电路设计中通常使用电容作为滤波元件。  </p>
-<h2 id="被动滤波器"><a href="#被动滤波器" class="headerlink" title="被动滤波器"></a>被动滤波器</h2><h3 id="一阶低通滤波器"><a href="#一阶低通滤波器" class="headerlink" title="一阶低通滤波器"></a>一阶低通滤波器</h3><p>电路图如下所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001134003.png width=60%>   </p>
-<p>当电压信号频率增大时，电容容抗减小最终导致短路，</p>
+<h2 id="被动滤波器"><a href="#被动滤波器" class="headerlink" title="被动滤波器"></a>被动滤波器</h2><p>被动滤波器的截止频率由$X_c=R$给出：  </p>
+<script type="math/tex; mode=display">f_c=\frac{1}{2πRC}</script><h3 id="一阶低通滤波器"><a href="#一阶低通滤波器" class="headerlink" title="一阶低通滤波器"></a>一阶低通滤波器</h3><p>电路图如下所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001134003.png width=60%>   </p>
+<p>当电压信号频率增大时，电容容抗减小最终导致电容短路，$V_{out}=0$。<br>当电压信号频率减小时，电容容抗增大最终导致电容断路，此时$V_{out}$是有数值的。  </p>
+<p>一阶低通滤波器的频率响应特性如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145727.png width=50%><br>相移规律如下：  </p>
+<script type="math/tex; mode=display">φ=-arctan(\frac{R}{X_c})=-arctan(2πfRC)</script><p>当达到滤波器的截止频率时：$X_c=R$，因此相位移动为-45°。  </p>
+<h4 id="二阶低通滤波器"><a href="#二阶低通滤波器" class="headerlink" title="二阶低通滤波器"></a>二阶低通滤波器</h4><p>由于被动滤波器都是线性滤波器，因此其特性实际上是一阶滤波器的线性叠加。<br>二阶被动低通滤波器的电路如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145038.png width=50%><br>二阶低通滤波器的截止频率：  </p>
+<script type="math/tex; mode=display">f_c=\frac{1}{2π√(R_1R_2C_1C_2)}</script><p>其频率响应特性如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145535.png width=50%><br>其相移为两个一阶滤波器的相移之和，即:</p>
+<script type="math/tex; mode=display">φ=φ_1+φ_2</script><p>因此当滤波器达到截止频率时，其相移为-90°。  </p>
+<h3 id="一阶高通滤波器"><a href="#一阶高通滤波器" class="headerlink" title="一阶高通滤波器"></a>一阶高通滤波器</h3><p>一阶高通滤波器的电路图与一阶低通滤波器的电路图相同，只是被测目标由电容改为了电阻。因此截止频率与一阶低通滤波器相同。<br>一阶高通滤波器的频率响应特性如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145626.png width=50%><br>相移规律如下：  </p>
+<script type="math/tex; mode=display">φ=arctan(\frac{R}{X_c})=arctan(2πfRC)</script><p>当达到滤波器的截止频率时：$X_c=R$，因此相位移动为45°。  </p>
+<h4 id="二阶高通滤波器"><a href="#二阶高通滤波器" class="headerlink" title="二阶高通滤波器"></a>二阶高通滤波器</h4><p>二阶高通滤波器的电路图如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008150715.png width=50%>  </p>
+<p>其频率响应特性图如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008150729.png width=50%><br>因此当滤波器达到截止频率时，其相移为90°  </p>
+<h3 id="带通滤波器"><a href="#带通滤波器" class="headerlink" title="带通滤波器"></a>带通滤波器</h3><p>带通滤波器的电路图为一个高通滤波器与一个低通滤波器并联。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145829.png width=50%>  </p>
+<p>其频率响应图如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145910.png width=50%><br>对于带通滤波器，其拥有两个截止频率$f_H$和$f_L$，分别对应高通滤波器和低通滤波器的截止频率。  </p>
+<script type="math/tex; mode=display">f_H=\frac{1}{2πR_1C_1},f_L=\frac{1}{2πR_2C_2}</script><blockquote>
+<p>注意$f_H&lt;f_L$。  </p>
+</blockquote>
+<p>其中心响应频率(Central resonance frequency)是这两个截止频率乘积的平方根：  </p>
+<script type="math/tex; mode=display">f_r=√f_L×f_H=\frac{1}{2π√(R_1R_2C_1C_2)}</script><p>带通滤波器的相移在达到中心响应频率时为0。<br>有时候为了彻底阻隔高通滤波器和低通滤波器之间的相互影响，会在分流处放置一个缓冲器，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145947.png width=50%>   </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">电路图</th>
+<th style="text-align:center">被测目标</th>
+<th style="text-align:right">截止频率</th>
+<th style="text-align:right">下降/上升斜率</th>
+<th style="text-align:right">达到截止频率时的相移</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">一阶低通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001134003.png width=60%></td>
+<td style="text-align:center">C</td>
+<td style="text-align:right">$\frac{1}{2πRC}$</td>
+<td style="text-align:right">-20dB</td>
+<td style="text-align:right">-45°</td>
+</tr>
+<tr>
+<td style="text-align:center">一阶高通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008150418.png width=50%></td>
+<td style="text-align:center">R</td>
+<td style="text-align:right">$\frac{1}{2πRC}$</td>
+<td style="text-align:right">20dB</td>
+<td style="text-align:right">45°</td>
+</tr>
+<tr>
+<td style="text-align:center">二阶低通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145038.png width=50%></td>
+<td style="text-align:center">C</td>
+<td style="text-align:right">$\frac{1}{2π√(R_1R_2C_1C_2)}$</td>
+<td style="text-align:right">-40dB</td>
+<td style="text-align:right">-90°</td>
+</tr>
+<tr>
+<td style="text-align:center">二阶高通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008150715.png width=50%></td>
+<td style="text-align:center">R</td>
+<td style="text-align:right">$\frac{1}{2π√(R_1R_2C_1C_2)}$</td>
+<td style="text-align:right">40dB</td>
+<td style="text-align:right">90°</td>
+</tr>
+<tr>
+<td style="text-align:center">带通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145829.png width=50%></td>
+<td style="text-align:center">R、C</td>
+<td style="text-align:right">$f_r=\frac{1}{2π√(R_1R_2C_1C_2)}$ &lt;/br&gt; $f_H=\frac{1}{2πR_1C_1}$ <br> $f_L=\frac{1}{2πR_2C_2}$</td>
+<td style="text-align:right"><br>20dB <br>-20dB</td>
+<td style="text-align:right">0° <br> 90° <br> -90°</td>
+</tr>
+</tbody>
+</table>
+</div>
 
             </div>
             <hr>
