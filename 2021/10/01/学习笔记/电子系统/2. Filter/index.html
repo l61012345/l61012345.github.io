@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      890 字
+      1.9k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      20
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月8日 早上
+                  本文最后更新于：2021年10月10日 上午
                 
               </p>
             
@@ -300,7 +300,8 @@ p.spoiler {
 <p>注意$f_H&lt;f_L$。  </p>
 </blockquote>
 <p>其中心响应频率(Central resonance frequency)是这两个截止频率乘积的平方根：  </p>
-<script type="math/tex; mode=display">f_r=√f_L×f_H=\frac{1}{2π√(R_1R_2C_1C_2)}</script><p>带通滤波器的相移在达到中心响应频率时为0。<br>有时候为了彻底阻隔高通滤波器和低通滤波器之间的相互影响，会在分流处放置一个缓冲器，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145947.png width=50%>   </p>
+<script type="math/tex; mode=display">f_r=√f_L×f_H=\frac{1}{2π√(R_1R_2C_1C_2)}</script><p>带通滤波器的相移在达到中心响应频率时为0。<br>定义带通滤波器的品质因数$Q$:  </p>
+<script type="math/tex; mode=display">Q=\frac{f_c}{BW}=\frac{f_c}{f_H-f_L}</script><p>有时候为了彻底阻隔高通滤波器和低通滤波器之间的相互影响，会在分流处放置一个缓冲器，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145947.png width=50%>   </p>
 <div class="table-container">
 <table>
 <thead>
@@ -357,6 +358,38 @@ p.spoiler {
 </tbody>
 </table>
 </div>
+<h2 id="主动滤波器"><a href="#主动滤波器" class="headerlink" title="主动滤波器"></a>主动滤波器</h2><p>主动滤波器中含有运算放大器，因此其最大增益必定大于0dB。<br>简单的主动滤波器电路实质是被动滤波器的输出端与运算放大器电路的输入端连接得到的电路，加入运算放大器的好处有两点：  </p>
+<ol>
+<li>由于理想运算放大器内部输入阻抗远大于输出阻抗，因此在输出端运算放大器可以提供低的输出阻抗。  </li>
+<li>激励电压信号/电流，减少信号在传输过程中的损失。  </li>
+</ol>
+<p>由于被动滤波器电路和运算放大器电路相互独立，因此<strong>主动滤波器的截止频率，上升速率等性质仍然与被动滤波器相同</strong>。<br>与被动滤波器不同的是，此时的最大增益不再为0dB，而是按照正相/反相运算放大器提供的最大增益进行计算。  </p>
+<h3 id="主动滤波器的电路分析要点"><a href="#主动滤波器的电路分析要点" class="headerlink" title="主动滤波器的电路分析要点"></a>主动滤波器的电路分析要点</h3><ol>
+<li>对于高阶滤波器，从被动滤波器入手，观察电流的分流点。  </li>
+<li>找到每个被动滤波器与放大器输入端连接的节点，假设信号频率升高或者降低，观察此点的电压变化，由此判断出滤波器的类型（高通/低通）和放大器（正相/反相）的类型。  </li>
+<li>根据滤波器输出电压判断滤波器类型和放大器类型，进行相应的计算。  </li>
+</ol>
+<h3 id="主动带通滤波器"><a href="#主动带通滤波器" class="headerlink" title="主动带通滤波器"></a>主动带通滤波器</h3><p>主动带通滤波器的结构为一个高通滤波器和低通滤波器分别跨在一个放大器的两侧串联构成，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010181634.png width=50%><br>简化后的主动带通滤波器电路：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010181757.png width=60%>  </p>
+<h3 id="主动带阻滤波器"><a href="#主动带阻滤波器" class="headerlink" title="主动带阻滤波器"></a>主动带阻滤波器</h3><p>主动带阻滤波器由带通滤波器由低通和高通滤波器与放大器并联得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010182053.png width=50%>  </p>
+<p>带阻滤波器的计算方法和带通滤波器完全相同，其各参数为各被动滤波器参数的线性叠加。带阻滤波器的中心响应频率为：  </p>
+<script type="math/tex; mode=display">f_c=√f_L×f_H</script><p>带阻滤波器的频率响应特性如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010182304.png width=50%>  </p>
+<p>可以看出达到中心响应频率时，同带通滤波器，其相移为0°。<br>带阻滤波器的品质因数计算方法和带通滤波器完全相同。  </p>
+<h4 id="陷波滤波器"><a href="#陷波滤波器" class="headerlink" title="陷波滤波器"></a>陷波滤波器</h4><p>陷波滤波器（Notch Filter）是带阻滤波器的一种，由于陷波滤波器的$f_L$和$f_H$相隔很近，其阻带很窄，因此也称点阻滤波器。常常用于去除固定频率分量或阻带很窄的地方。如用于去除直流分量，去除某些特定频率分量。<br>陷波滤波器的电路图和带阻滤波器完全相同，其频率响应特性如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010183524.png width=50%>  </p>
+<p>陷波器的中心响应频率记作$f_N$，计算方法同带阻滤波器。  </p>
+<blockquote>
+<p>陷波器的相关资料：<a target="_blank" rel="noopener" href="https://zh-cn.lambdageeks.com/notch-filter-circuit/#def">https://zh-cn.lambdageeks.com/notch-filter-circuit/#def</a></p>
+</blockquote>
+<h2 id="Sallen-Key-滤波器结构（二阶高通滤波器）"><a href="#Sallen-Key-滤波器结构（二阶高通滤波器）" class="headerlink" title="Sallen-Key 滤波器结构（二阶高通滤波器）"></a>Sallen-Key 滤波器结构（二阶高通滤波器）</h2><p>Sallen-Key滤波器是一种滤波器的搭建结构。其二阶高通滤波器的基本结构如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010184723.png width=50%><br>这种构造的滤波器可以通过直接改变运算放大器的增益来改变整个滤波器的最大增益，滤波器的最大增益由如下公式给出：  </p>
+<script type="math/tex; mode=display">Gain_{max}=A×Q</script><p>其中$A$表示运算放大器的增益。<br>该放大器的中心响应频率为：  </p>
+<script type="math/tex; mode=display">f_C=\frac{1}{2π√R_AR_BC_AC_B}</script><p>Sallen-Key 滤波器的品质因数由如下公式给出：  </p>
+<script type="math/tex; mode=display">Q=\frac{1}{3-A}</script><blockquote>
+<p>Sallen-Key滤波器的带宽为3dB。  </p>
+</blockquote>
+<p>其频率响应曲线由品质因数$Q$决定：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211010185310.png width=50%>  </p>
+<p>按照$f = f_0$附近频率特性的特点，可将滤波器分为巴特沃斯（Butterworth）、切比雪夫（Chebyshev）和贝塞尔（Bessel）三种类型。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.eet-china.com/mp/a25110.html">https://www.eet-china.com/mp/a25110.html</a></p>
+</blockquote>
 
             </div>
             <hr>
