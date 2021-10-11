@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年9月30日 中午
+                  本文最后更新于：2021年10月11日 中午
                 
               </p>
             
@@ -323,6 +323,17 @@ p.spoiler {
 <h3 id="随机信号的调幅"><a href="#随机信号的调幅" class="headerlink" title="随机信号的调幅"></a>随机信号的调幅</h3><p>当$m(t)$是一个高斯随机过程时，容易求得调幅过程的自相关函数：  </p>
 <script type="math/tex; mode=display">R_{AM}=E[S_{AM}(t)S_{AM}(t+τ)]</script><p>其频谱仍然为：  </p>
 <script type="math/tex; mode=display">P_{AM}(ω)=πA_0[δ(ω+ω_c)+δ(ω-ω_c)]+\frac{1}{2}[P_S(ω+ω_c)+P_S(ω-ω_c)]</script><p>对其进行积分，求得平均功率，可以发现上述有关平均功率的结论依然适用。  </p>
+<h2 id="双边带调制-DSB"><a href="#双边带调制-DSB" class="headerlink" title="双边带调制(DSB)"></a>双边带调制(DSB)</h2><p>对于调幅，其调制效率的最大值在受调信号$m(t)$达到最大值$|m(t)|_{max}=A_m$时取得，此时的最大调制效率为：  </p>
+<script type="math/tex; mode=display">η_{AM}=\frac{\frac{A_m^2}{2}}{A_0^2+\frac{A^2_m}{2}}=\frac{1}{3}</script><p>可以发现，$A_0$虽然抬高了受调信号，但是调制效率非常低下。<br>双边带调制改进了调幅办法，取消了用于抬高的直流信号$A_0$，其余部分与调幅相同，其调制过程框图如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211011174430.png width=50%>  </p>
+<p>整个调制过程的输出信号$S_{DSB}(t)$可以表示为：  </p>
+<script type="math/tex; mode=display">S_{DSB}(t)=m(t)cosω_ct</script><p>在频域上：  </p>
+<script type="math/tex; mode=display">S_{DSB}(ω)=\frac{1}{2}[M(ω-ω_c)+M(ω+ω_c)]</script><p>其频谱分量中不再有冲击分量。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211011175017.png width=50%>  </p>
+<p>同调幅，其带宽仍然是原信号带宽的两倍。  </p>
+<script type="math/tex; mode=display">B_{DSB}=B_{AM}=2f_H</script><p>由于去掉了$A_0$，双边带调制的能量为：  </p>
+<script type="math/tex; mode=display">P_{DSB}=P_f=\frac{1}{2}\overline{m^2(t)}</script><p>最大调制效率为：  </p>
+<script type="math/tex; mode=display">η_{max}=\frac{P_s}{P_c}=1</script><h2 id="单边带调制-SSB"><a href="#单边带调制-SSB" class="headerlink" title="单边带调制(SSB)"></a>单边带调制(SSB)</h2><p>调制过程的有效性用带宽利用率进行衡量，双边带调制的带宽比较大，因此其带宽利用率较低。同时通过对双边带调制结果的频谱分析，可以发现每个频谱成分中的半个边带（称为上边带/下边带）已经携带了受调信号的所有信息，因此考虑使用滤波器或者数学方法使得调制结果只包含单边带，以提高带宽利用率。这样的调制方法称为单边带调制。  </p>
+<h3 id="滤波法"><a href="#滤波法" class="headerlink" title="滤波法"></a>滤波法</h3><p>滤波法使用一个滤波器$H_{SSB}(ω)$过滤出LSB或USB，其调制过程如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211011180141.png width=50%>  </p>
+<p>在实际运用中，由于LSB的峰值点和USB的峰值点非常接近，因此要求滤波器接近理想滤波情况，即要求滤波器在截止频率后的过滤频率剧烈变化。这样的滤波器设计在现实中是非常难实现的。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211011193413.png width=50%>  </p>
 
             </div>
             <hr>
@@ -613,20 +624,5 @@ p.spoiler {
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
