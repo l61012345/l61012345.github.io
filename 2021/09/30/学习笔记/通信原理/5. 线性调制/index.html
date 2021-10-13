@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月11日 中午
+                  本文最后更新于：2021年10月13日 凌晨
                 
               </p>
             
@@ -334,6 +334,24 @@ p.spoiler {
 <script type="math/tex; mode=display">η_{max}=\frac{P_s}{P_c}=1</script><h2 id="单边带调制-SSB"><a href="#单边带调制-SSB" class="headerlink" title="单边带调制(SSB)"></a>单边带调制(SSB)</h2><p>调制过程的有效性用带宽利用率进行衡量，双边带调制的带宽比较大，因此其带宽利用率较低。同时通过对双边带调制结果的频谱分析，可以发现每个频谱成分中的半个边带（称为上边带/下边带）已经携带了受调信号的所有信息，因此考虑使用滤波器或者数学方法使得调制结果只包含单边带，以提高带宽利用率。这样的调制方法称为单边带调制。  </p>
 <h3 id="滤波法"><a href="#滤波法" class="headerlink" title="滤波法"></a>滤波法</h3><p>滤波法使用一个滤波器$H_{SSB}(ω)$过滤出LSB或USB，其调制过程如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211011180141.png width=50%>  </p>
 <p>在实际运用中，由于LSB的峰值点和USB的峰值点非常接近，因此要求滤波器接近理想滤波情况，即要求滤波器在截止频率后的过滤频率剧烈变化。这样的滤波器设计在现实中是非常难实现的。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211011193413.png width=50%>  </p>
+<h3 id="相移法"><a href="#相移法" class="headerlink" title="相移法"></a>相移法</h3><p>相移法通过数学上的希尔伯特变换使其能够将原信号变换为仅含有上边带或者下边带的部分。<br>对于正弦受调信号：$m(t)=A_mcosω_mt$，其受正弦双边带调制调制后的信号为：$S_{DSB}(t)=m(t)c(t)=A_mcosω_mtcosω_ct$。<br>利用积化和差公式可以得到：  </p>
+<script type="math/tex; mode=display">S_{DSB}(t)=\frac{1}{2}cos(ω_c-ω_m)t+\frac{1}{2}A_mcos(ω_c+ω_m)t</script><p>其中加号连接的两项分别为上边带和下边带部分，因此下边带可以写作：   </p>
+<script type="math/tex; mode=display">\begin{aligned}
+  S_{LSB}(t)&=\frac{1}{2}cos(ω_c-ω_m)t\\
+  &=\frac{1}{2}A_mcosω_mtcosω_ct+\frac{1}{2}A_msinω_mtsinω_ct \\
+  &=\frac{1}{2}m(t)cosω_ct+\frac{1}{2}\hat{m(t)}sinω_ct
+\end{aligned}</script><p>可以发现$sinω_mt$实际上是$cosω_mt$通过<strong>相移$-\frac{π}{2}$</strong>得来的。称将原信号$m(t)$在时域内相移$-\frac{π}{2}$的变换为希尔伯特变换，变换后的信号记为$\hat{m(t)}$。  </p>
+<blockquote>
+<p>希尔伯特变换表达式：$\hat{f(t)}=f(t)*\frac{1}{πt}$  </p>
+</blockquote>
+<p>同理，对上边带部分也有：  </p>
+<script type="math/tex; mode=display">S_{USB}(t)=\frac{1}{2}m(t)cosω_ct-\frac{1}{2}\hat{m(t)}sinω_ct</script><p>因此相移法的调制结果可以表示为：  </p>
+<script type="math/tex; mode=display">S_{SSB}=\frac{1}{2}m(t)cosω_ct ⨤ \frac{1}{2}\hat{m(t)}sinω_ct</script><blockquote>
+<p>注意上边带为“-”，下边带为“+”   </p>
+</blockquote>
+<p>无论哪一种调制方式，SSB结果的带宽都是DSB的一半：  </p>
+<script type="math/tex; mode=display">B_{SSB}=\frac{1}{2}B_{DSB}=f_H</script><p>SSB调制后的能量可以表示为：  </p>
+<script type="math/tex; mode=display">P_{SSB}=\frac{1}{2}\overline{\frac{1}{2}m^2(t)cos^2ω_ct}+\frac{1}{2}\overline{\frac{1}{2}\hat{m^2(t)}sin^2ω_ct}=\frac{1}{4}\overline{m^2(t)}</script><h2 id="残留边带调制（VSB）"><a href="#残留边带调制（VSB）" class="headerlink" title="残留边带调制（VSB）"></a>残留边带调制（VSB）</h2><p>残留边带调制VSB在双边带调制的基础上，通过设计滤波器，使信号一个边带的频谱成分原则上保留，另一个边带频谱成分只保留小部分（残留）。该调制方法既比双边带调制节省频谱，又比单边带易于解调。<br>可以理解为VSB利用过滤后残留的上边带和下边带部分拼凑出一个完整的信息。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211013085148.png width=50%>  </p>
 
             </div>
             <hr>
@@ -624,5 +642,20 @@ p.spoiler {
 
   
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
