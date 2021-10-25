@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.7k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      30
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月23日 早上
+                  本文最后更新于：2021年10月25日 上午
                 
               </p>
             
@@ -307,7 +307,7 @@ p.spoiler {
 <h3 id="带通信号采样"><a href="#带通信号采样" class="headerlink" title="带通信号采样"></a>带通信号采样</h3><p>这样的采样方式对低通信号（原信号频谱$f_L=0$）固然是可行的，对于带通信号（原信号$f_L≠0$），这样的采样使得频谱中出现很多无信号部分，称为频谱空洞，导致频谱利用效率降低。因此需要在上述方法上进行改进。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023133539.png width=50%>  </p>
 <p>对于带通信号，其采样频率$f_s$应当满足如下条件：  </p>
 <script type="math/tex; mode=display">f_s≥2B(1+\frac{M}{N})</script><p>其中$M$为$|\frac{f_H}{B}|$的整数部分（向下取整），$N$为$|\frac{f_H}{B}|$的小数部分。<br>满足$f_s=2B(1+\frac{M}{N})$的采样结果不会出现频谱空洞。<br>对于上式，当$f_L$非常大时，$f_s≈2B$。  </p>
-<h2 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h2><h3 id="均匀"><a href="#均匀" class="headerlink" title="均匀"></a>均匀</h3><p>量化过程简述如下：将信号的幅值划分成若干个区间，某时刻原信号幅值落在该区间时，量化信号在此时刻的幅值为这个区间的中值。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023135157.png width=80%>  </p>
+<h2 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h2><h3 id="均匀量化"><a href="#均匀量化" class="headerlink" title="均匀量化"></a>均匀量化</h3><p>量化过程简述如下：将信号的幅值划分成若干个区间，某时刻原信号幅值落在该区间时，量化信号在此时刻的幅值为这个区间的中值。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023135157.png width=80%>  </p>
 <p>该过程可以用数学表示为：  </p>
 <script type="math/tex; mode=display">m_q(kT_S)=q_i,\text{if }m_{i-1}≤m(kT_s)≤m_i</script><p>这个过程中的每个区间称为量化间隔，在均匀量化中，这个间隔是均等的：$Δ=\frac{V_m}{N}$，$N$为用于描述信号的比特数，与量化精度相关。每个区间的上界是下一个区间的下界，每个界限以$m_i$表示。当原信号落入某区间时，用于描述/替代原信号幅值的值称为量化电平$q_i$，量化电平通常是该区间的中值，以减小总体的量化误差：  </p>
 <script type="math/tex; mode=display">q_i=\frac{m_i+m_{i-1}}{2}</script><h4 id="均匀量化的信噪比"><a href="#均匀量化的信噪比" class="headerlink" title="均匀量化的信噪比"></a>均匀量化的信噪比</h4><p>输入信号的平均功率：  </p>
@@ -322,13 +322,64 @@ p.spoiler {
 \end{cases}</script><p>其中$x$,$y$分别表示最大值归一化后压扩器的输入和输入信号。  </p>
 <h3 id="A压缩律的数字化"><a href="#A压缩律的数字化" class="headerlink" title="A压缩律的数字化"></a>A压缩律的数字化</h3><p>在数字系统中，压缩律通过折线对模拟压缩律进行近似，ITU规定数字化的A压缩律以13折折线近似，μ压缩律以15折折线近似。对A压缩律，具体的表示方法如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023142704.png width=80%>  </p>
 <ol>
-<li><p>将最大值归一化后的$x$轴采用折中法反复折中，划分为8段（$0-\frac{1}{128}$到$\frac{1}{2}-1$），称为量化段。对于每一段，分为16个小区间。最小的区间长度出现在$0-\frac{1}{128}$段，定义$Δ=\frac{1}{128×16}=\frac{1}{2048}$。每一量化段的量化间隔如下表所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023143157.png width=50%>  </p>
+<li><p>将最大值归一化后的$x$轴采用折中法反复折中，划分为8段落（$0-\frac{1}{128}$到$\frac{1}{2}-1$），称为量化段。对于每一个段落，分为16个小区间，称为量化级。最小的区间长度出现在$0-\frac{1}{128}$段，定义$Δ=\frac{1}{128×16}=\frac{1}{2048}$。每一量化段的量化间隔如下表所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023143157.png width=50%>  </p>
 <p>需要注意，声音信号的幅值分布在I象限和III象限，因此量化折线还需要镜像对称到第III象限。由于-2，-1，1，2四个量化段的斜率相等，是同一条线，因此一共使用了13条折线来描述A压缩律（I象限、III象限）。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023143939.png width=50%></p>
-<p>那么$x$轴一共有256个小区间，可以用8bit进行表示：  </p>
+<p>那么$x$轴一共有256个量化级，可以用8bit进行表示：  </p>
 <script type="math/tex; mode=display">M=2×8×16=2^8</script></li>
 <li>$y$轴平分为8段，每一段间隔相等。  </li>
 <li>连线。  </li>
 </ol>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>通信系统中常用的编码有三种：  </p>
+<ol>
+<li>自然二进制编码（NBC）</li>
+<li>格雷码</li>
+<li>折叠码（FBC）</li>
+</ol>
+<h3 id="折叠码"><a href="#折叠码" class="headerlink" title="折叠码"></a>折叠码</h3><p>本节着重介绍折叠码，折叠码化需要选取折叠的位置，取折叠码第一位表示极性，即是折叠位置以上（正，1）还是折叠位置以下（负，0），然后出去极性，将值到折叠位置的距离二进制化，得到该值对应的折叠码。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211025180629.png width=80%>  </p>
+<p>折叠码的优势在于，对相同的点平/值，折叠码表示所用的比特数要少于自然二进制编码。此外，折叠码对小信号（0附近的信号）比较友好，当表示极性的比特位发生错误时，对应的电平误差只有1。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211025180940.png width=50%>  </p>
+<h3 id="脉冲编码调制（PCM）"><a href="#脉冲编码调制（PCM）" class="headerlink" title="脉冲编码调制（PCM）"></a>脉冲编码调制（PCM）</h3><p>脉冲编码调制是基于A压缩律的非均匀调制的一种编码方法，是一种折叠码。但是由于声音格式有负幅值，因此其折线位于0处。PCM采用了如下格式进行编码：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">极性码</th>
+<th style="text-align:center">段落码</th>
+<th style="text-align:center">段内码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">$C_1$</td>
+<td style="text-align:center">$C_2C_3C_4$</td>
+<td style="text-align:center">$C_5C_6C_7C_8$</td>
+</tr>
+<tr>
+<td style="text-align:center">意义</td>
+<td style="text-align:center">极性</td>
+<td style="text-align:center">对应8个段落</td>
+<td style="text-align:center">对应每一个段落中的16个量化级</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>PCM编码与数字化的13折A压缩律对应如下：<br>| 段落编号 | 电平区间 | 段落码 | 量化间隔Δ |<br>|:—:|:—:|:—:|:—:|<br>| 1 | 0-16 | 000 | $1=2^0$ |<br>| 2 | 16-32 | 001 | $1=2^0$ |<br>| 3 | 32-64 | 010 | $2=2^1$ |<br>| 4 | 64-128 | 011 | $4=2^2$ |<br>| 5 | 128-256| 100 | $8=2^3$ |<br>| 6 | 256-512 | 101 | $16=2^4$ |<br>| 7 | 512-1024 | 110 | $32=2^5$ |<br>| 8 | 1024-2048 | 111 | $64=2^6$ |</p>
+<h3 id="脉冲调制编码过程"><a href="#脉冲调制编码过程" class="headerlink" title="脉冲调制编码过程"></a>脉冲调制编码过程</h3><p>量化后的电平值转化为脉冲调制编码的步骤为：  </p>
+<ol>
+<li><p>判断电平的正负，如果是正：$C_1=1$，如果为负，$C_1=0$。</p>
+<blockquote>
+<p>注意“1正0负”</p>
+</blockquote>
+</li>
+<li><p>根据电平值和电平区间，判断电平落在了哪一个段落，决定段落码$C_2C_3C_4$。  </p>
+</li>
+<li>将电平值减去段落的起始值，与量化间隔相除，结果转化为8421码即为$C_5C_6C_7C_8$。  </li>
+</ol>
+<p>与量化间隔相除结果的余数部分无法通过编码表示，称为编码噪声。<br>由于这样的转换方式比较低效，实际上的通信系统通常采用逐位进行比较的逐次比较法，过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211025183903.png width=80%>  </p>
+<h4 id="PCM与NBC的关系"><a href="#PCM与NBC的关系" class="headerlink" title="PCM与NBC的关系"></a>PCM与NBC的关系</h4><p>PCM基于非均匀脉冲，是一种非线性编码。由于之后的通信电路中含有仅支持线性输入的逻辑电路，因此还需要将7bit的PCM转化为11bit的自然二进制编码（NBC），两者之间满足：  </p>
+<script type="math/tex; mode=display">I_{PCM}=I_{NBC}</script><p>即两者编码转化为10进制的结果是相同的。<br>因此PCM编码转为10进制后再转为自然二进制即可得到NBC。  </p>
+<h4 id="PCM的解码"><a href="#PCM的解码" class="headerlink" title="PCM的解码"></a>PCM的解码</h4><p>由于PCM编码只考虑到了每个量化区间内的起始值$m_{i-1}$而并非量化电平$p_i$，在解码过程中需要用到额外的一个bit和器件以补充每个量化段的半个量化区间$\frac{Δ’}{2}$。  </p>
 
             </div>
             <hr>
