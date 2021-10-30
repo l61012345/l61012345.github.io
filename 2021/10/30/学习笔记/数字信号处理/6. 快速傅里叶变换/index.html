@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>5. 离散傅里叶级数·离散傅里叶变换 - Mirror</title>
+  <title>6. 快速傅里叶变换 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@ p.spoiler {
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="5. 离散傅里叶级数·离散傅里叶变换">
+            <span class="h2" id="subtitle" title="6. 快速傅里叶变换">
               
             </span>
 
@@ -212,8 +212,8 @@ p.spoiler {
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-10-14 07:59" pubdate>
-        2021年10月14日 早上
+      <time datetime="2021-10-30 06:01" pubdate>
+        2021年10月30日 早上
       </time>
     </span>
   
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.1k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      15
        分钟
     </span>
   
@@ -272,7 +272,7 @@ p.spoiler {
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">5. 离散傅里叶级数·离散傅里叶变换</h1>
+            <h1 style="display: none">6. 快速傅里叶变换</h1>
             
               <p class="note note-info">
                 
@@ -281,70 +281,48 @@ p.spoiler {
               </p>
             
             <div class="markdown-body">
-              <h1 id="离散傅里叶级数·离散傅里叶变换"><a href="#离散傅里叶级数·离散傅里叶变换" class="headerlink" title="离散傅里叶级数·离散傅里叶变换"></a>离散傅里叶级数·离散傅里叶变换</h1><h2 id="复指数序列的周期性"><a href="#复指数序列的周期性" class="headerlink" title="复指数序列的周期性"></a>复指数序列的周期性</h2><p>$x[n]=e^{jω_0n}$，由于$ω_0∈[0,2π)$的周期性，因此有：$x[n]=e^{jω_0n}=e^{j(ω_0+2πk)n}$，令$ω_0N=2πk,k∈Z$，有：  </p>
-<script type="math/tex; mode=display">x[n]=e^{jω_0n}=e^{j(ω_0+2πk)n}=x[n+N]</script><p>复指数序列$x[n]$具有周期性，称$N$为其周期。<br>由于$ω_k=\frac{2πk}{N}∈[0,2π)$，因此当序列周期为$N$时，当且仅当$k=0,1,2,…,N-1$时存在$N$个不同的$ω_k$。$N=\frac{2πk}{ω_0}$。  </p>
-<h2 id="离散傅里叶级数（DFS）"><a href="#离散傅里叶级数（DFS）" class="headerlink" title="离散傅里叶级数（DFS）"></a>离散傅里叶级数（DFS）</h2><p>根据连续时间周期信号的傅里叶变换：  </p>
-<script type="math/tex; mode=display">x(t)=∑_{k=-∞}^∞X(kΩ_0)e^{jkΩ_0t}</script><p>其中连续信号的角频率为：$Ω_0=\frac{2π}{T}$<br>类比连续时间周期信号，设周期序列$\tilde{x}[n]$:$\tilde{x}[n]=\tilde{x}[n+rN],r∈Z$，有：  </p>
-<script type="math/tex; mode=display">\tilde{x}[n]=∑_{k=-∞}^∞X(kΩ_0)e^{j\frac{2π}{N}kn}</script><p>由于满足条件的频率分量$ω_k$只有$N$个：  </p>
+              <h1 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h1><p>快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。  </p>
+<h2 id="离散傅里叶变换的计算量"><a href="#离散傅里叶变换的计算量" class="headerlink" title="离散傅里叶变换的计算量"></a>离散傅里叶变换的计算量</h2><p>回顾离散傅里叶变换：  </p>
+<script type="math/tex; mode=display">X[k]=\sum_{n=0}^{N-1}x[n]W^{kn}_N</script><p>可以发现，计算一个离散傅里叶变换需要计算：  </p>
+<ol>
+<li>N个$x[n]W$，即N次复数乘法</li>
+<li>N-1次$x[i]W+x[i+1]W$，即(N-1)次复数加法</li>
+</ol>
+<p>根据复数乘法原则$(a+jb)(c+jd)=(ac-bd)+j(ad+bc)$，和复数加法原则$(a+jb)+(c+jd)=(a+c)+j(b+d)$，可以发现：1次复数乘法与4个实数乘法和2个实数加法等价；1次复数加法和2次实数加法等价。<br>因此计算一次离散傅里叶变换需要计算：  </p>
+<ol>
+<li>$4N^2$次实数乘法</li>
+<li>$4N^2-2N$次实数加法  </li>
+</ol>
+<p>其中实数乘法对计算资源的消耗非常的大，因此考虑使用别的算法以简化实数乘法的次数。  </p>
+<h2 id="时域抽取的快速傅里叶变换"><a href="#时域抽取的快速傅里叶变换" class="headerlink" title="时域抽取的快速傅里叶变换"></a>时域抽取的快速傅里叶变换</h2><p>将离散傅里叶变换分为奇数和偶数两个段落：  </p>
 <script type="math/tex; mode=display">\begin{aligned}
-    \tilde{x}[n]&=∑_{k=-∞}^∞X(kΩ_0)e^{j\frac{2π}{N}kn}\\
-    &=∑_{k=0}^{N-1}X(kΩ_0)e^{j\frac{2π}{N}kn}\\
-    &=\frac{1}{N}∑_{k=0}^{N-1}\tilde{X}[k]e^{j\frac{2π}{N}kn}
-\end{aligned}</script><p>其中$\tilde{X}[k]$为离散傅里叶级数系数，可反推得到：  </p>
-<script type="math/tex; mode=display">\tilde{X}[k]=∑_{k=0}^{N-1}\tilde{x}[n]e^{j\frac{2π}{N}kn}</script><p>定义$W_N^{kn}=e^{-j(\frac{2π}{N})kn}$，有离散傅里叶级数分析：  </p>
-<script type="math/tex; mode=display">\tilde{X}[k]=∑_{k=0}^{N-1}\tilde{x}[n]W_N^{kn}</script><p>离散傅里叶级数合成：  </p>
-<script type="math/tex; mode=display">\tilde{x}[n]=\frac{1}{N}∑_{k=0}^{N-1}\tilde{X}[k]W_N^{-kn}</script><blockquote>
-<p>$W_N^{kn}$是复数的角度表示形式，一般计算时转化为z域中的坐标以方便计算。如:$W_4^2=e^{-j\frac{2π}{4}}=-j$  </p>
-</blockquote>
-<h3 id="离散傅里叶级数的意义"><a href="#离散傅里叶级数的意义" class="headerlink" title="离散傅里叶级数的意义"></a>离散傅里叶级数的意义</h3><p><strong>周期为$N$的序列可以表示为$N$个周期为$N$的复指数序列的线性组合</strong>。  </p>
-<h4 id="离散傅里叶级数与离散时间傅里叶变换（DTFT）的关系"><a href="#离散傅里叶级数与离散时间傅里叶变换（DTFT）的关系" class="headerlink" title="离散傅里叶级数与离散时间傅里叶变换（DTFT）的关系"></a>离散傅里叶级数与离散时间傅里叶变换（DTFT）的关系</h4><p>事实上，可以将离散傅里叶级数看作是<strong>对离散时间傅里叶变换结果$X(e^{jω})$以周期为$N$做延拓后，对其进行采样的结果。</strong><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014165116.png width=50%>  </p>
-<h4 id="离散傅里叶级数与Z变换的关系"><a href="#离散傅里叶级数与Z变换的关系" class="headerlink" title="离散傅里叶级数与Z变换的关系"></a>离散傅里叶级数与Z变换的关系</h4><p>给定Z变换：$X(z)|_{z=e^{jω}}=X(e^{jω})$，那么：  </p>
-<script type="math/tex; mode=display">\tilde{X}[k]=X(z)|_{z=e^{j(2π/N)k}}=X(e^{j(2π/N)k}),k=0,1,...,N-1</script><p>即离散傅里叶级数可以看做是在Z变换的单位圆上做均匀采样的结果。  </p>
-<h3 id="离散傅里叶级数的性质"><a href="#离散傅里叶级数的性质" class="headerlink" title="离散傅里叶级数的性质"></a>离散傅里叶级数的性质</h3><ol>
-<li>周期性：如果$\tilde{x}[n]$的周期为$N$，$\tilde{X}[k]$的周期同样为$N$。  </li>
-<li>线性：$a\tilde{x_1}[n]+b\tilde{x_2}[n]↔a\tilde{X_1}[k]+b\tilde{X_2}[k]$  </li>
-<li>时移：$\tilde{x}[n-m]↔W^{km}_N\tilde{X}[k]$  </li>
-<li>频移：$\tilde{X}[k-l]↔W^{-nl}_N\tilde{x}[n]$  </li>
-<li>对偶性：如果$\tilde{x}[n]↔\tilde{X}[k]$，那么$\tilde{X}[n]↔N\tilde{x}[-k]$</li>
-</ol>
-<h4 id="周期卷积定理"><a href="#周期卷积定理" class="headerlink" title="周期卷积定理"></a>周期卷积定理</h4><p>如果两个序列$\tilde{x_1}[n]$、$\tilde{x_2}[n]$有相同的周期$N$，有:</p>
-<script type="math/tex; mode=display">\tilde{x_1}[n]\tilde{⊕}\tilde{x_2}[n]=∑_{m=0}^{N-1}\tilde{x_1}[m]\tilde{x_2}[n-m]↔\tilde{X_1}[k]\tilde{X_2}[k]</script><p>周期卷积定理可以被矩阵化为：  </p>
-<script type="math/tex; mode=display">\tilde{x}[n]\tilde{⊕}\tilde{y}[n]=\left[\begin{matrix}
-    \tilde{z}[0] \\
-    \tilde{z}[1] \\
-    ...\\
-    \tilde{z}[N-2] \\
-    \tilde{z}[N-1]
-\end{matrix}\right]|_{periodic}=\left[\begin{matrix}
-    \tilde{y}[0] & \tilde{y}[N-1] & ...& \tilde{y}[2] & \tilde{y}[1]\\
-    \tilde{y}[1] & \tilde{y}[0] & ...& \tilde{y}[3] & \tilde{y}[2]\\
-    ...&...&...&...&...\\
-    \tilde{y}[N-2] & \tilde{y}[N-1] & ...& \tilde{y}[0] & \tilde{y}[N-1]\\
-    \tilde{y}[N-1] & \tilde{y}[N-2] & ...& \tilde{y}[1] & \tilde{y}[0]\\
-\end{matrix}\right]\left[\begin{matrix}
-    \tilde{x}[0] \\
-    \tilde{x}[1] \\
-    ...\\
-    \tilde{x}[N-2] \\
-    \tilde{x}[N-1]
-\end{matrix}\right]</script><p>可以发现矩阵$Y$内部每一列的元素在进行周期新的位置轮换。<br>周期卷积计算可以在MATLAB®中使用命令<code>toeplitz(x,y)</code>得到，其中<code>x</code>,<code>y</code>为两个周期序列单周期内所有元素组成的向量，两个向量长度相同。  </p>
-<blockquote>
-<p>当两向量长度不等时，使用0进行补齐。  </p>
-</blockquote>
-<h2 id="离散傅里叶变换（DFT）"><a href="#离散傅里叶变换（DFT）" class="headerlink" title="离散傅里叶变换（DFT）"></a>离散傅里叶变换（DFT）</h2><p>当离散傅里叶序列变换的对象变成非周期有限长度序列时，此时的变换称为离散傅里叶变换（DFT）：  </p>
-<script type="math/tex; mode=display">X[k]=∑_{k=0}^{N-1}x[n]W_N^{kn},0≤n≤N-1</script><p>其反变换为：  </p>
-<script type="math/tex; mode=display">x[n]=\frac{1}{N}∑_{k=0}^{N-1}X[k]W_N^{-kn},0≤n≤N-1</script><h3 id="离散傅里叶变换-DFT-、离散傅里叶级数（DFS）、离散时间傅里叶变换（DTFT）的关系"><a href="#离散傅里叶变换-DFT-、离散傅里叶级数（DFS）、离散时间傅里叶变换（DTFT）的关系" class="headerlink" title="离散傅里叶变换(DFT)、离散傅里叶级数（DFS）、离散时间傅里叶变换（DTFT）的关系"></a>离散傅里叶变换(DFT)、离散傅里叶级数（DFS）、离散时间傅里叶变换（DTFT）的关系</h3><p>不难看出周期序列$\tilde{x}[n]$做傅里叶级数分析后一周期内（$0≤n≤N-1$）的结果与$x[n]$做离散傅里叶变换的结果完全一致。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211016143431.png width=50%></p>
-<p>可以发现：<strong>离散傅里叶级数是对离散时间傅里叶变换的结果进行采样，而一周期内的采样结果则为离散傅里叶变换的结果。</strong>  </p>
-<h3 id="离散傅里叶变换的性质"><a href="#离散傅里叶变换的性质" class="headerlink" title="离散傅里叶变换的性质"></a>离散傅里叶变换的性质</h3><ol>
-<li>线性：$a{x_1}[n]+b{x_2}[n]↔a{X_1}[k]+b{X_2}[k],0≤k≤N-1$  </li>
-<li>对偶性:如果${x}[n]↔{X}[k]$，那么$\tilde{X}[n]↔N{x}[(-k)mod(N)],0≤k≤N-1$</li>
-<li>循环时移：$x[(n-m)mod(N)]↔W^{km}_NX[k],0≤k≤N-1$</li>
+    X[k]&=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{(2r+1)k}_N\\
+    &=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+W_N^{k}\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{2rk}_N
+\end{aligned}</script><p>根据复数的共轭对称性质：$W_N^{k(N-n)}=W_N^{kN}W^{-kn}_N=W^{-kn}_N$，前半段（$0-N/2$）的表达式可以写作：  </p>
+<script type="math/tex; mode=display">X[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}+W_N^k\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}</script><p>令$G[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}$，$H[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}$:  </p>
+<script type="math/tex; mode=display">X[k]=G[k]+W^k_NH[k],k=0,1,..,N-1</script><p>将前半段式子的下标加上$N/2$考虑后半段式子的和，由于$W_N^{k+N/2}=-1$，因此：  </p>
+<script type="math/tex; mode=display">X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N-1</script><p>综合两段，得到时域抽取的快速傅里叶变换：  </p>
+<script type="math/tex; mode=display">X[k]=G[k]+W^k_NH[k],k=0,1,..,N/2-1</script><script type="math/tex; mode=display">X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N/2-1</script><p>上述式子称为蝶式结构，用图示可以表示为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030143805.png width=40%> </p>
+<p>可以将整个序列继续折中细分成多个小部分，每个部分计算蝶形结构。在$N$为2的次方数时，使用折中法正好可以使得最终细分到相邻的奇偶两项做蝶形结构运算：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144247.png width=30%>  </p>
+<p>比如$N=8$时就可以通过折中法多次两两分组，每组内部进行蝶形运算后的结果再进行蝶形运算：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144446.png width=80%><br>其中最低一级的分组通过如下方式进行：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144544.png width=50%>  </p>
+<h3 id="蝶形结构运算"><a href="#蝶形结构运算" class="headerlink" title="蝶形结构运算"></a>蝶形结构运算</h3><p>观察整个快速傅里叶变换的结构：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144723.png width=80%></p>
+<p>可以得出如下结论：  </p>
+<ol>
+<li>对于$N=2^m$，需要$m$级次蝶形结构的运算。  </li>
+<li>对于第$m$级运算，组数为$2^N-m-1$。每一组的$q$总是被赋予$-1$和权重，权重表示为：  <script type="math/tex; mode=display">W_{2^{m+1}}^r,r=0,1,2,..,2^m-1</script><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030145708.png width=40%></li>
 </ol>
 <blockquote>
-<p>$(n+m)modN$运算的含义是取序列的$0-N$部分以$N$为周期进行延拓，延拓后的序列向左平移$m$个单位，取现在序列$0-N$的结果。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211016144821.png width=50%></p>
+<p>注意计算之前首先得按照比特反转的方法对序列进行重排序。  </p>
 </blockquote>
-<h4 id="循环卷积定理"><a href="#循环卷积定理" class="headerlink" title="循环卷积定理"></a>循环卷积定理</h4><p>如果$\tilde{x_1}[n]$、$\tilde{x_2}[n]$分别对应是$x_1[n]$、$x_2[n]$以周期为$N$的延拓，有：  </p>
-<script type="math/tex; mode=display">x_1[n]⊕_Nx_2[n]=\tilde{x_1}[n]\tilde{⊕}\tilde{x_2}[n]</script>
+<h3 id="快速傅里叶变换的计算量"><a href="#快速傅里叶变换的计算量" class="headerlink" title="快速傅里叶变换的计算量"></a>快速傅里叶变换的计算量</h3><p>由于一点蝶形运算中不包含乘法，快速傅里叶变换通过应用这样的蝶形结构来削减乘法计算的次数。当长度$N=2^m$时，简单分析可得快速傅里叶变换的计算量：  </p>
+<script type="math/tex; mode=display">\frac{N^2}{2^m}+m\frac{N}{2}=N+\frac{N}{2}log_2N</script><h2 id="频域抽取的快速傅里叶变换"><a href="#频域抽取的快速傅里叶变换" class="headerlink" title="频域抽取的快速傅里叶变换"></a>频域抽取的快速傅里叶变换</h2><p>在频域内对离散傅里叶变换进行拆分，可以得到：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    X[2r]=&∑_{n=0}^{N/2-1}x[n]W_N^{2nr}+∑_{n=0}^{N/2-1}x[n+N/2]W^{2r(n+N/2)}_N\\
+    =&∑_{n=0}^{N/2-1}[x[n]+x[n+N/2]]W^{rn}_{N/2},r=0,1,..,N/2-1
+\end{aligned}</script><p>同理对于频域内的奇数序列有：  </p>
+<script type="math/tex; mode=display">X[2r+1]=[x[n]-x[n+N/2]]W^{rn}_{N/2},r=0,1,..,N/2-1</script><p>令$g[n]=x[n]+x[n+N/2]$,$h[n]=x[n]-x[n+N/2]$，得到频域抽取的快速傅里叶变换：  </p>
+<script type="math/tex; mode=display">X[2r]=∑_{n=0}^{N/2-1}g[n]W_{N/2}^{rn}</script><script type="math/tex; mode=display">X[2r+1]=W_N^n∑_{n=0}^{N/2-1}h[n]W_{N/2}^{rn},r=0,1,..,N/2-1</script><p>同样符合蝶形结构：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030150736.png width=60%>  </p>
+
             </div>
             <hr>
             <div>
@@ -369,18 +347,12 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/10/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/4.%20Osillator/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">4. 振荡器</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/6.%20%E7%BA%BF%E6%80%A7%E8%A7%A3%E8%B0%83/">
-                        <span class="hidden-mobile">6. 线性调制的解调方法·抗噪性</span>
+                      <a href="/2021/10/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/6.%20foundamentals%20of%20BJT/">
+                        <span class="hidden-mobile">6. BJT晶体管</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
