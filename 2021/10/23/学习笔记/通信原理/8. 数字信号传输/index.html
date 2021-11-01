@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.9k 字
+      3.5k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      39
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月27日 早上
+                  本文最后更新于：2021年11月1日 上午
                 
               </p>
             
@@ -447,7 +447,19 @@ p.spoiler {
 <h4 id="信噪比"><a href="#信噪比" class="headerlink" title="信噪比"></a>信噪比</h4><p>解码器端解码后的信号可以表示为：  </p>
 <script type="math/tex; mode=display">\hat{m}(t)=m_0(t)+n_q(t)+n_e(t)</script><p>$n_q(t)$为量化噪声，$n_e(t)$为传输过程中的高斯白噪声。<br>因此整个过程的信噪比表示为：  </p>
 <script type="math/tex; mode=display">\frac{S_o}{N_o}_{PCM}=\frac{\overline{m^2(t)}}{N_q+N_e}</script><p>通过计算可以发现，当$m(t)$服从均匀分布时，量化信噪比表示为：  </p>
-<script type="math/tex; mode=display">\frac{S}{N_q}=M^2</script>
+<script type="math/tex; mode=display">\frac{S}{N_q}=M^2</script><h2 id="时分复用"><a href="#时分复用" class="headerlink" title="时分复用"></a>时分复用</h2><p>时分复用（TDM）可以达到在一个小时间段内同时传输多条信号的目的。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211101182433.png width=80%>  </p>
+<p>如上图所示，多路信号作为输入，每一路的输入信号都要通过一个低通滤波器以保证信号的最高频小于$f_H$(对于声音信号是3400Hz)，保证采样时可以抽取到所有的信息。此后，多路信号汇合，通过一个抽样转盘，该抽样转盘会在一个周期内均匀地抽取每一路信号的一部分，对于声音信号，抽样转盘的采样频率为$f_s=8000Hz$。<br>在解码端也存在一个与发送端频率完全相同的抽样转盘，该转盘在一个周期内会将经过时分复用后的信号还原分配给每一路信号。  </p>
+<p>对于每一路信号，抽样转盘能够提取这路信号的时间段称为一个路时隙$T_a$（Time slot），每一路信号的一个路时隙组成一帧（Frame），即抽样转盘的采样周期$T_s$，二者存在如下关系：  </p>
+<script type="math/tex; mode=display">T_a=\frac{T_s}{n}</script><p>$n$表示信号的路数。<br>对于PCM信号，每一路信号的一个路时隙信息量为8bit，即一个路时隙的字长$l=8bit$，因此对于TDM-PCM信息传输速率可以表示为：  </p>
+<script type="math/tex; mode=display">R_B=R_b=nlf_s</script><p>$f_s$为转盘的抽样频率。  </p>
+<h3 id="占空比"><a href="#占空比" class="headerlink" title="占空比"></a>占空比</h3><p>对每一帧而言，其中电平不为0的时间段（即信息传输的时间）称为符号持续时间$τ$（Symbol duration），定义占空比（Duty Cycle）表示符号持续时间和一个周期时间之比：  </p>
+<script type="math/tex; mode=display">Duty.Cycle=\frac{τ}{T_s}×100\%</script><p>当$τ=T_s$时，表示一个周期内所有时间都在发送符号，称为归零码（RZ Code），$τ≠T_s$时，称为不归零码（NRZ Code）。  </p>
+<h3 id="30-32-PCM-基群结构"><a href="#30-32-PCM-基群结构" class="headerlink" title="30/32 PCM 基群结构"></a>30/32 PCM 基群结构</h3><p>30/32 PCM 基群结构是我国普遍使用的TDM-PCM方式，一帧有32个路时隙，其中有2个路时隙用于传输同步信号，剩余的30个路时隙用于传输信息。<br>其中TS0用于传输同步码、监视码、对端告警码组（简称对告码）；TS16用于传输信令码；TS1—TS15传前15个话路的话音数字码，TS17—TS31传输后15个话路的话音数字码。<br>此外还有16个复帧（Multi-frame）用于特殊用途（如定位信号，CRC校验码，信令传输等等）。  </p>
+<blockquote>
+<p>信令是用来表示通话状态的一系列信息，如：摘机、挂机信号、拨号、忙音等。  </p>
+</blockquote>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211101184749.png width=80%>  </p>
+
             </div>
             <hr>
             <div>
