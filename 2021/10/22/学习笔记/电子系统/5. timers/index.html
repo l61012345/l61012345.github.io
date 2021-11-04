@@ -312,10 +312,10 @@ p.spoiler {
 <p>当输入$V_{in}$是一个正弦波或者方波时，与$V_1$、$V_2$的大小关系会被自动触发，从而形成稳定而连续的三角波波形，其波形如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022201022.png width=50%>  </p>
 <h2 id="555定时器"><a href="#555定时器" class="headerlink" title="555定时器"></a>555定时器</h2><p>555定时器是一种利用电容器充放电性质的电路元件，它可以通过直流电压输出稳定的方波。其元件内部结构如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022201421.png width=80%>  </p>
 <p>其中的NPN晶体管作用类似于开关。上方三个$5kΩ$的分压器将输入电压$V_{cc}$分割成$\frac{2}{3}V_{cc}$和$\frac{1}{3}V_{cc}$并分别送入比较器2、1。其中比较器2将$\frac{2}{3}V_{cc}$与外接电压Threshold进行比较，比较器1将$\frac{1}{3}V_{cc}$与外接电压Trigger进行比较，以控制SR触发器的输入。<br>同时，555定时器还支持使用ControlVoltage替代$\frac{2}{3}V_{cc}$作为比较电压。SR触发器的输出为Ouput和Reset。<br>555定时器有三种工作状态（电路连接方式）：非稳态、单稳态和多稳态，这三种连接分别可以产生三种不同的方波波形。  </p>
-<h3 id="非稳态模式"><a href="#非稳态模式" class="headerlink" title="非稳态模式"></a>非稳态模式</h3><p>非稳态模式下555定时器的连接图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022210029.png width=80%></p>
+<h3 id="非稳态模式"><a href="#非稳态模式" class="headerlink" title="非稳态模式"></a>非稳态模式</h3><p>非稳态模式(Astable)下555定时器的连接图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022210029.png width=80%></p>
 <p>如图，VCC分别作为内部和外部电路的电压源，外部电路是一个基本的RC电路。而外部电路的输出端与Threshold和Trigger连接，从而起到自我触发的效果。<br>开始时电容器充电，当$Threshold&gt;\frac{2}{3}V_{cc}$时，SR触发器输入逻辑为：$R=1,S=0$，输出为低电平，同时由于$\overline{Q}=1$，NPN晶体管被导通，电容器开始放电。<br>当$Threshold&lt;\frac{2}{3}V_{cc}$时，SR触发器输入逻辑为：$R=0,S=1$，输出为高电平，同时由于$\overline{Q}=0$，NPN晶体管关断，电容器充电。<br>此后，由于Threshold/Trigger电压的变化，电容器会不断地进行充放电，从而在输出端产生稳定的高低电平方波，而电容器处产生稳定的三角波:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022210401.png width=50%>  </p>
 <p>可以发现三角波的上下限为$\frac{2}{3}V_{CC}$和$\frac{1}{3}V_{CC}$。  </p>
-<p>在电路连接时往往还会增加另一个电容$C_2$以提高电路的稳定性。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/o4YBAF0CVxyAW8SZAAAupwv3rf8757.gif width=50%>  </p>
+<p>在电路连接时往往还会增加另一个电容$C_2$以提高电路的稳定性。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211104164835.png width=50%>  </p>
 <h4 id="有关计算"><a href="#有关计算" class="headerlink" title="有关计算"></a>有关计算</h4><p>在电容器充电过程，电流实际上流过了外部的两个电阻$R_1、R_2$，因此充电过程的时间常数：$τ_1=(R_1+R_2)C_1$。<br>放电过程中电流只流过了$R_2$,因此放电过程的时间常数：$τ_2=R_2C_1$。<br>根据数学推导得到充电时间：   </p>
 <script type="math/tex; mode=display">t_{char}=ln2(R_1+R_2)C_1</script><p>放电时间：  </p>
 <script type="math/tex; mode=display">t_{Discr}=ln2R_2C_1</script><p>周期：  </p>
