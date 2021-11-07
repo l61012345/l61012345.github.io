@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>9. 数字信号的码型和波形 - Mirror</title>
+  <title>7. 数字滤波器·数字系统的表示 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@ p.spoiler {
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="9. 数字信号的码型和波形">
+            <span class="h2" id="subtitle" title="7. 数字滤波器·数字系统的表示">
               
             </span>
 
@@ -212,8 +212,8 @@ p.spoiler {
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-05 08:36" pubdate>
-        2021年11月5日 早上
+      <time datetime="2021-11-07 05:13" pubdate>
+        2021年11月7日 凌晨
       </time>
     </span>
   
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      1.2k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      15
        分钟
     </span>
   
@@ -272,67 +272,67 @@ p.spoiler {
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">9. 数字信号的码型和波形</h1>
+            <h1 style="display: none">7. 数字滤波器·数字系统的表示</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月5日 下午
+                  本文最后更新于：2021年11月7日 早上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="数字信号的码型和波形"><a href="#数字信号的码型和波形" class="headerlink" title="数字信号的码型和波形"></a>数字信号的码型和波形</h1><h2 id="数字基带传输系统"><a href="#数字基带传输系统" class="headerlink" title="数字基带传输系统"></a>数字基带传输系统</h2><p>数字基带传输系统的模型如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105164556.png width=80%><br>经过脉冲编码调制的PCM编码成为数字信号(a)，通过脉冲形成器由单极性码变成双极性码(b)，并提供定时脉冲(f)。生成的双极性码信号通过发送端的低通滤波器过滤掉高频分量后，成为升余弦波形(c)。  </p>
+              <h1 id="数字滤波器·数字系统的表示"><a href="#数字滤波器·数字系统的表示" class="headerlink" title="数字滤波器·数字系统的表示"></a>数字滤波器·数字系统的表示</h1><h2 id="数字系统的响应"><a href="#数字系统的响应" class="headerlink" title="数字系统的响应"></a>数字系统的响应</h2><p>数字滤波器是一种处理离散时间信号的系统。数字信号$x[n]$输入数字滤波器进行处理后生成输出信号$y[n]$。这个过程可以用卷积定理表示为：  </p>
+<script type="math/tex; mode=display">y[n]=x[n]⊗h[n]=∑x[m]h[n-m] \tag{1}</script><p>$h[n]$是数字系统在时域上的表示，称为<strong>冲激响应</strong>，也是系统输入信号为冲激序列时系统的输出结果。<br>对(1)做离散时间傅里叶变换，可以得到：  </p>
+<script type="math/tex; mode=display">Y(e^{jω})=X(e^{jω})H(e^{jω}) \tag{2}</script><p>$H(e^{jω})$是$h[n]$做离散时间傅里叶变换的结果，称为系统的<strong>频率响应</strong>。  </p>
 <blockquote>
-<p>由0/1组成的编码称为单极性码。单极性码含有直流分量，无法通过由逻辑门电路构成的判决器。双极性码含有负电平（逻辑中以-1表示）。  </p>
-<p>定时脉冲是周期为$T_s$的冲激序列，目的是为了让接收端知道每个字符（0/1/-1）的持续时间和出现时间间隔。  </p>
+<p>可以发现(2)成立的条件中包含$h[n]$收敛的条件，如果$h[n]$不收敛，则不存在其离散时间傅里叶变换的结果$H(e^{jω})$。  </p>
 </blockquote>
-<p>数字基带传输系统的信道常采用线缆、明线。在信道中存在加性噪声，使信号发生失真等现象(d)。<br>发送的模拟信号在接收端通过低通滤波器过滤掉信道中的加性噪声(e)，在同步提取模块中提取出信号的定时脉冲(f)，接收信号和这个定时脉冲被送入抽样判决器：抽样判决器会在每一个定时脉冲时判断接收信号的电平大小对应数字信号的1还是0，抽样判决器生成信号如(g)所示。最终，接收信号被复原为数字信号(h)。<br>数字传输系统中各阶段的波形如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105164652.png width=60%>  </p>
-<h2 id="码间串扰"><a href="#码间串扰" class="headerlink" title="码间串扰"></a>码间串扰</h2><p>通过上图可以看出，原来的PCM信号在传输过程中产生了失真，使得原有的两个字符信号发生重叠而无法被判决器识别，最终导致误码。这样的两个字符重叠而产生的干扰称为码间串扰（Inter Symbol Interferance, ISI）。如何减少传输过程中的码间串扰是数字通信中的一个重点问题。  </p>
-<h2 id="系带系统的码型"><a href="#系带系统的码型" class="headerlink" title="系带系统的码型"></a>系带系统的码型</h2><h3 id="码型设计标准"><a href="#码型设计标准" class="headerlink" title="码型设计标准"></a>码型设计标准</h3><p>原始信息编码为方便基带数字信号传输系统传输的编码方式（称为码型）。通常认为，对码型的要求包含如下几点：  </p>
-<ol>
-<li>在编码阶段不能包含直流分量，且低频分量少。  </li>
-<li>码型要便于提取出定时脉冲。  </li>
-<li>具备纠错、检错能力。  </li>
-<li>高频分量尽量少，以减小码间串扰。  </li>
-<li>传输和变换设备简单，便于实现。  </li>
-</ol>
-<h3 id="码型选择"><a href="#码型选择" class="headerlink" title="码型选择"></a>码型选择</h3><p>根据有无极性和是否归零可以将可能的编码大致分成四类：单极性归零码、单极性不归零码、双极性归零码、双极性不归零码。其频域内频谱图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105194506.png width=80%>  </p>
-<p>无直流分量在频域内的直接体现为0频时没有冲激信号，单极性不归零码(a)和单极性归零码(b)都存在直流分量，因此不适合用于传输。但是单极性归零码存在一个周期性的冲激序列，可以直接作为定时脉冲使用。<br>对双极性不归零码而言，不能直接提取定时脉冲，分离出定时脉冲的过程也比较复杂，因此不适用于传输。对双极性归零码而言，虽然不能直接提取定时脉冲，但可以通过使用一个整流器转换为单极性归零码，从而提取出定时脉冲，且无直流分量，因此<strong>双极性不归零码在数字基带传输中得到广泛应用</strong>。  </p>
-<p>除了上述四类码型外，还有差分码，时钟脉冲和输入单极性数字信号做异或运算/模二加法，得到输入信号的差分码。<br>差分码在接收端收到的极性与发送端完全相反时，也能够正确的判决。在此不详述。  </p>
-<h2 id="AMI码和HDB3编码"><a href="#AMI码和HDB3编码" class="headerlink" title="AMI码和HDB3编码"></a>AMI码和HDB<sub>3</sub>编码</h2><h3 id="AMI码"><a href="#AMI码" class="headerlink" title="AMI码"></a>AMI码</h3><p>AMI码是传号交替反转码的缩写，AMI码是一种双极不归零码，其编码规则如下：  </p>
+<h2 id="数字系统的表示"><a href="#数字系统的表示" class="headerlink" title="数字系统的表示"></a>数字系统的表示</h2><p>除了上述两个表达式可以描述一个特定的数字系统外，一个特定的数字系统还可以使用如下两种方法进行表达：差分方程和转换方程。<br>系统可以表示为线性常系数差分方程：    </p>
+<script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k],a_0≠0,b_0≠0</script><p>对上式做Z变换，两边相比，得到系统的转换方程：  </p>
+<script type="math/tex; mode=display">H(z)=\frac{Y(z)}{X(z)}=\frac{∑_{k=0}^Mb_kz^{-k}}{∑_{k=0}^Na_kz^{-k}}</script><p>但是由于z变换成立的条件是要给出收敛域RoC，因此在未给出转换方程的前提下，其对应的差分方程可能有两个：</p>
 <ul>
-<li>消息编码中的0保持不变  </li>
-<li>消息编码中的1在AMI码中为1或-1，1和-1交替出现  </li>
+<li>右边序列：<script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k]</script>此时数字系统是因果系统。  </li>
+<li>左边序列:<script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=-∑_{k=-M}^{-1}b_kx[n+k]</script>此时数字系统是非因果系统。  </li>
 </ul>
-<p>例如：<br>消息编码： 1.0.0.1.1.1<br>其AMI码： +1.0.0.-1.1.-1</p>
-<p>因此AMI码可以通过交替出现的极性观察传输过程中是否出现误码。<br>但是，当消息编码中含有过长的连0信号时（如：0000000），会给定时脉冲的提取造成困难，为了改进AMI码在长0信号下的传输问题，HDB<sub>3</sub>码应运而生。  </p>
-<h3 id="HDB3-码"><a href="#HDB3-码" class="headerlink" title="HDB3 码"></a>HDB<sub>3</sub> 码</h3><p>HDB<sub>3</sub>的编码规则基本和AMI码相同，但相比于AMI码，其规定在连续三个0信号出现时加入一个破坏脉冲V以防止过长0信号导致定时脉冲难以提取的问题。HDB<sub>3</sub>码的编码规则如下：  </p>
-<ul>
-<li>给定一个初始符号以指定消息编码中起始1的极性，使用AMI编码方式对消息进行编码。<strong>起始1的极性与初始符号的极性相反。</strong>  </li>
-<li>当有连续4个0信号出现时，第四个0信号改为破坏脉冲V，对破坏脉冲的极性有如下规定：  <ol>
-<li>V的极性交替反转（高优先级）</li>
-<li>破坏脉冲的极性与前一个“1”的极性相同（V视作1）</li>
-</ol>
-</li>
-<li><strong>在V的极性不满足条件2时</strong>，连0信号的第一个0变为补性码B’，B’的极性与其后一个V的极性相同。<strong>B’后的1全部反转极性</strong>。  </li>
-<li>V和B’都为逻辑1。  </li>
-</ul>
-<p>例如：指定符号位为“+”：<br>消息编码：1000 0000 0000 0000 1<br>AMI编码： -10000 0000 0000 0000 1<br>加入破坏脉冲：-1000-V 000V 000-V 000V 1<br>加入补性码：-1000-V B’00V -B’00-V B’00V -1<br>HDB<sub>3</sub>编码： -1000-1 1001 -100-1 1001 -1  </p>
-<p>HDB<sub>3</sub>在解码时只需要找到连0信号两端极性相同的部分，替换为0即可：<br>HDB<sub>3</sub>解码：-10000 0000 0000 0000 -1  </p>
-<h2 id="曼彻斯特码"><a href="#曼彻斯特码" class="headerlink" title="曼彻斯特码"></a>曼彻斯特码</h2><h3 id="曼彻斯特码-双向码"><a href="#曼彻斯特码-双向码" class="headerlink" title="曼彻斯特码/双向码"></a>曼彻斯特码/双向码</h3><p>曼彻斯特码是一种双极性不归零码，其01编码为脉冲信号的上升沿和下降沿，巧妙地解决了长连0信号由于电平不发生变化而导致的定时脉冲提取困难的问题。其编码规则为：<br>脉冲波形在同步脉冲间隔周期50%时：  </p>
-<ul>
-<li>脉冲上升沿表示逻辑1  </li>
-<li>脉冲下降沿表示逻辑0  </li>
-</ul>
-<p>例如：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105205712.png width=70%><br>但是曼彻斯特码在极性发生反转时容易发生译码错误，为了解决这个问题，引入了差分码的概念。  </p>
-<h3 id="差分曼彻斯特码"><a href="#差分曼彻斯特码" class="headerlink" title="差分曼彻斯特码"></a>差分曼彻斯特码</h3><p>差分曼彻斯特码的编码规则为：<br>脉冲间隔开始时：  </p>
-<ul>
-<li>脉冲电平不发生变化（无触发沿）表示逻辑1</li>
-<li>脉冲电平发生变化（有触发沿）表示逻辑0</li>
-</ul>
-<p>例如：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105210411.png width=70%>  </p>
-<h2 id="基带波形的选择"><a href="#基带波形的选择" class="headerlink" title="基带波形的选择"></a>基带波形的选择</h2><p>除了考虑合适的码型外，还需要考虑使用什么形状的波形来表示选择的码型。<br>对波形的选择标准要求频谱图上的主瓣（即信号的有用带宽）后杂波的带宽越小越好，换言之，频谱函数收敛速度越快越好。<br>在方波脉冲、三角脉冲、升余弦脉冲中，升余弦脉冲的收敛速度最快，意味着杂波的带宽通常比较小，因此在数字基带通信中常选择升余弦脉冲作为基带波形。  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105211419.png width=80%>  </p>
+<h2 id="转换方程的特征"><a href="#转换方程的特征" class="headerlink" title="转换方程的特征"></a>转换方程的特征</h2><h3 id="与冲激响应"><a href="#与冲激响应" class="headerlink" title="与冲激响应"></a>与冲激响应</h3><p>系统转换方程可以写作两个多项式的比：  </p>
+<script type="math/tex; mode=display">H(z)=\frac{b_0}{a_0}\frac{Π_{k=1}^M(1-c_kz^{-1})}{Π_{k=1}^N(1-b_kz^{-1})}</script><p>其中$M$对应差分方程右侧除去$x[n]$外含有$x$项的个数，$N$对应差分方程左侧除去$y[n]$外含有$y$项的个数，$c_k$表示零点，$d_k$表示极点。<br>化简上式得到如下结构：  </p>
+<script type="math/tex; mode=display">H(z)=∑_{r=0}^{M-N}B_rZ^{-r}+∑_{k=1}^N\frac{A_k}{1-d_kz^{-1}}</script><p>对其做Z反变换：  </p>
+<script type="math/tex; mode=display">h[n]=∑_{r=0}^{M-N}B_rδ[n-r]+∑_{k=1}^NA_k(d_k)^nu[n]</script><p>对上述反变换结果进行讨论：<br>当$N&gt;0$时，差分方程左边有除了$y[n]$的其他含$y$项$y[n-k]$，即此时系统方程当前输出由$x$项、系统以前的输出$y[n-k]$共同决定，系统含有反馈，此时系统方程为：  </p>
+<script type="math/tex; mode=display">h[n]=∑_{r=0}^{M-N}B_rδ[n-r]+∑_{k=1}^NA_k(d_k)^nu[n]</script><p>由于$u[n]$是一个无限长度的序列，因此系统的冲激响应也是无限长度的，称这样的系统为无限冲激响应系统（IIR System）。<br>当$N=0$时，差分方程左边只含有$y[n]$，系统方程的当前输出只由输入$x$决定，系统不含有反馈，此时系统方程为：  </p>
+<script type="math/tex; mode=display">h[n]=∑_{r=0}^{M}B_rδ[n-r]</script><p>由于$δ[n-r]$长度有限，整个系统的冲激响应的长度是有限的，称这样的系统为有限冲激响应系统（FIR System）。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">N</th>
+<th style="text-align:center">差分方程左侧</th>
+<th style="text-align:center">有无反馈</th>
+<th style="text-align:center">冲激响应长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IIR</td>
+<td style="text-align:center">N&gt;0</td>
+<td style="text-align:center">含有$y[n-k]$</td>
+<td style="text-align:center">有</td>
+<td style="text-align:center">无限</td>
+</tr>
+<tr>
+<td style="text-align:center">FIR</td>
+<td style="text-align:center">N=0</td>
+<td style="text-align:center">只有$y[n]$</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">有限</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="与频率响应"><a href="#与频率响应" class="headerlink" title="与频率响应"></a>与频率响应</h3><p>根据Z变换和离散时间傅里叶的定义式，可以推出：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=H(z)|_{z=exp(jω)}</script><p>因此系统的频率响应也可以写作多项式分式：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=\frac{b_0}{a_0}\frac{Π_{k=1}^M(1-c_ke^{-jω})}{Π_{k=1}^N(1-b_ke^{-jω})}</script><h4 id="使用MATLAB®绘制系统的频率响应"><a href="#使用MATLAB®绘制系统的频率响应" class="headerlink" title="使用MATLAB®绘制系统的频率响应"></a>使用MATLAB®绘制系统的频率响应</h4><p>在$[0,2\pi]$上生成若干个采样点，作为作图的$x$轴。<br>使用函数<code>fft()</code>可以生成指定序列的离散傅里叶变换结果。<code>abs()</code>函数能够给出指定序列在每个采样点上的绝对值，即幅度。<code>angle()</code>函数可以生成指定序列在每个采样点上的相位。  </p>
+<p>下面的示例程序展示了如何绘制$h[n]=Sa(0.1(n-50)),0≤n≤100$的幅频和相频响应曲线：<br><figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>;<br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)];<br>X<span class="hljs-built_in">=</span>fft(x);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<br>plot(w./pi,abs(X));<br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X));<br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></div></td></tr></table></figure></p>
 
             </div>
             <hr>
@@ -344,7 +344,7 @@ p.spoiler {
                     
                       <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">通信原理</a>
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">数字信号处理</a>
                     
                   </div>
                 
@@ -358,18 +358,12 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/7.%20%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">7. 数字滤波器·数字系统的表示</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/7.%20BJT_Biasing/">
-                        <span class="hidden-mobile">7. 晶体管的偏置状态</span>
+                      <a href="/2021/11/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/9.%20%E7%A0%81%E5%9E%8B%E5%92%8C%E6%B3%A2%E5%BD%A2%E5%88%86%E6%9E%90/">
+                        <span class="hidden-mobile">9. 数字信号的码型和波形</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
