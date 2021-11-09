@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      863 字
+      1.4k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      17
        分钟
     </span>
   
@@ -306,13 +306,28 @@ p.spoiler {
 <script type="math/tex; mode=display">H(ω)=\begin{cases}
     ∑H(ω+\frac{2πi}{T_s})=T_s, |ω|≤\frac{π}{T_s} \\
     0, |ω|>\frac{π}{T_s} \text{  除了采样时刻，其余时间波形的采样值为0}
-\end{cases}</script><p>即，<strong>系统方程当且仅当在（角频率）频谱上为一个在$±\frac{π}{T_s}$上的门函数时，这个系统可以满足没有码间串扰，该定律称为奈奎斯特第一定律。</strong>  </p>
+\end{cases}</script><p>即，<strong>当且仅当系统的等效频谱在为一个在$±\frac{π}{T_s}$上的门函数时，这个系统可以满足没有码间串扰，该定律称为奈奎斯特第一定律。</strong>  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109143853.png width=20%>  </p>
-<h2 id="无码间串扰系统"><a href="#无码间串扰系统" class="headerlink" title="无码间串扰系统"></a>无码间串扰系统</h2><p>在频域中，要想使得系统频谱图为一个门函数，有两种：  </p>
+<h3 id="导出结论"><a href="#导出结论" class="headerlink" title="导出结论"></a>导出结论</h3><ul>
+<li>满足奈奎斯特第一定律时，频谱图的带宽称为奈奎斯特带宽$B_N$,$B_N=\frac{1}{2T_s}Hz$。  </li>
+<li>奈奎斯特间隔为：$T_s=\frac{1}{2B_N}$。  </li>
+<li>当采样周期为奈奎斯特间隔的整数倍（$T_s=\frac{Const}{2B_N}$）时，可以使得每次采样时信号拖尾的采样值都为，系统无码间串扰。对应的数据传输速率为：$R_B=\frac{1}{nT_s}$。  </li>
+<li>系统支持的最大的传输速率为$R_{B|max}=\frac{1}{T_s}=2B_N$，当且仅当： <script type="math/tex; mode=display">\frac{R_{B|max}}{R_B}=Const</script>时，系统无码间串扰。  </li>
+<li>由频谱利用率$η=\frac{R_B}{B}$，系统最大的频谱利用率为$η=\frac{2B_N}{B_n}=2$。</li>
+</ul>
+<h2 id="无码间串扰系统"><a href="#无码间串扰系统" class="headerlink" title="无码间串扰系统"></a>无码间串扰系统</h2><p>在频域中，要想使得系统频谱图为一个门函数，有两种方法：  </p>
 <ol>
 <li>理想低通滤波器的频谱正好是一个门函数，可以直接选用</li>
 <li>滚降滤波器</li>
 </ol>
+<p>由于理想低通滤波器有边界陡峭、难以实现、且时域中Sa函数收敛较慢的特点，因此考虑采用其他方法模拟出理想低通滤波器的频谱，一种最常用的方法是滚降滤波器。<br>滚降滤波器的基本思路是在理想低通滤波器频谱后加入一段奇对称的频谱，使得被剪切、时移、叠加后的等效频谱中奇对称的一半正好可以填充另一半，得到一个门函数的频谱，这种方法称为滚降。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109153130.png width=30%><br>常常被选用的奇函数为反比例函数和升余弦函数（即余弦函数+常数）：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109153809.png width=50%>  </p>
+<p>设奇对称信号的带宽为$B_2$,那么滚降后的系统带宽为$B_N+B_2$。<br>定义滚降系数$α=\frac{B_2}{B_N}$，那么系统带宽又可以写作：  </p>
+<script type="math/tex; mode=display">B=(1+α)B_N,0≤α≤1</script><p>频谱利用效率为:$η=\frac{2}{1+α}$<br>系统所支持的无码间串扰的最大速率为:$R_{B|max}=2B_N$<br>可以发现，$α$越大，系统带宽就越大，系统有效性下降，但是从频谱图上来看，$α$越大，系统波形拖尾越小，可靠性上升。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109154450.png width=50%>  </p>
+<p>$α=1$时的滤波器称为全滚降滤波器，全滚降滤波器没有非滚降段，系统方程表示为：  </p>
+<script type="math/tex; mode=display">H(ω)=\begin{cases}
+    f(ω), 0≤ω≤2B_N\\
+    0,ω≥2B_N
+\end{cases}</script><p>此时系统的带宽为$B=2B_N$。  </p>
 
             </div>
             <hr>
