@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>9. 数字信号的码型和波形 - Mirror</title>
+  <title>9. 数字信号的码型、波形和频谱 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@ p.spoiler {
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="9. 数字信号的码型和波形">
+            <span class="h2" id="subtitle" title="9. 数字信号的码型、波形和频谱">
               
             </span>
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.4k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
+      26
        分钟
     </span>
   
@@ -272,23 +272,23 @@ p.spoiler {
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">9. 数字信号的码型和波形</h1>
+            <h1 style="display: none">9. 数字信号的码型、波形和频谱</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月5日 下午
+                  本文最后更新于：2021年11月9日 凌晨
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="数字信号的码型和波形"><a href="#数字信号的码型和波形" class="headerlink" title="数字信号的码型和波形"></a>数字信号的码型和波形</h1><h2 id="数字基带传输系统"><a href="#数字基带传输系统" class="headerlink" title="数字基带传输系统"></a>数字基带传输系统</h2><p>数字基带传输系统的模型如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105164556.png width=80%><br>经过脉冲编码调制的PCM编码成为数字信号(a)，通过脉冲形成器由单极性码变成双极性码(b)，并提供定时脉冲(f)。生成的双极性码信号通过发送端的低通滤波器过滤掉高频分量后，成为升余弦波形(c)。  </p>
+              <h1 id="数字信号的码型、波形和频谱"><a href="#数字信号的码型、波形和频谱" class="headerlink" title="数字信号的码型、波形和频谱"></a>数字信号的码型、波形和频谱</h1><h2 id="数字基带传输系统简述"><a href="#数字基带传输系统简述" class="headerlink" title="数字基带传输系统简述"></a>数字基带传输系统简述</h2><p>数字基带传输系统的模型如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105164556.png width=80%><br>经过脉冲编码调制的PCM编码成为数字信号(a)，通过脉冲形成器由单极性码变成双极性码(b)，并提供定时脉冲(f)。生成的双极性码信号通过发送端的低通滤波器过滤掉高频分量后，成为升余弦波形(c)。  </p>
 <blockquote>
 <p>由0/1组成的编码称为单极性码。单极性码含有直流分量，无法通过由逻辑门电路构成的判决器。双极性码含有负电平（逻辑中以-1表示）。  </p>
 <p>定时脉冲是周期为$T_s$的冲激序列，目的是为了让接收端知道每个字符（0/1/-1）的持续时间和出现时间间隔。  </p>
 </blockquote>
 <p>数字基带传输系统的信道常采用线缆、明线。在信道中存在加性噪声，使信号发生失真等现象(d)。<br>发送的模拟信号在接收端通过低通滤波器过滤掉信道中的加性噪声(e)，在同步提取模块中提取出信号的定时脉冲(f)，接收信号和这个定时脉冲被送入抽样判决器：抽样判决器会在每一个定时脉冲时判断接收信号的电平大小对应数字信号的1还是0，抽样判决器生成信号如(g)所示。最终，接收信号被复原为数字信号(h)。<br>数字传输系统中各阶段的波形如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105164652.png width=60%>  </p>
 <h2 id="码间串扰"><a href="#码间串扰" class="headerlink" title="码间串扰"></a>码间串扰</h2><p>通过上图可以看出，原来的PCM信号在传输过程中产生了失真，使得原有的两个字符信号发生重叠而无法被判决器识别，最终导致误码。这样的两个字符重叠而产生的干扰称为码间串扰（Inter Symbol Interferance, ISI）。如何减少传输过程中的码间串扰是数字通信中的一个重点问题。  </p>
-<h2 id="系带系统的码型"><a href="#系带系统的码型" class="headerlink" title="系带系统的码型"></a>系带系统的码型</h2><h3 id="码型设计标准"><a href="#码型设计标准" class="headerlink" title="码型设计标准"></a>码型设计标准</h3><p>原始信息编码为方便基带数字信号传输系统传输的编码方式（称为码型）。通常认为，对码型的要求包含如下几点：  </p>
+<h2 id="码型设计"><a href="#码型设计" class="headerlink" title="码型设计"></a>码型设计</h2><h3 id="码型设计标准"><a href="#码型设计标准" class="headerlink" title="码型设计标准"></a>码型设计标准</h3><p>原始信息编码为方便基带数字信号传输系统传输的编码方式（称为码型）。通常认为，对码型的要求包含如下几点：  </p>
 <ol>
 <li>在编码阶段不能包含直流分量，且低频分量少。  </li>
 <li>码型要便于提取出定时脉冲。  </li>
@@ -333,6 +333,21 @@ p.spoiler {
 <p>例如：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105210411.png width=70%>  </p>
 <h2 id="基带波形的选择"><a href="#基带波形的选择" class="headerlink" title="基带波形的选择"></a>基带波形的选择</h2><p>除了考虑合适的码型外，还需要考虑使用什么形状的波形来表示选择的码型。<br>对波形的选择标准要求频谱图上的主瓣（即信号的有用带宽）后杂波的带宽越小越好，换言之，频谱函数收敛速度越快越好。<br>在方波脉冲、三角脉冲、升余弦脉冲中，升余弦脉冲的收敛速度最快，意味着杂波的带宽通常比较小，因此在数字基带通信中常选择升余弦脉冲作为基带波形。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211105211419.png width=80%>  </p>
+<h2 id="频谱分析"><a href="#频谱分析" class="headerlink" title="频谱分析"></a>频谱分析</h2><p>设脉冲信号$g_1(t-nT_s)$表示逻辑0，$g_2(t-nT_s)$表示逻辑1，假设随机脉冲序列在码元时间间隔$T_s$内逻辑1和0的出现是相互独立的，那么对任何一个数字信号$s(t)$都可以表示为：  </p>
+<script type="math/tex; mode=display">s(t)=∑s_n(t)</script><p>其中:</p>
+<script type="math/tex; mode=display">s_n(t)=\begin{cases}
+  g_1(t-nT_s),\text{概率为}P\\
+  g_2(t-nT_s),\text{概率为}1-P\\
+\end{cases}</script><p>$s(t)$的图示如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109111353.png width=50%>  </p>
+<p>由于任何波形都可以分解为两个波形的叠加，考虑要知道基带信号中是否存在可以提供频谱分量的周期同步信息，因此将$s(t)$分解为能够提取同步信息的周期波形$v(t)$和随机信号$u(t)$：  </p>
+<script type="math/tex; mode=display">s(t)=v(t)+u(t)</script><p>经过数学运算可知，$v(t)$的功率谱表示为：  </p>
+<script type="math/tex; mode=display">P_v(f)=∑|f_s[PG_1(mf_s)+(1-P)G_2(mf_s)]|^2δ(f-mf_s)</script><p>$u(t)$的功率谱表示为：  </p>
+<script type="math/tex; mode=display">P_u(f)=f_sP(1-P)|G_1(f)-G_2(f)|^2</script><p>那么数字信号$s(t)$的频谱可以表示为：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+  P_s(f)&=P_u(f)+P_v(f)\\
+  &=∑|f_s[PG_1(mf_s)+(1-P)G_2(mf_s)]|^2δ(f-mf_s)+f_sP(1-P)|G_1(f)-G_2(f)|^2
+\end{aligned}</script><p>化简为单边谱：  </p>
+<script type="math/tex; mode=display">P_s(f)=2f_sP(1-P)|G_1(f)-G_2(f)|^2+f^2_s|PG_1(0)+(1-P)G_2(0)|^2δ(f)+2f_s^2∑|[PG_1(mf_s)+(1-P)G_2(mf_s)]|^2δ(f-mf_s)</script><p>可以发现这个单边谱公式由三部分组成：<br>$f^2_s|PG_1(0)+(1-P)G_2(0)|^2δ(f)$：在零频时的冲激信号，即信号的<strong>直流分量</strong>。<br>$2f_s^2∑|[PG_1(mf_s)+(1-P)G_2(mf_s)]|^2δ(f-mf_s)$：周期冲激序列，即可以提取用于同步的<strong>定时脉冲</strong>。<br>$2f_sP(1-P)|G_1(f)-G_2(f)|^2$:连续谱分量，由随机信号产生，极大地影响频谱效率。<br>下图表示了符号持续时间$τ$和对应频谱带宽的关系：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109114653.png width=60%><br>可以发现，<strong>符号持续时间越长，占用带宽越小</strong>。  </p>
 
             </div>
             <hr>
