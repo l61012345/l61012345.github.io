@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12 字
+      863 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -276,12 +276,44 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月9日 凌晨
+                  本文最后更新于：2021年11月9日 早上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="无码间串扰的数字基带系统"><a href="#无码间串扰的数字基带系统" class="headerlink" title="无码间串扰的数字基带系统"></a>无码间串扰的数字基带系统</h1>
+              <h1 id="无码间串扰的数字基带系统"><a href="#无码间串扰的数字基带系统" class="headerlink" title="无码间串扰的数字基带系统"></a>无码间串扰的数字基带系统</h1><h2 id="码间串扰的产生"><a href="#码间串扰的产生" class="headerlink" title="码间串扰的产生"></a>码间串扰的产生</h2><p>由于系统的带宽有限，单个字符信号的脉冲发生了失真，使得波形发生延展、含有拖尾，波形延展到其他码元时间间隔中时，会对其他字符的抽样产生干扰，称为码间串扰。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109115908.png width=60%><br>码间串扰与系统的带宽有关，系统的带宽越小，字符脉冲的拖尾就会越长越严重，发生码间串扰的可能性越大。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109120140.png width=80%>  </p>
+<h3 id="码间串扰的数学分析"><a href="#码间串扰的数学分析" class="headerlink" title="码间串扰的数学分析"></a>码间串扰的数学分析</h3><p>数字信号$d(t)=∑a(b)δ(t-nT)$通过信道和接受滤波器后表示为：  </p>
+<script type="math/tex; mode=display">y(t)=d(t)*h(t)+n_R(t)=∑a_nh(t-nT_s)+n_R(t)</script><p>其中$n_R(t)$表示窄带噪声。<br>经过采样周期为$T_s$的采样后：  </p>
+<script type="math/tex; mode=display">y(kT_s+t_0)=∑a_nh(kT_s+t_0-nT_s)+n_R(kT_s+t_0)+a_kh(t_0)</script><p>其中：<br>$a_kh(t_0)$是第$k$个字符采样后波形的主瓣。<br>$a_nh(kT_s+t_0-nT_s)$是采样后波形的拖尾。<br>$n_R(kT_s+t_0)$是采样后的窄带噪声。<br>可以发现，要想消除码间串扰，就要让采样后的波形中不含有$a_nh(kT_s+t_0-nT_s)$一项，即系统的时域方程满足下列等式：  </p>
+<script type="math/tex; mode=display">h(kT_s)=\begin{cases}
+    Const, k=0 \\
+    0, k≠0 \text{  除了采样时刻，其余时间波形的采样值为0}
+\end{cases}</script><p>有两种方式可以使得系统波形满足$a_nh(kT_s+t_0-nT_s)=0$：  </p>
+<ol>
+<li>系统波形正好在$t_0+T_s$时戛然而止  </li>
+<li>系统波形虽然有拖尾，但是拖尾在每一个$t_0+kT_S,k≠0$的时刻为0。  </li>
+</ol>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109133725.png width=80%>  </p>
+<p>方案1无法在现实的电路中完成，因此现实中基本采用方法2来设计无码间串扰的系统。<br>下面推导符合上述条件的系统方程$H(ω)$：<br>根据傅里叶反变换：$h(kT_s)=\frac{1}{2π}∫H(ω)e^{jωkT_s}dω$<br>由于一个采样周期只有一个字符被抽样，因此修改积分上限，提取出一个抽样周期内的频谱函数(称为剪切)：  </p>
+<script type="math/tex; mode=display">h(kT_s)=\frac{1}{2π}∑_i∫_{(2i-1)π/T_s}^{(2i+1)π/T_s}H(ω)e^{jωkT_s}dω</script><p>令$ω’=ω-\frac{2iπ}{T}$（称为时移）,  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    h(kT_s)&=\frac{1}{2π}∑_i∫_{-π/T_s}^{π/T_s}H(ω'+\frac{2iπ}{T})e^{jω'kT_s}e^{2πikj}dω'\\
+    &=\frac{1}{2π}∑_i∫_{-π/T_s}^{π/T_s}H(ω'+\frac{2iπ}{T})e^{jω'kT_s}dω'\\
+    &=\frac{1}{2π}∫_{-π/T_s}^{π/T_s}∑_iH(ω'+\frac{2iπ}{T})e^{jω'kT_s}dω'
+\end{aligned}</script><p>剪切、时移、叠加的物理意义如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109150814.png width=70%></p>
+<p>那么就得到了$H(ω)$的等效替代式子：  </p>
+<script type="math/tex; mode=display">H_{eq}(ω)=∑_iH(ω'+\frac{2iπ}{T}),|ω|≤\frac{π}{T_s}</script><p>$H_{eq}(ω)$的物理意义是将切断的各部分平移到$|ω|≤\frac{π}{T_s}$内对应叠加求和，简称切断叠加。<br>那么将该式子带入$h(kT_s)$需要满足的条件中，得到频域中，系统方程等价为：  </p>
+<script type="math/tex; mode=display">H(ω)=\begin{cases}
+    ∑H(ω+\frac{2πi}{T_s})=T_s, |ω|≤\frac{π}{T_s} \\
+    0, |ω|>\frac{π}{T_s} \text{  除了采样时刻，其余时间波形的采样值为0}
+\end{cases}</script><p>即，<strong>系统方程当且仅当在（角频率）频谱上为一个在$±\frac{π}{T_s}$上的门函数时，这个系统可以满足没有码间串扰，该定律称为奈奎斯特第一定律。</strong>  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109143853.png width=20%>  </p>
+<h2 id="无码间串扰系统"><a href="#无码间串扰系统" class="headerlink" title="无码间串扰系统"></a>无码间串扰系统</h2><p>在频域中，要想使得系统频谱图为一个门函数，有两种：  </p>
+<ol>
+<li>理想低通滤波器的频谱正好是一个门函数，可以直接选用</li>
+<li>滚降滤波器</li>
+</ol>
+
             </div>
             <hr>
             <div>
