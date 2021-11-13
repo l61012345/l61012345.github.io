@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      2.1k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      24
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月9日 早上
+                  本文最后更新于：2021年11月13日 凌晨
                 
               </p>
             
@@ -317,17 +317,69 @@ p.spoiler {
 </ul>
 <h2 id="无码间串扰系统"><a href="#无码间串扰系统" class="headerlink" title="无码间串扰系统"></a>无码间串扰系统</h2><p>在频域中，要想使得系统频谱图为一个门函数，有两种方法：  </p>
 <ol>
-<li>理想低通滤波器的频谱正好是一个门函数，可以直接选用</li>
+<li>理想低通滤波器</li>
 <li>滚降滤波器</li>
+<li>部分响应系统</li>
 </ol>
-<p>由于理想低通滤波器有边界陡峭、难以实现、且时域中Sa函数收敛较慢的特点，因此考虑采用其他方法模拟出理想低通滤波器的频谱，一种最常用的方法是滚降滤波器。<br>滚降滤波器的基本思路是在理想低通滤波器频谱后加入一段奇对称的频谱，使得被剪切、时移、叠加后的等效频谱中奇对称的一半正好可以填充另一半，得到一个门函数的频谱，这种方法称为滚降。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109153130.png width=30%><br>常常被选用的奇函数为反比例函数和升余弦函数（即余弦函数+常数）：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109153809.png width=50%>  </p>
-<p>设奇对称信号的带宽为$B_2$,那么滚降后的系统带宽为$B_N+B_2$。<br>定义滚降系数$α=\frac{B_2}{B_N}$，那么系统带宽又可以写作：  </p>
+<h3 id="理想低通滤波器"><a href="#理想低通滤波器" class="headerlink" title="理想低通滤波器"></a>理想低通滤波器</h3><p>理想低通滤波器的频谱正好是一个门函数：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211112173008.png width=60%>  </p>
+<p>但是，可以从理想低通滤波器系统的频谱和波形图看出：理想低通滤波器有边界陡峭、难以实现、且时域中Sa函数收敛较慢的特点，因此考虑采用其他方法模拟等效理想低通滤波器的频谱。  </p>
+<h3 id="滚降滤波器"><a href="#滚降滤波器" class="headerlink" title="滚降滤波器"></a>滚降滤波器</h3><p>滚降滤波器的基本思路是在理想低通滤波器频谱后加入一段奇对称的频谱，使得被剪切、时移、叠加后的等效频谱中奇对称的一半正好可以填充另一半，得到一个门函数的频谱，这种方法称为滚降。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109153130.png width=30%><br>常常被选用的奇函数为反比例函数和升余弦函数（即余弦函数+常数）：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109153809.png width=50%>  </p>
+<p>设奇对称信号的带宽为$B_2$,那么滚降后的系统带宽为$B_N+B_2$。<br>滚降滤波器的系统方程可以表示为：</p>
+<script type="math/tex; mode=display">H(ω)=\begin{cases}
+    Const, 0≤ω≤B_N\\
+    f(ω), B_N≤ω≤B_N+B_2\\
+    0,ω≥B_N+B_2
+\end{cases}</script><blockquote>
+<p>根据系统方程可以将滚降系统的频谱分为：非滚降区、滚降区和截止区。  </p>
+</blockquote>
+<p>定义滚降系数$α=\frac{B_2}{B_N}$，那么系统带宽又可以写作：  </p>
 <script type="math/tex; mode=display">B=(1+α)B_N,0≤α≤1</script><p>频谱利用效率为:$η=\frac{2}{1+α}$<br>系统所支持的无码间串扰的最大速率为:$R_{B|max}=2B_N$<br>可以发现，$α$越大，系统带宽就越大，系统有效性下降，但是从频谱图上来看，$α$越大，系统波形拖尾越小，可靠性上升。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211109154450.png width=50%>  </p>
-<p>$α=1$时的滤波器称为全滚降滤波器，全滚降滤波器没有非滚降段，系统方程表示为：  </p>
+<h4 id="全滚降滤波器"><a href="#全滚降滤波器" class="headerlink" title="全滚降滤波器"></a>全滚降滤波器</h4><p>$α=1$时的滤波器称为全滚降滤波器，全滚降滤波器没有非滚降段，系统方程表示为：  </p>
 <script type="math/tex; mode=display">H(ω)=\begin{cases}
     f(ω), 0≤ω≤2B_N\\
     0,ω≥2B_N
 \end{cases}</script><p>此时系统的带宽为$B=2B_N$。  </p>
+<h3 id="部分响应系统"><a href="#部分响应系统" class="headerlink" title="部分响应系统*"></a>部分响应系统*</h3><p>滚降滤波器虽然可以解决理想低通滤波器在实际系统设计中无法应用的问题，但是其频谱效率只有$\frac{2}{1+α}$，不能达到理想低通滤波器$η=2$的效果。部分响应系统通过人为地引入码间串扰来改善这一问题。<br>部分响应系统的基本设想是使用两个波形相同，但是各自时移$\frac{T_s}{2}$的脉冲信号传输一个码元：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211112183659.png width=60%><br>虽然部分响应系统在每一个采样时刻都存在码间串扰，但是这个码间串扰仅由表达一个码元的相邻两个脉冲引起，这个特性使得在接收端可以消除码间串扰。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">系统类型</th>
+<th style="text-align:center">$R_{Bmax}$</th>
+<th style="text-align:center">$B$</th>
+<th style="text-align:center">$η$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">理想低通滤波器</td>
+<td style="text-align:center">$2B_N$</td>
+<td style="text-align:center">$B_N$</td>
+<td style="text-align:center">$2$</td>
+</tr>
+<tr>
+<td style="text-align:center">滚降滤波器</td>
+<td style="text-align:center">$2B_N$</td>
+<td style="text-align:center">$(1+α)B_N$</td>
+<td style="text-align:center">$\frac{2}{1+α}$</td>
+</tr>
+<tr>
+<td style="text-align:center">全滚降滤波器</td>
+<td style="text-align:center">$2B_N$</td>
+<td style="text-align:center">$2B_N$</td>
+<td style="text-align:center">$1$</td>
+</tr>
+<tr>
+<td style="text-align:center">部分响应系统</td>
+<td style="text-align:center">$\frac{1}{T_s}$</td>
+<td style="text-align:center">$\frac{1}{2T_s}$</td>
+<td style="text-align:center">$2$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="时域均衡"><a href="#时域均衡" class="headerlink" title="时域均衡*"></a>时域均衡*</h2><p>由于信道是时变系统，信道总会使得信号产生码间串扰。解决这一问题的方法是在接收机与接收滤波器之间增加一个均衡器$E_x$，通过均衡使得波形满足奈奎斯特第一定律进而消除码间串扰。均衡的方式有两种：时域均衡和频域均衡。本课只介绍时域均衡。<br>时域均衡的基本思想是在$t+n,n≠0$的时刻对采样信号叠加一个完全相反的冲激信号以抵消原本在采样时刻存在的非零电平，迫使$x(t+nT_s)=0$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113104051.png width=70%>  </p>
+<p>时域均衡器由若干个延迟器和自动调整权重的抽头以及相加器组成。延迟器的作用是确保获取$x(t)$在每一个$nT_s$上的抽样值，由自动调整权重的抽头赋予冲激信号一个与抽样值完全相反的权重、并与抽样值抵消，得到抽头信号。理论上，抽头信号只会在$x(t)$时有值。最后相加器将所有抽头信号相加，得到满足奈奎斯特第一定律的输出信号。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113104527.png width=70%></p>
 
             </div>
             <hr>
@@ -352,6 +404,12 @@ p.spoiler {
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/11/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/11.%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">11. 数字基带系统的性能分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
