@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>8. 交流工作下的晶体管</title>
+    <link href="/2021/11/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/8.%20BJT%20models/"/>
+    <url>/2021/11/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/8.%20BJT%20models/</url>
+    
+    <content type="html"><![CDATA[<h1 id="交流工作下的晶体管"><a href="#交流工作下的晶体管" class="headerlink" title="交流工作下的晶体管"></a>交流工作下的晶体管</h1><h2 id="交流工作下的基极偏置"><a href="#交流工作下的基极偏置" class="headerlink" title="交流工作下的基极偏置"></a>交流工作下的基极偏置</h2><h3 id="耦合电容"><a href="#耦合电容" class="headerlink" title="耦合电容"></a>耦合电容</h3><p>在交流状态下工作的电容器称为耦合电容，耦合电容的特性可以用一句话总结：耦合电容会阻碍直流分量并允许交流分量通过，即“隔直流，通交流”。<br>根据电容的容抗计算公式：$X_c=\frac{1}{2πfc}$<br>当直流分量通过电容时，电容的容抗会非常的大，电容视为断路。<br>当交流分量通过电容时，如果频率非常的高，则电容视为短路。一般认为$X_c&lt;0.1R$（$R$为电路中的总电阻值）时，电容就视为短路。<br>在晶体管电路中，耦合电容的作用是阻止交流源电压源和输出电阻改变晶体管的静态工作点。</p><h3 id="基极偏置电路分析"><a href="#基极偏置电路分析" class="headerlink" title="基极偏置电路分析"></a>基极偏置电路分析</h3><p>交流下的基极偏置电路如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113163113.png width=60%>  </p><p>电路特点：</p><ul><li>在输入端（基极）和输出端（集电极）各有一个耦合电容。   </li><li>输入电压（即基极处的电源）$v_{bb}$是一个交流信号，不含有直流分量。  </li><li>供电电压$V_{CC}$是一个直流信号，不含有交流分量。  </li></ul><p>当晶体管的基极和集电极存在耦合电容时，基极端的交流电源和输出端的输出电阻对晶体管的工作状态不会有任何的影响。<br>电路中所有的电流都可以分解为直流分量和交流分量两部分：  </p><script type="math/tex; mode=display">i_B=I_B+i_b</script><p><strong>晶体管只会改变电路中电流的直流分量，交流分量保持不变。</strong><br>因此，交流状态下的基极偏置<strong>只需要按照对应静态工作点计算出直流分量的值，在加上或减去交流分量即可。</strong>  </p><blockquote><p>需要注意的是由于$v_C=V_{CC}-i_CR_c-V_{CE}$，因此$v_C$的波形与$i_C$应当是<strong>反相</strong>的。由于$i_C=βi_B$，因此$i_B$的波形与$i_C$<strong>同相</strong>。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113162613.png width=50%>  </p></blockquote><p>同时，由于耦合电容的特性，输出端的耦合电容会将直流分量完全去除，<strong>最终在输出电阻$R_L$上的电压/电流没有直流分量</strong>。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113162834.png width=60%>  </p><h2 id="大信号模型"><a href="#大信号模型" class="headerlink" title="大信号模型"></a>大信号模型</h2><p>晶体管的大小信号模型针对基极的输入电压含有直流分量和交流分量时的电路进行分析。基极输入的直流分量较大，与交流分量可比时的电路分析模型称为大信号模型。<br>在大信号模型下，$v_{BE}$与$i_C$是非线性关系，两者之间满足：  </p><script type="math/tex; mode=display">i_C=I_Se^{\frac{v_{BE}}{V_T}}</script><p>其中$I_S$是$I_C$的饱和电流，$V_T$是晶体管在CB两点间存在温差而出现的电位差（热电压），在室温下约为25.9mV。<br>根据上述关系，可以将集电极的等效二极管近似看做是一个电压控制电流源，发射极的等效二极管保持不变：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113164129.png width=30%>  </p><p>同时，希望在CE出导出输出电压，得到一个电压放大器（小的输出电压$v_{BE}$放大为$v_{CE}$），因此在集电极处加入一个电阻$R_C$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113164622.png width=30%>  </p><p>那么电路中输出电压$v_{CE}$与输入电压$v_{BE}$的关系如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113164828.png width=50%>  </p><p>从上图可以看出处于激活模式下，输入电压$v_{BE}$必须控制在一个小电压范围内。在激活模式下：</p><script type="math/tex; mode=display">v_{CE}=\begin{aligned}    V_{CC}-R_Ci_C\\    V_{CC}-R_CI_Se^{\frac{v_{BE}}{V_T}}\end{aligned}</script><p>通过上述公式可知，$v_{CE}$的波形与$v_{BE}$<strong>反相</strong>。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113165310.png width=50%>  </p><p>当$v_{BE}=V_{BE}$时，说明输入电压仅含直流分量，此时晶体管处于静态工作点。在该点对其求斜率得到（等效电压放大器的）直流电压增益：  </p><script type="math/tex; mode=display">A_v=\frac{dv_{CE}}{dv_{BE}}|_{v_{BE}=V_{BE}}</script><p>带入$i_C$的表达式，有：  </p><script type="math/tex; mode=display">A_v=-\frac{I_C}{V_T}R_C=-\frac{V_{CC}-V_{CE}}{V_T}</script><p>可以发现，在激活模式下，$V_{CE}$越低，直流电压增益越大。  </p><h2 id="小信号模型"><a href="#小信号模型" class="headerlink" title="小信号模型"></a>小信号模型</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>电子系统</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>11. 数字基带系统的性能分析</title>
     <link href="/2021/11/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/11.%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/"/>
     <url>/2021/11/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/11.%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</url>
