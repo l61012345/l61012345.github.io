@@ -312,7 +312,7 @@ p.spoiler {
 <script type="math/tex; mode=display">S=E[(m_k)^2]=∫x^2f(x)dx</script><p>$m_k$表示采样值，$m_q$表示量化值。<br>量化值与实际值之间的误差称为量化误差/量化噪声，量化噪声的功率在数学上表示为：  </p>
 <script type="math/tex; mode=display">N_q=E[(m_k-m_q)^2]=∫_a^b(x-m_q)^2f(x)dx</script><p>$f(x)$是原信号的概率密度函数，原信号需要符合均匀分布才能使用均匀量化。<br>带入$m_i=a+iΔ$，$q_i=a+iΔ+i\frac{Δ}{2}$后化简计算，可以发现<strong>量化噪声的功率只与量化间隔有关。</strong><br>定义量化信噪比为输入的采样信号功率与量化噪声的功率之比：  </p>
 <script type="math/tex; mode=display">\frac{S}{N_q}=\frac{E[(m_k)^2]}{E[(m_k-m_q)^2]}</script><p>从上述结论可以发现，量化噪声与输入信号的功率大小无关，因此小的输入信号功率会导致非常小的量化信噪比。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023140452.png width=50%>  </p>
-<h3 id="非均匀量化"><a href="#非均匀量化" class="headerlink" title="非均匀量化"></a>非均匀量化</h3><p>解决“小的输入信号功率会导致大的量化信噪比”这一问题的基本思路是使用一个函数对信号的幅值进行重映射，使其能够扩大小功率时的幅值，缩小大功率时的幅值。这个函数称为压缩律。输入信号经过压缩器使用压扩器增大小功率信号的幅值后，再使用均匀量化就能减小量化信噪比。在接收处，通过压缩率的反函数可以对压缩信号进行还原。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023140905.png width=80%>  </p>
+<h3 id="非均匀量化"><a href="#非均匀量化" class="headerlink" title="非均匀量化"></a>非均匀量化</h3><p>解决“小的输入信号功率会导致量化信噪比小”这一问题的基本思路是使用一个函数对信号的幅值进行重映射，使其能够扩大小功率时的幅值，缩小大功率时的幅值。这个函数称为压缩律。输入信号经过压缩器使用压扩器增大小功率信号的幅值后，再使用均匀量化就能减小量化信噪比。在接收处，通过压缩率的反函数可以对压缩信号进行还原。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023140905.png width=80%>  </p>
 <p>国际电信联盟（ITU）所采用的两种压缩律分别为A压缩律和μ压缩律，A压缩律在中国和欧盟国家使用，μ压缩律在美国、日本、韩国使用，国际通信时使用A压缩律作为标准。本章只介绍A压缩律。<br>A压缩律可以用如下公式表示：  </p>
 <script type="math/tex; mode=display">y=\begin{cases}
     \frac{Ax}{1+lnA},0≤x≤\frac{1}{A}\\
