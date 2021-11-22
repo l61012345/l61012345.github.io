@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      799 字
+      1.6k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      18
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月18日 凌晨
+                  本文最后更新于：2021年11月22日 下午
                 
               </p>
             
@@ -288,7 +288,7 @@ p.spoiler {
 <script type="math/tex; mode=display">S_{2ASK}(t)=\begin{cases}
     cosω_ct,以概率P\\
     0,以概率1-P\\
-\end{cases}</script><h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><p>2ASK调制的实现有两种:  </p>
+\end{cases}</script><h3 id="物理实现"><a href="#物理实现" class="headerlink" title="物理实现"></a>物理实现</h3><p>2ASK调制的实现有两种:  </p>
 <ol>
 <li>模拟调制，载波和信号通过乘法器实现。  </li>
 <li>键控法：原来的数字信号作为数字开关的控制信号，控制数字开关的开闭时间。数字开关的两个输入信号一个接地，即零信号，另一个输入接入载波信号$cosω_0t$。在原信号为“1”的时刻，数字开关打开，输出载波波形，在原信号为“0”的时刻，数字开关关闭，不输出任何信号。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118091332.png width=50%></li>
@@ -304,7 +304,57 @@ p.spoiler {
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118100000.png width=60%>  </p>
 <p>由于$cosω_ct$的采样性质，同时观察频谱可以得到，2ASK的频谱带宽是基带信号带宽的2倍：  </p>
 <script type="math/tex; mode=display">B_{2ASK}=2B_s</script><p>带宽利用效率为：  </p>
-<script type="math/tex; mode=display">η=\frac{R_B}{B_{2ASK}}</script><p>当基带信号没有码间串扰、且基带系统中使用理想低通滤波器时：$B_s=2R_B=2f_s$。<br>此时带宽利用效率为$η=\frac{R_B}{B_{2ASK}=0.5b/s.Hz}$。  </p>
+<script type="math/tex; mode=display">η=\frac{R_B}{B_{2ASK}}</script><p>当基带信号为不归零码、没有码间串扰、且基带系统中使用理想低通滤波器时：$B_s=2R_B=2f_s$。<br>此时带宽利用效率为$η=\frac{R_B}{B_{2ASK}}=0.5b/s.Hz$。  </p>
+<h3 id="解调方法"><a href="#解调方法" class="headerlink" title="解调方法"></a>解调方法</h3><p>2ASK的解调可以有两种方法：相干解调和非相干解调（包络检波法）。  </p>
+<h4 id="相干解调"><a href="#相干解调" class="headerlink" title="相干解调"></a>相干解调</h4><p>同模拟信号调幅的解调，在接收端信号与另个同频同相的载波信号$cosω_ct$相乘得到：  </p>
+<script type="math/tex; mode=display">S(t)cos^2ω_ct=S(t)\frac{1}{2}(1+cos2ω_ct)</script><p>由上述式子可以发现：  </p>
+<ol>
+<li>在与相干波形相乘后，原信号的极性被移除。  </li>
+<li>相乘后的波形由直流分量和时变波形两部分组成。  </li>
+</ol>
+<p>因此，使用低通滤波器只保留直流分量，最终通过抽样判决器输出数字信号。<br>抽样判决器的最佳判决门限应该为$\frac{a}{2}$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122205046.png width=50%>  </p>
+<h4 id="非相干解调（包络检波法）"><a href="#非相干解调（包络检波法）" class="headerlink" title="非相干解调（包络检波法）"></a>非相干解调（包络检波法）</h4><p>另一种去除信号极性的方式是使用全波整流器输出信号的绝对值波形，然后使用低通滤波器过滤高频分量，最终通过抽样判决器输出数字信号。<br>非相干解调过程如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122205159.png width=50%></p>
+<h2 id="FSK"><a href="#FSK" class="headerlink" title="FSK"></a>FSK</h2><h3 id="调制方法-1"><a href="#调制方法-1" class="headerlink" title="调制方法"></a>调制方法</h3><p>FSK使用两个不同频率的载波$cos(ω_1t)$、$cos(ω_2t)$来表示数字信号“1”和“0”。<br>假设原信号以$a_n$表示（表达式和之前的相同），$\overline{a_n}$表示其取反后的数字信号，那么原信号经过调制后的波形表示为：  </p>
+<script type="math/tex; mode=display">S_{FSK}=[∑_na_ng(t-nT_s)]cos(ω_1t)+[∑_n\overline{a_n}g(t-nT_s)]cos(ω_2t)</script><p>从上式可以看出FSK其实是两个频率不同的ASK信号的叠加。  </p>
+<h3 id="物理实现-1"><a href="#物理实现-1" class="headerlink" title="物理实现"></a>物理实现</h3><p>FSK调制的实现有两种:  </p>
+<ol>
+<li><p>模拟调制：两个波形完全相反的信号各通过模拟调制乘上不同频率的载波后相加。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122210724.png width=50%>  </p>
+</li>
+<li><p>键控法：原信号作为一个数字开关的控制信号的同时，其反相信号作为另一个数字开关的控制信号，两个数字开关在打开时分别输出$cosω_1t$与$cosω_2t$的波形。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122211148.png width=50%>  </p>
+</li>
+</ol>
+<h3 id="波形和频谱分析"><a href="#波形和频谱分析" class="headerlink" title="波形和频谱分析"></a>波形和频谱分析</h3><p>整个调制过程的波形如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122211340.png width=50%>  </p>
+<p>其频谱函数表达为：  </p>
+<script type="math/tex; mode=display">P_{2FSK}(f)=\frac{T_s}{16}[Sa^2[π(f+f_1)T_s]+Sa^2[π(f-f_1)T_s]+Sa^2[π(f+f_2)T_s]+Sa^2[π(f-f_2)T_s]]+\frac{1}{16}[δ(f+f_1)+δ(f-f_1)+δ(f+f_2)+δ(f-f_2)]</script><p>其中：  </p>
+<ul>
+<li>$Sa^2[π(f+f_1)T_s]+Sa^2[π(f-f_1)T_s]$：以$f_1$为中心的连续谱分量，根据$cosω_ct$的采样性质, 其带宽为$B_s$。</li>
+<li>$Sa^2[π(f+f_2)T_s]+Sa^2[π(f-f_2)T_s]$：以$f_2$为中心的连续谱分量,其带宽为$B_s$。</li>
+<li>$δ(f+f_1)+δ(f-f_1)$：以$f_1$为中心的冲激分量</li>
+<li>$δ(f+f_2)+δ(f-f_2)$：以$f_2$为中心的冲激分量</li>
+</ul>
+<p>可以发现，受调信号的频谱与$f_1$和$f_2$的大小有关,当且仅当$|f_2-f_1|≥2f_s$时，两个连续谱分量能够完全分离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122212634.png width=50%><br>受调信号的带宽表示为：  </p>
+<script type="math/tex; mode=display">B_{2FSK}=2B_S+|f_2-f_1|</script><h3 id="解调方法-1"><a href="#解调方法-1" class="headerlink" title="解调方法"></a>解调方法</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">调制方式</th>
+<th style="text-align:center">受调信号的码型</th>
+<th style="text-align:center">受调信号的带宽</th>
+<th style="text-align:center">解调方法</th>
+<th style="text-align:center">解调的最佳判决门限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ASK</td>
+<td style="text-align:center">单极性码</td>
+<td style="text-align:center">$2B_s$</td>
+<td style="text-align:center">相干解调<br>非相干解调</td>
+<td style="text-align:center">$\frac{a}{2}$</td>
+</tr>
+</tbody>
+</table>
+</div>
 
             </div>
             <hr>
