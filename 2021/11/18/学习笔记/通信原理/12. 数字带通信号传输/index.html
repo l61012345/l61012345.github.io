@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      2.5k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      18
+      28
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月22日 下午
+                  本文最后更新于：2021年11月23日 凌晨
                 
               </p>
             
@@ -333,7 +333,22 @@ p.spoiler {
 <li>$δ(f+f_2)+δ(f-f_2)$：以$f_2$为中心的冲激分量</li>
 </ul>
 <p>可以发现，受调信号的频谱与$f_1$和$f_2$的大小有关,当且仅当$|f_2-f_1|≥2f_s$时，两个连续谱分量能够完全分离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122212634.png width=50%><br>受调信号的带宽表示为：  </p>
-<script type="math/tex; mode=display">B_{2FSK}=2B_S+|f_2-f_1|</script><h3 id="解调方法-1"><a href="#解调方法-1" class="headerlink" title="解调方法"></a>解调方法</h3><div class="table-container">
+<script type="math/tex; mode=display">B_{2FSK}=2B_S+|f_2-f_1|</script><h3 id="解调方法-1"><a href="#解调方法-1" class="headerlink" title="解调方法"></a>解调方法</h3><h4 id="相干解调-1"><a href="#相干解调-1" class="headerlink" title="相干解调"></a>相干解调</h4><p>在接收端，FSK信号$S_{2FSK}(t)$分为两路，各通过一个带通滤波器，只过滤出$f_1$或者$f_2$的频谱分量，每一路信号在通过带通滤波器之后与对应的同频同向的载波信号相乘去除极性，通过低通滤波器过滤掉高频分量后，送入抽样判决器进行判决。<br>只有在$f_1$和$f_2$的连续谱分量完全分离时，带通滤波器才能准确提取出对应频率的分量，因此相干解调只适用于$|f_1-f_2|≥2f_s$的情况。<br>抽样判决器的判决标准是两路信号在同一个码元周期$T_s$内的电平大小进行比较，哪路信号的电平高，则数字信号的值就为这一路所代表的逻辑值。因此，相干解调不需要设置判决门限。  </p>
+<blockquote>
+<p>虽然对2FSK信号仍然可以通过带通滤波器提取其中一个频率的连续谱分量，使用ASK的解调方式进行解调。但是在M-FSK（即进制数不再为二进制时）信号的解调中无法单独使用某一路信号来还原全部数字信号，因此这种方法并不通用。  </p>
+</blockquote>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211123130813.png width=70%>  </p>
+<h4 id="非相干解调（包络检波法）-1"><a href="#非相干解调（包络检波法）-1" class="headerlink" title="非相干解调（包络检波法）"></a>非相干解调（包络检波法）</h4><p>非相干解调的过程和相干解调基本相同，只不过每一路信号采用包络检波法取代与载波相乘。<br>由于仍然需要带通滤波器分别提取两路信号的频谱分量，因此非相干解调也只适用于$|f_1-f_2|≥2f_s$的情况。<br>抽样判决的过程和相干解调相同，也不需要设置判决门限。  </p>
+<h4 id="过零检波法"><a href="#过零检波法" class="headerlink" title="过零检波法"></a>过零检波法</h4><p>非相干解调和相干解调都只适用于$|f_1-f_2|≥2f_s$的情况，而过零检波法没有这样的条件限制。<br>在波形图上波形过0的次数越多代表码元周期内的频率越高，过零检波法的基本思路是用码元周期内平均幅度的大小来表示频率的高低。<br>过零检波法的具体过程是：FSK信号首先通过限制幅度将正弦波转变为方波，方波通过微分器后变为脉冲信号，经过整流器去除极性后，再用宽脉冲发生器依据脉冲信号重新生成无极性的方波信号。  </p>
+<blockquote>
+<p>宽脉冲发生器的作用是扩大码元周期之间符号持续时间的差异，这个差异在信号通过低通滤波器后会转变成直流分量幅值的差异。  </p>
+</blockquote>
+<p>方波信号会通过低通滤波器，低通滤波器只会允许低频分量（在此看做只有直流分量可以通过）通过滤波器，在单个码元周期中，方波脉冲的个数越多，代表其平均幅度越大，根据直流分量代表波形中的平均幅度可知，其直流分量也会更大。因此原波形中高频的部分通过低通滤波器之后的直流分量更大，低频部分通过低通滤波器后的直流分量更小。  </p>
+<blockquote>
+<p>方波脉冲信号的直流分量：$\frac{1}{T_s}∑τ_iA_i,τ_i$为周期内第$i$个方波脉冲的持续时间。  </p>
+</blockquote>
+<p>最后信号通过抽样判决器，抽样判决器的最佳判决门限为$\frac{a}{2}$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211123133627.png width=50%>  </p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -351,6 +366,13 @@ p.spoiler {
 <td style="text-align:center">$2B_s$</td>
 <td style="text-align:center">相干解调<br>非相干解调</td>
 <td style="text-align:center">$\frac{a}{2}$</td>
+</tr>
+<tr>
+<td style="text-align:center">FSK</td>
+<td style="text-align:center">单极性码</td>
+<td style="text-align:center">$\lvert f_1-f_2\rvert +2B_s$</td>
+<td style="text-align:center">相干解调<br>非相干解调<br>过零检波法<br></td>
+<td style="text-align:center">无<br>无<br>$\frac{a}{2}$</td>
 </tr>
 </tbody>
 </table>
