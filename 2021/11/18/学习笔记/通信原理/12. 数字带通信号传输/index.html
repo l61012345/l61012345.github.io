@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.5k 字
+      2.8k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      32
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月23日 凌晨
+                  本文最后更新于：2021年11月25日 凌晨
                 
               </p>
             
@@ -348,6 +348,24 @@ p.spoiler {
 <p>方波脉冲信号的直流分量：$\frac{1}{T_s}∑τ_iA_i,τ_i$为周期内第$i$个方波脉冲的持续时间。  </p>
 </blockquote>
 <p>最后信号通过抽样判决器，抽样判决器的最佳判决门限为$\frac{a}{2}$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211123133627.png width=50%>  </p>
+<h2 id="PSK"><a href="#PSK" class="headerlink" title="PSK"></a>PSK</h2><h3 id="调制方法-2"><a href="#调制方法-2" class="headerlink" title="调制方法"></a>调制方法</h3><p>PSK对数字信号的相位进行调制，其使用两个相位不同的载波（通常相位差为$π$）$Acosω_Ct$、$Acos(ω_ct+π)$来表达逻辑“1”和“0”。  </p>
+<script type="math/tex; mode=display">S_{2PSK}=\begin{cases}
+   Acosω_Ct \text{ 表示"1"}\\
+   Acos(ω_Ct+π) \text{ 表示"0"}
+\end{cases}=\begin{cases}
+   Acosω_Ct \text{ 表示"1"}\\
+   -Acos(ω_Ct) \text{ 表示"0"}
+\end{cases}</script><p>从表达式上可以看出，PSK将原信息$a_n$由单极性码转变为双极性码：$a_n=\begin{cases}<br>   +1 \text{ 以概率P表示“1”}\\<br>   -1 \text{ 以概率P表示“0”}<br>\end{cases}$，再与载波相乘。因此可以将PSK看做是双极性码的ASK。  </p>
+<h3 id="物理实现-2"><a href="#物理实现-2" class="headerlink" title="物理实现"></a>物理实现</h3><p>物理实现的方法有两种：  </p>
+<ol>
+<li>模拟调制：将单极性码通过码型变换模块转为双极性码，再与载波相乘。  </li>
+<li>键控法：数字开关的两个输入端一个为$cosω_ct$，其通过相移模块相移$π$后成为数字开关的第二个输入信号，数字开关以$S(t)$作为控制信号。  </li>
+</ol>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125132110.png width=30%>  </p>
+<h3 id="波形和频谱分析-1"><a href="#波形和频谱分析-1" class="headerlink" title="波形和频谱分析"></a>波形和频谱分析</h3><p>PSK信号的波形可以表示为：</p>
+<script type="math/tex; mode=display">S_{2PSK}(t)=∑_na_ng(t-nT_s)cosω_ct</script><p>其中$a_n$是双极性码。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125133034.png width=50%>  </p>
+<p>PSK的功率谱表达式为：  </p>
+<script type="math/tex; mode=display">P_{2PSK}(f)=\frac{T_s}{4}\{Sa^2[π(f+f_c)T_s]+Sa^2[π(f-f_c)T_s]\}</script><p>可以发现，PSK的功率谱表达式实则为ASK功率谱中的连续分量。由于$a_n$是双极性码，因此功率谱中不含有离散的冲激分量。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125134908.png width=50%></p>
 <div class="table-container">
 <table>
 <thead>
