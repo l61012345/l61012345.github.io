@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      446 字
+      2k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      24
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月29日 下午
+                  本文最后更新于：2021年11月30日 早上
                 
               </p>
             
@@ -296,7 +296,42 @@ p.spoiler {
 <p>由于晶体管的存在，此时：  </p>
 <script type="math/tex; mode=display">I_{REF}=I_C+I_{B3}</script><script type="math/tex; mode=display">I_{B3}=\frac{I_{E3}}{β+1}=\frac{2I_C}{β(β+1)}</script><p>因此：  </p>
 <script type="math/tex; mode=display">I_O=I_{C}=\frac{I_{REF}}{1+\frac{2}{β(β+1)}}</script><p>相比于原来的电流镜电路，输出的电流大小对β的依赖性更低，更加稳定。  </p>
-
+<h3 id="基本增益单元"><a href="#基本增益单元" class="headerlink" title="基本增益单元"></a>基本增益单元</h3><p>$I_{REF}$的产生方式有两种：第一种是通过给电压，使用电阻将电压转换为电流。另一种是直接给一个电流源。<br>在集成电路设计中第一种方法无法精准控制电流的大小，因此通常采用第二种方法来获得$I_{REF}$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130133505.png width=70%>  </p>
+<p>在小信号模型中对其进行分析，其开环增益应该为：  </p>
+<script type="math/tex; mode=display">A_{vo}=-g_mr_o</script><h2 id="达灵顿对"><a href="#达灵顿对" class="headerlink" title="达灵顿对"></a>达灵顿对</h2><p>达灵顿对（Darlington pair）是由两个（甚至多个）双极性晶体管组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流增益。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个集极。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130134014.png width=30%>   </p>
+<p>达灵顿对的电流增益可以表示为：  </p>
+<script type="math/tex; mode=display">β=β_1×β_2</script><p>现在，达灵顿晶体管产品的典型电流增益可以达到1000甚至更高，因此只需要很小的基极电流就可以让晶体管导通。然而，这样高的电流增益也带来了一些缺点。<br>达灵顿对的问题在于通常$I_{B2}$非常小，因此$I_{E1}$很小，容易造成$I_{C1}$减小，影响$β_1$，使得$Q_1$进入截止工作状态而无法正常工作。  </p>
+<blockquote>
+<p>下图表示了$β$随$I_C$的变化曲线，可以发现如果$I_C$非常小的话，$β$无限趋近于0，晶体管进入截止状态。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130141945.png width=50%>  </p>
+</blockquote>
+<p>解决方法是在$Q_1$的发射极区增加一个恒定的电流源，使$I_{E1}=I_{B2}+I$，以维持$I_{E1}$的电流水平，使$I_{C1}$不至于过小。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130142236.png width=30%>  </p>
+<h2 id="差分对"><a href="#差分对" class="headerlink" title="差分对"></a>差分对</h2><p>差分对是另一种常见于集成电路设计的基本结构，由于差分电路输出的结果是两个输入信号的差值，两个输入信号中携带的噪音在做差时很容易减小甚至是被除去，因此差分电路对于噪音和干扰的鲁棒性强，在集成电路中得到广泛的应用。<br>最基本的差分对结构如下图所示，差分对电路由两个完全相同的晶体管$Q_1$和$Q_2$组成。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130142858.png width=50%>  </p>
+<p>差分对电路中的两基极电压$v_{B1}$和$v_{B2}$用于设置两个晶体管状态处于激活模式或截止模式。$i_C$可以用电压$V_{CC}$加电阻$R_C$产生，也可以使用电流源直接产生。  </p>
+<h3 id="差分对的正常模式"><a href="#差分对的正常模式" class="headerlink" title="差分对的正常模式"></a>差分对的正常模式</h3><p>当$v_{B1}=v_{B2}=V_{CM}$时，晶体管处于正常模式。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130143312.png width=50%></p>
+<p>在正常模式下，</p>
+<script type="math/tex; mode=display">i_{E1}=i_{E2}=\frac{I}{2}</script><script type="math/tex; mode=display">V_{C1}=V_{C2}=V_{CC}-\frac{1}{2}αIR_C</script><p>可以发现，$Q_1$和$Q_2$均处于激活模式，此时输出的电压$V_{C1}$和$V_{C2}$与$V_{CM}$没有任何关系。  </p>
+<h3 id="差分对的差分模式"><a href="#差分对的差分模式" class="headerlink" title="差分对的差分模式"></a>差分对的差分模式</h3><p><strong>当用于设置晶体管工作状态的$v_{B1}$和$v_{B2}$不相同时，$Q_1$和$Q_2$两个晶体管中一个晶体管处于正常模式，另一个晶体管处于截止模式。</strong><br>此时需要对两个晶体管的工作状态进行假设，然后观察两个晶体管的$V_{BE}&gt;0.7V$的条件是否成立，且是否与假设冲突，进而确定两个晶体管的工作状态。  </p>
+<p>在差分模式下，其中处于截止状态的晶体管的输出电压：  </p>
+<script type="math/tex; mode=display">V_{C}=V_{CC}</script><p>处于激活状态的晶体管的输出电压：  </p>
+<script type="math/tex; mode=display">V_{C}=V_{CC}-αIR_C</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130144602.png width=30%></p>
+<h2 id="差分放大电路"><a href="#差分放大电路" class="headerlink" title="差分放大电路"></a>差分放大电路</h2><p>差分放大电路是利用差分对性质构成的放大电路，其输入电压为两个晶体管的基极电压信号，输出两个晶体管集电极电压的差值。  </p>
+<h3 id="大信号模型"><a href="#大信号模型" class="headerlink" title="大信号模型"></a>大信号模型</h3><p>在大信号模型下，输入的电压信号既有交流信号，也有直流信号。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130144839.png width=50%><br>此时：  </p>
+<script type="math/tex; mode=display">i_{E1}=\frac{I_S}{α}e^{(v_{B1}-v_E)/V_T}</script><script type="math/tex; mode=display">i_{E2}=\frac{I_S}{α}e^{(v_{B2}-v_E)/V_T}</script><p>两式子相除：  </p>
+<script type="math/tex; mode=display">\frac{i_{E1}}{i_{E2}}=e^{v_{id}/V_T}</script><p>其中$v_{id}$是输入电压信号的差值：$v_{id}=v_{B1}-v_{B2}$。<br>令$I=i_{E1}+i_{E2}$，等式两边同时加$1$以带入$I$，得到：  </p>
+<script type="math/tex; mode=display">i_{E2}=\frac{I}{1+e^{v_{id}/V_T}}≈i_{C2}</script><script type="math/tex; mode=display">i_{E1}=\frac{I}{1+e^{-v_{id}/V_T}}≈i_{C1}</script><p>绘制出$i_C$关于$v_{id}$的图像，即差分放大电路的大信号模型特性曲线：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130152811.png width=60%></p>
+<p>在大信号模型中找到$v_{id}=0$（即$v_{B1}=v_{B2}=V_{CM}$）附近的线性区，在这个区域中，两个晶体管可以视作是在直流工作状态的激活模式下。  </p>
+<h3 id="小信号模型"><a href="#小信号模型" class="headerlink" title="小信号模型"></a>小信号模型</h3><p>小信号模型基于大信号模型中的线性区域进行分析，根据大信号模型中得出的结论：  </p>
+<script type="math/tex; mode=display">i_{C1}=\frac{αI}{1+e^{v_{-id}/V_T}}</script><script type="math/tex; mode=display">i_{C2}=\frac{αI}{1+e^{v_{id}/V_T}}</script><p>对于$i_{C1}$，分子分母同时乘以$e^{v_{id}/V_T}$：  </p>
+<script type="math/tex; mode=display">i_{C1}=\frac{αIe^{v_{id}/2V_T}}{e^{v_{id}/V_T}+e^{v_{-id}/V_T}}</script><p>利用泰勒展开式展开，并保留前两项，化简得到：  </p>
+<script type="math/tex; mode=display">i_{C1}=\frac{αI}{2}+\frac{αI}{2V_T}\frac{v_{id}}{2}</script><script type="math/tex; mode=display">i_{C1}=I_C-g_m\frac{v_{id}}{2}</script><p>由于$i_{C1}$由直流分量和交流分量组成，而$I_C$为纯粹的直流分量，因此$i_{C1}$的交流分量：  </p>
+<script type="math/tex; mode=display">i_{c1}=g_m\frac{v_{id}}{2}</script><p>同理可得：  </p>
+<script type="math/tex; mode=display">i_{c2}=-g_m\frac{v_{id}}{2}</script><h3 id="差分增益"><a href="#差分增益" class="headerlink" title="差分增益"></a>差分增益</h3><p>通过之前的分析可以得到两个输出电压：  </p>
+<script type="math/tex; mode=display">v_{C1}=V_{CC}-I_CR_C-i_{C1}R_C</script><script type="math/tex; mode=display">v_{C2}=V_{CC}-I_CR_C+i_{C2}R_C</script><p>定义差分电路的差分增益为输出电压信号的差值和输入电压信号的差值$v_{id}$之比：  </p>
+<script type="math/tex; mode=display">A_d=\frac{v_{C2}-v_{C1}}{v_{id}}=g_mR_C</script><h4 id="小信号模型的差分增益"><a href="#小信号模型的差分增益" class="headerlink" title="小信号模型的差分增益"></a>小信号模型的差分增益</h4><p>对两个晶体管在小信号模型下使用T模型进行分析：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130154322.png width=50%>  </p>
+<p>其输入电阻为：  </p>
+<script type="math/tex; mode=display">R_{id}=\frac{v_{id}}{i_b}=2(β+1)r_e=2r_π</script><p>有:  </p>
+<script type="math/tex; mode=display">i_e=\frac{v_{id}}{2r_e}≈i_c</script><script type="math/tex; mode=display">v_{c1}=-\frac{αv_{id}}{2r_e}R_C</script><script type="math/tex; mode=display">v_{c2}=\frac{αv_{id}}{2r_e}R_C</script><p>小信号模型下的差分增益：  </p>
+<script type="math/tex; mode=display">A_d=\frac{v_{c2}-v_{c1}}{v_{id}}=\frac{2αR_C}{2r_e}≈\frac{R_C}{r_e}</script>
             </div>
             <hr>
             <div>
