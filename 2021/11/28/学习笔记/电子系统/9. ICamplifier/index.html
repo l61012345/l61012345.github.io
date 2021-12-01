@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      2.2k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      25
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月28日 中午
+                  本文最后更新于：2021年12月1日 早上
                 
               </p>
             
@@ -333,7 +333,7 @@ p.spoiler {
 <script type="math/tex; mode=display">A_{vo}=\lim_{R_L→∞}\frac{v_o}{v_{in}}=\lim_{R_L→∞}\frac{R_L}{R_L+r_e}=1</script><script type="math/tex; mode=display">A_{vo}=1</script><p>因此，电路的开环增益等于1。  </p>
 <h3 id="共集极放大电路的特性"><a href="#共集极放大电路的特性" class="headerlink" title="共集极放大电路的特性"></a>共集极放大电路的特性</h3><p>共集极放大电路的开环增益恒等于1，因此在电路中常常作为缓冲器/跟随器使用。  </p>
 <h2 id="完整的晶体管放大电路"><a href="#完整的晶体管放大电路" class="headerlink" title="完整的晶体管放大电路"></a>完整的晶体管放大电路</h2><p>上述的电路分析都是基于小信号模型，在小信号模型中只考虑的交流信号所带来的影响。现在回到大信号模型，同时考虑输入信号的直流分量。此时电路需要在晶体管的三极各设置一个耦合电容以隔绝直流的影响，其余部分保持不变。电路的特性和增益等交流分析的结论仍然适用。  </p>
-<h3 id="完整的放大电路"><a href="#完整的放大电路" class="headerlink" title="完整的放大电路"></a>完整的放大电路</h3><ul>
+<h3 id="完整的放大电路结构"><a href="#完整的放大电路结构" class="headerlink" title="完整的放大电路结构"></a>完整的放大电路结构</h3><ul>
 <li><p>共发射极放大电路<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211128185514.png width=30%>  </p>
 </li>
 <li><p>共基极放大电路<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211128191118.png width=30%>  </p>
@@ -341,6 +341,20 @@ p.spoiler {
 <li><p>共集极放大电路<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211128192601.png width=30%>  </p>
 </li>
 </ul>
+<h3 id="放大电路的频率响应"><a href="#放大电路的频率响应" class="headerlink" title="放大电路的频率响应"></a>放大电路的频率响应</h3><p>由于完整的放大电路中存在电容，当输入的电压信号频率较低时，这些电容的容抗无法在电路分析中忽略，因此放大电路的增益在输入信号为低频信号时有所损失。<br>下图表示了晶体管放大电路的频率响应特性曲线：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211201134850.png width=80%></p>
+<blockquote>
+<p>集成放大器中（比如第10讲的多级放大电路）不存在电容，因此其性能不会受到输入信号中低频分量的影响。但是高频时晶体管内部的类似电容的表现特性也会使得其性能在高频时存在损失。  </p>
+</blockquote>
+<p>在低频输入下，电路中电容不再视为短路。整个电路的低频截止频率$f_L$可以是电路中的每一个电容的截止频率的线性叠加：  </p>
+<script type="math/tex; mode=display">f_L=\frac{1}{2π}∑_i\frac{1}{C_iR_{Ci}}</script><p>其中$R_{Ci}$为单看其中一个电容，其他电容视为短路时，电容电阻构成的滤波器电路中的等效电阻。  </p>
+<blockquote>
+<p>求电路的低频截止频率：  </p>
+<ol>
+<li>单看其中一个电容，剩下电容视为短路。  </li>
+<li>画出等效的滤波器电路模型，找到等效电阻。  </li>
+<li>所有的电容对应的等效电阻都被找到，求每个电容的截止频率，再线性叠加。  </li>
+</ol>
+</blockquote>
 <div class="table-container">
 <table>
 <thead>

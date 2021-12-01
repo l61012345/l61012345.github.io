@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2k 字
+      2.7k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24
+      32
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月30日 早上
+                  本文最后更新于：2021年12月1日 凌晨
                 
               </p>
             
@@ -298,7 +298,8 @@ p.spoiler {
 <script type="math/tex; mode=display">I_O=I_{C}=\frac{I_{REF}}{1+\frac{2}{β(β+1)}}</script><p>相比于原来的电流镜电路，输出的电流大小对β的依赖性更低，更加稳定。  </p>
 <h3 id="基本增益单元"><a href="#基本增益单元" class="headerlink" title="基本增益单元"></a>基本增益单元</h3><p>$I_{REF}$的产生方式有两种：第一种是通过给电压，使用电阻将电压转换为电流。另一种是直接给一个电流源。<br>在集成电路设计中第一种方法无法精准控制电流的大小，因此通常采用第二种方法来获得$I_{REF}$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130133505.png width=70%>  </p>
 <p>在小信号模型中对其进行分析，其开环增益应该为：  </p>
-<script type="math/tex; mode=display">A_{vo}=-g_mr_o</script><h2 id="达灵顿对"><a href="#达灵顿对" class="headerlink" title="达灵顿对"></a>达灵顿对</h2><p>达灵顿对（Darlington pair）是由两个（甚至多个）双极性晶体管组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流增益。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个集极。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130134014.png width=30%>   </p>
+<script type="math/tex; mode=display">A_{vo}=-g_mr_o</script><p><strong>电流镜在集成电路中可以为其他晶体管电路提供稳定的直流电流，在集成电路中常作为直流电流源使用。在小信号模型分析中，电流镜电路和直流电流源一样，被视为开路。</strong>  </p>
+<h2 id="达灵顿对"><a href="#达灵顿对" class="headerlink" title="达灵顿对"></a>达灵顿对</h2><p>达灵顿对（Darlington pair）是由两个（甚至多个）双极性晶体管组成的复合结构，通过这样的结构，经第一个双极性晶体管放大的电流可以进一步被放大。这样的结构可以提供一个比其中任意一个双极性晶体管高得多的电流增益。在使用集成电流芯片的情况里，达灵顿晶体管可以使得芯片比使用两个分立晶体管元件占用更少的空间，因为两个晶体管可以共用一个集极。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211130134014.png width=30%>   </p>
 <p>达灵顿对的电流增益可以表示为：  </p>
 <script type="math/tex; mode=display">β=β_1×β_2</script><p>现在，达灵顿晶体管产品的典型电流增益可以达到1000甚至更高，因此只需要很小的基极电流就可以让晶体管导通。然而，这样高的电流增益也带来了一些缺点。<br>达灵顿对的问题在于通常$I_{B2}$非常小，因此$I_{E1}$很小，容易造成$I_{C1}$减小，影响$β_1$，使得$Q_1$进入截止工作状态而无法正常工作。  </p>
 <blockquote>
@@ -331,7 +332,16 @@ p.spoiler {
 <p>其输入电阻为：  </p>
 <script type="math/tex; mode=display">R_{id}=\frac{v_{id}}{i_b}=2(β+1)r_e=2r_π</script><p>有:  </p>
 <script type="math/tex; mode=display">i_e=\frac{v_{id}}{2r_e}≈i_c</script><script type="math/tex; mode=display">v_{c1}=-\frac{αv_{id}}{2r_e}R_C</script><script type="math/tex; mode=display">v_{c2}=\frac{αv_{id}}{2r_e}R_C</script><p>小信号模型下的差分增益：  </p>
-<script type="math/tex; mode=display">A_d=\frac{v_{c2}-v_{c1}}{v_{id}}=\frac{2αR_C}{2r_e}≈\frac{R_C}{r_e}</script>
+<script type="math/tex; mode=display">A_d=\frac{v_{c2}-v_{c1}}{v_{id}}=\frac{2αR_C}{2r_e}≈\frac{R_C}{r_e}</script><h3 id="共模抑制比"><a href="#共模抑制比" class="headerlink" title="共模抑制比"></a>共模抑制比</h3><p>事实上，差分对的两个集电极区会有噪声和干扰，这些噪声和干扰最终归结于电路中$R_C$的阻值，因此在实际电路中，等效的两个$R_C$阻值并不完全相等，而是由细微的差异。<br>实际上差分对在正常模式下的两边的输出电压由于$R_C$细小的差异而不再相等：  </p>
+<script type="math/tex; mode=display">v_{o1}=-\frac{αR_C}{r_e+2R_{EE}}v_{icm}</script><script type="math/tex; mode=display">v_{o2}=-\frac{α(R_C+ΔR_C)}{r_e+2R_{EE}}v_{icm}</script><p>此时整个电路相当于一个差分放大器，其在输出端存在一个差分电压：  </p>
+<script type="math/tex; mode=display">v_{od}=v_{o2}-v_{o1}=-\frac{αΔR_C}{r_e+2R_{EE}}v_{icm}</script><p>定义共模增益为差分电压和输入电压之比：  </p>
+<script type="math/tex; mode=display">A_{cm}=\frac{v_{od}}{v_{icm}}=-\frac{αΔR_C}{r_e+2R_{EE}}</script><p>定义共模抑制比为其差分增益与共模增益之比：  </p>
+<script type="math/tex; mode=display">CMRR=\frac{A_d}{A_{cm}}</script><h2 id="多极放大器"><a href="#多极放大器" class="headerlink" title="多极放大器"></a>多极放大器</h2><p>为了尽可能的减少电阻、电容带来的不稳定性，在集成电路设计中通常使用多级的电流镜、差分对组成的电路实现电流信号的多级放大。<br>下图所示的是一个多级电流放大电路：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211201133023.png width=60%><br>在上图的电路中，<br>第一级由$Q_1$、$Q_2$、$Q_3$、$Q_9$ 四个晶体管组成。通过设置$V_{EE}$,在$Q_9$处产生$I_{REF}$。$I_{REF}$通过$Q_3$、$Q_9$ 组成的电流镜将电流信号传入$Q_1$、$Q_2$组成的差分对中，差分对将电流信号转换为电压信号，电压信号成为下一级差分对电路的输入信号。  </p>
+<p>第二级由$Q_4$、$Q_5$、$Q_6$三个晶体管组成。上一级输出的电压信号作为$Q_4$、$Q_5$组成的差分对电路的输入电压（控制电压），同时$Q_6$对第一级的电流$I_{REF}$进行放大，并为$Q_4$、$Q_5$组成的差分对电路提供稳定的发射极电流$I_E$。差分对一端输出的电压信号传入下一级，为下一级的晶体管设置工作状态。  </p>
+<p>第三级由$Q_7$组成，上一级差分对电路的输出电压为$Q_7$设置静态工作点，并通过$R_5$控制输入进下一级的电压信号的直流分量正好为0.7V。  </p>
+<p>第四级由$Q_8$组成，通过$Q_8$基极和发射极之间的压降将上一级电压信号的直流分量完全消除，最终输出直流分量为0的交流电压信号。同时$R_6$将电压信号转为电流信号，可以发现，输出端的电流信号$I_o$正好是$I_{REF}$的十倍。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211201134351.png width=70%></p>
+
             </div>
             <hr>
             <div>
