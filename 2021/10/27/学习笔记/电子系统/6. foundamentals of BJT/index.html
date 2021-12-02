@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      23
        分钟
     </span>
   
@@ -319,13 +319,16 @@ p.spoiler {
 <h3 id="基极的电流变化曲线"><a href="#基极的电流变化曲线" class="headerlink" title="基极的电流变化曲线"></a>基极的电流变化曲线</h3><p>探究$V_{BE}$对基极电流$I_B$的影响：<br>根据电流图示，基极和发射极之间的等效二极管处于正向偏置状态，可以将$I_B$和$V_{BE}$之间的关系看做是一个二极管的电压-电流曲线：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211028215817.png width=20%><br>通过图像可以看出：这个等效二极管只需要0.7V就可以完全导通。<br>同时，晶体管在正常工作($I_B$并非非常小)时，基极和发射极之间始终存在压降$V_{BE}$。<br><strong>对于理想三极管$V_{BE}=0V$（称为一级近似），对于非理想三极管$V_{BE}=0.7V$</strong>（称为二级近似）。<br>根据欧姆定律可以得到基极侧的电流电压关系：  </p>
 <script type="math/tex; mode=display">I_B=\frac{V_{BB}-V_{BE}}{R_B}</script><h3 id="集电极的电流变化曲线"><a href="#集电极的电流变化曲线" class="headerlink" title="集电极的电流变化曲线"></a>集电极的电流变化曲线</h3><p>探究$V_{CE}$对基极电流$I_C$的影响：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211028220139.png width=50%><br>根据之前的电流图示，可以得到：  </p>
 <script type="math/tex; mode=display">I_E=I_C+I_B</script><p>根据上述特性曲线，可以将工作状态分为：<strong>饱和、放大、截止</strong>三种工作状态。此外还有称为击穿的异常工作状态。  </p>
-<h4 id="放大"><a href="#放大" class="headerlink" title="放大"></a>放大</h4><p>放大状态是三极管的正常工作状态，在这种工作状态下，几乎所有的电子都已经流向了集电极。发射极的等效二极管处于前向偏置状态。<strong>无论$V_{CC}$和$V_{CE}$如何变化，集电极的电流$I_C$始终只与$I_B$有关。</strong><br>在放大状态下，输入一个较小的$I_B$可以输出一个较大的电流信号：$I_C$。此时晶体管可以用做放大器。  </p>
-<p>定义三极管的电流增益:</p>
+<h4 id="放大-线性"><a href="#放大-线性" class="headerlink" title="放大/线性"></a>放大/线性</h4><p>放大状态是三极管的正常工作状态，在这种工作状态下，几乎所有的电子都已经流向了集电极。发射极的等效二极管处于前向偏置状态。<strong>无论$V_{CC}$和$V_{CE}$如何变化，集电极的电流$I_C$始终只与$I_B$有关。</strong><br>在放大状态下，输入一个较小的$I_B$可以输出一个较大的电流信号：$I_C$。此时晶体管可以用做放大器。  </p>
+<p>定义三极管的<strong>电流增益</strong>:</p>
 <script type="math/tex; mode=display">β=\frac{I_C}{I_B}</script><p>电流增益会随着<strong>三极管型号</strong>、<strong>温度</strong>和<strong>集电极电流$I_C$</strong><br>的不同而变化，在设计放大电路时应当尽量避免$β$对电路输出产生影响。    </p>
 <p>同时定义晶体管的修正系数$α$为集电极电流和发射极电流之比:  </p>
 <script type="math/tex; mode=display">α=\frac{I_C}{I_E}=\frac{β}{β+1}</script><p>通常认为在$β&gt;100$的情况下，$α≈1$。  </p>
 <h4 id="饱和"><a href="#饱和" class="headerlink" title="饱和"></a>饱和</h4><p>在饱和工作状态下，几乎所有的自由电子都从发射极流向基极。$I_B$大于放大状态的电流。此时$CE$间相当于短路，是晶体管用做开关时的导通状态。<br>由于$CE$间相当于短路，饱和状态下集电极环路的电流为：  </p>
 <script type="math/tex; mode=display">I_{CSat}=\frac{V_{CC}}{R_C}</script><p>此电流为集电极环路中的最大电流。  </p>
+<blockquote>
+<p>由于$β$与$I_C$有关，在饱和状态下，无法使用$I_C=βI_B$进行计算。  </p>
+</blockquote>
 <h4 id="截止"><a href="#截止" class="headerlink" title="截止"></a>截止</h4><p>在截止状态下，$I_B=0$，此时$CE$之间相当于断路，是是晶体管用做开关时的关断状态。<br>此时$V_{CE}$与供电电压$V_{CC}$相等：  </p>
 <script type="math/tex; mode=display">V_{CEcutoff}=V_{CC}</script><h4 id="击穿"><a href="#击穿" class="headerlink" title="击穿"></a>击穿</h4><p>当$V_{CE}$相当大时，晶体管被击穿，晶体管处于永久短路状态，此时的$I_C$迅速增大。  </p>
 <h2 id="直流工作状态"><a href="#直流工作状态" class="headerlink" title="直流工作状态"></a>直流工作状态</h2><p>要想使三极管处于开关或者放大器的工作模式，三极管必须处于直流工作状态（即三极管静态工作点就是交流输入信号为零时），在直流工作状态下，对集电极环路进行分析：  </p>
