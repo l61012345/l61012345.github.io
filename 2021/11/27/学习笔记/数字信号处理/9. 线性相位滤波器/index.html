@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>9. FIR滤波器设计 - Mirror</title>
+  <title>9. 线性相位滤波器·FIR滤波器设计概述 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@ p.spoiler {
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="9. FIR滤波器设计">
+            <span class="h2" id="subtitle" title="9. 线性相位滤波器·FIR滤波器设计概述">
               
             </span>
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      220 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -272,16 +272,70 @@ p.spoiler {
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">9. FIR滤波器设计</h1>
+            <h1 style="display: none">9. 线性相位滤波器·FIR滤波器设计概述</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月27日 早上
+                  本文最后更新于：2021年12月7日 早上
                 
               </p>
             
             <div class="markdown-body">
-              
+              <h1 id="线性相位滤波器·FIR滤波器设计概述"><a href="#线性相位滤波器·FIR滤波器设计概述" class="headerlink" title="线性相位滤波器·FIR滤波器设计概述"></a>线性相位滤波器·FIR滤波器设计概述</h1><blockquote>
+<p>本节中需要格外注意公式的角标  </p>
+</blockquote>
+<h2 id="线性相位滤波器"><a href="#线性相位滤波器" class="headerlink" title="线性相位滤波器"></a>线性相位滤波器</h2><p>由于滤波器系统方程是一个复数函数方程，因此可以将滤波器系统方程表示为幅度和相位相乘的形式：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=|H(e^{jω})|e^{j∠H(e^{jω})}</script><p>其中$∠H(e^{jω})$是滤波器的相频响应(Phase Response)，$H_r(e^{jω})=|H(e^{jω})|$是滤波器的幅度值响应(Maganitude Response)，是幅度相应(Amplitude Response)的绝对值。<br>线性相位能保证信号通过系统后其中各频率成分的相对相位关系不改变，因此不容易出现在滤波器系统中因为发生码间串扰而信号失真。<br>线性相位滤波器的系统方程中，其相位可以表示为：  </p>
+<script type="math/tex; mode=display">∠H(e^{jω})=β-αω,-π<ω<π</script><p><strong>在时域上，线性相位滤波器的冲激响应具有对称性或者反对称性</strong>：  </p>
+<script type="math/tex; mode=display">h[n]=h[M-1-n],0≤n≤M-1</script><blockquote>
+<p>例如：$h[n]=\{-1,2,0,2,-1\}$  </p>
+</blockquote>
+<script type="math/tex; mode=display">h[n]=-h[M-1-n],0≤n≤M-1</script><blockquote>
+<p>例如：$h[n]=\{-1,2,0,-2,1\}$  </p>
+</blockquote>
+<p>由于线性相位系统不会改变信号相位，从而减小码间串扰的特点，在滤波器设计时基本都会保证滤波器是线性相位的。  </p>
+<h2 id="FIR-滤波器的优点"><a href="#FIR-滤波器的优点" class="headerlink" title="FIR 滤波器的优点"></a>FIR 滤波器的优点</h2><p>FIR滤波器的系统方程可以由：  </p>
+<script type="math/tex; mode=display">H(z)=∑_{n=N_1}^{N_2}h[n]z^{-n}</script><p>FIR 滤波器具有以下主要优点：</p>
+<ul>
+<li>它们可以具有精确的线性相位。</li>
+<li>由于$∑_{k=N_1}^{N_2}|h[n]|&lt;∞$，它们始终稳定。</li>
+<li>设计方法通常是线性的。</li>
+<li>它们可以在硬件中高效实现。</li>
+</ul>
+<blockquote>
+<p>FIR 滤波器的主要缺点是，要达到同样的性能水平，其所需阶数远高于 IIR 滤波器。相应地，这些滤波器的延迟通常比同等性能的 IIR 滤波器大得多。</p>
+</blockquote>
+<p>最重要的原因是FIR滤波器是线性相位滤波器，因此实际设计中，通常更倾向于设计FIR滤波器。  </p>
+<h2 id="线性相位FIR滤波器的类型"><a href="#线性相位FIR滤波器的类型" class="headerlink" title="线性相位FIR滤波器的类型"></a>线性相位FIR滤波器的类型</h2><p>按照系统方程的冲激响应序列是对称/反对称的，以及整个序列的长度$M$的奇偶性，可以将线性相位的FIR滤波器分为四类。下面来求这四种系统类型的相频响应。  </p>
+<h3 id="第一类：冲激响应对称、序列长度为奇数"><a href="#第一类：冲激响应对称、序列长度为奇数" class="headerlink" title="第一类：冲激响应对称、序列长度为奇数"></a>第一类：冲激响应对称、序列长度为奇数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207150420.png width=40%>  </p>
+<p>此时的冲激响应表示为：  </p>
+<script type="math/tex; mode=display">h[n]=h[M-1-n],\frac{M-1}{2}\text{是整数。}</script><p>由于序列中以中间项为分割线，前一半序列和后一半序列完全相同。<br>那么系统的频率响应序列可以表示为：前一半序列的离散时间傅里叶变换的二倍与中间项的离散时间傅里叶变换之和：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    H(e^{jω})&=∑_{n=0}^{M-1}h(n)e^{-jωn}\\
+    &=∑_{n=0}^{(M-3)/2}h(n)e^{-jωn}+h(\frac{M-1}{2})e^{-j(M-1)ω/2}+∑_{n=(M+1)/2}^{M-1}h(n)e^{-jωn}\\
+\end{aligned}</script><p>对于每一个对称项，有：  </p>
+<script type="math/tex; mode=display">h(0+n)e^{-jω(0+n)}+h(\frac{M-1}{2}-n)e^{-jω(\frac{M-1}{2}-n)}=2h(\frac{M-1}{2})cos(ωn)</script><p>令：$a[n]=2h[\frac{M-1}{2}-n]$，带入$a[n]$，得到：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=\left(∑_{n=0}^{(M-1)/2}a[n]cos(ωn)\right)e^{-jω(M-1)/2}</script><p>根据上述式子可以得到其相频响应为：  </p>
+<script type="math/tex; mode=display">∠H(e^{jω})=-\frac{(M-1)ω}{2}</script><p>即$β=0$,$α=\frac{M-1}{2}$。  </p>
+<h3 id="第二类：冲激响应对称、序列长度为偶数"><a href="#第二类：冲激响应对称、序列长度为偶数" class="headerlink" title="第二类：冲激响应对称、序列长度为偶数"></a>第二类：冲激响应对称、序列长度为偶数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207151600.png width=40%>  </p>
+<p>此时的冲激响应表示为：  </p>
+<script type="math/tex; mode=display">h[n]=h[M-1-n],\frac{M-1}{2}\text{非整数。}</script><p>由于不存在中间项，相比于第一类，其系统方程中不存在中间项：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    H(e^{jω})&=∑_{n=0}^{M-1}h(n)e^{-jωn}\\
+    &=∑_{n=0}^{(M-2)/2}h(n)e^{-jωn}+∑_{n=M/2}^{M-1}h(n)e^{-jωn}\\
+\end{aligned}</script><p>将序列改写，并把相同项进行合并，注意前半部分和后半部分对应项的奇偶性正好相反：  </p>
+<script type="math/tex; mode=display">b[n]=2h[\frac{M}{2}-n]</script><p>同理运用欧拉公式可得：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=\left(∑_{n=0}^{M/2}b[n]cos(ω(n-\frac{1}{2}))\right)e^{-jω(M-1)/2}</script><p>其相频响应为：  </p>
+<script type="math/tex; mode=display">∠H(e^{jω})=-\frac{(M-1)ω}{2}</script><p>即$β=0$,$α=\frac{M-1}{2}$。  </p>
+<h3 id="第三类：冲激响应反对称、序列长度为奇数"><a href="#第三类：冲激响应反对称、序列长度为奇数" class="headerlink" title="第三类：冲激响应反对称、序列长度为奇数"></a>第三类：冲激响应反对称、序列长度为奇数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207152015.png width=40%>  </p>
+<p>同理可得其系统方程的化简结果为：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=\left(\sum_{n=1}^{(M-1)/2}c[n]sin(ωn)\right)e^{j[\frac{π}{2}-\frac{ω(M-1)}{2}]}</script><script type="math/tex; mode=display">c[n]=2h[\frac{M-1}{2}-n]</script><p>其相频响应为：  </p>
+<script type="math/tex; mode=display">∠H(e^{jω})=\frac{π}{2}-\frac{(M-1)ω}{2}</script><p>即$β=\frac{π}{2}$,$α=\frac{M-1}{2}$。  </p>
+<h3 id="第四类：冲激响应反对称、序列长度为偶数"><a href="#第四类：冲激响应反对称、序列长度为偶数" class="headerlink" title="第四类：冲激响应反对称、序列长度为偶数"></a>第四类：冲激响应反对称、序列长度为偶数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207151838.png width=40%>  </p>
+<p>同理可得其系统方程的化简结果为：  </p>
+<script type="math/tex; mode=display">H(e^{jω})=\left(\sum_{n=1}^{M/2}d[n]sin(ω(n-\frac{1}{2}))\right)e^{j[\frac{π}{2}-\frac{ω(M-1)}{2}]}</script><script type="math/tex; mode=display">d[n]=\frac{M-1}{2}</script><p>其相频响应为：  </p>
+<script type="math/tex; mode=display">∠H(e^{jω})=\frac{π}{2}-\frac{(M-1)ω}{2}</script><p>即$β=\frac{π}{2}$,$α=\frac{M-1}{2}$。  </p>
+
             </div>
             <hr>
             <div>
