@@ -23,7 +23,7 @@
   <!-- Bing verification -->
   <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
   
-  <title>9. 线性相位滤波器·FIR滤波器类型 - Mirror</title>
+  <title>10. FIR滤波器设计方法 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@ p.spoiler {
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="9. 线性相位滤波器·FIR滤波器类型">
+            <span class="h2" id="subtitle" title="10. FIR滤波器设计方法">
               
             </span>
 
@@ -212,8 +212,8 @@ p.spoiler {
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-27 00:00" pubdate>
-        2021年11月27日 凌晨
+      <time datetime="2021-12-15 05:23" pubdate>
+        2021年12月15日 凌晨
       </time>
     </span>
   
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      218 字
+      1.4k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      17
        分钟
     </span>
   
@@ -272,70 +272,74 @@ p.spoiler {
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">9. 线性相位滤波器·FIR滤波器类型</h1>
+            <h1 style="display: none">10. FIR滤波器设计方法</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月15日 凌晨
+                  本文最后更新于：2021年12月15日 早上
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="线性相位滤波器·FIR滤波器类型"><a href="#线性相位滤波器·FIR滤波器类型" class="headerlink" title="线性相位滤波器·FIR滤波器类型"></a>线性相位滤波器·FIR滤波器类型</h1><blockquote>
-<p>本节中需要格外注意公式的角标  </p>
-</blockquote>
-<h2 id="线性相位滤波器"><a href="#线性相位滤波器" class="headerlink" title="线性相位滤波器"></a>线性相位滤波器</h2><p>由于滤波器系统方程是一个复数函数方程，因此可以将滤波器系统方程表示为幅度和相位相乘的形式：  </p>
-<script type="math/tex; mode=display">H(e^{jω})=|H(e^{jω})|e^{j∠H(e^{jω})}</script><p>其中$∠H(e^{jω})$是滤波器的相频响应(Phase Response)，$H_r(e^{jω})=|H(e^{jω})|$是滤波器的幅度值响应(Maganitude Response)，是幅度相应(Amplitude Response)的绝对值。<br>线性相位能保证信号通过系统后其中各频率成分的相对相位关系不改变，因此不容易出现在滤波器系统中因为发生码间串扰而信号失真。<br>线性相位滤波器的系统方程中，其相位可以表示为：  </p>
-<script type="math/tex; mode=display">∠H(e^{jω})=β-αω,-π<ω<π</script><p><strong>在时域上，线性相位滤波器的冲激响应具有对称性或者反对称性</strong>：  </p>
-<script type="math/tex; mode=display">h[n]=h[M-1-n],0≤n≤M-1</script><blockquote>
-<p>例如：$h[n]=\{-1,2,0,2,-1\}$  </p>
-</blockquote>
-<script type="math/tex; mode=display">h[n]=-h[M-1-n],0≤n≤M-1</script><blockquote>
-<p>例如：$h[n]=\{-1,2,0,-2,1\}$  </p>
-</blockquote>
-<p>由于线性相位系统不会改变信号相位，从而减小码间串扰的特点，在滤波器设计时基本都会保证滤波器是线性相位的。  </p>
-<h2 id="FIR-滤波器的优点"><a href="#FIR-滤波器的优点" class="headerlink" title="FIR 滤波器的优点"></a>FIR 滤波器的优点</h2><p>FIR滤波器的系统方程可以由：  </p>
-<script type="math/tex; mode=display">H(z)=∑_{n=N_1}^{N_2}h[n]z^{-n}</script><p>FIR 滤波器具有以下主要优点：</p>
-<ul>
-<li>它们可以具有精确的线性相位。</li>
-<li>由于$∑_{k=N_1}^{N_2}|h[n]|&lt;∞$，它们始终稳定。</li>
-<li>设计方法通常是线性的。</li>
-<li>它们可以在硬件中高效实现。</li>
-</ul>
-<blockquote>
-<p>FIR 滤波器的主要缺点是，要达到同样的性能水平，其所需阶数远高于 IIR 滤波器。相应地，这些滤波器的延迟通常比同等性能的 IIR 滤波器大得多。</p>
-</blockquote>
-<p>最重要的原因是FIR滤波器是线性相位滤波器，因此实际设计中，通常更倾向于设计FIR滤波器。  </p>
-<h2 id="线性相位FIR滤波器的类型"><a href="#线性相位FIR滤波器的类型" class="headerlink" title="线性相位FIR滤波器的类型"></a>线性相位FIR滤波器的类型</h2><p>按照系统方程的冲激响应序列是对称/反对称的，以及整个序列的长度$M$的奇偶性，可以将线性相位的FIR滤波器分为四类。下面来求这四种系统类型的相频响应。  </p>
-<h3 id="第一类：冲激响应对称、序列长度为奇数"><a href="#第一类：冲激响应对称、序列长度为奇数" class="headerlink" title="第一类：冲激响应对称、序列长度为奇数"></a>第一类：冲激响应对称、序列长度为奇数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207150420.png width=40%>  </p>
-<p>此时的冲激响应表示为：  </p>
-<script type="math/tex; mode=display">h[n]=h[M-1-n],\frac{M-1}{2}\text{是整数。}</script><p>由于序列中以中间项为分割线，前一半序列和后一半序列完全相同。<br>那么系统的频率响应序列可以表示为：前一半序列的离散时间傅里叶变换的二倍与中间项的离散时间傅里叶变换之和：  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    H(e^{jω})&=∑_{n=0}^{M-1}h(n)e^{-jωn}\\
-    &=∑_{n=0}^{(M-3)/2}h(n)e^{-jωn}+h(\frac{M-1}{2})e^{-j(M-1)ω/2}+∑_{n=(M+1)/2}^{M-1}h(n)e^{-jωn}\\
-\end{aligned}</script><p>对于每一个对称项，有：  </p>
-<script type="math/tex; mode=display">h(0+n)e^{-jω(0+n)}+h(\frac{M-1}{2}-n)e^{-jω(\frac{M-1}{2}-n)}=2h(\frac{M-1}{2})cos(ωn)</script><p>令：$a[n]=2h[\frac{M-1}{2}-n]$，带入$a[n]$，得到：  </p>
-<script type="math/tex; mode=display">H(e^{jω})=\left(∑_{n=0}^{(M-1)/2}a[n]cos(ωn)\right)e^{-jω(M-1)/2}</script><p>根据上述式子可以得到其相频响应为：  </p>
-<script type="math/tex; mode=display">∠H(e^{jω})=-\frac{(M-1)ω}{2}</script><p>即$β=0$,$α=\frac{M-1}{2}$。  </p>
-<h3 id="第二类：冲激响应对称、序列长度为偶数"><a href="#第二类：冲激响应对称、序列长度为偶数" class="headerlink" title="第二类：冲激响应对称、序列长度为偶数"></a>第二类：冲激响应对称、序列长度为偶数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207151600.png width=40%>  </p>
-<p>此时的冲激响应表示为：  </p>
-<script type="math/tex; mode=display">h[n]=h[M-1-n],\frac{M-1}{2}\text{非整数。}</script><p>由于不存在中间项，相比于第一类，其系统方程中不存在中间项：  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    H(e^{jω})&=∑_{n=0}^{M-1}h(n)e^{-jωn}\\
-    &=∑_{n=0}^{(M-2)/2}h(n)e^{-jωn}+∑_{n=M/2}^{M-1}h(n)e^{-jωn}\\
-\end{aligned}</script><p>将序列改写，并把相同项进行合并，注意前半部分和后半部分对应项的奇偶性正好相反：  </p>
-<script type="math/tex; mode=display">b[n]=2h[\frac{M}{2}-n]</script><p>同理运用欧拉公式可得：  </p>
-<script type="math/tex; mode=display">H(e^{jω})=\left(∑_{n=0}^{M/2}b[n]cos(ω(n-\frac{1}{2}))\right)e^{-jω(M-1)/2}</script><p>其相频响应为：  </p>
-<script type="math/tex; mode=display">∠H(e^{jω})=-\frac{(M-1)ω}{2}</script><p>即$β=0$,$α=\frac{M-1}{2}$。  </p>
-<h3 id="第三类：冲激响应反对称、序列长度为奇数"><a href="#第三类：冲激响应反对称、序列长度为奇数" class="headerlink" title="第三类：冲激响应反对称、序列长度为奇数"></a>第三类：冲激响应反对称、序列长度为奇数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207152015.png width=40%>  </p>
-<p>同理可得其系统方程的化简结果为：  </p>
-<script type="math/tex; mode=display">H(e^{jω})=\left(\sum_{n=1}^{(M-1)/2}c[n]sin(ωn)\right)e^{j[\frac{π}{2}-\frac{ω(M-1)}{2}]}</script><script type="math/tex; mode=display">c[n]=2h[\frac{M-1}{2}-n]</script><p>其相频响应为：  </p>
-<script type="math/tex; mode=display">∠H(e^{jω})=\frac{π}{2}-\frac{(M-1)ω}{2}</script><p>即$β=\frac{π}{2}$,$α=\frac{M-1}{2}$。  </p>
-<h3 id="第四类：冲激响应反对称、序列长度为偶数"><a href="#第四类：冲激响应反对称、序列长度为偶数" class="headerlink" title="第四类：冲激响应反对称、序列长度为偶数"></a>第四类：冲激响应反对称、序列长度为偶数</h3><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211207151838.png width=40%>  </p>
-<p>同理可得其系统方程的化简结果为：  </p>
-<script type="math/tex; mode=display">H(e^{jω})=\left(\sum_{n=1}^{M/2}d[n]sin(ω(n-\frac{1}{2}))\right)e^{j[\frac{π}{2}-\frac{ω(M-1)}{2}]}</script><script type="math/tex; mode=display">d[n]=\frac{M-1}{2}</script><p>其相频响应为：  </p>
-<script type="math/tex; mode=display">∠H(e^{jω})=\frac{π}{2}-\frac{(M-1)ω}{2}</script><p>即$β=\frac{π}{2}$,$α=\frac{M-1}{2}$。  </p>
+              <h1 id="FIR滤波器设计方法"><a href="#FIR滤波器设计方法" class="headerlink" title="FIR滤波器设计方法"></a>FIR滤波器设计方法</h1><p>在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。  </p>
+<h2 id="加窗法"><a href="#加窗法" class="headerlink" title="加窗法"></a>加窗法</h2><p>加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。  </p>
+<h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：  </p>
+<script type="math/tex; mode=display">h[n]=\frac{sin(ω_cπn)}{πn}</script><p>其中$ω_c$表示其截止频率。  </p>
+<ol>
+<li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为$\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}$,是一个非因果序列。</li>
+<li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：$\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}$</li>
+<li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window function），赋权的操作为：<script type="math/tex; mode=display">fl[n]=h_d[n]×w[n]</script>其中$h_d[n]$为截取和时移之后的理想低通滤波器序列，$w[n]$由窗函数产生，对于矩形窗：$w[n]=1$，之后会对窗函数做更加详细的介绍。  </li>
+</ol>
+<h3 id="加窗法的频谱分析·滤波器波形的影响因素"><a href="#加窗法的频谱分析·滤波器波形的影响因素" class="headerlink" title="加窗法的频谱分析·滤波器波形的影响因素"></a>加窗法的频谱分析·滤波器波形的影响因素</h3><p>在频域中，赋权表示为实际滤波器$h_d[n]$的频率响应与窗函数频率响应的周期卷积：  </p>
+<script type="math/tex; mode=display">fl(e^{jω})=H_d(e^{jω}) \tilde{⊕} W(e^{jω})</script><p>在频域中$H_d(e^{jω})$是一个门函数，对矩形窗，$W(e^{jω})$是采样函数。<br>两者周期卷积的过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/image171.gif width=70%><br>两者的卷积结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/R-C.2b3573a9858b6fa5a41359616773035c width=70%>  </p>
+<h4 id="波纹"><a href="#波纹" class="headerlink" title="波纹"></a>波纹</h4><p>可以发现，由于窗函数旁瓣在频域上的振荡，使得卷积后的频率响应中在通带和止带都出现了振荡，称为滤波器的波纹(Ripple)。同时可以发现，波纹在周期卷积过程中的形成只和窗函数频谱的主瓣和旁瓣的相对幅值有关，定义峰值旁瓣比(PSLR，peak side lobe ratio) 表示dB化后的主瓣相邻旁瓣幅值和主瓣幅值之比：</p>
+<script type="math/tex; mode=display">r_p|dB=10lg(\frac{A_{sidelope}}{A_{mainlope}})</script><p>可以发现，<strong>窗函数频谱中峰值旁瓣比越小，波纹的振荡就越小。</strong>  </p>
+<p>定义幅度响应为滤波器函数幅度随频率的响应，</p>
+<h4 id="过渡带带宽"><a href="#过渡带带宽" class="headerlink" title="过渡带带宽"></a>过渡带带宽</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215141238.png width=50%></p>
+<p>由上图可以看出，<strong>采样点的个数和过渡带带宽成反比关系。</strong><br>增大采样点的个数（实际设计中增大抽头数$N$），其过渡带会减小。  </p>
+<h4 id="吉布斯效应"><a href="#吉布斯效应" class="headerlink" title="吉布斯效应"></a>吉布斯效应</h4><p>同时，<strong>增大抽头数$N$还会改变波纹的密度，抽头数增多，其波纹密度增大</strong><br>，但是每个波纹的幅值并不会改变，这个效应称为吉布斯效应。<br><strong>吉布斯效应可以通过设计窗函数时让窗函数的时域表达平缓的由1减小到0来消除。</strong>  </p>
+<h4 id="宽容度"><a href="#宽容度" class="headerlink" title="宽容度"></a>宽容度</h4><p>上述影响因素都是基于幅度值-频率响应得出的，定义滤波器的幅度-频率响应为：  </p>
+<script type="math/tex; mode=display">A_e(e^{jω})=H_e(e^{jω}) \tilde{⊕} W_e(e^{jω})</script><p>对于第一类FIR滤波器(序列对称，长度为奇数)，有：  </p>
+<script type="math/tex; mode=display">A_e(e^{jω})=H(e^{jω})e^{-jαω}</script><p>$H$和$W$为原始滤波器和窗函数的幅度-频率响应。<br>低通滤波器的幅度响应图如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215145524.png width=50%>  </p>
+<p>定义波纹偏离1或0的最大幅值为滤波器的宽容度(Tolerance)$δ$，上下波纹的宽容度相同。峰值近似误差（Peak approximation error）用dB表示波纹的宽容度：  </p>
+<script type="math/tex; mode=display">e_p=20lgδ$$。  
 
+### 常见窗函数
+#### 矩形窗
+矩形窗函数：
+$$w[n]=\begin{cases}
+    1, 0 ≤n≤N-1\\
+    0, otherwise
+\end{cases}</script><p>矩形窗函数的峰值旁瓣比：$r_p=-13dB$<br>主瓣宽度$Δω_m=\frac{4π}{N}$<br>由于矩形窗从1到0的变化过快，因此难以消除吉布斯效应。  </p>
+<h4 id="三角窗"><a href="#三角窗" class="headerlink" title="三角窗"></a>三角窗</h4><p>三角窗函数：  </p>
+<script type="math/tex; mode=display">w[n]=\begin{cases}
+    \frac{2n}{M}, 0≤n≤\\
+    2-\frac{2n}{M}, \frac{M}{2}≤n≤M\\
+    0, otherwise
+\end{cases}</script><p>矩形窗函数的峰值旁瓣比：$r_p=-27dB$<br>主瓣宽度$Δω_m=\frac{8π}{N}$  </p>
+<h4 id="汉宁窗（Hanning）"><a href="#汉宁窗（Hanning）" class="headerlink" title="汉宁窗（Hanning）"></a>汉宁窗（Hanning）</h4><p>汉宁窗函数：  </p>
+<script type="math/tex; mode=display">w[n]=0.5-0.5cos(\frac{2πn}{M}),0≤n≤M</script><p>矩形窗函数的峰值旁瓣比：$r_p=-31dB$<br>主瓣宽度$Δω_m=\frac{8π}{N}$  </p>
+<h4 id="汉明窗（Hamming）"><a href="#汉明窗（Hamming）" class="headerlink" title="汉明窗（Hamming）"></a>汉明窗（Hamming）</h4><p>汉宁窗函数：  </p>
+<script type="math/tex; mode=display">w[n]=0.54-0.46cos(\frac{2πn}{M}),0≤n≤M</script><p>矩形窗函数的峰值旁瓣比：$r_p=-41dB$<br>主瓣宽度$Δω_m=\frac{8π}{N}$  </p>
+<h4 id="布莱克曼窗（Blackman）"><a href="#布莱克曼窗（Blackman）" class="headerlink" title="布莱克曼窗（Blackman）"></a>布莱克曼窗（Blackman）</h4><p>布莱克曼窗函数：  </p>
+<script type="math/tex; mode=display">w[n]=0.42-0.5cos(\frac{2πn}{M})+0.08cos(\frac{4πn}{M}),0≤n≤M</script><p>矩形窗函数的峰值旁瓣比：$r_p=-57dB$<br>主瓣宽度$Δω_m=\frac{12π}{N}$  </p>
+<h4 id="凯撒窗"><a href="#凯撒窗" class="headerlink" title="凯撒窗"></a>凯撒窗</h4><p>凯撒窗函数：  </p>
+<script type="math/tex; mode=display">w[n]=\begin{cases}
+    \frac{I_0[β(1-[\frac{n-α}{α}]^2)^{\frac{1}{2}}]}{I_0(β)},0≤n≤M\\
+    0, otherwise
+\end{cases}</script><p>凯撒窗的过渡带带宽由凯撒窗的阶数和宽容度决定：  </p>
+<script type="math/tex; mode=display">M=\frac{-e_p-8}{2.285Δω}</script><p>宽容度由形状参数决定：  </p>
+<script type="math/tex; mode=display">β=\begin{cases}
+    0.1102(-e_p-8.7),-e_p>50\\
+    0.5842(-e_p-21)^0.4+0.07886(-e_p-21),21≤-e_p≤50\\
+    0, -e_p<21
+\end{cases}</script><p>凯撒窗可以通过控制阶数和形状参数$β$来控制宽容度和过渡带带宽。<br>对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：  </p>
+<ol>
+<li>根据宽容度$δ$计算出$e_p$  </li>
+<li>根据$e_p$计算出$β$。  </li>
+<li>根据$e_p$和过渡带带宽计算出凯撒窗的阶数。  </li>
+</ol>
+<h2 id="高通和带通、带阻滤波器设计"><a href="#高通和带通、带阻滤波器设计" class="headerlink" title="高通和带通、带阻滤波器设计"></a>高通和带通、带阻滤波器设计</h2><h2 id="使用MATLAB-进行滤波器设计"><a href="#使用MATLAB-进行滤波器设计" class="headerlink" title="使用MATLAB 进行滤波器设计"></a>使用MATLAB 进行滤波器设计</h2><h2 id="频率采样法"><a href="#频率采样法" class="headerlink" title="频率采样法*"></a>频率采样法*</h2><h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法*"></a>优化方法*</h2>
             </div>
             <hr>
             <div>
@@ -360,18 +364,12 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/11/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/13.%20%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8A%97%E5%99%AA%E6%80%A7%E5%88%86%E6%9E%90/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">13. 数字带通系统的抗噪性分析</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/8.%20%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/">
-                        <span class="hidden-mobile">8. 数字滤波器的结构设计</span>
+                      <a href="/2021/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">通信原理-知识点总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
