@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月15日 早上
+                  本文最后更新于：2021年12月18日 中午
                 
               </p>
             
@@ -328,7 +328,7 @@ p.spoiler {
 <script type="math/tex; mode=display">M=\frac{-e_p-8}{2.285Δω}</script><p>宽容度由形状参数决定：  </p>
 <script type="math/tex; mode=display">β=\begin{cases}
     0.1102(-e_p-8.7),-e_p>50\\
-    0.5842(-e_p-21)^0.4+0.07886(-e_p-21),21≤-e_p≤50\\
+    0.5842(-e_p-21)^{0.4}+0.07886(-e_p-21),21≤-e_p≤50\\
     0, -e_p<21
 \end{cases}</script><p>凯撒窗可以通过控制阶数和形状参数$β$来控制宽容度和过渡带带宽。<br>对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：  </p>
 <ol>
@@ -336,7 +336,26 @@ p.spoiler {
 <li>根据$e_p$计算出$β$。  </li>
 <li>根据$e_p$和过渡带带宽计算出凯撒窗的阶数。  </li>
 </ol>
-<h2 id="高通和带通、带阻滤波器设计"><a href="#高通和带通、带阻滤波器设计" class="headerlink" title="高通和带通、带阻滤波器设计"></a>高通和带通、带阻滤波器设计</h2><h2 id="使用MATLAB-进行滤波器设计"><a href="#使用MATLAB-进行滤波器设计" class="headerlink" title="使用MATLAB 进行滤波器设计"></a>使用MATLAB 进行滤波器设计</h2><h2 id="频率采样法"><a href="#频率采样法" class="headerlink" title="频率采样法*"></a>频率采样法*</h2><h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法*"></a>优化方法*</h2>
+<h3 id="高通和带通、带阻滤波器设计"><a href="#高通和带通、带阻滤波器设计" class="headerlink" title="高通和带通、带阻滤波器设计"></a>高通和带通、带阻滤波器设计</h3><p>高通和带通、带阻滤波器的频率响应都可以通过对低通滤波器频率响应加以一定的数学变换得到。  </p>
+<h4 id="高通滤波器"><a href="#高通滤波器" class="headerlink" title="高通滤波器"></a>高通滤波器</h4><p>高通滤波器的频率响应可以表示为1-低通滤波器：  </p>
+<script type="math/tex; mode=display">H_{HP}(e^{jω})=1-H_{LP}(e^{jω})</script><p>对应时域冲激响应表示为：  </p>
+<script type="math/tex; mode=display">h[n]=δ[n]-\frac{sin(ω_cπ(n-α))}{πn}</script><h4 id="带通滤波器"><a href="#带通滤波器" class="headerlink" title="带通滤波器"></a>带通滤波器</h4><p>带通滤波器的频率响应可以表示为两个截止频率不同的低通滤波器频率响应相减：  </p>
+<script type="math/tex; mode=display">H_{BP}(e^{jω})=H_{LP1}(e^{jω})-H_{LP2}(e^{jω})</script><p>对应时域冲激响应表示为：  </p>
+<script type="math/tex; mode=display">h[n]=\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{sin(ω_{cb}π(n-α))}{πn}</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211218185227.png width=50%></p>
+<h4 id="带阻滤波器"><a href="#带阻滤波器" class="headerlink" title="带阻滤波器"></a>带阻滤波器</h4><p>带阻滤波器的频率响应可以表示为1-带通滤波器的频率响应。  </p>
+<script type="math/tex; mode=display">H_{HP}(e^{jω})=1-H_{LP}(e^{jω})</script><p>对应时域冲激响应表示为：  </p>
+<script type="math/tex; mode=display">h[n]=δ[n]-\left(\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{sin(ω_{cb}π(n-α))}{πn}\right)</script><h3 id="使用MATLAB©进行滤波器设计"><a href="#使用MATLAB©进行滤波器设计" class="headerlink" title="使用MATLAB©进行滤波器设计"></a>使用MATLAB©进行滤波器设计</h3><p>MATLAB中，可以使用<code>fir1()</code>函数来进行加窗法的程序设计，其具体表达为：<br><code>fir1(order,omega_c,filtertype,windowtype,&quot;noscale/scale&quot;)</code><br>其中<code>order</code>表示滤波器的阶数；<code>omega_c</code>是π归一化后的滤波器截止频率；<code>filtertype</code>表示设计的滤波器类型，缺省值为低通滤波器<code>&quot;low&quot;</code>；<code>windowtype</code>表示使用的窗函数，缺省值为海宁窗；<code>&quot;noscale/scale&quot;</code>表示是否需要归一化。<br>其中常见的窗函数有：  </p>
+<ul>
+<li><code>boxcar(l)</code>：矩形窗  </li>
+<li><code>hann(l)</code>：海宁窗  </li>
+<li><code>kaiser(l,beta)</code>：凯撒窗<br><strong>l 表示的是滤波器的序列长度，注意与滤波器的阶数作区分。</strong>  </li>
+</ul>
+<p><code>fir1()</code>函数会返回滤波器的冲激响应序列，返回的冲激序列使用<code>[H_f,w]=freqz(h)</code>返回其幅度-频率响应<code>H_f</code>和角频率轴<code>w</code>。<br>其幅度值-频率响应可以通过求其绝对值<code>abs(H_f)</code>得到，相频响应可以通过<code>angle(H_f)</code>得到。<br>完整例程如下：<br><figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs M"><span class="hljs-comment">% 生成一个序列长度130，截止频率0.5π，β=4.966的凯撒窗滤波器</span><br>h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">130</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,kaiser(<span class="hljs-number">131</span>,<span class="hljs-number">4.966</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 幅度-频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅度值-频率响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></div></td></tr></table></figure></p>
+<h2 id="频率采样法"><a href="#频率采样法" class="headerlink" title="频率采样法*"></a>频率采样法*</h2><p>频率采样法的核心思想是滤波器的冲激响应$h[n]$的离散傅里叶变换的本质是对其频率响应$H(e^{jω})$进行采样。采样后通过在每个采样点之间插值，来近似拟合滤波器的频率响应。<br>因此，对于给定的理想滤波器频率响应$H(e^{jω})$，其对应的离散傅里叶变换应当为：  </p>
+<script type="math/tex; mode=display">H(e^{jω})|_{ω=\frac{2πk}{N}}=H[k]</script><p>$H(e^{jω})$中$\frac{N-1}{2}$的序列通过采样生成后做对称生成后半部分的序列，以满足滤波器的线性相位特性。<br>最后，对整个序列做群时延$α=\frac{N-1}{2}$以满足因果性。即可生成实际的滤波器序列。  </p>
+<h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法*"></a>优化方法*</h2><p>相当多的通信调制方法中对于滤波器的波纹要求很高，因此需要对滤波器函数做进一步的优化，优化的基本思想是对滤波器的波纹进行赋权，权值函数为$w_{rp}[n]$，使得滤波器在频域上的表现更加接近于理想滤波器。<br>定义滤波器优化方法的损失函数为：  </p>
+<script type="math/tex; mode=display">ɛ^2=\frac{1}{2π}∫_{-π}^π|W_{rp}(e^{jω})\left(H_d(e^{jω})-H(e^{jω})\right)|^2dω</script><p>其中，$H_d(e^{jω})$是实际设计的滤波器的频率响应，$H(e^{jω})$对应理想滤波器的频率响应。<br>基本上所有的优化方法的思路都是寻找损失函数取得最小值时所对应的权重$W_{rp}$。<br>常见的优化算法有：帕克斯-麦克莱伦算法（Parks–McClellan algorithm）或者梯度下降算法（Gredient Desent），都是寻找全局最小值问题的常用方法，在此不做过多介绍。  </p>
+
             </div>
             <hr>
             <div>
