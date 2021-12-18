@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.5k 字
+      3.6k 字
     </span>
   
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月17日 下午
+                  本文最后更新于：2021年12月18日 下午
                 
               </p>
             
@@ -437,10 +437,11 @@ p.spoiler {
 <li>将电平值减去段落的起始值，与量化间隔相除，结果转化为8421码即为$C_5C_6C_7C_8$。  </li>
 </ol>
 <p>与量化间隔相除结果的余数部分无法通过编码表示，称为编码噪声$EQ$。<br>由于这样的转换方式比较低效，实际上的通信系统通常采用逐位进行比较的逐次比较法，过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211025183903.png width=80%>  </p>
-<h3 id="脉冲调制的解码"><a href="#脉冲调制的解码" class="headerlink" title="脉冲调制的解码"></a>脉冲调制的解码</h3><h3 id="PCM与11-NBC的关系"><a href="#PCM与11-NBC的关系" class="headerlink" title="PCM与11-NBC的关系"></a>PCM与11-NBC的关系</h3><p>PCM基于非均匀脉冲，是一种非线性编码。由于之后的通信电路中含有仅支持线性输入的逻辑电路，因此还需要将7bit的PCM转化为11bit的自然二进制编码（NBC），两者之间满足：  </p>
+<h3 id="脉冲调制的解码"><a href="#脉冲调制的解码" class="headerlink" title="脉冲调制的解码"></a>脉冲调制的解码</h3><p>PCM编码在解码端首先会变成11位的自然二进制编码。  </p>
+<h3 id="PCM与11-NBC的关系"><a href="#PCM与11-NBC的关系" class="headerlink" title="PCM与11-NBC的关系"></a>PCM与11-NBC的关系</h3><p>PCM基于非均匀脉冲，是一种非线性编码。由于之后的通信电路中含有仅支持线性输入的逻辑电路，因此还需要将7bit的PCM转化为11bit的自然二进制编码（NBC），两者之间满足：  </p>
 <script type="math/tex; mode=display">I_{PCM}=I_{11-NBC}</script><p>即两者编码转化为10进制的结果是相同的。<br>因此PCM编码转为10进制后再转为自然二进制即可得到NBC。  </p>
 <h4 id="PCM与12-NBC的关系"><a href="#PCM与12-NBC的关系" class="headerlink" title="PCM与12-NBC的关系"></a>PCM与12-NBC的关系</h4><p>由于PCM编码只考虑到了每个量化区间内的起始值$m_{i-1}$而并非量化电平$p_i$，在解码过程中需要补充每个量化段的半个量化区间$\frac{Δ_i}{2}$，由于最小的$\frac{Δ_1}{2}=0.5$，因此需要额外补充一个bit来弥补增加的精度，生成12位NBC码。  </p>
-<script type="math/tex; mode=display">I_{12-NBC}=I_{PCM}+\frac{Δ_i}{2}</script><p>因此，脉冲调制的量化噪声$QN$为编码噪声减去$\frac{Δ_i}{2}$:</p>
+<script type="math/tex; mode=display">I_{12-NBC}=I_{PCM}+\frac{Δ_i}{2}</script><p>因此，脉冲编码调制的量化噪声$QN$为编码噪声减去$\frac{Δ_i}{2}$:</p>
 <script type="math/tex; mode=display">QN=EN-\frac{Δ_i}{2}</script><h3 id="PCM的抗噪性分析"><a href="#PCM的抗噪性分析" class="headerlink" title="PCM的抗噪性分析"></a>PCM的抗噪性分析</h3><h4 id="传输速率"><a href="#传输速率" class="headerlink" title="传输速率"></a>传输速率</h4><p>PCM的传输速率为：  </p>
 <script type="math/tex; mode=display">R_B=f_s×log_2^M</script><p>其中$f_s$为采样速率，$M$为比特数，A律13折PCM中$M=8$。  </p>
 <h4 id="信噪比"><a href="#信噪比" class="headerlink" title="信噪比"></a>信噪比</h4><p>解码器端解码后的信号可以表示为：  </p>
@@ -453,7 +454,7 @@ p.spoiler {
 <script type="math/tex; mode=display">R_B=R_b=nlf_s</script><p>$f_s$为转盘的抽样频率。  </p>
 <h3 id="占空比"><a href="#占空比" class="headerlink" title="占空比"></a>占空比</h3><p>对每一帧而言，其中电平不为0的时间段（即信息传输的时间）称为符号持续时间$τ$（Symbol duration），定义占空比（Duty Cycle）表示符号持续时间和一个周期时间之比：  </p>
 <script type="math/tex; mode=display">Duty.Cycle=\frac{τ}{T_s}×100\%</script><p>当$τ=T_s$时，表示一个周期内所有时间都在发送符号，称为归零码（RZ Code），$τ≠T_s$时，称为不归零码（NRZ Code）。  </p>
-<h3 id="30-32-PCM-基群结构"><a href="#30-32-PCM-基群结构" class="headerlink" title="30/32 PCM 基群结构"></a>30/32 PCM 基群结构</h3><p>30/32 PCM 基群结构是我国普遍使用的TDM-PCM方式，一帧有32个路时隙，其中有2个路时隙用于传输同步信号，剩余的30个路时隙用于传输信息。<br>其中TS0用于传输同步码、监视码、对端告警码组（简称对告码）；TS16用于传输信令码；TS1—TS15传前15个话路的话音数字码，TS17—TS31传输后15个话路的话音数字码。<br>此外还有16个复帧（Multi-frame）用于特殊用途（如定位信号，CRC校验码，信令传输等等）。  </p>
+<h3 id="30-32-PCM-基群结构"><a href="#30-32-PCM-基群结构" class="headerlink" title="30/32 PCM 基群结构*"></a>30/32 PCM 基群结构*</h3><p>30/32 PCM 基群结构是我国普遍使用的TDM-PCM方式，一帧有32个路时隙，其中有2个路时隙用于传输同步信号，剩余的30个路时隙用于传输信息。<br>其中TS0用于传输同步码、监视码、对端告警码组（简称对告码）；TS16用于传输信令码；TS1—TS15传前15个话路的话音数字码，TS17—TS31传输后15个话路的话音数字码。<br>此外还有16个复帧（Multi-frame）用于特殊用途（如定位信号，CRC校验码，信令传输等等）。  </p>
 <blockquote>
 <p>信令是用来表示通话状态的一系列信息，如：摘机、挂机信号、拨号、忙音等。  </p>
 </blockquote>
