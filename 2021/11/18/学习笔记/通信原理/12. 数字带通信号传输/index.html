@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.5k 字
+      3.7k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      39
+      41
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月11日 中午
+                  本文最后更新于：2021年12月19日 凌晨
                 
               </p>
             
@@ -305,7 +305,7 @@ p.spoiler {
 <p>由于$cosω_ct$的采样性质，同时观察频谱可以得到，2ASK的频谱带宽是基带信号带宽的2倍：  </p>
 <script type="math/tex; mode=display">B_{2ASK}=2B_s</script><p>带宽利用效率为：  </p>
 <script type="math/tex; mode=display">η=\frac{R_B}{B_{2ASK}}</script><p>当基带信号为不归零码、没有码间串扰、且基带系统中使用理想低通滤波器时：$B_s=2R_B=2f_s$。<br>此时带宽利用效率为$η=\frac{R_B}{B_{2ASK}}=0.5b/s.Hz$。  </p>
-<h3 id="解调方法"><a href="#解调方法" class="headerlink" title="解调方法"></a>解调方法</h3><p>2ASK的解调可以有两种方法：相干解调和非相干解调（包络检波法）。  </p>
+<h3 id="解调方法"><a href="#解调方法" class="headerlink" title="解调方法"></a>解调方法</h3><p>2ASK的解调可以有两种方法：相干解调和非相干解调（包络检波法）。<br>无论是何种解调方法，调制后的信号都要先通过带通滤波器以将高斯白噪声转换为窄带高斯白噪声，在解调模块末端，信号通过低通滤波器以除去高频分量，同时不损失原有的信息。低通滤波器的最小截止频率应当为基带信号的带宽$ω_m$（实际上往往采用1.5倍$ω_m$或者更高倍数）。  </p>
 <h4 id="相干解调"><a href="#相干解调" class="headerlink" title="相干解调"></a>相干解调</h4><p>同模拟信号调幅的解调，在接收端信号与另个同频同相的载波信号$cosω_ct$相乘得到：  </p>
 <script type="math/tex; mode=display">S(t)cos^2ω_ct=S(t)\frac{1}{2}(1+cos2ω_ct)</script><p>由上述式子可以发现：  </p>
 <ol>
@@ -313,7 +313,12 @@ p.spoiler {
 <li>相乘后的波形由直流分量和时变波形两部分组成。  </li>
 </ol>
 <p>因此，使用低通滤波器只保留直流分量，最终通过抽样判决器输出数字信号。<br>抽样判决器的最佳判决门限应该为$\frac{a}{2}$。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122205046.png width=50%>  </p>
-<h4 id="非相干解调（包络检波法）"><a href="#非相干解调（包络检波法）" class="headerlink" title="非相干解调（包络检波法）"></a>非相干解调（包络检波法）</h4><p>另一种去除信号极性的方式是使用全波整流器输出信号的绝对值波形，然后使用低通滤波器过滤高频分量，最终通过抽样判决器输出数字信号。<br>非相干解调过程如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122205159.png width=50%></p>
+<h4 id="非相干解调（包络检波法）"><a href="#非相干解调（包络检波法）" class="headerlink" title="非相干解调（包络检波法）"></a>非相干解调（包络检波法）</h4><p>另一种去除信号极性的方式是使用全波整流器输出信号的绝对值波形，然后使用低通滤波器过滤高频分量，最终通过抽样判决器输出数字信号。  </p>
+<blockquote>
+<p>注意在模拟信号的解调中，包络检波法不需要全波整流器去除极性，注意区分。  </p>
+</blockquote>
+<p>非相干解调过程如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211122205159.png width=50%></p>
+<p>由于非相干解调中信号没有与余弦函数相乘获得余弦函数的平方，因此非相干解调输出的幅度值应当为相干解调输出信号的2倍。</p>
 <h2 id="FSK"><a href="#FSK" class="headerlink" title="FSK"></a>FSK</h2><h3 id="调制方法-1"><a href="#调制方法-1" class="headerlink" title="调制方法"></a>调制方法</h3><p>FSK使用两个不同频率的载波$cos(ω_1t)$、$cos(ω_2t)$来表示数字信号“1”和“0”。<br>假设原信号以$a_n$表示（表达式和之前的相同），$\overline{a_n}$表示其取反后的数字信号，那么原信号经过调制后的波形表示为：  </p>
 <script type="math/tex; mode=display">S_{FSK}=[∑_na_ng(t-nT_s)]cos(ω_1t)+[∑_n\overline{a_n}g(t-nT_s)]cos(ω_2t)</script><p>从上式可以看出FSK其实是两个频率不同的ASK信号的叠加。  </p>
 <h3 id="物理实现-1"><a href="#物理实现-1" class="headerlink" title="物理实现"></a>物理实现</h3><p>FSK调制的实现有两种:  </p>
