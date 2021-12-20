@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月14日 凌晨
+                  本文最后更新于：2021年12月20日 凌晨
                 
               </p>
             
@@ -324,15 +324,16 @@ p.spoiler {
 <li>在收敛域内不存在任何极点。  </li>
 </ol>
 <h3 id="Z反变换"><a href="#Z反变换" class="headerlink" title="Z反变换"></a>Z反变换</h3><h4 id="定义式"><a href="#定义式" class="headerlink" title="定义式"></a>定义式</h4><p>定义Z反变换为：  </p>
-<script type="math/tex; mode=display">x[n]=\frac{1}{2πj}∮_{ROC}X(z)z^{n-1}dz</script><p>反变换的定义式涉及到曲线积分、计算比较困难，由于LIT系统的系统方程都能够写作多项式分数的形式，因此对LIT系统方程而言通常不采用求解定义式的方式来求解反变换，而更多地采用如下方法求解反变换式：  </p>
-<h4 id="Z变换式的一般形式"><a href="#Z变换式的一般形式" class="headerlink" title="Z变换式的一般形式"></a>Z变换式的一般形式</h4><p>序列$x(n)$的z变换式$X(z)$的一般形式可以写作由两个多项式组成的分式：  </p>
+<script type="math/tex; mode=display">x[n]=\frac{1}{2πj}∮_{ROC}X(z)z^{n-1}dz</script><p>反变换的定义式涉及到曲线积分、计算比较困难，由于LIT系统的系统方程都能够写作多项式分数的形式，因此对LIT系统方程而言通常不采用求解定义式的方式来求解反变换，而更多地采用如下方法求解反变换式： </p>
+<h4 id="Z变换式的部分分式形式"><a href="#Z变换式的部分分式形式" class="headerlink" title="Z变换式的部分分式形式"></a>Z变换式的部分分式形式</h4><p>序列$x(n)$的z变换式$X(z)$的一般形式可以写作由两个多项式组成的分式，称为部分分式：  </p>
 <script type="math/tex; mode=display">X(z)=\frac{N(z)}{D(z)}=\frac{∑b_mz^m}{∑a_nz^n}</script><p>其中$b_m$称为方程的零点，$a_m$称为方程的极点。<br>当极点为一阶时,对等式两边同时除以$z$以提取常系数$A$：  </p>
-<script type="math/tex; mode=display">\frac{X(z)}{z}=∑_{i=1}^N\frac{A_i}{z-z_i}</script><p>其中$A_i=(z-z_i)\frac{X(z)}{z}|_{z=z_i}$。<br>再乘上$z$：  </p>
-<script type="math/tex; mode=display">X(z)=∑_{i=1}^N\frac{A_iz}{z-z_i}</script><p>其中$A_i$为$x(n)$的常系数，$z_i$为底数。<br>对应的$x(n)$：</p>
-<script type="math/tex; mode=display">x(n)=∑_{i=0}^∞A_i(z_i)^nu[n],n≥0</script><p>需要注意的是，需要根据$z-z_i$的正负对Z变换的收敛域进行讨论:  </p>
+<script type="math/tex; mode=display">\frac{X(z)}{z}=∑_{i=1}^N\frac{A_i}{z-a_i}</script><p>其中$A_i=(z-a_i)\frac{X(z)}{z}|_{z=a_i}$。<br>再乘上$z$：  </p>
+<script type="math/tex; mode=display">X(z)=∑_{i=1}^N\frac{A_iz}{z-a_i}</script><p>其中$A_i$为$x(n)$的常系数，$a_i$为底数，也是极点。<br>对应的$x(n)$：</p>
+<script type="math/tex; mode=display">x(n)=∑_{i=0}^∞A_i(a_i)^nu[n],n≥0</script><p>需要注意的是，需要根据$z-a_i$的正负对Z变换的收敛域进行讨论:  </p>
 <ul>
-<li>当$z&lt;z_i$时，对应分式项$\frac{A_iz}{z-z_i}$应写作$-\frac{A_iz}{z-z_i}$以保证$z-z_i$恒正。该项对应的指数序列为左边序列$-A_i(z_i)^nu[-n-1]$  </li>
-<li>当$z&lt;z_i$时，对应分式项应写作$\frac{A_iz}{z-z_i}$以保证$z-z_i$恒正。该项对应的指数序列为右边序列$A_i(z_i)^nu[n]$  </li>
+<li>当$|z|&lt;(a_i)_{min}$时，根据极点对应序列形式（收敛特性一小节中提到的表格），该项对应的指数序列为左边序列$-A_i(a_i)^nu[-n-1]$。对应分式项$\frac{A_iz}{z-a_i}$应写作$-\frac{A_iz}{z-a_i}$以保证$z-a_i$恒正。  </li>
+<li>当$|z|&lt;(a_i)_{max}$时，根据极点对应序列形式，该项对应的指数序列为右边序列$A_i(a_i)^nu[n]$。 对应分式项应写作$\frac{A_iz}{z-a_i}$以保证$z-a_i$恒正。  </li>
+<li>当$a_{min}&lt;|z|&lt;a_{max}$时，根据极点对应序列形式，该项对应的指数序列为双边序列。</li>
 </ul>
 <h2 id="离散系统的差分方程"><a href="#离散系统的差分方程" class="headerlink" title="离散系统的差分方程"></a>离散系统的差分方程</h2><p>离散系统的差分方程可以写作：  </p>
 <script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k]</script><p>求得系统的转换方程为：  </p>
