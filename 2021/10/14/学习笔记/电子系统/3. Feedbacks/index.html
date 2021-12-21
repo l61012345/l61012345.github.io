@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      1.3k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      13
        分钟
     </span>
   
@@ -276,29 +276,33 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年10月21日 上午
+                  本文最后更新于：2021年12月21日 早上
                 
               </p>
             
             <div class="markdown-body">
               <h1 id="反馈放大器"><a href="#反馈放大器" class="headerlink" title="反馈放大器"></a>反馈放大器</h1><p>反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014132513.png width=50%>  </p>
-<p>反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为<strong>开环增益</strong>（Open-loop Gain），系统方程（S域）以$A(s)$或者$G(s)$表示；反馈系统（输出→输入方向），其增益称为反馈因子，系统方程（S域）以$B(s)$或者$H(s)$表示。<br>根据加法器的符号正负，可以分为正反馈系统和负反馈系统。<br>整个系统的<strong>闭环增益</strong>（Close-loop Gain）表示为：  </p>
-<script type="math/tex; mode=display">Gain_{cl}=\frac{θ_o}{θ_i}=\frac{G(s)}{1±G(s)H(s)}</script><blockquote>
+<p>反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为<strong>开环增益</strong>（Open-loop Gain），系统方程（S域）以$A(s)$或者$G(s)$表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以$B(s)$或者$H(s)$表示。开环（电压）增益的物理意义是只看放大器的输出端口和输入端口的电压之比。<br>根据加法器的符号正负，可以分为正反馈系统和负反馈系统。<br>整个系统的<strong>闭环增益</strong>（Close-loop Gain）表示为：  </p>
+<script type="math/tex; mode=display">Gain_{cl}=\frac{θ_o}{θ_i}=\frac{G(s)}{1-G(s)H(s)}</script><blockquote>
 <p>“-“表示正反馈电路，”+”表示负反馈电路</p>
 </blockquote>
-<p>当反馈因子为0时（物理意义为不连接反馈电路），闭环增益退化为开环增益。  </p>
+<p>其物理意义是整个电路的输出端口与输入端口的电压之比。<br>当反馈因子为0时（物理意义为不连接反馈电路），闭环增益退化为开环增益。  </p>
 <h2 id="反馈放大器类型"><a href="#反馈放大器类型" class="headerlink" title="反馈放大器类型"></a>反馈放大器类型</h2><p>放大器引入反馈电路的目的是为了便于控制放大器的频率响应特性，使其变得稳定或者是不稳定。<br>运算放大器通过反馈电路连接输入端的正相/反相端口分为正反馈和负反馈放大器电路。  </p>
-<h3 id="反馈放大器的稳定性"><a href="#反馈放大器的稳定性" class="headerlink" title="反馈放大器的稳定性"></a>反馈放大器的稳定性</h3><p>对于反馈放大器电路，电路中的反馈部分可以是非线性元件：LC，此时反馈因子的方程同样与频率有关：  </p>
-<script type="math/tex; mode=display">A_f(ω)=\frac{A(ω)}{1∓A(ω)B(ω)}</script><p>因此，反馈放大器的增益是随着频率而变化的。<br>运算放大器增益随带宽（频率）的变化如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/ddfdfsdf.png width=50%>  </p>
+<h3 id="反馈放大器的稳定性"><a href="#反馈放大器的稳定性" class="headerlink" title="反馈放大器的稳定性"></a>反馈放大器的稳定性</h3><p>对于反馈放大器电路，电路中的反馈部分可以是非线性元件：LC，此时反馈因子的方程$H(ω)$同样与频率有关，那么放大器的闭环增益可以表示为：  </p>
+<script type="math/tex; mode=display">A_{cl}(ω)=\frac{G(ω)}{1-G(ω)H(ω)}</script><p>因此，反馈放大器的增益是随着频率而变化的。<br>当处于低频时，$B$接近于0使得整个式子退化为开环增益，因此上式可以同时描述放大器的开环增益和闭环增益，同称为放大器的电压增益$A_v(ω)=A_{cl}(ω)$。  </p>
+<script type="math/tex; mode=display">A_{v}(ω)=\frac{G(ω)}{1-G(ω)H(ω)}</script><p>运算放大器增益随带宽（频率）的变化如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/ddfdfsdf.png width=50%>  </p>
 <p>由上图总结出：  </p>
 <ol>
-<li>在低频时，放大器的增益事实上是开环增益，在$|AB|=1$处之后，反馈放大器的增益变成闭环增益。  </li>
-<li>带宽越大，放大器的稳定性能越好，但是同时放大器的增益越小。事实上，反馈放大器的开环带宽和闭环带宽之间存在着如下关系：  <script type="math/tex; mode=display">B_{cl}=\frac{B_{ol}}{A_v}</script>其中$A_v$是运算放大器的电压增益。   </li>
+<li>在低频时，反馈电路上电容由于反馈信号频率太低处于断路状态，$B$接近于0，此时$A_v(ω)=G(ω)$放大器的增益是开环增益。  </li>
+<li>在当频率增加到$ω_H$时，使得$|GH|=1$，在此之后，反馈放大器的增益变成闭环增益。  </li>
+<li>带宽越大，放大器的稳定性能越好，但是同时放大器的增益越小。  </li>
 </ol>
-<h3 id="正反馈放大器（振荡器）"><a href="#正反馈放大器（振荡器）" class="headerlink" title="正反馈放大器（振荡器）"></a>正反馈放大器（振荡器）</h3><p>对正反馈放大器电路，其放大器增益（即系统的闭环增益）可以表示为：  </p>
-<script type="math/tex; mode=display">Gain=\frac{G}{1-GH}</script><p>正反馈虽然能够提高放大倍数，但会使电路工作变得不稳定。当$GH=1$时，系统增益为无穷，此时系统变得不稳定，产生正弦波<strong>振荡</strong>的电压信号。利用同相放大器的这一特性可以制作振荡器电路，将输入的直流信号变为交流信号，当$Gain$非常大时，输出电压会受到放大器工作电压的限制，最终输出的信号接近于方波。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014141623.png width=50%>  </p>
-<h3 id="负反馈放大器"><a href="#负反馈放大器" class="headerlink" title="负反馈放大器"></a>负反馈放大器</h3><p>对于负反馈放大器电路，其放大器增益（即系统的闭环增益）可以表示为：  </p>
-<script type="math/tex; mode=display">Gain=\frac{G}{1+GH}</script><p>在放大电路中引入负反馈，虽然会导致闭环增益的下降，但能使放大电路的许多性能得到改善。例如，可以提高增益的<strong>稳定性</strong>，扩展通频带，减小非线性失真，改变输入电阻和输出电阻等。</p>
+<p>事实上，反馈放大器的开环带宽和闭环带宽之间存在着如下关系：  </p>
+<script type="math/tex; mode=display">B_{cl}=\frac{B_{ol}}{A_v}</script><p>  其中$A_v$是运算放大器的电压增益。   </p>
+<h3 id="正反馈放大器（振荡器）"><a href="#正反馈放大器（振荡器）" class="headerlink" title="正反馈放大器（振荡器）"></a>正反馈放大器（振荡器）</h3><p>对正反馈放大器电路，其反馈系数为正:$H&gt;0$，其放大器增益（即系统的闭环增益）可以表示为：  </p>
+<script type="math/tex; mode=display">A_{cl}=\frac{G}{1-|GH|}</script><p>正反馈虽然能够提高放大倍数，但会使电路工作变得不稳定。当$|GH|=1$时，系统增益为无穷，此时系统变得不稳定，产生正弦波<strong>振荡</strong>的电压信号。利用同相放大器的这一特性可以制作振荡器电路，将输入的直流信号变为交流信号，当$Gain$非常大时，输出电压会受到放大器工作电压的限制，最终输出的信号接近于方波。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014141623.png width=50%>  </p>
+<h3 id="负反馈放大器"><a href="#负反馈放大器" class="headerlink" title="负反馈放大器"></a>负反馈放大器</h3><p>对于负反馈放大器电路，其反馈系数为负数:$H&lt;0$，其放大器增益（即系统的闭环增益）可以表示为：  </p>
+<script type="math/tex; mode=display">Gain=\frac{G}{1+|GH|}</script><p>在放大电路中引入负反馈，虽然会导致闭环增益的下降，但能使放大电路的许多性能得到改善。例如，可以提高增益的<strong>稳定性</strong>，扩展通频带，减小非线性失真，改变输入电阻和输出电阻等。</p>
 <blockquote>
 <p>给出了负反馈增益的具体推导，以及频率响应为什么和低通滤波器如此相似的原因：<a target="_blank" rel="noopener" href="https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture29-OP%20Amp%20Frequency%20Response.pdf">https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture29-OP%20Amp%20Frequency%20Response.pdf</a></p>
 </blockquote>
