@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      4.1k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      46
+      51
        分钟
     </span>
   
@@ -514,7 +514,30 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 </tbody>
 </table>
 </div>
-<h3 id="FIR滤波器设计的加窗法"><a href="#FIR滤波器设计的加窗法" class="headerlink" title="FIR滤波器设计的加窗法"></a>FIR滤波器设计的加窗法</h3><h3 id="IIR滤波器设计的冲激响应不变法"><a href="#IIR滤波器设计的冲激响应不变法" class="headerlink" title="IIR滤波器设计的冲激响应不变法"></a>IIR滤波器设计的冲激响应不变法</h3><h4 id="连续滤波器类型"><a href="#连续滤波器类型" class="headerlink" title="连续滤波器类型"></a>连续滤波器类型</h4><ul>
+<h3 id="FIR滤波器设计的加窗法"><a href="#FIR滤波器设计的加窗法" class="headerlink" title="FIR滤波器设计的加窗法"></a>FIR滤波器设计的加窗法</h3><p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：  </p>
+<script type="math/tex; mode=display">h[n]=\frac{sin(ω_cn)}{πn}</script><p>其中$ω_c$表示其截止频率。  </p>
+<ol>
+<li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为$\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}$,是一个非因果序列。</li>
+<li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：$\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}$</li>
+<li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window function），赋权的操作为：<script type="math/tex; mode=display">fl[n]=h_d[n]×w[n]</script>其中$h_d[n]$为截取和时移之后的理想低通滤波器序列，$w[n]$由窗函数产生。  </li>
+</ol>
+<h4 id="凯撒窗"><a href="#凯撒窗" class="headerlink" title="凯撒窗"></a>凯撒窗</h4><p>凯撒窗函数：  </p>
+<script type="math/tex; mode=display">w[n]=\begin{cases}
+    \frac{I_0[β(1-[\frac{n-α}{α}]^2)^{\frac{1}{2}}]}{I_0(β)},0≤n≤M\\
+    0, otherwise
+\end{cases}</script><p>凯撒窗的过渡带带宽由凯撒窗的阶数和宽容度决定：  </p>
+<script type="math/tex; mode=display">M=\frac{-e_p-8}{2.285Δω}</script><p>宽容度由形状参数决定：  </p>
+<script type="math/tex; mode=display">β=\begin{cases}
+    0.1102(-e_p-8.7),-e_p>50\\
+    0.5842(-e_p-21)^{0.4}+0.07886(-e_p-21),21≤-e_p≤50\\
+    0, -e_p<21
+\end{cases}</script><p>凯撒窗可以通过控制阶数和形状参数$β$来控制宽容度和过渡带带宽。<br>对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：  </p>
+<ol>
+<li>根据宽容度$δ$计算出$e_p$  </li>
+<li>根据$e_p$计算出$β$。  </li>
+<li>根据$e_p$和过渡带带宽计算出凯撒窗的阶数。  </li>
+</ol>
+<h3 id="IIR滤波器设计的冲激响应不变法"><a href="#IIR滤波器设计的冲激响应不变法" class="headerlink" title="IIR滤波器设计的冲激响应不变法"></a>IIR滤波器设计的冲激响应不变法</h3><h4 id="连续滤波器类型"><a href="#连续滤波器类型" class="headerlink" title="连续滤波器类型"></a>连续滤波器类型</h4><ul>
 <li>巴特沃斯滤波器</li>
 <li>切比雪夫滤波器<h4 id="模数转换-冲激响应不变"><a href="#模数转换-冲激响应不变" class="headerlink" title="模数转换-冲激响应不变"></a>模数转换-冲激响应不变</h4></li>
 </ul>
@@ -802,20 +825,5 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>

@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月22日 早上
+                  本文最后更新于：2021年12月28日 上午
                 
               </p>
             
@@ -284,7 +284,7 @@ p.spoiler {
               <h1 id="FIR滤波器设计方法"><a href="#FIR滤波器设计方法" class="headerlink" title="FIR滤波器设计方法"></a>FIR滤波器设计方法</h1><p>在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。  </p>
 <h2 id="加窗法"><a href="#加窗法" class="headerlink" title="加窗法"></a>加窗法</h2><p>加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。  </p>
 <h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：  </p>
-<script type="math/tex; mode=display">h[n]=\frac{sin(ω_cπn)}{πn}</script><p>其中$ω_c$表示其截止频率。  </p>
+<script type="math/tex; mode=display">h[n]=\frac{sin(ω_cn)}{πn}</script><p>其中$ω_c$表示其截止频率。  </p>
 <ol>
 <li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为$\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}$,是一个非因果序列。</li>
 <li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：$\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}$</li>
@@ -294,9 +294,8 @@ p.spoiler {
 <script type="math/tex; mode=display">fl(e^{jω})=H_d(e^{jω}) \tilde{⊕} W(e^{jω})</script><p>在频域中$H_d(e^{jω})$是一个门函数，对矩形窗，$W(e^{jω})$是采样函数。<br>两者周期卷积的过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/image171.gif width=70%><br>两者的卷积结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/R-C.2b3573a9858b6fa5a41359616773035c width=70%>  </p>
 <h4 id="波纹"><a href="#波纹" class="headerlink" title="波纹"></a>波纹</h4><p>可以发现，由于窗函数旁瓣在频域上的振荡，使得卷积后的频率响应中在通带和止带都出现了振荡，称为滤波器的波纹(Ripple)。同时可以发现，波纹在周期卷积过程中的形成只和窗函数频谱的主瓣和旁瓣的相对幅值有关，定义峰值旁瓣比(PSLR，peak side lobe ratio) 表示dB化后的主瓣相邻旁瓣幅值和主瓣幅值之比：</p>
 <script type="math/tex; mode=display">r_p|dB=20lg(\frac{A_{sidelope}}{A_{mainlope}})</script><p>可以发现，<strong>窗函数频谱中峰值旁瓣比越小，波纹的振荡就越小。</strong>  </p>
-<p>定义幅度响应为滤波器函数幅度随频率的响应，</p>
 <h4 id="过渡带带宽"><a href="#过渡带带宽" class="headerlink" title="过渡带带宽"></a>过渡带带宽</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215141238.png width=50%></p>
-<p>由上图可以看出，<strong>采样点的个数和过渡带带宽成反比关系。</strong><br>增大采样点的个数（实际设计中增大抽头数$N$），其过渡带会减小。  </p>
+<p>由上图可以看出，<strong>采样点的个数和过渡带带宽成反比关系。</strong><br>并且，过渡带带宽为主瓣带宽。<br>增大采样点的个数（实际设计中增大抽头数$N$），其过渡带会减小。  </p>
 <h4 id="吉布斯效应"><a href="#吉布斯效应" class="headerlink" title="吉布斯效应"></a>吉布斯效应</h4><p>同时，<strong>增大抽头数$N$还会改变波纹的密度，抽头数增多，其波纹密度增大</strong><br>，但是每个波纹的幅值并不会改变，这个效应称为吉布斯效应。<br><strong>吉布斯效应可以通过设计窗函数时让窗函数的时域表达平缓的由1减小到0来消除。</strong>  </p>
 <h4 id="宽容度"><a href="#宽容度" class="headerlink" title="宽容度"></a>宽容度</h4><p>上述影响因素都是基于幅度值-频率响应得出的，定义滤波器的幅度-频率响应为：  </p>
 <script type="math/tex; mode=display">A_e(e^{jω})=H_e(e^{jω}) \tilde{⊕} W_e(e^{jω})</script><p>对于第一类FIR滤波器(序列对称，长度为奇数)，有：  </p>
@@ -645,20 +644,5 @@ p.spoiler {
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
