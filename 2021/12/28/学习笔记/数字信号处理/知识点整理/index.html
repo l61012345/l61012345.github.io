@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.3k 字
+      3.8k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      40
+      47
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月28日 早上
+                  本文最后更新于：2021年12月28日 上午
                 
               </p>
             
@@ -424,11 +424,101 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <li>系统方程的模长/幅度值(Magnitude)：  <script type="math/tex; mode=display">|H(e^{jω})|=\frac{Π零向量的模长}{Π极向量的模长}</script>即系统方程频率响应$H(e^{jω})$的幅度值-频率响应，简称幅频响应。  </li>
 <li>系统方程的相位：  <script type="math/tex; mode=display">∠H(e^{jω})=∑零向量的角度-∑极向量的角度</script>即系统方程频率响应$H(e^{jω})$的相位-频率响应，简称相频响应。</li>
 </ul>
-<h2 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h2><h3 id="滤波器的理论结构"><a href="#滤波器的理论结构" class="headerlink" title="滤波器的理论结构"></a>滤波器的理论结构</h3><h3 id="FIR滤波器设计的加窗法"><a href="#FIR滤波器设计的加窗法" class="headerlink" title="FIR滤波器设计的加窗法"></a>FIR滤波器设计的加窗法</h3><h3 id="IIR滤波器设计的冲激响应不变法"><a href="#IIR滤波器设计的冲激响应不变法" class="headerlink" title="IIR滤波器设计的冲激响应不变法"></a>IIR滤波器设计的冲激响应不变法</h3><h4 id="连续滤波器类型"><a href="#连续滤波器类型" class="headerlink" title="连续滤波器类型"></a>连续滤波器类型</h4><ul>
+<h3 id="FIR系统和IIR系统"><a href="#FIR系统和IIR系统" class="headerlink" title="FIR系统和IIR系统"></a>FIR系统和IIR系统</h3><p>对Z域转换方程做Z反变换：  </p>
+<script type="math/tex; mode=display">h[n]=∑_{r=0}^{M-N}B_rδ[n-r]+∑_{k=1}^NA_k(d_k)^nu[n]</script><p>由于$u[n]$是一个无限长度的序列，因此系统的冲激响应也是无限长度的，称这样的系统为无限冲激响应系统（IIR System）。<br>当$N=0$时，差分方程左边只含有$y[n]$，系统方程的当前输出只由输入$x$决定，系统不含有反馈，此时系统方程为：  </p>
+<script type="math/tex; mode=display">h[n]=∑_{r=0}^{M}B_rδ[n-r]</script><p>由于$δ[n-r]$长度有限，整个系统的冲激响应的长度是有限的，称这样的系统为有限冲激响应系统（FIR System）。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">N</th>
+<th style="text-align:center">差分方程左侧</th>
+<th style="text-align:center">有无反馈</th>
+<th style="text-align:center">冲激响应长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IIR</td>
+<td style="text-align:center">N&gt;0</td>
+<td style="text-align:center">含有$y[n-k]$</td>
+<td style="text-align:center">有</td>
+<td style="text-align:center">无限</td>
+</tr>
+<tr>
+<td style="text-align:center">FIR</td>
+<td style="text-align:center">N=0</td>
+<td style="text-align:center">只有$y[n]$</td>
+<td style="text-align:center">无</td>
+<td style="text-align:center">有限</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h2><h3 id="滤波器的理论结构"><a href="#滤波器的理论结构" class="headerlink" title="滤波器的理论结构"></a>滤波器的理论结构</h3><p>对于FIR滤波器，滤波器的理论结构如下表所示：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">基于的系统表示</th>
+<th style="text-align:center">图示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">直接型</td>
+<td style="text-align:center">$y[n]=h[1]x[n-1]+h[x][n-2]+..+h[M]x[n-M]$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125161657.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">级联型</td>
+<td style="text-align:center">$Y(z)=(b_{01}+b_{11}z^{-1}+b_{21}z^{-2})…(b_{0M_s}+b_{1M_s}z^{-1}+b_{2M_s}z^{-2})X(z)$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125170748.png width=50%></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于IIR滤波器，滤波器的理论结构类型如下表所示：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">基于的系统表示</th>
+<th style="text-align:center">图示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">直接型I</td>
+<td style="text-align:center">$y[n]=v[n]+∑_{k=1}^Na_ky[n-k]$ <br> $v[n]=∑_{k=0}^Mb_kx[n-k]$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127131242.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">标准型</td>
+<td style="text-align:center">$H(Z)=\frac{Y(Z)}{W(Z)}\frac{W(Z)}{X(Z)}$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127135151.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">级联型</td>
+<td style="text-align:center">$H(z)=G∏_{k=1}^{N_s}\frac{1+b’_{1k}z^{-1}+b’_{2k}z^{-2}}{1-a’_{1k}z^{-1}-a’_{2k}z^{-2}}$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127141419.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">并联型</td>
+<td style="text-align:center">$H(z)=∑_{k=0}^{N_p}C_kz^{-k}+∑_{k=1}^{N_s}\frac{e_{0k}+e_{1k}z^{-1}}{1-a_{1k}z^{-1}-a_{2k}z^{-2}}$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127143607.png width=50%></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="FIR滤波器设计的加窗法"><a href="#FIR滤波器设计的加窗法" class="headerlink" title="FIR滤波器设计的加窗法"></a>FIR滤波器设计的加窗法</h3><h3 id="IIR滤波器设计的冲激响应不变法"><a href="#IIR滤波器设计的冲激响应不变法" class="headerlink" title="IIR滤波器设计的冲激响应不变法"></a>IIR滤波器设计的冲激响应不变法</h3><h4 id="连续滤波器类型"><a href="#连续滤波器类型" class="headerlink" title="连续滤波器类型"></a>连续滤波器类型</h4><ul>
 <li>巴特沃斯滤波器</li>
 <li>切比雪夫滤波器<h4 id="模数转换-冲激响应不变"><a href="#模数转换-冲激响应不变" class="headerlink" title="模数转换-冲激响应不变"></a>模数转换-冲激响应不变</h4></li>
 </ul>
-
+<h2 id="MATLAB程序设计基础"><a href="#MATLAB程序设计基础" class="headerlink" title="MATLAB程序设计基础"></a>MATLAB程序设计基础</h2>
             </div>
             <hr>
             <div>
