@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月28日 上午
+                  本文最后更新于：2021年12月29日 上午
                 
               </p>
             
@@ -424,6 +424,9 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <li>系统方程的模长/幅度值(Magnitude)：  <script type="math/tex; mode=display">|H(e^{jω})|=\frac{Π零向量的模长}{Π极向量的模长}</script>即系统方程频率响应$H(e^{jω})$的幅度值-频率响应，简称幅频响应。  </li>
 <li>系统方程的相位：  <script type="math/tex; mode=display">∠H(e^{jω})=∑零向量的角度-∑极向量的角度</script>即系统方程频率响应$H(e^{jω})$的相位-频率响应，简称相频响应。</li>
 </ul>
+<div class="note note-info">
+            <p>正弦信号通过系统<br>如果正弦信号为$Acos(ω_0t+θ_0)$，通过系统$H(e^{jω})=|H(e^{jω})|e^{-j∠H(e^{jω})}$后的表达式为：  </p><script type="math/tex; mode=display">A|H(e^{jω_0})|cos(ω_0t+θ_0+∠H(e^{jω_0}))</script>
+          </div>
 <h3 id="FIR系统和IIR系统"><a href="#FIR系统和IIR系统" class="headerlink" title="FIR系统和IIR系统"></a>FIR系统和IIR系统</h3><p>对Z域转换方程做Z反变换：  </p>
 <script type="math/tex; mode=display">h[n]=∑_{r=0}^{M-N}B_rδ[n-r]+∑_{k=1}^NA_k(d_k)^nu[n]</script><p>由于$u[n]$是一个无限长度的序列，因此系统的冲激响应也是无限长度的，称这样的系统为无限冲激响应系统（IIR System）。<br>当$N=0$时，差分方程左边只含有$y[n]$，系统方程的当前输出只由输入$x$决定，系统不含有反馈，此时系统方程为：  </p>
 <script type="math/tex; mode=display">h[n]=∑_{r=0}^{M}B_rδ[n-r]</script><p>由于$δ[n-r]$长度有限，整个系统的冲激响应的长度是有限的，称这样的系统为有限冲激响应系统（FIR System）。  </p>
@@ -520,22 +523,6 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为$\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}$,是一个非因果序列。</li>
 <li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：$\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}$</li>
 <li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window function），赋权的操作为：<script type="math/tex; mode=display">fl[n]=h_d[n]×w[n]</script>其中$h_d[n]$为截取和时移之后的理想低通滤波器序列，$w[n]$由窗函数产生。  </li>
-</ol>
-<h4 id="凯撒窗"><a href="#凯撒窗" class="headerlink" title="凯撒窗"></a>凯撒窗</h4><p>凯撒窗函数：  </p>
-<script type="math/tex; mode=display">w[n]=\begin{cases}
-    \frac{I_0[β(1-[\frac{n-α}{α}]^2)^{\frac{1}{2}}]}{I_0(β)},0≤n≤M\\
-    0, otherwise
-\end{cases}</script><p>凯撒窗的过渡带带宽由凯撒窗的阶数和宽容度决定：  </p>
-<script type="math/tex; mode=display">M=\frac{-e_p-8}{2.285Δω}</script><p>宽容度由形状参数决定：  </p>
-<script type="math/tex; mode=display">β=\begin{cases}
-    0.1102(-e_p-8.7),-e_p>50\\
-    0.5842(-e_p-21)^{0.4}+0.07886(-e_p-21),21≤-e_p≤50\\
-    0, -e_p<21
-\end{cases}</script><p>凯撒窗可以通过控制阶数和形状参数$β$来控制宽容度和过渡带带宽。<br>对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：  </p>
-<ol>
-<li>根据宽容度$δ$计算出$e_p$  </li>
-<li>根据$e_p$计算出$β$。  </li>
-<li>根据$e_p$和过渡带带宽计算出凯撒窗的阶数。  </li>
 </ol>
 <h3 id="IIR滤波器设计的冲激响应不变法"><a href="#IIR滤波器设计的冲激响应不变法" class="headerlink" title="IIR滤波器设计的冲激响应不变法"></a>IIR滤波器设计的冲激响应不变法</h3><h4 id="连续滤波器类型"><a href="#连续滤波器类型" class="headerlink" title="连续滤波器类型"></a>连续滤波器类型</h4><ul>
 <li>巴特沃斯滤波器</li>
@@ -825,20 +812,5 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
