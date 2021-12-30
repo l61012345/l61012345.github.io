@@ -35,7 +35,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
     
   
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月19日 凌晨
+                  本文最后更新于：2021年12月30日 早上
                 
               </p>
             
@@ -304,7 +304,7 @@ p.spoiler {
 <script type="math/tex; mode=display">f_s≥2f_H</script><p>但是采样频率越高，整个频谱的带宽越大，频谱利用率越低，最好的采样频率为两者相等时：$f_s=2f_H$，称为奈奎斯特采样频率。  </p>
 <h3 id="带通信号采样"><a href="#带通信号采样" class="headerlink" title="带通信号采样"></a>带通信号采样</h3><p>这样的采样方式对低通信号（原信号频谱$f_L=0$）固然是可行的，对于带通信号（原信号$f_L≠0$），这样的采样使得频谱中出现很多无信号部分，称为频谱空洞，导致频谱利用效率降低。因此需要在上述方法上进行改进。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023133539.png width=50%>  </p>
 <p>对于带通信号，其采样频率$f_s$应当满足如下条件：  </p>
-<script type="math/tex; mode=display">f_s≥2B(1+\frac{M}{N})</script><p>其中$M$为$|\frac{f_H}{B}|$的整数部分（向下取整），$N$为$|\frac{f_H}{B}|$的小数部分。<br>满足$f_s=2B(1+\frac{M}{N})$的采样结果不会出现频谱空洞。<br>对于上式，当$f_L$非常大时，$f_s≈2B$。  </p>
+<script type="math/tex; mode=display">f_s≥2B(1+\frac{M}{N})</script><p>其中$M$为$|\frac{f_H}{B}|$的小数部分，$N$为$|\frac{f_H}{B}|$的整数部分。<br>满足$f_s=2B(1+\frac{M}{N})$的采样结果不会出现频谱空洞。<br>对于上式，当$f_L$非常大时，$f_s≈2B$。  </p>
 <h2 id="量化"><a href="#量化" class="headerlink" title="量化"></a>量化</h2><h3 id="均匀量化"><a href="#均匀量化" class="headerlink" title="均匀量化"></a>均匀量化</h3><p>量化过程简述如下：将信号的幅值划分成若干个区间，某时刻原信号幅值落在该区间时，量化信号在此时刻的幅值为这个区间的中值。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211023135157.png width=80%>  </p>
 <p>该过程可以用数学表示为：  </p>
 <script type="math/tex; mode=display">m_q(kT_S)=q_i,\text{if }m_{i-1}≤m(kT_s)≤m_i</script><p>这个过程中的每个区间称为量化间隔，在均匀量化中，这个间隔是均等的：$Δ=\frac{V_m}{N}$，$N$为用于描述信号的比特数，与量化精度相关。每个区间的上界是下一个区间的下界，每个界限以$m_i$表示。当原信号落入某区间时，用于描述/替代原信号幅值的值称为量化电平$q_i$，量化电平通常是该区间的中值，以减小总体的量化误差：  </p>

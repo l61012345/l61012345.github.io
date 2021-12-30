@@ -35,7 +35,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
     
   
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.1k 字
+      5.4k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      51
+      69
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月29日 上午
+                  本文最后更新于：2021年12月30日 早上
                 
               </p>
             
@@ -524,11 +524,82 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：$\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}$</li>
 <li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window function），赋权的操作为：<script type="math/tex; mode=display">fl[n]=h_d[n]×w[n]</script>其中$h_d[n]$为截取和时移之后的理想低通滤波器序列，$w[n]$由窗函数产生。  </li>
 </ol>
-<h3 id="IIR滤波器设计的冲激响应不变法"><a href="#IIR滤波器设计的冲激响应不变法" class="headerlink" title="IIR滤波器设计的冲激响应不变法"></a>IIR滤波器设计的冲激响应不变法</h3><h4 id="连续滤波器类型"><a href="#连续滤波器类型" class="headerlink" title="连续滤波器类型"></a>连续滤波器类型</h4><ul>
-<li>巴特沃斯滤波器</li>
-<li>切比雪夫滤波器<h4 id="模数转换-冲激响应不变"><a href="#模数转换-冲激响应不变" class="headerlink" title="模数转换-冲激响应不变"></a>模数转换-冲激响应不变</h4></li>
+<h4 id="窗函数"><a href="#窗函数" class="headerlink" title="窗函数"></a>窗函数</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">窗函数类型</th>
+<th style="text-align:center">表达式</th>
+<th style="text-align:center">$e_p=20lgδ$</th>
+<th style="text-align:center">过渡带带宽</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">三角窗</td>
+<td style="text-align:center">$\begin{cases}\frac{2}{M}n,0≤n≤\frac{M}{2}\\ 2-\frac{2}{M}n,\frac{M}{2}≤n≤M \end{cases}$</td>
+<td style="text-align:center">-25</td>
+<td style="text-align:center">$\frac{2.37π}{M}$</td>
+</tr>
+<tr>
+<td style="text-align:center">汉宁窗</td>
+<td style="text-align:center">$0.5-0.5cos(\frac{2πn}{M})$</td>
+<td style="text-align:center">-44</td>
+<td style="text-align:center">$\frac{5.01π}{M}$</td>
+</tr>
+<tr>
+<td style="text-align:center">海明窗</td>
+<td style="text-align:center">$0.54-0.46cos(\frac{2πn}{M})$</td>
+<td style="text-align:center">-53</td>
+<td style="text-align:center">$\frac{6.27π}{M}$</td>
+</tr>
+<tr>
+<td style="text-align:center">布莱克曼窗</td>
+<td style="text-align:center">$0.42-0.5cos(\frac{2πn}{M})+0.08cos(\frac{4πn}{M})$</td>
+<td style="text-align:center">-74</td>
+<td style="text-align:center">$\frac{9.19π}{M}$</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="IIR滤波器设计"><a href="#IIR滤波器设计" class="headerlink" title="IIR滤波器设计"></a>IIR滤波器设计</h3><h4 id="模拟滤波器"><a href="#模拟滤波器" class="headerlink" title="模拟滤波器"></a>模拟滤波器</h4><p>定义其通带波纹$R_p$为：  </p>
+<script type="math/tex; mode=display">R_p|_{dB}=-10lg|H_a(jΩ_p)|=-10lg\frac{1}{1+ɛ^2}</script><p>止带衰减$A_s$为：  </p>
+<script type="math/tex; mode=display">A_s=-10lg|H_a(jΩ_s)|=-10lg\frac{1}{A^2}</script><h4 id="模拟滤波器类型"><a href="#模拟滤波器类型" class="headerlink" title="模拟滤波器类型"></a>模拟滤波器类型</h4><ul>
+<li>巴特沃斯滤波器<br>巴特沃斯滤波器的频率响应：  <script type="math/tex; mode=display">|H(e^{jω})|^2=\frac{1}{1+(\frac{Ω}{Ω_c})^{2N}}</script></li>
+<li>切比雪夫滤波器<br>切比雪夫I型滤波器的频率响应：  <script type="math/tex; mode=display">|H(e^{jω})|^2=\frac{1}{1+ɛ^2T_N^2(\frac{Ω}{Ω_c})}</script>$T_N(x)$为N阶切比雪夫多项式：  <script type="math/tex; mode=display">T_N(x)=\begin{cases}
+  cos(Narccos(x)),0≤x≤1\\
+  cosh(Narccosh(x)),1≤x≤∞
+\end{cases}</script><blockquote>
+<p>$cosh(x)=\frac{e^x+e^{-x}}{2}$   </p>
+<script type="math/tex; mode=display">ɛ=\sqrt{10^{0.1R_p}-1}</script></blockquote>
+</li>
 </ul>
-<h2 id="MATLAB程序设计基础"><a href="#MATLAB程序设计基础" class="headerlink" title="MATLAB程序设计基础"></a>MATLAB程序设计基础</h2>
+<h4 id="模数转换-冲激响应不变"><a href="#模数转换-冲激响应不变" class="headerlink" title="模数转换-冲激响应不变"></a>模数转换-冲激响应不变</h4><p>脉冲响应不变的映射律：  </p>
+<script type="math/tex; mode=display">h[n]=Th_c(nT)</script><p>脉冲响应不变法的流程：  </p>
+<ol>
+<li>根据设计要求的通带截止频率和止带截止频率将数字角频率还原为模拟角频率：$Ω_p=\frac{ω_p}{T},Ω_s=\frac{ω_s}{T}$。  </li>
+<li>设计出对应的模拟滤波器。  </li>
+<li>求出模拟滤波器的频率响应：$H_c(s)=∑_{k=1}^N\frac{A_k}{s-s_k}$。</li>
+<li>根据映射律：$H(z)=∑\frac{A_k}{1-e^{s_kT}z^{-1}}$，得到数字滤波器的频率响应。  </li>
+</ol>
+<h4 id="模数转换-双线性转换"><a href="#模数转换-双线性转换" class="headerlink" title="模数转换-双线性转换"></a>模数转换-双线性转换</h4><p>双线性转换的映射律：  </p>
+<script type="math/tex; mode=display">s=\frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}}</script><p>其模拟角频率与数字角频率之间的关系是：  </p>
+<script type="math/tex; mode=display">Ω=\frac{2}{T}tan\frac{ω}{2}</script><h2 id="MATLAB程序设计基础"><a href="#MATLAB程序设计基础" class="headerlink" title="MATLAB程序设计基础"></a>MATLAB程序设计基础</h2><h3 id="绘制频率响应"><a href="#绘制频率响应" class="headerlink" title="绘制频率响应"></a>绘制频率响应</h3><p>给定系统冲激响应$h[n]$下，绘制其频率响应需要注意的是：  </p>
+<ul>
+<li>需要对$h[n]$进行周期延拓，方法是使用<code>zeros(1,L)</code>创建一个长度为L的全0向量用<code>x=[x,zeros(1,L)]</code>对其填充。  </li>
+<li>使用<code>fft()</code>函数求其FFT结果。<code>abs()</code>求结果的绝对值得到幅频响应，<code>angle()</code>求FFT结果的相频响应。  </li>
+<li>横轴应当为<code>[0:(N+L)]*2*pi/(N+L+1)</code>使得0-2π内每一格的长度为$\frac{2π}{N+L+1}$ （因为<code>0:(N+L)</code>有N+L+1个数）  </li>
+</ul>
+<p>下面的示例程序展示了如何绘制$h[n]=Sa(0.1(n-50)),0≤n≤100$的幅频和相频响应曲线：<br><figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>; <span class="hljs-comment">%100点FFT</span><br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)]; <span class="hljs-comment">%对x周期延拓到长度为1000</span><br>X<span class="hljs-built_in">=</span>fft(x); <span class="hljs-comment">%求其FFT/DFS结果（Amplitude Response）</span><br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<span class="hljs-comment">%横轴，每一格表示2π/(N+1001)</span><br>plot(w./pi,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）并作π归一化</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></div></td></tr></table></figure><br>给定系统Z域下的转换方程$H(z)=\frac{∑b_kz^{-k}}{∑a_kz^{-k}}$时，可以使用<code>[H,w]=freqz(b,a,n)</code>返回其频率响应<code>H</code>和对应的π归一化的角频率横轴<code>w</code>，其中<code>a</code>是$∑a_kz^{-k}$由高次幂到低次幂排列时的系数向量，其中<code>b</code>是$∑b_kz^{-k}$由高次幂到低次幂排列时的系数向量，<code>n</code>为计算时所指定的N点FFT的点数，缺省值为512。<br>如下的例程中给出了如何绘制$H(z)=\frac{1-0.5z^{-1}}{1-2z^{-1}+z^{-2}}$的频率响应图：<br><figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs m">b<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">0.5</span>];<br>a<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">2</span>,<span class="hljs-number">1</span>];<br>[H,w]<span class="hljs-built_in">=</span>freqz(b,a); <br>plot(w,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>plot(w,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br></code></pre></div></td></tr></table></figure></p>
+<h3 id="卷积函数"><a href="#卷积函数" class="headerlink" title="卷积函数"></a>卷积函数</h3><p>线性卷积计算使用命令<code>conv(x,y)</code>得到。<br>周期卷积计算可以使用命令<code>toeplitz(x,y)</code>得到，其中x,y为两个周期序列的主值序列向量，两个向量长度相同。 当两向量长度不等时，使用0进行填充。  </p>
+<h3 id="滤波器设计-1"><a href="#滤波器设计-1" class="headerlink" title="滤波器设计"></a>滤波器设计</h3><p>MATLAB中，可以使用<code>fir1()</code>函数来进行加窗法的程序设计，其具体表达为：<br><code>fir1(order,omega_c,filtertype,windowtype,&quot;noscale/scale&quot;)</code><br>其中<code>order</code>表示滤波器的阶数；<code>omega_c</code>是π归一化后的滤波器截止频率；<code>filtertype</code>表示设计的滤波器类型，缺省值为低通滤波器<code>&quot;low&quot;</code>；<code>windowtype</code>表示使用的窗函数，缺省值为海宁窗；<code>&quot;noscale/scale&quot;</code>表示是否需要归一化。<br>其中常见的窗函数有：  </p>
+<ul>
+<li><code>boxcar(l)</code>：矩形窗  </li>
+<li><code>hann(l)</code>：海宁窗  </li>
+<li><code>kaiser(l,beta)</code>：凯撒窗<br><strong>l 表示的是滤波器的序列长度，注意与滤波器的阶数作区分。</strong>  </li>
+</ul>
+<p><code>fir1()</code>函数会返回滤波器的冲激响应序列，返回的冲激序列使用<code>[H_f,w]=freqz(h)</code>返回其幅度-频率响应<code>H_f</code>和角频率轴<code>w</code>。<br>其幅度值-频率响应可以通过求其绝对值<code>abs(H_f)</code>得到，相频响应可以通过<code>angle(H_f)</code>得到。<br>完整例程如下：<br><figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs M"><span class="hljs-comment">% 生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗滤波器</span><br>h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">130</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,kaiser(<span class="hljs-number">131</span>,<span class="hljs-number">4.966</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 幅度-频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅度值-频率响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></div></td></tr></table></figure></p>
+
             </div>
             <hr>
             <div>

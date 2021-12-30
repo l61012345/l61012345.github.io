@@ -35,7 +35,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
     
   
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      2.8k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      33
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月21日 早上
+                  本文最后更新于：2021年12月29日 下午
                 
               </p>
             
@@ -291,7 +291,7 @@ p.spoiler {
 <script type="math/tex; mode=display">GBP=Gain × Bandwidth</script><h4 id="理想放大器的特性"><a href="#理想放大器的特性" class="headerlink" title="理想放大器的特性"></a>理想放大器的特性</h4><p>一般认为理想放大器在反相输入端和同相输入端之间存在两个特性，方便进行电路分析：  </p>
 <ol>
 <li><strong>理想放大器的反相输入端和同相输入端之间的电压是相等的，称为“虚短路”。</strong>  </li>
-<li><strong>理想放大器的反相输入端和同相输入端之间的电压是为“0”的，称为“虚接地”。</strong>  </li>
+<li><strong>当其中一输入端口端直接接地时，理想放大器的反相输入端和同相输入端之间的电压是为“0”的，称为“虚接地”。</strong>  </li>
 </ol>
 <h2 id="基本电路"><a href="#基本电路" class="headerlink" title="基本电路"></a>基本电路</h2><h3 id="反相放大器"><a href="#反相放大器" class="headerlink" title="反相放大器"></a>反相放大器</h3><p>反相放大器的电路连接如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210908204038.png width=50%>  </p>
 <h4 id="增益-1"><a href="#增益-1" class="headerlink" title="增益"></a>增益</h4><blockquote>
@@ -371,7 +371,9 @@ p.spoiler {
 <script type="math/tex; mode=display">S.R.=\frac{dV_o}{dt}|_{max}</script><p>如果输入信号的频率过高，以至于放大器的放大过程跟不上输入信号的变化，放大器的输出信号失真、幅度缩小。<br>当输出信号是一个正弦波$y=Asinωt$时，$S.R.=Aωcosωt,ωt=0$。<br>带入$ω=2πf$，得到电压转换速率与放大器输出电压信号的峰值$A$、频率$f$的关系为:  </p>
 <script type="math/tex; mode=display">S.R.=2πAf</script><p>可以得到运算放大器所支持的某峰值下的最大信号频率为：  </p>
 <script type="math/tex; mode=display">f_{max}=\frac{SR}{2πA}</script><p>$f_{max}$称为全功率带宽，这个表达式也暗示可以通过减小信号的峰值使得运算放大器支持更高频率的信号。  </p>
-<h2 id="泄露和补偿"><a href="#泄露和补偿" class="headerlink" title="泄露和补偿"></a>泄露和补偿</h2><p>在真实的放大器中，输入端$V_+$和$V_-$之间是有电流的，这个电流称为泄露电流，在反相放大器中这个电流会流向$V_+$的接地端。泄露电流的存在会造成假设$V_+=V_-$不成立，因此在运算放大器的内部需要添加一个补偿电容来对$V_+$和$V_-$的电压进行补偿。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210916113332.png width=50%><br>同时在接地端需要额外增加一个补偿电阻以减小泄露电流的影响。在集成化的仪用放大器中，有两个pin：offset用于额外连接一个变阻器，调节补偿电阻的大小。  </p>
+<h2 id="泄露和补偿"><a href="#泄露和补偿" class="headerlink" title="泄露和补偿"></a>泄露和补偿</h2><p>在真实的放大器中，输入端$V_+$和$V_-$之间是有电流的，这个电流称为泄露电流，在反相放大器中这个电流会流向$V_+$的接地端。泄露电流的存在会造成假设$V_+=V_-$不成立，因此在运算放大器的内部需要添加一个补偿电容来对$V_+$和$V_-$的电压进行补偿。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210916113332.png width=50%>  </p>
+<p>如图所示，当第一级输出的电流$i_{id}$为高频率时，电流绕过电压放大器，对电压放大器不会产生影响。<br>当第一级输出的电流$i_{id}$为低频率时，电容断路，电流被消除，但是电压信号仍然可以被放大。  </p>
+<p>同时在接地端需要额外增加一个补偿电阻以减小泄露电流的影响。在集成化的仪用放大器中，有两个pin：offset用于额外连接一个变阻器，调节补偿电阻的大小。  </p>
 
             </div>
             <hr>

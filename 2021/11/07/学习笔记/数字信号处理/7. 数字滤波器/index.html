@@ -35,7 +35,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
     
   
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.6k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      20
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年11月7日 早上
+                  本文最后更新于：2021年12月30日 早上
                 
               </p>
             
@@ -331,8 +331,13 @@ p.spoiler {
 </div>
 <h3 id="与频率响应"><a href="#与频率响应" class="headerlink" title="与频率响应"></a>与频率响应</h3><p>根据Z变换和离散时间傅里叶的定义式，可以推出：  </p>
 <script type="math/tex; mode=display">H(e^{jω})=H(z)|_{z=exp(jω)}</script><p>因此系统的频率响应也可以写作多项式分式：  </p>
-<script type="math/tex; mode=display">H(e^{jω})=\frac{b_0}{a_0}\frac{Π_{k=1}^M(1-c_ke^{-jω})}{Π_{k=1}^N(1-b_ke^{-jω})}</script><h4 id="使用MATLAB®绘制系统的频率响应"><a href="#使用MATLAB®绘制系统的频率响应" class="headerlink" title="使用MATLAB®绘制系统的频率响应"></a>使用MATLAB®绘制系统的频率响应</h4><p>在$[0,2\pi]$上生成若干个采样点，作为作图的$x$轴。<br>使用函数<code>fft()</code>可以生成指定序列的离散傅里叶变换结果。<code>abs()</code>函数能够给出指定序列在每个采样点上的绝对值，即幅度。<code>angle()</code>函数可以生成指定序列在每个采样点上的相位。  </p>
-<p>下面的示例程序展示了如何绘制$h[n]=Sa(0.1(n-50)),0≤n≤100$的幅频和相频响应曲线：<br><figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>;<br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)];<br>X<span class="hljs-built_in">=</span>fft(x);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<br>plot(w./pi,abs(X));<br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X));<br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></div></td></tr></table></figure></p>
+<script type="math/tex; mode=display">H(e^{jω})=\frac{b_0}{a_0}\frac{Π_{k=1}^M(1-c_ke^{-jω})}{Π_{k=1}^N(1-b_ke^{-jω})}</script><h4 id="使用MATLAB®绘制系统的频率响应"><a href="#使用MATLAB®绘制系统的频率响应" class="headerlink" title="使用MATLAB®绘制系统的频率响应"></a>使用MATLAB®绘制系统的频率响应</h4><p>在$[0,2\pi]$上生成若干个采样点，作为作图的$x$轴。<br>使用函数<code>fft()</code>可以生成指定序列的离散傅里叶变换结果。<code>abs()</code>函数能够给出指定序列在每个采样点上的绝对值，即幅度。<code>angle()</code>函数可以生成指定序列在每个采样点上的相位。<br>绘制其频率响应需要注意的是：  </p>
+<ul>
+<li>需要对$h[n]$进行周期延拓，方法是使用<code>zeros(1,L)</code>创建一个长度为L的全0向量用<code>x=[x,zeros(1,L)]</code>对其填充。  </li>
+<li>使用<code>fft()</code>函数求其FFT结果。<code>abs()</code>求结果的绝对值得到幅频响应，<code>angle()</code>求FFT结果的相频响应。  </li>
+<li>横轴应当为<code>[0:(N+L)]*2*pi/(N+L+1)</code>使得0-2π内每一格的长度为$\frac{2π}{N+L+1}$ （因为<code>0:(N+L)</code>有N+L+1个数）<br>下面的示例程序展示了如何绘制$h[n]=Sa(0.1(n-50)),0≤n≤100$的幅频和相频响应曲线：  <figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>; <span class="hljs-comment">%100点FFT</span><br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)]; <span class="hljs-comment">%对x周期延拓到长度为1000</span><br>X<span class="hljs-built_in">=</span>fft(x); <span class="hljs-comment">%求其FFT/DFS结果（Amplitude Response）</span><br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<span class="hljs-comment">%横轴，每一格表示2π/(N+1001)</span><br>plot(w./pi,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）并作π归一化</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></div></td></tr></table></figure>
+给定系统Z域下的转换方程$H(z)=\frac{∑b_kz^{-k}}{∑a_kz^{-k}}$时，可以使用<code>[H,w]=freqz(b,a,n)</code>返回其频率响应<code>H</code>和对应的π归一化的角频率横轴<code>w</code>，其中<code>a</code>是$∑a_kz^{-k}$由高次幂到低次幂排列时的系数向量，其中<code>b</code>是$∑b_kz^{-k}$由高次幂到低次幂排列时的系数向量，<code>n</code>为计算时所指定的N点FFT的点数，缺省值为512。<br>如下的例程中给出了如何绘制$H(z)=\frac{1-0.5z^{-1}}{1-2z^{-1}+z^{-2}}$的频率响应图：  <figure class="highlight m"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs m">b<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">0.5</span>];<br>a<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">2</span>,<span class="hljs-number">1</span>];<br>[H,w]<span class="hljs-built_in">=</span>freqz(b,a); <br>plot(w,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>plot(w,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br></code></pre></div></td></tr></table></figure></li>
+</ul>
 
             </div>
             <hr>

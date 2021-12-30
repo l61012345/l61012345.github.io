@@ -35,7 +35,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
     
   
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月29日 中午
+                  本文最后更新于：2021年12月30日 凌晨
                 
               </p>
             
@@ -334,19 +334,19 @@ p.spoiler {
     =&\sum_{k=1}^NTA_ke^{s_knT}u[n]\\
     =&\sum_{k=1}^NTA_k(e^{s_kT})^nu[n]
 \end{aligned}</script><p>对其做Z变换，得到对应的数字滤波器的频率响应：  </p>
-<script type="math/tex; mode=display">H(z)=∑_{k=1}^N\frac{TA_k}{1-e^{s_kT}z^{-1}}</script><p>可以发现脉冲响应不变法的映射律为：  </p>
-<script type="math/tex; mode=display">z=e^{s_kT}</script><p>这是一种一对多的映射：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222212251.png width=50%><br>在采样的过程中，由于一对多的映射关系，采样信号会在频谱上发生混叠。  </p>
+<script type="math/tex; mode=display">H(z)=∑_{k=1}^N\frac{TA_k}{1-e^{s_kT}z^{-1}}</script><p>脉冲响应不变是一种一对多的映射：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222212251.png width=50%><br>在采样的过程中，由于一对多的映射关系，采样信号会在频谱上发生混叠。  </p>
 <p>脉冲响应不变法的流程：  </p>
 <ol>
 <li>根据设计要求的通带截止频率和止带截止频率将数字角频率还原为模拟角频率：$Ω_p=\frac{ω_p}{T},Ω_s=\frac{ω_s}{T}$。  </li>
 <li>设计出对应的模拟滤波器。  </li>
 <li>求出模拟滤波器的频率响应：$H_c(s)=∑_{k=1}^N\frac{A_k}{s-s_k}$。</li>
-<li>根据映射律：$z=e^{s_kT}$，得到数字滤波器的频率响应。  </li>
+<li>根据映射律：$H(z)=∑\frac{A_k}{1-e^{s_kT}z^{-1}}$，得到数字滤波器的频率响应。  </li>
 </ol>
 <h3 id="双线性法"><a href="#双线性法" class="headerlink" title="双线性法"></a>双线性法</h3><p>双线性法的映射律为：  </p>
 <script type="math/tex; mode=display">s=\frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}}</script><p>因此:  </p>
 <script type="math/tex; mode=display">H(z)=H_a(\frac{2}{T}\frac{1-z^{-1}}{1+z^{-1}})</script><p>这是一种一对一的映射律，因此不会发生混叠。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211223165306.png width=50%>  </p>
-<p>在这种映射律下，其数字角频率和模拟角频率之间的关系是非线性的：$Ω=\frac{2}{T}tan\frac{ω}{2}$，其频率响应表示为：  </p>
+<p>在这种映射律下，其数字角频率和模拟角频率之间的关系是非线性的：</p>
+<script type="math/tex; mode=display">Ω=\frac{2}{T}tan\frac{ω}{2}</script><p>其频率响应表示为：  </p>
 <script type="math/tex; mode=display">|H(e^{jω})|^2=\frac{1}{1+(\frac{tan(ω/2)}{tan(ω_c/2)})^N}</script><h2 id="其他类型的IIR滤波器设计"><a href="#其他类型的IIR滤波器设计" class="headerlink" title="其他类型的IIR滤波器设计*"></a>其他类型的IIR滤波器设计*</h2><p>在模拟域中，滤波器类型的转换是线性的，但是在经过模数转换后，数字滤波器的类型转换是非线性的。<br>简单来说，IIR滤波器的类型转换通过映射律将低通滤波器频率响应的$z^{-1}$重新映射，进而得到其他类型的IIR滤波器的频率响应。  </p>
 <script type="math/tex; mode=display">z^{-1}=G(z^{-1})</script><script type="math/tex; mode=display">H(z)=H_{LP}(z)|_{z^{-1}=G(z^{-1})}</script><p>并且映射律需要满足：$|z^{-1}|=|G(z^{-1})|=1$。  </p>
 <p>常见的映射律如下表所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211223165920.png width=80%></p>

@@ -35,7 +35,7 @@
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/tomorrow-night-eighties.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
     
   
 
@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      2.4k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      26
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月27日 上午
+                  本文最后更新于：2021年12月29日 下午
                 
               </p>
             
@@ -311,6 +311,102 @@ p.spoiler {
 <div class="note note-info">
             <p>集成放大器中（比如第10讲的多级放大电路）不存在电容，因此其性能不会受到输入信号中低频分量的影响。但是高频时晶体管内部的类似电容的表现特性也会使得其性能在高频时存在损失。  </p>
           </div>
+<h2 id="集成放大器电路部分"><a href="#集成放大器电路部分" class="headerlink" title="集成放大器电路部分"></a>集成放大器电路部分</h2><h3 id="运算放大器的参数特性"><a href="#运算放大器的参数特性" class="headerlink" title="运算放大器的参数特性"></a>运算放大器的参数特性</h3><h4 id="增益带宽积（GBP）"><a href="#增益带宽积（GBP）" class="headerlink" title="增益带宽积（GBP）"></a>增益带宽积（GBP）</h4><p>频率响应图中某时刻下的增益和带宽的乘积。  </p>
+<script type="math/tex; mode=display">GBP=Gain × Bandwidth</script><h4 id="共模抑制比"><a href="#共模抑制比" class="headerlink" title="共模抑制比"></a>共模抑制比</h4><p>运算放大器的共模增益将放大直流噪声。共模抑制比（Common Mode Rejection Ratio，CMRR），定义为差模增益与共模增益的比值:  </p>
+<script type="math/tex; mode=display">CMRR=\frac{A_d}{A_{cm}}</script><script type="math/tex; mode=display">CMRR(dB)=20lg\frac{A_d}{A_{cm}}</script><h4 id="压摆率"><a href="#压摆率" class="headerlink" title="压摆率"></a>压摆率</h4><p>理想的运算放大器在输入电压接入运算放大器的同时就会立即有稳定的输出电压，然而实际的运算放大器由于内部电容充电过程的存在，需要经过一小段时间才能达到稳定输出电压$V_o$，达到稳定输出电压的最大速率称为<strong>压摆率</strong>或电压转换速率（Slew Rate）。  </p>
+<script type="math/tex; mode=display">S.R.=\frac{dV_o}{dt}|_{max}</script><p>输入信号为频率$f$的正弦交流电时：</p>
+<script type="math/tex; mode=display">S.R.=2πAf</script><p>可以得到运算放大器所支持的某峰值下的最大信号频率（全功率带宽）为：  </p>
+<script type="math/tex; mode=display">f_{max}=\frac{S.R.}{2πA}</script><h4 id="泄露和补偿"><a href="#泄露和补偿" class="headerlink" title="泄露和补偿"></a>泄露和补偿</h4><p>在真实的放大器中，输入端$V_+$和$V_-$之间是有电流的，这个电流称为泄露电流，在反相放大器中这个电流会流向$V_+$的接地端。泄露电流的存在会造成假设$V_+=V_-$不成立，因此在运算放大器的内部需要添加一个补偿电容来对$V_+$和$V_-$的电压进行补偿。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210916113332.png width=50%><br>同时在接地端需要额外增加一个补偿电阻以减小泄露电流的影响。在集成化的仪用放大器中，有两个pin：offset用于额外连接一个变阻器，调节补偿电阻的大小。  </p>
+<h3 id="反馈放大器电路"><a href="#反馈放大器电路" class="headerlink" title="反馈放大器电路"></a>反馈放大器电路</h3><h4 id="反馈放大器的类型"><a href="#反馈放大器的类型" class="headerlink" title="反馈放大器的类型"></a>反馈放大器的类型</h4><ul>
+<li><p>反相放大器<br>信号从反相输入端输入，其增益为：  </p>
+<script type="math/tex; mode=display">\frac{V_{out}}{V_{sig}}=-\frac{R_f}{R_i}</script></li>
+<li><p>同相放大器<br>信号从同相输入端输入，其增益为：  </p>
+<script type="math/tex; mode=display">\frac{V_{out}}{V_{sig}}=1+\frac{R_f}{R_i}</script></li>
+</ul>
+<p>反馈放大器电路的分析原则：  </p>
+<ul>
+<li>有多个输入的情况下，将其他输入暂时视为接地，单独分析每一个输入对输出电压的影响。在分析每一个输入时：  <ul>
+<li>需要关注放大器端口的输入电压。  </li>
+<li>利用理想放大器同相输入端口和反相输入端口电压相等，建立关于电流的方程。  </li>
+</ul>
+</li>
+<li>利用叠加定理，求和求解即可。  </li>
+</ul>
+<h4 id="反馈放大器的频率响应"><a href="#反馈放大器的频率响应" class="headerlink" title="反馈放大器的频率响应"></a>反馈放大器的频率响应</h4><p>反馈放大器的频率响应如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211229211532.png width=50%></p>
+<p>反馈放大器的开环带宽和闭环带宽之间存在着如下关系：  </p>
+<script type="math/tex; mode=display">B_{cl}=\frac{B_{ol}}{A_v}</script><p>其中$A_v$是运算放大器的电压增益。  </p>
+<h4 id="反馈电路的类型"><a href="#反馈电路的类型" class="headerlink" title="反馈电路的类型"></a>反馈电路的类型</h4><p>最简单的判断电路属于哪种反馈类型的方式为看电路中反馈部分两端是否存在额外的接地电阻，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014152437.png width=80%>  </p>
+<p>注意反馈电路的类型名称是先写出输出端（sensing）的反馈类型，再写出输入端（mixer）的反馈类型。  </p>
+<h3 id="滤波器电路"><a href="#滤波器电路" class="headerlink" title="滤波器电路"></a>滤波器电路</h3><p>基本的滤波器有高通，低通两种类型，其截止频率都为：  </p>
+<script type="math/tex; mode=display">f_c=\frac{1}{2πRC}</script><p>对于多级高通/低通滤波器，其截止频率为：  </p>
+<script type="math/tex; mode=display">f_c=\frac{1}{2π\sqrt[n]{∏_iR_iC_i}}</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">电路图</th>
+<th style="text-align:center">被测目标</th>
+<th style="text-align:center">截止频率</th>
+<th style="text-align:center">下降/上升斜率</th>
+<th style="text-align:center">达到截止频率时的相移</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">一阶低通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211001134003.png width=60%></td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">$\frac{1}{2πRC}$</td>
+<td style="text-align:center">-20dB</td>
+<td style="text-align:center">-45°</td>
+</tr>
+<tr>
+<td style="text-align:center">一阶高通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008150418.png width=50%></td>
+<td style="text-align:center">R</td>
+<td style="text-align:center">$\frac{1}{2πRC}$</td>
+<td style="text-align:center">20dB</td>
+<td style="text-align:center">45°</td>
+</tr>
+<tr>
+<td style="text-align:center">二阶低通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145038.png width=50%></td>
+<td style="text-align:center">C</td>
+<td style="text-align:center">$\frac{1}{2π√(R_1R_2C_1C_2)}$</td>
+<td style="text-align:center">-40dB</td>
+<td style="text-align:center">-90°</td>
+</tr>
+<tr>
+<td style="text-align:center">二阶高通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008150715.png width=50%></td>
+<td style="text-align:center">R</td>
+<td style="text-align:center">$\frac{1}{2π√(R_1R_2C_1C_2)}$</td>
+<td style="text-align:center">40dB</td>
+<td style="text-align:center">90°</td>
+</tr>
+<tr>
+<td style="text-align:center">带通滤波器</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211008145829.png width=50%></td>
+<td style="text-align:center">R、C</td>
+<td style="text-align:center">$f_r=\frac{1}{2π√(R_1R_2C_1C_2)}$ <br> $f_H=\frac{1}{2πR_1C_1}$ <br> $f_L=\frac{1}{2πR_2C_2}$</td>
+<td style="text-align:center"><br> 20dB <br>-20dB</td>
+<td style="text-align:center">0° <br> 90° <br> -90°</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>分析滤波器电路的方法：  </p>
+<ol>
+<li>模拟电路中输入信号为高频输入信号或者低频输入信号时的情况，通过电容“隔直流，通交流”的特性，分析电路中每个电容的开闭对输出的影响，以此来判断是高通滤波器还是低通滤波器。  </li>
+<li>对每个电容单独分析，判断其截止频率。  </li>
+<li>如果为有源滤波器，还需要对放大电路分析其增益。<br>放大电路部分和滤波器电路部分相互隔离，其中的电阻阻值互不影响。  </li>
+</ol>
+<h4 id="滤波器的频率响应"><a href="#滤波器的频率响应" class="headerlink" title="滤波器的频率响应"></a>滤波器的频率响应</h4><p>滤波器的频率响应图中应当关注：  </p>
+<ul>
+<li>最大增益，对应</li>
+</ul>
+<p>需要注意的是带通滤波器的频率响应图中，</p>
+<h3 id="振荡器电路"><a href="#振荡器电路" class="headerlink" title="振荡器电路"></a>振荡器电路</h3><h3 id="555定时器"><a href="#555定时器" class="headerlink" title="555定时器"></a>555定时器</h3>
             </div>
             <hr>
             <div>
