@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      3.9k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      44
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月31日 早上
+                  本文最后更新于：2021年12月31日 上午
                 
               </p>
             
@@ -417,7 +417,29 @@ p.spoiler {
 <p>其在输入信号为中心响应频率时可以满足相移为0°的条件：</p>
 <script type="math/tex; mode=display">f_r=\frac{1}{2π\sqrt{R_1R_2C_1C_2}}=\frac{1}{2πRC},R_1=R_2=R,C_1=C_2=C</script><p>电桥电路输出到放大器的同相输入端，以确保相移为0°，产生稳定的振荡。<br>同相输入端的电阻需要满足：  </p>
 <script type="math/tex; mode=display">1+\frac{R_f}{R_{in}}>3</script><p>才能够确保$|GH|=1$。<br>同时放大器的反相输入端可视为一个反相放大器，以负反馈确保电路输出稳定。  </p>
-<h4 id="相移振荡器"><a href="#相移振荡器" class="headerlink" title="相移振荡器"></a>相移振荡器</h4><h3 id="555定时器"><a href="#555定时器" class="headerlink" title="555定时器"></a>555定时器</h3>
+<h4 id="相移振荡器"><a href="#相移振荡器" class="headerlink" title="相移振荡器"></a>相移振荡器</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211017150508.png width=50%>  </p>
+<p>相移器通过高通滤波器的并联实现，根据高通滤波器的频率响应关系和相移公式可知，每个相移器的相移为：  </p>
+<script type="math/tex; mode=display">Δφ=arctan\frac{X_c}{R}</script><p>通过调整电路中RC的值即可使其在输入信号频率$f_r$固定的情况下产生特定的相移。<br>当高通滤波器并联时，要使相移平均到高通滤波器，有如下公式：  </p>
+<script type="math/tex; mode=display">f_r=\frac{1}{2πRC\sqrt{2N}}</script><p>其中$N$代表高通滤波器的个数，它与相移之间满足如下关系:</p>
+<script type="math/tex; mode=display">Δφ=\frac{N}{180°}</script><p>需要注意的是，$N$的值越大，所需要的器件越多，同时由于每个高通滤波器在$f_r$处的增益都小于0，对所连接的运算放大器电压增益的要求也更高：运算放大器的电压增益需要大于所有高通滤波器在$f_r$的增益之和，该电路才能正常工作。通常认为<strong>$A_v≥29$</strong>。  </p>
+<h3 id="555定时器"><a href="#555定时器" class="headerlink" title="555定时器"></a>555定时器</h3><p>55定时器是一种利用电容器充放电性质的电路元件，它可以通过直流电压输出稳定的方波。其元件内部结构如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022201421.png width=80%>  </p>
+<p>其中的NPN晶体管作用类似于开关。上方三个$5kΩ$的分压器将输入电压$V_{cc}$分割成$\frac{2}{3}V_{cc}$和$\frac{1}{3}V_{cc}$并分别送入比较器2、1。其中比较器2将$\frac{2}{3}V_{cc}$与外接电压Threshold进行比较，比较器1将$\frac{1}{3}V_{cc}$与外接电压Trigger进行比较，以控制SR触发器的输入。<br>同时，555定时器还支持使用ControlVoltage替代$\frac{2}{3}V_{cc}$作为比较电压。SR触发器的输出为Ouput和Reset。<br>555定时器有三种工作状态（电路连接方式）：非稳态、单稳态和多稳态，这三种连接分别可以产生三种不同的方波波形。  </p>
+<h4 id="非稳态模式"><a href="#非稳态模式" class="headerlink" title="非稳态模式"></a>非稳态模式</h4><p>非稳态模式(Astable)下555定时器的连接图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022210029.png width=80%></p>
+<p>如图，VCC分别作为内部和外部电路的电压源，外部电路是一个基本的RC电路。而外部电路的输出端与Threshold和Trigger连接，从而起到自我触发的效果。<br>开始时电容器充电，当$Threshold&gt;\frac{2}{3}V_{cc}$时，SR触发器输入逻辑为：$R=1,S=0$，输出为低电平，同时由于$\overline{Q}=1$，NPN晶体管被导通，电容器开始放电。<br>当$Threshold&lt;\frac{2}{3}V_{cc}$时，SR触发器输入逻辑为：$R=0,S=1$，输出为高电平，同时由于$\overline{Q}=0$，NPN晶体管关断，电容器充电。<br>此后，由于Threshold/Trigger电压的变化，电容器会不断地进行充放电，从而在输出端产生稳定的高低电平方波，而电容器处产生稳定的锯齿波三角波，且周期占空比与输出的方波信号完全相同:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022210401.png width=50%>  </p>
+<p>可以发现锯齿波/三角波的上下限为$\frac{2}{3}V_{CC}$(或者ControlVoltage)和$\frac{1}{3}V_{CC}$。  </p>
+<p>在电路连接时往往还会增加另一个电容$C_2$以提高电路的稳定性。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211104164835.png width=50%>  </p>
+<h4 id="有关计算"><a href="#有关计算" class="headerlink" title="有关计算"></a>有关计算</h4><p>在电容器充电过程，电流实际上流过了外部的两个电阻$R_1、R_2$，因此充电过程的时间常数：$τ_1=(R_1+R_2)C_1$。<br>放电过程中电流只流过了$R_2$,因此放电过程的时间常数：$τ_2=R_2C_1$。<br>根据数学推导得到充电时间：   </p>
+<script type="math/tex; mode=display">t_{char}=ln2(R_1+R_2)C_1</script><p>放电时间：  </p>
+<script type="math/tex; mode=display">t_{Discr}=ln2R_2C_1</script><p>周期：  </p>
+<script type="math/tex; mode=display">T=t_{char}+t_{Discr}=ln2(R_1+2R_2)C_1</script><p>振荡频率：  </p>
+<script type="math/tex; mode=display">f_r=\frac{1}{T}=\frac{1.44}{(R_1+2R_2)C_1}</script><p>定义输出波形一周期内的高电平出现时间占整个周期时间的比例为占空比，有：  </p>
+<script type="math/tex; mode=display">Duty Cyecle=\frac{R_1+R_2}{R_1+2R_2}× 100\%</script><p><strong>因此，非稳态的555定时器输出的方波可以通过改变$R_1$和$R_2$的值改变占空比。</strong><br>可以发现这种基本的非稳态555振荡器配置的问题在于占空比，因为电阻$R_2$的存在使得占空比永远大于50%。<br>换句话说，该电路不能使输出“ON”时间短于“OFF”时间，因为$(R_1 + R_2)C$ 总是大于$R_1C$的值。  </p>
+<blockquote>
+<p>当$R_2$远大于$R_1$时，$Duty Cyecle=50\%$。  </p>
+</blockquote>
+<p><strong>$V_{Control}$对输出波形的影响</strong>：<br>充放电时间中的参数$ln2$实际上是由$\frac{1}{3}V_{CC}$和$\frac{2}{3}V_{CC}$进行决定的：  </p>
+<script type="math/tex; mode=display">Const=ln\frac{V_{CC}-0.5V_{Control}}{V_{CC}-V_{Control}}</script><p>当$V_{CC}=15V,V_{Control}=\frac{2}{3}V_{CC}$时，$Const=ln2$。<br>如果Pin5：Control-Voltage接入直流电压，则$V_{Control}≠\frac{2}{3}V_{CC}$。<br>此时产生的三角波的上下限应该为：$\frac{1}{3}V_{CC}-V_{Control}$。<br>输出的方波周期发生变化，高电平和低电平的持续时间同比例增加或者减小，占空比仍然保持不变。  </p>
+
             </div>
             <hr>
             <div>
