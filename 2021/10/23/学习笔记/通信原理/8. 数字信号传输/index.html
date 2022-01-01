@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
 
 
 
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月30日 早上
+                  本文最后更新于：2022年1月1日 早上
                 
               </p>
             
@@ -438,7 +438,7 @@ p.spoiler {
 </ol>
 <p>与量化间隔相除结果的余数部分无法通过编码表示，称为编码噪声$EQ$。<br>由于这样的转换方式比较低效，实际上的通信系统通常采用逐位进行比较的逐次比较法，过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211025183903.png width=80%>  </p>
 <h3 id="脉冲调制的解码"><a href="#脉冲调制的解码" class="headerlink" title="脉冲调制的解码"></a>脉冲调制的解码</h3><p>PCM编码在解码端首先会变成11位的自然二进制编码。  </p>
-<h3 id="PCM与11-NBC的关系"><a href="#PCM与11-NBC的关系" class="headerlink" title="PCM与11-NBC的关系"></a>PCM与11-NBC的关系</h3><p>PCM基于非均匀脉冲，是一种非线性编码。由于之后的通信电路中含有仅支持线性输入的逻辑电路，因此还需要将7bit的PCM转化为11bit的自然二进制编码（NBC），两者之间满足：  </p>
+<h4 id="PCM与11-NBC的关系"><a href="#PCM与11-NBC的关系" class="headerlink" title="PCM与11-NBC的关系"></a>PCM与11-NBC的关系</h4><p>PCM基于非均匀脉冲，是一种非线性编码。由于之后的通信电路中含有仅支持线性输入的逻辑电路，因此还需要将7bit的PCM转化为11bit的自然二进制编码（NBC），两者之间满足：  </p>
 <script type="math/tex; mode=display">I_{PCM}=I_{11-NBC}</script><p>即两者编码转化为10进制的结果是相同的。<br>因此PCM编码转为10进制后再转为自然二进制即可得到NBC。  </p>
 <h4 id="PCM与12-NBC的关系"><a href="#PCM与12-NBC的关系" class="headerlink" title="PCM与12-NBC的关系"></a>PCM与12-NBC的关系</h4><p>由于PCM编码只考虑到了每个量化区间内的起始值$m_{i-1}$而并非量化电平$p_i$，在解码过程中需要补充每个量化段的半个量化区间$\frac{Δ_i}{2}$，由于最小的$\frac{Δ_1}{2}=0.5$，因此需要额外补充一个bit来弥补增加的精度，生成12位NBC码。  </p>
 <script type="math/tex; mode=display">I_{12-NBC}=I_{PCM}+\frac{Δ_i}{2}</script><p>因此，脉冲编码调制的量化噪声$QN$为编码噪声减去$\frac{Δ_i}{2}$:</p>
@@ -749,5 +749,20 @@ p.spoiler {
 
   
 
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
