@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      1.9k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      24
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月31日 早上
+                  本文最后更新于：2022年1月2日 下午
                 
               </p>
             
@@ -299,9 +299,13 @@ p.spoiler {
 \end{aligned}</script><p>求得极点为：</p>
 <script type="math/tex; mode=display">p_k=Ω_ce^{j\frac{kπ}{N}},k=0,1,...,2N-1</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222153348.png width=50%>  </p>
 <div class="note note-info">
-            <p>即在幅频响应中令$Ω=\frac{s}{j}$，带入后得到$|H_a(jΩ)|^2=\frac{1}{1+(\frac{s}{jΩ_c})^{2N}}$，令下方为0后得到的$1+(\frac{s}{jΩ_c})^{2N}=0$的方程解。  </p>
+            <p>即在幅频响应中令$Ω=\frac{s}{j}$，带入后得到$|H_a(jΩ)|^2=\frac{1}{1+(\frac{s}{jΩ_c})^{2N}}=H(s)H(-s)$，令下方为0后得到的$1+(\frac{s}{jΩ_c})^{2N}=0$的方程解。  </p>
           </div>
-<p>可以发现<strong>2N个极点均匀的分布在半径为$Ω_C$的圆上，由于只有s域左半部分表示稳定一同，因此只选取位于s域左半部分的极点构建滤波器。</strong><br>巴特沃斯滤波器的幅频响应在s域上表示为：  </p>
+<p>可以发现<strong>2N个极点均匀的分布在半径为$Ω_C$的圆上，由于只有s域左半部分表示稳定一同，因此只选取位于s域左半部分的极点构建滤波器。</strong>  </p>
+<div class="note note-info">
+            <p>由于其所有的极点在s域以$Ω_c$为半径的圆上均匀分布，因此极点可以根据下图快速求得：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220102213033.png width=60%>  </p><p>可以求得：  </p><script type="math/tex; mode=display">s_k=Ω_ccos(\frac{π}{N}k)-jΩ_csin(\frac{π}{N}k)</script>
+          </div>
+<p>巴特沃斯滤波器的幅频响应在s域上表示为：  </p>
 <script type="math/tex; mode=display">H_a(s)=\frac{Ω_c^N}{\prod(s-p_k)}</script><h4 id="巴特沃斯滤波器设计"><a href="#巴特沃斯滤波器设计" class="headerlink" title="巴特沃斯滤波器设计"></a>巴特沃斯滤波器设计</h4><p>如果设计要求为指定的通带和止带截止频率，以及通带和止带的波纹：<br>根据$R_p=-10lg|H_a(jΩ_p)|$，$A_s=-10-10lg|H_a(jΩ_s)|$，有：  </p>
 <script type="math/tex; mode=display">R_p=-10lg\frac{1}{1+(\frac{Ω_p}{Ω_c})^{2N}}</script><script type="math/tex; mode=display">A_s=-10lg\frac{1}{1+(\frac{Ω_s}{Ω_c})^{2N}}</script><p>两式相比可以得到：  </p>
 <script type="math/tex; mode=display">N=\frac{lg[\frac{10^{R_p/10}-1}{10^{A_s/10}-1}]}{2lg(\frac{\omega_p}{\omega_s})}</script><p>向上取整。<br>根据$R_p$、$A_s$的表达式可以得到两个截止频率，截止频率$Ω_c$应当为这两式得出结果区间内的某个值：  </p>
