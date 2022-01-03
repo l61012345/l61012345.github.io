@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月1日 凌晨
+                  本文最后更新于：2022年1月3日 凌晨
                 
               </p>
             
@@ -640,7 +640,7 @@ p.spoiler {
 <h4 id="脉冲调制解码过程"><a href="#脉冲调制解码过程" class="headerlink" title="脉冲调制解码过程"></a>脉冲调制解码过程</h4><p>PCM编码在解码端首先会变成11位的自然二进制编码。<br>PCM编码转换为10进制后的结果与11位的自然二进制转换为10进制的结果相同。  </p>
 <script type="math/tex; mode=display">I_{11-NBC}=I_{PCM}</script><p>因此PCM编码只需要转换为10进制，在开头补充0即可转换为11位NBC码。<br>由于PCM编码只考虑到了每个量化区间内的起始值$m_{i-1}$而并非量化电平$p_i$，在解码过程中需要补充每个量化段的半个量化区间$\frac{Δ_i}{2}$，由于最小的$\frac{Δ_1}{2}=0.5$，因此需要额外补充一个bit来弥补增加的精度，生成12位NBC码。<br>12位NBC的精度高于8位PCM编码，与PCM编码相比，12位NBC能额外表达一个当前量化段的一半的量化间隔，进而减少了量化噪声。<br>12位NBC可以通过在PCM转化为11位NBC码后，11位NBC码的最后一个“1”后增加一个“1”即可。  </p>
 <script type="math/tex; mode=display">I_{12-NBC}=I_{PCM}+\frac{1}{2}Δ_i</script><p>因此，整个脉冲编码调制的量化噪声$QN$为编码噪声减去$\frac{Δ_i}{2}$:</p>
-<script type="math/tex; mode=display">QN=EN-\frac{Δ_i}{2}</script><h4 id="脉冲编码调制的性能"><a href="#脉冲编码调制的性能" class="headerlink" title="脉冲编码调制的性能"></a>脉冲编码调制的性能</h4><ul>
+<script type="math/tex; mode=display">N_q=N_e-\frac{Δ_i}{2}</script><h4 id="脉冲编码调制的性能"><a href="#脉冲编码调制的性能" class="headerlink" title="脉冲编码调制的性能"></a>脉冲编码调制的性能</h4><ul>
 <li>传输速率<br>PCM的传输速率为：  <script type="math/tex; mode=display">R_B=f_s×log_2^M×N</script>其中$f_s$为采样速率，$M$为比特数，A律13折PCM中$M=8$。$N$为信号的路数。  </li>
 <li>信噪比<br>整个过程的信噪比表示为：  <script type="math/tex; mode=display">\frac{S_o}{N_o}_{PCM}=\frac{\overline{m^2(t)}}{N_q+N_e}</script>通过计算可以发现，当$m(t)$服从均匀分布时，量化信噪比表示为：  <script type="math/tex; mode=display">\frac{S}{N_q}=M^2</script></li>
 </ul>
@@ -754,8 +754,8 @@ p.spoiler {
 </tr>
 <tr>
 <td style="text-align:center">部分响应系统</td>
-<td style="text-align:center">$\frac{1}{T_s}$</td>
-<td style="text-align:center">$\frac{1}{2T_s}$</td>
+<td style="text-align:center">$2B_N$</td>
+<td style="text-align:center">$B_N$</td>
 <td style="text-align:center">$2$</td>
 </tr>
 </tbody>
