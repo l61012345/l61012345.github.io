@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月4日 上午
+                  本文最后更新于：2022年1月4日 中午
                 
               </p>
             
@@ -415,7 +415,7 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <script type="math/tex; mode=display">N+\frac{N}{2}log_2N</script><p>一个8点快速傅里叶变换结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144723.png width=80%></p>
 <h2 id="系统的表示方法"><a href="#系统的表示方法" class="headerlink" title="系统的表示方法"></a>系统的表示方法</h2><p>对于一个离散系统，其差分方程为：  </p>
 <script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k],a_0≠0,b_0≠0</script><h3 id="系统的单位采样响应-系统的冲激响应"><a href="#系统的单位采样响应-系统的冲激响应" class="headerlink" title="系统的单位采样响应/系统的冲激响应"></a>系统的单位采样响应/系统的冲激响应</h3><p>系统的单位采样响应指输入为$δ[n]$时候的系统输出$h[n]$。通常可以带入$x[n]=δ[n]$到差分方程递归运算得到。也可以通过对系统的频率响应求Z反变换得到。<br>系统输出可以表示为：  </p>
-<script type="math/tex; mode=display">y[n]=x[n]\*h[n]</script><h3 id="系统的频率响应-转换方程"><a href="#系统的频率响应-转换方程" class="headerlink" title="系统的频率响应/转换方程"></a>系统的频率响应/转换方程</h3><p>当系统的输入$x[n]=e^{jωn}$时：  </p>
+<script type="math/tex; mode=display">y[n]=x[n]*h[n]</script><h3 id="系统的频率响应-转换方程"><a href="#系统的频率响应-转换方程" class="headerlink" title="系统的频率响应/转换方程"></a>系统的频率响应/转换方程</h3><p>当系统的输入$x[n]=e^{jωn}$时：  </p>
 <script type="math/tex; mode=display">y[n]=e^{jωn}∑h[k]e^{-jωk}</script><p>$∑h[k]e^{-jωk}$正好对应其离散时间傅里叶变换$H(e^{jω})$，称为其频率响应。<br>频率响应可以通过观察差分方程快速写出：  </p>
 <script type="math/tex; mode=display">H(e^{jω})=\frac{∑b_ke^{-jωk}}{∑a_ke^{-jωk}}</script><p>带入$z=e^{jω}$，得到其Z域下的表现称为转换方程：  </p>
 <script type="math/tex; mode=display">H(z)=\frac{∑b_kz^{-k}}{∑a_kz^{-k}}</script><p>也可以通过对$h[n]$求离散时间傅里叶变换得到。<br>由于Z域的收敛域可以不同，一个转换方程/差分方程可以对应多个冲激响应。但是只有当系统因果时，才能具备离散时间傅里叶变换的条件。<br>因此，只有系统的冲激响应$h[n]$和系统的频率响应$H(e^{jω})$可以确定唯一的系统。</p>
@@ -570,13 +570,15 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <script type="math/tex; mode=display">R_p|_{dB}=-10lg|H_a(jΩ_p)|^2=-10lg\frac{1}{1+ɛ^2}</script><p>止带衰减$A_s$为：  </p>
 <script type="math/tex; mode=display">A_s=-10lg|H_a(jΩ_s)|^2=-10lg\frac{1}{A^2}</script><h4 id="模拟滤波器类型"><a href="#模拟滤波器类型" class="headerlink" title="模拟滤波器类型"></a>模拟滤波器类型</h4><ul>
 <li>巴特沃斯滤波器<br>巴特沃斯滤波器的频率响应：  <script type="math/tex; mode=display">|H(e^{jω})|^2=\frac{1}{1+(\frac{Ω}{Ω_c})^{2N}}</script></li>
-<li>切比雪夫滤波器<br>切比雪夫I型滤波器的频率响应：  <script type="math/tex; mode=display">|H(e^{jω})|^2=\frac{1}{1+ɛ^2T_N^2(\frac{Ω}{Ω_c})}</script>$T_N(x)$为N阶切比雪夫多项式：  <script type="math/tex; mode=display">T_N(x)=\begin{cases}
+<li><p>切比雪夫滤波器<br>切比雪夫I型滤波器的频率响应：  </p>
+<script type="math/tex; mode=display">|H(e^{jω})|^2=\frac{1}{1+ɛ^2T_N^2(\frac{Ω}{Ω_c})}</script><p>$T_N(x)$为N阶切比雪夫多项式：  </p>
+<script type="math/tex; mode=display">T_N(x)=\begin{cases}
   cos(Narccos(x)),0≤x≤1\\
   cosh(Narccosh(x)),1≤x≤∞
 \end{cases}</script><blockquote>
 <p>$cosh(x)=\frac{e^x+e^{-x}}{2}$   </p>
-<script type="math/tex; mode=display">ɛ=\sqrt{10^{0.1R_p}-1}</script></blockquote>
-</li>
+</blockquote>
+<script type="math/tex; mode=display">ɛ=\sqrt{10^{0.1R_p}-1}</script></li>
 </ul>
 <h4 id="模数转换-冲激响应不变"><a href="#模数转换-冲激响应不变" class="headerlink" title="模数转换-冲激响应不变"></a>模数转换-冲激响应不变</h4><p>脉冲响应不变的映射律：  </p>
 <script type="math/tex; mode=display">h[n]=Th_c(nT)</script><p>脉冲响应不变法的流程：  </p>
