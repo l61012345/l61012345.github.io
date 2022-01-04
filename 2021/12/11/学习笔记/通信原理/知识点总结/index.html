@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
 
 
 
@@ -530,7 +530,7 @@ p.spoiler {
 <li>最大频偏：$K_fA_m$</li>
 </ul>
 <h4 id="调幅和调频的关系"><a href="#调幅和调频的关系" class="headerlink" title="调幅和调频的关系"></a>调幅和调频的关系</h4><p>$m(t)$积分后的信号通过积分器后调相的结果是其调频结果。<br>$m(t)$微分后的信号通过微分器后调频的结果是其调相结果。  </p>
-<h3 id="所有调制方法的性能对比"><a href="#所有调制方法的性能对比" class="headerlink" title="所有调制方法的性能对比"></a>所有调制方法的性能对比</h3><p><strong>可靠性</strong><br>信噪比越大，可靠性越高。  </p>
+<h3 id="所有调制方法的性能对比"><a href="#所有调制方法的性能对比" class="headerlink" title="所有调制方法的性能对比"></a>所有调制方法的性能对比</h3><p><strong>可靠性</strong><br>解调端输入信号能量$S_i$相同的前提下，信噪比越大，可靠性越高。  </p>
 <script type="math/tex; mode=display">AM＜DSB=SSB＜FM</script><p><strong>有效性</strong><br>带宽越大，有效性越低。  </p>
 <script type="math/tex; mode=display">FM＜AM=DSB＜VSB＜SSB</script><h2 id="数字基带传输系统"><a href="#数字基带传输系统" class="headerlink" title="数字基带传输系统"></a>数字基带传输系统</h2><h3 id="模拟信号采样"><a href="#模拟信号采样" class="headerlink" title="模拟信号采样"></a>模拟信号采样</h3><p>对基带信号，最佳的采样频率为：  </p>
 <script type="math/tex; mode=display">f_s=2f_H</script><p>对带通信号，最佳的采样频率为：  </p>
@@ -636,10 +636,10 @@ p.spoiler {
 </li>
 <li>将电平值减去段落的起始值，与量化间隔相除，结果转化为8421码即为$C_5C_6C_7C_8$。  </li>
 </ol>
-<p>与量化间隔相除结果的余数部分无法通过编码表示，称为编码噪声$EN$。  </p>
+<p>与量化间隔相除结果的余数部分无法通过编码表示，称为编码噪声$N_e$。  </p>
 <h4 id="脉冲调制解码过程"><a href="#脉冲调制解码过程" class="headerlink" title="脉冲调制解码过程"></a>脉冲调制解码过程</h4><p>PCM编码在解码端首先会变成11位的自然二进制编码。<br>PCM编码转换为10进制后的结果与11位的自然二进制转换为10进制的结果相同。  </p>
 <script type="math/tex; mode=display">I_{11-NBC}=I_{PCM}</script><p>因此PCM编码只需要转换为10进制，在开头补充0即可转换为11位NBC码。<br>由于PCM编码只考虑到了每个量化区间内的起始值$m_{i-1}$而并非量化电平$p_i$，在解码过程中需要补充每个量化段的半个量化区间$\frac{Δ_i}{2}$，由于最小的$\frac{Δ_1}{2}=0.5$，因此需要额外补充一个bit来弥补增加的精度，生成12位NBC码。<br>12位NBC的精度高于8位PCM编码，与PCM编码相比，12位NBC能额外表达一个当前量化段的一半的量化间隔，进而减少了量化噪声。<br>12位NBC可以通过在PCM转化为11位NBC码后，11位NBC码的最后一个“1”后增加一个“1”即可。  </p>
-<script type="math/tex; mode=display">I_{12-NBC}=I_{PCM}+\frac{1}{2}Δ_i</script><p>因此，整个脉冲编码调制的量化噪声$QN$为编码噪声减去$\frac{Δ_i}{2}$:</p>
+<script type="math/tex; mode=display">I_{12-NBC}=I_{PCM}+\frac{1}{2}Δ_i</script><p>因此，整个脉冲编码调制的量化噪声$N_q$为编码噪声减去$\frac{Δ_i}{2}$:</p>
 <script type="math/tex; mode=display">N_q=N_e-\frac{Δ_i}{2}</script><h4 id="脉冲编码调制的性能"><a href="#脉冲编码调制的性能" class="headerlink" title="脉冲编码调制的性能"></a>脉冲编码调制的性能</h4><ul>
 <li>传输速率<br>PCM的传输速率为：  <script type="math/tex; mode=display">R_B=f_s×log_2^M×N</script>其中$f_s$为采样速率，$M$为比特数，A律13折PCM中$M=8$。$N$为信号的路数。  </li>
 <li>信噪比<br>整个过程的信噪比表示为：  <script type="math/tex; mode=display">\frac{S_o}{N_o}_{PCM}=\frac{\overline{m^2(t)}}{N_q+N_e}</script>通过计算可以发现，当$m(t)$服从均匀分布时，量化信噪比表示为：  <script type="math/tex; mode=display">\frac{S}{N_q}=M^2</script></li>
@@ -1208,20 +1208,5 @@ p.spoiler {
 
   
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
