@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年12月19日 凌晨
+                  本文最后更新于：2022年1月4日 早上
                 
               </p>
             
@@ -373,7 +373,7 @@ p.spoiler {
 <script type="math/tex; mode=display">P_{2PSK}(f)=\frac{T_s}{4}\{Sa^2[π(f+f_c)T_s]+Sa^2[π(f-f_c)T_s]\}</script><p>可以发现，PSK的功率谱表达式实则为ASK功率谱中的连续分量。由于$a_n$是双极性码，因此功率谱中不含有离散的冲激分量。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125134908.png width=70%>  </p>
 <p>PSK信号的带宽：  </p>
 <script type="math/tex; mode=display">B_{2PSK}=2B_s</script><h3 id="解调方法-2"><a href="#解调方法-2" class="headerlink" title="解调方法"></a>解调方法</h3><h4 id="相干解调-2"><a href="#相干解调-2" class="headerlink" title="相干解调"></a>相干解调</h4><p>由于PSK信号通过全波整流器后各个码元周期内的信号完全相同，无法辨认“0”或“1”，因此PSK信号不能使用非相干解调，只能使用相干解调。<br>在相干解调中，PSK信号通过带通滤波器后和同频同向的载波相乘，表示“-1”的波形与载波相乘，得到的波形会完全在小于0的一侧，表示“1”的波形与载波相乘，得到的波形会完全在大于0的一侧。信号通过低通滤波器消除高频分量后送入抽样判决器进行判别。抽样判决器的最佳判决门限为0。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125141819.png width=60%></p>
-<h2 id="DPSK"><a href="#DPSK" class="headerlink" title="DPSK"></a>DPSK</h2><h3 id="调制方法-3"><a href="#调制方法-3" class="headerlink" title="调制方法"></a>调制方法</h3><p>传统的PSK在解调过程中需要依赖未调制载波$cosω_ct$的相位，如果载波相位发生，则反转，调制结果会随之发生反转，这种现象称为倒π现象。为了解决倒π现象，DPSK（相对相移键控）选择使用相对码来取代PSK中使用的绝对码，以使得解调结果不依赖$cosω_ct$的相位。<br>DPSK的具体做法是:假设$b_n$为$a_n$的差分码，有：</p>
+<h2 id="DPSK"><a href="#DPSK" class="headerlink" title="DPSK"></a>DPSK</h2><h3 id="调制方法-3"><a href="#调制方法-3" class="headerlink" title="调制方法"></a>调制方法</h3><p>传统的PSK在解调过程中需要依赖未调制载波$cosω_ct$的相位，如果载波相位发生反转，调制结果会随之发生反转，这种现象称为倒π现象。为了解决倒π现象，DPSK（相对相移键控）选择使用相对码来取代PSK中使用的绝对码，以使得解调结果不依赖$cosω_ct$的相位。<br>DPSK的具体做法是:假设$b_n$为$a_n$的差分码，有：</p>
 <script type="math/tex; mode=display">b_n=a_n⊕b_{n-1}</script><p>即当前差分码$b_n$是前一个差分码$b_{n-1}$与当前绝对码$a_n$的模二加法（异或）结果。<br>再将差分码做PSK调制即可。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125144556.png width=50%></p>
 <h3 id="物理实现-3"><a href="#物理实现-3" class="headerlink" title="物理实现"></a>物理实现</h3><p>DPSK中差分和PSK调制的顺序可以倒换：  </p>
 <ol>
