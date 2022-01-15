@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      3.2k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      33
        分钟
     </span>
   
@@ -276,13 +276,13 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月14日 上午
+                  本文最后更新于：2022年1月15日 凌晨
                 
               </p>
             
             <div class="markdown-body">
               <h1 id="遗传编程导论"><a href="#遗传编程导论" class="headerlink" title="遗传编程导论"></a>遗传编程导论</h1><blockquote>
-<p><em>Gennetic Programming</em>,John R. Koza,Riccardo Poli,Search Methodologies—Introductory Tutorials in Optimization and Decision Support Techniques, 2005.</p>
+<p><em>Gennetic Programming</em>.,John R. Koza,Riccardo Poli,Search Methodologies—Introductory Tutorials in Optimization and Decision Support Techniques, 2005.<br><em>Visualization of Evolutionary Process in Genetic Programming</em>.,Wongsiriprasert, Chatchawan &amp; Chongstitvatana, Prabhas &amp; Prasitjutrakul, Somchai, 1998. </p>
 </blockquote>
 <h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>遗传编程（Gennetic Progamming）是一种针对复杂目标问题，基于对需求高层级下的描述，使用计算机描述自动给出的最优解的算法。<br>具体而言，遗传编程通过应用类似于自然界基因遗传的规律，对一组程序（Programs）进行筛选和迭代，最终生成对目标问题解决效果最好的程序。  </p>
 <h3 id="个体的描述和表达"><a href="#个体的描述和表达" class="headerlink" title="个体的描述和表达"></a>个体的描述和表达</h3><p>与遗传算法不同的是，遗传编程中不再像遗传算法那样使用固定长度的字符串（Strings）和线性结构来描述一个个体。而是通过程序（Program）和树形结构（称为语法树，Syntax trees）来编码可能的系统解决方法。  </p>
@@ -311,8 +311,39 @@ p.spoiler {
             <p>例如，如果目标是让扫地机器人在有障碍的房间中能够顺利的清扫房间。那么执行的函数集中应当包括：转向、前进、清扫、停止等等。<br>如果目标问题是对模拟电路进行自动综合（Synthesis），那么函数集应该能够让遗传编程程序自动的从电路器件库中选择器件进行创建，函数集可以是含有电阻、电容、电感、运算放大器等等的器件库。  </p>
           </div></p>
 <h3 id="适应度函数"><a href="#适应度函数" class="headerlink" title="适应度函数"></a>适应度函数</h3><p>同样的，第三步中的适应度函数（fitness function）也与目标问题有关，适应度函数的主要功能是评估和量化种群中每个个体的优劣程度。在遗传算法领域，个体的“优劣”通常指个体对实现目标问题的贡献程度。适应度评估是遗传编程中将对目标问题高层级的需求转义进遗传编程程序中的最基本的机制。  </p>
-<h3 id="运行控制"><a href="#运行控制" class="headerlink" title="运行控制"></a>运行控制</h3><p>第四步和第五步都是用于控制遗传编程程序的运行，第四步中为遗传编程指定一些参数，比如：种群大小、允许的个体（即程序）的最大大小，通常用深度（最大的子树层级）等参数进行定义、以及个体发生遗传操作（复制、交叉、突变等）的概率等等。<br>第五步则指定了遗传编程何时终止，数学上表征为何时收敛。可以通过指定个体的适应度达到某个阈值，或者是最大的运行代数来确定遗传编程何时终止。这些参数的设定都在“怎样算成功解决目标问题”这个大的背景问题下设定。  </p>
-<h2 id="遗传编程的运行"><a href="#遗传编程的运行" class="headerlink" title="遗传编程的运行"></a>遗传编程的运行</h2><p>遗传编程的运行包括</p>
+<h3 id="运行控制"><a href="#运行控制" class="headerlink" title="运行控制"></a>运行控制</h3><p>第四步和第五步都是用于控制遗传编程程序的运行，第四步中为遗传编程指定一些参数，比如：种群大小、允许的个体（即程序）的最大大小（端点和函数的最大个数）、以及个体发生遗传操作（复制、交叉、突变等）的概率等等。<br>第五步则指定了遗传编程何时终止，数学上表征为何时收敛。可以通过指定个体的适应度达到某个阈值，或者是最大的运行代数来确定遗传编程何时终止。这些参数的设定都在“怎样算成功解决目标问题”这个大的背景问题下设定。  </p>
+<h2 id="遗传编程的运行"><a href="#遗传编程的运行" class="headerlink" title="遗传编程的运行"></a>遗传编程的运行</h2><p>遗传编程的运行从随机初始化个体形成初始种群开始，个体通过适应度函数对其量化评估，得到个体的适应度后，基于适应度，有概率地挑选个体进行遗传操作，生成下一代种群。整个运行的流程图如下所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220114180854.png width=100%>  </p>
+<div class="note note-info">
+            <p>与遗传算法不同的是，遗传编程中的遗传操作是并行执行，而遗传算法中的遗传操作是串行执行的。并行执行可以使得原本优秀的亲代性状尽可能的被保存。  </p>
+          </div>
+<p>和遗传算法一样，遗传编程也是一种通用的解决问题的策略、不对某一个或是某一类问题进行特化（problem-independent）。</p>
+<h3 id="初始化个体"><a href="#初始化个体" class="headerlink" title="初始化个体"></a>初始化个体</h3><p>从函数集和节点集中随机挑选一些组成个体，并形成初始种群（第0代种群）。<br>初始种群中的个体通常是通过递归产生一个程序树，该树由随机选择的原始函数和终端组成。通常初始个体的大小设置为运行准备一节中所设置的最大大小。<br>初始化个体的常用方法有两种： “Full” 和 “Grow”。  </p>
+<h4 id="Full-Initialization"><a href="#Full-Initialization" class="headerlink" title="Full Initialization"></a>Full Initialization</h4><p>Full 初始化的方法的步骤是：  </p>
+<ol>
+<li>确定语法树的最大深度，即子树的最高层级。</li>
+<li>从函数集中随机选择一些运算符，构建子树。  </li>
+<li>当达到最大深度时，从端点的集合中选择一些变量或者常数作为端点。<br>通过Full初始化方法，每一个个体只会在最深一层出现端点。  </li>
+</ol>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220114213939.png width=60%></p>
+<h4 id="Grow-Initialization"><a href="#Grow-Initialization" class="headerlink" title="Grow Initialization"></a>Grow Initialization</h4><p>Grow初始化方法的步骤是：  </p>
+<ol>
+<li>确定语法树的最大深度，即子树的最高层级。</li>
+<li>从函数集和端点集中同时随机选择一些运算符和运算数，构建子树，直到达到语法树的最大深度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220114214126.png width=60%></li>
+</ol>
+<p>通过这样的随机生成方法，初始种群中会出现不同大小和形状的个体。这样的随机初始化方法是对搜索空间的盲选。  </p>
+<h3 id="个体评估"><a href="#个体评估" class="headerlink" title="个体评估"></a>个体评估</h3><h4 id="个体的编译"><a href="#个体的编译" class="headerlink" title="个体的编译"></a>个体的编译</h4><p>当随机种群生成后，遗传编程进行迭代，并基于前一代个体筛选和变异生成下一代个体。每一次迭代的第一步是用适应度函数评估每一个个体，得到每个个体的适应度。评估过程需要多次运行当前种群中的每一个个体。常见的程序运行策略包括离线编译、在线编译、链接、虚拟机编译、解释等等。具体而言，需要将每个个体的树形结构转义为运算式后，在运算其结果，带入适应度函数中得到对应的个体适应度。<br>对树形结构的解释（interpretation）是一种一边编译一边运行的策略，解释遵循当且仅当这个函数下面的所有量都是已知的情况下，这个函数才会被运行。下图所示了一棵语法树在$x=-1$时的解释流程。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115101701.png width=50%><br>这种运行策略可以节省每一个个体的运行时间，加快评估速度。  </p>
+<h4 id="适应度评估"><a href="#适应度评估" class="headerlink" title="适应度评估"></a>适应度评估</h4><p>对个体的适应度的评估依据于问题目标，比如个体的适应度可以是运行时间、运行中发生的错误数、计算资源消耗、或者是识别目标时的准确率等等。<br>个体也可以从多个维度去评价，并应用不同的适应度函数得到多个适应度结果。通常如果评测个体的指标有很多个，有必要对评测的指标进行降维操作。<br>许多问题中，每个个体的表现还与程序的输入、初始条件和运行环境有关，这些影响个体表现的因素称为适应度场合（fitness cases），每个个体在不同的场合下可能会有不同的适应度。  </p>
+<h3 id="遗传操作"><a href="#遗传操作" class="headerlink" title="遗传操作"></a>遗传操作</h3><p>经过随机盲选得出的初始种群的个体适应度通常都不高，因此需要通过遗传操作（genetic operations）在搜索空间（searching space）内从这些初始个体周围开始寻找新的适应度更高的个体。<br>基于自然界的达尔文生物进化理论，遗传操作包括复制/繁殖（reproduction）、交叉（crossover）、突变（mutation），以及遗传算法中没有的结构转换（architecture-altering）。通过遗传操作产生的个体（称为后代）被移入下一代种群。<br>遗传编程基于个体的适应度，有概率的对个体进行这些遗传操作。通常个体的适应度越高，个体被选中进行遗传操作的概率就更高，这暗示了遗传编程将更倾向于在高适应度个体的周围去搜索搜索空间中的其他个体。通常选择个体进行遗传操作的算法有轮盘赌算法和锦标赛算法，这些算法都不是贪心算法，即是从全局而非当前的局部最优来考虑优化问题。这种非贪心的特性能够保证遗传编程/遗传算法不会陷入局部最优解。<br><div class="note note-info">
+            <p>贪心算法<br>在对问题求解时，总是做出在当前看来是最好的选择。即不从整体最优上加以考虑，贪心算法所做出的仅是在某种意义上的局部最优解。  </p>
+          </div></p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130107.png width=80%>  </p>
+<h4 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130723.png width=50%>  </p>
+<p>交叉的步骤是：<br>基于概率$p_c$和适应度从当前种群中选择两个个体，随机的选择两个个体相同位置上的一个连接或者结点作为交叉点，然后交换两个体交叉点以下的子树。<br>通常选择函数作为交叉点的概率要远高于端点作为交叉点的概率（比如90%的概率选择一个函数，10%的概率选择端点。），这是因为选择函数作为交叉点时，交叉对个体的影响更大，遗传编程在搜索空间中单次搜索的范围更广。</p>
+<h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130749.png width=50%>  </p>
+<p>突变的步骤是：<br>基于概率$p_m$和适应度从当前种群中选择一个个体，并随机在这个个体内选择一个突变点，突变点下的子树被一个随机生成的子树替代（相当于与这个随机生成的子树发生交叉）。  </p>
+<h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><p>基于概率$p_r$和适应度从当前种群中选择一个个体，并复制到下一代种群中。  </p>
+<p>结构转换会在之后的节中详述，在此不做叙述。  </p>
+<p>遗传操作执行结束后，后代组成的下一代种群会替代当前的种群，并再次进行“评估-选择-遗传操作”这样的迭代流程。直到遗传编程的运行达到一开始设定的终止条件。<br>由于初始种群中的每个程序是可运行的有效程序，遗传操作不会改变其有效性，因此后代也是有效的，可以说明通过遗传编程生成的最终程序是有效的。  </p>
 
             </div>
             <hr>
