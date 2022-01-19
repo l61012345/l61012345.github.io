@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.5k 字
+      6.2k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      46
+      64
        分钟
     </span>
   
@@ -276,13 +276,13 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月15日 早上
+                  本文最后更新于：2022年1月19日 早上
                 
               </p>
             
             <div class="markdown-body">
               <h1 id="遗传编程导论"><a href="#遗传编程导论" class="headerlink" title="遗传编程导论"></a>遗传编程导论</h1><blockquote>
-<p><em>Gennetic Programming</em>.,John R. Koza,Riccardo Poli,Search Methodologies—Introductory Tutorials in Optimization and Decision Support Techniques, 2005.<br><em>Visualization of Evolutionary Process in Genetic Programming</em>.,Wongsiriprasert, Chatchawan &amp; Chongstitvatana, Prabhas &amp; Prasitjutrakul, Somchai, 1998. </p>
+<p><em>Gennetic Programming</em>.,John R. Koza,Riccardo Poli,Search Methodologies—Introductory Tutorials in Optimization and Decision Support Techniques, 2005.<br><em>Visualization of Evolutionary Process in Genetic Programming</em>.,Wongsiriprasert, Chatchawan &amp; Chongstitvatana, Prabhas &amp; Prasitjutrakul, Somchai, 1998.<br><em>the home page of Genetic Programming Inc.</em>., Genetic Programming Inc.,<a target="_blank" rel="noopener" href="http://www.genetic-programming.com/">http://www.genetic-programming.com/</a>, 2007.</p>
 </blockquote>
 <h2 id="术语"><a href="#术语" class="headerlink" title="术语"></a>术语</h2><p>遗传编程（Gennetic Progamming）是一种针对复杂目标问题，基于对需求高层级下的描述，使用计算机描述自动给出的最优解的算法。<br>具体而言，遗传编程通过应用类似于自然界基因遗传的规律，对一组程序（Programs）进行筛选和迭代，最终生成对目标问题解决效果最好的程序。  </p>
 <h3 id="个体的描述和表达"><a href="#个体的描述和表达" class="headerlink" title="个体的描述和表达"></a>个体的描述和表达</h3><p>与遗传算法不同的是，遗传编程中不再像遗传算法那样使用固定长度的字符串（Strings）和线性结构来描述一个个体。而是通过程序（Program）和树形结构（称为语法树，Syntax trees）来编码可能的系统解决方法。  </p>
@@ -331,7 +331,8 @@ p.spoiler {
 <li>从函数集和端点集中同时随机选择一些运算符和运算数，构建子树，直到达到语法树的最大深度。  </li>
 </ol>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220114214126.png width=60%></p>
-<p>通过这样的随机生成方法，初始种群中会出现不同大小和形状的个体。<br>用grow策略生长得到的语法树往往不对称，而且普遍会比用户设置的最大深度浅一些；在变量的数量远大于函数的数量时，这种情况更明显。<br>这两种的随机初始化方法是对搜索空间的盲选。在python的遗传编程库gplearn中默认采用的是一半一半（half-half）的策略：一半的公式树用grow策略生成，另一半用full策略生成，以创造种群多样性。  </p>
+<p>通过这样的随机生成方法，初始种群中会出现不同大小和形状的个体。<br>用grow策略生长得到的语法树往往不对称，而且普遍会比用户设置的最大深度浅一些；在变量的数量远大于函数的数量时，这种情况更明显。<br>下图动态展示了full和grow初始化：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/creation.gif width=50%>  </p>
+<p>这两种的随机初始化方法是对搜索空间的盲选。在python的遗传编程库gplearn中默认采用的是一半一半（half-half）的策略：一半的公式树用grow策略生成，另一半用full策略生成，以创造种群多样性。  </p>
 <blockquote>
 <p>gplearn: <a target="_blank" rel="noopener" href="https://gplearn.readthedocs.io/en/stable/">https://gplearn.readthedocs.io/en/stable/</a></p>
 </blockquote>
@@ -346,7 +347,7 @@ p.spoiler {
 <h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130749.png width=50%>  </p>
 <p>突变的步骤是：<br>基于概率$p_m$和适应度从当前种群中选择一个个体，并随机在这个个体内选择一个突变点，突变点下的子树被一个随机生成的子树替代（相当于与这个随机生成的子树发生交叉）。  </p>
 <h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><p>基于概率$p_r$和适应度从当前种群中选择一个个体，并复制到下一代种群中。  </p>
-<p>结构转换会在之后的节中详述，在此不做叙述。  </p>
+<h4 id="结构转换"><a href="#结构转换" class="headerlink" title="结构转换"></a>结构转换</h4><p>结构转换会在之后的节中详述，在此不做叙述。  </p>
 <p>遗传操作执行结束后，后代组成的下一代种群会替代当前的种群，并再次进行“评估-选择-遗传操作”这样的迭代流程。直到遗传编程的运行达到一开始设定的终止条件。<br>由于初始种群中的每个程序是可运行的有效程序，遗传操作不会改变其有效性，因此后代也是有效的，可以说明通过遗传编程生成的最终程序是有效的。  </p>
 <h2 id="遗传编程的运行案例"><a href="#遗传编程的运行案例" class="headerlink" title="遗传编程的运行案例"></a>遗传编程的运行案例</h2><p>这一节将举例说明遗传编程是如何通过遗传操作解决目标问题的。目标问题为自动的生成一个程序使得其在$x ∈ [-1,1]$区间内生成的值满足函数$x^2+x+1$。这种试图发现某种隐藏的数学公式，以此利用特征变量预测目标变量的问题称之为符号回归（symbolic regression）类问题。  </p>
 <h3 id="搜索空间确定和参数设置"><a href="#搜索空间确定和参数设置" class="headerlink" title="搜索空间确定和参数设置"></a>搜索空间确定和参数设置</h3><p>对于这个问题，在遗传编程的准备阶段，端点集由随机常数和变量$x$构成：  </p>
@@ -365,6 +366,63 @@ p.spoiler {
 <h4 id="交叉-1"><a href="#交叉-1" class="headerlink" title="交叉"></a>交叉</h4><p>前两个个体(a)、(b)的适应度更好，更有高概率被选择配对进行交叉操作，假设(a)(b)个体发生如下图所示的交叉：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115145005.png width=60%>  </p>
 <p>可以发现，个体(a)和个体(b)中各自都有一部分贴近于目标函数（称为各自的优良性状），<strong>通过交叉，两个亲本的优良性状更容易被结合，从而生成更加贴近目标的后代。</strong>  </p>
 <h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><p>通过遗传操作后的后代如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115145739.png width=60%><br>可以发现，个体(d)的适应度已经为0，达到了预先设定的终止条件，遗传编程停止运行。  </p>
+<h2 id="遗传编程的高级特性"><a href="#遗传编程的高级特性" class="headerlink" title="遗传编程的高级特性"></a>遗传编程的高级特性</h2><p>除了可以通过上述简单的例子表现出来的遗传编程的选择机制之外，遗传编程还拥有许多高级特性，在此进行简单介绍。  </p>
+<h3 id="强类型"><a href="#强类型" class="headerlink" title="强类型"></a>强类型</h3><p>强类型（Strong type）指的是程序中表达的任何对象所从属的类型都必须能在编译时刻确定。<br>强类型是针对类型检查的严格程度而言的，它指任何变量在使用的时候必须要指定这个变量的类型，而且在程序的运行过程中这个变量只能存储这个类型的数据。因此，对于强类型语言，一个变量不经过强制转换，它永远是这个数据类型，不允许隐式的类型转换（例如Python中变量的数据类型取决于赋值而并非事先声明）。<br>上面的例子中，端点集和函数集并不是非常严格地指定了数据类型（比如上面的例子中端点集可以是常数，也可以是随机变量，函数也没有严格地指定输入的数据类型）。但是大部分问题对程序的要求都需要指定程序输入和输出的数据类型：比如在扫地机器人的例子中，函数“旋转”的输入一定是一个角度值，而“前进”的输入一定是一个距离。<br>将强类型语法应用于遗传编程中，用于限制树的结构和构成方式。在强类型的遗传编程随机过程中，如果一个下层节点的输出类型和它连接的一个上层节点输入类型不一致，那么存在这种连接的树会被丢弃。<br>在生成初始个体时，应该使所有的初始个体都满足强类型语法，并且要使得所有的遗传操作也要满足强类型语法的条件，这样最终筛选出来的个体也会是强类型的。  </p>
+<h3 id="自动定义函数"><a href="#自动定义函数" class="headerlink" title="自动定义函数"></a>自动定义函数</h3><p>像人类编程的程序中会编写子函数一样，遗传编程会利用问题对称性、规律性和模块性的特点，将个体之间结构、形状相似的部分自动定义为若干个小模块/子程序，称为自动定义函数（Automatically defined function，ADF），这些模块允许在重用时其输入的变量根据问题的不同而变化。<br><div class="note note-info">
+            <p>通常ADF的端点集和函数集与主程序的端点集和函数集有所不同。  </p>
+          </div></p>
+<p>自动定义函数会随着与主程序一起动态演化，并且可以在进化过程的同时被调用和递归调用。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220119143133.png width=70%><br>自动定义函数机制使得遗传编程能参数化重用和分层调用某一个模块，减小进化过程的回归压力，降低计算量。在问题层面上，自动定义函数机制能够将问题分解为若干个模块、简化问题的解决流程。随着问题的复杂程度上升，自动定义函数机制可以明显的减缓计算量和个体大小的上升，实验表明，在复杂问题中应用这样的机制简化计算是非常有效的。  </p>
+<h3 id="程序的结构和结构转换操作"><a href="#程序的结构和结构转换操作" class="headerlink" title="程序的结构和结构转换操作"></a>程序的结构和结构转换操作</h3><h4 id="程序的结构"><a href="#程序的结构" class="headerlink" title="程序的结构"></a>程序的结构</h4><p>在遗传编程中，个体/程序的结构（architecture）包括：  </p>
+<ul>
+<li>分支的总数量</li>
+<li>分支的类型（比如有自动定义函数分支，自动定义迭代分支，自动定义循环分支，解决生成分支）  </li>
+<li>每个分支中端点/声明的数量</li>
+<li>分支的层级</li>
+</ul>
+<h4 id="结构转换-1"><a href="#结构转换-1" class="headerlink" title="结构转换"></a>结构转换</h4><p>在遗传编程中，如何找到目标个体的结构也是一个问题。结构转换操作（architecture-altering operations）提供了一种方法：在遗传编程运行期间动态地向单个程序添加和删除子程序和其他类型的分支并添加或删除它们的参数。结构变换是针对一种程序结构的遗传操作，迭代运行结构变换后可以给出一个符合目标比较好的程序结构。由于结构变换本身具有破坏性，通常结构变换发生的概率很小，只有0.5%-1%。<br>有如下的几种常见的结构变换操作，如下表所示：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作类型</th>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">图示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">子程序复制 <br> subroutine duplication</td>
+<td style="text-align:left">复制单个程序中预先存在的子程序，并为其副本指定新名称，并将预先存在的调用到该子程序的树复制为两部分。<br>此操作通过扩展整个程序中子程序的层次结构来改变整个个体的结构。与自然界中的基因复制一样，这种操作在第一次发生时保留了语义。这两个子例程通常在稍后发散，有时产生专门化。</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/branch-dup2.gif></td>
+</tr>
+<tr>
+<td style="text-align:center">子程序删除 <br> subroutine deletion</td>
+<td style="text-align:left">删除一个子程序分支</td>
+<td style="text-align:center"><img src = http://www.genetic-programming.com/branch-delete.gif></td>
+</tr>
+<tr>
+<td style="text-align:center">子程序创建 <br> subroutine creation</td>
+<td style="text-align:left">使用主结果生成分支的一部分创建新的子例程，从而通过在主程序和新的子程序之间创建分层引用深化整个程序中引用的分层。子程序创建操作还可以从现有子程序的一部分创建一个新的子程序，通过在先前存在的子例程和新的子程序之间创建一个层次引用以及一个更深更复杂的整体层次结构，进一步深化引用的层次结构。</td>
+<td style="text-align:center"><img src = http://www.genetic-programming.com/branch-create2.gif></td>
+</tr>
+<tr>
+<td style="text-align:center">参数复制 <br> argument duplication</td>
+<td style="text-align:left">复制子程序的一个参数，随机划分对它的内部引用，并通过调整对子例程的所有调用来保留整个程序语义。此操作放大了子例程操作的子空间的维数</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/arg-dup2.gif></td>
+</tr>
+<tr>
+<td style="text-align:center">参数删除 <br> argument deletion</td>
+<td style="text-align:left">删除某个子程序下的参数</td>
+<td style="text-align:center"><img src=http://www.genetic-programming.com/arg-delete.gif></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>总而言之，结构转换提供了一种寻找目标个体结构的方法，其优点是能够随着主进化过程一同动态变换。<br>除了结构转换外，寻找目标个体结构的方式还有：  </p>
+<ul>
+<li>人为设置程序的结构<br>这种方法是一种静态设置的方法，适合在能够通过经验判断目标结构、目标结构比较简单时使用，可以节省计算量。  </li>
+<li>使用遗传编程进化出合适的目标结构<br>这种方法需要像上述运行流程一样首先随机生成若干个结构，应用迭代和筛选选择出合适的目标结构，相比于结构转换操作，这种方法的计算量较大，但是产生的目标结构可能更为贴切。  </li>
+</ul>
 
             </div>
             <hr>
