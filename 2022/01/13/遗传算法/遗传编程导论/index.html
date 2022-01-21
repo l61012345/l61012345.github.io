@@ -224,7 +224,7 @@ p.spoiler {
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.2k 字
+      7.4k 字
     </span>
   
 
@@ -234,7 +234,7 @@ p.spoiler {
       <i class="iconfont icon-clock-fill"></i>
       
       
-      64
+      79
        分钟
     </span>
   
@@ -276,7 +276,7 @@ p.spoiler {
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年1月19日 早上
+                  本文最后更新于：2022年1月21日 早上
                 
               </p>
             
@@ -341,7 +341,6 @@ p.spoiler {
 <h3 id="遗传操作"><a href="#遗传操作" class="headerlink" title="遗传操作"></a>遗传操作</h3><p>经过随机盲选得出的初始种群的个体适应度通常都不高，因此需要通过遗传操作（genetic operations）在搜索空间（searching space）内从这些初始个体周围开始寻找新的适应度更高的个体。<br>基于自然界的达尔文生物进化理论，遗传操作包括复制/繁殖（reproduction）、交叉（crossover）、突变（mutation），以及遗传算法中没有的结构转换（architecture-altering）。通过遗传操作产生的个体（称为后代）被移入下一代种群。<br>遗传编程基于个体的适应度，有概率的对个体进行这些遗传操作。通常个体的适应度越高，个体被选中进行遗传操作的概率就更高，这暗示了遗传编程将更倾向于在高适应度个体的周围去搜索搜索空间中的其他个体。通常选择个体进行遗传操作的算法有轮盘赌算法和锦标赛算法，这些算法都不是贪心算法，即是从全局而非当前的局部最优来考虑优化问题。这种非贪心的特性能够保证遗传编程/遗传算法不会陷入局部最优解。<br><div class="note note-info">
             <p>贪心算法<br>在对问题求解时，总是做出在当前看来是最好的选择。即不从整体最优上加以考虑，贪心算法所做出的仅是在某种意义上的局部最优解。  </p>
           </div></p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130107.png width=80%>  </p>
 <h4 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130723.png width=50%>  </p>
 <p>交叉的步骤是：<br>基于概率$p_c$和适应度从当前种群中选择两个个体，随机的选择两个个体某一位置上的一个连接或者结点作为交叉点，然后交换两个体交叉点以下的子树。<br>通常选择函数作为交叉点的概率要远高于端点作为交叉点的概率（比如90%的概率选择一个函数，10%的概率选择端点。），这是因为选择函数作为交叉点时，交叉对个体的影响更大，遗传编程在搜索空间中单次搜索的范围更广。</p>
 <h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130749.png width=50%>  </p>
@@ -423,7 +422,18 @@ p.spoiler {
 <li>人为设置程序的结构<br>这种方法是一种静态设置的方法，适合在能够通过经验判断目标结构、目标结构比较简单时使用，可以节省计算量。  </li>
 <li>使用遗传编程进化出合适的目标结构<br>这种方法需要像上述运行流程一样首先随机生成若干个结构，应用迭代和筛选选择出合适的目标结构，相比于结构转换操作，这种方法的计算量较大，但是产生的目标结构可能更为贴切。  </li>
 </ul>
-
+<h2 id="遗传编程的理论分析"><a href="#遗传编程的理论分析" class="headerlink" title="遗传编程的理论分析"></a>遗传编程的理论分析</h2><p>遗传编程的的本质是一种在程序组成的搜索空间内搜索目标问题最优解的搜索方法。在最初阶段，遗传编程会从搜索空间中随机的几个点（即初始种群）开始搜索，这些个体中优于平均水平的个体会通过遗传操作在它们的周围搜索更优秀的个体，随着遗传编程的进行，这些随机分布的点会朝着某一方向移动，最终聚拢。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130107.png width=80%>  </p>
+<p>不过在高维和复杂的搜索空间中去可视化这样的过程从而探究遗传编程的运行机理不太可行，另外一种探究遗传编程的运行机理的方式是在相同条件下运行数次遗传算法，观察运行结果，通过经验和分析运行过程中的一些参数变化得出结论。这种方法很容易出错，因为遗传编程系统是一个复杂的自适应系统，有无数个自由度。因此，任何少量的统计描述符都可能只能捕捉到这样一个系统复杂性的一小部分。<br>由Holland提出的模式理论（schema theory）是另一种可行的解决方法，模式理论可以基于上一代种群的信息，推演出现有种群中某个特定个体的进化性质。<br>在遗传编程中，模式是一种含有通配符（don’t care）的树，通配符可以是一些函数或者端点。一个特定的模式可以代表所有的与这个模式形状结构相同、大小相同、非通配符节点也相同的一类个体，一个模式代表了一个子种群（sub-population）。<br>比如模式$H=(<em>x(+y</em>))$可以表示：$(+x(+yx))$,$(+x(+yy)),(\%x(+yx))$等等个体。<br>令$α(H,t)$表示模式$H$在$t$代的进化采样率，即在$t$代中模式$H$中的个体得到进化的概率，即$t+1$代种群中有模式$H$中的个体数目与$t+1$代种群中的总个体数目之比,$α(H,t)=p(H,t+1)$。假设进化过程中只有复制和单点交叉发生，那么$t$代个体中含有$H$的概率分为两部分：$H$中的个体被复制到下一代的概率和现有种中交叉产生的后代在$H$中的概率：  </p>
+<script type="math/tex; mode=display">α(H,t)=P_r[\text{via repoduction}]+P_r[\text{via crossover}]</script><p>设每个个体发生复制的概率为$p_r$，发生交叉的概率为$p_c$，$p_c+p_r=1$:  </p>
+<script type="math/tex; mode=display">α(H,t)=p_rP_r[\text{via repoduction}]+p_cP_r[\text{via crossover}]</script><p>对于前项，选择$H$中的个体发生复制的概率为：  </p>
+<script type="math/tex; mode=display">P_r[\text{via repoduction}]=p(H,t)=P(H,t)\frac{f(H,t)}{\overline{f}}</script><p>其中$P(H,t)$表示从第$t$种选择一个来自$H$的个体的概率，$\frac{f(H,t)}{\overline{f}}$表示均值归一化后的$H$的平均适应度。<br>对于第二项，选择两个个体，它们的形状为$k$,$l$，已知形状$k$和$l$在交叉点$i$和$j$被选择时，发生交叉后的个体会落入模式$H$，那么通过交叉产生个体落入$H$的概率分解为两步：  </p>
+<ul>
+<li>从所有配对的亲本中选择出形状$k$和形状$l$，这个概率记为$P_r[k,l]$。  </li>
+<li>在形状$k$中选择出交叉点$i$，在形状$l$中选择出交叉点$j$，这个概率记为$P_r[i,j|k,l]$。<br>根据条件概率公式，有选择形状$k$,$l$且选择出交叉点$i$，$j$的概率为：  <script type="math/tex; mode=display">P_r[i,j,k,l]=P_r[i,j|k,l]×P_r[k,l]</script><script type="math/tex; mode=display">P_r[\text{via crossover}]=∑_{k,l}∑_{i,j}P_r[i,j,k,l]</script>假设形状相同的个体中的每个交叉点被选到的概率是相同的，在形状$k$中选择出交叉点$i$，在形状$l$中选择出交叉点$j$均为其形状中含有的节点数分之一：  <script type="math/tex; mode=display">P_r[i,j|k,l]=\frac{1}{nodes_k}×\frac{1}{nodes_l}</script>对于$P_r[k,l]$，为了简化计算，假设两个树中一个树的某个节点上方满足在$H$内的个体的结构，另一个树的下方满足在$H$内的个体的结构，那么：  <script type="math/tex; mode=display">P_r[k,l]=P_r[k]×P_r[l]</script>$P_r[k]$和$P_r[l]$分别表示从$t$代中选择这两种形状的个体的概率：<br>$P_r[k]=p(k,t)$,$P_r[l]=p(l,t)$。  <script type="math/tex; mode=display">P_r[k,l]=p(k,t)×p(l,t)</script></li>
+</ul>
+<p>进而可以给出理论上$H$的采样率下界：  </p>
+<script type="math/tex; mode=display">α(H,t)=p(H,t)+∑_{k,l}∑_{i,j}\left[\frac{1}{nodes_k}×\frac{1}{nodes_l}×p(k,t)×p(l,t)\right]</script><p>通过采样率下界，可以估计子种群$H$经过遗传操作，下一代中个体在子种群$H$中的数目的期望为：  </p>
+<script type="math/tex; mode=display">E[M(H,t+1)]=M(H,t)α(H,t)</script>
             </div>
             <hr>
             <div>
