@@ -1,0 +1,622 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="信号的傅里叶级数信号变换分解、响应、叠加是信号与系统中最基础的信号处理方式。对信号的变换思路来源于时域内的信号$f(t)$是以时间为变量的函数方程，在时域内噪声和有用信号往往是同时发生的，难以将噪声从信号中剥离，因此需要对信号进行变换，将信号从时域变换到频域（以频率为自变量的空间，频域中的信号可以表示为$H(ω)$），通过频率的不同就能利用滤波器将噪声剥离。   正交分解正交函数与正交函数集在信号">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3. 信号的傅里叶级数">
+<meta property="og:url" content="https://l61012345.top/2021/04/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3.%20%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="信号的傅里叶级数信号变换分解、响应、叠加是信号与系统中最基础的信号处理方式。对信号的变换思路来源于时域内的信号$f(t)$是以时间为变量的函数方程，在时域内噪声和有用信号往往是同时发生的，难以将噪声从信号中剥离，因此需要对信号进行变换，将信号从时域变换到频域（以频率为自变量的空间，频域中的信号可以表示为$H(ω)$），通过频率的不同就能利用滤波器将噪声剥离。   正交分解正交函数与正交函数集在信号">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-30T09:17:26.000Z">
+<meta property="article:modified_time" content="2021-04-30T09:17:26.000Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>3. 信号的傅里叶级数 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/vs2015.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/homepage.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="3. 信号的傅里叶级数">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Oreki Kigiha
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-30 09:17" pubdate>
+        2021年4月30日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">3. 信号的傅里叶级数</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月30日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="信号的傅里叶级数"><a href="#信号的傅里叶级数" class="headerlink" title="信号的傅里叶级数"></a>信号的傅里叶级数</h1><h2 id="信号变换"><a href="#信号变换" class="headerlink" title="信号变换"></a>信号变换</h2><p>分解、响应、叠加是信号与系统中最基础的信号处理方式。对信号的变换思路来源于时域内的信号$f(t)$是以时间为变量的函数方程，在时域内噪声和有用信号往往是同时发生的，难以将噪声从信号中剥离，因此需要对信号进行变换，将信号从时域变换到频域（以频率为自变量的空间，频域中的信号可以表示为$H(ω)$），通过频率的不同就能利用滤波器将噪声剥离。  </p>
+<h2 id="正交分解"><a href="#正交分解" class="headerlink" title="正交分解"></a>正交分解</h2><h3 id="正交函数与正交函数集"><a href="#正交函数与正交函数集" class="headerlink" title="正交函数与正交函数集"></a>正交函数与正交函数集</h3><p>在信号领域，如果两个信号在$(t_1,t_2)$内有$∫_{t_1}^{t_2}f_1(t)f_2(t)dt=0$，称两个信号是正交的。<br>如果有n个函数构成的函数集：$\{ϕ_1(t),…,ϕ_n(t)\}$在$(t_1,t_2)$内有：  </p>
+<script type="math/tex; mode=display">∫_{t_1}^{t_2}ϕ_i(t)ϕ_j(t)dt=\begin{cases}
+  0,i\not=j \\ K_i \not= 0, i=j
+\end{cases}</script><p>称这是一个正交函数集。<br>如果在这个函数集以外找不到任何的另外一个函数满足其与集内函数两两正交，称这个函数集是一个完备的正交函数集。<br><strong>三角函数集$\{1,cosnΩt,sinnΩt\}$就是一个完备的正交函数集。</strong></p>
+<h3 id="信号的正交分解"><a href="#信号的正交分解" class="headerlink" title="信号的正交分解"></a>信号的正交分解</h3><p>正交分解是最简单的一种信号分解方式，任何一个函数$f_1(t)$都可以用$n$个两两正交的函数的线性组合来近似。 有：  </p>
+<script type="math/tex; mode=display">f_1(t)=∑C_iϕ_i(t)+f_e(t)</script><p>这样的分解方式称为信号的<strong>正交分解</strong>，即将目标信号$f_1(t)$分解为若干个正交信号的线性组合和误差信号$f_e(t)$，简化表示方法：    </p>
+<script type="math/tex; mode=display">f_2(t)=∑C_iϕ_i(t)</script><p>此时的$f_2(t)$不在具有限定性，是一个任意的函数。进一步得到任何一个信号$f_1(t)$都可以用一个加权的信号$f_2(t)$与误差信号$f_e(t)$表示：  </p>
+<script type="math/tex; mode=display">f_1(t)=C_{12}f_2(t)+f_e(t)</script><p>$C_{12}$是$f_2(t)$的权重，称为相关系数。$f_e(t)$是拟合误差。<br>判断拟合是否准确的标准是拟合误差的均方值，当拟合误差的均方值最小时，信号拟合度最高，均方值表示为：  </p>
+<script type="math/tex; mode=display">\overline{ɛ^2}=\overline{f^2_e(t)}=\frac{1}{t_2-t_1}∫_{t_1}^{t_2}f_e^2(t)dt</script><p>对其求导令方程等于0，可以解出：  </p>
+<script type="math/tex; mode=display">∫_{t_1}^{t_2}\frac{d}{dC_{12}}[f_1^2(t)-2C_{12}f_2(t)f_1(t)+f_2^2(t)C_{12}^2]dt=0</script><p>要使方程为0，必须每一项都为0，最终解得：  </p>
+<script type="math/tex; mode=display">C_{12}=\frac{∫_{t_1}^{t_2}f_1(t)f_2(t)dt}{∫_{t_1}^{t_2}f_2^2(t)dt}</script><p>但是正交分解依赖于$f_2(t)$的选取，如果于$f_2(t)$选取的不恰当，拟合度往往不高，在分解时容易丢失$f_1(t)$中有用的信息，因此需要其他更加准确的方法对信号进行分解。通过数学方法可知，当$f_2(t)$是一个完备正交集的线性组合时，此时的拟合效果是最好的。  </p>
+<h2 id="信号的傅里叶级数-1"><a href="#信号的傅里叶级数-1" class="headerlink" title="信号的傅里叶级数"></a>信号的傅里叶级数</h2><p>周期信号$f(t)$在一个周期内可以展开为在完正交信号空间中的无穷级数。而三角函数集正好就是一个完备正交集，因此将信号分解为三角函数集是一种理想的正交分解方法。  高等数学中，任何满足有界可积，有有限个间断点（狄利赫里条件）的函数都可以被描述为傅里叶级数：  </p>
+<script type="math/tex; mode=display">f(t)=a_0+∑_{n=1}^{∞}[a_ncos(nω_1t)+b_nsin(nω_1t)]</script><p>在信号中，$a_0$称为直流分量，是函数在周期内的均值。  </p>
+<script type="math/tex; mode=display">a_0=\frac{1}{T}∫_{t_0}^{t_0+T}f(t)dt</script><blockquote>
+<p>有时定义傅里叶级数的第一项为$\frac{a_0}{2}$，此时$a_0=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)dt$。  </p>
+</blockquote>
+<p>$a_n$称为基波分量，是一个偶函数:  </p>
+<script type="math/tex; mode=display">a_n=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)cos(nω_1t)dt</script><p>$b_n$称为谐波分量，是一个奇函数:  </p>
+<script type="math/tex; mode=display">b_n=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)sin(nω_1t)dt</script><h4 id="傅里叶级数的三角变形"><a href="#傅里叶级数的三角变形" class="headerlink" title="傅里叶级数的三角变形"></a><strong>傅里叶级数的三角变形</strong></h4><ul>
+<li>余弦函数形式<script type="math/tex; mode=display">f(t)=c_0+∑_{n=1}^∞c_ncos(nω_1t+ϕ_n)</script>其中$c_0=a_0$,$c_n=√{a_n^2+b_n^2}$，$ϕ_n=arctan(-\frac{b_n}{a_n})$。  </li>
+</ul>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a><strong>参数</strong></h4><ul>
+<li>幅值<script type="math/tex; mode=display">|F(nω_1)|=√{a_n^2+b_n^2}</script></li>
+<li>相位  <script type="math/tex; mode=display">ϕ_n=acrtan(-\frac{b_n}{a_n})</script></li>
+</ul>
+<h3 id="傅里叶级数的指数形式"><a href="#傅里叶级数的指数形式" class="headerlink" title="傅里叶级数的指数形式"></a>傅里叶级数的指数形式</h3><p>周期函数能够被分解为指数信号的线性组合，因此： </p>
+<script type="math/tex; mode=display">f(t)=∑F(nω_1)e^{jnω_1t}</script><p>其中：   </p>
+<script type="math/tex; mode=display">F(nω_1)=\frac{1}{T}∫_0^Tf(t)e^{-jnω_1t}dt</script><p>代入欧拉公式：  </p>
+<script type="math/tex; mode=display">F(nω_1)=\frac{1}{T}∫_0^Tf(t)cos(nω_1t)-jf(t)sin(nω_1t)dt</script><p>可以得到</p>
+<script type="math/tex; mode=display">F(nω_1)=\frac{1}{2}(a_n-jb_n)</script><script type="math/tex; mode=display">a_n=F_n+F_{-n}</script><script type="math/tex; mode=display">b_n=j(F_n-F_{-n})</script><p>需要注意的是负的频率/角频率$-ω_1$实际并不存在，只用作数学分析。  </p>
+<h4 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a><strong>参数</strong></h4><ul>
+<li>幅值<script type="math/tex; mode=display">|F(nω_1)|=\frac{1}{2}√{a_n^2+b_n^2}</script><strong>指数形式的幅值是三角形式幅值的$\frac{1}{2}$。</strong><br>指数形式的傅里叶级数的幅值函数是一个<strong>偶函数</strong>。  </li>
+<li>相位<script type="math/tex; mode=display">ϕ_n=acrtan(-\frac{b_n}{a_n})</script>指数形式的傅里叶级数的相位函数是一个<strong>奇函数</strong>。</li>
+</ul>
+<h3 id="奇偶周期函数的傅里叶级数"><a href="#奇偶周期函数的傅里叶级数" class="headerlink" title="奇偶周期函数的傅里叶级数"></a>奇偶周期函数的傅里叶级数</h3><p>只需要将奇偶性带入$a_n$,$b_n$即可。<br>对于奇谐/偶谐函数则需要分n的奇偶性进行讨论。  </p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/">信号与系统</a>
+                    
+                  </div>
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/7.%20%E7%8E%AF%E5%BD%A2%E5%A4%A9%E7%BA%BF/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Lecture 7 环形天线</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/6.%20%E5%A4%A9%E7%BA%BF%E9%98%B5%E5%88%97/">
+                        <span class="hidden-mobile">Lecture 6 天线阵列</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
+<script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
+</html>
