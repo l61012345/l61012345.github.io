@@ -1,48 +1,57 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="keywords" content=""> 
   <meta name="author" content="Oreki Kigiha">
-  <!-- searchengine verifications -->
-  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
-  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
-  <!-- Bing verification -->
-  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="代价函数·反向传播回顾接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 神经网络的代价函数形式假设一个神经网络训练集有m个训练样本：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.5. 代价函数·反向传播">
+<meta property="og:url" content="https://l61012345.top/2021/03/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.5.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0.%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="代价函数·反向传播回顾接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 神经网络的代价函数形式假设一个神经网络训练集有m个训练样本：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212735.png">
+<meta property="article:published_time" content="2021-03-22T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-12T08:46:59.203Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png">
+  
   
   <title>5.5. 代价函数·反向传播 - Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/vs2015.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
-
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -51,7 +60,7 @@
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -61,7 +70,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -97,12 +106,14 @@ p.spoiler {
   text-shadow: none;
 }</style><meta name="generator" content="Hexo 5.3.0"></head>
 
+
 <body>
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -176,13 +187,14 @@ p.spoiler {
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -221,21 +233,18 @@ p.spoiler {
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      undefined 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20
-       分钟
+      NaN 分钟
     </span>
   
 
@@ -290,7 +299,7 @@ p.spoiler {
 <li>这个代价函数中$∑_{k=1}^K$表示所有的输出单元之和，这里主要是将$y_k$的值与$(h_Θ(x))_k$的大小作比较   </li>
 <li>正则项的作用是去除那些对应于偏置单元的项，具体而言就是不对$i=0$的项进行求和和正则化。  </li>
 </ol>
-<h2 id="代价函数最小化：反向传播算法"><a href="#代价函数最小化：反向传播算法" class="headerlink" title="代价函数最小化：反向传播算法"></a>代价函数最小化：反向传播算法</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>同之前的线性回归和逻辑回归一样，接下来要求得代价函数的最小值$J(Θ)min$并求出$Θ$。主要的步骤是写出$J(Θ)$并求关于每一个$Θ_{ij}^{(l)}$的偏导项$\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)$。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png" srcset="/img/loading.gif" alt=""><br>现在先来讨论如上图所示的神经网络中，只有一个训练样本$(x,y)$的情况：<br>首先先用前向传播算法（见讲义4.2）验证假设函数是否会真的输出结果:    </p>
+<h2 id="代价函数最小化：反向传播算法"><a href="#代价函数最小化：反向传播算法" class="headerlink" title="代价函数最小化：反向传播算法"></a>代价函数最小化：反向传播算法</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>同之前的线性回归和逻辑回归一样，接下来要求得代价函数的最小值$J(Θ)min$并求出$Θ$。主要的步骤是写出$J(Θ)$并求关于每一个$Θ_{ij}^{(l)}$的偏导项$\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)$。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png" srcset="/img/loading.gif" lazyload alt=""><br>现在先来讨论如上图所示的神经网络中，只有一个训练样本$(x,y)$的情况：<br>首先先用前向传播算法（见讲义4.2）验证假设函数是否会真的输出结果:    </p>
 <script type="math/tex; mode=display">a^{(1)}=x</script><script type="math/tex; mode=display">z^{(2)}=Θ^{(1)}a^{(1)},并增加一个偏置单元</script><script type="math/tex; mode=display">a^{(2)}=g(z^{2})</script><script type="math/tex; mode=display">z^{(3)}=Θ^{(2)}a^{(2)},并增加一个偏置单元</script><script type="math/tex; mode=display">a^{(3)}=g(z^{3})</script><script type="math/tex; mode=display">z^{(4)}=Θ^{(3)}a^{(3)}</script><script type="math/tex; mode=display">a^{(4)}=g(z^{4})=h_Θ(x)</script><p>接下来，为了计算关于每一个$Θ_{ij}^{(l)}$的偏导项$\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)$，就要用到<strong>反向传播算法</strong>（Backpropagation）。<br>从直观上说，对于每一个节点，都要计算每个节点的误差：$δ^{(l)}_j$,表示第l层第j个节点的误差。  </p>
 <script type="math/tex; mode=display">δ^{(l)}_j=a_j^{(l)}-y_j=(h_Θ(x))_j-y_j</script><p>y表示训练集中y向量里的第j个元素的值。<br>其向量形式：  </p>
 <script type="math/tex; mode=display">δ^{(l)}=a^{(l)}-y</script><p>这里的$δ^{(l)}$和$a^{(l)}$都是一层每一个误差/输出所构成的向量。<br>具体而言，对于上图所示的4层（$L=4$）神经网络,第四层的误差项：  </p>
@@ -304,10 +313,10 @@ D^{(l)}_{ij}:=\begin{cases}
      \frac{1}{m}Δ^{(l)}_{ij}+λΘ^{(l)}_{ij},j \not=0 
 \end{cases}</script><p>那么最终：  </p>
 <script type="math/tex; mode=display">\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)=D^{(l)}_{ij}</script><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><ul>
-<li>回顾：前向传播模型<br>前向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png" srcset="/img/loading.gif" alt=""><br>比如：如果洋红色的部分其权重为$Θ_{10}^{(2)}$,红色的权重值为$Θ_{11}^{(2)}$，青色的权重值是$Θ_{12}^{(2)}$， 那么$z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} × a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}$。<br>反向传播的过程和前向传播非常类似，只是传播的方向不同。  </li>
+<li>回顾：前向传播模型<br>前向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png" srcset="/img/loading.gif" lazyload alt=""><br>比如：如果洋红色的部分其权重为$Θ_{10}^{(2)}$,红色的权重值为$Θ_{11}^{(2)}$，青色的权重值是$Θ_{12}^{(2)}$， 那么$z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} × a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}$。<br>反向传播的过程和前向传播非常类似，只是传播的方向不同。  </li>
 <li>反向传播的理解<br>关注反向传播的代价函数：   <script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m ∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ (x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1} (Θ_{ji}^{(l)})_j^2</script>对于单个的样本:$(x^{(i)},y^{(i)})$，只有一个输出单元并且忽略正则化，那么这个样本的代价函数：  <script type="math/tex; mode=display">Cost(i)=y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))</script>这个代价函数的功能类似于计算方差，可以近似的看做是方差函数：  <script type="math/tex; mode=display">Cost(i)≈(h_\Theta(x^{(i)})-y^{(i)})^2</script>它反应了样本模型输出值和样本值的接近程度。<br>反向传播中每个节点的误差：$δ^{(l)}_j$,表示第l层第j个节点的误差。有：   <script type="math/tex; mode=display">δ^{(l)}_j=\frac{\partial}{∂z_j^{(l)}}Cost(i)</script>$z_j^{(l)}$与$h_\Theta(x^{(i)})$相关。  </li>
 </ul>
-<p>  反向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212735.png" srcset="/img/loading.gif" alt=""><br>  例如对$δ^{(2)}_2$，洋红色和红色箭头分别表示两个权重值$Θ_{12}^{(2)}$和$Θ_{22}^{(2)}$，有  </p>
+<p>  反向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212735.png" srcset="/img/loading.gif" lazyload alt=""><br>  例如对$δ^{(2)}_2$，洋红色和红色箭头分别表示两个权重值$Θ_{12}^{(2)}$和$Θ_{22}^{(2)}$，有  </p>
 <script type="math/tex; mode=display">δ^{(2)}_2=Θ_{12}^{(2)} ×δ^{(3)}_1 +Θ_{22}^{(2)} ×δ^{(3)}_2</script>
             </div>
             <hr>
@@ -326,7 +335,11 @@ D^{(l)}_{ij}:=\begin{cases}
                 
               </div>
               
-                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+                <p class="note note-warning">
+                  
+                    如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 
+                  
+                </p>
               
               
                 <div class="post-prevnext">
@@ -377,7 +390,7 @@ D^{(l)}_{ij}:=\begin{cases}
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -410,8 +423,6 @@ D^{(l)}_{ij}:=\begin{cases}
   </main>
 
   <footer class="text-center mt-5 py-3">
-  <!-- start webpushr code --> 
-  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
   <div class="footer-content">
      基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
   </div>
@@ -422,22 +433,21 @@ D^{(l)}_{ij}:=\begin{cases}
 
     
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
             总访问量 
-            <span id="leancloud-site-pv"></span>
+            <span id="busuanzi_value_site_pv"></span>
              次
           </span>
       
       
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
             总访客数 
-            <span id="leancloud-site-uv"></span>
+            <span id="busuanzi_value_site_uv"></span>
              人
           </span>
       
-
     
   </div>
 
@@ -447,10 +457,11 @@ D^{(l)}_{ij}:=\begin{cases}
   
 </footer>
 
-<!-- SCRIPTS -->
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -461,38 +472,40 @@ D^{(l)}_{ij}:=\begin{cases}
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
+  <script  src="/js/local-search.js" ></script>
 
 
 
   
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -501,29 +514,15 @@ D^{(l)}_{ij}:=\begin{cases}
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
   </script>
 
 
@@ -538,6 +537,9 @@ D^{(l)}_{ij}:=\begin{cases}
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
         },
         options: {
           renderActions: {
@@ -565,7 +567,7 @@ D^{(l)}_{ij}:=\begin{cases}
       };
     </script>
 
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js" ></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
 
   
 
@@ -596,22 +598,5 @@ D^{(l)}_{ij}:=\begin{cases}
 <script  src="/js/boot.js" ></script>
 
 
-  
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>

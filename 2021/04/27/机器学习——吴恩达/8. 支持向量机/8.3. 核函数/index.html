@@ -1,48 +1,58 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="keywords" content=""> 
   <meta name="author" content="Oreki Kigiha">
-  <!-- searchengine verifications -->
-  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
-  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
-  <!-- Bing verification -->
-  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="核函数非线性分类的SVM本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y&#x3D;1$。就能够得到一个假设函数：   h_θ(x)&#x3D;\begin{cases} 1  \t">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.3. 核函数">
+<meta property="og:url" content="https://l61012345.top/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.3.%20%E6%A0%B8%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="核函数非线性分类的SVM本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y&#x3D;1$。就能够得到一个假设函数：   h_θ(x)&#x3D;\begin{cases} 1  \t">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png">
+<meta property="article:published_time" content="2021-04-27T11:19:22.000Z">
+<meta property="article:modified_time" content="2021-08-12T08:42:46.453Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png">
+  
   
   <title>8.3. 核函数 - Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/vs2015.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
-
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -51,7 +61,7 @@
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -61,7 +71,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -97,12 +107,14 @@ p.spoiler {
   text-shadow: none;
 }</style><meta name="generator" content="Hexo 5.3.0"></head>
 
+
 <body>
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -176,13 +188,14 @@ p.spoiler {
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -221,21 +234,18 @@ p.spoiler {
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      700 字
+      undefined 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
-       分钟
+      NaN 分钟
     </span>
   
 
@@ -281,7 +291,7 @@ p.spoiler {
               </p>
             
             <div class="markdown-body">
-              <h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><h2 id="非线性分类的SVM"><a href="#非线性分类的SVM" class="headerlink" title="非线性分类的SVM"></a>非线性分类的SVM</h2><p>本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png" srcset="/img/loading.gif" alt=""><br>比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。<br>比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y=1$。<br>就能够得到一个假设函数：  </p>
+              <h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><h2 id="非线性分类的SVM"><a href="#非线性分类的SVM" class="headerlink" title="非线性分类的SVM"></a>非线性分类的SVM</h2><p>本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png" srcset="/img/loading.gif" lazyload alt=""><br>比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。<br>比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y=1$。<br>就能够得到一个假设函数：  </p>
 <script type="math/tex; mode=display">h_θ(x)=\begin{cases} 1  \text{if} θ_0+θ_1x_1+..≥0 \\
 0  \text{otherwise} \\
 \end{cases}</script><p>这种方法的问题是假设中的某些高阶项可能是冗余的，并且对于计算机视觉而言，用高阶多项式处理矩阵的计算量非常的大。<br>改进方法是用一些新的特征$F=\{f_i\}$来替换原特征$X=\{x_i\}$。<br>具体而言，比如现在只选取三个特征$x_0$（截距项，如下推导中将被忽略）,$x_1$,$x_2$,在这三个维度上手动选取三个点（称为标记（Landmarks））：$l^{(1)}$,$l^{(2)}$,$l^{(3)}$。<br>将新特征i $f_i$表示为训练样本$x$与$l^{(i)}$的相似度，相似度度量可以用如下公式表示：  </p>
@@ -294,8 +304,8 @@ p.spoiler {
 <script type="math/tex; mode=display">\begin{aligned}
     k(x,l^{(i)})&=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}\\  
     &=e^{-\frac{∑_{j=1}^n(x_j-l^{(i)}_j)^2}{2σ^2}}
-\end{aligned}</script><p>对于某个特定的$i$:<br>如果$x≈l^{(i)}$（两者的欧氏距离非常近）,$f_i≈e^{-\frac{0}{2σ}}≈1$。<br>如果$x$和$l^{(i)}$的欧氏距离非常远,$f_i≈e^{-\frac{∞}{2σ}}≈0$。<br>对于任何一个样本$x$,都可以计算$f_1$,$f_2$,$f_3$三个特征。<br>在图像上反映相似度与两者距离之间的关系即为高维空间中的高斯分布，且σ越大，图像梯度越小。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png" srcset="/img/loading.gif" alt=""><br>△当$l^{(1)}=[3,5]^T$时x的坐标$[x_1,x_2]^T$与相似度的关系。  </p>
-<h2 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h2><p>再回到之前样本在特征上的分布：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png" srcset="/img/loading.gif" alt=""><br>如果样本距离某个$l^{(i)}$非常近（洋红色），那么边界函数输出的结果大于0，预测$y=1$。<br>如果样本距离三个$l^{(i)}$非常远（蓝色），那么边界函数输出的结果小于0，预测$y=0$。<br>当样本足够多的时候，所有$y=1$的点的边界即为决策边界，此时的决策边界是非线性的。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png" srcset="/img/loading.gif" alt="">  </p>
+\end{aligned}</script><p>对于某个特定的$i$:<br>如果$x≈l^{(i)}$（两者的欧氏距离非常近）,$f_i≈e^{-\frac{0}{2σ}}≈1$。<br>如果$x$和$l^{(i)}$的欧氏距离非常远,$f_i≈e^{-\frac{∞}{2σ}}≈0$。<br>对于任何一个样本$x$,都可以计算$f_1$,$f_2$,$f_3$三个特征。<br>在图像上反映相似度与两者距离之间的关系即为高维空间中的高斯分布，且σ越大，图像梯度越小。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png" srcset="/img/loading.gif" lazyload alt=""><br>△当$l^{(1)}=[3,5]^T$时x的坐标$[x_1,x_2]^T$与相似度的关系。  </p>
+<h2 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h2><p>再回到之前样本在特征上的分布：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png" srcset="/img/loading.gif" lazyload alt=""><br>如果样本距离某个$l^{(i)}$非常近（洋红色），那么边界函数输出的结果大于0，预测$y=1$。<br>如果样本距离三个$l^{(i)}$非常远（蓝色），那么边界函数输出的结果小于0，预测$y=0$。<br>当样本足够多的时候，所有$y=1$的点的边界即为决策边界，此时的决策边界是非线性的。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png" srcset="/img/loading.gif" lazyload alt="">  </p>
 
             </div>
             <hr>
@@ -314,7 +324,11 @@ p.spoiler {
                 
               </div>
               
-                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+                <p class="note note-warning">
+                  
+                    如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 
+                  
+                </p>
               
               
                 <div class="post-prevnext">
@@ -365,7 +379,7 @@ p.spoiler {
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -398,8 +412,6 @@ p.spoiler {
   </main>
 
   <footer class="text-center mt-5 py-3">
-  <!-- start webpushr code --> 
-  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
   <div class="footer-content">
      基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
   </div>
@@ -410,22 +422,21 @@ p.spoiler {
 
     
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
             总访问量 
-            <span id="leancloud-site-pv"></span>
+            <span id="busuanzi_value_site_pv"></span>
              次
           </span>
       
       
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
             总访客数 
-            <span id="leancloud-site-uv"></span>
+            <span id="busuanzi_value_site_uv"></span>
              人
           </span>
       
-
     
   </div>
 
@@ -435,10 +446,11 @@ p.spoiler {
   
 </footer>
 
-<!-- SCRIPTS -->
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -449,38 +461,40 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
+  <script  src="/js/local-search.js" ></script>
 
 
 
   
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -489,29 +503,15 @@ p.spoiler {
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
   </script>
 
 
@@ -526,6 +526,9 @@ p.spoiler {
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
         },
         options: {
           renderActions: {
@@ -553,7 +556,7 @@ p.spoiler {
       };
     </script>
 
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js" ></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
 
   
 
@@ -584,22 +587,5 @@ p.spoiler {
 <script  src="/js/boot.js" ></script>
 
 
-  
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>

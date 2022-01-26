@@ -1,48 +1,59 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="keywords" content=""> 
   <meta name="author" content="Oreki Kigiha">
-  <!-- searchengine verifications -->
-  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
-  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
-  <!-- Bing verification -->
-  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="img{    width: 50%;    padding-left: 20%;}  激活函数、代价函数和决策边界逻辑回归的代价函数的线性拟合逻辑回归的激活函数：$h(x)&#x3D;\frac{1}{1+e^{-θ^Tx}}$。对于单个样本$(x,y)$，逻辑回归的代价函数是：$-ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))$，将$y&#x3D;1$与$y&#x3D;0$时的代价函数作出，并用线">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8.1. 激活函数、代价函数和决策边界">
+<meta property="og:url" content="https://l61012345.top/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="img{    width: 50%;    padding-left: 20%;}  激活函数、代价函数和决策边界逻辑回归的代价函数的线性拟合逻辑回归的激活函数：$h(x)&#x3D;\frac{1}{1+e^{-θ^Tx}}$。对于单个样本$(x,y)$，逻辑回归的代价函数是：$-ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))$，将$y&#x3D;1$与$y&#x3D;0$时的代价函数作出，并用线">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328160423.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328162717.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328163459.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164253.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164523.png">
+<meta property="article:published_time" content="2021-04-27T06:34:00.000Z">
+<meta property="article:modified_time" content="2021-08-12T08:42:38.996Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328160423.png">
+  
   
   <title>8.1. 激活函数、代价函数和决策边界 - Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/vs2015.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
-
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -51,7 +62,7 @@
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -61,7 +72,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -97,12 +108,14 @@ p.spoiler {
   text-shadow: none;
 }</style><meta name="generator" content="Hexo 5.3.0"></head>
 
+
 <body>
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -176,13 +189,14 @@ p.spoiler {
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -221,21 +235,18 @@ p.spoiler {
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      637 字
+      undefined 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
-       分钟
+      NaN 分钟
     </span>
   
 
@@ -283,7 +294,7 @@ p.spoiler {
             <div class="markdown-body">
               <p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}
 </style></p>
-<h1 id="激活函数、代价函数和决策边界"><a href="#激活函数、代价函数和决策边界" class="headerlink" title="激活函数、代价函数和决策边界"></a>激活函数、代价函数和决策边界</h1><h2 id="逻辑回归的代价函数的线性拟合"><a href="#逻辑回归的代价函数的线性拟合" class="headerlink" title="逻辑回归的代价函数的线性拟合"></a>逻辑回归的代价函数的线性拟合</h2><p>逻辑回归的激活函数：$h(x)=\frac{1}{1+e^{-θ^Tx}}$。<br>对于单个样本$(x,y)$，逻辑回归的代价函数是：$-ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))$，将$y=1$与$y=0$时的代价函数作出，并用线性进行拟合得到$Cost_1(z)$与$Cost_0(z)$（$z=θ^Tx$）两个线性的代价函数，两者的函数图像大致如此。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328160423.png" srcset="/img/loading.gif" alt=""><br>支持向量机是线性化的逻辑回归。  </p>
+<h1 id="激活函数、代价函数和决策边界"><a href="#激活函数、代价函数和决策边界" class="headerlink" title="激活函数、代价函数和决策边界"></a>激活函数、代价函数和决策边界</h1><h2 id="逻辑回归的代价函数的线性拟合"><a href="#逻辑回归的代价函数的线性拟合" class="headerlink" title="逻辑回归的代价函数的线性拟合"></a>逻辑回归的代价函数的线性拟合</h2><p>逻辑回归的激活函数：$h(x)=\frac{1}{1+e^{-θ^Tx}}$。<br>对于单个样本$(x,y)$，逻辑回归的代价函数是：$-ylog(h_θ (x))−((1−y)log⁡(1−h_θ (x)))$，将$y=1$与$y=0$时的代价函数作出，并用线性进行拟合得到$Cost_1(z)$与$Cost_0(z)$（$z=θ^Tx$）两个线性的代价函数，两者的函数图像大致如此。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328160423.png" srcset="/img/loading.gif" lazyload alt=""><br>支持向量机是线性化的逻辑回归。  </p>
 <h2 id="支持向量机的代价函数"><a href="#支持向量机的代价函数" class="headerlink" title="支持向量机的代价函数"></a>支持向量机的代价函数</h2><p>逻辑回归的代价函数：  </p>
 <script type="math/tex; mode=display">J(θ)=min\frac{1}{m}[∑_{i=1}^m y^{(i)} -log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) -log(1−h_θ (x^{(i)}))]+\frac{λ}{2m}∑θ^2</script><p>将$-log$项替换为如上图所示的两个线性函数：$Cost_1(z)$和$Cost_0(z)$，并去除$\frac{1}{m}$项（并不会改变最终结果）<br>得到支持向量机的代价函数：  </p>
 <script type="math/tex; mode=display">J(θ)=min[∑_{i=1}^m y^{(i)} Cost_1(z))+(1−y^{(i)})Cost_0(z))]</script><p>在支持向量机中，通常通过给前项附加权重$C$而非给正则化项附加权重$λ$的方法来防止过拟合，得到正则化的支持向量机的代价函数：  </p>
@@ -291,11 +302,11 @@ p.spoiler {
 <script type="math/tex; mode=display">h_θ(x)=\begin{cases}
     1, z>=0 \\  
     0, otherwise
-\end{cases}</script><h2 id="支持向量机的决策边界"><a href="#支持向量机的决策边界" class="headerlink" title="支持向量机的决策边界"></a>支持向量机的决策边界</h2><p><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328162717.png" srcset="/img/loading.gif" alt="">  </p>
+\end{cases}</script><h2 id="支持向量机的决策边界"><a href="#支持向量机的决策边界" class="headerlink" title="支持向量机的决策边界"></a>支持向量机的决策边界</h2><p><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328162717.png" srcset="/img/loading.gif" lazyload alt="">  </p>
 <blockquote>
 <p>原本只需要0作为阈值，但是为了保证SVM的精确度，因此将阈值选定为-1和1，这两个阈值间的距离称为安全间距。  </p>
 </blockquote>
-<p>如上图所示，如果$y=1$，需要$z&gt;=1$,反之如果$y=1$，需要$z≦-1$。<br>当SVM的代价函数前的权重值$C$非常大时：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328163459.png" srcset="/img/loading.gif" alt=""><br>这为SVM创造了一个相当特殊的决策边界：<br>即在样本线性可分的条件下，SVM的决策边界是一条拥有与训练样本的最小距离的直线（图中黑线）。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164253.png" srcset="/img/loading.gif" alt=""><br>图中的蓝线表示了SVM决策边界与训练样本的间距。<br>因此支持向量机又被称为大间距分类器。<br>但是当正则化系数$C$被设置的非常大时，支持向量机的决策边界对异常数据非常的敏感，如下图的例子中所示。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164523.png" srcset="/img/loading.gif" alt="">   </p>
+<p>如上图所示，如果$y=1$，需要$z&gt;=1$,反之如果$y=1$，需要$z≦-1$。<br>当SVM的代价函数前的权重值$C$非常大时：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328163459.png" srcset="/img/loading.gif" lazyload alt=""><br>这为SVM创造了一个相当特殊的决策边界：<br>即在样本线性可分的条件下，SVM的决策边界是一条拥有与训练样本的最小距离的直线（图中黑线）。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164253.png" srcset="/img/loading.gif" lazyload alt=""><br>图中的蓝线表示了SVM决策边界与训练样本的间距。<br>因此支持向量机又被称为大间距分类器。<br>但是当正则化系数$C$被设置的非常大时，支持向量机的决策边界对异常数据非常的敏感，如下图的例子中所示。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210328164523.png" srcset="/img/loading.gif" lazyload alt="">   </p>
 
             </div>
             <hr>
@@ -314,7 +325,11 @@ p.spoiler {
                 
               </div>
               
-                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+                <p class="note note-warning">
+                  
+                    如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 
+                  
+                </p>
               
               
                 <div class="post-prevnext">
@@ -365,7 +380,7 @@ p.spoiler {
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -398,8 +413,6 @@ p.spoiler {
   </main>
 
   <footer class="text-center mt-5 py-3">
-  <!-- start webpushr code --> 
-  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
   <div class="footer-content">
      基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
   </div>
@@ -410,22 +423,21 @@ p.spoiler {
 
     
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
             总访问量 
-            <span id="leancloud-site-pv"></span>
+            <span id="busuanzi_value_site_pv"></span>
              次
           </span>
       
       
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
             总访客数 
-            <span id="leancloud-site-uv"></span>
+            <span id="busuanzi_value_site_uv"></span>
              人
           </span>
       
-
     
   </div>
 
@@ -435,10 +447,11 @@ p.spoiler {
   
 </footer>
 
-<!-- SCRIPTS -->
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -449,38 +462,40 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
+  <script  src="/js/local-search.js" ></script>
 
 
 
   
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -489,29 +504,15 @@ p.spoiler {
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
   </script>
 
 
@@ -526,6 +527,9 @@ p.spoiler {
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
         },
         options: {
           renderActions: {
@@ -553,7 +557,7 @@ p.spoiler {
       };
     </script>
 
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js" ></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
 
   
 
@@ -584,22 +588,5 @@ p.spoiler {
 <script  src="/js/boot.js" ></script>
 
 
-  
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>

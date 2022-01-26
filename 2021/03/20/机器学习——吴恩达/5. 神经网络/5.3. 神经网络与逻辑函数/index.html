@@ -1,48 +1,61 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="keywords" content=""> 
   <meta name="author" content="Oreki Kigiha">
-  <!-- searchengine verifications -->
-  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
-  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
-  <!-- Bing verification -->
-  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="img{    width: 50%;    padding-left: 20%;}  神经单元的逻辑函数功能思考下面一个例子：如果$x_1,x_2$都为二进制数，如图有四个样本分布在样本空间内，那么假设函数可以写成： y&#x3D;x_1 XNOR x_2那么神经网络是否可以生成这样的函数呢？  简单逻辑函数的实现——AND,OR,NOT为了解决这个问题，我们从AND函数入手：如图，输入层有两个特征$x_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5.3. 神经单元的逻辑函数功能">
+<meta property="og:url" content="https://l61012345.top/2021/03/20/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.3.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="img{    width: 50%;    padding-left: 20%;}  神经单元的逻辑函数功能思考下面一个例子：如果$x_1,x_2$都为二进制数，如图有四个样本分布在样本空间内，那么假设函数可以写成： y&#x3D;x_1 XNOR x_2那么神经网络是否可以生成这样的函数呢？  简单逻辑函数的实现——AND,OR,NOT为了解决这个问题，我们从AND函数入手：如图，输入层有两个特征$x_">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151549.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151722.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101154246.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101155720.png">
+<meta property="article:published_time" content="2021-03-20T00:00:00.000Z">
+<meta property="article:modified_time" content="2021-08-12T08:46:48.509Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151549.png">
+  
   
   <title>5.3. 神经单元的逻辑函数功能 - Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/vs2015.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
-
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -51,7 +64,7 @@
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -61,7 +74,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -97,12 +110,14 @@ p.spoiler {
   text-shadow: none;
 }</style><meta name="generator" content="Hexo 5.3.0"></head>
 
+
 <body>
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -176,13 +191,14 @@ p.spoiler {
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -221,21 +237,18 @@ p.spoiler {
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      591 字
+      undefined 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
-       分钟
+      NaN 分钟
     </span>
   
 
@@ -283,10 +296,10 @@ p.spoiler {
             <div class="markdown-body">
               <p><style><br>img{<br>    width: 50%;<br>    padding-left: 20%;<br>}
 </style></p>
-<h1 id="神经单元的逻辑函数功能"><a href="#神经单元的逻辑函数功能" class="headerlink" title="神经单元的逻辑函数功能"></a>神经单元的逻辑函数功能</h1><p>思考下面一个例子：<br>如果$x_1,x_2$都为二进制数，如图有四个样本分布在样本空间内，<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151549.png" srcset="/img/loading.gif" alt=""><br>那么假设函数可以写成：</p>
+<h1 id="神经单元的逻辑函数功能"><a href="#神经单元的逻辑函数功能" class="headerlink" title="神经单元的逻辑函数功能"></a>神经单元的逻辑函数功能</h1><p>思考下面一个例子：<br>如果$x_1,x_2$都为二进制数，如图有四个样本分布在样本空间内，<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151549.png" srcset="/img/loading.gif" lazyload alt=""><br>那么假设函数可以写成：</p>
 <script type="math/tex; mode=display">y=x_1 XNOR x_2</script><p>那么神经网络是否可以生成这样的函数呢？ </p>
-<h2 id="简单逻辑函数的实现——AND-OR-NOT"><a href="#简单逻辑函数的实现——AND-OR-NOT" class="headerlink" title="简单逻辑函数的实现——AND,OR,NOT"></a>简单逻辑函数的实现——AND,OR,NOT</h2><p>为了解决这个问题，我们从AND函数入手：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151722.png" srcset="/img/loading.gif" alt=""><br>如图，输入层有两个特征$x_1$和$x_2$，他们是二进制数。目标函数为$y=x_1 AND x_2$.  </p>
-<p><strong>观察激活函数$y=g(x)$,我们发现当$x=4$时，$y=0.99$,当$x=-4$时，$y=0.01$</strong><br>由上述激活函数的性质，为了计算这样的神经网络，首先先增加一个偏置单元 【+1】，对每个单元赋予权重：-30，20,20<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png" srcset="/img/loading.gif" alt=""><br>列出真值表：  </p>
+<h2 id="简单逻辑函数的实现——AND-OR-NOT"><a href="#简单逻辑函数的实现——AND-OR-NOT" class="headerlink" title="简单逻辑函数的实现——AND,OR,NOT"></a>简单逻辑函数的实现——AND,OR,NOT</h2><p>为了解决这个问题，我们从AND函数入手：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101151722.png" srcset="/img/loading.gif" lazyload alt=""><br>如图，输入层有两个特征$x_1$和$x_2$，他们是二进制数。目标函数为$y=x_1 AND x_2$.  </p>
+<p><strong>观察激活函数$y=g(x)$,我们发现当$x=4$时，$y=0.99$,当$x=-4$时，$y=0.01$</strong><br>由上述激活函数的性质，为了计算这样的神经网络，首先先增加一个偏置单元 【+1】，对每个单元赋予权重：-30，20,20<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png" srcset="/img/loading.gif" lazyload alt=""><br>列出真值表：  </p>
 <script type="math/tex; mode=display">
 \begin{array}{lcr}
 x_1 & x_2 & h_θ(x) \\\    
@@ -295,13 +308,13 @@ x_1 & x_2 & h_θ(x) \\\
 1 & 0 & g(-10)≈0  \\\  
 1 & 1 & g(10)≈1 \\\  
 \end{array}</script><p>观察最后一列，我们发现最后一列的输出事实上很接近与AND函数的结果，那么可以认为$h_θ(x) ≈ x_1 AND x_2$</p>
-<p>那么同理，下图的神经网络最终可以生成一个类似于OR函数的假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png" srcset="/img/loading.gif" alt="">  </p>
-<p>下图的神经网络最终可以生成一个类似于NOT函数的假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png" srcset="/img/loading.gif" alt=""><br>可以发现NOT是通过给对应的单元施加一个较大的负数来实现的。</p>
+<p>那么同理，下图的神经网络最终可以生成一个类似于OR函数的假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png" srcset="/img/loading.gif" lazyload alt="">  </p>
+<p>下图的神经网络最终可以生成一个类似于NOT函数的假设函数。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png" srcset="/img/loading.gif" lazyload alt=""><br>可以发现NOT是通过给对应的单元施加一个较大的负数来实现的。</p>
 <h2 id="复杂逻辑函数的实现"><a href="#复杂逻辑函数的实现" class="headerlink" title="复杂逻辑函数的实现"></a>复杂逻辑函数的实现</h2><p>下面我们来试试生成如下的函数：  </p>
-<script type="math/tex; mode=display">h_θ(x)=(NOT x_1)AND(NOT x_2)</script><p>分析：<br>要想使$h_θ(x)=1$,那么当且仅当$x_1=x_2=0$时成立，最终的神经网络如下图所示：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101154246.png" srcset="/img/loading.gif" alt="">   </p>
+<script type="math/tex; mode=display">h_θ(x)=(NOT x_1)AND(NOT x_2)</script><p>分析：<br>要想使$h_θ(x)=1$,那么当且仅当$x_1=x_2=0$时成立，最终的神经网络如下图所示：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101154246.png" srcset="/img/loading.gif" lazyload alt="">   </p>
 <p>现在我们可以应付本节一开头的问题了——如何使神经网络生成$y=x_1 XNOR x_2$？<br>分析： </p>
 <script type="math/tex; mode=display">x_1XNORx_2=NOT(X_1 XOR X_2)=(x_1 AND x_2)OR((NOT x_1) AND (NOT x_2))</script><p>以逻辑表达式形式书写：</p>
-<script type="math/tex; mode=display">h_θ(x)=(x_1.x_2)+\overline{x_1}.\overline{x_2}</script><p>将它分层：<br>第一层： 获取$x_1$和$x_2$<br>第二层：计算  $a_1^{(2)}=x_1.x_2$  和  $a_2^{(2)}=\overline{x_1}.\overline{x_2}$.<br>第三层：计算  $a_1^{(2)}+a_2^{(2)}$.<br>通过这一节的前半部分，我们已经知道了每一层所需要的函数的神经网络构建方法，最终的神经网络将是：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101155720.png" srcset="/img/loading.gif" alt="">   </p>
+<script type="math/tex; mode=display">h_θ(x)=(x_1.x_2)+\overline{x_1}.\overline{x_2}</script><p>将它分层：<br>第一层： 获取$x_1$和$x_2$<br>第二层：计算  $a_1^{(2)}=x_1.x_2$  和  $a_2^{(2)}=\overline{x_1}.\overline{x_2}$.<br>第三层：计算  $a_1^{(2)}+a_2^{(2)}$.<br>通过这一节的前半部分，我们已经知道了每一层所需要的函数的神经网络构建方法，最终的神经网络将是：<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101155720.png" srcset="/img/loading.gif" lazyload alt="">   </p>
 <blockquote>
 <p>实例： 可视化Minst手写字符数据集识别</p>
 </blockquote>
@@ -323,7 +336,11 @@ x_1 & x_2 & h_θ(x) \\\
                 
               </div>
               
-                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+                <p class="note note-warning">
+                  
+                    如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 
+                  
+                </p>
               
               
                 <div class="post-prevnext">
@@ -374,7 +391,7 @@ x_1 & x_2 & h_θ(x) \\\
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -407,8 +424,6 @@ x_1 & x_2 & h_θ(x) \\\
   </main>
 
   <footer class="text-center mt-5 py-3">
-  <!-- start webpushr code --> 
-  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
   <div class="footer-content">
      基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
   </div>
@@ -419,22 +434,21 @@ x_1 & x_2 & h_θ(x) \\\
 
     
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
             总访问量 
-            <span id="leancloud-site-pv"></span>
+            <span id="busuanzi_value_site_pv"></span>
              次
           </span>
       
       
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
             总访客数 
-            <span id="leancloud-site-uv"></span>
+            <span id="busuanzi_value_site_uv"></span>
              人
           </span>
       
-
     
   </div>
 
@@ -444,10 +458,11 @@ x_1 & x_2 & h_θ(x) \\\
   
 </footer>
 
-<!-- SCRIPTS -->
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -458,38 +473,40 @@ x_1 & x_2 & h_θ(x) \\\
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
+  <script  src="/js/local-search.js" ></script>
 
 
 
   
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -498,29 +515,15 @@ x_1 & x_2 & h_θ(x) \\\
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
   </script>
 
 
@@ -535,6 +538,9 @@ x_1 & x_2 & h_θ(x) \\\
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
         },
         options: {
           renderActions: {
@@ -562,7 +568,7 @@ x_1 & x_2 & h_θ(x) \\\
       };
     </script>
 
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js" ></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
 
   
 
@@ -593,22 +599,5 @@ x_1 & x_2 & h_θ(x) \\\
 <script  src="/js/boot.js" ></script>
 
 
-  
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>

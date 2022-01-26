@@ -1,48 +1,56 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&quot;auto&quot;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
 <head>
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
-  <meta name="keywords" content=""> 
   <meta name="author" content="Oreki Kigiha">
-  <!-- searchengine verifications -->
-  <meta name="google-site-verification" content="WUxJqirV_g8mA92_J8wGx_f3CAlgJ37vDn24bZXkHdQ" />
-  <meta name="baidu-site-verification" content="code-6xOGLQueNj" />
-  <!-- Bing verification -->
-  <meta name="msvalidate.01" content="8C2733D7EDE54DFCEEE1B4EAF9C8C210" />
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="遗传算法导论 A genetic algorithm tutorial, Darrell Whitley, 1994  遗传算法的概念遗传算法是一类将特定问题潜在的解决方案编码并组织到形如染色体（chromosome）结构的数据结构（下文直接称之为染色体）上，然后应用推荐算子(recommend operators)对数据结构中的特定信息进行保留的算法。遗传算法的操作对象是一组这样的染色体，称之为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="遗传算法（GA）导论">
+<meta property="og:url" content="https://l61012345.top/2021/07/18/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="遗传算法导论 A genetic algorithm tutorial, Darrell Whitley, 1994  遗传算法的概念遗传算法是一类将特定问题潜在的解决方案编码并组织到形如染色体（chromosome）结构的数据结构（下文直接称之为染色体）上，然后应用推荐算子(recommend operators)对数据结构中的特定信息进行保留的算法。遗传算法的操作对象是一组这样的染色体，称之为">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2019120215430277.gif#pic_center">
+<meta property="article:published_time" content="2021-07-18T05:45:08.000Z">
+<meta property="article:modified_time" content="2022-01-18T05:43:16.079Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+  
   
   <title>遗传算法（GA）导论 - Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
 
   
     
     
       
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/vs2015.min.css" />
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/vs2015.min.css" />
     
   
 
   
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
   
-
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -51,7 +59,7 @@
 
 
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
 
 
 <link  rel="stylesheet" href="/css/main.css" />
@@ -61,7 +69,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":7},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -97,12 +105,14 @@ p.spoiler {
   text-shadow: none;
 }</style><meta name="generator" content="Hexo 5.3.0"></head>
 
+
 <body>
   <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Mirror</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -176,13 +186,14 @@ p.spoiler {
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -221,21 +232,18 @@ p.spoiler {
 
 <div class="mt-1">
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.6k 字
+      undefined 字
     </span>
   
 
   
-    
     <span class="post-meta mr-2">
       <i class="iconfont icon-clock-fill"></i>
       
       
-      96
-       分钟
+      NaN 分钟
     </span>
   
 
@@ -307,7 +315,7 @@ p.spoiler {
 <li>随机地使得个体间两两配对。  </li>
 <li>随机地选取一对个体，两者在某个随机且相同的比特位处断开，前后的两段基因型进行交叉互换。  </li>
 </ol>
-<p><img src="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center" srcset="/img/loading.gif" alt=""></p>
+<p><img src="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>新生成的两个个体称为后代（Offspring），后代能够插入到下一代的概率计作$p_c$。  </p>
 <h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p>重组之后利用突变算子对后代作突变处理，对于种群中的所有比特位，其突变的概率计作$p_m$，这是一个非常小的值，通常小于1%。  <strong>突变有可能随机地产生一些比特（并且有50%的可能性改变原本的比特值），也有可能反转原有的比特（一定能改变原本的比特值）。</strong><br>中间种经过重组和突变，最终能称为新的种群。</p>
 <p><div align="center">  
@@ -359,7 +367,7 @@ p.spoiler {
 </blockquote>
 <h3 id="重组的采样方式·均匀交叉"><a href="#重组的采样方式·均匀交叉" class="headerlink" title="重组的采样方式·均匀交叉"></a>重组的采样方式·均匀交叉</h3><h4 id="交叉点数目问题"><a href="#交叉点数目问题" class="headerlink" title="交叉点数目问题"></a>交叉点数目问题</h4><p>在某个范围内，交叉点的数目多一些，破坏的影响随之减弱。但是过多的交叉点数目会导致出现非常大的破坏。    </p>
 <h4 id="均匀交叉（Uniform-crossover）"><a href="#均匀交叉（Uniform-crossover）" class="headerlink" title="均匀交叉（Uniform crossover）"></a>均匀交叉（Uniform crossover）</h4><p>均匀交叉的流程是首先随机对种群中的染色体进行两两配对，和单点交叉不同的是，均匀交叉随机地选择亲代染色体中的某些位置，然后对换亲代染色体上这一位置上的比特值。 与单点交叉相比，均匀交叉的破坏概率不受定义距的影响，均匀交叉的破坏概率为：  </p>
-<script type="math/tex; mode=display">1-（\frac{1}{2}）^{o(H)-1}</script><p>虽然相比于单点交叉均匀交叉的破坏概率更大，但是对于个体数目小的种群，更大的破坏概率能解除信息量小的限制。<br>同时，在采样方式上，相比与单点交叉，理论上均匀交叉能够采集到更多的样本，具体的可由Fig 4 说明。 如果把两个位串中同一位置上的比特值不相同的位置数称为海明距离（Hamming distance），记作$\mathcal{H}$，那么理论上均匀交叉可以产生$2^\mathcal{H}-2$种不同的位串，而单点交叉只能产生$2(\mathcal {H}-1)$种不同的位串。<br><img src="https://img-blog.csdnimg.cn/2019120215430277.gif#pic_center" srcset="/img/loading.gif" alt="">  </p>
+<script type="math/tex; mode=display">1-（\frac{1}{2}）^{o(H)-1}</script><p>虽然相比于单点交叉均匀交叉的破坏概率更大，但是对于个体数目小的种群，更大的破坏概率能解除信息量小的限制。<br>同时，在采样方式上，相比与单点交叉，理论上均匀交叉能够采集到更多的样本，具体的可由Fig 4 说明。 如果把两个位串中同一位置上的比特值不相同的位置数称为海明距离（Hamming distance），记作$\mathcal{H}$，那么理论上均匀交叉可以产生$2^\mathcal{H}-2$种不同的位串，而单点交叉只能产生$2(\mathcal {H}-1)$种不同的位串。<br><img src="https://img-blog.csdnimg.cn/2019120215430277.gif#pic_center" srcset="/img/loading.gif" lazyload alt="">  </p>
 <h3 id="简化取代表示"><a href="#简化取代表示" class="headerlink" title="简化取代表示"></a>简化取代表示</h3><p>对于两个位串，将同一位置上比特值相同的地方用“-”表示，不同部分保留的表示方法称为简化取代表示（Reduced surrogates）法。 例如，对于0001111011010011和0001001010010，就可以表示为——11—-1——-1和——00—-0——-0，如图所示。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210718134138.png width=40% /><br>这样的表示法好处是可以方便的理解这两个位串的重组其实是发生在一个4维空间中的，由于均匀交叉的距离无关性，可以发现对亲代的破坏就发生在这些点上，因此可以将均匀交叉简化为在这种表示方法下的一点交叉。  其次，如果至少一个交叉点存在于这种表示方法的第一个确定字符和最后一个确定字符之间，那么能够保证交叉结果绝对不同于亲代，这意味着能够在这个空间内采到新的样本。   </p>
 <h3 id="种群大小"><a href="#种群大小" class="headerlink" title="种群大小"></a>种群大小</h3><p>低阶的超平面拥有比较高的采样率。一个采样空间可被划分为$2^iC_L^i$个$i$阶的超平面。超平面的数量与研究种群大小$N$和遗传算法能够采样到的超平面数有关。通常认为超平面的数量与一开始的随机种群中的个体数量是一个指数关系：在$N$大小的种群里，$i$阶的超平面大约会被采集到$(\frac{1}{2})^i N$个样本。  </p>
 <h4 id="N-3-理论"><a href="#N-3-理论" class="headerlink" title="$N^3$理论"></a>$N^3$理论</h4><p>$N^3$理论认为，当种群大小为$N$时，遗传算法处理的有效超平面个数为$N^3$。  记$\theta$为至少复制$\phi$次后种群中超平面的最高阶数，$\theta=log_2(\frac{N}{\phi})$，那么有采样空间中$\theta$阶的超平面总数一定大于等于遗传算法处理的超平面个数：  </p>
@@ -444,7 +452,11 @@ p.spoiler {
                 
               </div>
               
-                <p class="note note-warning">如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 </p>
+                <p class="note note-warning">
+                  
+                    如果您发现任何错误，可以通过1017179431@qq.com告知我，谢谢。<br>本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br>本博客所有文章均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 转载协议</a>。 
+                  
+                </p>
               
               
                 <div class="post-prevnext">
@@ -495,7 +507,7 @@ p.spoiler {
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -528,8 +540,6 @@ p.spoiler {
   </main>
 
   <footer class="text-center mt-5 py-3">
-  <!-- start webpushr code --> 
-  <script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script><!-- end webpushr code -->
   <div class="footer-content">
      基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
   </div>
@@ -540,22 +550,21 @@ p.spoiler {
 
     
       
-        <!-- LeanCloud 统计PV -->
-        <span id="leancloud-site-pv-container" style="display: none">
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
             总访问量 
-            <span id="leancloud-site-pv"></span>
+            <span id="busuanzi_value_site_pv"></span>
              次
           </span>
       
       
-        <!-- LeanCloud 统计UV -->
-        <span id="leancloud-site-uv-container" style="display: none">
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
             总访客数 
-            <span id="leancloud-site-uv"></span>
+            <span id="busuanzi_value_site_uv"></span>
              人
           </span>
       
-
     
   </div>
 
@@ -565,10 +574,11 @@ p.spoiler {
   
 </footer>
 
-<!-- SCRIPTS -->
 
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":false,"trickleSpeed":100})
@@ -579,38 +589,40 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 <!-- Plugins -->
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
+  <script  src="/js/local-search.js" ></script>
 
 
 
   
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+  
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
 
 
 
@@ -619,29 +631,15 @@ p.spoiler {
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
       var title = document.getElementById('subtitle').title;
       
-      typing(title)
+        typing(title);
       
     })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      var inputArea = document.querySelector("#local-search-input");
-      inputArea.onclick = function () {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-        this.onclick = null
-      }
-    })()
   </script>
 
 
@@ -656,6 +654,9 @@ p.spoiler {
       MathJax = {
         tex: {
           inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
         },
         options: {
           renderActions: {
@@ -683,7 +684,7 @@ p.spoiler {
       };
     </script>
 
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js" ></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
 
   
 
@@ -714,22 +715,5 @@ p.spoiler {
 <script  src="/js/boot.js" ></script>
 
 
-  
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
