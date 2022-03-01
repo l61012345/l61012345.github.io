@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统的瞬态和稳态响应分析对于控制系统而言，其系统方程由两部分组成：系统在到达稳定状态前的响应——称为瞬态响应（$c_{tr}(t)$，Transient response）和系统在达到稳定状态后的响应——称为稳态响应（$c_{ss}(t)$，Steady-state response），整个系统响应$c(t)$表示为：   c(t)&#x3D;c_{tr}(t)+c_{ss}(t)定义系统的误差信号(e">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-28T12:46:44.626Z">
-<meta property="article:modified_time" content="2022-03-01T13:31:09.395Z">
+<meta property="article:modified_time" content="2022-03-01T13:43:38.218Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -402,7 +402,7 @@ p.spoiler {
 <li>欠阻尼：$0&lt;ξ&lt;1$<br>此时特征方程的根由实部和虚部组成，极点在s域左半平面上。<br>反变换结果为：  <script type="math/tex; mode=display">c(t)=1-\frac{e^{-ξω_nt}}{\sqrt{1-ξ^2}}sin(ω_dt+arctan\frac{\sqrt{1-ξ^2}}{ξ})</script>同理，可以通过拉普拉斯反变换得到其他两种情况的系统输出方程，并且根据特征方程的根的情况找到极点在s域的分布。四种情况如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301203250.png width=100%>  </li>
 </ul>
 <p>可以发现，相比于其他情况，临界阻尼时系统达到稳定用时最短；而过阻尼时系统的响应总是滞后于输出；系统在零阻尼状态下永远不可能稳定。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301204340.png width=60%>  </p>
-<h4 id="欠阻尼情况的分析"><a href="#欠阻尼情况的分析" class="headerlink" title="欠阻尼情况的分析"></a>欠阻尼情况的分析</h4><p><strong>阻尼比在传输线理论中的意义是反映了负载吸收能量与发射能量之间的关系。</strong><br>如果负载阻抗大于传输线的特征阻抗，那么负载端多余的能量就会反射回源端，由于负载端没有吸收全部能量，故称这种情况为欠阻尼。<br>如果负载阻抗等于传输线的特征阻抗，那么负载正好吸收发射源发射的全部能量，这种情况是临界阻尼。<br>如果负载阻抗小于传输线的特征阻抗，负载消耗比当前源端提供的能量更多的能量，故通过反射来通知源端输送更多的能量，这种情况称为过阻尼。<br>通信工程中经常遇到的是欠阻尼情况。在欠阻尼的情况下，系统特征方程的根为：  </p>
+<h4 id="欠阻尼情况的分析"><a href="#欠阻尼情况的分析" class="headerlink" title="欠阻尼情况的分析"></a>欠阻尼情况的分析</h4><p><strong>阻尼比在传输线理论中的意义是反映了负载吸收能量与发射能量之间的关系。</strong><br>如果负载阻抗大于传输线的特征阻抗，那么负载端多余的能量就会反射回源端，由于负载端没有吸收全部能量，故称这种情况为欠阻尼。<br>如果负载阻抗等于传输线的特征阻抗，即阻抗匹配，那么负载正好吸收发射源发射的全部能量，这种情况是临界阻尼。<br>如果负载阻抗小于传输线的特征阻抗，负载消耗比当前源端提供的能量更多的能量，故通过反射来通知源端输送更多的能量，这种情况称为过阻尼。<br>通信工程中经常遇到的是欠阻尼情况。在欠阻尼的情况下，系统特征方程的根为：  </p>
 <script type="math/tex; mode=display">s=-ξω_n±jω_n\sqrt{1-ξ^2}</script><p>定义滞后角$β=arctan\frac{\sqrt{1-ξ^2}}{ξ}$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301210029.png width=30%></p>
 <p>有如下衡量系统达到稳定性快慢的指标：  </p>
 <ul>
@@ -412,7 +412,7 @@ p.spoiler {
     \frac{dc(t)}{dt}&=0\\
     &=\frac{e^{-ξω_nt}}{\sqrt{1-ξ^2}}[ξω_nsin(ω_dt+β)-ω_dcos(ω_dt+β)]
 \end{aligned}</script>由于$\frac{e^{-ξω_nt}}{\sqrt{1-ξ^2}}≠0$，解得$ω_dt+β=kπ+arctan\frac{ω_d}{ξω}$.<br>最终得到：  <script type="math/tex; mode=display">t_p=\frac{π}{ω_d}</script>此时峰值为:  <script type="math/tex; mode=display">c(t_p)=1+e^{-\frac{πξ}{\sqrt{1-ξ^2}}}</script></li>
-<li>调节时间$t_s$(settling time)：阶跃响应曲线达到并永远保持在一个允许误差范围(误差带：通常取±5%或±2%)内，所需的最短时间。  <script type="math/tex; mode=display">t_s=4T=\frac{4}{ξω_n}(\text{达到98\%})</script><script type="math/tex; mode=display">t_s=3T=\frac{3}{ξω_n}(\text{达到95\%})</script><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301190511.png width=50%>  </li>
+<li>调节时间$t_s$(settling time)：阶跃响应曲线达到并永远保持在一个允许误差范围(误差带：通常取±5%或±2%)内，所需的最短时间。  <script type="math/tex; mode=display">t_s=4T=\frac{4}{ξω_n}(\text{达到0.98})</script><script type="math/tex; mode=display">t_s=3T=\frac{3}{ξω_n}(\text{达到0.95})</script><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301190511.png width=50%>  </li>
 <li>超调量$M_p$（maximum perent overshoot）：阶跃响应曲线的最大偏离量$c(t_p)$与终值之差的百分比。  <script type="math/tex; mode=display">M_p=\frac{c(t_p)-c(∞)}{c(∞)}×100\%,c(∞)=1</script><script type="math/tex; mode=display">M_p=e^{-\frac{πξ}{\sqrt{1-ξ^2}}}×100\%</script></li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301212556.png width=80%>  </p>
@@ -608,7 +608,7 @@ p.spoiler {
     <div class="footer-inner">
   
     <div class="footer-content">
-       基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>生成。©OrekiKigiha 2021 
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建和渲染。©OrekiKigiha 2021 
     </div>
   
   
