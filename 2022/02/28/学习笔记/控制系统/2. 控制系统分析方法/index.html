@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统的瞬态和稳态响应分析对于控制系统而言，其系统方程由两部分组成：系统在到达稳定状态前的响应——称为瞬态响应（$c_{tr}(t)$，Transient response）和系统在达到稳定状态后的响应——称为稳态响应（$c_{ss}(t)$，Steady-state response），整个系统响应$c(t)$表示为：   c(t)&#x3D;c_{tr}(t)+c_{ss}(t)定义系统的误差信号(e">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-28T12:46:44.626Z">
-<meta property="article:modified_time" content="2022-03-01T11:33:23.790Z">
+<meta property="article:modified_time" content="2022-03-01T12:33:01.513Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="02. 控制系统的瞬态和稳态响应分析">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          2.6k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          12 分钟
+          22 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月1日 中午
+                    本文最后更新于：2022年3月1日 下午
                   
                 
               </p>
@@ -365,7 +365,8 @@ p.spoiler {
 </tbody>
 </table>
 </div>
-<h2 id="瞬态响应分析"><a href="#瞬态响应分析" class="headerlink" title="瞬态响应分析"></a>瞬态响应分析</h2><h3 id="一阶系统的瞬态响应分析"><a href="#一阶系统的瞬态响应分析" class="headerlink" title="一阶系统的瞬态响应分析"></a>一阶系统的瞬态响应分析</h3><p>一阶系统框图如下图所示，该框图可以被化简为开环系统：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301185744.png width=50%>  </p>
+<h2 id="瞬态响应分析"><a href="#瞬态响应分析" class="headerlink" title="瞬态响应分析"></a>瞬态响应分析</h2><p>对系统进行瞬态响应分析时，应当对<strong>系统的转换方程</strong>进行分析。  </p>
+<h3 id="一阶系统的瞬态响应分析"><a href="#一阶系统的瞬态响应分析" class="headerlink" title="一阶系统的瞬态响应分析"></a>一阶系统的瞬态响应分析</h3><p>一阶系统框图如下图所示，该框图可以被化简为开环系统：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301185744.png width=50%>  </p>
 <p>一阶系统的转换方程为：  </p>
 <script type="math/tex; mode=display">T(s)=\frac{1}{Ts+1}</script><p>其中$T$是一个常数。  </p>
 <h4 id="单位阶跃响应"><a href="#单位阶跃响应" class="headerlink" title="单位阶跃响应"></a>单位阶跃响应</h4><p>带入输入为单位阶跃信号，即$R(s)=\frac{1}{s}$，求得：  </p>
@@ -381,7 +382,25 @@ p.spoiler {
             <p>对于线性系统而言，系统的单位斜坡响应也可以通过在时域对系统的单位阶跃响应在0到t上积分得到：  </p><script type="math/tex; mode=display">c_{ramp}(t)=\int_0^tc_{step}(t)dt</script><p>同样地，线性系统的单位冲击响应也可以通过在时域对系统的单位阶跃响应求导得到：  </p><script type="math/tex; mode=display">c_{impluse}(t)=\frac{d}{dt}c_{step}(t)</script>
           </div>
 <p>对系统单位斜坡响应：$c(t)=t-T+Te^{-\frac{t}{T}},t≥0$，其误差最终(即稳态误差)会趋近于$T$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301192544.png width=40%></p>
-<p>系统的单位冲激响应的可通过系统的转换方程的反拉普拉斯变换得到，单位冲激响应为：$c(t)=\frac{1}{T}e^{-\frac{t}{T}},t≥0$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301192735.png width=40%></p>
+<p>系统的单位冲激响应的可通过系统的转换方程的反拉普拉斯变换得到，单位冲激响应为：$c(t)=\frac{1}{T}e^{-\frac{t}{T}},t≥0$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301192735.png width=40%>  </p>
+<h3 id="二阶系统的瞬态响应分析（控制系统视角）"><a href="#二阶系统的瞬态响应分析（控制系统视角）" class="headerlink" title="二阶系统的瞬态响应分析（控制系统视角）"></a>二阶系统的瞬态响应分析（控制系统视角）</h3><p>最经典的二阶系统是伺服系统（Servo system/servomechanism），它是一种通过力学装置实现的反馈控制系统，伺服系统通过反馈控制达到对一个机械系统的位置、速度和加速度的控制。伺服系统由伺服控制器$K$，负载(包括惯性$J$和粘性摩擦$B$)组成，系统模型可以表示为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301195144.png width=50%>  </p>
+<p>系统转换方程为：  </p>
+<script type="math/tex; mode=display">T(s)=\frac{K}{Js^2+Bs+K}</script><p>其中判别式$Δ=B^2-4JK$决定了极点的分布情况。<br>在结构力学中，定义材料的固有频率$ω_n$、衰减$σ$和阻尼比（damped ratio）$ξ$与上述参数存在下列关系：  </p>
+<script type="math/tex; mode=display">\frac{K}{J}=ω^2_n,\frac{B}{J}=2ξω_n=2σ</script><div class="note note-info">
+            <p>结构力学视角下的二阶伺服系统瞬态分析过程请参阅:<br>[如何理解单自由度系统振动-知乎]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/263045899">https://zhuanlan.zhihu.com/p/263045899</a><br>推荐查阅以便获得对本小节形象化的理解。  </p>
+          </div>
+<p>带入可以得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301195846.png width=50%>  </p>
+<p>系统的转换方程为：  </p>
+<script type="math/tex; mode=display">T(s)=\frac{ω_n^2}{s^2+2ξω_ns+ω_n^2}</script><p>此时使用判别式进行检验，当$B^2=4JK$时，计算得到$\frac{B}{J}=4\frac{K}{B}$，带入阻尼比等参数，最终得到$ξ=1$。可以发现，极点的分布始终只与$ξ$与0、1的关系有关。<br>根据阻尼比的不同，可以分为$ξ=0$（零阻尼，Undamped），$0&lt;ξ<1$(欠阻尼，underdamped)，$ξ=1$(临界阻尼，critically damped)和$ξ>1$（过阻尼，over damped）四种情况。  </p>
+<h4 id="单位阶跃响应-1"><a href="#单位阶跃响应-1" class="headerlink" title="单位阶跃响应"></a>单位阶跃响应</h4><p>带入$R(s)=\frac{1}{s}$，得到系统的单位阶跃响应：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    C(s)=&\frac{ω_n^2}{(s^2+2ξω_ns+ω_n^2)s}\\
+    =&\frac{1}{s}-\frac{s+ξω_n}{(s+ξω_n)^2+ω_d^2}-\frac{ξω_n}{(s+ξω_n)^2+ω_d^2}
+\end{aligned}</script><p>其中$ω_d$称为阻尼固有频率$ω_d=ω_n\sqrt{1-ξ^2}$。  </p>
+<ul>
+<li>零阻尼：$ξ=0$<br>$ξ=0$时，根据判别式得出，全部的极点都位于s域的虚轴上。<br>此时对其做反变换得到：  <script type="math/tex; mode=display">c(t)=1-cosω_nt,t≥0</script></li>
+<li>欠阻尼：$0&lt;ξ&lt;1$<br>此时特征方程的根由实部和虚部组成，极点在s域左半平面上。<br>反变换结果为：  <script type="math/tex; mode=display">c(t)=1-\frac{e^{-ξω_nt}}{\sqrt{1-ξ^2}}sin(ω_dt+arctan\frac{\sqrt{1-ξ^2}}{ξ})</script>同理，可以通过拉普拉斯反变换得到其他两种情况的系统输出方程，并且根据特征方程的根的情况找到极点在s域的分布。四种情况如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301203250.png width=100%></li>
+</ul>
 
               
             </div>
@@ -853,20 +872,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
