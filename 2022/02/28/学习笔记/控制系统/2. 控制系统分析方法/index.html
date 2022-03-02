@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统的瞬态和稳态响应分析对于控制系统而言，其系统方程由两部分组成：系统在到达稳定状态前的响应——称为瞬态响应（$c_{tr}(t)$，Transient response）和系统在达到稳定状态后的响应——称为稳态响应（$c_{ss}(t)$，Steady-state response），整个系统响应$c(t)$表示为：   c(t)&#x3D;c_{tr}(t)+c_{ss}(t)定义系统的误差信号(e">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-28T12:46:44.626Z">
-<meta property="article:modified_time" content="2022-03-01T13:43:38.218Z">
+<meta property="article:modified_time" content="2022-03-02T03:07:07.573Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.8k 字
+          6.3k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          32 分钟
+          53 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月1日 下午
+                    本文最后更新于：2022年3月2日 凌晨
                   
                 
               </p>
@@ -385,7 +385,7 @@ p.spoiler {
 <p>系统的单位冲激响应的可通过系统的转换方程的反拉普拉斯变换得到，单位冲激响应为：$c(t)=\frac{1}{T}e^{-\frac{t}{T}},t≥0$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301192735.png width=40%>  </p>
 <h3 id="二阶系统的瞬态响应分析（控制系统视角）"><a href="#二阶系统的瞬态响应分析（控制系统视角）" class="headerlink" title="二阶系统的瞬态响应分析（控制系统视角）"></a>二阶系统的瞬态响应分析（控制系统视角）</h3><p>最经典的二阶系统是伺服系统（Servo system/servomechanism），它是一种通过力学装置实现的反馈控制系统，伺服系统通过反馈控制达到对一个机械系统的位置、速度和加速度的控制。伺服系统由伺服控制器$K$，负载(包括惯性$J$和粘性摩擦$B$)组成，系统模型可以表示为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301195144.png width=50%>  </p>
 <p>系统转换方程为：  </p>
-<script type="math/tex; mode=display">T(s)=\frac{K}{Js^2+Bs+K}</script><p>其中判别式$Δ=B^2-4JK$决定了极点的分布情况。<br>在结构力学中，定义材料的固有频率$ω_n$、衰减$σ$和阻尼比（damped ratio）$ξ$与上述参数存在下列关系：  </p>
+<script type="math/tex; mode=display">T(s)=\frac{K}{Js^2+Bs+K}</script><p>其中判别式$Δ=B^2-4JK$决定了极点的分布情况。<br>伺服系统是一种机械装置。在结构力学中，定义材料的固有频率$ω_n$、衰减$σ$和阻尼比（damped ratio）$ξ$与上述参数存在下列关系：  </p>
 <script type="math/tex; mode=display">\frac{K}{J}=ω^2_n,\frac{B}{J}=2ξω_n=2σ</script><div class="note note-info">
             <p>结构力学视角下的二阶伺服系统瞬态分析过程请参阅:<br>[如何理解单自由度系统振动-知乎]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/263045899">https://zhuanlan.zhihu.com/p/263045899</a><br>推荐查阅以便获得对本小节形象化的理解。  </p>
           </div>
@@ -419,6 +419,51 @@ p.spoiler {
 <div class="note note-info">
             <p>由于线性系统的单位冲激响应和单位阶跃响应互为导数关系，因此在单位冲激响应第一次达到零时，对应峰值时间，此时累计时间面积最大，对应峰值$1+M_p$。  </p><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301213038.png width=60%>  </p>
           </div>
+<h2 id="稳态响应分析"><a href="#稳态响应分析" class="headerlink" title="稳态响应分析"></a>稳态响应分析</h2><h3 id="系统的稳定性"><a href="#系统的稳定性" class="headerlink" title="系统的稳定性"></a>系统的稳定性</h3><p>系统要具有稳定性，对系统的稳态响应分析才有意义。系统的稳定性分为绝对稳定性和相对稳定性，绝对稳定性则是根据稳定性定义直接判断当时间趋于无穷时系统时候收敛，而相对稳定性(relative stability)关注的是系统达到稳定的快慢。<br>相对稳定性可以通过调节时间$t_p$反映，$t_p$越长则系统达到稳定的时间越长。此外，在$s$域上，系统的极点分布越远离虚轴，系统达到稳定的时间越短。  </p>
+<h4 id="劳斯–赫尔维茨稳定性判据"><a href="#劳斯–赫尔维茨稳定性判据" class="headerlink" title="劳斯–赫尔维茨稳定性判据"></a>劳斯–赫尔维茨稳定性判据</h4><p>劳斯–赫尔维茨稳定性判据(Routh–Hurwitz stability criterion)是控制理论中的一个数学判据，是线性时不变系统稳定的充分必要条件。<br>对于n阶系统的特征多项式：  </p>
+<script type="math/tex; mode=display">D(n)=a_ns^n+a_{n-1}s^{n-1}+...+a_1s+a_0</script><p>以下列递推方法计算：  </p>
+<script type="math/tex; mode=display">b_i=\frac{a_{n-1}×a_{n-2i}-a_n×a_{n-(2i
++1)}}{a_{n-1}}</script><script type="math/tex; mode=display">c_i=\frac{b_1×a_{n-2i}-a_{n-1}×b_{i
++1}}{b_{1}}</script><script type="math/tex; mode=display">...</script><p>带入如下的劳斯表中：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220302110436.png width=50%>  </p>
+<p>对劳斯表的每一行提取公因式化简，如果化简后的劳斯表中的第一列全为正，则该LTI系统是稳定系统。  </p>
+<h3 id="稳定系统的前向传输方程和稳态类型"><a href="#稳定系统的前向传输方程和稳态类型" class="headerlink" title="稳定系统的前向传输方程和稳态类型"></a>稳定系统的前向传输方程和稳态类型</h3><p>对于稳定系统当时间趋于无穷时，系统达到稳定。此时传输方程退化为前向传输方程$G(s)$.<br>因此<strong>稳态响应的分析是基于前向传输方程的</strong>。<br>系统的前向传输方程可以表示为：  </p>
+<script type="math/tex; mode=display">G(s)=\frac{K(T_as+1)(T_bs+1)...(T_ms+1)}{s^v(T_1s+1)(T_2s+1)...(T_ps+1)}</script><p>根据前项传输方程的分母的$s^v$对系统进行分类：前项传输方程的分母为分母的$s^v$则系统为$v$型系统(V-type system)，是系统在s域上的重极点数目。其物理意义是开环传递函数中含有的积分环节的个数。工程上按照$v$的值分别称系统为0型，1型，2型，$v&gt;2$的系统实际上极少遇到，因为含有多于两个积分单元的系统很难使之稳定，因此一般情形下只使用0型，1型和2型的系统。  </p>
+<h3 id="稳态误差"><a href="#稳态误差" class="headerlink" title="稳态误差"></a>稳态误差</h3><div class="note note-warning">
+            <p>对稳定的系统计算稳态误差才有意义。  </p>
+          </div>
+<p>根据误差比的定义：$\frac{E(s)}{R(s)}=\frac{1}{1+G(s)}$, 可以得到：  </p>
+<script type="math/tex; mode=display">E(s)=\frac{1}{1+G(s)}R(s)</script><p>由稳态误差的定义：$e_{ss}=\lim_{t→∞}e(t)$，由终值定理：  </p>
+<script type="math/tex; mode=display">e_{ss}=\lim_{s→0}sE(s)=\lim_{s→0}\frac{sR(s)}{1+G(s)}</script><h4 id="静态误差系数"><a href="#静态误差系数" class="headerlink" title="静态误差系数"></a>静态误差系数</h4><p>静态误差系数(static error coefficient)分为静态位置误差系数、静态速度误差系数、静态加速度误差系数。分别代表了控制系统中，一个系统对阶跃输入、斜坡输入、抛物线信号输入响应消除或减少稳态误差的能力。当系统输入信号形式、输出量的期望及容许的稳态位置误差确定后，可以方便的根据静态误差系数去选择系统的型别和开环增益，进行控制系统设计。但是静态误差系数仅对单位反馈控制系统有着明确的物理意义。  </p>
+<ul>
+<li><p>静态位置误差系数(static position error constant)<br>定义静态位置误差系数$K_p$表示各型系统在阶跃输入$r(t)=Ru(t)$作用下的位置误差，其中$R$为输入阶跃函数幅值。<br>可以计算得出稳态误差为：  </p>
+<script type="math/tex; mode=display">e_{ss}(∞)=\begin{cases}
+  \frac{R}{1+K},v=0\\
+  0,v≥1
+\end{cases}</script><p>在单位阶跃输入$r(t)=u(t)$（即$R(s)=\frac{1}{s}$）作用下，其稳态误差是期望输出1和实际输出$\frac{K}{1+K}$之间的位置误差，定义为：</p>
+<script type="math/tex; mode=display">K_p=\lim_{s→0}G(s)=G(0)=\lim_{s→0}\frac{K}{s^v}</script></li>
+<li><p>静态速度误差系数(static velocity error constant)<br>在速度输入作用下，即$r(t)=Rt$，其中$R$为输入速度函数斜率，可以算出稳态误差为:  </p>
+<script type="math/tex; mode=display">e_{ss}(∞)=\begin{cases}
+  ∞,v=0\\
+  \frac{R}{K},v=1\\
+  0,v≥2
+\end{cases}</script><p>定义静态速度误差系数：  </p>
+<script type="math/tex; mode=display">K_v=\lim_{s→0}sG(s)=\lim_{s→0}\frac{K}{s^{v-1}}</script></li>
+<li><p>静态加速度误差系数(static acceleration error constant)<br>在加速度输入作用下，即$r(t)=\frac{1}{2}Rt^2$，其中$R$为输入加速度函数速度变化率，可以算出稳态误差为：  </p>
+<script type="math/tex; mode=display">e_{ss}(∞)=\begin{cases}
+  ∞,v=0,1\\
+  \frac{R}{K},v=2\\
+  0,v≥3
+\end{cases}</script><p>定义静态加速度误差系数：  </p>
+<script type="math/tex; mode=display">K_a=\lim_{s→0}s^2G(s)=\lim_{s→0}\frac{K}{s^{v-2}}</script></li>
+</ul>
+<p>可以将三种稳态误差系数总结表格如下：<br>| 系统类型 | 位置误差 <br> $r(t)=1$ <br>$K_p=\lim_{s→0}\frac{K}{s^{v}}$ | 速度误差 <br> $r(t)=t$ <br>$K_v=\lim_{s→0}\frac{K}{s^{v-1}}$| 加速度误差 <br> $r(t)=\frac{1}{2}t^2$ <br>$K_a=\lim_{s→0}\frac{K}{s^{v-2}}$|<br>|:—:|:—:|:—:|:—:|<br>| 0型 | $\frac{1}{1+K}$ | $∞$ | $∞$ |<br>| I型 | $0$ | $\frac{1}{K}$ | $∞$ |<br>| II型 | $0$ | $0$ | $\frac{1}{K}$ |</p>
+<h2 id="非单位反馈系统的瞬态稳态响应分析方法"><a href="#非单位反馈系统的瞬态稳态响应分析方法" class="headerlink" title="非单位反馈系统的瞬态稳态响应分析方法"></a>非单位反馈系统的瞬态稳态响应分析方法</h2><p>上述对系统的瞬态稳态响应分析都建立在反馈系数$H(s)=1$的条件下，这种系统称为单位反馈系统，当$H(s)≠1$时，只需要利用系统框图化简为单位反馈系统即可：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220302104801.png width=50%></p>
+<h3 id="非单位反馈系统的稳态误差系数"><a href="#非单位反馈系统的稳态误差系数" class="headerlink" title="非单位反馈系统的稳态误差系数"></a>非单位反馈系统的稳态误差系数</h3><ul>
+<li>静态位置误差系数<script type="math/tex; mode=display">K_p=\lim_{s→0}G(s)H(s)</script></li>
+<li>静态速度误差系数<script type="math/tex; mode=display">K_v=\lim_{s→0}sG(s)H(s)</script></li>
+<li>静态加速度误差系数<script type="math/tex; mode=display">K_a=\lim_{s→0}s^2G(s)H(s)</script></li>
+</ul>
+
               
             </div>
             <hr/>
@@ -481,7 +526,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年3月1日</div>
+          <div>2022年3月2日</div>
         </div>
       
       <div class="license-meta-item">
