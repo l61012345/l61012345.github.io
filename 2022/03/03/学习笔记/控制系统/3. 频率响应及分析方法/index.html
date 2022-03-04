@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统的频率响应分析方法正弦输入时的系统输出二阶线性系统的转换方程可以表示为：   T(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}系统输入为正弦信号$r(t)&#x3D;Asinωt$是工程中最常见的情况，此时系统的输出为：   C(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}\frac{Aω}{s^2+ω^2}对其进行拉普拉斯反变换后得到$c(t)$，改">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-03T01:50:06.952Z">
-<meta property="article:modified_time" content="2022-03-04T03:42:41.047Z">
+<meta property="article:modified_time" content="2022-03-04T04:39:32.256Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.2k 字
+          6.2k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          44 分钟
+          52 分钟
         
       </span>
     
@@ -354,6 +354,9 @@ p.spoiler {
 <li>找到可能的$ω$为其他值时在极坐标上对应的点</li>
 <li>从$ω=0$的点开始，划出连接所有点的轨迹，直到最终到达$ω=∞$的点，并标出箭头  </li>
 </ol>
+<div class="note note-info">
+            <p>方程$Re[H(jω)]]=0$和$Im[H(jω)]]=0$根的个数决定了频率响应曲线会穿过坐标轴多少次。  </p>
+          </div>
 <h2 id="奈奎斯特稳定判据"><a href="#奈奎斯特稳定判据" class="headerlink" title="奈奎斯特稳定判据"></a>奈奎斯特稳定判据</h2><div class="note note-info">
             <p>本节参考：<br>[奈奎斯特稳定判据 西安交通大学-刘剑毅]<a target="_blank" rel="noopener" href="https://gr.xjtu.edu.cn/c/document_library/get_file?folderId=1797493&amp;name=DLFE-28935.pdf">https://gr.xjtu.edu.cn/c/document_library/get_file?folderId=1797493&amp;name=DLFE-28935.pdf</a><br>[知乎：奈奎斯特稳定判据]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33007435">https://zhuanlan.zhihu.com/p/33007435</a>  </p>
           </div>
@@ -411,7 +414,18 @@ p.spoiler {
 <li>绘制出$G(s)H(s)$的频率响应曲线以实轴为对称轴的镜像，对应路径iii</li>
 <li>将路径i和iii的映射以$R→∞$的半圆首尾($0^-→0^+$)连接，对应路径ii</li>
 </ol>
+<p>第三步补充路径的方法如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304115220.png width=50%></p>
 <p>如下图表示了$G(s)=\frac{1}{s(s+1)}$的奈奎斯特图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304113517.png width=50%></p>
+<h4 id="根据稳定性判断系统传递函数参数"><a href="#根据稳定性判断系统传递函数参数" class="headerlink" title="根据稳定性判断系统传递函数参数"></a>根据稳定性判断系统传递函数参数</h4><p>对系统开环传递函数$G(s)=\frac{K}{∏(s+p_i)}$，如果系统稳定，那么$N=P$。需要找到奈奎斯特曲线与实轴的所有交点：$(c_i,0)$，并判断其与$-\frac{1}{K}$的大小，根据$N=P$的临界条件来确定$K$的取值范围。<br>当奈奎斯特曲线正好穿过点(-1,0)时，系统处于临界稳定状态，系统的稳定和不稳定处于随机中。  </p>
+<h2 id="开环频率响应和闭环频率响应的转换"><a href="#开环频率响应和闭环频率响应的转换" class="headerlink" title="开环频率响应和闭环频率响应的转换"></a>开环频率响应和闭环频率响应的转换</h2><h3 id="灵敏度函数"><a href="#灵敏度函数" class="headerlink" title="灵敏度函数"></a>灵敏度函数</h3><p>如果开环传递函数为$G(s)H(s)$，定义系统的灵敏度函数(sensitivity function)为：  </p>
+<script type="math/tex; mode=display">S(s)=\frac{1}{1+G(s)H(s)}</script><p>灵敏度函数的最大值$M_{s}$可以反应系统的鲁棒性。而灵敏度穿越频率（sensitivity crossover frequency）指灵敏度函数幅值为1时对应的角频率，以$ω_{sc}$表示。<br>在奈奎斯特图上，$1+GH$可以表示为-1到奈奎斯特曲线的向量，$\frac{1}{M_{s}}$是-1到奈奎斯特曲线的最短距离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304121001.png width=40%>  </p>
+<h3 id="M环和N环"><a href="#M环和N环" class="headerlink" title="M环和N环"></a>M环和N环</h3><p>M环和N环是单位反馈系统的幅频响应和相频响应的轨迹。对于单位反馈系统，其闭环传输函数为：$T(s)=\frac{G(s)}{1+G(s)}$。其中$G(s)=P(s)+jQ(s)$.<br>有：  </p>
+<script type="math/tex; mode=display">T(jω)=\frac{P(ω)+jQ(ω)}{P(ω)+1+jQ(ω)}</script><p>定义：  </p>
+<script type="math/tex; mode=display">M^2=|T^2(jω)|=\frac{P^2(ω)+Q^2(ω)}{(P(ω)+1)^2+Q^2(ω)}</script><p>重新整理后可得：  </p>
+<script type="math/tex; mode=display">(P+\frac{M^2}{M^2-1})^2+Q^2=\frac{M^2}{(M^2-1)^2}</script><p>可以发现这是一个半径为$\frac{M}{M^2-1}$，以$(-\frac{M^2}{M^2-1},0)$形成的圆的轨迹。这个圆随着M的变化而变化：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304122140.png width=50%></p>
+<p>同理可以得到反映单位控制系统相位变化的N环：  </p>
+<script type="math/tex; mode=display">φ=arctan\frac{\frac{Q}{P}-\frac{Q}{P+1}}{1+\frac{Q}{P}\frac{Q}{P+1}}</script><script type="math/tex; mode=display">(P+\frac{1}{2})^2+(Q-\frac{1}{2N})^2=\frac{N^2+1}{4N^2}</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304123727.png width=50%></p>
+<p>可以发现，系统的闭环响应可以通过系统的奈奎斯特图（由开环传输方程得到）与M环和N环的交点轨迹得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304123922.png width=50%></p>
 
               
             </div>
