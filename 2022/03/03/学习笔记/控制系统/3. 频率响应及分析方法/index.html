@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统的频率响应分析方法正弦输入时的系统输出二阶线性系统的转换方程可以表示为：   T(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}系统输入为正弦信号$r(t)&#x3D;Asinωt$是工程中最常见的情况，此时系统的输出为：   C(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}\frac{Aω}{s^2+ω^2}对其进行拉普拉斯反变换后得到$c(t)$，改">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-03T01:50:06.952Z">
-<meta property="article:modified_time" content="2022-03-03T13:23:46.323Z">
+<meta property="article:modified_time" content="2022-03-04T03:16:04.450Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="03. 控制系统的频率响应分析方法">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          4.6k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          19 分钟
+          38 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月3日 下午
+                    本文最后更新于：2022年3月4日 凌晨
                   
                 
               </p>
@@ -357,9 +357,43 @@ p.spoiler {
 <h2 id="奈奎斯特稳定判据"><a href="#奈奎斯特稳定判据" class="headerlink" title="奈奎斯特稳定判据"></a>奈奎斯特稳定判据</h2><div class="note note-info">
             <p>本节参考：<br>[奈奎斯特稳定判据 西安交通大学-刘剑毅]<a target="_blank" rel="noopener" href="https://gr.xjtu.edu.cn/c/document_library/get_file?folderId=1797493&amp;name=DLFE-28935.pdf">https://gr.xjtu.edu.cn/c/document_library/get_file?folderId=1797493&amp;name=DLFE-28935.pdf</a><br>[知乎：奈奎斯特稳定判据]<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33007435">https://zhuanlan.zhihu.com/p/33007435</a>  </p>
           </div>
-<h4 id="柯西辐角原理"><a href="#柯西辐角原理" class="headerlink" title="柯西辐角原理"></a>柯西辐角原理</h4><h4 id="奈奎斯特路径"><a href="#奈奎斯特路径" class="headerlink" title="奈奎斯特路径"></a>奈奎斯特路径</h4><div class="note note-info">
+<h3 id="柯西辐角原理"><a href="#柯西辐角原理" class="headerlink" title="柯西辐角原理"></a>柯西辐角原理</h3><p>根据三角函数$y=sinx$的定义，一个矢量<strong>逆时针</strong>旋转一圈时，对应的三角函数相位角变化为$2π$，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/R-C.gif width=50%></p>
+<p>对复变函数：  </p>
+<script type="math/tex; mode=display">F(s)=\frac{Y(s)}{X(s)}=\frac{K∏(s+z_i)}{∏(s+p_i)}</script><p>有复变函数的辐角表示为复变函数所有零向量$Δ(s+z_i)$（s域上$s$到某一零点$z_i$的矢量）的角度和减去所有极向量$Δ(s+p_i)$（s域上$s$到某一极点$p_i$的矢量）的角度和：  </p>
+<script type="math/tex; mode=display">∠F(s)=∑Δ(s+z_i)-∑Δ(s+p_i)</script><p>柯西辐角原理(Cauchy’s Argument Principle)首先提出了一个前提:<br><strong>使用映射律$s→F(s)$对每一个$s$进行映射时：s域(σ-jω)上除了极点外的每一点，在$F(s)$ 平面(Re-Im)上都有一点能够与之对应。如果s域内有一条顺时针运动的闭合曲线，那么$F(s)$平面上也必然有一条与其对应的闭合曲线，其旋转方向取决于函数$F(s)$的性质。</strong>  </p>
+<p>那么，根据这个前提有如下推论：  </p>
+<ul>
+<li>s域内的闭合曲线包围$F(s)$的一个零点$z_i$，曲线运动方向为顺时针旋转一周，其相位角变化为-2π，其他矢量角变化为0。根据$∠F(s)=∑Δ(s+z_i)-∑Δ(s+p_i)$，则$F(s)$的相位角变化为-2π。即$F(s)$绕$F(s)$平面原点逆时针旋转一周。   </li>
+<li>s域内的闭合曲线包围$F(s)$的一个极点$p_i$，曲线运动方向为顺时针旋转一周，其相位角变化为-2π，其他矢量角变化为0。根据$∠F(s)=∑Δ(s+z_i)-∑Δ(s+p_i)$，则$F(s)$的相位角变化为2π。即$F(s)$绕$F(s)$平面原点顺时针旋转一周。   </li>
+</ul>
+<p>从上述推论可以得到：<br>s域上的闭合曲线如果包围了$F(s)$的$Z$个零点、$P$个极点，并且闭合曲线不通过$F(s)$的任何零点或者极点，当$s$沿着闭合曲线顺时针运动一周，在$F(s)$对应包围原点的闭合圈数$N$为：  </p>
+<script type="math/tex; mode=display">N=P-Z</script><p>$N&gt;0$表示逆时针包围圈数，$N&lt;0$表示顺时针包围圈数。<br>该结论称为柯西辐角原理。  </p>
+<h3 id="奈奎斯特路径"><a href="#奈奎斯特路径" class="headerlink" title="奈奎斯特路径"></a>奈奎斯特路径</h3><div class="note note-info">
             <p>尽管有些资料对极坐标图和奈奎斯特图的概念不做区分，但事实上两者是不一样的。  </p>
           </div>
+<p>奈奎斯特路径为一段在s域上的闭合矢量路径，其涵盖了s域的右半轴，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304101920.png width=50%>  </p>
+<p>奈奎斯特路径为分为三部分：  </p>
+<ul>
+<li>i：频率$ω$由$0^+$变化到$+∞$，则$s=jω+σ$运动轨迹为(i).</li>
+<li>ii：除虚轴以外的整个右半平面，$s=jω+σ=Re^{jθ}，R=∞$，角度$θ$由$\frac{π}{2}$变化到$-\frac{π}{2}$.</li>
+<li>iii: 频率$ω$由$∞^-$变化到$0^-$，则$s=jω+σ$运动轨迹为(iii).</li>
+</ul>
+<h3 id="系统传输方程的映射"><a href="#系统传输方程的映射" class="headerlink" title="系统传输方程的映射"></a>系统传输方程的映射</h3><p>对系统$T(s)$，<br>有系统的开环传递函数：</p>
+<script type="math/tex; mode=display">T_{ol}=G(s)H(s)=\frac{B(s)}{A(s)}</script><p>其中$B(s)=∏(s+z_i),A(s)=∏(s+p_i)$.<br>系统的闭环传递函数：  </p>
+<script type="math/tex; mode=display">T_{cl}(s)=\frac{G(s)}{1+G(s)H(s)}=\frac{A(s)G(s)}{A(s)+B(s)}</script><p>可以发现$A(s)+B(s)$为闭环传递函数得出极点的多项式。<br>定义  </p>
+<script type="math/tex; mode=display">F(s)=1+G(s)H(s)</script><p>表示系统的特征多项式，有：  </p>
+<script type="math/tex; mode=display">F(s)=\frac{A(s)+B(s)}{A(s)}=\frac{闭环极点}{开环极点}</script><p>讨论使用$F(s)$映射奈奎斯特路径：  </p>
+<ul>
+<li>i：$ω$由$0^+$变化到$+∞$时$F(s)$的变化对应$F(s)$的频率响应。根据$F(s)=1+G(s)H(s)$，$F(s)$的频率特性实则为开环传递函数的频率响应向右平移一个单位。  </li>
+<li>ii: $s=Re^{jθ}，R=∞$，角度$θ$由$\frac{π}{2}$变化到$-\frac{π}{2}$对应$F(s)→1$</li>
+<li>iii：$ω$由$∞^-$变化到$0^-$时$F(s)$的变化对应$F(s)$的频率特性以实轴对称的镜像.  </li>
+</ul>
+<p>通过上述方式就可以绘制出奈奎斯特路径在$F(s)$上的映射，根据柯西辐角原理以及对函数$F(s)$的定义：  </p>
+<script type="math/tex; mode=display">F(s)=\frac{A(s)+B(s)}{A(s)}=\frac{闭环极点}{开环极点}</script><p>可以重新建立柯西辐角原理公式：  </p>
+<script type="math/tex; mode=display">N=P-Z</script><p>由于奈奎斯特路径在$s$域上只包含s域的右半轴部分，因此： $Z$为$F(s)$在s域右半轴的零点，是系统$T(s)$在s域右半轴的闭环极点（即$\frac{G(s)}{1+G(s)H(s)}$的极点），$P$为$F(s)$在s域右半轴的极点，是系统$T(s)$在s域右半轴的开环极点（即$G(s)H(s)$的极点），$N$为奈奎斯特路径在$F(s)$上的映射轨迹包围$F$域原点$(0,0)$的次数。<br>改写上述公式：  </p>
+<script type="math/tex; mode=display">Z=P-N</script><p>根据系统的稳定性准则：当系统的闭环传递函数中所有的极点都位于s域左半轴时，系统是稳定的。那么，<strong>当$Z=0$时，系统在s域右半轴不存在任何极点，表明系统是稳定的。</strong>  </p>
+<p>根据$F(s)=1+G(s)H(s)$，$F$平面上奈奎斯特曲线包围原点的情况等于$GH$平面上奈奎斯特曲线包围$(-1,0)$的情况。因此，<strong>只需要研究开环传递函数包围$(-1,0)$的情况，就可以得出闭环系统的稳定性。</strong><br>此时$N$应当表述为奈奎斯特路径在$G(s)H(s)$上的映射轨迹包围$GH$域$(-1,0)$的次数。<br>总结奈奎斯特稳定判据为：<br><strong>当频率$ω$从$-∞$向$+∞$变化时，$GH$平面上奈奎斯特曲线包围点$(-1,0)N$次</strong>，当</p>
+<script type="math/tex; mode=display">Z=P-N=0</script><p>其中$P$为系统开环传递函数$G(s)H(s)$的在s域右半轴的极点个数<br><strong>系统在s域右半轴不存在任何极点，表明系统是稳定的。</strong></p>
 
               
             </div>
@@ -423,7 +457,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年3月3日</div>
+          <div>2022年3月4日</div>
         </div>
       
       <div class="license-meta-item">
@@ -831,20 +865,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
