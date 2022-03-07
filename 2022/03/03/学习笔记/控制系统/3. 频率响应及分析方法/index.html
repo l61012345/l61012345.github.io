@@ -18,18 +18,18 @@
   
     <meta name="description" content="控制系统的频率响应分析方法正弦输入时的系统输出二阶线性系统的转换方程可以表示为：   T(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}系统输入为正弦信号$r(t)&#x3D;Asinωt$是工程中最常见的情况，此时系统的输出为：   C(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}\frac{Aω}{s^2+ω^2}对其进行拉普拉斯反变换后得到$c(t)$，改">
 <meta property="og:type" content="article">
-<meta property="og:title" content="03. 控制系统的频率响应分析方法">
+<meta property="og:title" content="03. 极坐标图的绘制和分析">
 <meta property="og:url" content="https://l61012345.top/2022/03/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/3.%20%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E5%8F%8A%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Mirror">
 <meta property="og:description" content="控制系统的频率响应分析方法正弦输入时的系统输出二阶线性系统的转换方程可以表示为：   T(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}系统输入为正弦信号$r(t)&#x3D;Asinωt$是工程中最常见的情况，此时系统的输出为：   C(s)&#x3D;\frac{Kω_n^2}{s^2+2ξω_ns+ω_n^2}\frac{Aω}{s^2+ω^2}对其进行拉普拉斯反变换后得到$c(t)$，改">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-03T01:50:06.952Z">
-<meta property="article:modified_time" content="2022-03-06T00:56:15.392Z">
+<meta property="article:modified_time" content="2022-03-07T03:30:48.547Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>03. 控制系统的频率响应分析方法 - Mirror</title>
+  <title>03. 极坐标图的绘制和分析 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.4k 字
+          6.2k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          54 分钟
+          52 分钟
         
       </span>
     
@@ -311,12 +311,12 @@ p.spoiler {
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">03. 控制系统的频率响应分析方法</h1>
+            <h1 style="display: none">03. 极坐标图的绘制和分析</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月6日 凌晨
+                    本文最后更新于：2022年3月7日 凌晨
                   
                 
               </p>
@@ -339,14 +339,12 @@ p.spoiler {
 <script type="math/tex; mode=display">\begin{aligned}
     |H(jω)|=&\sqrt{\left(\frac{K}{1+ω^2T^2}\right)^2+\left(-\frac{KωT}{1+ω^2T^2}\right)^2}\\
     =&\frac{K}{\sqrt{1+ω^2T^2}}
-\end{aligned}</script><script type="math/tex; mode=display">∠H(jω)=arctan(\frac{-KωT}{K})=arctan(-ωT)</script><h2 id="系统频率响应的表示"><a href="#系统频率响应的表示" class="headerlink" title="系统频率响应的表示"></a>系统频率响应的表示</h2><h3 id="波特图"><a href="#波特图" class="headerlink" title="波特图"></a>波特图</h3><p>波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220303194338.png width=50%>  </p>
-<p>在MATLAB中，当系统传递函数已知的情况下，可以使用函数<code>bode()</code>直接生成对应系统的波特图，例如：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs M">num<span class="hljs-built_in">=</span>[<span class="hljs-number">8</span>,<span class="hljs-number">18</span>,<span class="hljs-number">32</span>] <span class="hljs-comment">%传递函数的分子系数</span><br>dem<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,<span class="hljs-number">6</span>,<span class="hljs-number">14</span>,<span class="hljs-number">24</span>] <span class="hljs-comment">%传递函数的分母系数</span><br>sys<span class="hljs-built_in">=</span>tf(num,den) <span class="hljs-comment">%构建系统传递函数</span><br>bode(sys)<br></code></pre></td></tr></table></figure></p>
-<h3 id="极坐标图"><a href="#极坐标图" class="headerlink" title="极坐标图"></a>极坐标图</h3><p>系统的幅频响应和相频响应可以视作极坐标，进而能够通过系统的幅频响应和相频响应在极坐标系上形成的轨迹来表示系统的频率响应。  </p>
+\end{aligned}</script><script type="math/tex; mode=display">∠H(jω)=arctan(\frac{-KωT}{K})=arctan(-ωT)</script><h2 id="极坐标图"><a href="#极坐标图" class="headerlink" title="极坐标图"></a>极坐标图</h2><p>系统的幅频响应和相频响应可以视作极坐标，进而能够通过系统的幅频响应和相频响应在极坐标系上形成的轨迹来表示系统的频率响应。  </p>
 <script type="math/tex; mode=display">(ρ,θ)=(|H(jω)|,∠H(jω))</script><p>根据系统的频率响应、幅频响应和相频响应的几何关系，上述极坐标也可以等效为：</p>
 <script type="math/tex; mode=display">(Re,Im)=(Re[H(jω)],Im[H(jω)])</script><p>比如，一阶单位反馈控制系统的极坐标可以表示为：  </p>
 <script type="math/tex; mode=display">(\frac{K}{\sqrt{1+ω^2T^2}},arctan(-ωT))|_{polar}↔(\frac{K}{1+ω^2T^2},-\frac{KωT}{1+ω^2T^2})</script><p>每一个特定的$ω$值：$ω=ω_1$在极坐标上都是一个唯一的点，所有点连接而成的轨迹即可表示系统的频率响应。<br>此外，系统方程的轨迹上还需要用箭头标示出从$ω=0$到$ω=∞$的箭头，以反映系统随频率的变化。<br>极坐标图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220303204851.png width=50%>  </p>
 <p>极坐标图最大的优点是能够在一张图上同时反应幅度值和相位随着频率的变化情况。  </p>
-<h4 id="极坐标图的画法"><a href="#极坐标图的画法" class="headerlink" title="极坐标图的画法"></a>极坐标图的画法</h4><ol>
+<h3 id="极坐标图的画法"><a href="#极坐标图的画法" class="headerlink" title="极坐标图的画法"></a>极坐标图的画法</h3><ol>
 <li>找到$ω=0$在极坐标上点</li>
 <li>找到$ω=∞$在极坐标上的点</li>
 <li>列方程，找到实部$Re[H(jω)]]=0$时对应的$ω$，并在极坐标上找到对应的点</li>
@@ -419,9 +417,9 @@ p.spoiler {
 <h3 id="奈奎斯特图特征"><a href="#奈奎斯特图特征" class="headerlink" title="奈奎斯特图特征"></a>奈奎斯特图特征</h3><h4 id="根据稳定性判断系统传递函数参数"><a href="#根据稳定性判断系统传递函数参数" class="headerlink" title="根据稳定性判断系统传递函数参数"></a>根据稳定性判断系统传递函数参数</h4><p>对系统开环传递函数$G(s)=\frac{K}{∏(s+p_i)}$，如果系统稳定，那么$N=P$。需要找到奈奎斯特曲线与实轴的所有交点：$(c_i,0)$，并判断其与$-\frac{1}{K}$的大小，根据$N=P$的临界条件来确定$K$的取值范围。<br>当奈奎斯特曲线正好穿过点(-1,0)时，系统处于临界稳定状态，系统的稳定和不稳定处于随机中。  </p>
 <h4 id="增益裕量和相位裕量"><a href="#增益裕量和相位裕量" class="headerlink" title="增益裕量和相位裕量"></a>增益裕量和相位裕量</h4><p>定义增益裕量(Gain margin)$G_m$为使得系统处于临界稳定状态的增益。增益裕度可以通过奈奎斯特图上表示为相位角为$-180°$时对应的幅值$-\frac{1}{a}$求得：  </p>
 <script type="math/tex; mode=display">G_m|_{dB}=20lg(a)</script><p>定义相位裕量(Phase margin)$P_m$为使得系统处于系统处于临界稳定状态的相位。相位裕量可以通过奈奎斯特图上单位圆与奈奎斯特图交点连线与实轴的负半轴夹角测量得到，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220306085527.png width=50%></p>
-<h2 id="开环频率响应和闭环频率响应的转换"><a href="#开环频率响应和闭环频率响应的转换" class="headerlink" title="开环频率响应和闭环频率响应的转换"></a>开环频率响应和闭环频率响应的转换</h2><h3 id="灵敏度函数"><a href="#灵敏度函数" class="headerlink" title="灵敏度函数"></a>灵敏度函数</h3><p>如果开环传递函数为$G(s)H(s)$，定义系统的灵敏度函数(sensitivity function)为：  </p>
+<h4 id="灵敏度函数"><a href="#灵敏度函数" class="headerlink" title="灵敏度函数"></a>灵敏度函数</h4><p>如果开环传递函数为$G(s)H(s)$，定义系统的灵敏度函数(sensitivity function)为：  </p>
 <script type="math/tex; mode=display">S(s)=\frac{1}{1+G(s)H(s)}</script><p>灵敏度函数的最大值$M_{s}$可以反应系统的鲁棒性。而灵敏度穿越频率（sensitivity crossover frequency）指灵敏度函数幅值为1时对应的角频率，以$ω_{sc}$表示。<br>在奈奎斯特图上，$1+GH$可以表示为-1到奈奎斯特曲线的向量，$\frac{1}{M_{s}}$是-1到奈奎斯特曲线的最短距离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304121001.png width=40%>  </p>
-<h3 id="M环和N环"><a href="#M环和N环" class="headerlink" title="M环和N环"></a>M环和N环</h3><p>M环和N环是单位反馈系统的幅频响应和相频响应的轨迹。对于单位反馈系统，其闭环传输函数为：$T(s)=\frac{G(s)}{1+G(s)}$。其中$G(s)=P(s)+jQ(s)$.<br>有：  </p>
+<h4 id="M环和N环"><a href="#M环和N环" class="headerlink" title="M环和N环"></a>M环和N环</h4><p>M环和N环是单位反馈系统的幅频响应和相频响应的轨迹。对于单位反馈系统，其闭环传输函数为：$T(s)=\frac{G(s)}{1+G(s)}$。其中$G(s)=P(s)+jQ(s)$.<br>有：  </p>
 <script type="math/tex; mode=display">T(jω)=\frac{P(ω)+jQ(ω)}{P(ω)+1+jQ(ω)}</script><p>定义：  </p>
 <script type="math/tex; mode=display">M^2=|T^2(jω)|=\frac{P^2(ω)+Q^2(ω)}{(P(ω)+1)^2+Q^2(ω)}</script><p>重新整理后可得：  </p>
 <script type="math/tex; mode=display">(P+\frac{M^2}{M^2-1})^2+Q^2=\frac{M^2}{(M^2-1)^2}</script><p>可以发现这是一个半径为$\frac{M}{M^2-1}$，以$(-\frac{M^2}{M^2-1},0)$形成的圆的轨迹。这个圆随着M的变化而变化：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304122140.png width=50%></p>
@@ -472,7 +470,7 @@ p.spoiler {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>03. 控制系统的频率响应分析方法</div>
+      <div>03. 极坐标图的绘制和分析</div>
       <div>https://l61012345.top/2022/03/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/3.%20%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E5%8F%8A%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/</div>
     </div>
     <div class="license-meta">
@@ -491,7 +489,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年3月6日</div>
+          <div>2022年3月7日</div>
         </div>
       
       <div class="license-meta-item">
@@ -519,6 +517,12 @@ p.spoiler {
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/" title="04. 波特图的绘制和分析">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">04. 波特图的绘制和分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
