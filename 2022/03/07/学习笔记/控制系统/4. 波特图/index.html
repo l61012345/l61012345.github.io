@@ -24,7 +24,7 @@
 <meta property="og:description" content="波特图波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：   在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如：1234num&#x3D;[8,18,32] %传递函数的分子系数dem&#x3D;[1,6,14,24]">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-07T03:28:22.105Z">
-<meta property="article:modified_time" content="2022-03-07T03:31:59.666Z">
+<meta property="article:modified_time" content="2022-03-07T04:21:52.301Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.3k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          23 分钟
+          28 分钟
         
       </span>
     
@@ -389,8 +389,23 @@ p.spoiler {
 <script type="math/tex; mode=display">PM=∠H(jω_{gc})-(-180°)</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307111837.png width=50%></p>
 <h3 id="增益裕量和相位裕量与稳定性"><a href="#增益裕量和相位裕量与稳定性" class="headerlink" title="增益裕量和相位裕量与稳定性"></a>增益裕量和相位裕量与稳定性</h3><p><strong>如果相位裕量和增益裕量都大于0，</strong>则系统稳定<strong>。<br>如果相位裕量和增益裕量都为0，则系统处于临界稳定。<br>如果相位裕量和增益裕量中有一个小于零，则系统不稳定。</strong><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112342.png width=60%>  </p>
 <div class="note note-info">
-            <p>系统处于临界稳定时导致系统临界的增益部分$KK_c$可以由如下公式给出：  </p><script type="math/tex; mode=display">GM=20lg\frac{K_c}{K}</script><p>其中$K$为系统增益。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112654.png width=30%></p>
+            <p>系统处于临界稳定时导致系统临界的增益部分$K_c$可以由如下公式给出：  </p><script type="math/tex; mode=display">GM=20lg\frac{K_c}{K}</script><p>其中$K$为系统增益。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112654.png width=30%>  </p>
           </div>
+<h2 id="从波特图反推开环传递函数"><a href="#从波特图反推开环传递函数" class="headerlink" title="从波特图反推开环传递函数"></a>从波特图反推开环传递函数</h2><h3 id="阻尼和固有频率"><a href="#阻尼和固有频率" class="headerlink" title="阻尼和固有频率"></a>阻尼和固有频率</h3><p>当相位裕量小于60°时，相位裕量、阻尼、带宽之间有如下关系：  </p>
+<script type="math/tex; mode=display">PM=100°ξ</script><script type="math/tex; mode=display">\frac{B}{ω_n}=1-0.5ξ</script><p>其中$B$是系统带宽，是幅值为-3dB对应的频率。<br>可以通过波特图找出相位裕量和带宽，以此求得二阶系统的阻尼和固有频率。  </p>
+<h3 id="初始值与系统类型"><a href="#初始值与系统类型" class="headerlink" title="初始值与系统类型"></a>初始值与系统类型</h3><p>系统类型与其波特图关系如下所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307115722.png width=50%>  </p>
+<p>可以发现，通过初始值即可确定系统类型，即分母中$s^N$项的次数。0型系统的初始值为$20lgK_p$，I型系统的初始值为-20dB，II型系统的初始值为-40dB。  </p>
+<h3 id="零极点推断"><a href="#零极点推断" class="headerlink" title="零极点推断"></a>零极点推断</h3><h4 id="系统增益"><a href="#系统增益" class="headerlink" title="系统增益"></a>系统增益</h4><p>系统增益满足：  </p>
+<script type="math/tex; mode=display">α=20lgK±20N_0lgω_0</script><p>其中$ω_0$为初始频率，$α$为初始频率对应的幅值。  </p>
+<h4 id="积分和微分环节"><a href="#积分和微分环节" class="headerlink" title="积分和微分环节"></a>积分和微分环节</h4><p>可以根据初始斜率判断积分/微分环节$s$的存在：<br>初始斜率为$±20N_0$，如果初始斜率为正，则代表系统存在$N_0$个积分环节，如果初始斜率为负，则代表系统存在$N_0$个微分环节。  </p>
+<h4 id="一阶和二阶项结构"><a href="#一阶和二阶项结构" class="headerlink" title="一阶和二阶项结构"></a>一阶和二阶项结构</h4><p>根据之前的讨论可以知道：  </p>
+<ul>
+<li>系统波特图上的转折点对应频率为系统的零点或者极点</li>
+<li>波特图上发生斜率变化一定由加入的零点/极点极点造成：一阶项对初始斜率的贡献为$20dB$,二阶项对斜率的贡献为$40dB$。如果元素位于分母（极点），则斜率贡献为负，如果元素位于分子（零点），则斜率贡献为正。  </li>
+</ul>
+<p>根据这两条理论则可以判断每一个区间上影响其斜率变化的极点/零点结构类型。  </p>
+<p>如果存在修正，可以根据在固有频率处修正前后的幅值差求得$ξ$:  </p>
+<script type="math/tex; mode=display">M_c=20lg(2ξ)</script>
               
             </div>
             <hr/>
