@@ -24,7 +24,7 @@
 <meta property="og:description" content="波特图波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：   在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如：1234num&#x3D;[8,18,32] %传递函数的分子系数dem&#x3D;[1,6,14,24]">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-07T03:28:22.105Z">
-<meta property="article:modified_time" content="2022-03-07T04:21:52.301Z">
+<meta property="article:modified_time" content="2022-03-07T04:29:04.539Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -395,7 +395,8 @@ p.spoiler {
 <script type="math/tex; mode=display">PM=100°ξ</script><script type="math/tex; mode=display">\frac{B}{ω_n}=1-0.5ξ</script><p>其中$B$是系统带宽，是幅值为-3dB对应的频率。<br>可以通过波特图找出相位裕量和带宽，以此求得二阶系统的阻尼和固有频率。  </p>
 <h3 id="初始值与系统类型"><a href="#初始值与系统类型" class="headerlink" title="初始值与系统类型"></a>初始值与系统类型</h3><p>系统类型与其波特图关系如下所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307115722.png width=50%>  </p>
 <p>可以发现，通过初始值即可确定系统类型，即分母中$s^N$项的次数。0型系统的初始值为$20lgK_p$，I型系统的初始值为-20dB，II型系统的初始值为-40dB。  </p>
-<h3 id="零极点推断"><a href="#零极点推断" class="headerlink" title="零极点推断"></a>零极点推断</h3><h4 id="系统增益"><a href="#系统增益" class="headerlink" title="系统增益"></a>系统增益</h4><p>系统增益满足：  </p>
+<h3 id="终段斜率与系统阶数"><a href="#终段斜率与系统阶数" class="headerlink" title="终段斜率与系统阶数"></a>终段斜率与系统阶数</h3><p>系统波特图的最后一段斜率与系统阶数关系为：  </p>
+<script type="math/tex; mode=display">k=-20O</script><h3 id="零极点推断"><a href="#零极点推断" class="headerlink" title="零极点推断"></a>零极点推断</h3><h4 id="系统增益"><a href="#系统增益" class="headerlink" title="系统增益"></a>系统增益</h4><p>系统增益满足：  </p>
 <script type="math/tex; mode=display">α=20lgK±20N_0lgω_0</script><p>其中$ω_0$为初始频率，$α$为初始频率对应的幅值。  </p>
 <h4 id="积分和微分环节"><a href="#积分和微分环节" class="headerlink" title="积分和微分环节"></a>积分和微分环节</h4><p>可以根据初始斜率判断积分/微分环节$s$的存在：<br>初始斜率为$±20N_0$，如果初始斜率为正，则代表系统存在$N_0$个积分环节，如果初始斜率为负，则代表系统存在$N_0$个微分环节。  </p>
 <h4 id="一阶和二阶项结构"><a href="#一阶和二阶项结构" class="headerlink" title="一阶和二阶项结构"></a>一阶和二阶项结构</h4><p>根据之前的讨论可以知道：  </p>
