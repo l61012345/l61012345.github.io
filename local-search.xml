@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>08. 通过频率响应对PID控制系统进行改进</title>
+    <link href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/8.%20%E9%80%9A%E8%BF%87%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E8%AE%BE%E8%AE%A1/"/>
+    <url>/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/8.%20%E9%80%9A%E8%BF%87%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E8%AE%BE%E8%AE%A1/</url>
+    
+    <content type="html"><![CDATA[<h1 id="通过频率响应对PID控制系统进行改进"><a href="#通过频率响应对PID控制系统进行改进" class="headerlink" title="通过频率响应对PID控制系统进行改进"></a>通过频率响应对PID控制系统进行改进</h1><p>在使用频率响应对系统进行设计时，通过波特图可以得到系统的稳定性；通过增大相位裕度可以减小过冲比：通常在设计时，相位裕度在45°到315°之间；增加低频幅值响应可以减小系统的稳态误差。  </p><h2 id="增益调整"><a href="#增益调整" class="headerlink" title="增益调整"></a>增益调整</h2><p>增益调整的方法是：  </p><ol><li>选择一个合适的$K$值，画出系统的频率响应图。  </li><li>通过设计标准中的过冲率($overshoot\%$)要求，应用如下的公式得到$ξ$和$PM$：  <script type="math/tex; mode=display">ξ=-\frac{ln(overshoot\%)}{\sqrt{π^2+ln^2overshoot\%}}</script><script type="math/tex; mode=display">PM=arctan\frac{2ξ}{\sqrt{-2ξ^2+\sqrt{1+4ξ^4}}}</script></li><li>在波特图上找到设计标准中相位裕量所对应的频率$ω_{PM}$，并找到其对应的幅值响应，其对应的幅值响应$-AB$则是需要抬升的幅值。  </li><li>对系统增益进行修正，有：  <script type="math/tex; mode=display">AB=20lg(\frac{K_{ad}}{K})</script>即可得到修正后的增益$K_{ad}$。  </li></ol><h2 id="超前补偿和滞后补偿"><a href="#超前补偿和滞后补偿" class="headerlink" title="超前补偿和滞后补偿"></a>超前补偿和滞后补偿</h2><h3 id="滞后补偿"><a href="#滞后补偿" class="headerlink" title="滞后补偿"></a>滞后补偿</h3><p>对于PI控制器：$G_c(s)=\frac{K(s+\frac{1}{T_i})}{s}$，由于积分项$\frac{1}{s}$的出现导致PI控制器在加入系统后会改变系统原本的类型，进而改变已经调整好的系统动态响应（系统达到稳态前的响应）。因此，需要一种补偿使其能在$s=0$时提供非常大的开环增益，进而减小稳态误差，但是在高频区保持增益为1，进而不会对系统的动态响应产生影响，这样的补偿称为滞后补偿(lag compansation)。  </p><script type="math/tex; mode=display">G_{lag}(s)=\frac{τs+1}{ατs+1},α>1</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220312100500.png width=50%>  </p><h4 id="滞后补偿器设计"><a href="#滞后补偿器设计" class="headerlink" title="滞后补偿器设计"></a>滞后补偿器设计</h4><p>滞后补偿器设计的思路是利用补偿将现在系统的幅度响应在补偿器设计要求的相位裕量处调整到0dB。  </p><ul><li>利用稳态误差的定义，找到系统增益$K$</li><li>绘制出$KG(s)H(s)$的波特图，从波特图上寻找系统的相位裕量$PM$</li><li>在波特图上找到符合补偿器设计要求的相位裕量$PM’+Φ$（其中$Φ$是修正系数），找到对应的增益穿越频率$ω’_{gc}$。  </li><li>找到$ω’_{gc}$对应的幅值$K’$，并计算：<script type="math/tex; mode=display">α=10^{\frac{K'}{20}}</script></li><li>令:<script type="math/tex; mode=display">τ=\frac{10}{ω'_{gc}}</script></li><li>带入$α$和$τ$，得到滞后补偿器的前向传输方程$G_{lag}(s)$。  </li></ul><p>添加滞后补偿器后，系统的前向传输方程/开环传递函数表示为：  </p><script type="math/tex; mode=display">KG_{lag}(s)G(s)H(s)</script><h3 id="超前补偿"><a href="#超前补偿" class="headerlink" title="超前补偿"></a>超前补偿</h3><p>对PD控制器：$G_c(s)=T_ds+1$，其幅值随着频率的升高而线性升高，但是这种特性会放大高频噪声，使系统抗噪性下降。因此，需要一种补偿通过增加一个极点进而在高频处降低系统幅值，这样的补偿称为超前补偿(lead compansation)。  </p><script type="math/tex; mode=display">G_{lead}(s)=\frac{τs+1}{βτs+1},β<1</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220312100539.png width=50%>  </p><h4 id="超前补偿器设计"><a href="#超前补偿器设计" class="headerlink" title="超前补偿器设计"></a>超前补偿器设计</h4><p>超前补偿器的设计思路是将相位波特图在高频处的部分进行抬升，具体的设计步骤是：  </p><ul><li>利用稳态误差的定义，找到系统增益$K$</li><li>绘制出$KG(s)H(s)$的波特图，从波特图上寻找系统的相位裕量$PM$</li><li>通过公式：  <script type="math/tex; mode=display">φ_m=(PM'+φ_c)-PM</script>其中$PM’$是设计要求的相位裕量，$Φ$是修正系数。<br>计算出需要抬升的相位。  </li><li>利用公式：  <script type="math/tex; mode=display">β=\frac{1-sinφ_m}{1+sinφ_m}</script>计算得到β。  </li><li>在波特图上找到$10lgβ$对应的频率$ω’_m$，令:<script type="math/tex; mode=display">τ=\frac{1}{ω'_{m}\sqrt{β}}</script></li><li>带入$β$和$τ$，得到超前补偿器的前向传输方程$G_{lead}(s)$。  </li></ul><p>添加滞后补偿器后，系统（称为补偿系统）的前向传输方程/开环传递函数表示为：  </p><script type="math/tex; mode=display">KG_{lead}(s)G(s)H(s)</script><div class="note note-warning">            <p>在工程中，还需要绘制补偿系统的波特图以检验相位裕量和增益裕量以及稳态误差系数是否满足设计要求。<br>如果不满足，则应当降低$β$的值，重新计算$τ$并找到一组符合设计要求的参数。  </p>          </div><h3 id="超前-滞后补偿"><a href="#超前-滞后补偿" class="headerlink" title="超前-滞后补偿*"></a>超前-滞后补偿*</h3><p>超前滞后补偿可以改善稳态误差，也可以加快系统达到稳定的速度。超前-滞后补偿的传递函数为：  </p><script type="math/tex; mode=display">G_{lag-lead}(s)=\frac{(τ_{lag}s+1)(τ_{lead}s+1)}{(ατ_{lag}s+1)(βτ_{lead}s+1)}</script><p>在设计时通常选取$α=\frac{1}{β}$，如此，在低频时补偿器增益将为0dB。<br>通常在设计时先通过设计要求找到$α$，并设计出滞后补偿器，再利用$β=\frac{1}{α}$设计出超前补偿器。  </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>控制系统</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>07. PID 控制系统</title>
     <link href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/7.%20PID%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/"/>
     <url>/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/7.%20PID%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/</url>
