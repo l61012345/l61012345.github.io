@@ -24,7 +24,7 @@
 <meta property="og:description" content="状态空间设计通过频率响应进行设计的缺陷是当系统的阶数高于2后，由于缺少用来高阶近似的参数而无法改进系统特定的极点。状态空间中的设计可以通过一些数学方法寻找到这些参数，并对闭环系统特定的极点进行调整。状态空间中的设计分为两部分:     控制器（controller）设计：通过指定控制器增益将状态变量反馈给系统的输入$u$。   观测器（observer）设计：通过指定观测器增益将实际输出与估计输出">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T05:25:45.884Z">
-<meta property="article:modified_time" content="2022-03-13T11:04:54.523Z">
+<meta property="article:modified_time" content="2022-03-13T14:43:30.583Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月13日 上午
+                    本文最后更新于：2022年3月13日 下午
                   
                 
               </p>
@@ -330,7 +330,7 @@ p.spoiler {
 </ul>
 <p>上述两种设计中的增益可以通过匹配设计要求的系统特征方程与实际的系统特征方程的系数来得到。  </p>
 <h2 id="全状态反馈控制器设计"><a href="#全状态反馈控制器设计" class="headerlink" title="全状态反馈控制器设计"></a>全状态反馈控制器设计</h2><p>对于一个n阶反馈控制系统，其闭环特征方程为：  </p>
-<script type="math/tex; mode=display">s^n+a_{n-1}s^{n-1}+a_1s+a_0=0</script><p>这$n$个方程系数$a_i$会决定系统极点所在的位置。因此全状态反馈控制器(full-state feedback controller)的设计思路是引入$n$个可调整的参数$k_i$对系统特征方程的系数$a_i$进行调整，进而使得系统极点能够在设计要求的位置。这样的思路前提是系统是可控制的。  </p>
+<script type="math/tex; mode=display">s^n+a_{n-1}s^{n-1}+a_1s+a_0=0</script><p>这$n$个方程系数$a_i$会决定系统极点所在的位置。因此全状态反馈控制器(full-state feedback controller)的设计思路是引入$n$个可调整的参数$k_i$对系统特征方程的系数$a_i$进行调整，进而使得系统极点能够在设计要求的位置。这样的思路前提是系统是能控的。  </p>
 <p>在全状态反馈控制器中，由$n$个可调整的参数$k_i$组成的向量$K$被添加在了反馈回路中，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313143921.png width=50%>  </p>
 <p>根据系统框图可以得到系统的状态空间表示：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+B\vec{u}=(A-BK)\vec{x}+B\vec{r}</script><script type="math/tex; mode=display">\vec{y}=C\vec{x}</script><p>如此，新的状态转换矩阵为：$Φ(s)=[sI-(A-BK)]$.<br>根据状态转换矩阵，可以得到改进后的系统特征方程为：  </p>
@@ -353,32 +353,32 @@ p.spoiler {
 <script type="math/tex; mode=display">C_z=PC_x</script><script type="math/tex; mode=display">K_z=K_xP^{-1}</script><p>那么可以得到$P=C_zC^{-1}_x$和$K_z$。<br>所以基本思路是：  </p>
 <ul>
 <li>根据$|sI-A|=0$找到现在系统的特征方程。  </li>
-<li>根据特征方程，写出系统状态空间表示的相位变化型，并检验可控制性。  </li>
+<li>根据特征方程，写出系统状态空间表示的相位变化型，并检验能控性。  </li>
 <li>根据$P=C_zC^{-1}_x$得到$P$</li>
 <li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-B_xK_x$，并得到目标系统的特征方程$|sI-(A_x-B_xK_x)|=0$</li>
 <li>根据设计目标求出$ω_n$和$ξ$，并构造系统的特征方程。  </li>
 <li>将系统的特征方程与$|sI-(A_x-B_xK_x)|=0$进行系数匹配，得到$K_x$</li>
 <li>利用$K_z=K_xP^{-1}$得到$K_z$</li>
 </ul>
-<h2 id="全状态观测器"><a href="#全状态观测器" class="headerlink" title="全状态观测器"></a>全状态观测器</h2><p>在实际工程中，测量系统的全部状态的开销非常大。观测器(observer/state estimator)可以预测系统状态并反馈，以此来减少需要测量的系统状态，进而节省设计支出。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163335.png width=50%><br>同全状态控制器的设计思路，全状态观测器通过设计一个常数向量$L$，使观测器的瞬态响应比受控回路的响应快，从而得到系统状态向量的快速更新估计。观测器的设计要求系统原型必须是可观测的。<br>观测器系统的框图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163647.png width=50%><br>整个系统又称为误差系统(error system)。  </p>
+<h2 id="全状态观测器"><a href="#全状态观测器" class="headerlink" title="全状态观测器"></a>全状态观测器</h2><p>在实际工程中，测量系统的全部状态的开销非常大。观测器(observer/state estimator)可以预测系统状态并反馈，以此来减少需要测量的系统状态，进而节省设计支出。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163335.png width=50%><br>同全状态控制器的设计思路，全状态观测器通过设计一个常数向量$L$，使观测器的瞬态响应比受控回路的响应快，从而得到系统状态向量的快速更新估计。观测器的设计要求系统原型必须是能观的。<br>观测器系统的框图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163647.png width=50%><br>整个系统又称为误差系统(error system)。  </p>
 <p>整个误差系统的状态方程可以表示为其估计状态的状态方程后加上系统输出的修正$y-\hat{y}$，那么有：  </p>
 <script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=A\vec{\hat{x}}+B\vec{u}+L(\vec{y}-\vec{\hat{y}})</script><p>误差系统的输出方程为：  </p>
 <script type="math/tex; mode=display">\vec{\hat{y}}=C\vec{x}</script><p>与系统原型的状态空间表示$\begin{cases}<br>    \vec{\dot{x}}=A\vec{x}+B\vec{u}\\<br>    \vec{y}=C\vec{x}<br>\end{cases}$相减，得到：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}-\vec{\dot{\hat{x}}}=A(\vec{x}-\vec{\hat{x}})-L(\vec{y}-\vec{\hat{y}})</script><script type="math/tex; mode=display">\vec{y}-\vec{\hat{y}}=C(\vec{\dot{x}}-\vec{\dot{\hat{x}}})</script><p>进一步得到：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}-\vec{\dot{\hat{x}}}=(A-LC)(\vec{x}-\vec{\hat{x}})</script><script type="math/tex; mode=display">\vec{y}-\vec{\hat{y}}=C(\vec{\dot{x}}-\vec{\dot{\hat{x}}})</script><p>误差系统的特征方程为：  </p>
 <script type="math/tex; mode=display">|sI-(A-LC)|=0</script><h3 id="设计步骤-1"><a href="#设计步骤-1" class="headerlink" title="设计步骤"></a>设计步骤</h3><ul>
-<li>将系统原型改写为可观测标准型，并检查系统原型的可观测性。  </li>
-<li>根据系统原型的可观测标准型，得到其状态转换矩阵$Φ=A-LC$</li>
+<li>将系统原型改写为能观标准型，并检查系统原型的能观性。  </li>
+<li>根据系统原型的能观标准型，得到其状态转换矩阵$Φ=A-LC$</li>
 <li>根据系统的状态转换矩阵得到含有观测系数$l$的系统特征方程：$|sI-(A-LC)|=0$  </li>
 <li>根据对系统设计的要求计算出要求的阻尼比$ξ$和固有频率$ω_n$，构造目标系统的特征方程。  </li>
 <li>将目标系统的特征方程与$|sI-(A-LC)|=0$匹配，使用待定系数法得到观测向量$L$中的每一个元素$l$。  </li>
 </ul>
-<p>当原型系统$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+B\vec{u}\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$没有以可观测标准型给出时，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为可观测标准型。<br>那么有：  </p>
+<p>当原型系统$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+B\vec{u}\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$没有以能观标准型给出时，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为能观标准型。<br>那么有：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}B\vec{u}</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
 <script type="math/tex; mode=display">O_z=PO_x</script><script type="math/tex; mode=display">L_z=L_xP^{-1}</script><p>那么可以得到$P=O_zO^{-1}_x$和$L_z$。<br>所以基本思路是：  </p>
 <ul>
 <li>根据$|sI-A|=0$找到现在系统的特征方程。  </li>
-<li>根据特征方程，写出系统状态空间表示的相位变化型，并检验可控制性。  </li>
+<li>根据特征方程，写出系统状态空间表示的相位变化型，并检验能控性。  </li>
 <li>根据$P=O_zO^{-1}_x$得到$P$</li>
 <li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-L_xB_x$，并得到目标系统的特征方程$|sI-(A_x-L_xB_x)|=0$</li>
 <li>根据设计目标求出$ω_n$和$ξ$，并构造系统的特征方程。  </li>
