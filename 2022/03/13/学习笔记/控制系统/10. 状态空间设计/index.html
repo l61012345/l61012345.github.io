@@ -24,7 +24,7 @@
 <meta property="og:description" content="状态空间设计通过频率响应进行设计的缺陷是当系统的阶数高于2后，由于缺少用来高阶近似的参数而无法改进系统特定的极点。状态空间中的设计可以通过一些数学方法寻找到这些参数，并对闭环系统特定的极点进行调整。状态空间中的设计分为两部分:     控制器（controller）设计：通过指定控制器增益将状态变量反馈给系统的输入$u$。   观测器（observer）设计：通过指定观测器增益将实际输出与估计输出">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T05:25:45.884Z">
-<meta property="article:modified_time" content="2022-03-13T07:35:28.191Z">
+<meta property="article:modified_time" content="2022-03-13T11:04:54.523Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          3.4k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          14 分钟
+          29 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月13日 早上
+                    本文最后更新于：2022年3月13日 上午
                   
                 
               </p>
@@ -360,6 +360,32 @@ p.spoiler {
 <li>将系统的特征方程与$|sI-(A_x-B_xK_x)|=0$进行系数匹配，得到$K_x$</li>
 <li>利用$K_z=K_xP^{-1}$得到$K_z$</li>
 </ul>
+<h2 id="全状态观测器"><a href="#全状态观测器" class="headerlink" title="全状态观测器"></a>全状态观测器</h2><p>在实际工程中，测量系统的全部状态的开销非常大。观测器(observer/state estimator)可以预测系统状态并反馈，以此来减少需要测量的系统状态，进而节省设计支出。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163335.png width=50%><br>同全状态控制器的设计思路，全状态观测器通过设计一个常数向量$L$，使观测器的瞬态响应比受控回路的响应快，从而得到系统状态向量的快速更新估计。观测器的设计要求系统原型必须是可观测的。<br>观测器系统的框图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163647.png width=50%><br>整个系统又称为误差系统(error system)。  </p>
+<p>整个误差系统的状态方程可以表示为其估计状态的状态方程后加上系统输出的修正$y-\hat{y}$，那么有：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=A\vec{\hat{x}}+B\vec{u}+L(\vec{y}-\vec{\hat{y}})</script><p>误差系统的输出方程为：  </p>
+<script type="math/tex; mode=display">\vec{\hat{y}}=C\vec{x}</script><p>与系统原型的状态空间表示$\begin{cases}<br>    \vec{\dot{x}}=A\vec{x}+B\vec{u}\\<br>    \vec{y}=C\vec{x}<br>\end{cases}$相减，得到：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}-\vec{\dot{\hat{x}}}=A(\vec{x}-\vec{\hat{x}})-L(\vec{y}-\vec{\hat{y}})</script><script type="math/tex; mode=display">\vec{y}-\vec{\hat{y}}=C(\vec{\dot{x}}-\vec{\dot{\hat{x}}})</script><p>进一步得到：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}-\vec{\dot{\hat{x}}}=(A-LC)(\vec{x}-\vec{\hat{x}})</script><script type="math/tex; mode=display">\vec{y}-\vec{\hat{y}}=C(\vec{\dot{x}}-\vec{\dot{\hat{x}}})</script><p>误差系统的特征方程为：  </p>
+<script type="math/tex; mode=display">|sI-(A-LC)|=0</script><h3 id="设计步骤-1"><a href="#设计步骤-1" class="headerlink" title="设计步骤"></a>设计步骤</h3><ul>
+<li>将系统原型改写为可观测标准型，并检查系统原型的可观测性。  </li>
+<li>根据系统原型的可观测标准型，得到其状态转换矩阵$Φ=A-LC$</li>
+<li>根据系统的状态转换矩阵得到含有观测系数$l$的系统特征方程：$|sI-(A-LC)|=0$  </li>
+<li>根据对系统设计的要求计算出要求的阻尼比$ξ$和固有频率$ω_n$，构造目标系统的特征方程。  </li>
+<li>将目标系统的特征方程与$|sI-(A-LC)|=0$匹配，使用待定系数法得到观测向量$L$中的每一个元素$l$。  </li>
+</ul>
+<p>当原型系统$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+B\vec{u}\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$没有以可观测标准型给出时，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为可观测标准型。<br>那么有：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}B\vec{u}</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
+<script type="math/tex; mode=display">O_z=PO_x</script><script type="math/tex; mode=display">L_z=L_xP^{-1}</script><p>那么可以得到$P=O_zO^{-1}_x$和$L_z$。<br>所以基本思路是：  </p>
+<ul>
+<li>根据$|sI-A|=0$找到现在系统的特征方程。  </li>
+<li>根据特征方程，写出系统状态空间表示的相位变化型，并检验可控制性。  </li>
+<li>根据$P=O_zO^{-1}_x$得到$P$</li>
+<li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-L_xB_x$，并得到目标系统的特征方程$|sI-(A_x-L_xB_x)|=0$</li>
+<li>根据设计目标求出$ω_n$和$ξ$，并构造系统的特征方程。  </li>
+<li>将系统的特征方程与$|sI-(A_x-L_xB_x)|=0$进行系数匹配，得到$K_x$</li>
+<li>利用$L_z=L_xP^{-1}$得到$L_z$</li>
+</ul>
+<h2 id="控制器和观测器的对偶性"><a href="#控制器和观测器的对偶性" class="headerlink" title="控制器和观测器的对偶性"></a>控制器和观测器的对偶性</h2><p>可以发现，控制器的设计方法和观测器的设计方法几乎一样。事实上，控制器系统和观测器系统在数学上呈现对偶性。<br>如果控制器系统的状态空间表示系数矩阵为$A$,$B$,$C$，<br>那么观测器系统的状态空间表示系数矩阵为$A^T$,$C^T$,$B^T$。<br>在MATLAB中，观测器系统和控制器系统的控制系数和观测系数向量都用命令<code>place()</code>生成，对控制器系统：<code>K=place(A,B,p)</code><br>对观测器系统：<code>L=place(A&#39;,C&#39;,p)</code>.<br>其中<code>p</code>是闭环系统所有极点组成的向量。  </p>
 
               
             </div>
