@@ -24,7 +24,7 @@
 <meta property="og:description" content="状态空间设计通过频率响应进行设计的缺陷是当系统的阶数高于2后，由于缺少用来高阶近似的参数而无法改进系统特定的极点。状态空间中的设计可以通过一些数学方法寻找到这些参数，并对闭环系统特定的极点进行调整。状态空间中的设计分为两部分:     控制器（controller）设计：通过指定控制器增益将状态变量反馈给系统的输入$u$。   观测器（observer）设计：通过指定观测器增益将实际输出与估计输出">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T05:25:45.884Z">
-<meta property="article:modified_time" content="2022-03-13T14:43:30.583Z">
+<meta property="article:modified_time" content="2022-03-15T08:52:12.031Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          6.9k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          29 分钟
+          58 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月13日 下午
+                    本文最后更新于：2022年3月15日 早上
                   
                 
               </p>
@@ -333,7 +333,7 @@ p.spoiler {
 <script type="math/tex; mode=display">s^n+a_{n-1}s^{n-1}+a_1s+a_0=0</script><p>这$n$个方程系数$a_i$会决定系统极点所在的位置。因此全状态反馈控制器(full-state feedback controller)的设计思路是引入$n$个可调整的参数$k_i$对系统特征方程的系数$a_i$进行调整，进而使得系统极点能够在设计要求的位置。这样的思路前提是系统是能控的。  </p>
 <p>在全状态反馈控制器中，由$n$个可调整的参数$k_i$组成的向量$K$被添加在了反馈回路中，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313143921.png width=50%>  </p>
 <p>根据系统框图可以得到系统的状态空间表示：  </p>
-<script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+B\vec{u}=(A-BK)\vec{x}+B\vec{r}</script><script type="math/tex; mode=display">\vec{y}=C\vec{x}</script><p>如此，新的状态转换矩阵为：$Φ(s)=[sI-(A-BK)]$.<br>根据状态转换矩阵，可以得到改进后的系统特征方程为：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+Bu=(A-BK)\vec{x}+Br</script><script type="math/tex; mode=display">\vec{y}=C\vec{x}</script><p>如此，新的状态转换矩阵为：$Φ(s)=[sI-(A-BK)]$.<br>根据状态转换矩阵，可以得到改进后的系统特征方程为：  </p>
 <script type="math/tex; mode=display">|Φ(s)|=|sI-(A-BK)|=0</script><h3 id="设计目标"><a href="#设计目标" class="headerlink" title="设计目标"></a>设计目标</h3><p>系统设计的准则是：  </p>
 <ul>
 <li>阶跃响应更快的达到稳定</li>
@@ -348,8 +348,8 @@ p.spoiler {
 <li>找到改进后系统的特征方程$|sI-(A-BK)|=0$。  </li>
 <li>将$|sI-(A-BK)|=0$与$(s+p)(s^2+2ξω_ns+ω_n)=0$的系数进行匹配，使用待定系数法即可得到所有的$k$</li>
 </ul>
-<p>如果系统原型没有以相位变化型给出$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+B\vec{u}\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为相位变化型。<br>那么有：  </p>
-<script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}B\vec{u}</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
+<p>如果系统原型没有以相位变化型给出$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+Bu\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为相位变化型。<br>那么有：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}Bu</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
 <script type="math/tex; mode=display">C_z=PC_x</script><script type="math/tex; mode=display">K_z=K_xP^{-1}</script><p>那么可以得到$P=C_zC^{-1}_x$和$K_z$。<br>所以基本思路是：  </p>
 <ul>
 <li>根据$|sI-A|=0$找到现在系统的特征方程。  </li>
@@ -362,8 +362,8 @@ p.spoiler {
 </ul>
 <h2 id="全状态观测器"><a href="#全状态观测器" class="headerlink" title="全状态观测器"></a>全状态观测器</h2><p>在实际工程中，测量系统的全部状态的开销非常大。观测器(observer/state estimator)可以预测系统状态并反馈，以此来减少需要测量的系统状态，进而节省设计支出。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163335.png width=50%><br>同全状态控制器的设计思路，全状态观测器通过设计一个常数向量$L$，使观测器的瞬态响应比受控回路的响应快，从而得到系统状态向量的快速更新估计。观测器的设计要求系统原型必须是能观的。<br>观测器系统的框图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313163647.png width=50%><br>整个系统又称为误差系统(error system)。  </p>
 <p>整个误差系统的状态方程可以表示为其估计状态的状态方程后加上系统输出的修正$y-\hat{y}$，那么有：  </p>
-<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=A\vec{\hat{x}}+B\vec{u}+L(\vec{y}-\vec{\hat{y}})</script><p>误差系统的输出方程为：  </p>
-<script type="math/tex; mode=display">\vec{\hat{y}}=C\vec{x}</script><p>与系统原型的状态空间表示$\begin{cases}<br>    \vec{\dot{x}}=A\vec{x}+B\vec{u}\\<br>    \vec{y}=C\vec{x}<br>\end{cases}$相减，得到：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=A\vec{\hat{x}}+Bu+L(\vec{y}-\vec{\hat{y}})</script><p>误差系统的输出方程为：  </p>
+<script type="math/tex; mode=display">\vec{\hat{y}}=C\vec{x}</script><p>与系统原型的状态空间表示$\begin{cases}<br>    \vec{\dot{x}}=A\vec{x}+Bu\\<br>    \vec{y}=C\vec{x}<br>\end{cases}$相减，得到：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}-\vec{\dot{\hat{x}}}=A(\vec{x}-\vec{\hat{x}})-L(\vec{y}-\vec{\hat{y}})</script><script type="math/tex; mode=display">\vec{y}-\vec{\hat{y}}=C(\vec{\dot{x}}-\vec{\dot{\hat{x}}})</script><p>进一步得到：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}-\vec{\dot{\hat{x}}}=(A-LC)(\vec{x}-\vec{\hat{x}})</script><script type="math/tex; mode=display">\vec{y}-\vec{\hat{y}}=C(\vec{\dot{x}}-\vec{\dot{\hat{x}}})</script><p>误差系统的特征方程为：  </p>
 <script type="math/tex; mode=display">|sI-(A-LC)|=0</script><h3 id="设计步骤-1"><a href="#设计步骤-1" class="headerlink" title="设计步骤"></a>设计步骤</h3><ul>
@@ -373,8 +373,8 @@ p.spoiler {
 <li>根据对系统设计的要求计算出要求的阻尼比$ξ$和固有频率$ω_n$，构造目标系统的特征方程。  </li>
 <li>将目标系统的特征方程与$|sI-(A-LC)|=0$匹配，使用待定系数法得到观测向量$L$中的每一个元素$l$。  </li>
 </ul>
-<p>当原型系统$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+B\vec{u}\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$没有以能观标准型给出时，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为能观标准型。<br>那么有：  </p>
-<script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}B\vec{u}</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
+<p>当原型系统$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+Bu\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$没有以能观标准型给出时，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为能观标准型。<br>那么有：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}Bu</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
 <script type="math/tex; mode=display">O_z=PO_x</script><script type="math/tex; mode=display">L_z=L_xP^{-1}</script><p>那么可以得到$P=O_zO^{-1}_x$和$L_z$。<br>所以基本思路是：  </p>
 <ul>
 <li>根据$|sI-A|=0$找到现在系统的特征方程。  </li>
@@ -386,6 +386,94 @@ p.spoiler {
 <li>利用$L_z=L_xP^{-1}$得到$L_z$</li>
 </ul>
 <h2 id="控制器和观测器的对偶性"><a href="#控制器和观测器的对偶性" class="headerlink" title="控制器和观测器的对偶性"></a>控制器和观测器的对偶性</h2><p>可以发现，控制器的设计方法和观测器的设计方法几乎一样。事实上，控制器系统和观测器系统在数学上呈现对偶性。<br>如果控制器系统的状态空间表示系数矩阵为$A$,$B$,$C$，<br>那么观测器系统的状态空间表示系数矩阵为$A^T$,$C^T$,$B^T$。<br>在MATLAB中，观测器系统和控制器系统的控制系数和观测系数向量都用命令<code>place()</code>生成，对控制器系统：<code>K=place(A,B,p)</code><br>对观测器系统：<code>L=place(A&#39;,C&#39;,p)</code>.<br>其中<code>p</code>是闭环系统所有极点组成的向量。  </p>
+<h2 id="观测器和控制器的连接"><a href="#观测器和控制器的连接" class="headerlink" title="观测器和控制器的连接"></a>观测器和控制器的连接</h2><p>整个系统连接观测器和控制器后如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220314123801.png width=50%>  </p>
+<h3 id="引入系统输入"><a href="#引入系统输入" class="headerlink" title="引入系统输入"></a>引入系统输入</h3><p>在完成对观测器和控制器的设计之后，整个系统的状态空间表示为：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=A\vec{\hat{x}}+Bu+L(\vec{y}-\vec{\hat{y}})</script><script type="math/tex; mode=display">\vec{y}=C\vec{\hat{x}}</script><p>同时，根据系统框图有：  </p>
+<script type="math/tex; mode=display">u=-K\vec{\hat{x}}+r</script><p>带入状态方程，得到：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=A\vec{\hat{x}}+B(-K\vec{\hat{x}}+r)+L(\vec{y}-C\vec{\hat{x}})</script><p>整理后有：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=(A-BK-LC)\vec{\hat{x}}+L\vec{y}+Br</script><p>通常增加常量$N$和向量$\vec{M}$以便进行调整：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=(A-BK-LC)\vec{\hat{x}}+L\vec{y}+\vec{M}r</script><script type="math/tex; mode=display">u=-K\vec{\hat{x}}+Nr</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220314124843.png width=50%>  </p>
+<h3 id="全状态反馈"><a href="#全状态反馈" class="headerlink" title="全状态反馈"></a>全状态反馈</h3><p>在全状态反馈中，使用向量$\vec{N_x}$和标量$N_u$对系统进行调整：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220314125223.png width=50%>  </p>
+<p>有：  </p>
+<script type="math/tex; mode=display">\overline{N}=n_u+K\vec{n_x}</script><p>为了使稳态条件下$\vec{y}=r$，令$\vec{x}=\vec{n_x}r$,$u=n_ur$，在稳态条件下，系统状态的微分为0，有：  </p>
+<script type="math/tex; mode=display">0=A\vec{n_x}r+Bn_ur</script><script type="math/tex; mode=display">1=C\vec{n_x}+Dn_u</script><p>进一步矩阵化方程，有：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}
+    0 \\ 1 
+\end{bmatrix}=\begin{bmatrix}
+    A & B \\
+    C & D \\
+\end{bmatrix}\begin{bmatrix}
+    \vec{n_x}\\ n_u
+\end{bmatrix}</script><p>即：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}
+    \vec{n_x}\\ n_u
+\end{bmatrix}=\begin{bmatrix}
+    A & B \\
+    C & D \\
+\end{bmatrix}^{-1}\begin{bmatrix}
+    0 \\ 1 
+\end{bmatrix}</script><p>通过上述式子可以求得向量$\vec{n_x}$和标量$n_u$。<br>此时系统的传输函数为：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{R(s)}=\overline{N}C(sI-A+BK)^{-1}B</script><h3 id="Zero-assignment-Estimator"><a href="#Zero-assignment-Estimator" class="headerlink" title="Zero-assignment Estimator"></a>Zero-assignment Estimator</h3><p>根据如下的公式,对I型控制系统：  </p>
+<script type="math/tex; mode=display">\frac{1}{K_v}=∑\frac{1}{z_i}-∑\frac{1}{p_i}</script><p>$z_i$和$p_i$分别是整个系统的闭环零点和极点。<br>上述公式被称为Truxal误差常数计算公式，可以发现通过改变系统的零点和极点分布，可以改变系统的速度误差常数$K_v$。可以发现，当闭环极点远离虚轴时，速度误差常数$K_v$会增大。<br>对系统$\begin{cases}<br>    \vec{\dot{\hat{x}}}=(A-BK-LC)\vec{\hat{x}}+L\vec{y}+\vec{M}r\\<br>    u=-K\vec{\hat{x}}+\overline{N}r<br>\end{cases}$，经过计算可以发现系统的零点由如下方程确定：  </p>
+<script type="math/tex; mode=display">|sI-A+BK+LC-\frac{M}{N}K|=0</script><blockquote>
+<p>计算过程详见：<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/111317278#:~:text=Compensator%EF%BC%9A%E8%A7%82%E6%B5%8B%E5%99%A8%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%BE%8B%E7%9A%84%E7%BB%93%E5%90%88%20Observer-Based%20Controller">https://zhuanlan.zhihu.com/p/111317278#:~:text=Compensator%EF%BC%9A%E8%A7%82%E6%B5%8B%E5%99%A8%E4%B8%8E%E6%8E%A7%E5%88%B6%E5%BE%8B%E7%9A%84%E7%BB%93%E5%90%88%20Observer-Based%20Controller</a></p>
+</blockquote>
+<p>可以发现，通过设置$N$和$M$就可以自由配置零点。这样的配置称为Zero-assignment Estimator。  </p>
+<h2 id="补偿器设计"><a href="#补偿器设计" class="headerlink" title="补偿器设计"></a>补偿器设计</h2><p>简单来说，补偿器就是系统的控制器和观测器的结合：在反馈回路上，系统的误差可以被观测器捕捉，并将误差传递给控制器，由控制器对系统进行调整，并输出补偿值并在前项传输过程中对系统输入进行调整，使得可以进一步减小系统误差。这样的系统行为称为补偿(compansation)。  </p>
+<h3 id="反馈补偿"><a href="#反馈补偿" class="headerlink" title="反馈补偿"></a>反馈补偿</h3><p>对于系统$\begin{cases}<br>    \vec{\dot{\hat{x}}}=(A-BK-LC)\vec{\hat{x}}+L\vec{y}+\vec{M}r\\<br>    u=-K\vec{\hat{x}}+\overline{N}r<br>\end{cases}$，如果选择$M=B\overline{N}$，并且带入$u=-K\vec{\hat{x}}+\overline{N}r$即可得到：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=(A-LC)\vec{\hat{x}}+L\vec{y}+Bu</script><script type="math/tex; mode=display">u=-K\vec{\hat{x}}+\overline{N}r</script><p>如此，观测器的输入将观测系统输出的反馈$\vec{y}$和控制器的输出$u$，这样的补偿形式称为系统的反馈补偿/标准形式（standard case)：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220315152020.png width=50%>  </p>
+<p>此时系统的特征方程为：  </p>
+<script type="math/tex; mode=display">|sI-A+BK|=0</script><p>可以发现系统的特征方程与控制器的特征方程一致。在这种设置下，通过设置控制器的话参数就可以调整整个系统的极点分布，因此这种形式的补偿器通常是设置补偿系统的最优方案。  </p>
+<h3 id="串联补偿"><a href="#串联补偿" class="headerlink" title="串联补偿"></a>串联补偿</h3><p>补偿器的串联补偿/标准形式（classical case）如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220315154017.png width=50%>  </p>
+<p>对于系统$\begin{cases}<br>    \vec{\dot{\hat{x}}}=(A-BK-LC)\vec{\hat{x}}+L\vec{y}+\vec{M}r\\<br>    u=-K\vec{\hat{x}}+\overline{N}r<br>\end{cases}$，如果选$\overline{N}=0,M=-L$，那么有：  </p>
+<script type="math/tex; mode=display">\vec{\dot{\hat{x}}}=(A-LC-BK)\vec{\hat{x}}+L(\vec{y}-r)</script><script type="math/tex; mode=display">u=-K\vec{\hat{x}}+\overline{N}r</script><p>可以发现通过这样的参数设置可以将状态方程中的观测器输入改为$\vec{y}-r$，即系统误差$e$.<br>此时，系统的特征方程为：  </p>
+<script type="math/tex; mode=display">|sI-A+BK||sI-A+LC|=0</script><p>整个系统的极点由观测器和控制器共同决定。<br>此时系统补偿器的传递函数为：  </p>
+<script type="math/tex; mode=display">D_c(s)=-\frac{U(s)}{Y(s)}=K(sI-A+BK)</script><h2 id="积分控制"><a href="#积分控制" class="headerlink" title="积分控制"></a>积分控制</h2><p>补偿系统的问题在于，控制器和观测器的引入都会导致非常大的稳态误差。其次，虽然可以通过选择合适的$\overline{N}$来让稳态误差归零，但是这样的方法鲁棒性低，系统原型中任何参数的改变都会让稳态误差重新不为0.<br>解决问题的思路是利用积分项能够增加系统的类的同时将系统误差减小到0的特点，在系统控制器之前增加一个增益为$K_e$的积分单元，这种方法称为积分控制。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220315162747.png width=60%>  </p>
+<p>此时系统的状态空间表示为：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+Bu</script><script type="math/tex; mode=display">\dot{x_N}=-C\vec{x}+r</script><script type="math/tex; mode=display">y=C\vec{x}</script><p>有：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}
+    \vec{\dot{x}}\\
+    \dot{x_N}
+\end{bmatrix}=\begin{bmatrix}
+    A & 0\\
+    -C & 0
+\end{bmatrix}\begin{bmatrix}
+    \vec\\
+    x_N
+\end{bmatrix}+\begin{bmatrix}
+    B\\
+    0
+\end{bmatrix}u+\begin{bmatrix}
+    0\\
+    1
+\end{bmatrix}r</script><p>同时，$u=-K\vec{x}+K_ex_N=-[K -K_e]\begin{bmatrix}<br>    \vec{x} \\  x_N<br>\end{bmatrix}$，</p>
+<script type="math/tex; mode=display">\begin{bmatrix}
+    \vec{\dot{x}}\\
+    \dot{x_N}
+\end{bmatrix}=\begin{bmatrix}
+    A-BK & BK_e\\
+    -C & 0
+\end{bmatrix}\begin{bmatrix}
+    \vec\\
+    x_N
+\end{bmatrix}+\begin{bmatrix}
+    0\\
+    1
+\end{bmatrix}r</script><script type="math/tex; mode=display">y=\begin{bmatrix}
+    C & 0
+\end{bmatrix}\begin{bmatrix}
+    \vec\\
+    x_N
+\end{bmatrix}</script><p>同样地，根据这个方程可以得到特征多项式为：  </p>
+<script type="math/tex; mode=display">|sI-\begin{bmatrix}
+    A-BK & BK_e\\
+    -C & 0
+\end{bmatrix}|</script><h3 id="设计流程"><a href="#设计流程" class="headerlink" title="设计流程"></a>设计流程</h3><ul>
+<li>利用设计要求设计控制器，并找到控制矩阵$K$</li>
+<li>利用设计要求构造新的特征多项式</li>
+<li>利用行列式$|sI-\begin{bmatrix}<br>  A-BK &amp; BK_e\\<br>  -C &amp; 0<br>\end{bmatrix}|$得到含有$K_e$的特征多项式</li>
+<li>系数匹配，得到$K_e$</li>
+</ul>
 
               
             </div>
@@ -449,7 +537,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年3月13日</div>
+          <div>2022年3月15日</div>
         </div>
       
       <div class="license-meta-item">
