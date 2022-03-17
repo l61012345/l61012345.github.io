@@ -24,7 +24,7 @@
 <meta property="og:description" content="拉普拉斯变换傅里叶变换的局限性 使用傅里叶变换的条件是$f(t)$必须要满足狄利赫里条件，即必须要满足有界、绝对可积和有有限个间断点三个条件。 有些信号并不满足绝对可积的条件，因此这些信号不能被应用傅里叶变换。   傅里叶变换中的无穷积分比较困难。    对于不满足狄利赫里条件的信号，可以用拉普拉斯变换进行处理。   拉普拉斯变换的基本原理拉普拉斯变换的基本思想是将$f(t)$乘上一个衰减系数：$">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-30T07:08:34.000Z">
-<meta property="article:modified_time" content="2022-02-16T03:52:59.414Z">
+<meta property="article:modified_time" content="2022-03-17T13:07:35.608Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年2月16日 凌晨
+                    本文最后更新于：2022年3月17日 下午
                   
                 
               </p>
@@ -340,19 +340,15 @@ p.spoiler {
 <p><strong>拉普拉斯变换的一般形式和反变换求解</strong><br>$f(t)$经拉普拉斯变换后的$F(s)$可以用多项式分数的形式进行表达：  </p>
 <script type="math/tex; mode=display">F(s)=\frac{A(s)}{B(s)}=\frac{∑a_ms^m}{∑b_ns^n}</script><p>倘若$m&lt;n$，则$F(s)$是一个真分数，可以上下做多项式除法，得到：  </p>
 <script type="math/tex; mode=display">F(s)=\frac{a_m(s-z_1)(s-z_2)L(s-z_m)}{b_n(s-p_1)(s-p_2)L(s-p_n)}</script><p>其中$z$表示$F(s)$的时域变换$f(t)$中的零点，$p$表示$F(s)$的时域变换$f(t)$中的指数系数，称为极点(Pole)。  </p>
-<blockquote>
-<p>真分数意味着$F(s)$在无穷处收敛的概率很大，因此拉普拉斯变换后的式子具有高稳定性的特点。  </p>
-</blockquote>
+<div class="note note-info">
+            <p>真分数意味着$F(s)$在无穷处收敛的概率很大，因此拉普拉斯变换后的式子具有高稳定性的特点。  </p>
+          </div>
 <p>在单阶实数极点（Single-order real poles）的条件下：  </p>
 <script type="math/tex; mode=display">F(s)=\frac{A(s)}{(s-p_1)(s-p_2)L(s-p_n)}</script><p>那么$F(s)$经过多项式除法/因式分解之后可以写作：  </p>
 <script type="math/tex; mode=display">F(s)=∑_{i=1}^\frac{k_i}{s-p_i}+L</script><p>可以得到：  </p>
-<script type="math/tex; mode=display">f(t)=∑_{i=1}^{n}k_ie^{p_it}</script><blockquote>
-<p>另外两种关于$F(s)$极点的情况：</p>
-<ol>
-<li>共轭复数  </li>
-<li>多根<br>本节不会讨论  </li>
-</ol>
-</blockquote>
+<script type="math/tex; mode=display">f(t)=∑_{i=1}^{n}k_ie^{p_it}</script><div class="note note-info">
+            <blockquote><p>另外两种关于$F(s)$极点的情况：</p><ol><li>共轭复数  </li><li>多根<br>本节不会讨论  </li></ol></blockquote>
+          </div>
 <h2 id="拉普拉斯变换的性质"><a href="#拉普拉斯变换的性质" class="headerlink" title="拉普拉斯变换的性质"></a>拉普拉斯变换的性质</h2><ol>
 <li>线性（同傅里叶变换）</li>
 <li>变换操作  <ul>
@@ -361,15 +357,17 @@ p.spoiler {
 <li>尺度变换（同傅里叶变换）   </li>
 </ul>
 </li>
-<li>积分和微分（时域）<ul>
+<li><p>积分和微分（时域）</p>
+<ul>
 <li>微分<br>一阶微分：$\frac{df(t)}{dt}→sF(s)-f(0_)$<br>二阶微分：$\frac{df^2(t)}{dt}→s[sF(s)-f(0_)]-f’(0_)$  </li>
-<li>积分<br>$∫_{-∞}^tf(τ)dτ→\frac{F(s)}{s}+\frac{f^{(-1)}(0_)}{s}$  <blockquote>
-<p>证明过程是将积分域分解为$[-∞,0]$（表示初始状态）和$[0,t]$两段。</p>
-</blockquote>
+<li>积分<br>$∫_{-∞}^tf(τ)dτ→\frac{F(s)}{s}+\frac{f^{(-1)}(0_)}{s}$   <div class="note note-info">
+            <p>证明过程是将积分域分解为$[-∞,0]$（表示初始状态）和$[0,t]$两段。  </p>
+          </div>    
 </li>
 </ul>
 </li>
-<li>积分和微分（频域）<ul>
+<li><p>积分和微分（频域）</p>
+<ul>
 <li>n阶微分<br>$L[t^nf(t)]=(-1)^n\frac{d^nF(s)}{ds^n}$  </li>
 <li>积分  <script type="math/tex; mode=display">L[\frac{f(t)}{t}]=∫_s^∞F(s)ds</script></li>
 </ul>
@@ -484,7 +482,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年2月16日</div>
+          <div>2022年3月17日</div>
         </div>
       
       <div class="license-meta-item">
