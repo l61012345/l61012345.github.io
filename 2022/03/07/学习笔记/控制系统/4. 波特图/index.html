@@ -24,7 +24,7 @@
 <meta property="og:description" content="波特图波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：   在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如：1234num&#x3D;[8,18,32] %传递函数的分子系数dem&#x3D;[1,6,14,24]">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-07T03:28:22.105Z">
-<meta property="article:modified_time" content="2022-03-17T12:21:32.355Z">
+<meta property="article:modified_time" content="2022-03-17T12:49:58.230Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          4.5k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          35 分钟
+          38 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月17日 中午
+                    本文最后更新于：2022年3月17日 下午
                   
                 
               </p>
@@ -325,9 +325,17 @@ p.spoiler {
               
               <h1 id="波特图"><a href="#波特图" class="headerlink" title="波特图"></a>波特图</h1><p>波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220303194338.png width=50%>  </p>
 <p>在MATLAB中，当系统传递函数已知的情况下，可以使用函数<code>bode()</code>直接生成对应系统的波特图，例如：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs M">num<span class="hljs-built_in">=</span>[<span class="hljs-number">8</span>,<span class="hljs-number">18</span>,<span class="hljs-number">32</span>] <span class="hljs-comment">%传递函数的分子系数</span><br>dem<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,<span class="hljs-number">6</span>,<span class="hljs-number">14</span>,<span class="hljs-number">24</span>] <span class="hljs-comment">%传递函数的分母系数</span><br>sys<span class="hljs-built_in">=</span>tf(num,den) <span class="hljs-comment">%构建系统传递函数</span><br>bode(sys)<br></code></pre></td></tr></table></figure></p>
-<h2 id="绘制的理论基础"><a href="#绘制的理论基础" class="headerlink" title="绘制的理论基础"></a>绘制的理论基础</h2><h3 id="传输方程的波特形式"><a href="#传输方程的波特形式" class="headerlink" title="传输方程的波特形式"></a>传输方程的波特形式</h3><p>对于系统传输方程：  </p>
+<h2 id="采样法绘制波特图"><a href="#采样法绘制波特图" class="headerlink" title="采样法绘制波特图"></a>采样法绘制波特图</h2><p>使用采样来绘制波特图的方法是：  </p>
+<ul>
+<li>令传递函数中的$s=jω$，得到$G(jω)$</li>
+<li>$G(jω)$的分子分母同时乘以分母表达式的共轭形式，以化简得到:  <script type="math/tex; mode=display">G(jω)=A(ω)+jB(ω)</script>的形式。  </li>
+<li>取不同的$ω$值对其幅频响应和相频响应进行采样，利用采样点绘制波特图。  </li>
+</ul>
+<p>使用采样绘制波特图的难点是波特图的准确性取决于采样点的数目和采样点的位置。如果传递函数结构复杂，那么计算所有采样点所需要的计算量太大。  </p>
+<h2 id="渐近线近似绘制的理论基础"><a href="#渐近线近似绘制的理论基础" class="headerlink" title="渐近线近似绘制的理论基础"></a>渐近线近似绘制的理论基础</h2><p>渐进线近似法（Asymptotic Bode Plot）是一种将传递函数结构分为若干个区间，对每个区间使用直线来渐进拟合每个区间的频率响应情况。相比于采样法，渐近线近似法的计算量更小，并且渐进误差在可允许的范围内，是一种便捷的手绘波特图的方法。  </p>
+<h3 id="传输方程的波特形式"><a href="#传输方程的波特形式" class="headerlink" title="传输方程的波特形式"></a>传输方程的波特形式</h3><p>对于系统传输方程：  </p>
 <script type="math/tex; mode=display">H(s)=\frac{K∏(s+z_i)}{∏(s+p_i)}</script><p>如果将每一个括号的常数项进行归一化，就得到系统传输方程的波特形式：  </p>
-<script type="math/tex; mode=display">H(s)=\frac{K∏z_i(\frac{1}{z_i}s+1)}{∏p_i(\frac{1}{p_i}s+1))}</script><h3 id="传输方程的元素及其波特图"><a href="#传输方程的元素及其波特图" class="headerlink" title="传输方程的元素及其波特图"></a>传输方程的元素及其波特图</h3><p>对于任意系统的传输方程，其分子分母都由如下几项相乘得到：  </p>
+<script type="math/tex; mode=display">H(s)=\frac{K∏z_i(\frac{1}{z_i}s+1)}{∏p_i(\frac{1}{p_i}s+1))}</script><h3 id="传输方程的元素及其渐进线近似波特图"><a href="#传输方程的元素及其渐进线近似波特图" class="headerlink" title="传输方程的元素及其渐进线近似波特图"></a>传输方程的元素及其渐进线近似波特图</h3><p>对于任意系统的传输方程，其分子分母都由如下几项相乘得到：  </p>
 <ul>
 <li>常数项$K$：称为增益</li>
 <li>$s$：称为积分环节（分子）或者微分环节（分母）</li>
@@ -393,11 +401,11 @@ p.spoiler {
 <h3 id="传输方程的级联"><a href="#传输方程的级联" class="headerlink" title="传输方程的级联"></a>传输方程的级联</h3><p>对级联系统，其每一个子系统的传递函数为$F_i(jω)$，有整个系统的传递函数：  </p>
 <script type="math/tex; mode=display">F(jω)=∏F_i(jω)</script><p>系统的幅值和相位为：  </p>
 <script type="math/tex; mode=display">|F(jω)|_{dB}=|F_i(jω)|_{dB}</script><script type="math/tex; mode=display">∠F(jω)=∑∠F_i(jω)</script><p>可以发现，整个系统的波特图可以通过各子部分的波特图叠加得到。<strong>因此，对任何一个传出函数，其整个波特图都可以被分解为若干个元素的波特图的叠加</strong>。  </p>
-<h2 id="绘制波特图的方法"><a href="#绘制波特图的方法" class="headerlink" title="绘制波特图的方法"></a>绘制波特图的方法</h2><h3 id="图形法"><a href="#图形法" class="headerlink" title="图形法"></a>图形法</h3><ul>
+<h2 id="绘制渐近线波特图的方法"><a href="#绘制渐近线波特图的方法" class="headerlink" title="绘制渐近线波特图的方法"></a>绘制渐近线波特图的方法</h2><h3 id="图形法"><a href="#图形法" class="headerlink" title="图形法"></a>图形法</h3><ul>
 <li>在对数格纸上画出每一个子部分的波特图</li>
 <li>将每个部分的波特图叠加，最终得到整个系统的波特图</li>
 </ul>
-<p>下面几张图展示了图形法画出$G(s)=\frac{20s}{s+10}$的幅值波特图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307110846.png width=50%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307111023.png width=50%>  </p>
+<p>下面几张图展示了图形法画出$G(s)=\frac{20s}{s+10}$的幅值波特图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307110846.png width=80%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307111023.png width=80%>  </p>
 <h3 id="表格法"><a href="#表格法" class="headerlink" title="表格法"></a>表格法</h3><ul>
 <li>首先列出系统传输方程中所有的零点和极点，从小到大排列，从而将整个系统的波特图分为几个区间</li>
 <li>看系统方程的每个元素在对每段区间波特图的斜率贡献  </li>
@@ -406,7 +414,8 @@ p.spoiler {
 <li>利用:<br>在区间$(x_1,x_2)$上，纵轴的变化量$Δ=y_1-y_2$可以求得为：  <script type="math/tex; mode=display">Δ=klg\frac{x_2}{x_1}</script>因此每一段区间的起始值为：  <script type="math/tex; mode=display">O=O_{-1}+Δ</script>$O_{-1}$是上一段区间的起始值。<br>找到每一段区间的起点。  </li>
 <li>连接所有点，画图。  </li>
 </ul>
-<p>下表展示了表格法画出$G(s)=\frac{s+1}{s(0.1s+1)(0.4s+1)}$的幅值波特图对应的表格：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220317201930.png width=50%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220317202114.png width=50%>  </p>
+<p>下表展示了表格法画出$G(s)=\frac{s+1}{s(0.1s+1)(0.4s+1)}$的幅值波特图对应的表格：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220317201930.png width=80%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220317202114.png width=80%>  </p>
+<p>真实的波特图可以通过MATLAB中使用命令<code>bode()</code>得到，下图展示了$G(s)=\frac{s+1}{s(0.1s+1)(0.4s+1)}$的幅值波特图。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220317203848.png width=80%></p>
 <h2 id="波特图特征"><a href="#波特图特征" class="headerlink" title="波特图特征"></a>波特图特征</h2><h3 id="穿越频率"><a href="#穿越频率" class="headerlink" title="穿越频率"></a>穿越频率</h3><p>定义相位穿越频率（Phase crossover frequency）为相位波特图在-180°时对应的最小频率$ω_{pc}$。<br>增益穿越频率（Gain crossover frequency）为幅值波特图在0dB时对应的最小频率$ω_{gc}$。  </p>
 <h3 id="增益裕量和相位裕量"><a href="#增益裕量和相位裕量" class="headerlink" title="增益裕量和相位裕量"></a>增益裕量和相位裕量</h3><p>在波特图上，<br>增益裕量是0dB与相位穿越频率对应的幅值之差：  </p>
 <script type="math/tex; mode=display">GM|_{dB}=0-|H(jω_{pc})|</script><p>相位裕量是增益穿越频率对应的相位与-180°之差：  </p>
