@@ -24,7 +24,7 @@
 <meta property="og:description" content="系统的状态空间表示和分析现代复杂控制系统中往往包含多个输入和多个输出，系统的分析更加复杂。使用一些数学方法可以简化对这些系统的分析。这些数学方法建立在对系统状态(state)的理解上：系统的状态是指系统变量、输入信号和用于描述系统动态变化的方程的集合，系统状态可以理解为系统的记忆，$t&#x3D;t_0$时的系统状态能够记忆系统在$t&lt;t_0$时系统的全部输入和之前全部系统的状态。系统的状态可以提供对">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-12T03:13:35.123Z">
-<meta property="article:modified_time" content="2022-03-24T09:20:15.082Z">
+<meta property="article:modified_time" content="2022-03-26T03:22:05.199Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="09. 系统的状态空间表示和分析">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.5k 字
+          9.7k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          80 分钟
+          82 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月24日 上午
+                    本文最后更新于：2022年3月26日 凌晨
                   
                 
               </p>
@@ -326,22 +326,22 @@ p.spoiler {
               <h1 id="系统的状态空间表示和分析"><a href="#系统的状态空间表示和分析" class="headerlink" title="系统的状态空间表示和分析"></a>系统的状态空间表示和分析</h1><p>现代复杂控制系统中往往包含多个输入和多个输出，系统的分析更加复杂。使用一些数学方法可以简化对这些系统的分析。这些数学方法建立在对系统状态(state)的理解上：系统的状态是指系统变量、输入信号和用于描述系统动态变化的方程的集合，系统状态可以理解为系统的记忆，$t=t_0$时的系统状态能够记忆系统在$t&lt;t_0$时系统的全部输入和之前全部系统的状态。系统的状态可以提供对系统未来状态和系统输出的分析。  </p>
 <h2 id="系统的状态空间表示"><a href="#系统的状态空间表示" class="headerlink" title="系统的状态空间表示"></a>系统的状态空间表示</h2><p>系统的响应可以用一系列的由状态变量($x_i$)和输入信号表示的一阶微分方程：  </p>
 <script type="math/tex; mode=display">\dot{x_1}=a_{11}x_1+a_{12}x_2+...+a_{1n}x_n+b_{11}u_1+...b_{1m}u_m</script><script type="math/tex; mode=display">\dot{x_2}=a_{21}x_1+a_{22}x_2+...+a_{2n}x_n+b_{21}u_1+...b_{2m}u_m</script><script type="math/tex; mode=display">...</script><script type="math/tex; mode=display">\dot{x_n}=a_{n1}x_1+a_{n2}x_2+...+a_{nn}x_n+b_{n1}u_1+...b_{nm}u_m</script><p>其中$\dot{x}=\frac{d}{dt}x$.<br>这些系数和变量都可以被矩阵化：  </p>
-<script type="math/tex; mode=display">\frac{d}{dt}\left[\begin{matrix}
+<script type="math/tex; mode=display">\frac{d}{dt}\begin{bmatrix}
     x_1 \\ x_2 \\ ⋮ \\ x_n
-\end{matrix}\right]=\left[\begin{matrix}
+\end{bmatrix}=\begin{bmatrix}
     a_{11} & a_{12} & \dots &a_{1n}\\
     a_{21} & a_{22} & \dots &a_{2n}\\
     ⋮ & &\dots & ⋮ \\
     a_{n1} & a_{n2} & \dots &a_{nn}\\
-\end{matrix}\right]\left[\begin{matrix}
+\end{bmatrix}\begin{bmatrix}
     x_1 \\ x_2 \\ ⋮ \\ x_n
-\end{matrix}\right]+\left[\begin{matrix}
+\end{bmatrix}+\begin{bmatrix}
     b_{11} & \dots & b_{1m} \\
     ⋮ & & ⋮ \\
     b_{n1} & \dots & b_{nm}
-\end{matrix}\right]\left[\begin{matrix}
+\end{bmatrix}\begin{bmatrix}
     u_1 \\ u_2 \\ ⋮ \\ u_m
-\end{matrix}\right]</script><p>上述矩阵化方程可以被简写为：  </p>
+\end{bmatrix}</script><p>上述矩阵化方程可以被简写为：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+B\vec{u}</script><p>$A$是系统原型的系数矩阵(plant coeffient matrix)，$B$是控制矩阵(control matrix)。<br>这个微分方程称为系统的<strong>状态方程</strong>(state equation)，对应传递函数的极点多项式。<br>其中，$\vec{\dot{x}}$可以表示视为前一个时刻系统的状态（微分表示时延），$\vec{x}$和$\vec{u}$是当前系统的状态和输入。即当系统之前的状态和当前的输入已知时，当前的系统状态被确定下来。<br>同时，线性系统的输出也可以由系统状态和输入信号两部分组成：  </p>
 <script type="math/tex; mode=display">\vec{y}=C\vec{x}+D\vec{u}</script><p>$C$是系统的输出观测矩阵（output observation matrix），$D$是直接耦合矩阵(direct coupling matrix)。<br>这个微分方程称为系统的<strong>输出方程</strong>(output equation)，对应传递函数的零点多项式。<br>这两个方程组共同作用，可以准确的描述一个系统。用系统的状态方程和输出方程来描述系统的表达方式称为系统的状态空间表示（state-space representation/state-variable representation）。<br>某个特定系统的状态空间表达不是唯一的。<br>根据这两个方程可以建立如下的系统框图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220312161154.png width=50%>  </p>
 <h2 id="微分方程与状态空间的转换"><a href="#微分方程与状态空间的转换" class="headerlink" title="微分方程与状态空间的转换"></a>微分方程与状态空间的转换</h2><p>对于一个$n$阶微分方程：  </p>
@@ -353,9 +353,10 @@ p.spoiler {
 <li>画出系统的输入$u$或者$r$，系统的每一个状态$x_i$，以及系统输出$y$的节点。  </li>
 <li>根据每一个状态方程，将对应的节点用箭头连接，并标上对应的系数，注意用$\frac{1}{s}$表示微分。<br>下图表示了$\begin{cases}<br>  \dot{x_1}=x_2\\<br>  \dot{x_2}=x_2\\<br>  \dot{x_3}=-24x_1-26x_2-9x_3+24r\\<br>  y=x_1<br>\end{cases}$的信号流图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313134750.png width=50%>  </li>
 </ul>
-<h3 id="状态空间的表达形式"><a href="#状态空间的表达形式" class="headerlink" title="状态空间的表达形式"></a>状态空间的表达形式</h3><p>下面将介绍四种表达状态空间的形式，对于$n$阶微分方程：  </p>
+<h3 id="状态空间的表达形式（传递函数与状态空间的转换）"><a href="#状态空间的表达形式（传递函数与状态空间的转换）" class="headerlink" title="状态空间的表达形式（传递函数与状态空间的转换）"></a>状态空间的表达形式（传递函数与状态空间的转换）</h3><p>下面将介绍四种表达状态空间的形式，对于$n$阶微分方程：  </p>
 <script type="math/tex; mode=display">\frac{d^ny}{dt^n}+a_{1}\frac{d^{n-1}y}{dt^{n-1}}+...+a_ny=\frac{d^nu}{dt^n}+b_{1}\frac{d^{n-1}u}{dt^{n-1}}+...+b_nu</script><p>$u$表示系统输入，$y$表示系统输出。<br>那么在s域中有系统的传递函数：  </p>
-<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><h4 id="能控标准型"><a href="#能控标准型" class="headerlink" title="能控标准型"></a>能控标准型</h4><p>能控标准型（controllable-canonical form）的系数矩阵如下：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><h4 id="能控标准型"><a href="#能控标准型" class="headerlink" title="能控标准型"></a>能控标准型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">TF(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><p>的传递函数。<br>能控标准型（controllable-canonical form）的系数矩阵如下：  </p>
 <script type="math/tex; mode=display">A=\begin{bmatrix}
     -a_1 & -a_2 & ... & -a_{n-1} & -a_n \\
     1 & 0 & ... & 0 & 0\\
@@ -367,7 +368,8 @@ p.spoiler {
 \end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
     b_1 & b_2 & b_3 &\dots&b_n
 \end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><p>能控标准型在系统所有状态都已知的情况下分析系统是很有用的。  </p>
-<h4 id="相位变化型"><a href="#相位变化型" class="headerlink" title="相位变化型"></a>相位变化型</h4><p>相位变化型（phase-variable form）的系数矩阵如下：  </p>
+<h4 id="相位变化型"><a href="#相位变化型" class="headerlink" title="相位变化型"></a>相位变化型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">TF(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><p>的传递函数。<br>相位变化型（phase-variable form）的系数矩阵如下：  </p>
 <script type="math/tex; mode=display">A=\begin{bmatrix}
     0 & 1 & ... & 0 & 0\\
     0 & 0 & ... & 0 & 0\\
@@ -377,33 +379,35 @@ p.spoiler {
     -a_n & -a_{n-1} & ... & -a_{2} & -a_1 \\
 \end{bmatrix}</script><script type="math/tex; mode=display">B= \begin{bmatrix}
     0 \\ 0 \\ ⋮ \\ 1
-\end{bmatrix}</script><script type="math/tex; mode=display">C=[\begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
     b_n & b_{n-1} & b_{n-2} &\dots&b_1
-\end{matrix}]</script><script type="math/tex; mode=display">D=[b_0]</script><h4 id="能观标准型"><a href="#能观标准型" class="headerlink" title="能观标准型"></a>能观标准型</h4><p>能观标准型（observable-canonical form）的系数矩阵如下：  </p>
-<script type="math/tex; mode=display">A=\left[\begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><p><strong>相位变化型矩阵在控制器设计中十分有用。</strong>  </p>
+<h4 id="能观标准型"><a href="#能观标准型" class="headerlink" title="能观标准型"></a>能观标准型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">TF(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><p>的传递函数。<br>能观标准型（observable-canonical form）的系数矩阵如下：  </p>
+<script type="math/tex; mode=display">A=\begin{bmatrix}
     -a_1 & 1 & 0 &... & 0 & 0 \\
     -a_2 & 0 & 1 &... & 0 & 0\\
     -a_3 & 0 & 0 &... & 0 & 0\\
     ⋮ & ⋮ &⋮ &⋱ & ⋮ & ⋮ \\
     -a_{n-1} & 0 & 0 &... & 0 & 1\\
     -a_n & 0 & 0 &... & 0 & 0\\
-\end{matrix}\right]</script><script type="math/tex; mode=display">B=\left[ \begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">B=\begin{bmatrix}
     b_1 \\ b_2 \\ b_3 \\ ⋮ \\ b_n
-\end{matrix}\right]</script><script type="math/tex; mode=display">C=[\begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
     1 & 0 & 0 &\dots&0
-\end{matrix}]</script><script type="math/tex; mode=display">D=[b_0]</script><p>可控标准型在设计观测器时很有用。  </p>
-<h4 id="对角标准型"><a href="#对角标准型" class="headerlink" title="对角标准型"></a>对角标准型</h4><p>在标准对角型（diagonal canonical form）下，状态矩阵$A$是一个对角矩阵，其对角线为其特征值，同时也是系统方程的极点。对角标准型只适用于系统没有重极点的情况。  </p>
-<script type="math/tex; mode=display">A=\left[\begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><p><strong>可控标准型在设计观测器时很有用。</strong>  </p>
+<h4 id="对角标准型"><a href="#对角标准型" class="headerlink" title="对角标准型"></a>对角标准型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=b_0+\frac{c_1}{s+p_1}+\frac{c_2}{s+p_2}+...+\frac{c_n}{s+p_n}</script><p>的传递函数。<br>在标准对角型（diagonal canonical form）下，状态矩阵$A$是一个对角矩阵，其对角线为其特征值，同时也是系统方程的极点。对角标准型只适用于系统没有重极点的情况。  </p>
+<script type="math/tex; mode=display">A=\begin{bmatrix}
     -p_1 & 0 & ... & 0 & 0\\
     0 & -p_2 & ... & 0 & 0\\
     ⋮ & ⋮ & ⋱ & ⋮ & ⋮ \\
     0 & 0 & ... & 0 & -p_n\\
-\end{matrix}\right]</script><script type="math/tex; mode=display">B=\left[ \begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">B=\begin{bmatrix}
     1 \\ 1 \\ ⋮ \\ 1
-\end{matrix}\right]</script><script type="math/tex; mode=display">C=[\begin{matrix}
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
     c_1 & c_2 & c_3 &\dots &c_n
-\end{matrix}]</script><script type="math/tex; mode=display">D=[b_0]</script><p>$c_i$可以通过部分分式展开得到：  </p>
-<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=b_0+\frac{c_1}{s+p_1}+\frac{c_2}{s+p_2}+...+\frac{c_n}{s+p_n}</script><h4 id="约旦标准型"><a href="#约旦标准型" class="headerlink" title="约旦标准型"></a>约旦标准型</h4><p>当系统有重极点时，系统的状态空间表示可以用约旦标准型表示。当系统的传输函数为：  </p>
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><h4 id="约旦标准型"><a href="#约旦标准型" class="headerlink" title="约旦标准型"></a>约旦标准型</h4><p>当系统有重极点时，系统的状态空间表示可以用约旦标准型表示。当系统的传输函数为：  </p>
 <script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{(s+p_1)^3(s+p_4)...(s+p_n)}</script><p>其中的状态矩阵是：  </p>
 <script type="math/tex; mode=display">A=\left[\begin{matrix}
     -p_1 & 1 & 0 &... & 0 & 0\\
@@ -416,7 +420,7 @@ p.spoiler {
 \end{matrix}\right]</script><script type="math/tex; mode=display">C=[\begin{matrix}
     c_1 & c_2 & c_3 &\dots &c_n
 \end{matrix}]</script><script type="math/tex; mode=display">D=[b_0]</script><p>其中的$c_i$可以通过部分分式展开得到：  </p>
-<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=b_0+\frac{c_1}{(s+p_1)^3}+\frac{c_1}{(s+p_1)^2}+\frac{c_1}{s+p_1}+\frac{c_2}{s+p_2}+...+\frac{c_n}{s+p_n}</script><h3 id="传递函数转换状态空间"><a href="#传递函数转换状态空间" class="headerlink" title="传递函数转换状态空间"></a>传递函数转换状态空间</h3><ul>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=b_0+\frac{c_1}{(s+p_1)^3}+\frac{c_1}{(s+p_1)^2}+\frac{c_1}{s+p_1}+\frac{c_2}{s+p_2}+...+\frac{c_n}{s+p_n}</script><h3 id="状态空间表示与信号流图的转换"><a href="#状态空间表示与信号流图的转换" class="headerlink" title="状态空间表示与信号流图的转换"></a>状态空间表示与信号流图的转换</h3><ul>
 <li><p>相位变化型<br>  对传递函数$\frac{Y(s)}{U(s)}$，可将其分解为：  </p>
 <script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{V(s)}{U(s)}\frac{Y(s)}{V(s)}=\frac{∑b_is^{(m-i)}}{∑a_is^{(n-i)}}</script><p>  令$x_1=v$作为状态变量，对$\frac{V(s)}{U(s)}$可以得到一系列系统的状态方程。对$\frac{Y(s)}{V(s)}$可以得到系统的输出方程。<br>  再根据状态方程和输出方程即可绘制信号流图。<br>  <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313141835.png width=50%></p>
 </li>
@@ -574,7 +578,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年3月24日</div>
+          <div>2022年3月26日</div>
         </div>
       
       <div class="license-meta-item">
@@ -988,20 +992,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
