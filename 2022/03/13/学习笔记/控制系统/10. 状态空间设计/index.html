@@ -24,7 +24,7 @@
 <meta property="og:description" content="状态空间设计通过频率响应进行设计的缺陷是：当系统的阶数高于2后，由于缺少用来高阶近似的参数而无法改进系统特定的极点。状态空间中的设计可以通过一些数学方法寻找到这些参数，并对闭环系统特定的极点进行调整。状态空间中的设计分为两部分:     控制器（controller）设计：通过指定控制器增益将状态变量反馈给系统的输入$u$。   观测器（observer）设计：通过指定观测器增益将实际输出与估计输">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T05:25:45.884Z">
-<meta property="article:modified_time" content="2022-03-26T03:42:19.447Z">
+<meta property="article:modified_time" content="2022-04-03T07:55:06.307Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="10. 状态空间设计">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7k 字
+          7.1k 字
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年3月26日 凌晨
+                    本文最后更新于：2022年4月3日 早上
                   
                 
               </p>
@@ -352,12 +352,12 @@ p.spoiler {
 <h4 id="非相位变化型设计"><a href="#非相位变化型设计" class="headerlink" title="非相位变化型设计"></a>非相位变化型设计</h4><p>如果系统原型没有以相位变化型给出$\begin{cases}<br>    \vec{\dot{z}}=A_z\vec{z}+B_zu\\<br>    \vec{y}=C_z\vec{z}<br>\end{cases}$，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为相位变化型。<br>那么有：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}A_xP\vec{x}+P^{-1}B_xu</script><script type="math/tex; mode=display">\vec{y}=C_xP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
 <script type="math/tex; mode=display">C_z=PC_x</script><script type="math/tex; mode=display">K_z=K_xP^{-1}</script><p>那么可以得到：  </p>
-<script type="math/tex; mode=display">P=C_zC^{-1}_x</script><p>其中：<strong>$C_z$是系统非相位变化型表示中的控制矩阵，$C_x$是系统相位变化型表示中的控制矩阵。</strong>  </p>
+<script type="math/tex; mode=display">P=C_zC^{-1}_x</script><p>其中：<strong>$C_z$是系统非相位变化型表示中的控制矩阵，$C_x$是系统相位变化型表示中的能控矩阵。</strong>  </p>
 <p>所以基本思路是：  </p>
 <ul>
 <li>求得现在系统的控制矩阵$C_z=[B_z|A_zB_z|…|A_z^{n-1}B_z]$</li>
 <li>根据$|sI-A_z|=0$找到现在系统的特征方程。  </li>
-<li>根据特征方程，写出系统状态空间表示的相位变化型，找到系统相位变化型的控制矩阵$C_x=[B_x|A_xB_x|…|A^{n-1}_xB_x]$</li>
+<li>根据特征方程，写出系统状态空间表示的相位变化型，找到系统相位变化型的能控矩阵$C_x=[B_x|A_xB_x|…|A^{n-1}_xB_x]$</li>
 <li>检验能控性。  </li>
 <li>根据$P=C_zC^{-1}_x$得到$P$</li>
 <li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-B_xK_x$，并得到目标系统的特征方程$|sI-(A_x-B_xK_x)|=0$</li>
@@ -382,12 +382,13 @@ p.spoiler {
 <script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}AP\vec{x}+P^{-1}Bu</script><script type="math/tex; mode=display">\vec{y}=CP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
 <script type="math/tex; mode=display">O_z=PO_x</script><script type="math/tex; mode=display">L_z=L_xP^{-1}</script><p>那么可以得到$P=O_zO^{-1}_x$和$L_z$。<br>所以基本思路是：  </p>
 <ul>
+<li>找到现在系统的能观矩阵$O_z$  </li>
 <li>根据$|sI-A|=0$找到现在系统的特征方程。  </li>
-<li>根据特征方程，写出系统状态空间表示的相位变化型，并检验能控性。  </li>
+<li>根据特征方程，写出系统状态空间表示的能观标准型，找到系统的能观矩阵$O_x$并检验能观性。  </li>
 <li>根据$P=O_zO^{-1}_x$得到$P$</li>
 <li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-L_xB_x$，并得到目标系统的特征方程$|sI-(A_x-L_xB_x)|=0$</li>
 <li>根据设计目标求出$ω_n$和$ξ$，并构造系统的特征方程。  </li>
-<li>将系统的特征方程与$|sI-(A_x-L_xB_x)|=0$进行系数匹配，得到$K_x$</li>
+<li>将系统的特征方程与$|sI-(A_x-L_xB_x)|=0$进行系数匹配，得到$L_x$</li>
 <li>利用$L_z=L_xP^{-1}$得到$L_z$</li>
 </ul>
 <h2 id="控制器和观测器的对偶性"><a href="#控制器和观测器的对偶性" class="headerlink" title="控制器和观测器的对偶性"></a>控制器和观测器的对偶性</h2><p>可以发现，控制器的设计方法和观测器的设计方法几乎一样。事实上，控制器系统和观测器系统在数学上呈现对偶性。<br>如果控制器系统的状态空间表示系数矩阵为$A$,$B$,$C$，<br>那么观测器系统的状态空间表示系数矩阵为$A^T$,$C^T$,$B^T$。<br>在MATLAB中，观测器系统和控制器系统的控制系数和观测系数向量都用命令<code>place()</code>生成，对控制器系统：<code>K=place(A,B,p)</code><br>对观测器系统：<code>L=place(A&#39;,C&#39;,p)</code>.<br>其中<code>p</code>是闭环系统所有极点组成的向量。  </p>
@@ -542,7 +543,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年3月26日</div>
+          <div>2022年4月3日</div>
         </div>
       
       <div class="license-meta-item">
@@ -956,20 +957,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
