@@ -24,7 +24,7 @@
 <meta property="og:description" content="数字控制系统概述数字控制系统的特点数字控制系统的核心是控制器的数字化，起到系统控制作用的控制器通常是微处理器、微控制器或者是电脑。数字控制系统中，数字控制器的输入和输出信号都是数字信号。相比于模拟控制系统，采用数字信号对系统进行控制的优点是：    对噪声的鲁棒性好通过与设立的判决门限阈值比较可以直接还原数字信号。电子系统中的电容和电阻等器件的实际值往往会有公差，这些公差对数字信号不会起到很大的影">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-12T05:29:53.339Z">
-<meta property="article:modified_time" content="2022-04-16T05:36:13.340Z">
+<meta property="article:modified_time" content="2022-04-16T06:54:59.504Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="11. 数字控制系统概述">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          2.7k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          22 分钟
+          23 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月16日 凌晨
+                    本文最后更新于：2022年4月16日 早上
                   
                 
               </p>
@@ -367,8 +367,13 @@ p.spoiler {
 <script type="math/tex; mode=display">ZOH(s)=\frac{1-e^{-Ts}}{s}</script><p>则整个系统的传输方程：  </p>
 <script type="math/tex; mode=display">G_{ZA}(s)=ZOH(s)G(s)</script><p>对其进行z变换，得到：  </p>
 <script type="math/tex; mode=display">G_{ZA}(z)=\frac{z-1}{z}𝒵[\frac{G(s)}{s}]</script><p>$𝒵[⋅]$表示z变换。  </p>
-<h2 id="数字控制系统的分析参数"><a href="#数字控制系统的分析参数" class="headerlink" title="数字控制系统的分析参数"></a>数字控制系统的分析参数</h2><h3 id="系统类型"><a href="#系统类型" class="headerlink" title="系统类型"></a>系统类型</h3><p>对于数字控制系统，其开环传递函数可以表示为：  </p>
-<script type="math/tex; mode=display">TF(z)=\frac{1}{(z-1)^N}\frac{B(z)}{A(z)}</script><p>以$(z-1)^N$中$N$对其进行分类：$N=0、1、2$时，称系统分别为0/1/2型系统。<br>不同类型的系统在不同输入时，其瞬态响应的表现是不同的。  </p>
+<h2 id="数字控制系统的分析"><a href="#数字控制系统的分析" class="headerlink" title="数字控制系统的分析"></a>数字控制系统的分析</h2><h3 id="差分方程"><a href="#差分方程" class="headerlink" title="差分方程"></a>差分方程</h3><p>数字控制系统中可以使用差分方程描述系统的特性：  </p>
+<script type="math/tex; mode=display">∑b_ky(n+k)=∑a_kx(n+k)</script><div class="note note-warning">
+            <p>需要注意系统的初始条件，如果规定了系统的初始条件：$y(0)≠0$、$y(1)≠0$，则应当利用z变换的时移性质：  </p><script type="math/tex; mode=display">Z[f(k+1)]=zF(z)-zf(0)</script><script type="math/tex; mode=display">Z[f(k+n)]=zF(z)-∑_{k=0}z^{n-k}f(k)</script>
+          </div>
+<p>对差分方程两边做z变换，整理可以得到系统的闭环传递函数：  </p>
+<script type="math/tex; mode=display">TF_{cl}(z)=\frac{Y(z)}{X(z)}=\frac{}{}</script><h3 id="系统类型"><a href="#系统类型" class="headerlink" title="系统类型"></a>系统类型</h3><p>对于数字控制系统，其开环传递函数可以表示为：  </p>
+<script type="math/tex; mode=display">\frac{1}{(z-1)^N}\frac{B(z)}{A(z)}</script><p>以$(z-1)^N$中$N$对其进行分类：$N=0、1、2$时，称系统分别为0/1/2型系统。<br>不同类型的系统在不同输入时，其瞬态响应的表现是不同的。  </p>
 <h3 id="系统的瞬态分析"><a href="#系统的瞬态分析" class="headerlink" title="系统的瞬态分析"></a>系统的瞬态分析</h3><p>数字控制系统的瞬态中同样有设置时间、峰值时间、上升时间、滞后时间、过冲率等指标，其定义与模拟控制系统的瞬态分析相同。</p>
 <h3 id="稳态误差"><a href="#稳态误差" class="headerlink" title="稳态误差"></a>稳态误差</h3><p>和模拟控制系统一样，同样地，可以根据系统输入为阶跃序列、斜坡序列、圆锥序列时，其稳态误差是：  </p>
 <div class="table-container">
@@ -883,20 +888,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
