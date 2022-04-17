@@ -24,7 +24,7 @@
 <meta property="og:description" content="数据链路层技术数据链路控制是为了更有效地进行数据通信、对传输过程起到控制作用而设立的。系统之间传输的媒体称为数据链路。数据链路层涉及到的通信任务是：    帧同步：传输时需要保证收发两方开始和结束发送一帧的时间点双方都已知。做到这一点的方法有两种：   每一帧的长度相同，但是这种方式在通信环境不理想的情况下可靠性不强。   每一帧都有标志(flag)表示一帧的起点和终点。     流量控制：在数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T05:46:07.825Z">
-<meta property="article:modified_time" content="2022-04-17T07:12:35.177Z">
+<meta property="article:modified_time" content="2022-04-17T07:56:26.573Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5.4k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          39 分钟
+          46 分钟
         
       </span>
     
@@ -376,7 +376,7 @@ p.spoiler {
             <p>在计算机网络中，节点的功能不只是交换，还可以是存储和计算。随着通信网不断地和计算机网络融合，新型通信网中的某些节点也具有这些功能。  </p>
           </div><br>节点之间通过一定的拓扑结构连接在一起，与终端（或者称之为站点(station)）一起构成交换式通信网。<br>如何制定节点之间的数据交换规则，使得在特定应用场景下的可靠性或者有效性或者节约程度突出是交换式通信网中需要讨论的问题。<br>常见的交换技术有四种：电路交换、分组交换、帧中继和ATM。<br>这些交换技术可分为两类：  </p>
 <ul>
-<li><p>面向连接的（connecting-oriented）<br>在双方通信之前需要建立连接，直到通信结束后才能释放这个链接。需要注意的是，在建立连接后，无论双方是否通信，连接都会持续占用整个网络的通信资源，因此面向连接的服务通常是以连接时间计费。<br>面向连接的通信包括三个阶段：  </p>
+<li><p>面向连接的（connecting-oriented）<br>在双方通信之前需要通过通讯会话建立连接，直到通信结束后才能释放这个链接。需要注意的是，在建立连接后，无论双方是否通信，连接都会持续占用整个网络的通信资源，因此面向连接的服务通常是以连接时间计费。<br>面向连接的通信包括三个阶段：  </p>
 <ul>
 <li>双方建立连接</li>
 <li>通过连接双方进行通信</li>
@@ -387,7 +387,7 @@ p.spoiler {
 <li><p>无连接的（connectingless）<br>通信的双方不需要在通信前建立连接。通信的发送方不关心接收方是否可以收到，也不保证连接的可靠性。<br>如果传输系统本身就具有高可靠性的特点，那么通行环境也可以保证无连接的可靠性。  </p>
 </li>
 </ul>
-<h3 id="电路交换（circuit-switching）"><a href="#电路交换（circuit-switching）" class="headerlink" title="电路交换（circuit switching）"></a>电路交换（circuit switching）</h3><p>电路交换是面向连接的交换，通信的双方在通信前建立双方独占、专用的物理通道，是一种物理连接。<br>如果双方的通信需要经过中间结点，在电路交换中，中间结点不关心数据内容，直接转发，此时中间结点的转发时间相对于传输时间是可以忽略不计的，因此这样的传输可以保证传输数据率始终恒定。传输过程中看起来传输的两端仿佛存在一条直接连接，因此这样的传输称为<strong>透明传输/透传</strong>（Transparent Transmission）。<br>同时双方与中间结点的连接使用的信道/电路是不同的，且一定专用。  </p>
+<h3 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h3><p>电路交换（circuit switching）是面向连接的交换，通信的双方在通信前建立双方独占、专用的物理通道，是一种物理连接。<br>如果双方的通信需要经过中间结点，在电路交换中，中间结点不关心数据内容，直接转发，此时中间结点的转发时间相对于传输时间是可以忽略不计的，因此这样的传输可以保证传输数据率始终恒定。传输过程中看起来传输的两端仿佛存在一条直接连接，因此这样的传输称为<strong>透明传输/透传</strong>（Transparent Transmission）。<br>同时双方与中间结点的连接使用的信道/电路是不同的，且一定专用。  </p>
 <div class="note note-info">
             <p>物理连接：利用物体的物理特性对相关物体进行连接，连接过程占用的资源是物理的（比如时间和频率）。  </p>
           </div>  
@@ -402,21 +402,75 @@ p.spoiler {
 <li><p>时分交换<br>如果链路中使用了时分复用技术，那么对中间结点而言，其会接收某个时隙上的数据，然后转发时将数据置于另一个时隙上。  </p>
 </li>
 </ul>
-<p>电路交换的例子是电话线网络。<br>电路交换的优点是由于其透明性，电路交换往往可以稳定地实现恒定高数据率的传输。<br>其缺点是：</p>
+<p>电路交换的例子是电话线网络。<br>电路交换的优点是：由于其透明性，电路交换往往可以稳定地实现恒定高数据率的传输。<br>其缺点是：</p>
 <ul>
 <li>其对通信资源的分配是固定的，且双方在通信过程中很难获取到额外的资源。</li>
 <li>由于通信资源的专有性，连接被建立后，线路在空闲时的通信资源无法被网络上的其他结点使用，通信资源利用率低。  </li>
 <li>由于电路交换的数据率恒定，因此在不同类型的设备上传输时，两个设备必须以相同的数据率传输和接收，网络的利用率受到限制。</li>
 </ul>
-<h3 id="分组交换（package-switching）"><a href="#分组交换（package-switching）" class="headerlink" title="分组交换（package switching）"></a>分组交换（package switching）</h3><p>分组交换的例子是计算机之间的通信。  </p>
-<p>分组交换的缺点是无法保证每一次通信都可以获得足够的资源，且不能保证重要的资源被合理分配。并且在传输过程中数据包的顺序还可能发生移位或者丢失。  </p>
-<h4 id="虚电路"><a href="#虚电路" class="headerlink" title="虚电路"></a>虚电路</h4><p>虚电路（vitual circuit）是一种面向连接的分组交换，在通信前双方需要从共享的通信资源中划分出专用的逻辑通信连接。</p>
-<h4 id="用户数据报"><a href="#用户数据报" class="headerlink" title="用户数据报"></a>用户数据报</h4><p>而用户数据报网络（user datagram post，UDP）是一种无连接的分组交换。  </p>
+<h3 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h3><p>在分组交换（package switching）中，传输数据分为多个数据包进行发送。每个数据包的格式是标准化的，每个数据包中有首部的控制信息（包含路由信息）和其后的用户数据，大小可以不同。到达中间结点的数据包会首先在缓存中存储，等到相应的输出电路空闲时再转发数据包。分组交换所使用的资源和连接都是逻辑的，被整个网络的所有节点共用。双方如果不通信，资源则由网络中的其他用户共享，因此分组交换服务是以数据大小进行计费的。分组交换可以是面向连接的，也可以是无连接的。<br>分组交换的例子是计算机之间的通信。  </p>
+<h4 id="虚电路"><a href="#虚电路" class="headerlink" title="虚电路"></a>虚电路</h4><p>虚电路（vitual circuit）是一种面向连接的分组交换，在通信前双方需要从共享的通信资源中建立一条预订的路由（但是这条路由仍然和其他虚电路共享），并且相应的路由信息会被添加到分组中。因此，在转发每个分组时，节点不需要为每个分组选择路由。对于使用同一条虚电路的所有分组节点只需要做一次路由选择。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417153729.png width=50%>  </p>
+<h4 id="用户数据报"><a href="#用户数据报" class="headerlink" title="用户数据报"></a>用户数据报</h4><p>而用户数据报网络（user datagram post，UDP）是一种无连接的分组交换。在数据包中，每个分组被视为独立的，因此一些分组虽然有相同的目的地址，但是并不是沿着相同的路由到达目的地，并且可能会失序地到达目的地。<br>数据报省略了呼叫建立过程，同时由于其更加原始，因此可以更加灵活地处理数据。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417153947.png width=50%>  </p>
 <div class="note note-info">
             <p>电路交换和分组交换也可以组合使用，比如在语音通话中，双方拨号建立连接的过程会发送一些用于建立连接的信息，这些信息的传输方式是分组交换。连接建立后，用于连接的通信资源会归还会网络中供其他用户进行建立连接的信息传输。但是连接一旦被建立，双方的通信则是电路交换（或者说语音通话本身仍然是电路交换的）。  </p>
           </div>  
+<p>分组交换的优点是：  </p>
+<ul>
+<li>链路在一段时间可以被许多分组动态地共享，通信资源的利用率较高。  </li>
+<li>分组交换网络可以完成不同传输设备之间的数据率转换。  </li>
+<li>网络发生拥塞时，分组仍然可以被中间结点接收并存储在缓存中，并不会像电路交换那样双方因为无法分配到资源而无法通信。  </li>
+<li>可以对不同的分组定义不同的优先级。  </li>
+</ul>
+<p>分组交换的缺点是：</p>
+<ul>
+<li>无法保证每一次通信都可以获得足够的资源，且不能保证重要的资源被合理分配。</li>
+<li>在传输过程中数据包的顺序还可能发生移位或者丢失。  </li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">电路交换</th>
+<th style="text-align:center">分组交换<br>用户数据报</th>
+<th style="text-align:center">分组交换<br>虚电路</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">面向连接的<br>有专用通路</td>
+<td style="text-align:center">无连接的<br>无专用通路</td>
+<td style="text-align:center">面向连接的<br>无专用通路</td>
+</tr>
+<tr>
+<td style="text-align:center">在整个会话过程建立通路</td>
+<td style="text-align:center">为每个分组建立路由</td>
+<td style="text-align:center">为整个会话过程建立通路</td>
+</tr>
+<tr>
+<td style="text-align:center">呼叫建立时延，传输时延可以忽略</td>
+<td style="text-align:center">分组传输时延</td>
+<td style="text-align:center">呼叫建立时延，分组传输时延</td>
+</tr>
+<tr>
+<td style="text-align:center">用户负责报文丢失</td>
+<td style="text-align:center">网络可能对单个丢失分组负责</td>
+<td style="text-align:center">网络可能为分组序列丢失负责</td>
+</tr>
+<tr>
+<td style="text-align:center">固定带宽传输</td>
+<td style="text-align:center">动态使用带宽</td>
+<td style="text-align:center">动态使用带宽</td>
+</tr>
+<tr>
+<td style="text-align:center">呼叫建立后没有额外开销比特</td>
+<td style="text-align:center">每个分组中有额外开销比特</td>
+<td style="text-align:center">每个分组中有额外开销比特</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h3 id="帧中继（frame-relay）"><a href="#帧中继（frame-relay）" class="headerlink" title="帧中继（frame relay）"></a>帧中继（frame relay）</h3><p>由于通信环境的高数据率和误码率，传统分组交换网中物理层的差错控制功能显得冗余和高成本。帧中继中纠错功能被直接交由上层——网络层进行处理，从而减小系统在物理层的开销。在通信中用户信息以帧（frame）为单位进行传送，帧是一种数据包，其特点是长度可变。网络在传送过程中对帧结构、传送差错等情况进行检查，对出错的帧直接予以丢弃。  </p>
-<h3 id="异步传递方式-ATM-asynchronous-transmission-method"><a href="#异步传递方式-ATM-asynchronous-transmission-method" class="headerlink" title="异步传递方式/ATM(asynchronous transmission method)"></a>异步传递方式/ATM(asynchronous transmission method)</h3><p>本质上，ATM是一种面向连接的分组交换，但是与虚电路不同的是，ATM中建立的连接信道的数据率是可以被动态定义的，因此解决了虚电路在通信时难以获取额外资源的缺点。ATM使用固定长度的数据包，称为信元（cell）。每一个信元由于体积小而易于处理，使得传输高效。同帧中继一样，ATM在传输过程中也在物理层几乎不为差错控制有额外的开销，而将这部分功能转交给上层。<br>但是在2G时代由于使用ATM需要更换终端设备，成本开销巨大，因此在2G时代这一技术并未流行。  </p>
+<h3 id="软交换技术"><a href="#软交换技术" class="headerlink" title="软交换技术"></a>软交换技术</h3><h3 id="异步传递方式-ATM-asynchronous-transmission-method"><a href="#异步传递方式-ATM-asynchronous-transmission-method" class="headerlink" title="异步传递方式/ATM(asynchronous transmission method)"></a>异步传递方式/ATM(asynchronous transmission method)</h3><p>本质上，ATM是一种面向连接的分组交换，但是与虚电路不同的是，ATM中建立的连接信道的数据率是可以被动态定义的，因此解决了虚电路在通信时难以获取额外资源的缺点。ATM使用固定长度的数据包，称为信元（cell）。每一个信元由于体积小而易于处理，使得传输高效。同帧中继一样，ATM在传输过程中也在物理层几乎不为差错控制有额外的开销，而将这部分功能转交给上层。<br>但是在2G时代由于使用ATM需要更换终端设备，成本开销巨大，因此在2G时代这一技术并未流行。  </p>
 
               
             </div>
