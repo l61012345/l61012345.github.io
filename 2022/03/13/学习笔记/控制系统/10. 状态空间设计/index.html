@@ -24,7 +24,7 @@
 <meta property="og:description" content="状态空间设计通过频率响应进行设计的缺陷是：当系统的阶数高于2后，由于缺少用来高阶近似的参数而无法改进系统特定的极点。状态空间中的设计可以通过一些数学方法寻找到这些参数，并对闭环系统特定的极点进行调整。状态空间中的设计分为两部分:     控制器（controller）设计：通过指定控制器增益将状态变量反馈给系统的输入$u$。   观测器（observer）设计：通过指定观测器增益将实际输出与估计输">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-13T05:25:45.884Z">
-<meta property="article:modified_time" content="2022-04-17T06:15:39.951Z">
+<meta property="article:modified_time" content="2022-04-19T05:50:19.620Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月17日 早上
+                    本文最后更新于：2022年4月19日 凌晨
                   
                 
               </p>
@@ -343,11 +343,11 @@ p.spoiler {
 <h3 id="设计步骤"><a href="#设计步骤" class="headerlink" title="设计步骤"></a>设计步骤</h3><h4 id="相位变化型设计"><a href="#相位变化型设计" class="headerlink" title="相位变化型设计"></a>相位变化型设计</h4><p>如果系统以相位变化型给出：  </p>
 <ul>
 <li>检查系统原型的稳定性</li>
-<li>根据系统设计要求中的过冲率和设置时间计算出系统要求的阻尼比$ξ$和固有频率$ω_n$，构建系统的二阶极点项：$(s^2+2ξω_ns+ω_n^2)$   </li>
-<li>如果系统原型存在零点$(s+z)$，则添加新的极点项$(s+p),p=z$。<br>（此时可以得到设计要求的极点多项式为：$(s+p)(s^2+2ξω_ns+ω_n^2)$）</li>
+<li>根据系统设计要求中的过冲率和设置时间计算出系统要求的阻尼比$ζ$和固有频率$ω_n$，构建系统的二阶极点项：$(s^2+2ζω_ns+ω_n^2)$   </li>
+<li>如果系统原型存在零点$(s+z)$，则添加新的极点项$(s+p),p=z$。<br>（此时可以得到设计要求的极点多项式为：$(s+p)(s^2+2ζω_ns+ω_n^2)$）</li>
 <li>$n$个反馈控制系数$-k$，并计算得到矩阵$A-BK$。  </li>
 <li>找到改进后系统的特征方程$|sI-(A-BK)|=0$。  </li>
-<li>将$|sI-(A-BK)|=0$与$(s+p)(s^2+2ξω_ns+ω_n)=0$的系数进行匹配，使用待定系数法即可得到所有的$k$</li>
+<li>将$|sI-(A-BK)|=0$与$(s+p)(s^2+2ζω_ns+ω_n)=0$的系数进行匹配，使用待定系数法即可得到所有的$k$</li>
 </ul>
 <h4 id="非相位变化型设计"><a href="#非相位变化型设计" class="headerlink" title="非相位变化型设计"></a>非相位变化型设计</h4><p>如果系统原型没有以相位变化型给出$\begin{cases}<br>    \vec{\dot{z}}=A_z\vec{z}+B_zu\\<br>    \vec{y}=C_z\vec{z}<br>\end{cases}$，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为相位变化型。<br>那么有：  </p>
 <script type="math/tex; mode=display">\vec{\dot{x}}=P^{-1}A_xP\vec{x}+P^{-1}B_xu</script><script type="math/tex; mode=display">\vec{y}=C_xP\vec{z}</script><p>变换前后的控制矩阵和反馈控制向量有如下关系：  </p>
@@ -361,7 +361,7 @@ p.spoiler {
 <li>检验能控性。  </li>
 <li>根据$P=C_zC^{-1}_x$得到$P$</li>
 <li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-B_xK_x$，并得到目标系统的特征方程$|sI-(A_x-B_xK_x)|=0$</li>
-<li>根据设计目标求出$ω_n$和$ξ$，并构造系统的特征方程。  </li>
+<li>根据设计目标求出$ω_n$和$ζ$，并构造系统的特征方程。  </li>
 <li>将系统的特征方程与$|sI-(A_x-B_xK_x)|=0$进行系数匹配，得到$K_x$</li>
 <li>利用$K_z=K_xP^{-1}$得到$K_z$</li>
 </ul>
@@ -375,7 +375,7 @@ p.spoiler {
 <li>将系统原型改写为能观标准型，并检查系统原型的能观性。  </li>
 <li>根据系统原型的能观标准型，得到其状态转移矩阵$Φ=A-LC$</li>
 <li>根据系统的状态转换矩阵得到含有观测系数$l$的系统特征方程：$|sI-(A-LC)|=0$  </li>
-<li>根据对系统设计的要求计算出要求的阻尼比$ξ$和固有频率$ω_n$，构造目标系统的特征方程。  </li>
+<li>根据对系统设计的要求计算出要求的阻尼比$ζ$和固有频率$ω_n$，构造目标系统的特征方程。  </li>
 <li>将目标系统的特征方程与$|sI-(A-LC)|=0$匹配，使用待定系数法得到观测向量$L$中的每一个元素$l$。  </li>
 </ul>
 <p>当原型系统$\begin{cases}<br>    \vec{\dot{z}}=A\vec{z}+Bu\\<br>    \vec{y}=C\vec{z}<br>\end{cases}$没有以能观标准型给出时，那么可以假设有映射关系$\vec{z}=P\vec{x}$使得系统的状态空间表示为能观标准型。<br>那么有：  </p>
@@ -387,7 +387,7 @@ p.spoiler {
 <li>根据特征方程，写出系统状态空间表示的能观标准型，找到系统的能观矩阵$O_x$并检验能观性。  </li>
 <li>根据$P=O_zO^{-1}_x$得到$P$</li>
 <li>根据相位变化型中的$A_x$，$B_x$，找到$A_x-L_xB_x$，并得到目标系统的特征方程$|sI-(A_x-L_xB_x)|=0$</li>
-<li>根据设计目标求出$ω_n$和$ξ$，并构造系统的特征方程。  </li>
+<li>根据设计目标求出$ω_n$和$ζ$，并构造系统的特征方程。  </li>
 <li>将系统的特征方程与$|sI-(A_x-L_xB_x)|=0$进行系数匹配，得到$L_x$</li>
 <li>利用$L_z=L_xP^{-1}$得到$L_z$</li>
 </ul>
@@ -543,7 +543,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年4月17日</div>
+          <div>2022年4月19日</div>
         </div>
       
       <div class="license-meta-item">

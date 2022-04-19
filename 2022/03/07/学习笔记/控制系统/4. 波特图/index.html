@@ -24,7 +24,7 @@
 <meta property="og:description" content="波特图波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：   使用MATLAB绘制波特图在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如：1234num&#x3D;[8,18,32] %传递函数的分子系数den">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-07T03:28:22.105Z">
-<meta property="article:modified_time" content="2022-04-17T06:15:22.377Z">
+<meta property="article:modified_time" content="2022-04-19T05:47:22.922Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月17日 早上
+                    本文最后更新于：2022年4月19日 凌晨
                   
                 
               </p>
@@ -340,7 +340,7 @@ p.spoiler {
 <li>常数项$K$：称为增益</li>
 <li>$s$：称为积分环节（分子）或者微分环节（分母）</li>
 <li>一阶项$(s+1)$</li>
-<li>二阶项$(s^2+2ξs+1)$   </li>
+<li>二阶项$(s^2+2ζs+1)$   </li>
 </ul>
 <p>通过分别讨论这几个元素的波特图，进而可以推理出任意传递函数的波特图。  </p>
 <ul>
@@ -370,21 +370,21 @@ p.spoiler {
 </li>
 </ul>
 </li>
-<li><p>二阶项$(s^2+2ξs+1)$<br>对$(\frac{s^2}{ω_n^2}+2\frac{ξ}{ω_n}s+1)^{+1}$，有：</p>
-<script type="math/tex; mode=display">\frac{1}{T}=ω_n</script><p>幅值：$20lg(\sqrt{(1-\frac{ω^2}{ω_n^2}+(2ξ\frac{ω^2}{ω_n^2}))})$，其波特图近似为：  </p>
+<li><p>二阶项$(s^2+2ζs+1)$<br>对$(\frac{s^2}{ω_n^2}+2\frac{ζ}{ω_n}s+1)^{+1}$，有：</p>
+<script type="math/tex; mode=display">\frac{1}{T}=ω_n</script><p>幅值：$20lg(\sqrt{(1-\frac{ω^2}{ω_n^2}+(2ζ\frac{ω^2}{ω_n^2}))})$，其波特图近似为：  </p>
 <ul>
 <li>当$0&lt;ω&lt;\frac{1}{T}$，幅值为0  </li>
 <li>当$ω&gt;\frac{1}{T}$，幅值为$40lg(ω)$  </li>
 </ul>
-<p>相位：$arctan\frac{2ξ\frac{ω}{ω_n}}{1-\frac{ω}{ω_n^2}}$，其波特图近似为：  </p>
+<p>相位：$arctan\frac{2ζ\frac{ω}{ω_n}}{1-\frac{ω}{ω_n^2}}$，其波特图近似为：  </p>
 <ul>
 <li>当$0&lt;ω&lt;\frac{0.1}{T}$，相位为0°  </li>
 <li>当$\frac{0.1}{T}&lt;ω&lt;\frac{10}{T}$，斜率为$10°T$($90°/decade$)的直线   </li>
-<li>当$ω&gt;\frac{10}{T}$，相位为180°<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307104134.png width=50%><br>同理，$(\frac{s^2}{ω_n^2}+2\frac{ξ}{ω_n}s+1)^{-1}$的波特图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307104248.png width=50%>  </li>
+<li>当$ω&gt;\frac{10}{T}$，相位为180°<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307104134.png width=50%><br>同理，$(\frac{s^2}{ω_n^2}+2\frac{ζ}{ω_n}s+1)^{-1}$的波特图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307104248.png width=50%>  </li>
 </ul>
-<p>此外，二阶系统由于存在阻尼，在峰值位置$ω_p$需要对峰值进行修正：<br>在峰值处，有$\frac{d}{dω}|H(jω)|=0$，其中$ω_p=ω_n\sqrt{1-2ξ^2}$，代回求得峰值为：  </p>
-<script type="math/tex; mode=display">|H(jω_p)|_{dB}=-20lg(2ξ\sqrt{1-ξ^2})</script><p>当$0&lt;ξ&lt;\frac{1}{√2}$时，可以视为$ω_p=ω_n$，那么该点的值可以近似为：  </p>
-<script type="math/tex; mode=display">|H(jω_n)|_{dB}=-20lg(2ξ)</script><p>因此，当$0&lt;ξ&lt;\frac{1}{√2}$时，需要在$\frac{1}{T}$处增加$-20lg(2ξ)$进行修正。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307105436.png width=50%></p>
+<p>此外，二阶系统由于存在阻尼，在峰值位置$ω_p$需要对峰值进行修正：<br>在峰值处，有$\frac{d}{dω}|H(jω)|=0$，其中$ω_p=ω_n\sqrt{1-2ζ^2}$，代回求得峰值为：  </p>
+<script type="math/tex; mode=display">|H(jω_p)|_{dB}=-20lg(2ζ\sqrt{1-ζ^2})</script><p>当$0&lt;ζ&lt;\frac{1}{√2}$时，可以视为$ω_p=ω_n$，那么该点的值可以近似为：  </p>
+<script type="math/tex; mode=display">|H(jω_n)|_{dB}=-20lg(2ζ)</script><p>因此，当$0&lt;ζ&lt;\frac{1}{√2}$时，需要在$\frac{1}{T}$处增加$-20lg(2ζ)$进行修正。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307105436.png width=50%></p>
 </li>
 </ul>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>对幅频响应：  </p>
@@ -425,7 +425,7 @@ p.spoiler {
             <p>系统处于临界稳定时导致系统临界的增益部分$K_c$可以由如下公式给出：  </p><script type="math/tex; mode=display">GM=20lg\frac{K_c}{K}</script><p>其中$K$为系统增益。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112654.png width=30%>  </p>
           </div>
 <h2 id="从波特图反推开环传递函数"><a href="#从波特图反推开环传递函数" class="headerlink" title="从波特图反推开环传递函数"></a>从波特图反推开环传递函数</h2><h3 id="阻尼和固有频率"><a href="#阻尼和固有频率" class="headerlink" title="阻尼和固有频率"></a>阻尼和固有频率</h3><p>当相位裕量小于60°时，相位裕量、阻尼、带宽之间有如下关系：  </p>
-<script type="math/tex; mode=display">PM=100°ξ</script><script type="math/tex; mode=display">\frac{B}{ω_n}=1-0.5ξ</script><p>其中$B$是系统带宽，是幅值为-3dB对应的频率。<br>可以通过波特图找出相位裕量和带宽，以此求得二阶系统的阻尼和固有频率。  </p>
+<script type="math/tex; mode=display">PM=100°ζ</script><script type="math/tex; mode=display">\frac{B}{ω_n}=1-0.5ζ</script><p>其中$B$是系统带宽，是幅值为-3dB对应的频率。<br>可以通过波特图找出相位裕量和带宽，以此求得二阶系统的阻尼和固有频率。  </p>
 <h3 id="初始值与系统类型"><a href="#初始值与系统类型" class="headerlink" title="初始值与系统类型"></a>初始值与系统类型</h3><p>系统类型与其波特图关系如下所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307115722.png width=50%>  </p>
 <p>可以发现，通过初始值即可确定系统类型，即分母中$s^N$项的次数。0型系统的初始值为$20lgK_p$，I型系统的初始值为-20dB，II型系统的初始值为-40dB。  </p>
 <h3 id="终段斜率与系统阶数"><a href="#终段斜率与系统阶数" class="headerlink" title="终段斜率与系统阶数"></a>终段斜率与系统阶数</h3><p>系统波特图的最后一段斜率与系统阶数关系为：  </p>
@@ -438,8 +438,8 @@ p.spoiler {
 <li>波特图上发生斜率变化一定由加入的零点/极点极点造成：一阶项对初始斜率的贡献为$20dB$,二阶项对斜率的贡献为$40dB$。如果元素位于分母（极点），则斜率贡献为负，如果元素位于分子（零点），则斜率贡献为正。  </li>
 </ul>
 <p>根据这两条理论则可以判断每一个区间上影响其斜率变化的极点/零点结构类型。  </p>
-<p>如果存在修正，可以根据在固有频率处修正前后的幅值差求得$ξ$:  </p>
-<script type="math/tex; mode=display">M_c=20lg(2ξ)</script>
+<p>如果存在修正，可以根据在固有频率处修正前后的幅值差求得$ζ$:  </p>
+<script type="math/tex; mode=display">M_c=20lg(2ζ)</script>
               
             </div>
             <hr/>
@@ -502,7 +502,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年4月17日</div>
+          <div>2022年4月19日</div>
         </div>
       
       <div class="license-meta-item">
