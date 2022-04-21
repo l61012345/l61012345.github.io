@@ -24,7 +24,7 @@
 <meta property="og:description" content="数据链路层技术数据链路控制是为了更有效地进行数据通信、对传输过程起到控制作用而设立的。系统之间传输的媒体称为数据链路。数据链路层涉及到的通信任务是：    帧同步：传输时需要保证收发两方开始和结束发送一帧的时间点双方都已知。做到这一点的方法有两种：   每一帧的长度相同，但是这种方式在通信环境不理想的情况下可靠性不强。   每一帧都有标志(flag)表示一帧的起点和终点。     流量控制：在数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T05:46:07.825Z">
-<meta property="article:modified_time" content="2022-04-20T09:27:55.229Z">
+<meta property="article:modified_time" content="2022-04-21T08:16:34.174Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.1k 字
+          7k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          51 分钟
+          59 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月20日 上午
+                    本文最后更新于：2022年4月21日 早上
                   
                 
               </p>
@@ -476,8 +476,22 @@ p.spoiler {
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417163755.png width=60%>  </p>
 <h3 id="异步传递方式-ATM-asynchronous-transmission-method"><a href="#异步传递方式-ATM-asynchronous-transmission-method" class="headerlink" title="异步传递方式/ATM(asynchronous transmission method)"></a>异步传递方式/ATM(asynchronous transmission method)</h3><h4 id="分组的大小"><a href="#分组的大小" class="headerlink" title="分组的大小"></a>分组的大小</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417165838.png width=50%>  </p>
 <p>分组交换中，固定长度的一段报文被分成多少个分组取决于不同的应用场景。粒度高的分组方式(如上图中a)其额外开销比特（即头部的控制信息）与用户数据占比更小，传输效率更高。粒度低(如上图中d)的分组方式，其额外开销比特与用户占比更大，但是更多的分组在交换时可以更加灵活处理，交换效率更高。    </p>
-<h3 id="ATM-体系结构"><a href="#ATM-体系结构" class="headerlink" title="ATM 体系结构"></a>ATM 体系结构</h3><p>本质上，ATM是一种面向连接的分组交换，但是与虚电路不同的是，ATM中建立的连接信道的数据率是可以被动态定义的，因此解决了虚电路在通信时难以获取额外资源的缺点。ATM使用固定长度且非常小的数据包，称为信元（cell）。每一个信元由于体积小而易于处理，使得传输高效。同帧中继一样，ATM在传输过程中也在物理层几乎不为差错控制有额外的开销，而将这部分功能转交给上层。<br>但是在2G时代由于使用ATM需要更换终端设备，成本开销巨大，因此在2G时代这一技术并未流行。直到3G时代，ATM协议作为接入网的第二层才得到广泛应用。<br>ATM协议中有两层与ATM的功能相关：ATM层提供分组传输能力，而ATM适配层(AAL)提供了将高层信息映射到ATM信源的方式，使其能够以ATM方式传输。AAL对五种业务进行了适配。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220420170848.png width=30%>  </p>
-<h3 id="ATM-逻辑连接"><a href="#ATM-逻辑连接" class="headerlink" title="ATM 逻辑连接"></a>ATM 逻辑连接</h3><p>ATM中的逻辑连接称为虚通路连接。</p>
+<h4 id="ATM-体系结构"><a href="#ATM-体系结构" class="headerlink" title="ATM 体系结构"></a>ATM 体系结构</h4><p>本质上，ATM是一种面向连接的分组交换，但是与虚电路不同的是，ATM中建立的连接信道的数据率是可以被动态定义的，因此解决了虚电路在通信时难以获取额外资源的缺点。ATM使用固定长度且非常小的数据包，称为信元（cell）。每一个信元由于体积小而易于处理，使得传输高效。同帧中继一样，ATM在传输过程中也在物理层几乎不为差错控制有额外的开销，而将这部分功能转交给上层。<br>但是在2G时代由于使用ATM需要更换终端设备，成本开销巨大，因此在2G时代这一技术并未流行。直到3G时代，ATM协议作为接入网的第二层才得到广泛应用。<br>ATM协议中有两层与ATM的功能相关：ATM层提供分组传输能力，而ATM适配层(AAL)提供了将高层信息映射到ATM信源的方式，使其能够以ATM方式传输。AAL对五种业务进行了适配。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220420170848.png width=30%>  </p>
+<h4 id="ATM-逻辑连接"><a href="#ATM-逻辑连接" class="headerlink" title="ATM 逻辑连接"></a>ATM 逻辑连接</h4><p>ATM中的逻辑连接称为虚通路连接。端用户之间的物理传输通道被划分成多个虚通道，同时虚通道(VC, virtual channel)可以被划分为多个虚通路(VP,virtual path)。每一个虚通路都是速率可变的、全双工的、长途固定的信元流。且每一个虚通路都有唯一的识别标志虚通路标识符（VPI)，每一个虚通道也有唯一的识别标志虚通道标识符（VCI）。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220421135621.png width=50%>  </p>
+<p>为了避免从不同虚通道上来的具有相同VPI的信元流在结点转发过程中出现错误，中间结点会将来自某个虚通路或者虚通道上接收的信元根据特定的映射，交换到另一个虚通路或者虚通道上。这样的交换可以是低粒度的（只是将信元转发到另一个虚通路）也可以是高粒度的（将信元转发到另一个虚通道的另一个虚通路上）。  </p>
+<p>ATM建立连接通信的本质是<strong>在建立连接的过程中，链路上的每一个中间结点都会建立一个对应的转发映射，其中规定了来自某条虚通道的虚通路上的信元一定会被转发到另一特定的虚通道的虚通路上。</strong><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220421142819.png width=60%>  </p>
+<h4 id="ATM的链路管理"><a href="#ATM的链路管理" class="headerlink" title="ATM的链路管理"></a>ATM的链路管理</h4><p>由ATM协议构建的网络中有两种接口：  </p>
+<ul>
+<li>用户-网络接口（UNI）<br>用于用户站点和ATM网络之间的交换。UNI信令用于定义协议。  </li>
+<li>网络-网络接口（NNI）<br>用于网络和网络之间的交换。NNI信令用于路由和网络管理。   </li>
+</ul>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220421152949.png width=50%>  </p>
+<ul>
+<li>流量控制<br>ATM中只控制站点收发信元的速率而不控制传输速率。因而UNI信元格式中要求有流量控制的域，而NNI信元格式没有流量控制域。  </li>
+<li>差错检测<br>ATM中ATM层结点只检查头部信息是否出错，而内容的差错检测和控制交由更高层处理。  </li>
+</ul>
+<h4 id="ATM信元"><a href="#ATM信元" class="headerlink" title="ATM信元"></a>ATM信元</h4><p>按照通信类型（即用户-网络/网络-网络）的不同，ATM有UNI信元和NNI信元两种信元格式。<br>ATM的信元长度为53个八位组，其中信元头部的长度为8个八位组，其中有流量控制（只有UNI信元有）、虚通道标识符、虚通路标识符、有效载荷类型和信元丢失优先级、首部差错控制字段。<br>流量控制（只有UNI信元有）、虚通道和虚通路标识符在上文中已经介绍过，故不在赘述。<br>有效载荷类型字段指出了信元中信息字段的信息类型，其长度为3bit，其表示该信息是用户信息还是控制信息，服务数据单元的类型，以及是否经历过拥塞。<br>信元丢失优先级（CLP）用于在发生拥塞时提供指导，其长度为1bit，CLP=0表示该信元的优先级较高，只有在没有其他选择的情况下才能丢弃这个信元。CLP=1表示该信元在需要时就可以被网络丢弃。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220421161600.png width=50%>  </p>
 
               
             </div>
@@ -557,7 +571,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年4月20日</div>
+          <div>2022年4月21日</div>
         </div>
       
       <div class="license-meta-item">
