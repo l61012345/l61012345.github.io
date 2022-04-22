@@ -24,7 +24,7 @@
 <meta property="og:description" content="网络层技术路由选择选择标准路由选择是设计分组交换网中最关键最复杂的问题。路由选择是指在交换过程中选择一条经过网络的路径，称为路由（routing）。通常站点到站点之间会有多条可行路由，因此需要选择经过哪一条路由。通常路由选择的过程中需要考虑：     正确性（correctness）：正确地找到终点。   简洁性（simplicity）：通常指可以找到最小花费的路由，花费中包括了钱、时间以及其他通">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T06:18:49.924Z">
-<meta property="article:modified_time" content="2022-04-22T05:33:08.050Z">
+<meta property="article:modified_time" content="2022-04-22T05:38:59.186Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -217,7 +217,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="04.网络层技术">
             
           </span>
         </div>
@@ -335,7 +335,7 @@ p.spoiler {
 <li>最优性（optimality）：选择的路由开销最小，表现最突出。  </li>
 <li>高效性（efficient）  </li>
 </ul>
-<h3 id="选择要素"><a href="#选择要素" class="headerlink" title="选择要素"></a>选择要素</h3><p>在选择时需要考虑的要素如下表所示：<br>| 类型 | 标准 |<br>|:—|:—|<br>| 性能评估标准 | 跳数、代价、时延、吞吐量 |<br>| 判决时间（做出路由选择的时间点） | 每个分组发送时决定路由、会话建立/建立连接时决定路由 |<br>| 判决地点（做出路由选择的位置） | 每个节点（分布式）、中心节点（集中式）、源节点（源点式） |<br>| 网络信息更新时间 | 连续的、周期的 | </p>
+<h3 id="选择要素"><a href="#选择要素" class="headerlink" title="选择要素"></a>选择要素</h3><p>在选择时需要考虑的要素如下表所示：<br>| 类型 | 标准 |<br>|:—|:—|<br>| 性能评估标准 | 跳数、代价、时延、吞吐量 |<br>| 判决时间（做出路由选择的时间点） | 每个分组发送时决定路由、会话建立/建立连接时决定路由 |<br>| 判决地点（做出路由选择的位置） | 每个节点（分布式）、中心节点（集中式）、源节点（源点式） |<br>| 网络信息更新时间 | 连续的、周期的 |</p>
 <h4 id="性能评估标准"><a href="#性能评估标准" class="headerlink" title="性能评估标准"></a>性能评估标准</h4><p>性能评估的最简单标准是选择经过网络的最小跳数路由，即途经节点的数量最少（路由上中间结点数+1即为跳数）。  </p>
 <h4 id="判决时间"><a href="#判决时间" class="headerlink" title="判决时间"></a>判决时间</h4><p>判决时间是做出路由选择的时间点，基本上是由选择无连接的分组交换还是面向连接的分组交换确定的（基于分组的还是基于虚电路的）。在无连接的分组交换中，结点在发送每个分组时就需要为每一个分组单独决定路由。而面向连接的分组交换中，在建立连接的过程中路由需要被选择，通信过程中没有路由选择的过程。  </p>
 <h4 id="判决地点和网络信息资源"><a href="#判决地点和网络信息资源" class="headerlink" title="判决地点和网络信息资源"></a>判决地点和网络信息资源</h4><p>判决地点是做出路由选择的位置，最常见的是分布式路由选择，即网络中的每一个结点负责为接收到的分组选择发送时的路由。但是路由选择要求公平性，这暗示了需要要求进行路由选择的结点需要具备知道网络中其他结点状态的能力。对于网络中的每个结点，要求其知道整个网络中其他结点的状态所需要的开销是巨大的，因此结点在选择时一般只会了解相邻结点的网络状态。因此，单个结点已知的信息有限，其做出的路由选择对于整个网络而言只能是局部最优的解决方案。<br>集中式路由选择则是将路由选择的功能交给了某些设定的节点执行，这样的结点一般具有知道整个网络中大部分结点状态的能力，因此对分组发送做出的路由选择方案能够更从全局的角度上考虑。但是这样的选择缺点是稳定性较低，如果这些结点失效，那么整个网络的路由选择将无法进行。  </p>
@@ -2105,20 +2105,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
