@@ -24,7 +24,7 @@
 <meta property="og:description" content="数字PID控制器数字PID控制器的设计思路是首先根据设计要求设计出模拟的PID控制器，再使用一定的离散化(Discretisation)方法使其转变为数字PID控制器。   离散化方法所谓离散化是指使用一定的数学映射方法将s域的表示映射到z域上。常见的离散化方法有：  前向欧拉法(Euler’s forward method) 后向欧拉法(Euler’s backward method) 双线性法">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-20T08:18:52.646Z">
-<meta property="article:modified_time" content="2022-04-23T07:49:48.332Z">
+<meta property="article:modified_time" content="2022-04-23T09:38:37.641Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="14. 数字PID控制器和数字控制器设计">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          3.3k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          20 分钟
+          28 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月23日 早上
+                    本文最后更新于：2022年4月23日 上午
                   
                 
               </p>
@@ -393,6 +393,23 @@ p.spoiler {
 </ul>
 <p>如果零阶保持器和系统原型的离散化写作$G_{ZA}(z)$，设计好的数字控制系统的闭环传递函数为：  </p>
 <script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$找到其稳态误差。  </p>
+<h3 id="z域中直接设计"><a href="#z域中直接设计" class="headerlink" title="z域中直接设计"></a>z域中直接设计</h3><h4 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h4><ul>
+<li>理论一<br>根据z变换中的定义：$s=σ+jω$，$z=e^{sT}=e^{T(σ+jω)}$，有z域上任意一极点$z$:  <script type="math/tex; mode=display">|z|=e^{-Tσ}=e^{-Tζω_n}</script><script type="math/tex; mode=display">∠z=Tω_d=\frac{2πω_d}{ω_s}</script>其中，采样次数为：  <script type="math/tex; mode=display">n_s=\frac{ω_s}{ω_d}</script>工程设计中通常需要满足$8&lt;n_s&lt;10$。  </li>
+<li>理论二<br>对于数字系统的特征方程$L(z)+1=0$，有$L(z)=-1$，此时可以将$L(z)$分解为幅度和角度，那么有：  <script type="math/tex; mode=display">∠L(z)=∑∠zero-∑∠pole=±180°(2k+1),k=0,1,2,...</script><script type="math/tex; mode=display">|L(z)|=1</script>因此，<strong>数字系统中某一极点与其他所有零极点的连线与实轴正半轴夹角的角度和应当为±180°。</strong>  </li>
+</ul>
+<h4 id="设计流程"><a href="#设计流程" class="headerlink" title="设计流程"></a>设计流程</h4><p>对于控制器$D(z)=K\frac{z+α}{z+β}$：  </p>
+<ul>
+<li>根据系统要求找到阻尼比$ζ$、固有频率$ω_n$、阻尼固有频率$ω_d$，并找到设计的极点$z$的模长$|z|$和角度$∠z$。  </li>
+<li>利用$a=|z|cos∠z,b=|z|sin∠z$将极点表示为$z=a+bj$的形式，并在z域上标出位置点$P$。  </li>
+<li>将系统原型数字化，并找到系统原型的零点和极点。  </li>
+<li>选择$α$为系统原型的一个极点，实现零极点对消以简化计算。  </li>
+<li>将系统原型剩余的零极点与P连线的夹角利用$arctan(\frac{y_1-y_2}{x_1-x_2})$算出每一条连线与实轴正半轴的夹角。  </li>
+<li>利用$∠β=∑∠zero-∑∠pole+180°$找到需要增加的零点$β$的角度。  </li>
+<li>利用$∠β=arctan(\frac{b}{a-β})$求得需要增加的零点的具体位置$β$。  </li>
+<li>利用$|D(z)G_{ZA}(z)|_{z=a+bj}=1$解方程求得$K$。  </li>
+</ul>
+<p>如果零阶保持器和系统原型的离散化写作$G_{ZA}(z)$，设计好的数字控制系统的闭环传递函数为：  </p>
+<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$或者静态误差系数找到其稳态误差。 </p>
 
               
             </div>
@@ -2136,5 +2153,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
