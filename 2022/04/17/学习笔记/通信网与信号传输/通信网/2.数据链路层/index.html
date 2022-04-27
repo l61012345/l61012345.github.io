@@ -24,7 +24,7 @@
 <meta property="og:description" content="数据链路层技术数据链路控制是为了更有效地进行数据通信、对传输过程起到控制作用而设立的。系统之间传输的媒体称为数据链路。数据链路层涉及到的通信任务是：    帧同步：传输时需要保证收发两方开始和结束发送一帧的时间点双方都已知。做到这一点的方法有两种：   每一帧的长度相同，但是这种方式在通信环境不理想的情况下可靠性不强。   每一帧都有标志(flag)表示一帧的起点和终点。     流量控制：在数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T05:46:07.825Z">
-<meta property="article:modified_time" content="2022-04-24T02:18:08.735Z">
+<meta property="article:modified_time" content="2022-04-27T08:42:08.499Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k 字
+          7.3k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          59 分钟
+          62 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月24日 凌晨
+                    本文最后更新于：2022年4月27日 早上
                   
                 
               </p>
@@ -389,11 +389,14 @@ p.spoiler {
 <li><p>无连接的（connectingless）<br>通信的双方不需要在通信前建立连接。通信的发送方不关心接收方是否可以收到，也不保证连接的可靠性。<br>如果传输系统本身就具有高可靠性的特点，那么通行环境也可以保证无连接的可靠性。  </p>
 </li>
 </ul>
+<p>面向连接 和 无连接的 是不同的<strong>业务属性</strong>，而电路交换和分组交换是不同的<strong>业务类型</strong>。<br><div class="note note-info">
+            <p>协议架构中每一层采用的交换方式是独立的、可以是不同的。</p>
+          </div>   </p>
 <h3 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h3><p>电路交换（circuit switching）是面向连接的交换，通信的双方在通信前建立双方独占、专用的物理通道，是一种物理连接。<br>如果双方的通信需要经过中间结点，在电路交换中，中间结点不关心数据内容，直接转发，此时中间结点的转发时间相对于传输时间是可以忽略不计的，因此这样的传输可以保证传输数据率始终恒定。传输过程中看起来传输的两端仿佛存在一条直接连接，因此这样的传输称为<strong>透明传输/透传</strong>（Transparent Transmission）。<br>同时双方与中间结点的连接使用的信道/电路是不同的，且一定专用。  </p>
 <div class="note note-info">
             <p>物理连接：利用物体的物理特性对相关物体进行连接，连接过程占用的资源是物理的（比如时间和频率）。  </p>
           </div>  
-<p>单个电路交换节点中采用的交换技术有如下两个：  </p>
+<p>典型的电路交换应用例子是物理层的光网络传输。<br>单个电路交换节点中采用的交换技术有如下两个：  </p>
 <ul>
 <li><p>空分交换<br>信号通路之间从物理空间上被分开。每一次连接都需要经过空分交换机分配的一条专用的物理通路，数据在节点上从一条物理线路上切换到另一条物理线路上。<br>通常为了增加空分交换中每个交换节点的利用率，常常采用分级的空间交换矩阵。  </p>
 <center class="half">
@@ -412,7 +415,8 @@ p.spoiler {
 </ul>
 <h3 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h3><p>在分组交换中，传输数据分为多个数据包进行发送。每个数据包的格式是标准化的，每个数据包中有首部的控制信息（包含路由信息）和其后的用户数据，大小可以不同。到达中间结点的数据包会首先在缓存中存储，等到相应的输出电路空闲时再转发数据包。分组交换所使用的资源和连接都是逻辑的，被整个网络的所有节点共用。双方如果不通信，资源则由网络中的其他用户共享，因此分组交换服务是以数据大小进行计费的。分组交换可以是面向连接的，也可以是无连接的。<br>分组交换的例子是计算机之间的通信。  </p>
 <h4 id="虚电路"><a href="#虚电路" class="headerlink" title="虚电路"></a>虚电路</h4><p>虚电路（vitual circuit）是一种面向连接的分组交换，在通信前双方需要从共享的通信资源中建立一条预订的路由（但是这条路由仍然和其他虚电路共享），并且相应的路由信息会被添加到分组中。因此，在转发每个分组时，节点不需要为每个分组选择路由。对于使用同一条虚电路的所有分组节点只需要做一次路由选择。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417153729.png width=50%>  </p>
-<h4 id="用户数据报"><a href="#用户数据报" class="headerlink" title="用户数据报"></a>用户数据报</h4><p>而用户数据报网络（user datagram post，UDP）是一种无连接的分组交换。在数据包中，每个分组被视为独立的，因此一些分组虽然有相同的目的地址，但是并不是沿着相同的路由到达目的地，并且可能会失序地到达目的地。<br>数据报省略了呼叫建立过程，同时由于其更加原始，因此可以更加灵活地处理数据。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417153947.png width=50%>  </p>
+<h4 id="数据报"><a href="#数据报" class="headerlink" title="数据报"></a>数据报</h4><p>在数据报(datagram)中，每个分组被视为独立的，因此一些分组虽然有相同的目的地址，但是并不是沿着相同的路由到达目的地，并且可能会失序地到达目的地。数据报可以是面向连接的数据报，比如TCP数据报，也可以是无连接的数据报，比如用户数据报和IP数据报。<br>用户数据报网络（user datagram post，UDP）是一种无连接的分组交换。用户数据报数据报省略了呼叫建立过程，同时由于其更加原始，因此可以更加灵活地处理数据。<br>对于TCP，即为面向连接的数据报，TCP中的链路层关心可靠性，有响应的流量控制和差错控制。TCP为了可靠性做出了代价，包括：三次握手时消耗的通信资源，首部占比更大等等。对于UDP和IP数据报，链路层不关心可靠性，但是可以在上层设置可靠性功能。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220417153947.png width=50%>  </p>
 <div class="note note-info">
             <p>电路交换和分组交换也可以组合使用，比如在语音通话中，双方拨号建立连接的过程会发送一些用于建立连接的信息，这些信息的传输方式是分组交换。连接建立后，用于连接的通信资源会归还会网络中供其他用户进行建立连接的信息传输。但是连接一旦被建立，双方的通信则是电路交换（或者说语音通话本身仍然是电路交换的）。  </p>
           </div>  
@@ -433,14 +437,14 @@ p.spoiler {
 <thead>
 <tr>
 <th style="text-align:center">电路交换</th>
-<th style="text-align:center">分组交换<br>用户数据报</th>
+<th style="text-align:center">分组交换<br>数据报</th>
 <th style="text-align:center">分组交换<br>虚电路</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center">面向连接的<br>有专用通路</td>
-<td style="text-align:center">无连接的<br>无专用通路</td>
+<td style="text-align:center">面向连接的/无连接的<br>无专用通路</td>
 <td style="text-align:center">面向连接的<br>无专用通路</td>
 </tr>
 <tr>
@@ -571,7 +575,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年4月24日</div>
+          <div>2022年4月27日</div>
         </div>
       
       <div class="license-meta-item">
