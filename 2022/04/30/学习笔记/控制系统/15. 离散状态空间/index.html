@@ -24,7 +24,7 @@
 <meta property="og:description" content="离散系统的状态空间的表示和补偿器设计离散系统的状态空间表示像连续系统的状态空间，对于线性时不变的离散系统，也可以取一组系统的状态变量，使得在已知$k$时刻的系统状态和系统输入的情况下，可以知道$k+1$时刻的系统状态有：   x(k+1)&#x3D;G\vec{x}(k)+Hu(k)上述方程称为离散系统的状态方程。$G$称为状态矩阵，$H$称为输入矩阵。此时系统的输出$y$可以表示为:   y(k)&#x3D;C\v">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-30T08:09:04.606Z">
-<meta property="article:modified_time" content="2022-05-02T08:45:14.166Z">
+<meta property="article:modified_time" content="2022-05-03T08:44:03.654Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="15. 离散系统的状态空间的表示和补偿器设计">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          4.9k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          30 分钟
+          42 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年5月2日 早上
+                    本文最后更新于：2022年5月3日 早上
                   
                 
               </p>
@@ -325,8 +325,8 @@ p.spoiler {
               
               <h1 id="离散系统的状态空间的表示和补偿器设计"><a href="#离散系统的状态空间的表示和补偿器设计" class="headerlink" title="离散系统的状态空间的表示和补偿器设计"></a>离散系统的状态空间的表示和补偿器设计</h1><h2 id="离散系统的状态空间表示"><a href="#离散系统的状态空间表示" class="headerlink" title="离散系统的状态空间表示"></a>离散系统的状态空间表示</h2><p>像连续系统的状态空间，对于线性时不变的离散系统，也可以取一组系统的状态变量，使得在已知$k$时刻的系统状态和系统输入的情况下，可以知道$k+1$时刻的系统状态有：  </p>
 <script type="math/tex; mode=display">x(k+1)=G\vec{x}(k)+Hu(k)</script><p>上述方程称为离散系统的状态方程。$G$称为状态矩阵，$H$称为输入矩阵。<br>此时系统的输出$y$可以表示为:  </p>
-<script type="math/tex; mode=display">y(k)=C\vec{x}(k)+Du(k)</script><p>上述方程称为离散系统的输出方程。$C$称为输出矩阵，$D$称为直接传输矩阵(direct transmission matrix)。  </p>
-<h3 id="状态空间的表达形式"><a href="#状态空间的表达形式" class="headerlink" title="状态空间的表达形式"></a>状态空间的表达形式</h3><p>对于描述系统的差分方程：  </p>
+<script type="math/tex; mode=display">y(k)=C\vec{x}(k)+Du(k)</script><p>上述方程称为离散系统的输出方程。$C$称为输出矩阵，$D$称为直接传输矩阵(direct transmission matrix)。<br>同理可以得到系统的特征方程为：  </p>
+<script type="math/tex; mode=display">|zI-G|=0</script><h3 id="状态空间的表达形式"><a href="#状态空间的表达形式" class="headerlink" title="状态空间的表达形式"></a>状态空间的表达形式</h3><p>对于描述系统的差分方程：  </p>
 <script type="math/tex; mode=display">y(k)+a_1y(k-1)+a_2y(k-2)+...+a_ny(k-n)=b_0u(k)+b_1u(k)+...+b_nu(k-n)</script><h4 id="能控标准型"><a href="#能控标准型" class="headerlink" title="能控标准型"></a>能控标准型</h4><p>如果系统的传递函数以如下形式表达：  </p>
 <script type="math/tex; mode=display">\frac{Y(z)}{U(z)}=\frac{b_0+b_1z^{-1}+...+b_nz^{-n}}{1+a_1z^{-1}+...+a_n}</script><p>那么系统的状态空间表示可以写作如下两种：  </p>
 <ul>
@@ -443,7 +443,39 @@ p.spoiler {
     c_1 & c_2 & ... & c_n
 \end{bmatrix}\begin{bmatrix}
       x_1(k)\\x_2(k)\\...\\x_{n-1}(k)\\x_n(k)
-  \end{bmatrix}+b_0u(k)</script><h3 id="状态空间表示与系统框图"><a href="#状态空间表示与系统框图" class="headerlink" title="状态空间表示与系统框图"></a>状态空间表示与系统框图</h3><p>简单来说，根据系统框图推出系统状态空间表示的方法是：<br>将系统每一个延迟单元的输出设为一个状态变量$x_i(k)$，则延迟单元前的状态为$x_i(k+1)$。系统的每一个延迟单元可以写出一个系统的状态方程。<br>根据系统的输出和各状态之间的关系，可以系统系统的状态方程。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502160545.png width=50%>  </p>
+  \end{bmatrix}+b_0u(k)</script><h3 id="状态空间表示与系统框图"><a href="#状态空间表示与系统框图" class="headerlink" title="状态空间表示与系统框图"></a>状态空间表示与系统框图</h3><p>简单来说，根据系统框图推出系统状态空间表示的方法是：<br>将系统每一个延迟单元的输出设为一个状态变量$x_i(k)$，则延迟单元前的状态为$x_i(k+1)$。系统的每一个延迟单元可以写出一个系统的状态方程。<br>根据系统的输出和各状态之间的关系，可以系统的状态方程。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502160545.png width=50%>  </p>
+<h3 id="连续系统状态空间表示的离散化"><a href="#连续系统状态空间表示的离散化" class="headerlink" title="连续系统状态空间表示的离散化"></a>连续系统状态空间表示的离散化</h3><p>对于连续系统：$\begin{cases}\vec{\dot{x}}=A\vec{x}+Bu \\ y(t)=C\vec{x}+Du\end{cases}$，根据<br>映射律$z=e^{sT}$，有:  </p>
+<script type="math/tex; mode=display">G=e^{AT}=\mathcal{L}^{-1}((sI-A)^{-1})</script><script type="math/tex; mode=display">H=(\int_0^Te^{Aλ}dλ)B=(G-I)A^{-1}B</script><p>即可得到离散化后的系统状态空间表示：  </p>
+<script type="math/tex; mode=display">x(k+1)=Gx(k)+Hu(k)</script><script type="math/tex; mode=display">y(k)=Cx(k)+Du(k)</script><p>需要注意的是，$G$和$H$会随着采样周期$T$的变化而变化。  </p>
+<h2 id="离散系统的能控性和能观性"><a href="#离散系统的能控性和能观性" class="headerlink" title="离散系统的能控性和能观性"></a>离散系统的能控性和能观性</h2><h3 id="离散系统的能控性判定"><a href="#离散系统的能控性判定" class="headerlink" title="离散系统的能控性判定"></a>离散系统的能控性判定</h3><p>根据系统能控性的定义，如果系统的控制信号与系统的状态变量独立，则系统是能控的。换言之，对于任意$n$，倘若$G^{n-1}$都与$H$独立，则系统是能控的。<br>定义离散系统的能控性矩阵：  </p>
+<script type="math/tex; mode=display">[H|GH|…|G^{n-1}H]</script><p>即能控性矩阵满秩，即$|[H|GH|…|G^{n-1}H]|≠0$，则系统是能控的。  </p>
+<h3 id="系统的能观性判定"><a href="#系统的能观性判定" class="headerlink" title="系统的能观性判定"></a>系统的能观性判定</h3><p>根据系统能观性的定义，如果系统任何状态转换都会影响每一个输出变量，那么系统是能观的。<br>定义离散系统的能观性矩阵：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}
+    C\\ - \\ CG \\ - \\ ... \\ - \\ CG^{n-1}
+\end{bmatrix}</script><p>如果离散系统的能观性矩阵满秩，即$|\begin{bmatrix}<br>    C\\ - \\ CG \\ - \\ … \\ - \\ CG^{n-1}<br>\end{bmatrix}|≠0$，则系统是能观的。    </p>
+<h2 id="反馈控制器"><a href="#反馈控制器" class="headerlink" title="反馈控制器"></a>反馈控制器</h2><h3 id="反馈控制系统的特征方程"><a href="#反馈控制系统的特征方程" class="headerlink" title="反馈控制系统的特征方程"></a>反馈控制系统的特征方程</h3><p>对如下系统添加一个负反馈控制器$K$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502175238.png width=50%></p>
+<p>根据上图，有系统的状态方程：  </p>
+<script type="math/tex; mode=display">x(k+1)=Ax(k)+Bu(k)</script><p>带入$u(k)=-kx(k)+v(k)$，有：  </p>
+<script type="math/tex; mode=display">x(k+1)=(A-BK)x(k)+Bv(k)</script><p>其中，</p>
+<script type="math/tex; mode=display">|zI-(A-BK)|=0</script><p>是系统的特征方程。  </p>
+<h3 id="反馈控制器设计步骤"><a href="#反馈控制器设计步骤" class="headerlink" title="反馈控制器设计步骤"></a>反馈控制器设计步骤</h3><ul>
+<li>检验系统原型的能控性矩阵。  </li>
+<li>根据系统的设计要求，找到阻尼比$ζ$和固有频率$ω_n$，并构造出系统的特征多项式。  </li>
+<li>设计系统的反馈控制器，并且根据$|zI-(A-BK)|$找到系统含有$k_i$的特征多项式。  </li>
+<li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
+</ul>
+<h2 id="观测器设计"><a href="#观测器设计" class="headerlink" title="观测器设计"></a>观测器设计</h2><p>在如下的系统中设计增加一个观测器：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502180408.png width=50%>  </p>
+<p>系统在下一个时刻的状态估计量为$\vec{\hat{x}}(k+1)$，它可以通过观测器得到：  </p>
+<script type="math/tex; mode=display">\vec{\hat{x}}(k+1)=A\vec{\hat{x}}+Bu(k)+L</script><p>设系统的观测状态误差为观测器估计的系统下一时刻状态的观测值和系统下一时刻状态的实际值之差：  </p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=\vec{x}(k+1)-\vec{\hat{x}}(k+1)</script><p>有：  </p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=A\vec{x}(k)-LC[\vec{x}(k)-\vec{\hat{x}}(k)]=(A-LC)\vec{x}_e(k)</script><p>那么系统的状态转移矩阵为：  </p>
+<script type="math/tex; mode=display">A-LC</script><p>系统的特征方程为：  </p>
+<script type="math/tex; mode=display">|zI-(A-LC)|=0</script><h3 id="反馈控制器设计步骤-1"><a href="#反馈控制器设计步骤-1" class="headerlink" title="反馈控制器设计步骤"></a>反馈控制器设计步骤</h3><ul>
+<li>检验系统原型的能观性矩阵。  </li>
+<li>根据系统的设计要求，找到阻尼比$ζ$和固有频率$ω_n$，并构造出系统的特征多项式。  </li>
+<li>设计系统的反馈控制器，并且根据$|zI-(A-LC)|$找到系统含有$l_i$的特征多项式。  </li>
+<li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
+</ul>
 
               
             </div>
@@ -507,7 +539,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年5月2日</div>
+          <div>2022年5月3日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2205,5 +2237,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>

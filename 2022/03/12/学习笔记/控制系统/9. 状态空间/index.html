@@ -24,7 +24,7 @@
 <meta property="og:description" content="连续系统的状态空间表示和分析现代复杂控制系统中往往包含多个输入和多个输出，系统的分析更加复杂。使用一些数学方法可以简化对这些系统的分析。这些数学方法建立在对系统状态(state)的理解上：系统的状态是指系统变量、输入信号和用于描述系统动态变化的方程的集合，系统状态可以理解为系统的记忆，$t&#x3D;t_0$时的系统状态能够记忆系统在$t&lt;t_0$时系统的全部输入和之前全部系统的状态。系统的状态可以提">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-12T03:13:35.123Z">
-<meta property="article:modified_time" content="2022-04-30T08:08:13.210Z">
+<meta property="article:modified_time" content="2022-05-02T09:41:59.173Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="09. 连续系统的状态空间表示和分析">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          80 分钟
+          81 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月30日 早上
+                    本文最后更新于：2022年5月2日 上午
                   
                 
               </p>
@@ -479,7 +479,7 @@ p.spoiler {
 <li>如果已知初始状态$x(0)$：  <script type="math/tex; mode=display">\vec{x}=e^{At}\vec{x}(0)+∫_0^te^{A(t-τ)}Bu(τ)dτ</script></li>
 <li>如果已知某一状态$x(t_0)$：<script type="math/tex; mode=display">\vec{x}=e^{A(t-t_0)}\vec{x}(t_0)+∫_{t_0}^te^{A(t-τ)}Bu(τ)dτ</script></li>
 </ul>
-<h2 id="能控性和能观性"><a href="#能控性和能观性" class="headerlink" title="能控性和能观性"></a>能控性和能观性</h2><h3 id="能控性"><a href="#能控性" class="headerlink" title="能控性"></a>能控性</h3><p>在某一时刻$t_0$，如果系统可以通过控制向量将系统的状态$\vec{x}(t_0)$转变为系统的其他状态(即只要知道目前的状态，以后所有的状态都是已知的)，则系统是能控的(controllable)。系统的能控性与控制输入有关。<br>对于系统$\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\ y=C\vec{x}+Du \end{cases}$，它的状态方程是非齐次的，因此其状态方程的解为：  </p>
+<h2 id="能控性和能观性"><a href="#能控性和能观性" class="headerlink" title="能控性和能观性"></a>能控性和能观性</h2><h3 id="能控性"><a href="#能控性" class="headerlink" title="能控性"></a>能控性</h3><p>在某一时刻$t_0$，如果系统可以通过控制向量将系统的状态$\vec{x}(t_0)$转变为系统的其他状态(即只要知道目前的状态，以后所有的状态都是已知的)，则系统是能控的(controllable)。换言之，如果系统状态和系统输入是独立的，那么系统是能控的。<br>对于系统$\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\ y=C\vec{x}+Du \end{cases}$，它的状态方程是非齐次的，因此其状态方程的解为：  </p>
 <script type="math/tex; mode=display">\vec{x}(t)=e^{A(t-t_0)}\vec{x}(t_0)+∫_{t_0}^te^{A(t-τ)}Bu(τ)dτ</script><p>假设$\vec{x}(t_0)=0$，有：  </p>
 <script type="math/tex; mode=display">\vec{x}(0)=-∫_{0}^{t_0}e^{-Aτ}Bu(τ)dτ</script><p>带入$e^{-Aτ}=∑a_k(τ)A^k$，并令$β_k=∫_0^{t_0}a_k(τ)u(τ)dτ$，可以得到：  </p>
 <script type="math/tex; mode=display">\vec{x}(0)=-∑_{k=0}^{n-1}A^kBβ_k</script><p>矩阵化该表达式，有：  </p>
@@ -495,7 +495,7 @@ p.spoiler {
             <p>满秩的等价条件：  </p><ul><li>组成扩增矩阵的向量$A^{i-1}B$线性无关</li><li>控制矩阵的行列式结果不为0</li></ul>
           </div><br>同样地，如果将齐次方程的解带入到系统的输出方程，同理也可以在计算过程中得到一个$m × (n+1)$的输出内控矩阵：  </p>
 <script type="math/tex; mode=display">[CB|CAB|CA^2B|…|CA^{n-1}B|D]</script><p><strong>当且仅当输出能控矩阵满秩即其秩为$m$（或者说组成扩增矩阵的向量$CA^{i-1}B$线性无关/输出控制矩阵行列式结果不为零）时，系统是完全输出能控(output controllable)的。</strong>  </p>
-<h3 id="能观性"><a href="#能观性" class="headerlink" title="能观性"></a>能观性</h3><p>在某一时刻$t_0$，如果系统可以通过在有限时间内的输出来判断系统状态$\vec{x}(t_0)$,则系统是能观的（observable）。系统的能观性与系统输出有关。<br>对其次系统$\begin{cases} \vec{\dot{x}}=A\vec{x}\\ y=C\vec{x} \end{cases}$而言，其能观矩阵(observability matrix)是一个$n×nm$的矩阵：  </p>
+<h3 id="能观性"><a href="#能观性" class="headerlink" title="能观性"></a>能观性</h3><p>在某一时刻$t_0$，如果系统可以通过在有限时间内的输出（由输出矩阵和控制矩阵两部分决定）来判断系统初始状态$\vec{x}(0)$,则系统是能观的（observable）。系统的能观性与系统输出有关。<br>对其次系统$\begin{cases} \vec{\dot{x}}=A\vec{x}\\ y=C\vec{x} \end{cases}$而言，其能观矩阵(observability matrix)是一个$n×nm$的矩阵：  </p>
 <script type="math/tex; mode=display">[C^T|AC|A^2C|…|(A^T)^{n-1}C]</script><p>当系统的能观矩阵满秩（或者说组成扩增矩阵的向量$(A^T)^{i-1}C$线性无关/能观矩阵行列式结果不为零）时，表明系统是完全能观的（completely observable）。  </p>
 <h3 id="对偶"><a href="#对偶" class="headerlink" title="对偶"></a>对偶</h3><p>系统的能控性和能观性是对偶的。<br>有如下结论：<br>对于系统I：$\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\ y=C\vec{x} \end{cases}$和系统II：$\begin{cases} \vec{\dot{z}}=A^T\vec{z}+C^T\vec{v}\\ \vec{n}=B^T\vec{z} \end{cases}$，有：<br>如果系统I完全状态能控，那么系统II完全能观。  </p>
 <h3 id="快速判断法"><a href="#快速判断法" class="headerlink" title="快速判断法"></a>快速判断法</h3><p>对于写作标准形式的系统矩阵，有可以根据状态矩阵$A$、$B$和$C$的形状快速判断系统能观性和能控性的方法。<br>对于约旦标准型：  </p>
@@ -578,7 +578,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年4月30日</div>
+          <div>2022年5月2日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2282,5 +2282,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
