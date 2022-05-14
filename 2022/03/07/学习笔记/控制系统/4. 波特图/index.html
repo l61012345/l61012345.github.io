@@ -18,18 +18,18 @@
   
     <meta name="description" content="波特图波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：   使用MATLAB绘制波特图在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如：1234num&#x3D;[8,18,32] %传递函数的分子系数den">
 <meta property="og:type" content="article">
-<meta property="og:title" content="04. 波特图的绘制和分析">
+<meta property="og:title" content="04. 波特图的绘制和分析·电路实现">
 <meta property="og:url" content="https://l61012345.top/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/index.html">
 <meta property="og:site_name" content="Mirror">
 <meta property="og:description" content="波特图波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为$ω$，纵轴为$|H(jω)|_{dB}$和$∠H(jω)$，如下图所示：   使用MATLAB绘制波特图在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如：1234num&#x3D;[8,18,32] %传递函数的分子系数den">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-07T03:28:22.105Z">
-<meta property="article:modified_time" content="2022-04-19T05:47:22.922Z">
+<meta property="article:modified_time" content="2022-05-14T15:37:17.470Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>04. 波特图的绘制和分析 - Mirror</title>
+  <title>04. 波特图的绘制和分析·电路实现 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.6k 字
+          5k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          39 分钟
+          42 分钟
         
       </span>
     
@@ -311,12 +311,12 @@ p.spoiler {
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">04. 波特图的绘制和分析</h1>
+            <h1 style="display: none">04. 波特图的绘制和分析·电路实现</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年4月19日 凌晨
+                    本文最后更新于：2022年5月14日 下午
                   
                 
               </p>
@@ -339,7 +339,7 @@ p.spoiler {
 <ul>
 <li>常数项$K$：称为增益</li>
 <li>$s$：称为积分环节（分子）或者微分环节（分母）</li>
-<li>一阶项$(s+1)$</li>
+<li>一阶项$(s+1)$：称为惯性环节（分母）</li>
 <li>二阶项$(s^2+2ζs+1)$   </li>
 </ul>
 <p>通过分别讨论这几个元素的波特图，进而可以推理出任意传递函数的波特图。  </p>
@@ -439,7 +439,42 @@ p.spoiler {
 </ul>
 <p>根据这两条理论则可以判断每一个区间上影响其斜率变化的极点/零点结构类型。  </p>
 <p>如果存在修正，可以根据在固有频率处修正前后的幅值差求得$ζ$:  </p>
-<script type="math/tex; mode=display">M_c=20lg(2ζ)</script>
+<script type="math/tex; mode=display">M_c=20lg(2ζ)</script><h2 id="控制系统的电路实现"><a href="#控制系统的电路实现" class="headerlink" title="控制系统的电路实现"></a>控制系统的电路实现</h2><p>根据波特图的理论分析，任何一个系统的传递函数都可以表示为前文提到的元素组成，这些元素的电路图如下表所示：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">传递函数</th>
+<th style="text-align:center">电路图</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">比例环节</td>
+<td style="text-align:center">$G(s)=\frac{R_2}{R_1}=K$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220514232750.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">惯性环节</td>
+<td style="text-align:center">$G(s)=\frac{R_2}{R_1}\frac{1}{R_2Cs+1}=\frac{K}{Ts+1}$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220514232904.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">积分环节</td>
+<td style="text-align:center">$G(s)=\frac{1}{R_1Cs}=\frac{1}{Ts}$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220514233016.png width=50%></td>
+</tr>
+<tr>
+<td style="text-align:center">振荡环节</td>
+<td style="text-align:center">$G(s)=\frac{\frac{K}{T_1}}{s^2+\frac{s}{T_1}+\frac{K}{T_1}}$ <br> $K=\frac{R_2}{R_1},T_1=R_2C_1$</td>
+<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220514233401.png width=50%></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>更多有关控制系统电路实现的内容请参考专为本专业、本课程设计的实验用具：THKKL-1 Control Theory Experimental Box，浙江天煌教仪的实验指导书：<a href="/files/THKKL-1_Control_Theory_Experimental_Box.pdf">点此链接下载</a></p>
+
               
             </div>
             <hr/>
@@ -483,7 +518,7 @@ p.spoiler {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>04. 波特图的绘制和分析</div>
+      <div>04. 波特图的绘制和分析·电路实现</div>
       <div>https://l61012345.top/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/</div>
     </div>
     <div class="license-meta">
@@ -502,7 +537,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年4月19日</div>
+          <div>2022年5月14日</div>
         </div>
       
       <div class="license-meta-item">
@@ -996,10 +1031,10 @@ p.spoiler {
     
       
       
-        <a href="/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/" title="04. 波特图的绘制和分析"
+        <a href="/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/" title="04. 波特图的绘制和分析·电路实现"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">04. 波特图的绘制和分析</span>
+          <span class="category-post">04. 波特图的绘制和分析·电路实现</span>
         </a>
       
     
