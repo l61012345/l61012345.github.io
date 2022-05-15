@@ -24,7 +24,7 @@
 <meta property="og:description" content="计算机局域网局域网诞生的初衷是人们希望可以通过某种方式构建一种来去自由的网络，使得各种站点之间能够自由地共享资源和收发信息。在这个网络中，新站点的加入和旧站点的离开都不需要花费太多代价地、轻而易举地实现。局域网最主要的特点是：    网络为一个单位所拥有； 地理范围和站点数目均有限。  局域网具有如下主要优点：    具有广播功能，从一个站点可很方便地访问全网。局域网上的主机可共享连接在局域网上的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-15T03:02:06.512Z">
-<meta property="article:modified_time" content="2022-05-15T06:04:30.142Z">
+<meta property="article:modified_time" content="2022-05-15T06:39:55.423Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          3.1k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          22 分钟
+          26 分钟
         
       </span>
     
@@ -359,7 +359,11 @@ p.spoiler {
 <li>可靠性</li>
 <li>可扩展性</li>
 </ul>
-<h2 id="媒体介入控制"><a href="#媒体介入控制" class="headerlink" title="媒体介入控制"></a>媒体介入控制</h2><p>媒体介入控制(Media Access Control, MAC)规定了如何协调多个发送和接收站点对一个共享传输媒体的占用。  </p>
+<h2 id="媒体接入控制"><a href="#媒体接入控制" class="headerlink" title="媒体接入控制"></a>媒体接入控制</h2><p>媒体介入控制(Media Access Control, MAC)规定了如何协调多个发送和接收站点对一个共享传输媒体的占用。  </p>
+<h3 id="循环赛-round-robin"><a href="#循环赛-round-robin" class="headerlink" title="循环赛(round robin)"></a>循环赛(round robin)</h3><p>每个站点轮流拥有发送机会，在轮到某个站点发送时，它可以选择发信或不发信。一旦该站点完成当前一轮的发送，就取消自己的发送资格，然后将权利移交至逻辑序列的下一个站点。<br>循环赛的例子是令牌环网络。  </p>
+<p>循环赛机制在只有少数站点需要发送数据时的效率最低，因为在这种情况下多数站点只是纯粹地传递发送权，站间的循环会造成相当大的额外开销。  </p>
+<h3 id="预约-reserved"><a href="#预约-reserved" class="headerlink" title="预约(reserved)"></a>预约(reserved)</h3><p>将占用媒体的时间细分成多个时隙，不同的时隙上不同站点发送数据，想要发送数据的站点需要先预约时隙。预约具有高公平性的特点。预约适用于通信量长而持续的情况（称为流通信）：比如话音通信。  </p>
+<h3 id="争用-contention"><a href="#争用-contention" class="headerlink" title="争用(contention)"></a>争用(contention)</h3><p>争用技术没有任何控制机制决定轮到哪个站点发信，而是让所有的站点粗暴地抢用媒体资源。在负荷不大的情况下，争用的效率最高，但是有非常多站点需要发信可能会导致网络崩溃。争用适用于短而零星的情况（称为突发通信），比如交互式终端与主机之间的通信。    </p>
 <h2 id="IEEE-802-局域网体系结构"><a href="#IEEE-802-局域网体系结构" class="headerlink" title="IEEE 802 局域网体系结构"></a>IEEE 802 局域网体系结构</h2><p>IEEE 802系列标准是IEEE 802 LAN/MAN 标准委员会制定的局域网、城域网技术标准。其中最广泛使用的有以太网、令牌环、无线局域网等。这一系列标准中的每一个子标准都由委员会中的一个专门工作组负责。IEEE 802协议致力于研究局域网和城域网的物理层和MAC层中定义的服务和协议，对应OSI网络参考模型的最低两层（即物理层和数据链路层）。<br>下图展示了IEEE 802参考模型：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220515131505.png width=50%>  </p>
 <h3 id="物理层"><a href="#物理层" class="headerlink" title="物理层*"></a>物理层*</h3><p>IEEE 802参考模型的物理层结构和功能基本上与OSI规定的物理层没有较大差异。IEEE 802参考模型的物理层功能包括：</p>
 <ul>
@@ -367,7 +371,7 @@ p.spoiler {
 <li>前同步码（用于使接收方的时钟同步）的生成和去除</li>
 <li>比特传输/接收  </li>
 </ul>
-<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p>IEEE 802模型中，数据链路层被划分为了两部分：逻辑链路控制层和媒体介入控制层。逻辑链路控制层的作用是向上层提供接口(LSAP)，并且进行数据链路层的差错控制和流量控制。与接入到传输媒体有关的内容都放在媒体介入控制层，而逻辑链路控制层则与传输媒体无关。<br>MAC层和LLC层之间相互独立，不管采用何种协议的局域网，对 LLC 子层来说都是透明的。同时，对同一LLC层也可以使用不同的媒体接入控制协议。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220515133635.png width=50%>  </p>
+<h3 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h3><p>IEEE 802模型中，数据链路层被划分为了两部分：逻辑链路控制层和媒体介入控制层。逻辑链路控制层的作用是向上层提供接口(LSAP)，并且进行数据链路层的差错控制和流量控制。与接入到传输媒体有关的内容都放在媒体接入控制层，而逻辑链路控制层则与传输媒体无关。<br>MAC层和LLC层之间相互独立，不管采用何种协议的局域网，对 LLC 子层来说都是透明的。同时，对同一LLC层也可以使用不同的媒体接入控制协议。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220515133635.png width=50%>  </p>
 <h4 id="逻辑链路控制层（LLC）"><a href="#逻辑链路控制层（LLC）" class="headerlink" title="逻辑链路控制层（LLC）"></a>逻辑链路控制层（LLC）</h4><p>逻辑链路控制层（Logical Link Control layer，LLC layer）是数据链路层的两个子层之一，它涉及到物理介质拥塞管理（流拥堵和差错控制）。<br>该子层的两个重要功能是：</p>
 <ul>
 <li>保证在不同网络类型中传输<br>通过在IP包上加了8位的目的地址服务接入点和源地址服务接入点实现。  </li>
@@ -385,7 +389,7 @@ p.spoiler {
 <li>方式三<br>有回复的无连接方式/确认的无连接服务。它仅限于点到点通信。提供的服务要求确认所发送的数据报，但是是无连接的。  </li>
 </ul>
 <p>现在由于上层的标准化和高质量的通信环境，LLC层现在已经不常用。  </p>
-<h4 id="媒体介入控制层（MAC）"><a href="#媒体介入控制层（MAC）" class="headerlink" title="媒体介入控制层（MAC）"></a>媒体介入控制层（MAC）</h4>
+<h4 id="媒体接入控制层（MAC）"><a href="#媒体接入控制层（MAC）" class="headerlink" title="媒体接入控制层（MAC）"></a>媒体接入控制层（MAC）</h4><h3 id="IEEE-802-3的媒体接入控制方式"><a href="#IEEE-802-3的媒体接入控制方式" class="headerlink" title="IEEE 802.3的媒体接入控制方式"></a>IEEE 802.3的媒体接入控制方式</h3><h4 id="ALOHA"><a href="#ALOHA" class="headerlink" title="ALOHA"></a>ALOHA</h4><h4 id="时隙ALOHA"><a href="#时隙ALOHA" class="headerlink" title="时隙ALOHA"></a>时隙ALOHA</h4><h4 id="载波监听多点接入"><a href="#载波监听多点接入" class="headerlink" title="载波监听多点接入"></a>载波监听多点接入</h4><h4 id="基于碰撞检测的载波监听多点接入"><a href="#基于碰撞检测的载波监听多点接入" class="headerlink" title="基于碰撞检测的载波监听多点接入"></a>基于碰撞检测的载波监听多点接入</h4><h4 id="二进制截止退避"><a href="#二进制截止退避" class="headerlink" title="二进制截止退避"></a>二进制截止退避</h4>
               
             </div>
             <hr/>
