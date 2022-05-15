@@ -24,7 +24,7 @@
 <meta property="og:description" content="计算机局域网局域网诞生的初衷是人们希望可以通过某种方式构建一种来去自由的网络，使得各种站点之间能够自由地共享资源和收发信息。在这个网络中，新站点的加入和旧站点的离开都不需要花费太多代价地、轻而易举地实现。局域网的主要构成有：  拓扑结构 传输媒体 线路布局 媒体介入控制这些主要的构成要素决定了局域网的通信效率和开销，本章重点考虑前两个因素。    拓扑结构通信网络中，拓部结构是站点之间相连构成网络">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-15T03:02:06.512Z">
-<meta property="article:modified_time" content="2022-05-15T04:08:41.603Z">
+<meta property="article:modified_time" content="2022-05-15T04:28:24.561Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -217,7 +217,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="计算机局域网">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.4k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          11 分钟
+          12 分钟
         
       </span>
     
@@ -340,8 +340,15 @@ p.spoiler {
 <p>树形结构中，每个分支可以看做一个相对独立的通信环境，所有分支之间的通信资源可以共享。由于是总线形结构的推广，树形结构也同样需要考虑在总线形结构中遇到的问题。  </p>
 <h3 id="环形"><a href="#环形" class="headerlink" title="环形"></a>环形</h3><p>环形拓扑结构由若干段<strong>单向</strong>链路组成，每段链路的首尾通过转发器与其他链路的首/尾相连。数据只能按照同一个方向传输，在环中沿着一个顺时针/逆时针方向循环。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220515120133.png width=50%>  </p>
 <p>环形拓扑结构中，数据同样以帧的形式发送，每一帧中的头部携带地址信息，地址对应的站点会将环上的帧复制到本地，当帧循环完所有的站点，该帧被源点删除。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220515120602.png width=50%>  </p>
-<p>环形结构中也需要媒体接入控制，最经典的控制方式是令牌环(token ring):环网中用于授权站点发信的工具称为令牌，只有在拿到令牌的情况下，站点才能够发信。令牌在整个环网中传递，站点拿到令牌后，进行发信，发信结束后，站点将令牌通过环网传递给下一个站点。如果下一个站点不发信，那么令牌继续在环网中传递。  </p>
-<h3 id="星形"><a href="#星形" class="headerlink" title="星形"></a>星形</h3><h2 id="IEEE-802-局域网体系结构"><a href="#IEEE-802-局域网体系结构" class="headerlink" title="IEEE 802 局域网体系结构"></a>IEEE 802 局域网体系结构</h2>
+<p>环形结构中也需要媒体接入控制，最经典的控制方式是令牌环(token ring):环网中用于授权站点发信的工具称为令牌，只有在拿到令牌的情况下，站点才能够发信。令牌在整个环网中传递，站点拿到令牌后，进行发信，发信结束后，站点将令牌通过环网传递给下一个站点。如果下一个站点不发信，那么令牌继续在环网中传递。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220515122722.png width=50%>  </p>
+<h3 id="星形"><a href="#星形" class="headerlink" title="星形"></a>星形</h3><p>每一个站点通过两条点对点链路与同一个中央节点连接：一条链路负责发送，一条链路负责接收。中央节点的作用可以是实现广播功能（此时在逻辑上等同于总线形），也可以实现帧交换功能。<br>一种最简单的星形结构的媒体接入控制方式是：在同一个时刻，只有一个站点可以发信。  </p>
+<h3 id="拓扑结构的选择"><a href="#拓扑结构的选择" class="headerlink" title="拓扑结构的选择"></a>拓扑结构的选择</h3><p>通常在选择拓扑结构时，考虑的因素是：  </p>
+<ul>
+<li>性能</li>
+<li>可靠性</li>
+<li>可扩展性</li>
+</ul>
+<h2 id="IEEE-802-局域网体系结构"><a href="#IEEE-802-局域网体系结构" class="headerlink" title="IEEE 802 局域网体系结构"></a>IEEE 802 局域网体系结构</h2>
               
             </div>
             <hr/>
@@ -2152,5 +2159,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
