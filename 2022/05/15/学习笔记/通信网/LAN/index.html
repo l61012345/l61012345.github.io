@@ -24,7 +24,7 @@
 <meta property="og:description" content="计算机局域网局域网诞生的初衷是人们希望可以通过某种方式构建一种来去自由的网络，使得各种站点之间能够自由地共享资源和收发信息。在这个网络中，新站点的加入和旧站点的离开都不需要花费太多代价地、轻而易举地实现。局域网最主要的特点是：    网络为一个单位所拥有； 地理范围和站点数目均有限。  局域网具有如下主要优点：    具有广播功能，从一个站点可很方便地访问全网。局域网上的主机可共享连接在局域网上的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-15T03:02:06.512Z">
-<meta property="article:modified_time" content="2022-05-16T05:27:40.638Z">
+<meta property="article:modified_time" content="2022-05-16T05:43:58.134Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          5.3k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          42 分钟
+          45 分钟
         
       </span>
     
@@ -406,7 +406,18 @@ p.spoiler {
 </ul>
 <p>对ALOHA协议要想发送帧的时候不会有冲突，那么在发送一帧的时间前后都不能有其他帧发送，这段时间称为冲突危险期，时间长度应当为$2T$.<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220516131136.png width=50%>   </p>
 <p>一个帧时内生成k个帧的概率服从泊松分布：$P(k)=\frac{G^ke^{-G}}{k!}$.<br>根据上述推论，对ALOHA协议，$2T$的时间内都没有其它帧生成的概率为：$P_0=P(0)P(0)=e^{-2G}$，带入$S = GP_0$，得到$S=Ge^{-2G}$，其最大值为0.184.<br>对分隙ALOHA协议，冲突危险期应当为$T$，$T$的时间内都没有其它帧生成的概率为：$P_0=P(0)=e^{-G}$，带入$S = GP_0$，得到$S=Ge^{-G}$，其最大值为0.368.<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220516131908.png width=50%>  </p>
-<h4 id="载波监听多点接入"><a href="#载波监听多点接入" class="headerlink" title="载波监听多点接入"></a>载波监听多点接入</h4><h4 id="基于碰撞检测的载波监听多点接入"><a href="#基于碰撞检测的载波监听多点接入" class="headerlink" title="基于碰撞检测的载波监听多点接入"></a>基于碰撞检测的载波监听多点接入</h4><h4 id="二进制截止退避"><a href="#二进制截止退避" class="headerlink" title="二进制截止退避"></a>二进制截止退避</h4>
+<h3 id="载波监听多点接入"><a href="#载波监听多点接入" class="headerlink" title="载波监听多点接入"></a>载波监听多点接入</h3><p>在载波监听多点接入(CSMA)协议中，想要传输的站点首先监听信道，判断是否有其他站点正在传输。如果信道正在被使用（信道忙），那么该站点必须等待；如果信道空闲，站点可以传输。站点在传输后将在一段时间内等待确认(ACK)，如果没有收到确认，就假定发生了冲突并且重传。<br>根据信道忙时站点的等待机制，可以将CSMA又分为：非持续CSMA、1持续CSMA和$p$持续CSMA。  </p>
+<h4 id="非持续CSMA"><a href="#非持续CSMA" class="headerlink" title="非持续CSMA"></a>非持续CSMA</h4><p>非持续CSMA的策略是：  </p>
+<ul>
+<li>如果信道空闲，则立即传输。  </li>
+<li>如果信道忙，则等待一段时间，该时间长度服从重传时延的概率分布。<br>非持续CSMA的缺点是，传输结束后，信道容易保持空闲，即使有一个或者多个站点等待传输。  </li>
+</ul>
+<h4 id="1持续CSMA"><a href="#1持续CSMA" class="headerlink" title="1持续CSMA"></a>1持续CSMA</h4><p>1持续CSMA避免了信道空闲的时间，其策略是：  </p>
+<ul>
+<li>如果信道空闲，则立即传输。  </li>
+<li>如果信道忙，则等待直到信道空闲。<br>在这种机制下，传输结束后的碰撞概率会随着等待的站点数目的增大而增大。  </li>
+</ul>
+<h4 id="p-持续CSMA"><a href="#p-持续CSMA" class="headerlink" title="$p$持续CSMA"></a>$p$持续CSMA</h4><h3 id="基于碰撞检测的载波监听多点接入"><a href="#基于碰撞检测的载波监听多点接入" class="headerlink" title="基于碰撞检测的载波监听多点接入"></a>基于碰撞检测的载波监听多点接入</h3><h3 id="二进制截止退避"><a href="#二进制截止退避" class="headerlink" title="二进制截止退避"></a>二进制截止退避</h3>
               
             </div>
             <hr/>
