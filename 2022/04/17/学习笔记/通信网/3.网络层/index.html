@@ -24,7 +24,7 @@
 <meta property="og:description" content="网络层技术路由选择选择标准路由选择是设计分组交换网中最关键最复杂的问题。路由选择是指在交换过程中选择一条经过网络的路径，称为路由（routing）。通常站点到站点之间会有多条可行路由，因此需要选择经过哪一条路由。通常路由选择的过程中需要考虑：     正确性（correctness）正确地找到终点。   简洁性（simplicity）通常指可以找到最小花费的路由，花费中包括了钱、时间以及其他通信资">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T06:18:49.924Z">
-<meta property="article:modified_time" content="2022-05-23T05:23:44.782Z">
+<meta property="article:modified_time" content="2022-05-24T08:56:51.449Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -217,7 +217,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="04.网络层技术">
             
           </span>
         </div>
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          3k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          22 分钟
+          26 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年5月23日 凌晨
+                    本文最后更新于：2022年5月24日 早上
                   
                 
               </p>
@@ -382,8 +382,10 @@ p.spoiler {
 <li>所有直接或间接地与源点相连的节点都会被访问到。  </li>
 </ul>
 <p>洪泛式路由的优点是鲁棒性强，同时可以访问到尽可能多的结点，在使用洪泛式路由时不需要知道网络的状态，执行相对比较简单。<br>其缺点是洪泛的通信负荷量非常高，极容易产生拥塞。  </p>
-<h4 id="随机路由"><a href="#随机路由" class="headerlink" title="随机路由"></a>随机路由</h4><p>随机路由保留了洪泛的的简洁性，同时降低了通信量，其具体策略是：<br>网络中的每一个结点根据轮盘赌随机地为</p>
-<h4 id="自适应路由"><a href="#自适应路由" class="headerlink" title="自适应路由"></a>自适应路由</h4><h3 id="不同交换方式采取的路由策略"><a href="#不同交换方式采取的路由策略" class="headerlink" title="不同交换方式采取的路由策略"></a>不同交换方式采取的路由策略</h3><h4 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h4><p>电路交换在会话的过程中建立路由：每个节点都做最小代价算法决定发送的下一个节点，并建立映射关系。路由建立后通信资源会被分配给建立的连接。连接被建立后，各个节点是透传。  </p>
+<h4 id="随机路由"><a href="#随机路由" class="headerlink" title="随机路由"></a>随机路由</h4><p>随机路由保留了洪泛的的简洁性，同时降低了通信量，其具体策略是：<br>网络中的每一个结点根据链路的数据率、有概率地为选择一条路由。其中最经典的随机路由分配机制是轮盘赌，在轮盘赌法则中，即某条链路的数据率为$R_i$，这条链路被选择作为路由的概率为：  </p>
+<script type="math/tex; mode=display">P_i=\frac{R_i}{∑_jR_j}</script><p>随机路由只需要获得节点自身的数据率信息，不需要获得整个网络中其他节点的状态。由于随机性的选择，选择到的路由极有可能不是最小代价路由或者最小跳数路由，因此通信负荷量并非最小。  </p>
+<h4 id="自适应路由"><a href="#自适应路由" class="headerlink" title="自适应路由"></a>自适应路由</h4><p>顾名思义，在自适应路由中，路由的选择根据网络的状态的改变而改变。自适应路由需要通过一些机制知道整个网络的状态。此外，自适应路由的根据网络状态更改的响应时间选择非常重要：如果对网络状态的响应过快，资源利用率低，并且容易引起网络波动。如果对网络状态的响应过慢，收集到的网络状态信息时效性差，路由判决的有效性差。<br>因此相比于前几种路由策略，自适应路由的决策更加复杂。<br>但是自适应路由有非常好的表现，尤其是当网络出现拥塞时，自适应路由可以及时调整路由缓解拥塞。<br>基本上所有的分组交换网络都采用自适应路由。  </p>
+<h3 id="不同交换方式采取的路由策略"><a href="#不同交换方式采取的路由策略" class="headerlink" title="不同交换方式采取的路由策略"></a>不同交换方式采取的路由策略</h3><h4 id="电路交换"><a href="#电路交换" class="headerlink" title="电路交换"></a>电路交换</h4><p>电路交换在会话的过程中建立路由：每个节点都做最小代价算法决定发送的下一个节点，并建立映射关系。路由建立后通信资源会被分配给建立的连接。连接被建立后，各个节点是透传。  </p>
 <h4 id="分组交换"><a href="#分组交换" class="headerlink" title="分组交换"></a>分组交换</h4><ul>
 <li><p>虚电路<br>虚电路和电路交换的路由是静态的，为会话确定。<br>虚电路，比如ATM（ATM结点收到信元后会根据头部中的类型决定是否读内容），建立连接时，网络中的结点需要读内容（解包并移交给上层）。一旦连接被确定，映射关系会被结点储存。相较于电路交换，在映射关系建立后，虚电路不会为通信分配固定带宽。<br>电路交换和虚电路的路由建立过程是基本上相同的。电路交换中，建立连接的信道和通信的信道是不同且固定的。虚电路中没有信令和消息信道之分，靠分组的首部确定。  </p>
 </li>
@@ -462,7 +464,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年5月23日</div>
+          <div>2022年5月24日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2225,20 +2227,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
