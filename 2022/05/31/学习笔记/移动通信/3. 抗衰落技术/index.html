@@ -24,7 +24,7 @@
 <meta property="og:description" content="抗衰落技术由于随机的衰落和各种干扰，移动信道的参数会随着时间随机的变化，因此移动信道又被称为变参信道。移动通信中通过各种各样的技术来应对无线信道的各种衰落和干扰。   误差补偿技术误差补偿(error compensation mechanisms)是一种在接收端对于各种信号中误差和失真的补偿。误差补偿技术主要包括三类技术：    自适应信道均衡(adaptive channel equaliza">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-31T08:41:46.174Z">
-<meta property="article:modified_time" content="2022-05-31T09:54:44.617Z">
+<meta property="article:modified_time" content="2022-05-31T11:43:57.500Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.6k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          11 分钟
+          14 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年5月31日 上午
+                    本文最后更新于：2022年5月31日 中午
                   
                 
               </p>
@@ -327,16 +327,19 @@ p.spoiler {
 <h2 id="误差补偿技术"><a href="#误差补偿技术" class="headerlink" title="误差补偿技术"></a>误差补偿技术</h2><p>误差补偿(error compensation mechanisms)是一种在接收端对于各种信号中误差和失真的补偿。误差补偿技术主要包括三类技术：  </p>
 <ul>
 <li>自适应信道均衡(adaptive channel equalization)  </li>
-<li>误差控制编码(error-control coding)  </li>
+<li>差错控制编码(error-control coding)  </li>
 <li>分集技术(diversity techniques)  </li>
 </ul>
 <p>通常这三种技术往往混合使用。  </p>
 <h3 id="信道均衡技术"><a href="#信道均衡技术" class="headerlink" title="信道均衡技术"></a>信道均衡技术</h3><p>通常对于频率选择性信道，信道中的信号由于多径效应和带宽有限而发生时域的展宽，这是导致码间串扰的主要原因。信道均衡技术(channel equalization)可以有效的减少码间串扰。<br>简单来说，信道均衡的想法是在接收端的滤波器后和判决器之间增加一个新的器件——均衡器，均衡器是一种FIR滤波器，它能够根据信道的脉冲响赋予调整接收信号在各频点权重$C_i$。具体赋予权重的方式多样，常见的是使用最小均方误差算法来赋予权重。<br>自适应信道均衡技术可以根据信道状态信息(channel state information, CSI)自动调整权重，使得码间串扰的程度减少到最小。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220531171410.png width=50%>  </p>
-<h3 id="误差控制编码"><a href="#误差控制编码" class="headerlink" title="误差控制编码"></a>误差控制编码</h3><p>误差控制编码是在信源编码阶段使用一些可以规避或者减少特定误差的编码方式的抗衰落技术。现在广泛应用的误差控制编码技术是前向纠错(forward error-correction，FEC)和自动请求重发(auto-repeat request)。  </p>
+<h3 id="差错控制编码"><a href="#差错控制编码" class="headerlink" title="差错控制编码"></a>差错控制编码</h3><p>误差控制编码是在信源编码阶段使用一些可以规避或者减少特定误差的编码方式的抗衰落技术。现在广泛应用的误差控制编码技术是前向纠错(forward error-correction，FEC)和自动请求重发(auto-repeat request)。  </p>
 <h4 id="前向纠错"><a href="#前向纠错" class="headerlink" title="前向纠错"></a>前向纠错</h4><p>前向纠错技术指在发送端，发送方根据发送数据的内容，按照某个以内容为自变量的函数生成一组代码赋，称为校验码，附加在数据前或后方。<br>在接收方，接收者收到数据后按照相同的方式计算出一个校验码，并与发送方附带的校验码进行比对，如果两者不一致，则说明数据在传输的过程中发生了改变。某些校验方式还可以找到具体出错的比特位置，并且自动对齐进行校正。<br>根据编码器中是否需要内存，前向纠错码又分为卷积码(convolutional code)和分组码(block code)。<br>经典的分组码是线性分组码，通常以$(n,k)$线性分组码表示，其意义是：对于$k$比特的信息，使其添加上$n-k$比特的校验信息。在线性分组码中，通常以$\frac{n}{k}$表示编码效率。<br>卷积码是编码器冲激响应与一段比特数据进行离散时间卷积，从而生成校验码，卷积序列的长度和编码的有效性与编码器的冲激响应序列长度和卷积的序列长度——即内存的大小有关。  </p>
 <h4 id="自动请求重发"><a href="#自动请求重发" class="headerlink" title="自动请求重发"></a>自动请求重发</h4><p>自动请求重发是一种后向校错(backward error correction)，它依赖于接收者。简单来说，如果接收者收到数据后发现数据有错，会通过反馈机制告知发送者重新发送该数据。  </p>
-<h3 id="分集技术"><a href="#分集技术" class="headerlink" title="分集技术"></a>分集技术</h3><p>相互独立的信道中的衰落也是相互独立的，</p>
-<h4 id="空间分集"><a href="#空间分集" class="headerlink" title="空间分集"></a>空间分集</h4><h4 id="时间分集：交织"><a href="#时间分集：交织" class="headerlink" title="时间分集：交织"></a>时间分集：交织</h4><h4 id="频率分集技术"><a href="#频率分集技术" class="headerlink" title="频率分集技术"></a>频率分集技术</h4><h4 id="接收合并技术"><a href="#接收合并技术" class="headerlink" title="接收合并技术"></a>接收合并技术</h4>
+<h3 id="分集技术"><a href="#分集技术" class="headerlink" title="分集技术"></a>分集技术</h3><p>相互独立的信道中的衰落也是相互独立的，因此可以对不同的逻辑信道中的不同误差进行分别的补偿，然后将这些信号进行合并，以得到一个较为完整的信号。需要注意的是，分集技术的应用不能完全消除误差，但是可以降低误码率。分集技术通常和其他抗衰落技术混合使用。<br>分集也是一种对于通信资源的划分使用方式，分集技术包括空间分集、时间分集、频率分集和极化分集。  </p>
+<h4 id="空间分集"><a href="#空间分集" class="headerlink" title="空间分集"></a>空间分集</h4><p>空间分集技术是使用多个有向天线将接收和发送空间划分为多个扇形区域的方法。常见的空间分集技术包括了3G中的Rake 接收机技术、4G中的MIMO 多天线技术(multi-input multi-output)以及5G的massive-MIMO技术等。  </p>
+<h4 id="时间分集：交织"><a href="#时间分集：交织" class="headerlink" title="时间分集：交织"></a>时间分集：交织</h4><p>交织是一种按照一定规律、将多份字符在同一位置切断、重组的技术。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220531194034.png width=50%>  </p>
+<p>如上图所述，原来可能的突发差错（一长串比特出错）通过交织被拆散为随机差错（单个比特出错）。交织可以减少突发差错对数据的影响。  </p>
+<h4 id="频率分集技术"><a href="#频率分集技术" class="headerlink" title="频率分集技术"></a>频率分集技术</h4><h4 id="接收合并技术"><a href="#接收合并技术" class="headerlink" title="接收合并技术"></a>接收合并技术</h4>
               
             </div>
             <hr/>
