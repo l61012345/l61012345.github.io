@@ -24,7 +24,7 @@
 <meta property="og:description" content="计算机互联网：IP协议群IP协议IP地址及其演进过程IP地址是整个互联网上的每一台主机&#x2F;路由器的每一个结构分配了一个全世界范围内唯一的32位标识符，从而能够在互联网中寻址。IP地址由ICANN组织统一管理和分配，中国用户可以向APNIC组织有偿申请IP地址。IP地址是一个32位的01比特序列，为了保证可读性，通常每八位转换为十进制数，并且前后两个八位字段以“.”隔开，这种方法称为点分十进制记法。例">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-26T02:04:52.589Z">
-<meta property="article:modified_time" content="2022-06-06T06:22:06.033Z">
+<meta property="article:modified_time" content="2022-06-08T08:08:43.264Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -217,7 +217,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="计算机互联网：IP协议群">
             
           </span>
         </div>
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.4k 字
+          8k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          62 分钟
+          67 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月6日 早上
+                    本文最后更新于：2022年6月8日 早上
                   
                 
               </p>
@@ -450,15 +450,21 @@ p.spoiler {
             <p>网络伪装主要是根据每一层的协议伪装每一层的头部控制信息，或者篡改最上层的用户信息或者控制信息。<br>ARP学习过程中的最重要的是安全问题，如果有主机在接收到源主机的ARP广播后可以伪装ARP响应中的IP地址和MAC地址，那么会引起网络混乱。这是ARP病毒的工作原理。  </p>
           </div>  
 <h2 id="网际控制报文协议-ICMP协议"><a href="#网际控制报文协议-ICMP协议" class="headerlink" title="网际控制报文协议/ICMP协议"></a>网际控制报文协议/ICMP协议</h2><p>ICMP协议是一种用于提高IP数据报交付可靠性的、<strong>位于IP层</strong>的协议。ICMP报文被封装在IP数据报的数据部分：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220530174706.png width=50%>  </p>
-<p>ICMP报文分为差错报告报文和询问报文。当IC数据报无法正确交付时，路由器或者目的主机会发送差错报文给源主机。差错报文具体包括：  </p>
+<p>ICMP报文分为差错报告报文和询问报文。当IC数据报无法正确交付时，路由器或者目的主机会发送差错报文给源主机。<br>差错报文具体包括：  </p>
 <ul>
 <li>终点不可到达：路由器或者主机不能交付数据报。  </li>
 <li>超时：路由器收到TTL=0的报文。  </li>
 <li>参数错误：IP数据报头部的某些字段出现错误。  </li>
 <li>路由改变/重定向：让主机知道下次应当将数据报发送给另外的路由器。（比如之前提到的主机中的路由表改变）  </li>
 </ul>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220530175246.png width=50%>  </p>
-<h3 id="ICMP应用举例"><a href="#ICMP应用举例" class="headerlink" title="ICMP应用举例"></a>ICMP应用举例</h3><p>ICMP的重要应用是使用分组网间探测(Packet InterNet Groper,PING)测试两台主机之间的连通性。在Windows操作系统中的用户控制台应用(cmd)，键入<code>ping hostname</code>（<code>hostname</code>为要测试的主机的域名或IP地址）回车时，主机会默认向指定的<code>hostname</code>连续发送四个ICMP请求报文，目的主机回送ICMP响应报文，通过发送和接收的时间差从而可以计算两台主机之间当前的链路延迟。<br>举例如下：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">ping</span> l61012345.top<br>&gt; 正在 <span class="hljs-built_in">Ping</span> l61012345.top [<span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx] 具有 <span class="hljs-number">32</span> 字节的数据:<br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">37</span>ms TTL=<span class="hljs-number">49</span><br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">43</span>ms TTL=<span class="hljs-number">49</span><br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">37</span>ms TTL=<span class="hljs-number">49</span><br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">40</span>ms TTL=<span class="hljs-number">49</span><br>&gt; <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的 <span class="hljs-built_in">Ping</span> 统计信息:<br>&gt;    数据包: 已发送 = <span class="hljs-number">4</span>，已接收 = <span class="hljs-number">4</span>，丢失 = <span class="hljs-number">0</span> (<span class="hljs-number">0</span>% 丢失)，<br>&gt;往返行程的估计时间(以毫秒为单位):<br>&gt;    最短 = <span class="hljs-number">37</span>ms，最长 = <span class="hljs-number">43</span>ms，平均 = <span class="hljs-number">39</span>ms<br></code></pre></td></tr></table></figure><br>注：为保证安全性，“xxx”所对应的IP地址最后八位比特所对应十进制被隐去。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220530175246.png width=40%>  </p>
+<p>ICMP的询问报文包括：  </p>
+<ul>
+<li>回送请求和回答：由主机或者路由器向某个特定主机发送询问。该主机收到询问后需要发送回答报文。这样的方式通常用于测试目的站点的可达性。  </li>
+<li>时间戳请求和回答：请求某台主机或者路由器回答当前的日期和时间，用于时钟同步和时间测量。   </li>
+</ul>
+<h3 id="ICMP应用举例"><a href="#ICMP应用举例" class="headerlink" title="ICMP应用举例"></a>ICMP应用举例</h3><h4 id="Ping"><a href="#Ping" class="headerlink" title="Ping"></a>Ping</h4><p>ICMP的重要应用是使用分组网间探测(Packet InterNet Groper,PING)测试两台主机之间的连通性。在Windows操作系统中的用户控制台应用(cmd)，键入<code>ping hostname</code>（<code>hostname</code>为要测试的主机的域名或IP地址）回车时，主机会默认向指定的<code>hostname</code>连续发送四个ICMP请求报文，目的主机回送ICMP响应报文，通过发送和接收的时间差从而可以计算两台主机之间当前的链路延迟。<br>举例如下：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dos"><span class="hljs-built_in">ping</span> l61012345.top<br>&gt; 正在 <span class="hljs-built_in">Ping</span> l61012345.top [<span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx] 具有 <span class="hljs-number">32</span> 字节的数据:<br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">37</span>ms TTL=<span class="hljs-number">49</span><br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">43</span>ms TTL=<span class="hljs-number">49</span><br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">37</span>ms TTL=<span class="hljs-number">49</span><br>&gt; 来自 <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的回复: 字节=<span class="hljs-number">32</span> 时间=<span class="hljs-number">40</span>ms TTL=<span class="hljs-number">49</span><br>&gt; <span class="hljs-number">185</span>.<span class="hljs-number">199</span>.<span class="hljs-number">111</span>.xxx 的 <span class="hljs-built_in">Ping</span> 统计信息:<br>&gt;    数据包: 已发送 = <span class="hljs-number">4</span>，已接收 = <span class="hljs-number">4</span>，丢失 = <span class="hljs-number">0</span> (<span class="hljs-number">0</span>% 丢失)，<br>&gt;往返行程的估计时间(以毫秒为单位):<br>&gt;    最短 = <span class="hljs-number">37</span>ms，最长 = <span class="hljs-number">43</span>ms，平均 = <span class="hljs-number">39</span>ms<br></code></pre></td></tr></table></figure><br>注：为保证安全性，“xxx”所对应的IP地址最后八位比特所对应十进制被隐去。  </p>
+<h4 id="traceroute-tracert"><a href="#traceroute-tracert" class="headerlink" title="traceroute/tracert"></a>traceroute/tracert</h4><p>另一个ICMP的重要应用是tracerout用于跟踪一个分组从源点到终点的路径，在Windows操作系统中的指令为<code>tracert</code>。<br>其方法是利用ICMP<strong>时间超过</strong>和<strong>终点不可达</strong>两种报文对路由进行跟踪，具体而言，tracerout从源主机向目的主机发送一连串IP数据报，每一个IP数据报中封装的内容是使用了非法端口号而无法被交付的UDP数据报。当第一个数据报经过第一个路由时，由于数据报中的TTL为1，收到第一个数据报的路由器会将TTL减一并且向源点主机发送一个时间超过ICMP报文。然后，主机发送第二个TTL=2的数据报，并沿着相同的路径发送给同一个路由器。由于TTL的限制，这个数据报最终只会到达第二个路由器，第二个路由器也会向主机发送时间超过报文。<br>如此重复，每一次源主机发送的数据报中的TTL都比上一个数据报中的TTL多1，当数据报刚刚好到达目的主机时，目的主机解开IP数据报，但是由于其中的UDP数据报非法，目的主机会向源主机发送一个终点不可达ICMP报文。从而主机能够识别这个路由上的每一个路由器和目的主机。   </p>
 
               
             </div>
@@ -531,7 +537,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月6日</div>
+          <div>2022年6月8日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2330,20 +2336,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
