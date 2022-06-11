@@ -24,7 +24,7 @@
 <meta property="og:description" content="数字PID控制器数字PID控制器的设计思路是首先根据设计要求设计出模拟的PID控制器，再使用一定的离散化(Discretisation)方法使其转变为数字PID控制器。数字控制器在整个数字控制系统中的位置如下：   尽管系统中存在大量的模拟环节和模拟信号，对于整个数字系统的分析和设计需要以数字控制器为准，即在数字控制器设计时，应当将整个系统放在Z域中考虑。   离散化方法所谓离散化是指使用一定的数">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-20T08:18:52.646Z">
-<meta property="article:modified_time" content="2022-06-10T07:21:52.264Z">
+<meta property="article:modified_time" content="2022-06-11T09:08:28.018Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          3.5k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          29 分钟
+          30 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月10日 早上
+                    本文最后更新于：2022年6月11日 上午
                   
                 
               </p>
@@ -411,6 +411,11 @@ p.spoiler {
 <li>利用$|D(z)G_{ZA}(z)|_{z=a+bj}=1$解方程求得$K$。  </li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220610152116.png width=80%>  </p>
+<p>对于PID控制器也可以使用同样的设计方法对其进行设计，只是其控制器结构发生变化，由于I和D控制器均存在确定的分子分母，在利用根轨迹方法设计时还需要考虑这些确定的分子分母对系统角度的贡献：  </p>
+<ul>
+<li>对于PI控制器，其在(1,0)处贡献了一个极点。  </li>
+<li>对于PID控制器，其在(0,0)和(1,0)处分别贡献了一个极点。  </li>
+</ul>
 <p>如果零阶保持器和系统原型的离散化写作$G_{ZA}(z)$，设计好的数字控制系统的闭环传递函数为：  </p>
 <script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$或者静态误差系数找到其稳态误差。 </p>
 
@@ -476,7 +481,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月10日</div>
+          <div>2022年6月11日</div>
         </div>
       
       <div class="license-meta-item">
