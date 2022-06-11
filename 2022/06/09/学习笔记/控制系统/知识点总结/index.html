@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统-知识点总结数字控制系统数字控制系统结构数字控制系统是指控制器为数字控制器的控制系统，本课程中研究的数字控制系统的结构如下图所示：   数字系统的数学模型数字控制系统中可以使用差分方程描述系统的特性：   ∑b_ky(n+k)&#x3D;∑a_kr(n+k)             需要注意系统的初始条件，如果规定了系统的初始条件：$y(0)≠0$、$y(1)≠0$，则应当利用z变换的时移性质：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-09T05:51:54.338Z">
-<meta property="article:modified_time" content="2022-06-11T09:12:01.876Z">
+<meta property="article:modified_time" content="2022-06-11T09:14:37.259Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="控制系统-知识点总结">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.4k 字
+          5.9k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          38 分钟
+          50 分钟
         
       </span>
     
@@ -475,7 +475,39 @@ p.spoiler {
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220610152116.png width=80%>  </p>
 <p>如果零阶保持器和系统原型的离散化写作$G_{ZA}(z)$，设计好的数字控制系统的闭环传递函数为：  </p>
-<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$或者静态误差系数找到其稳态误差。 </p>
+<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$或者静态误差系数找到其稳态误差。   </p>
+<h2 id="系统的状态空间表示"><a href="#系统的状态空间表示" class="headerlink" title="系统的状态空间表示"></a>系统的状态空间表示</h2><h3 id="离散系统的能控性和能观性"><a href="#离散系统的能控性和能观性" class="headerlink" title="离散系统的能控性和能观性"></a>离散系统的能控性和能观性</h3><h4 id="能控性判定"><a href="#能控性判定" class="headerlink" title="能控性判定"></a>能控性判定</h4><p>定义离散系统的能控性矩阵：  </p>
+<script type="math/tex; mode=display">[H|GH|…|G^{n-1}H]</script><p>即能控性矩阵满秩，即$|[H|GH|…|G^{n-1}H]|≠0$，则系统是能控的。  </p>
+<h4 id="能观性判定"><a href="#能观性判定" class="headerlink" title="能观性判定"></a>能观性判定</h4><p>定义离散系统的能观性矩阵：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}
+    C\\ - \\ CG \\ - \\ ... \\ - \\ CG^{n-1}
+\end{bmatrix}</script><p>如果离散系统的能观性矩阵满秩，即$|\begin{bmatrix}<br>    C\\ - \\ CG \\ - \\ … \\ - \\ CG^{n-1}<br>\end{bmatrix}|≠0$，则系统是能观的。    </p>
+<h3 id="反馈控制器"><a href="#反馈控制器" class="headerlink" title="反馈控制器"></a>反馈控制器</h3><h4 id="反馈控制系统的特征方程"><a href="#反馈控制系统的特征方程" class="headerlink" title="反馈控制系统的特征方程"></a>反馈控制系统的特征方程</h4><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>添加一个负反馈控制器$K$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502175238.png width=50%></p>
+<p>根据上图，有系统的状态方程：  </p>
+<script type="math/tex; mode=display">x(k+1)=Ax(k)+Bu(k)</script><p>带入$u(k)=-kx(k)+v(k)$，有：  </p>
+<script type="math/tex; mode=display">x(k+1)=(A-BK)x(k)+Bv(k)</script><p>其中，</p>
+<script type="math/tex; mode=display">|zI-(A-BK)|=0</script><p>是系统的特征方程。  </p>
+<h4 id="反馈控制器设计步骤"><a href="#反馈控制器设计步骤" class="headerlink" title="反馈控制器设计步骤"></a>反馈控制器设计步骤</h4><ul>
+<li>检验系统原型的能控性矩阵。  </li>
+<li>根据系统的设计要求，找到阻尼比$ζ$和固有频率$ω_n$，并构造出系统的特征多项式。  </li>
+<li>设计系统的反馈控制器，并且根据$|zI-(A-BK)|$找到系统含有$k_i$的特征多项式。  </li>
+<li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
+</ul>
+<h3 id="观测器设计"><a href="#观测器设计" class="headerlink" title="观测器设计"></a>观测器设计</h3><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>增加一个观测器：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502180408.png width=50%>  </p>
+<h4 id="观测器的功能"><a href="#观测器的功能" class="headerlink" title="观测器的功能"></a>观测器的功能</h4><p>系统在下一个时刻的状态估计量为$\vec{\hat{x}}(k+1)$，它可以通过观测器得到：  </p>
+<script type="math/tex; mode=display">\vec{\hat{x}}(k+1)=A\vec{\hat{x}}+Bu(k)+L[y(k)-C\vec{\hat{x}}(k)]</script><p>设系统的观测状态误差为观测器估计的系统下一时刻状态的观测值和系统下一时刻状态的实际值之差：  </p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=\vec{x}(k+1)-\vec{\hat{x}}(k+1)</script><p>结合$\vec{x}(k+1)=A\vec{x}(k)+Bu(k)$，有：  </p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=A\vec{x_e}(k)-L[y(k)-C\vec{\hat{x}}(k)]</script><p>根据$y(k)=C\vec{x}(k)$，有$\hat{y}(k)=C\vec{\hat{x}}(k)$，那么：  </p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=A\vec{x_e}(k)-L[y(k)-\hat{y}(k)]</script><p>可以发现，<strong>通过调整观测器系数$L$，可以使得下一次系统的状态误差随着本次系统的输出误差的减少而减少</strong>。<br>同时，带入$y(k)=C\vec{x}(k)$，可以发现系统状态误差的转移：</p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=A\vec{x_e}(k)-LC[\vec{x}(k)-\vec{\hat{x}}(k)]</script><p>即：  </p>
+<script type="math/tex; mode=display">\vec{x_e}(k+1)=(A-LC)\vec{x_e}(k)</script><p>那么系统状态误差的状态转移矩阵为：  </p>
+<script type="math/tex; mode=display">A-LC</script><p>系统的特征方程为：  </p>
+<script type="math/tex; mode=display">|zI-(A-LC)|=0</script><h4 id="观测器设计步骤"><a href="#观测器设计步骤" class="headerlink" title="观测器设计步骤"></a>观测器设计步骤</h4><ul>
+<li>检验系统原型的能观性矩阵。  </li>
+<li>根据系统的设计要求，找到阻尼比$ζ$和固有频率$ω_n$，并构造出系统的特征多项式。  </li>
+<li>设计系统的反馈控制器，并且根据$|zI-(A-LC)|$找到系统含有$l_i$的特征多项式。  </li>
+<li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
+</ul>
 
               
             </div>
@@ -2341,20 +2373,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
