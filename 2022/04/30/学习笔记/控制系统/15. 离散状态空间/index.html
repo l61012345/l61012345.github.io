@@ -24,7 +24,7 @@
 <meta property="og:description" content="离散系统的状态空间的表示和补偿器设计离散系统的状态空间表示像连续系统的状态空间，对于线性时不变的离散系统，也可以取一组系统的状态变量，使得在已知$k$时刻的系统状态和系统输入的情况下，可以知道$k+1$时刻的系统状态有：   x(k+1)&#x3D;G\vec{x}(k)+Hu(k)上述方程称为离散系统的状态方程。$G$称为状态矩阵，$H$称为输入矩阵。此时系统的输出$y$可以表示为:   y(k)&#x3D;C\v">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-30T08:09:04.606Z">
-<meta property="article:modified_time" content="2022-06-11T09:15:09.923Z">
+<meta property="article:modified_time" content="2022-06-11T13:52:40.243Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月11日 上午
+                    本文最后更新于：2022年6月11日 下午
                   
                 
               </p>
@@ -442,7 +442,7 @@ p.spoiler {
     c_1 & c_2 & ... & c_n
 \end{bmatrix}\begin{bmatrix}
       x_1(k)\\x_2(k)\\...\\x_{n-1}(k)\\x_n(k)
-  \end{bmatrix}+b_0u(k)</script><h3 id="状态空间表示与系统框图"><a href="#状态空间表示与系统框图" class="headerlink" title="状态空间表示与系统框图"></a>状态空间表示与系统框图</h3><p>简单来说，根据系统框图推出系统状态空间表示的方法是：<br>将系统每一个延迟单元的输出设为一个状态变量$x_i(k)$，则延迟单元前的状态为$x_i(k+1)$。系统的每一个延迟单元可以写出一个系统的状态方程。<br>根据系统的输出和各状态之间的关系，可以系统的状态方程。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502160545.png width=50%>  </p>
+  \end{bmatrix}+b_0u(k)</script><h3 id="状态空间表示与系统框图"><a href="#状态空间表示与系统框图" class="headerlink" title="状态空间表示与系统框图"></a>状态空间表示与系统框图</h3><p>简单来说，根据系统框图推出系统状态空间表示的方法是：<br>将系统每一个延迟单元的输出设为一个状态变量$x_i(k)$，则延迟单元前的状态为$x_i(k+1)$。系统的每一个延迟单元可以写出一个系统的状态方程。<br>根据系统的输出和各状态之间的关系，可以系统的状态方程。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611212448.png width=70%>  </p>
 <h3 id="连续系统状态空间表示的离散化"><a href="#连续系统状态空间表示的离散化" class="headerlink" title="连续系统状态空间表示的离散化"></a>连续系统状态空间表示的离散化</h3><p>对于连续系统：$\begin{cases}\vec{\dot{x}}=A\vec{x}+Bu \\ y(t)=C\vec{x}+Du\end{cases}$，根据<br>映射律$z=e^{sT}$，有:  </p>
 <script type="math/tex; mode=display">G=e^{AT}=\mathcal{L}^{-1}((sI-A)^{-1})</script><script type="math/tex; mode=display">H=(\int_0^Te^{Aλ}dλ)B=(G-I)A^{-1}B</script><p>即可得到离散化后的系统状态空间表示：  </p>
 <script type="math/tex; mode=display">x(k+1)=Gx(k)+Hu(k)</script><script type="math/tex; mode=display">y(k)=Cx(k)+Du(k)</script><p>需要注意的是，$G$和$H$会随着采样周期$T$的变化而变化。  </p>
@@ -452,7 +452,7 @@ p.spoiler {
 <script type="math/tex; mode=display">\begin{bmatrix}
     C\\ - \\ CG \\ - \\ ... \\ - \\ CG^{n-1}
 \end{bmatrix}</script><p>如果离散系统的能观性矩阵满秩，即$|\begin{bmatrix}<br>    C\\ - \\ CG \\ - \\ … \\ - \\ CG^{n-1}<br>\end{bmatrix}|≠0$，则系统是能观的。    </p>
-<h2 id="反馈控制器"><a href="#反馈控制器" class="headerlink" title="反馈控制器"></a>反馈控制器</h2><h3 id="反馈控制系统的特征方程"><a href="#反馈控制系统的特征方程" class="headerlink" title="反馈控制系统的特征方程"></a>反馈控制系统的特征方程</h3><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>添加一个负反馈控制器$K$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502175238.png width=50%></p>
+<h2 id="反馈控制器"><a href="#反馈控制器" class="headerlink" title="反馈控制器"></a>反馈控制器</h2><h3 id="反馈控制系统的特征方程"><a href="#反馈控制系统的特征方程" class="headerlink" title="反馈控制系统的特征方程"></a>反馈控制系统的特征方程</h3><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>添加一个负反馈控制器$K$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611213137.png width=80%>  </p>
 <p>根据上图，有系统的状态方程：  </p>
 <script type="math/tex; mode=display">x(k+1)=Ax(k)+Bu(k)</script><p>带入$u(k)=-kx(k)+v(k)$，有：  </p>
 <script type="math/tex; mode=display">x(k+1)=(A-BK)x(k)+Bv(k)</script><p>其中，</p>
@@ -463,7 +463,7 @@ p.spoiler {
 <li>设计系统的反馈控制器，并且根据$|zI-(A-BK)|$找到系统含有$k_i$的特征多项式。  </li>
 <li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
 </ul>
-<h2 id="观测器设计"><a href="#观测器设计" class="headerlink" title="观测器设计"></a>观测器设计</h2><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>增加一个观测器：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502180408.png width=50%>  </p>
+<h2 id="观测器设计"><a href="#观测器设计" class="headerlink" title="观测器设计"></a>观测器设计</h2><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>增加一个观测器：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502180408.png width=50%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611215158.png width=50%>  </p>
 <h3 id="观测器的功能"><a href="#观测器的功能" class="headerlink" title="观测器的功能"></a>观测器的功能</h3><p>系统在下一个时刻的状态估计量为$\vec{\hat{x}}(k+1)$，它可以通过观测器得到：  </p>
 <script type="math/tex; mode=display">\vec{\hat{x}}(k+1)=A\vec{\hat{x}}+Bu(k)+L[y(k)-C\vec{\hat{x}}(k)]</script><p>设系统的观测状态误差为观测器估计的系统下一时刻状态的观测值和系统下一时刻状态的实际值之差：  </p>
 <script type="math/tex; mode=display">\vec{x_e}(k+1)=\vec{x}(k+1)-\vec{\hat{x}}(k+1)</script><p>结合$\vec{x}(k+1)=A\vec{x}(k)+Bu(k)$，有：  </p>
