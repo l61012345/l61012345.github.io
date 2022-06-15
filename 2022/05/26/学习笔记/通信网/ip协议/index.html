@@ -24,7 +24,7 @@
 <meta property="og:description" content="计算机互联网：IP协议群IP协议IP地址及其演进过程IP地址是整个互联网上的每一台主机&#x2F;路由器的每一个结构分配了一个全世界范围内唯一的32位标识符，从而能够在互联网中寻址。IP地址由ICANN组织统一管理和分配，中国用户可以向APNIC组织有偿申请IP地址。IP地址是一个32位的01比特序列，为了保证可读性，通常每八位转换为十进制数，并且前后两个八位字段以“.”隔开，这种方法称为点分十进制记法。例">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-26T02:04:52.589Z">
-<meta property="article:modified_time" content="2022-06-13T06:02:36.309Z">
+<meta property="article:modified_time" content="2022-06-15T09:09:14.830Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -217,7 +217,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="5.计算机互联网：IP协议群">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          11k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          86 分钟
+          92 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月13日 早上
+                    本文最后更新于：2022年6月15日 上午
                   
                 
               </p>
@@ -374,6 +374,7 @@ p.spoiler {
 </table>
 </div>
 <h3 id="IP数据报的格式"><a href="#IP数据报的格式" class="headerlink" title="IP数据报的格式"></a>IP数据报的格式</h3><p>IP数据报是IP层对应的数据报部分，其由头部的控制信息和数据部分组成，如下图所示:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220530130833.png width=60%></p>
+<p>IPv4首部为4字节对齐，即首部长度必须是4字节的整数倍，如果首部长度不满4字节的整数倍，需要添加一些冗余比特。  </p>
 <p>IP数据报头部中需要重点关注的几个字段：  </p>
 <ul>
 <li>总长度<br>指整个IP数据报（首部+数据部分）的长度，单位为字节。IP数据报是可变长度数据报，因此需要一个字段表示数据报的总长度。总长度字段为16位，即理论上IP数据报的最大长度为$2^{16}-1$字节，但是实际上还需要考虑下层数据链路层的数据字段的最大长度，称为最大传送单元(MTU,maximum transfer unit)，因此如果IP数据报运行在以太网上，实际上的IP数据报长度通常不超过1500字节。<br>IP数据报越短，路由器的转发速度越快。  </li>
@@ -554,6 +555,15 @@ p.spoiler {
 <li>自治系统之间的路由选择必须考虑相关策略：<br>由于各网络使用的度量可能不同，性能差别很大。根据最短距离寻找出来的路径可能并不合适，可能还需要考虑代价或者安全性等等问题。域间通信需要人为设置某些路由。  </li>
 </ul>
 <p>因此，BGP协议只能是力求寻找一条能够达到目的网络且比较好的路由，而并非寻找一条<strong>最佳</strong>路由。  </p>
+<h2 id="网络地址转换-NAT"><a href="#网络地址转换-NAT" class="headerlink" title="网络地址转换/NAT"></a>网络地址转换/NAT</h2><p>专用地址是一种只能用于一个机构内部通信的地址。专用网络，又被称为本地互联网，是一种使用专用地址进行通信的网络。由于当前IPv4的地址已经所剩不多，所以现在更常见的方法是对一个专用网络采用专用地址进行内部映射，而这个专用网络对外拥有至少一个有效的全球IP地址。这个IP地址和专用网络中设备的专用地址之间的映射关系由网络地址转换/NAT(Natwork Address Translation)进行。<br>所有使用本地地址的主机在和外界通信时，都要在装有NAT软件的路由器上将本地地址转换为全球IP地址，然后才能和互联网连接。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220615165924.png width=50%>  </p>
+<p>需要注意的是，专用网络所拥有的一个有效的全球IP地址同一时间之内只能由专用网络中的一个设备所使用，因此当NAT路由器具有$n$个全球IP地址时，专用网内最多可以同时拥有$n$台主机接入到互联网。<br>对于内部设备较多的专用网，这些设备只能轮流使用这些IP地址。  </p>
+<h2 id="IPv6数据报"><a href="#IPv6数据报" class="headerlink" title="IPv6数据报"></a>IPv6数据报</h2><p>IPv6仍然是无连接的传送协议。相比于IPv4，其主要区别为：  </p>
+<ul>
+<li>更大的地址空间，IPv6的地址空间从IPv4的32位拓展到了128位。  </li>
+<li>IPv6的数据报由两大部分组成：基本首部和有效载荷。其中基本首部的长度是固定的，其选项放在有效载荷中，称为扩展首部。而IPv4的首部长度是可变的。  </li>
+<li>IPv6首部为8字节对齐，即首部长度必须是8字节的整数倍；IPv4是4字节对齐。  </li>
+</ul>
+<p>目前，IPv4和IPv6通过双协议栈技术进行过渡。  </p>
 
               
             </div>
@@ -626,7 +636,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月13日</div>
+          <div>2022年6月15日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2443,5 +2453,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
