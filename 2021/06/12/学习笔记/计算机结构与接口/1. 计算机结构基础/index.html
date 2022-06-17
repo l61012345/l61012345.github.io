@@ -24,7 +24,7 @@
 <meta property="og:description" content="计算机结构基础 讲义复习BUL EE2623 Computer Architecture and InterfaceDr. Takebumi Itagaki     冯诺依曼架构组成部分： CPU&#x2F;ALU,I&#x2F;O, Buses, Main Memory特征： 所有的部分都通过总线连接总线的类别： 数据总线，地址总线，控制总线 数制十六进制，十进制，八进制，二进制的相互转化。 二进制整数的表达和运算">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-12T11:37:24.000Z">
-<meta property="article:modified_time" content="2022-06-16T13:06:26.559Z">
+<meta property="article:modified_time" content="2022-06-17T15:18:59.163Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k 字
+          7.2k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          60 分钟
+          61 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月16日 下午
+                    本文最后更新于：2022年6月17日 下午
                   
                 
               </p>
@@ -371,7 +371,7 @@ p.spoiler {
 </table>
 </div>
 <ul>
-<li>Bias<br>为了让Signed更方便的进行比较，将Signed转换成二进制后的指数部分人为地加一个Bias使得指数部分转变到Unsigned的范围内（0和255特殊处理）便于比较。<br>Bias的值规定是exp位十进制数的中位数或中间两个数的平均数。<br>IEEE 754 能够表示0， 正规数（Exp部分不为0），非正规数（Exp部分为0，如果Exp小于0则把Exp划到0后，剩下的部分进入小数部分），无穷和其他未规定的计算结果（NaN）。   </li>
+<li>Bias<br>为了让Signed更方便的进行比较，将Signed转换成二进制后的指数部分人为地加一个Bias使得指数部分转变到Unsigned的范围内（0和255特殊处理）便于比较。<br>Bias的值规定是exp位十进制数的中位数或中间两个数的平均数。<br>IEEE 754 能够表示0， 规格数（Exp部分不为0），非规格数（Exp部分为0，如果Exp小于0则把Exp划到0后，剩下的部分进入小数部分），无穷和其他未规定的计算结果（NaN）。   </li>
 <li>十进制转IEEE754<ol>
 <li>确定正负</li>
 <li>小数部分（$2^{-k}$）和整数部分（$2^{k}$）分别写出二进制形式（负数不需要转化为补码），合并，中间以小数点隔开</li>
@@ -388,7 +388,10 @@ p.spoiler {
 <li>$⨦0 ÷ ⨦0$  </li>
 <li>$∞-∞$  </li>
 <li>$⨦∞÷⨦∞$  </li>
-<li>$⨦∞ × 0$<br>规定如下的情况结果会是无穷(e全是1,f$̸=$0)：  </li>
+<li>$⨦∞ × 0$  </li>
+</ol>
+<p>规定如下的情况结果会是无穷(e全是1,f$̸=$0)：  </p>
+<ol>
 <li>$∞ × ∞$  </li>
 <li>$∞ + ∞$  </li>
 <li>$nonezero ÷ 0$<br>规定$n ÷ ∞=0$(e全是0,f全是0)。  </li>
@@ -397,12 +400,15 @@ p.spoiler {
 <li><p>范围  </p>
 <ul>
 <li>最大正数：<br>$(2-2^{-23}）2^{127}≈2^{128}$<br>(0 | 1111 1111 | 1111 1111 11111 1111 1111 111)   </li>
-<li><p>最小非正规数：<br>$2^{-150}$<br>(0 | 0000 0000 | 0000 0000 0000 0000 0000 001)</p>
-</li>
-<li><p>最小正数：<br>$2^{-126}$<br>(0 | 0000 0001 | 0000 0000 0000 0000 0000 000)  </p>
+<li>最小非规格数：<br>$2^{-23}×2^{-127}=2^{-150}$<br>(0 | 0000 0000 | 0000 0000 0000 0000 0000 001)  <div class="note note-info">
+            <p>请注意，这是在不考虑移位的情况下，如果考虑移位，那么这个数应该为$2^{-23}×2^{-126}=2^{-149}$  </p>
+          </div>
 </li>
 </ul>
 </li>
+</ul>
+<ul>
+<li>最小正数：<br>$2^{-126}$<br>(0 | 0000 0001 | 0000 0000 0000 0000 0000 000)  </li>
 </ul>
 <h4 id="IBM-Float-System"><a href="#IBM-Float-System" class="headerlink" title="IBM Float System"></a><strong>IBM Float System</strong></h4><p>IBM Float System是基于<strong>基于十六进制</strong>的浮点数表示方法。<br>32位IBM 浮点数的表示方法为：</p>
 <div class="table-container">
@@ -430,7 +436,8 @@ p.spoiler {
 </div>
 <ul>
 <li><p>IBM Float转十进制</p>
-<script type="math/tex; mode=display">(-1)^5\frac{M}{2^{24}}2^{exponent-64}</script></li>
+<script type="math/tex; mode=display">(-1)^s\frac{M}{2^{24}}16^{exponent-64}</script><p>$M$是24位小数部分转成10进制后的数。  </p>
+</li>
 <li><p>范围<br>$16^{-88}$-$16^{64}$</p>
 </li>
 </ul>
@@ -668,7 +675,7 @@ Longword & 16
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月16日</div>
+          <div>2022年6月17日</div>
         </div>
       
       <div class="license-meta-item">
