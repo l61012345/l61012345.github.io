@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统-知识点总结数字控制系统数字控制系统结构数字控制系统是指控制器为数字控制器的控制系统，本课程中研究的数字控制系统的结构如下图所示：   数字系统的数学模型数字控制系统中可以使用差分方程描述系统的特性：   ∑b_ky(n+k)&#x3D;∑a_kr(n+k)             需要注意系统的初始条件，如果规定了系统的初始条件：$y(0)≠0$、$y(1)≠0$，则应当利用z变换的时移性质：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-09T05:51:54.338Z">
-<meta property="article:modified_time" content="2022-06-18T05:31:38.134Z">
+<meta property="article:modified_time" content="2022-06-18T05:37:23.588Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -495,13 +495,13 @@ p.spoiler {
      Y(z)=&U(z)b_0+z^{-1}[b_1U(z)+b_2z^{-1}U(z)-Y(z)a_1-Y(z)a_2z^{-1}]\\
      =&U(z)b_0+z^{-1}[b_1U(z)-Y(z)a_1+z^{-1}(b_2U(z)-Y(z)a_2)]
 \end{aligned}</script><p>接下来，从最内部的$b_2U(z)-Y(z)a_2$开始构建系统，直到用框图搭建完整个系统为止，整个系统的框图如下方所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618132242.png width=50%>  </p>
-<p>对每一个延迟器前后设置一个状态变量$x_i(k+1)$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618132725.png width=50%>   </p>
+<p>对每一个延迟器前后设置一个状态变量$x_i(k+1)$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618133709.png width=50%>   </p>
 <div class="note note-info">
             <p>$x_1(k+1)$和$x_2(k+1)$的位置是可以调换的，因此能观标准型有两种写法。  </p>
           </div>
 <p>有：  </p>
-<script type="math/tex; mode=display">x_1(k+1)=-a_1x_2(k)+(b_2-a_1b_0)u(k)</script><script type="math/tex; mode=display">x_2(k+1)=x_1(k)-a_2x_2(k)-a_2b_0u(k)</script><script type="math/tex; mode=display">y(k)=x_2(k)+b_0u(k)</script><p>综合以上三式，有：  </p>
-<script type="math/tex; mode=display">\begin{bmatrix}x_1(k+1)\\x_2(k+1)\end{bmatrix}=\begin{bmatrix}0&-a_1\\1&-a_2\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+\begin{bmatrix}b_2-a_1b_0\\-a_2b_0\end{bmatrix}u(k)</script><script type="math/tex; mode=display">y(k)=\begin{bmatrix}0&1\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+b_0u(k)</script><h3 id="离散系统的能控性和能观性"><a href="#离散系统的能控性和能观性" class="headerlink" title="离散系统的能控性和能观性"></a>离散系统的能控性和能观性</h3><h4 id="能控性判定"><a href="#能控性判定" class="headerlink" title="能控性判定"></a>能控性判定</h4><p>定义离散系统的能控性矩阵：  </p>
+<script type="math/tex; mode=display">x_1(k+1)=-a_1x_2(k)+(b_2-a_1b_0)u(k)</script><script type="math/tex; mode=display">x_2(k+1)=x_1(k)-a_2x_2(k)(b_1-a_2b_0)u(k)</script><script type="math/tex; mode=display">y(k)=x_2(k)+b_0u(k)</script><p>综合以上三式，有：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}x_1(k+1)\\x_2(k+1)\end{bmatrix}=\begin{bmatrix}0&-a_1\\1&-a_2\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+\begin{bmatrix}b_2-a_1b_0\\b_1-a_2b_0\end{bmatrix}u(k)</script><script type="math/tex; mode=display">y(k)=\begin{bmatrix}0&1\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+b_0u(k)</script><h3 id="离散系统的能控性和能观性"><a href="#离散系统的能控性和能观性" class="headerlink" title="离散系统的能控性和能观性"></a>离散系统的能控性和能观性</h3><h4 id="能控性判定"><a href="#能控性判定" class="headerlink" title="能控性判定"></a>能控性判定</h4><p>定义离散系统的能控性矩阵：  </p>
 <script type="math/tex; mode=display">[H|GH|…|G^{n-1}H]</script><p>即能控性矩阵满秩，即$|[H|GH|…|G^{n-1}H]|≠0$，则系统是能控的。  </p>
 <h4 id="能观性判定"><a href="#能观性判定" class="headerlink" title="能观性判定"></a>能观性判定</h4><p>定义离散系统的能观性矩阵：  </p>
 <script type="math/tex; mode=display">\begin{bmatrix}
