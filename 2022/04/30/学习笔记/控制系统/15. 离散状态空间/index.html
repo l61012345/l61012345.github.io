@@ -24,7 +24,7 @@
 <meta property="og:description" content="离散系统的状态空间的表示和补偿器设计离散系统的状态空间表示像连续系统的状态空间，对于线性时不变的离散系统，也可以取一组系统的状态变量，使得在已知$k$时刻的系统状态和系统输入的情况下，可以知道$k+1$时刻的系统状态有：   x(k+1)&#x3D;G\vec{x}(k)+Hu(k)上述方程称为离散系统的状态方程。$G$称为状态矩阵，$H$称为输入矩阵。此时系统的输出$y$可以表示为:   y(k)&#x3D;C\v">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-30T08:09:04.606Z">
-<meta property="article:modified_time" content="2022-06-11T13:52:40.243Z">
+<meta property="article:modified_time" content="2022-06-18T04:47:33.704Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          6.5k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          46 分钟
+          55 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月11日 下午
+                    本文最后更新于：2022年6月18日 凌晨
                   
                 
               </p>
@@ -328,7 +328,7 @@ p.spoiler {
 <script type="math/tex; mode=display">y(k)=C\vec{x}(k)+Du(k)</script><p>上述方程称为离散系统的输出方程。$C$称为输出矩阵，$D$称为直接传输矩阵(direct transmission matrix)。<br>同理可以得到系统的特征方程为：  </p>
 <script type="math/tex; mode=display">|zI-G|=0</script><h3 id="状态空间的表达形式"><a href="#状态空间的表达形式" class="headerlink" title="状态空间的表达形式"></a>状态空间的表达形式</h3><p>对于描述系统的差分方程：  </p>
 <script type="math/tex; mode=display">y(k)+a_1y(k-1)+a_2y(k-2)+...+a_ny(k-n)=b_0u(k)+b_1u(k)+...+b_nu(k-n)</script><h4 id="能控标准型"><a href="#能控标准型" class="headerlink" title="能控标准型"></a>能控标准型</h4><p>如果系统的传递函数以如下形式表达：  </p>
-<script type="math/tex; mode=display">\frac{Y(z)}{U(z)}=\frac{b_0+b_1z^{-1}+...+b_nz^{-n}}{1+a_1z^{-1}+...+a_n}</script><p>那么系统的状态空间表示可以写作如下两种：  </p>
+<script type="math/tex; mode=display">\frac{Y(z)}{U(z)}=\frac{b_0+b_1z^{-1}+...+b_nz^{-n}}{1+a_1z^{-1}+...+a_nz^{-n}}</script><p>那么系统的状态空间表示可以写作如下两种：  </p>
 <ul>
 <li><p>其一</p>
 <script type="math/tex; mode=display">\begin{bmatrix}
@@ -369,7 +369,7 @@ p.spoiler {
 </ul>
 <p>上述两种形式都称为能控标准型，注意其一和其二中对于状态变量的选取的顺序是不同的。  </p>
 <h4 id="能观标准型"><a href="#能观标准型" class="headerlink" title="能观标准型"></a>能观标准型</h4><p>如果系统的传递函数以如下形式表达：  </p>
-<script type="math/tex; mode=display">\frac{Y(z)}{U(z)}=\frac{b_0+b_1z^{-1}+...+b_nz^{-n}}{1+a_1z^{-1}+...+a_n}</script><p>那么系统的状态空间表示可以写作如下两种：  </p>
+<script type="math/tex; mode=display">\frac{Y(z)}{U(z)}=\frac{b_0+b_1z^{-1}+...+b_nz^{-n}}{1+a_1z^{-1}+...+a_nz^{-n}}</script><p>那么系统的状态空间表示可以写作如下两种：  </p>
 <ul>
 <li><p>其一  </p>
 <script type="math/tex; mode=display">\begin{bmatrix}
@@ -443,7 +443,20 @@ p.spoiler {
 \end{bmatrix}\begin{bmatrix}
       x_1(k)\\x_2(k)\\...\\x_{n-1}(k)\\x_n(k)
   \end{bmatrix}+b_0u(k)</script><h3 id="状态空间表示与系统框图"><a href="#状态空间表示与系统框图" class="headerlink" title="状态空间表示与系统框图"></a>状态空间表示与系统框图</h3><p>简单来说，根据系统框图推出系统状态空间表示的方法是：<br>将系统每一个延迟单元的输出设为一个状态变量$x_i(k)$，则延迟单元前的状态为$x_i(k+1)$。系统的每一个延迟单元可以写出一个系统的状态方程。<br>根据系统的输出和各状态之间的关系，可以系统的状态方程。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611212448.png width=70%>  </p>
-<h3 id="连续系统状态空间表示的离散化"><a href="#连续系统状态空间表示的离散化" class="headerlink" title="连续系统状态空间表示的离散化"></a>连续系统状态空间表示的离散化</h3><p>对于连续系统：$\begin{cases}\vec{\dot{x}}=A\vec{x}+Bu \\ y(t)=C\vec{x}+Du\end{cases}$，根据<br>映射律$z=e^{sT}$，有:  </p>
+<h4 id="系统框图与能控标准型"><a href="#系统框图与能控标准型" class="headerlink" title="系统框图与能控标准型"></a>系统框图与能控标准型</h4><p>系统框图的级联形式对应系统的能控标准型，简单来说：<br>对于$\frac{Y(z)}{U(z)}=\frac{b_0+b_1z^{-1}+…+b_nz^{-n}}{1+a_1z^{-1}+…+a_nz^{-n}}$，有：  </p>
+<script type="math/tex; mode=display">\frac{Y(z)}{U(z)}=\frac{Y(z)}{H(z)}\frac{H(z)}{U(z)}</script><p>那么：$\frac{H(z)}{U(z)}=\frac{1}{1+a_1z^{-1}+…+a_nz^{-n}}$，$\frac{Y(z)}{H(z)}=b_0+b_1z^{-1}+…+b_nz^{-n}$。对$\frac{H(z)}{U(z)}$，有：  </p>
+<script type="math/tex; mode=display">H(z)(1+a_1z^{-1}+...+a_nz^{-n})=U(z)</script><script type="math/tex; mode=display">H(z)=U(z)-(a_1z^{-1}+...+a_nz^{-n})H(z)</script><p>根据上述式子，$\frac{H(z)}{U(z)}$的信号框图可以作出，例如$H(z)=U(z)-(a_1z^{-1}+a_2z^{-2})H(z)$<br>的框图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618121826.png width=40%>  </p>
+<p>对$\frac{Y(z)}{H(z)}$，有：  </p>
+<script type="math/tex; mode=display">Y(z)=(b_0+b_1z^{-1}+...+b_nz^{-n})H(z)</script><p>根据上述式子，$\frac{Y(z)}{H(z)}$的信号框图可以作出，例如$Y(z)=(b_0+b_1z^{-1}+b_2z^{-2})H(z)$的系统框图为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618122929.png width=40%><br>将两部分合并，可以得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618123059.png width=50%>  </p>
+<p>对每一个延迟器前后设置一个状态变量$x_i(k+1)$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220618123935.png width=50%>  </p>
+<div class="note note-info">
+            <p>$x_1(k+1)$和$x_2(k+1)$的位置是可以调换的，因此能控标准型有两种写法。  </p>
+          </div>
+<p>对$x_1(k+1)$，可以得到：  </p>
+<script type="math/tex; mode=display">x_1(k+1)=-a_1x_1(k)-a_2x_2(k)+u(k)</script><p>对$x_2(k+1)$，可以得到： </p>
+<script type="math/tex; mode=display">x_2(k+1)=x_1(k)</script><p>对输出$y(k)$可以得到：</p>
+<script type="math/tex; mode=display">y(k)=(b_1-b_0a_1)x_1(k)+(b_2-b_0a_2)x_2(k)+b_0u(k)</script><p>根据上述三个式子可以写出系统的能控标准型：  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}x_1(k+1)\\x_2(k+1)\end{bmatrix}=\begin{bmatrix}-a_1&-a_2\\1&0\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+\begin{bmatrix}1\\0\end{bmatrix}u(k)</script><script type="math/tex; mode=display">y(k)=\begin{bmatrix}b_1-b_0a_1&b_2-b_0a_2\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+b_0u(k)</script><h4 id="能观标准性与系统框图"><a href="#能观标准性与系统框图" class="headerlink" title="能观标准性与系统框图"></a>能观标准性与系统框图</h4><h3 id="连续系统状态空间表示的离散化"><a href="#连续系统状态空间表示的离散化" class="headerlink" title="连续系统状态空间表示的离散化"></a>连续系统状态空间表示的离散化</h3><p>对于连续系统：$\begin{cases}\vec{\dot{x}}=A\vec{x}+Bu \\ y(t)=C\vec{x}+Du\end{cases}$，根据<br>映射律$z=e^{sT}$，有:  </p>
 <script type="math/tex; mode=display">G=e^{AT}=\mathcal{L}^{-1}((sI-A)^{-1})</script><script type="math/tex; mode=display">H=(\int_0^Te^{Aλ}dλ)B=(G-I)A^{-1}B</script><p>即可得到离散化后的系统状态空间表示：  </p>
 <script type="math/tex; mode=display">x(k+1)=Gx(k)+Hu(k)</script><script type="math/tex; mode=display">y(k)=Cx(k)+Du(k)</script><p>需要注意的是，$G$和$H$会随着采样周期$T$的变化而变化。  </p>
 <h2 id="离散系统的能控性和能观性"><a href="#离散系统的能控性和能观性" class="headerlink" title="离散系统的能控性和能观性"></a>离散系统的能控性和能观性</h2><h3 id="能控性判定"><a href="#能控性判定" class="headerlink" title="能控性判定"></a>能控性判定</h3><p>根据系统能控性的定义，如果系统的控制信号与系统的状态变量独立，则系统是能控的。换言之，对于任意$n$，倘若$G^{n-1}$都与$H$独立，则系统是能控的。<br>定义离散系统的能控性矩阵：  </p>
@@ -541,7 +554,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月11日</div>
+          <div>2022年6月18日</div>
         </div>
       
       <div class="license-meta-item">
