@@ -24,7 +24,7 @@
 <meta property="og:description" content="电信传输理论-知识点总结传输系统概述传输系统的任务是保证信息及其载体的能量尽可能无损地从源移动到终点。 传输系统的结构传输系统的结构包括5个部分：    源点(source)：生成所需要传输的数据   发送器（transmitter）：将信息转化和编码为传输系统中接受的电磁信号   传输介质（transmission medium）：传输电磁信号，可以是传输线或者复杂的网络系统   接收器（rec">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-08T02:04:47.092Z">
-<meta property="article:modified_time" content="2022-06-19T03:42:21.621Z">
+<meta property="article:modified_time" content="2022-06-20T13:06:52.096Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          7.4k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          60 分钟
+          62 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月19日 凌晨
+                    本文最后更新于：2022年6月20日 下午
                   
                 
               </p>
@@ -363,7 +363,14 @@ p.spoiler {
 <h3 id="数字传输和模拟传输"><a href="#数字传输和模拟传输" class="headerlink" title="数字传输和模拟传输"></a>数字传输和模拟传输</h3><p>模拟传输系统传输的是模拟信号，其不同的连续幅值表达了不同的信息。因此，模拟传输对传输过程中幅值的变化较为敏感。<br>数字传输系统传输的是数字信号，每一个数字信号是由若干个正弦信号叠加而来，考虑到色散问题，数字信号对于相位的变化较为敏感。此外由于<strong>数字信号通常是高频信号</strong>，由于趋肤效应，数字信号在金属传输线中的传输衰减随着传输距离的增加而增加，因此通常<strong>数字传输的传输距离相比于模拟传输更短</strong>。  </p>
 <h3 id="服务质量-QoS"><a href="#服务质量-QoS" class="headerlink" title="服务质量/QoS"></a>服务质量/QoS</h3><p>QoS（Quality of Service）是服务质量的简称，表征了用户(subscriber)对服务提供商(provider/operator)所提供的服务的满意程度。<br>在通信网中，最早用户对于业务的种类需求并不多，只关心通话质量，因此早期的QoS可以通过声音的响度和清晰度进行反映。其后，随着用户数量的增多，QoS考虑了传输时延（通常以50ms作为快慢的区分）如今随着业务种类的增多，QoS的反应指标也相应的越来越多。<br>通常QoS的关键指标有：可用性、吞吐量、时延、丢包率等。  </p>
 <h2 id="传输损伤"><a href="#传输损伤" class="headerlink" title="传输损伤"></a>传输损伤</h2><p>在传输系统中由于各种传输损伤的存在使得接收信号和传输信号并完全相同，常见的传输损伤(transmission impairments)为：衰减和失真、时延失真和噪声。  </p>
-<h3 id="衰减和失真"><a href="#衰减和失真" class="headerlink" title="衰减和失真"></a>衰减和失真</h3><p>在任何传输媒体上传输的信号，随着传输距离的增加，其能量在传输过程中不断损失，这样的损失称为衰减（attenuation）。对于导向传输媒体，衰减是随着距离指数级增长的。<br>定义相对衰减值：  </p>
+<h3 id="衰减和失真"><a href="#衰减和失真" class="headerlink" title="衰减和失真"></a>衰减和失真</h3><p>在任何传输媒体上传输的信号，随着传输距离的增加，其能量在传输过程中不断损失，这样的损失称为衰减（attenuation）。对于导向传输媒体，衰减是随着距离指数级增长的。<br>对于衰减，需要考虑三个问题：  </p>
+<ul>
+<li>信号的能量必须足够大，也就是说收到的信号必须有足够的强度，这样接收端的电路才可以检测到。  </li>
+<li>信噪比必须达到要求，信号电平至少需要大于噪声电平。  </li>
+<li>衰减常常和信号的频率有关。  </li>
+</ul>
+<p>前两个问题可以使用放大器/转发器解决，但是注意避免过大能量的信号可能引起的截止失真和接收机功率过载。<br>最后一个问题可以使用信道均衡技术或者频率选择性放大器（高频放大）避免。  </p>
+<p>定义相对衰减值：  </p>
 <script type="math/tex; mode=display">N_f=-10lg(\frac{P_f}{P_{1000}})</script><p>$P_{1000}$为1000Hz频点的功率值。  </p>
 <h3 id="时延失真-色散"><a href="#时延失真-色散" class="headerlink" title="时延失真/色散"></a>时延失真/色散</h3><p>时延失真是由于<strong>导向媒体信号传播群速度随着频率的不同而改变</strong>。对频带有限的信号而言，靠近中心频率的地方传播速度更快。不同频率的信号到达接收机的时间不同，从而产生不同频率信号的相移。<br>时延失真会导致码间串扰，是传输容量受限的主要因素。<br>均衡技术的使用可以减小时延失真。  </p>
 <h3 id="噪声和干扰"><a href="#噪声和干扰" class="headerlink" title="噪声和干扰"></a>噪声和干扰</h3><p>噪声是传输过程中插入的无用信号，噪声限制了传输系统的性能。<br>噪声存在四类：  </p>
@@ -594,7 +601,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月19日</div>
+          <div>2022年6月20日</div>
         </div>
       
       <div class="license-meta-item">
