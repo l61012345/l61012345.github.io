@@ -24,7 +24,7 @@
 <meta property="og:description" content="通信与计算机网络-知识点总结本课程内容分为两大部分：通信网和计算机网络，最早的电信网技术关键是交换技术和网络结构。随着计算机网络的发展和通信网中设备虚拟化技术的趋势，通信网逐渐和计算机网络融合。   通信网交换技术简单来说，通信网中所使用的交换技术主要由两大类：电路交换和分组交换。这两种交换可以采用不同的业务类型，业务类型分为面向连接的和无连接的。    面向连接的（connecting-orie">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-21T01:32:25.393Z">
-<meta property="article:modified_time" content="2022-06-21T03:01:45.691Z">
+<meta property="article:modified_time" content="2022-06-21T03:25:04.351Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.9k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          35 分钟
+          42 分钟
         
       </span>
     
@@ -408,7 +408,13 @@ p.spoiler {
 </tbody>
 </table>
 </div>
-<h3 id="拓扑结构的演变"><a href="#拓扑结构的演变" class="headerlink" title="拓扑结构的演变"></a>拓扑结构的演变</h3><h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="链路控制技术"><a href="#链路控制技术" class="headerlink" title="链路控制技术"></a>链路控制技术</h2><h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><h4 id="停等协议"><a href="#停等协议" class="headerlink" title="停等协议"></a>停等协议</h4><p>发送方在发送一帧之后，必须要等收到接收方的确认信息（称为ACK/acknowledgement）后，才能发送下一帧。接收方可以通过是否发送确认信息来控制数据传输的停止。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331151203.png width=40%><br>停等协议保证了传输的可靠性，但是等待时延降低了传输效率。<strong>停等协议适用于总帧数小、单帧包含数据量大的传输情况。在总帧数大、单帧包含数据量小时，停等协议显得十分低效。</strong>  </p>
+<h3 id="通信网拓扑结构的演变"><a href="#通信网拓扑结构的演变" class="headerlink" title="通信网拓扑结构的演变"></a>通信网拓扑结构的演变</h3><ul>
+<li>最初，结点之间的交换能力并不强，因此电信网采用的拓扑结构是网状结构，以保证端到端的连通性。并且当时的用户数量少，设置多条链路的开销并不大。  </li>
+<li>随着用户数量的增大，网状拓扑结构多余链路的设置会带来更高的成本，因此电信网采用的拓扑结构是星形，当时此时已经有一些技术可以保证通信的可靠性，以弥补星形结构弱可靠性的缺点。  </li>
+<li>电话费价格降低带来了业务量的增长，中央结点的负荷量增大，为了能够分担中央结点的负荷，此时中央结点之间由设置链路以分配各中央结点的负荷量，弥补交换能力的不足。用户接入数量的增多以及为了保证用户可以尽可能简单地接入网络，在用户连接端使用的拓扑结构仍然是星形。此时整个通信网被划分为核心网和接入网两大部分，并采用混合的拓扑结构。  </li>
+<li>随着业务种类的增长，在这个阶段，中央结点的功能不再是单纯的交换，而有计算、存储等功能。进一步地，由于有足够高的数据率，这些功能节点可以被虚拟化至云服务器，并采用云计算技术提供支持。目前，为了进一步降低传播时延，部分云端的功能被拉入接入网，实现边缘计算。  </li>
+</ul>
+<h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="链路控制技术"><a href="#链路控制技术" class="headerlink" title="链路控制技术"></a>链路控制技术</h2><h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><h4 id="停等协议"><a href="#停等协议" class="headerlink" title="停等协议"></a>停等协议</h4><p>发送方在发送一帧之后，必须要等收到接收方的确认信息（称为ACK/acknowledgement）后，才能发送下一帧。接收方可以通过是否发送确认信息来控制数据传输的停止。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331151203.png width=40%><br>停等协议保证了传输的可靠性，但是等待时延降低了传输效率。<strong>停等协议适用于总帧数小、单帧包含数据量大的传输情况。在总帧数大、单帧包含数据量小时，停等协议显得十分低效。</strong>  </p>
 <h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口的改进是一个批次一批次地发送多个帧，只需要在一个批次的帧传输完成后，接收方才需要发送确认信息。每一个批次的长度称为滑动窗口的长度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331154807.png width=50%><br>具体而言，数据被划分成帧之后被循环编码，编码的范围为$0∼2^k-1$。<br>起始时，发送机一次性发送编号为$0∼i$的帧，接收机处理这些帧，并返回一个包含接收机处理的下一个帧的帧序号$k$的ACK。发送机收到ACK后，通过将ACK中的序号与发送的最后一个序号进行比对，从而得知上一批已经被接收机处理的帧的个数$i-k$。发送机再发送后续的$i-k$个帧，并等待接收机的下一个ACK，如此直到所有帧被发送完毕。  </p>
 <h3 id="差错控制"><a href="#差错控制" class="headerlink" title="差错控制"></a>差错控制</h3><p>差错控制主要包括两个步骤：检错和纠错，检错机制比如循环冗余校验和奇偶校验等等，纠错机制主要分为两类：自纠错和重传。本课程中主要介绍了自动请求重发(ARQ,Automatic Repeat Request，它是一种重传机制。<br>AQR有三类：停等ARQ，返回nARQ和选择拒绝AQR。<br>| ARQ类型 | 简述 | 优点 |缺点 |<br>|:-|:-|:-|:-|<br>|停等ARQ| 基于停等协议的ARQ。<br>正常的发送模式为停等协议。<br>无论是ACK丢失还是数据包出错或丢失，都会使发送端的计时器出现超时，此时发送端重传这个包。| 简单易行 | 速度慢，资源利用率不高。 |<br>| 返回nARQ |基于滑动窗口协议的ARQ。<br>如果终端在某个帧中检测到差错，那么终端会为这个帧发送一个否认确认(REJ)，发送方将发送这个帧和接收到的这个帧之后的所有帧。如果超时，那么发送方会询问接收方需要重传的帧。| 传输速度相比于停等ARQ更高 |重传导致传输的有效信息不多，效率低下。|<br>| 选择拒绝ARQ | 被重传的只有那些接收到否认或者超时的帧。 |资源利用率更大| 对收发双方的缓存和逻辑结构复杂度要求更高|</p>
 <p>选择拒绝ARQ适用于传输时延高的通信环境，比如卫星通信。<br>停等ARQ和滑动窗口ARQ在传输时延低的通信场景中表现更好。  </p>
@@ -432,17 +438,31 @@ p.spoiler {
 <tr>
 <td style="text-align:left">洪泛</td>
 <td style="text-align:left">网络中的每个结点在接收到某个分组后会复制该分组，并且转发给每一个相邻接点。最终终端会收到多份相同的分组。由于每个源点发送的分组都有唯一的编号，因此终端可以根据编号将编号相同的分组丢弃。</td>
-<td style="text-align:left">1.鲁棒性强<br>2.可以访问到尽可能多的结点 <br> 3.不需要网络信息</td>
+<td style="text-align:left">1.鲁棒性强<br>2.可以访问到尽可能多的结点 <br> 3.不需要全网状态</td>
 <td style="text-align:left">通信负荷量非常高，极容易产生拥塞</td>
 </tr>
 <tr>
 <td style="text-align:left">随机路由</td>
 <td style="text-align:left">网络中的每一个结点根据链路的数据率、有概率地为选择一条路由。</td>
-<td style="text-align:left">保留了洪泛的</td>
+<td style="text-align:left">保留了洪泛的简单性质，降低了通信量。</td>
+<td style="text-align:left">路由选择可能不是最佳的</td>
+</tr>
+<tr>
+<td style="text-align:left">自适应路由</td>
+<td style="text-align:left">路由的选择根据网络的状态的改变而改变。</td>
+<td style="text-align:left">可以对拥塞灵活处理</td>
+<td style="text-align:left">需要知道整个网络的状态</td>
 </tr>
 </tbody>
 </table>
 </div>
+<h3 id="路由决策的要素"><a href="#路由决策的要素" class="headerlink" title="路由决策的要素"></a>路由决策的要素</h3><p>影响路由的两个关键要素是判决地点和信息更新时间。  </p>
+<ul>
+<li><p>判决地点<br>判决地点指的是做出路由的地点，有分布式和集中式两种。<br>对于集中式，其能更好的掌握全网的状态，从而做出全局最优的路由判决。但是如果做出路由的中心结点故障，则全网路由无法工作。<br>对于分布式，其只能掌握周围结点的网络状态，因而做出的路由判决只能是局部最优的。</p>
+</li>
+<li><p>信息更新时间和响应速度<br>如果路由判决对网络状态的响应过快，资源利用率低，并且容易引起网络波动。并且，信息更新过快会使得全网负载增加。<br>如果路由判决对网络状态的响应过慢，收集到的网络状态信息时效性差，路由判决的有效性差。  </p>
+</li>
+</ul>
 <h2 id="局域网"><a href="#局域网" class="headerlink" title="局域网"></a>局域网</h2><h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h2 id="运输层协议"><a href="#运输层协议" class="headerlink" title="运输层协议"></a>运输层协议</h2>
               
             </div>

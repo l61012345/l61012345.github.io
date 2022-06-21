@@ -24,7 +24,7 @@
 <meta property="og:description" content="通信网络概述通信系统认知通信发展背景通信技术发展的驱动力有两方面，其一是技术特性的发展，其二是需求的不断变化，可以简单归纳为技术(techique)和经济(economy)。    技术特性的发展，发展趋势包括：   速度越来越快、价格越来越低   智能化：能提供不同的服务质量(QoS)和可自定义的安全管理服务   因特网、万维网的连接和内外网的构建 移动性的不断增强   新需求带来的新的服务，内">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-25T09:49:05.689Z">
-<meta property="article:modified_time" content="2022-06-13T03:50:42.516Z">
+<meta property="article:modified_time" content="2022-06-21T03:26:04.786Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          5.1k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          35 分钟
+          43 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月13日 凌晨
+                    本文最后更新于：2022年6月21日 凌晨
                   
                 
               </p>
@@ -394,6 +394,57 @@ p.spoiler {
             <p>接入网和核心网的概念来源于通信网络，在计算机网络中一般更强调本地网络和因特网，但是两个概念趋近于融合。   </p>
           </div><br>源点主机将需要发送的数据拆分为一个分组序列，称为IP数据报/IP分组。每个分组包含目标主机的唯一数字地址：IP地址。每个分组根据这个目的地址途径一系列的路由器和网络，路由器是连接两个网络的处理器，功能是将数据沿着从源到终端的路径从一个网络转发到另一个网络，每个路由器在接收到分组时会进行路由选择，并沿着该路径转发数据包。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220329092403.png width=50%>  </p>
+<h2 id="拓扑结构"><a href="#拓扑结构" class="headerlink" title="拓扑结构"></a>拓扑结构</h2><p>常用的拓扑结构如下表所示：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">类型</th>
+<th style="text-align:left">结构</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">星形<br>(最基本)</td>
+<td style="text-align:left">每一个站点通过两条点对点链路与同一个中央节点连接：<br>一条链路负责发送，一条链路负责接收。中央节点的作用可以是实现广播功能，也可以实现帧交换功能。</td>
+<td style="text-align:left">1. 新设备可以很方便地加入或者离开网络，可以提供更多，更方便的连接  <br>2.设备之间不会有干扰</td>
+<td style="text-align:left">1. 可靠性低 <br>2.需要中央结点</td>
+</tr>
+<tr>
+<td style="text-align:left">网形<br>(最基本)</td>
+<td style="text-align:left">每个结点与可能不止一个其他结点相连。</td>
+<td style="text-align:left">可靠性高，交换和路由设置更灵活。</td>
+<td style="text-align:left">需要设置的链路数量更多，成本更高</td>
+</tr>
+<tr>
+<td style="text-align:left">总线形*</td>
+<td style="text-align:left">所有的站点通过标准的硬件接口直接连接到一个线性传输媒体上。</td>
+<td style="text-align:left">新设备可以很方便地加入或者离开网络</td>
+<td style="text-align:left">1. 可靠性低，如果主线断所有都断  <br> 2.需要采取某些机制避免碰撞  <br>3. 两端需要端子吸收信号</td>
+</tr>
+<tr>
+<td style="text-align:left">环形*</td>
+<td style="text-align:left">由若干段单向链路组成，每段链路的首尾通过转发器与其他链路的首/尾相连。</td>
+<td style="text-align:left">被传输的信号在每一节点上再生，传输信息误码率可减到最少</td>
+<td style="text-align:left">1. 结点故障会引起全网故障 <br>2.需要采取某些机制避免碰撞</td>
+</tr>
+<tr>
+<td style="text-align:left">树形*</td>
+<td style="text-align:left">从一个称为头端的点开始，延伸出多条缆线，每条缆线可以有多个分支。每条缆线可以视为一个总线形结构，缆线上有若干分接头。</td>
+<td style="text-align:left">1.分支之间相对独立的同时分支之间的资源可以共享 <br> 2.新设备可以很方便地加入或者离开网络</td>
+<td style="text-align:left">1.主线断，处处断 <br> 2.需要采取某些机制避免碰撞</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="通信网拓扑结构的演变"><a href="#通信网拓扑结构的演变" class="headerlink" title="通信网拓扑结构的演变"></a>通信网拓扑结构的演变</h3><ul>
+<li>最初，结点之间的交换能力并不强，因此电信网采用的拓扑结构是网状结构，以保证端到端的连通性。并且当时的用户数量少，设置多条链路的开销并不大。  </li>
+<li>随着用户数量的增大，网状拓扑结构多余链路的设置会带来更高的成本，因此电信网采用的拓扑结构是星形，当时此时已经有一些技术可以保证通信的可靠性，以弥补星形结构弱可靠性的缺点。  </li>
+<li>电话费价格降低带来了业务量的增长，中央结点的负荷量增大，为了能够分担中央结点的负荷，此时中央结点之间由设置链路以分配各中央结点的负荷量，弥补交换能力的不足。用户接入数量的增多以及为了保证用户可以尽可能简单地接入网络，在用户连接端使用的拓扑结构仍然是星形。此时整个通信网被划分为核心网和接入网两大部分，并采用混合的拓扑结构。  </li>
+<li>随着业务种类的增长，在这个阶段，中央结点的功能不再是单纯的交换，而有计算、存储等功能。进一步地，由于有足够高的数据率，这些功能节点可以被虚拟化至云服务器，并采用云计算技术提供支持。目前，为了进一步降低传播时延，部分云端的功能被拉入接入网，实现边缘计算。  </li>
+</ul>
 <h2 id="TCP-IP和OSI协议体系结构"><a href="#TCP-IP和OSI协议体系结构" class="headerlink" title="TCP-IP和OSI协议体系结构"></a>TCP-IP和OSI协议体系结构</h2><h3 id="协议和协议体系"><a href="#协议和协议体系" class="headerlink" title="协议和协议体系"></a>协议和协议体系</h3><p>通信双方在进行通信时还需要完成一些工作，比如：  </p>
 <ul>
 <li>源点系统激活直连的数据信道</li>
@@ -512,7 +563,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月13日</div>
+          <div>2022年6月21日</div>
         </div>
       
       <div class="license-meta-item">
