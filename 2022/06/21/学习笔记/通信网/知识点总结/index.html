@@ -24,7 +24,7 @@
 <meta property="og:description" content="通信与计算机网络-知识点总结本课程内容分为两大部分：通信网和计算机网络，最早的电信网技术关键是交换技术和网络结构。随着计算机网络的发展和通信网中设备虚拟化技术的趋势，通信网逐渐和计算机网络融合。   通信网交换技术简单来说，通信网中所使用的交换技术主要由两大类：电路交换和分组交换。这两种交换可以采用不同的业务类型，业务类型分为面向连接的和无连接的。    面向连接的（connecting-orie">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-21T01:32:25.393Z">
-<meta property="article:modified_time" content="2022-06-21T03:27:43.383Z">
+<meta property="article:modified_time" content="2022-06-21T03:49:26.818Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          6.5k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          41 分钟
+          55 分钟
         
       </span>
     
@@ -495,7 +495,57 @@ p.spoiler {
 <li><p>信息更新时间和响应速度<br>如果路由判决对网络状态的响应过快，资源利用率低，并且容易引起网络波动。并且，信息更新过快会使得全网负载增加。<br>如果路由判决对网络状态的响应过慢，收集到的网络状态信息时效性差，路由判决的有效性差。  </p>
 </li>
 </ul>
-<h2 id="局域网"><a href="#局域网" class="headerlink" title="局域网"></a>局域网</h2><h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h2 id="运输层协议"><a href="#运输层协议" class="headerlink" title="运输层协议"></a>运输层协议</h2>
+<h2 id="局域网"><a href="#局域网" class="headerlink" title="局域网"></a>局域网</h2><p>起初，计算机网络的目的是能够使得用户可以自由灵活地加入和离开网络共享资源。最初的局域网就是依照这个目的而建立的。局域网的数据率受制于两个主要原因：碰撞和带宽。  </p>
+<h3 id="基于竞争的接入控制协议"><a href="#基于竞争的接入控制协议" class="headerlink" title="基于竞争的接入控制协议"></a>基于竞争的接入控制协议</h3><p>局域网中采用的接入控制方式是基于竞争的，因此会出现碰撞，如何避免碰撞成为了限制局域网速度的一个主要原因，因此，需要一些协议来避免碰撞，这些基于竞争的控制接入协议如下：  </p>
+<h4 id="ALOHA和分隙ALOHA"><a href="#ALOHA和分隙ALOHA" class="headerlink" title="ALOHA和分隙ALOHA"></a>ALOHA和分隙ALOHA</h4><p>ALOHA是一种非常简单的协议：任何一个站都可以在帧生成后立即发送。如果发信中遇到了冲突，则发信失败，该帧被丢弃，经随机延时后再次发送。分隙ALOHA将信道时间分成了若干时隙，时隙的长度对应了一帧的传输时间。凡帧的发送必须在时隙的起点。因此，冲突只发生在时隙的起点，冲突发生时只浪费一个时隙，一旦某个站占用时隙并发送成功，则在该时隙内不会出现冲突。<br>ALOHA和分隙ALOHA由于过于简单，信道利用率低下。  </p>
+<h4 id="载波监听接入控制-CSMA"><a href="#载波监听接入控制-CSMA" class="headerlink" title="载波监听接入控制/CSMA"></a>载波监听接入控制/CSMA</h4><p>载波监听接入控制根据信道忙时站点的等待机制，可以将CSMA分为：非持续CSMA、1持续CSMA和$p$持续CSMA。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">CSMA策略</th>
+<th style="text-align:left">描述</th>
+<th style="text-align:left">优点</th>
+<th style="text-align:left">缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">非持续CSMA</td>
+<td style="text-align:left">- 如果信道空闲，则立即发信。 <br>- 如果信道忙，则等待一段时间，该时间长度服从重传时延的概率分布。</td>
+<td style="text-align:left">简单</td>
+<td style="text-align:left">传输结束后，信道容易保持空闲，即使有一个或者多个站点等待传输。</td>
+</tr>
+<tr>
+<td style="text-align:left">1持续CSMA</td>
+<td style="text-align:left">- 如果信道空闲，则立即发信。 <br> - 如果信道忙，则等待直到信道空闲。</td>
+<td style="text-align:left">避免了信道空闲，利用率高</td>
+<td style="text-align:left">等待结束后碰撞概率随着站点数目的增大而增大</td>
+</tr>
+<tr>
+<td style="text-align:left">𝒫持续CSMA</td>
+<td style="text-align:left">- 如果信道空闲，那么站点有概率$p$发信。 <br>- 如果信道忙，那么站点等待直到信道空闲。  <br>- 如果站点已经等待了一个单位时间，那么站点有概率$p$发信。</td>
+<td style="text-align:left">避免了信道空闲，而且降低了等待结束后发生的碰撞概率</td>
+<td style="text-align:left">$p$的选取至关重要，随着站点数$n$的增大，$p$应当动态地减小。但是这样的动态设置需要让新加入的主机也知道，违背了局域网设置的初衷。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="CSMA-CD"><a href="#CSMA-CD" class="headerlink" title="CSMA/CD"></a>CSMA/CD</h4><p>载波监听多点接入/碰撞检测协议(Carrier Sense Multiple Access with Collsion Detect,CSMA/CD)综合了上述几种载波监听多点接入协议的优点，其具体策略是：  </p>
+<ul>
+<li>如果信道空闲，站点立即发信。  </li>
+<li>如果信道忙，则等待直到信道空闲。  </li>
+<li>如果站点检测到碰撞，在传输过程中，站点会主动发出一个干扰信号（称为积极干扰信号，jamming signal；在基带总线中，这个信号是一个高电平信号）来让整个网络中的所有站点知道碰撞的发生，之后停止传输。  <div class="note note-info">
+            <p>任意一个站点在检测到干扰信号后都会发出干扰信号，使得整个网络可以快速地知晓碰撞。  </p>
+          </div>  
+<ul>
+<li>发送完干扰信号后，随机地等待一段时间（退避），以避免二次碰撞，之后再尝试发信。  </li>
+</ul>
+</li>
+</ul>
+<h4 id="传播时延和最小帧长度"><a href="#传播时延和最小帧长度" class="headerlink" title="传播时延和最小帧长度"></a>传播时延和最小帧长度</h4><p>由于信号在传输线上的传输时延$τ$($τ$的参考值：<strong>电磁波在1km电缆上的传播时延大约为5μs</strong>)，传输线上的站点可能依然认为信道是空闲的。<br>由于局域网上任意两个站点之间的传播时延有长有短，局域网按照最坏情况设计，即取总线两端的两个站点之间的传播时延为端到端的传播时延。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220517164059.png width=80%>  </p>
+<p>从上图可以看出，<strong>在站点发送帧后至多$2τ$（即$δ→0$）时间就可以知道所发送的数据帧是否遭受到碰撞。</strong><br>这段时间称为争用期，可以发现，<strong>在站点发送完数据后，在争用期时间还没有检测到碰撞，那么这次发送一定不会产生碰撞。</strong><br>具体而言，<strong>以太网协议规定的具体的征用时间为$2τ=51.2μs$。</strong><br>对于10Mbit/s的以太网，争用期内可以发送512bit。争用期的单位也可以用bit·s，称为比特时间表示，因此上述争用期时间也可以说为512比特时间，即争用期是发送512bit所需要的时间。<br><strong>在这种情况下，只有当帧长度大于$2L=r_b×2τ$</strong>（在上文的例子中应当为512bit）<strong>时，源站点和终端之间的任何一个站点才不可能在源站点和终端之间通信时认为信道空闲。</strong></p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h2 id="运输层协议"><a href="#运输层协议" class="headerlink" title="运输层协议"></a>运输层协议</h2>
               
             </div>
             <hr/>
