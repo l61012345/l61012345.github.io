@@ -24,7 +24,7 @@
 <meta property="og:description" content="控制系统-知识点总结             注意：考试当中所有的作图必须作在指定的坐标纸中，否则零分，                模拟控制系统系统的频率响应对系统的传递函数$H(s)$，根据s域定义$s&#x3D;jω,j^2&#x3D;-1$，得到：    H(jω)&#x3D;H(s)|_{s&#x3D;jω}$H(jω)$称为系统的频率响应。定义系统方程$H(jω)$的幅度值-频率响应为其转换方程的绝对值表达：   |H(j">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-09T05:51:54.338Z">
-<meta property="article:modified_time" content="2022-06-22T06:32:36.553Z">
+<meta property="article:modified_time" content="2022-06-23T06:12:48.052Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          103 分钟
+          99 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月22日 早上
+                    本文最后更新于：2022年6月23日 早上
                   
                 
               </p>
@@ -350,16 +350,6 @@ p.spoiler {
 <div class="note note-info">
             <p>方程$Re[H(jω)]=0$和$Im[H(jω)]=0$根的个数决定了频率响应曲线会穿过坐标轴多少次。  </p>
           </div>
-<ul>
-<li>使用卡西欧计算器fx-991CN X辅助绘制极坐标图  <ol>
-<li>开机，按【菜单/设置】键进入菜单，按【7】进入表格模式  </li>
-<li>表格模式中显示$f(x)$，输入$Re[H(jω)]$的表达式，其中$ω$以【$x$】表示，输入完成后按【=】键  </li>
-<li>显示$g(x)$，输入$Im[H(jω)]$的表达式，其中$ω$以【$x$】表示，输入完成后按【=】键 </li>
-<li>显示“表格范围”，设置$x$的取值范围，使用【↑】【↓】选择输入对象，输入合适的开始值、终止值和步长，每一项输入完成后按【=】键  </li>
-<li>按下【=】键，计算器会得出从起始值到终止值，每隔一个步长的$x_i$所对应的$f(x_i)$和$g(x_i)$，根据此进行作图  </li>
-</ol>
-</li>
-</ul>
 <h3 id="奈奎斯特图"><a href="#奈奎斯特图" class="headerlink" title="奈奎斯特图"></a>奈奎斯特图</h3><p>极坐标图的优点是能用一条曲线同时反映系统的幅频响应和相频响应，但是相比于波特图，极坐标图无法直接通过观察曲线走向得到系统的稳定性分析，因此需要引入奈奎斯特稳定性判据理论，以此对极坐标图进行改进，改进后的极坐标图称为奈奎斯特图，其优点是用一条曲线同时反映系统的幅频响应和相频响应，也能够通过曲线直接判断系统的稳定性，但是对系统频率响应特征的反映没有波特图直观。  </p>
 <h4 id="奈奎斯特曲线的画法"><a href="#奈奎斯特曲线的画法" class="headerlink" title="奈奎斯特曲线的画法"></a>奈奎斯特曲线的画法</h4><p>奈奎斯特路径为一段在s域上的闭合矢量路径，其涵盖了s域的右半轴，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220304101920.png width=50%>  </p>
 <p>奈奎斯特曲线的画法如下：  </p>
@@ -457,10 +447,7 @@ p.spoiler {
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220309103819.png width=30%>
 </center>  
 
-<h2 id="补偿器设计"><a href="#补偿器设计" class="headerlink" title="补偿器设计"></a>补偿器设计</h2><h2 id="超前补偿和滞后补偿"><a href="#超前补偿和滞后补偿" class="headerlink" title="超前补偿和滞后补偿"></a>超前补偿和滞后补偿</h2><div class="note note-info">
-            <p>在许多材料里会将PID控制器(PID controller)和补偿器(compansator)的概念混为一谈。事实上，补偿器使由若干个控制器组成的控制群(control group)，PID控制器可以算作是P控制器、I控制器、D控制器组成的补偿器。但是补偿器的组成不止有这几种控制器。因此，PID控制器是一种补偿器，但补偿器不一定是PID控制器。<br>另外，补偿器中的“补偿”一词更多指对于整个系统输出的补偿。而本节中的滞后补偿和超前补偿中的补偿更多地是指对PID控制器的补偿。</p>
-          </div>
-<h3 id="滞后补偿"><a href="#滞后补偿" class="headerlink" title="滞后补偿"></a>滞后补偿</h3><p>对于PI控制器：$G_c(s)=\frac{K(s+\frac{1}{T_i})}{s}$，由于积分项$\frac{1}{s}$的出现导致PI控制器在加入系统后会改变系统原本的类型，进而改变已经调整好的系统动态响应（系统达到稳态前的响应）。因此，需要一种补偿使其能在$s=0$时提供非常大的开环增益，进而减小稳态误差，但是在高频区保持增益为1，进而不会对系统的动态响应产生影响，这样的补偿称为滞后补偿(lag compansation)。  </p>
+<h2 id="补偿器设计"><a href="#补偿器设计" class="headerlink" title="补偿器设计"></a>补偿器设计</h2><h2 id="超前补偿和滞后补偿"><a href="#超前补偿和滞后补偿" class="headerlink" title="超前补偿和滞后补偿"></a>超前补偿和滞后补偿</h2><h3 id="滞后补偿"><a href="#滞后补偿" class="headerlink" title="滞后补偿"></a>滞后补偿</h3><p>对于PI控制器：$G_c(s)=\frac{K(s+\frac{1}{T_i})}{s}$，由于积分项$\frac{1}{s}$的出现导致PI控制器在加入系统后会改变系统原本的类型，进而改变已经调整好的系统动态响应（系统达到稳态前的响应）。因此，需要一种补偿使其能在$s=0$时提供非常大的开环增益，进而减小稳态误差，但是在高频区保持增益为1，进而不会对系统的动态响应产生影响，这样的补偿称为滞后补偿(lag compansation)。  </p>
 <script type="math/tex; mode=display">G_{lag}(s)=\frac{τs+1}{ατs+1},α>1</script><h4 id="滞后补偿器设计"><a href="#滞后补偿器设计" class="headerlink" title="滞后补偿器设计"></a>滞后补偿器设计</h4><p>滞后补偿器设计的思路是利用补偿将现在系统的幅度响应在补偿器设计要求的相位裕量处调整到0dB。  </p>
 <ul>
 <li>利用稳态误差的定义，找到系统增益$K$</li>
@@ -470,8 +457,7 @@ p.spoiler {
 <li>令:<script type="math/tex; mode=display">τ=\frac{10}{ω'_{gc}}</script></li>
 <li>带入$α$和$τ$，得到滞后补偿器的前向传输方程$G_{lag}(s)$。  </li>
 </ul>
-<p>添加滞后补偿器后，系统的前向传输方程/开环传递函数表示为：  </p>
-<script type="math/tex; mode=display">KG_{lag}(s)G(s)H(s)</script><div class="note note-info">
+<div class="note note-info">
             <p>如果设计要求是阻尼比$ζ$，通常阻尼比可以通过如下公式近似为系统设计对相位裕量的要求：  </p><script type="math/tex; mode=display">PM(°)⩰100ζ</script>
           </div>
 <h3 id="超前补偿"><a href="#超前补偿" class="headerlink" title="超前补偿"></a>超前补偿</h3><p>对PD控制器：$G_c(s)=T_ds+1$，其幅值随着频率的升高而线性升高，但是这种特性会放大高频噪声，使系统抗噪性下降。因此，需要一种补偿通过增加一个极点进而在高频处降低系统幅值，这样的补偿称为超前补偿(lead compansation)。  </p>
@@ -481,18 +467,15 @@ p.spoiler {
 <li>绘制出$KG(s)H(s)$的波特图，从波特图上寻找系统的相位裕量$PM$</li>
 <li>通过公式：  <script type="math/tex; mode=display">φ_m=(PM'+φ_c)-PM</script>其中$PM’$是设计要求的相位裕量，$Φ$是修正系数。<br>计算出需要抬升的相位。  </li>
 <li>利用公式：  <script type="math/tex; mode=display">β=\frac{1-sinφ_m}{1+sinφ_m}</script>计算得到β。  </li>
-<li>在波特图上找到幅值为$-10lgβ$对应的频率$ω’_m$，令:<script type="math/tex; mode=display">τ=\frac{1}{ω'_{m}\sqrt{β}}</script></li>
+<li>在波特图上找到幅值为$-10lg(\frac{1}{β})$对应的频率$ω’_m$，令:<script type="math/tex; mode=display">τ=\frac{1}{ω'_{m}\sqrt{β}}</script></li>
 <li>带入$β$和$τ$，得到超前补偿器的前向传输方程$G_{lead}(s)$。  </li>
 </ul>
-<p>添加滞后补偿器后，系统（称为补偿系统）的前向传输方程/开环传递函数表示为：  </p>
-<script type="math/tex; mode=display">KG_{lead}(s)G(s)H(s)</script><div class="note note-warning">
-            <p>在工程中，还需要绘制补偿系统的波特图以检验相位裕量和增益裕量以及稳态误差系数是否满足设计要求。<br>如果不满足，则应当降低$β$的值，重新计算$τ$并找到一组符合设计要求的参数。  </p>
-          </div>
 <h2 id="状态空间"><a href="#状态空间" class="headerlink" title="状态空间"></a>状态空间</h2><h3 id="状态空间与传递函数"><a href="#状态空间与传递函数" class="headerlink" title="状态空间与传递函数"></a>状态空间与传递函数</h3><p>根据系统传递函数的定义可知：  </p>
 <script type="math/tex; mode=display">T(s)=\frac{Y(s)}{U(s)}=C[sI-A]^{-1}B+D</script><p>$[sI-A]$的行列式$|sI-A|$结果为系统的特征多项式。  </p>
 <h3 id="状态空间表示与信号流图的转换"><a href="#状态空间表示与信号流图的转换" class="headerlink" title="状态空间表示与信号流图的转换"></a>状态空间表示与信号流图的转换</h3><ul>
 <li><p>相位变化型<br>  对传递函数$\frac{Y(s)}{U(s)}$，可将其分解为：  </p>
 <script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{V(s)}{U(s)}\frac{Y(s)}{V(s)}=\frac{∑b_is^{(m-i)}}{∑a_is^{(n-i)}}</script><p>  令$x_1=v$作为状态变量，对$\frac{V(s)}{U(s)}$可以得到一系列系统的状态方程。对$\frac{Y(s)}{V(s)}$可以得到系统的输出方程。<br>  再根据状态方程和输出方程即可绘制信号流图。<br>  <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313141835.png width=50%></p>
+<p> 如果$x_1,x_2,x_3$的次序相反，那么得到的是能控标准型。  </p>
 </li>
 <li><p>能观标准型<br>对系统的传递函数$\frac{Y(s)}{U(s)}$，如果其写作如下的形式：  </p>
 <script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0+b_1s^{-1}+...+b_ns^{-n}}{1+a_1s^{-1}+...+a_ns^{-n}}</script><p>则可以根据这个结构直接写出系统的状态方程和输出方程：  </p>
@@ -600,32 +583,39 @@ p.spoiler {
 <tr>
 <th style="text-align:center">控制器类型</th>
 <th style="text-align:left">传递函数</th>
+<th style="text-align:left">功能</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center">P控制器</td>
 <td style="text-align:left">$G_D(z)=K_p$</td>
+<td style="text-align:left">降低上升时间</td>
 </tr>
 <tr>
 <td style="text-align:center">I控制器</td>
 <td style="text-align:left">$G_D(z)=K_i\frac{z}{z-1}$</td>
+<td style="text-align:left">消去稳态误差，但是降低稳定性</td>
 </tr>
 <tr>
 <td style="text-align:center">D控制器</td>
 <td style="text-align:left">$G_D(z)=K_d\frac{z-1}{z}$</td>
+<td style="text-align:left">增加稳定性，但是放大高频噪声</td>
 </tr>
 <tr>
 <td style="text-align:center">PI控制器</td>
 <td style="text-align:left">$G_D(z)=K_p+K_i\frac{z}{z-1}$</td>
+<td style="text-align:left">减少相位裕量，限制噪声</td>
 </tr>
 <tr>
 <td style="text-align:center">PD控制器</td>
 <td style="text-align:left">$G_D(z)=K_p+K_d\frac{z-1}{z}$</td>
+<td style="text-align:left">增加相位裕量，但放大系统噪声</td>
 </tr>
 <tr>
 <td style="text-align:center">PID控制器</td>
 <td style="text-align:left">$G_D(z)=K_p+K_i\frac{z}{z-1}+K_d\frac{z-1}{z}$</td>
+<td style="text-align:left">减小振荡，无稳态误差</td>
 </tr>
 </tbody>
 </table>
@@ -829,7 +819,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月22日</div>
+          <div>2022年6月23日</div>
         </div>
       
       <div class="license-meta-item">
