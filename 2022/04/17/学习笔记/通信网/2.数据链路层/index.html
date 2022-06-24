@@ -24,7 +24,7 @@
 <meta property="og:description" content="数据链路层技术数据链路控制是为了更有效地进行数据通信、对传输过程起到控制作用而设立的。系统之间传输的媒体称为数据链路。数据链路层涉及到的通信任务是：    帧同步：传输时需要保证收发两方开始和结束发送一帧的时间点双方都已知。做到这一点的方法有两种：   每一帧的长度相同，但是这种方式在通信环境不理想的情况下可靠性不强。   每一帧都有标志(flag)表示一帧的起点和终点。     流量控制：在数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T05:46:07.825Z">
-<meta property="article:modified_time" content="2022-06-23T13:31:55.934Z">
+<meta property="article:modified_time" content="2022-06-24T03:45:56.347Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月23日 下午
+                    本文最后更新于：2022年6月24日 凌晨
                   
                 
               </p>
@@ -350,7 +350,7 @@ p.spoiler {
           </div>  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331152047.png width=50%>  </p>
 <p>显然，停等协议保证了传输的可靠性，但是等待时延降低了传输效率。<strong>停等协议适用于总帧数小、单帧包含数据量大的传输情况。在总帧数大、单帧包含数据量小时，停等协议显得十分低效。</strong>  </p>
-<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口的改进是一个批次一批次地发送多个帧，只需要在一个批次的帧传输完成后，接收方才需要发送确认信息。每一个批次的长度称为滑动窗口的长度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331154807.png width=50%><br>具体而言，数据被划分成帧之后被循环编码，编码的范围为$0∼2^k-1$。<br>起始时，发送机一次性发送编号为$0∼i$的帧，接收机处理这些帧，并返回一个包含接收机处理的下一个帧的帧序号$k$的ACK。发送机收到ACK后，通过将ACK中的序号与发送的最后一个序号进行比对，从而得知上一批已经被接收机处理的帧的个数$i-k-1$。发送机再发送后续的$i-k$个帧，并等待接收机的下一个ACK，如此直到所有帧被发送完毕。  </p>
+<h3 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h3><p>滑动窗口的改进是一个批次一批次地发送多个帧，只需要在一个批次的帧传输完成后，接收方才需要发送确认信息。每一个批次的长度称为滑动窗口的长度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331154807.png width=50%><br>具体而言，数据被划分成帧之后被循环编码，编码的范围为$0∼2^k-1$。<br>起始时，发送机一次性发送编号为$0∼i$的帧，接收机处理这些帧，并返回一个包含接收机处理的下一个帧的帧序号$n$的ACK。发送机收到ACK后，通过将ACK中的序号与发送的最后一个序号进行比对，从而得知上一批已经被接收机处理的帧的个数$i-n-1$。发送机再发送后续的$i-n$个帧，并等待接收机的下一个ACK，如此直到所有帧被发送完毕。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331162107.png width=50%>  </p>
 <p>如果在两个站点之间交换数据，那么每个站点都要维护两个窗口：一个用于发送，另一个用于接收，且双方都需要向对方发送数据和确认帧ACK。更有效的双方的交换数据的方式是捎带。  </p>
 <p>相比于停等协议，通过对窗口大小的合理设置，可以使链路被数据占满，实现对链路的高利用率。<br>简单来说，如果窗口的大小为：  </p>
@@ -572,7 +572,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月23日</div>
+          <div>2022年6月24日</div>
         </div>
       
       <div class="license-meta-item">

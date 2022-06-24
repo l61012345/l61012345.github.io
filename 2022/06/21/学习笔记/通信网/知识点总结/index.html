@@ -24,7 +24,7 @@
 <meta property="og:description" content="通信与计算机网络-知识点总结本课程内容分为两大部分：通信网和计算机网络，最早的电信网技术关键是交换技术和网络结构。随着计算机网络的发展和通信网中设备虚拟化技术的趋势，通信网逐渐和计算机网络融合。   通信网交换技术简单来说，通信网中所使用的交换技术主要由两大类：电路交换和分组交换。这两种交换可以采用不同的业务类型，业务类型分为面向连接的和无连接的。    面向连接的（connecting-orie">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-21T01:32:25.393Z">
-<meta property="article:modified_time" content="2022-06-23T13:31:44.567Z">
+<meta property="article:modified_time" content="2022-06-24T03:45:24.883Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="通信工程">
 <meta property="article:tag" content="通信网络">
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月23日 下午
+                    本文最后更新于：2022年6月24日 凌晨
                   
                 
               </p>
@@ -415,7 +415,7 @@ p.spoiler {
 <li>随着业务种类的增长，在这个阶段，中央结点的功能不再是单纯的交换，而有计算、存储等功能。进一步地，由于有足够高的数据率，这些功能节点可以被虚拟化至云服务器，并采用云计算技术提供支持。目前，为了进一步降低传播时延，部分云端的功能被拉入接入网，实现边缘计算。  </li>
 </ul>
 <h1 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a>计算机网络</h1><h2 id="链路控制技术"><a href="#链路控制技术" class="headerlink" title="链路控制技术"></a>链路控制技术</h2><h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><h4 id="停等协议"><a href="#停等协议" class="headerlink" title="停等协议"></a>停等协议</h4><p>发送方在发送一帧之后，必须要等收到接收方的确认信息（称为ACK/acknowledgement）后，才能发送下一帧。接收方可以通过是否发送确认信息来控制数据传输的停止。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331151203.png width=40%><br>停等协议保证了传输的可靠性，但是等待时延降低了传输效率。<strong>停等协议适用于总帧数小、单帧包含数据量大的传输情况。在总帧数大、单帧包含数据量小时，停等协议显得十分低效。</strong>  </p>
-<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口的改进是一个批次一批次地发送多个帧，只需要在一个批次的帧传输完成后，接收方才需要发送确认信息。每一个批次的长度称为滑动窗口的长度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331154807.png width=50%><br>具体而言，$k$比特长的数据被划分成帧之后被循环编码，编码的范围为$0∼2^k-1$。<br>起始时，发送机一次性发送编号为$0∼i$的帧，接收机处理这些帧，并返回一个包含接收机处理的下一个帧的帧序号$k$的ACK。发送机收到ACK后，通过将ACK中的序号与发送的最后一个序号进行比对，从而得知上一批已经被接收机处理的帧的个数$i-k-1$。发送机再发送后续的$i-k$个帧，并等待接收机的下一个ACK，如此直到所有帧被发送完毕。<br>相比于停等协议，通过对窗口大小的合理设置，可以使链路被数据占满，实现对链路的高利用率。<br>简单来说，如果窗口的大小为：  </p>
+<h4 id="滑动窗口"><a href="#滑动窗口" class="headerlink" title="滑动窗口"></a>滑动窗口</h4><p>滑动窗口的改进是一个批次一批次地发送多个帧，只需要在一个批次的帧传输完成后，接收方才需要发送确认信息。每一个批次的长度称为滑动窗口的长度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220331154807.png width=50%><br>具体而言，$k$比特长的数据被划分成帧之后被循环编码，编码的范围为$0∼2^k-1$。<br>起始时，发送机一次性发送编号为$0∼i$的帧，接收机处理这些帧，并返回一个包含接收机处理的下一个帧的帧序号$n$的ACK。发送机收到ACK后，通过将ACK中的序号与发送的最后一个序号进行比对，从而得知上一批已经被接收机处理的帧的个数$i-n-1$。发送机再发送后续的$i-n$个帧，并等待接收机的下一个ACK，如此直到所有帧被发送完毕。<br>相比于停等协议，通过对窗口大小的合理设置，可以使链路被数据占满，实现对链路的高利用率。<br>简单来说，如果窗口的大小为：  </p>
 <script type="math/tex; mode=display">[\frac{t_{ACK}}{t_{transmission}}]</script><p>向上取整。其中$t_{ACK}$为ACK的传输时间，$t_{transmission}$为帧的传输时间。<br>那么可以使得整个链路被占满。  </p>
 <h3 id="差错控制"><a href="#差错控制" class="headerlink" title="差错控制"></a>差错控制</h3><p>差错控制主要包括两个步骤：检错和纠错，检错机制比如循环冗余校验和奇偶校验等等，纠错机制主要分为两类：自纠错和重传。本课程中主要介绍了自动请求重发(ARQ,Automatic Repeat Request，它是一种重传机制。<br>AQR有三类：停等ARQ，返回nARQ和选择拒绝AQR。  </p>
 <div class="table-container">
@@ -730,7 +730,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月23日</div>
+          <div>2022年6月24日</div>
         </div>
       
       <div class="license-meta-item">
