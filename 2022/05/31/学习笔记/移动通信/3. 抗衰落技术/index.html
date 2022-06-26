@@ -24,7 +24,7 @@
 <meta property="og:description" content="抗衰落技术由于随机的衰落和各种干扰，移动信道的参数会随着时间随机的变化，因此移动信道又被称为变参信道。移动通信中通过各种各样的技术来应对无线信道的各种衰落和干扰。   误差补偿技术误差补偿(error compensation mechanisms)是一种在接收端对于各种信号中误差和失真的补偿。误差补偿技术主要包括三类技术：    自适应信道均衡(adaptive channel equaliza">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-31T08:41:46.174Z">
-<meta property="article:modified_time" content="2022-06-23T09:53:33.861Z">
+<meta property="article:modified_time" content="2022-06-26T02:20:32.511Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="3.抗衰落技术">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.4k 字
+          9.5k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          79 分钟
+          80 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月23日 上午
+                    本文最后更新于：2022年6月26日 凌晨
                   
                 
               </p>
@@ -335,7 +335,13 @@ p.spoiler {
 <h3 id="差错控制编码"><a href="#差错控制编码" class="headerlink" title="差错控制编码"></a>差错控制编码</h3><p>误差控制编码是在信源编码阶段使用一些可以规避或者减少特定误差的编码方式的抗衰落技术。现在广泛应用的误差控制编码技术是前向纠错(forward error-correction，FEC)和自动请求重发(auto-repeat request)。  </p>
 <h4 id="前向纠错"><a href="#前向纠错" class="headerlink" title="前向纠错"></a>前向纠错</h4><p>前向纠错技术指在发送端，发送方根据发送数据的内容，按照某个以内容为自变量的函数生成一组代码，称为校验码，附加在数据前或后方。<br>在接收方，接收者收到数据后按照相同的方式计算出一个校验码，并与发送方附带的校验码进行比对，如果两者不一致，则说明数据在传输的过程中发生了改变。某些校验方式还可以找到具体出错的比特位置，并且自动对齐进行校正。<br>根据编码器中是否需要内存，前向纠错码又分为卷积码(convolutional code)和分组码(block code)。<br>经典的分组码是线性分组码，通常以$(n,k)$线性分组码表示，其意义是：对于$k$比特的信息，使其添加上$n-k$比特的校验信息。在线性分组码中，通常以$\frac{n}{k}$表示编码效率。<br>卷积码是编码器冲激响应与一段比特数据进行离散时间卷积，从而生成校验码，卷积序列的长度和编码的有效性与编码器的冲激响应序列长度和卷积的序列长度——即内存的大小有关。  </p>
 <h4 id="自动请求重发"><a href="#自动请求重发" class="headerlink" title="自动请求重发"></a>自动请求重发</h4><p>自动请求重发是一种后向校错(backward error correction)，它依赖于接收者。简单来说，如果接收者收到数据后发现数据有错，会通过反馈机制告知发送者重新发送该数据。  </p>
-<h3 id="分集技术"><a href="#分集技术" class="headerlink" title="分集技术"></a>分集技术</h3><p>相互独立的信道中的衰落也是相互独立的，因此可以对不同的逻辑信道中的不同误差进行分别的补偿，然后将这些信号进行合并，以得到一个较为完整的信号。需要注意的是，分集技术的应用不能完全消除误差，但是可以降低误码率。分集技术通常和其他抗衰落技术混合使用。<br>分集也是一种对于通信资源的划分使用方式，分集技术包括空间分集、时间分集、频率分集和极化分集。  </p>
+<h3 id="分集技术"><a href="#分集技术" class="headerlink" title="分集技术"></a>分集技术</h3><p>相互独立的信道中的衰落也是相互独立的，因此可以对不同的逻辑信道中的不同误差进行分别的补偿，然后将这些信号进行合并，以得到一个较为完整的信号。需要注意的是，分集技术的应用不能完全消除误差，但是可以降低误码率。分集技术通常和其他抗衰落技术混合使用。<br>分集也是一种对于通信资源的划分使用方式，分集技术包括了宏分集和微分集两大类。  </p>
+<ul>
+<li><p>宏分集<br>宏分集是一种多基站技术，其使用多个不同位置的基站(NodeB)对UE发送相同的信号。只要在各个方向上的信号传播受到的阴影效应不是同时的，这种办法就可以保证通信不会中断。<br>3G中采用的软切换是一种宏分集技术。  </p>
+</li>
+<li><p>微分集<br>微分集是针对于单个基站所使用的通信资源而言的。<br>本节重点介绍微分集，微分集又可以分为空间分集、时间分集、频率分集和极化分集等等。  </p>
+</li>
+</ul>
 <h4 id="空间分集"><a href="#空间分集" class="headerlink" title="空间分集"></a>空间分集</h4><p>空间分集技术是使用多个有向天线将接收和发送空间划分为多个扇形区域的方法。常见的空间分集技术包括了4G中的MIMO 多天线技术(multi-input multi-output)以及5G的massive-MIMO技术等。  </p>
 <h4 id="时间分集"><a href="#时间分集" class="headerlink" title="时间分集"></a>时间分集</h4><ul>
 <li>交织<br>交织是一种按照一定规律、将多份字符在同一位置切断、重组的技术。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220531194034.png width=50%>  </li>
@@ -516,7 +522,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年6月23日</div>
+          <div>2022年6月26日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2369,20 +2375,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
