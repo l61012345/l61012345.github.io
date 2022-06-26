@@ -24,7 +24,7 @@
 <meta property="og:description" content="移动通信-知识点总结移动通信环境移动通信的特点移动通信所面对的问题可以由“四三二一”总结为：    四个效应多径效应、阴影效应、远近效应、多普勒效应 三个干扰共道干扰、邻道干扰、互调干扰 两个噪声内部噪声、外部噪声 一个矛盾日益增长的通信需求矛盾与有限的通信资源之间的矛盾    移动通信方式    传播类型 频段 特点 应用举例     地波&#x2F;地表面波 2Mhz以下 趋于沿弯曲的地球表面传播，有一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-22T12:12:25.276Z">
-<meta property="article:modified_time" content="2022-06-26T03:35:31.073Z">
+<meta property="article:modified_time" content="2022-06-26T06:10:22.819Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -215,7 +215,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="移动通信-知识点总结">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -244,7 +244,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.8k 字
+          11k 字
         
       </span>
     
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          82 分钟
+          94 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年6月26日 凌晨
+                    本文最后更新于：2022年6月26日 早上
                   
                 
               </p>
@@ -587,13 +587,50 @@ p.spoiler {
 <li>人工智能<br>类似于ANN，PSO等等优化算法被应用于优化网络环境。  </li>
 <li>卫星/无人机通信<br>卫星/无人机(UAV)等可以在低空运作的航空器被用做基站，实现空天地一体化。  </li>
 </ul>
-<h2 id="卫星定位系统"><a href="#卫星定位系统" class="headerlink" title="卫星定位系统"></a>卫星定位系统</h2><h3 id="卫星定位原理"><a href="#卫星定位原理" class="headerlink" title="卫星定位原理"></a>卫星定位原理</h3><h3 id="卫星定位系统类型"><a href="#卫星定位系统类型" class="headerlink" title="卫星定位系统类型"></a>卫星定位系统类型</h3><h4 id="全球定位系统"><a href="#全球定位系统" class="headerlink" title="全球定位系统"></a>全球定位系统</h4><table>
+<h2 id="卫星定位系统"><a href="#卫星定位系统" class="headerlink" title="卫星定位系统"></a>卫星定位系统</h2><h3 id="卫星定位原理"><a href="#卫星定位原理" class="headerlink" title="卫星定位原理"></a>卫星定位原理</h3><p>卫星定位系统使用卫星进行定位，其需要： </p>
+<ul>
+<li>时实定位信息</li>
+<li>自主完整性检查(autonomous integrity checking):提供方法让用户确定导航方案的准确性。  </li>
+<li>为安全导航提供足够的精度(sufficient accuracy for safe navigation)。</li>
+</ul>
+<p>在任意时刻，在地面上的任意一点都可以同时观测到4颗以上的卫星。用户的位置坐标可以假设为$(x_u,y_u,z_u)$. 在GPS观测中，每一个卫星可以通过向接收机发信测量回传时间得到其与接收机之间的大致距离，称为拟极差（pseudorange）$ρ_i$。利用三维坐标中的距离公式，利用3颗卫星就可以组成3个方程式：</p>
+<script type="math/tex; mode=display">\begin{cases}
+  \rho_1=\sqrt{(x_1-x_u)^2+(y_1-y_u)^2+(z_1-z_u)^2}\\
+  \rho_2=\sqrt{(x_2-x_u)^2+(y_2-y_u)^2+(z_2-z_u)^2}\\
+  \rho_3=\sqrt{(x_3-x_u)^2+(y_3-y_u)^2+(z_3-z_u)^2}\\
+\end{cases}</script><p>其中第$i$颗卫星的坐标为$(x_i,y_i,z_i)$。<br>这个方程组的解即为用户在地球上的位置$(x_u,y_u,z_u)$。<br>因此<strong>至少需要3颗卫星就能知道地球上用户的位置，实现定位</strong>。<br>事实上，如果考虑到卫星的时钟与接收机时钟之间的误差$Δt$，那么方程将会有4个未知数：</p>
+<script type="math/tex; mode=display">\begin{cases}
+  \rho_1=\sqrt{(x_1-x_u)^2+(y_1-y_u)^2+(z_1-z_u)^2}+cΔt\\
+  \rho_2=\sqrt{(x_2-x_u)^2+(y_2-y_u)^2+(z_2-z_u)^2}+cΔt\\
+  \rho_3=\sqrt{(x_3-x_u)^2+(y_3-y_u)^2+(z_3-z_u)^2}+cΔt\\
+\end{cases}</script><p>其中$c$为光速。<br>因而需要引入第4颗卫星，形成4个方程式进行求解，从而得到钟差$Δt$和用户坐标$(x_u,y_u,z_u)$。  </p>
+<h3 id="卫星定位系统结构"><a href="#卫星定位系统结构" class="headerlink" title="卫星定位系统结构"></a>卫星定位系统结构</h3><p>卫星定位系统的架构分为：  </p>
+<ul>
+<li>空间段(space segment)<br>卫星。主要的用途是中继，它可以接收并存储来自地面段的信息。其对时间的精准度要求非常高，通常内部设置有原子钟。此外，卫星也支持通过激光与其他卫星建立无线连接。  </li>
+<li>地面段(ground segment)<br>由监测站、控制站、上注站(uploading station)组成。主要作用为监测卫星的运行状况和估计板载时钟状态(estimate the on-board clock state)。  </li>
+<li>用户段(user segment)<br>由用户群和接收机组成。功能为获取卫星的信号并追踪从卫星接收到的信号、接收卫星数据、对PVT（位移、速度、时间）进行估计。  </li>
+</ul>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220626115338.png width=50%></p>
+<h3 id="卫星定位系统类型"><a href="#卫星定位系统类型" class="headerlink" title="卫星定位系统类型"></a>卫星定位系统类型</h3><h4 id="全球定位系统"><a href="#全球定位系统" class="headerlink" title="全球定位系统"></a>全球定位系统</h4><table>
 <tr><th>名称</th><th>发射国家和地区</th><th>卫星数</th><th>轨道平面数</th><th>多址方式</th></tr>
 <tr><td>GPS</td><td>美国</td><td>32</td><td>6</td><td>CDMA</td></tr>
 <tr><td>GALILEO</td><td>欧盟</td><td>30</td><td>3</td><td>CDMA</td></tr>
 <tr><td>GLONASS</td><td>俄罗斯</td><td>24</td><td>3</td><td>CDMA/FDMA</td></tr>
-<tr><td>CAMPASS</td><td>中国</td><td>55*(截止2022年6月)</td><td>3</td><td>CMDA</td></tr>
+<tr><td>CAMPASS</td><td>中国</td><td>55*</td><td>3</td><td>CMDA</td></tr>
 </table>
+
+<blockquote>
+<p>北斗系统发射卫星数量：<a target="_blank" rel="noopener" href="http://www.beidou.gov.cn/xt/fsgl/">http://www.beidou.gov.cn/xt/fsgl/</a> ，第55颗卫星于2020年6月发射。  </p>
+</blockquote>
+<p>区域定位系统：  </p>
+<ul>
+<li>印度：IRNSS(Indian Regional Navigational Satellite System)：由7颗近地卫星组成。</li>
+<li>日本：QZSS（准天顶卫星システム）：由5*颗卫星组成。与GPS系统协作，负责提供亚太地区的导航。  <blockquote>
+<p>QZSS系统卫星数量： <a target="_blank" rel="noopener" href="https://qzss.go.jp/en/technical/qzssinfo/index.html">https://qzss.go.jp/en/technical/qzssinfo/index.html</a> ，第5颗卫星于2022年1月发射。  </p>
+</blockquote>
+</li>
+</ul>
+
               
             </div>
             <hr/>
@@ -2503,5 +2540,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.1.2/es5/a11y/assistive-mml.js"></script>
 <script>window.addEventListener('scroll', function() {if (window.pageYOffset>100 &&window.pageYOffset<300){(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');}});</script></body>
 </html>
