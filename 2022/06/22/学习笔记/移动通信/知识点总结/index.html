@@ -24,7 +24,7 @@
 <meta property="og:description" content="移动通信-知识点总结移动通信环境移动通信的特点移动通信所面对的问题可以由“四三二一”总结为：    四个效应多径效应、阴影效应、远近效应、多普勒效应 三个干扰共道干扰、邻道干扰、互调干扰 两个噪声内部噪声、外部噪声 一个矛盾日益增长的通信需求矛盾与有限的通信资源之间的矛盾    移动通信方式    传播类型 频段 特点 应用举例     地波&#x2F;地表面波 2Mhz以下 趋于沿弯曲的地球表面传播，有一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-22T12:12:25.276Z">
-<meta property="article:modified_time" content="2022-06-27T12:05:31.418Z">
+<meta property="article:modified_time" content="2022-06-27T12:14:58.181Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -494,7 +494,7 @@ p.spoiler {
 <h4 id="时分多址-TDMA"><a href="#时分多址-TDMA" class="headerlink" title="时分多址/TDMA"></a>时分多址/TDMA</h4><p>时分多址将一帧分为多个时隙并分配给各用户。每一时隙会预留一些保护时间以避免多径效应带来的时移对帧同步的影响。<br>原始的时分多址需要一个中央结点控制其他所有节点进行帧同步。<br>时分多址的优点是：</p>
 <ul>
 <li>运用时分复用时，发送机会不时地开关机，因此能耗较低。  </li>
-<li>使用时分多址时发送机和接收机拥有了多个时隙，因此运用时分多址不需要双工器。  </li>
+<li>自带时隙，不需要双工器。  </li>
 </ul>
 <p>时分多址的缺点是：</p>
 <ul>
@@ -530,12 +530,12 @@ p.spoiler {
 <li>对于距离基站远的用户，其收到的基站功率较低。  </li>
 </ul>
 <p>为了减少远近效应，采用码分多址的通信系统会使用更加精准和复杂的功率控制(power control)技术来调整发送给不同距离用户的信号功率。  </p>
-<h3 id="扩频技术-码分复用技术"><a href="#扩频技术-码分复用技术" class="headerlink" title="扩频技术/码分复用技术"></a>扩频技术/码分复用技术</h3><p>应用扩频技术的原因是因为在传输过程中符号的频谱常常会受到窄带信号的干扰，导致在接收方不能正确识别符号。因此使用扩频技术通过为来自不同数据的字符信号加上不同的伪随机序列进而扩展每个符号的频谱带宽。<br>扩频技术/码分复用技术的要点有二： </p>
+<h3 id="扩频技术-码分复用技术"><a href="#扩频技术-码分复用技术" class="headerlink" title="扩频技术/码分复用技术"></a>扩频技术/码分复用技术</h3><p>应用扩频技术的原因是因为在传输过程中符号的频谱常常会受到窄带信号的干扰，导致在接收方不能正确识别符号。因此使用扩频技术<strong>通过为来自不同数据的字符信号加上不同的伪随机序列进而扩展每个符号的频谱带宽</strong>。<br>扩频技术/码分复用技术的要点有二： </p>
 <ul>
 <li>码片序列的作用是原来的单个字符通过与频带扩展序列进行运算变为符号持续时间更短的多个字符（称为码片，chip）。也就是说，相比于原来每个符号的符号持续时间，单个码片的符号持续时间更短，在频域上表现为更宽的频谱。  </li>
 <li>不同的用户信号使用不同且唯一的码片序列  </li>
 </ul>
-<p>具体而言，信道中的符号信号会受到宽带和窄带干扰的影响。在接收一侧，接收方使用解扩技术(despread)将符号频谱收窄的同时，也将窄带干扰信号的带宽拓宽，宽带干扰信号的带宽不受影响。这个混合的信号通过带通滤波器之后便可以复原。  </p>
+<p>具体而言，信道中的符号信号会受到宽带和窄带干扰的影响。<strong>在接收一侧，接收方使用解扩技术(despread)将符号频谱收窄的同时，也将窄带干扰信号的带宽拓宽，宽带干扰信号的带宽不受影响。这个混合的信号通过带通滤波器之后便可以复原</strong>。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220601162402.png width=50%>  </p>
 <p>此外，码片序列只有收发方拥有，因此码分复用技术有很好的保密性。<br>按照使用频带扩展序列的方式，扩频技术又分为直接序列扩频、跳频扩频和跳时扩频。  </p>
 <h4 id="直接序列扩频"><a href="#直接序列扩频" class="headerlink" title="直接序列扩频"></a>直接序列扩频</h4><p>直接序列扩频(direct sequence spread spectrum)是使用一段直接生成的伪随机码与用户数据进行异或运算，得到受调后的数字信号。<br>直接扩频序列减少了频率选择性衰落，但是需要对每个符号非常精准的功率控制以使的每个字符的功率相等。移动通信中主要采用的是直接序列扩频。  </p>
@@ -544,23 +544,25 @@ p.spoiler {
 <h3 id="正交频分复用"><a href="#正交频分复用" class="headerlink" title="正交频分复用"></a>正交频分复用</h3><p>正交频分复用是一种多载波调制技术，也是一种扩频技术。相比于传统的多载波调制技术，正交频分复用最大的不同是每个信道所使用的子载波在频谱上有所交叠。OFDM的技术的核心思想是将宽频率载波划分成多个带宽较小的正交子载波，并使用这些正交子载波发送及接收信号。<br>由于每个子载波的带宽小于信道带宽， OFDM可以有效克服频率选择性衰落。   </p>
 <h4 id="循环前缀"><a href="#循环前缀" class="headerlink" title="循环前缀"></a>循环前缀</h4><p>由于多径效应造成的传输信号的相移可能会使得原来的载波之间不再具有正交性，并且导致码间干扰，因此有必要在每个载波前面添加一定的保护间隔，称为循环前缀(CP,cyclic prefix)。  </p>
 <h4 id="导频信号"><a href="#导频信号" class="headerlink" title="导频信号"></a>导频信号</h4><p>导频信号的作用就是使得接收端能够根据信道中导频信号幅度和相位的变化对信道进行建模，从而在接收端实现信道均衡。  </p>
-<h4 id="正交频分复用的特点"><a href="#正交频分复用的特点" class="headerlink" title="正交频分复用的特点"></a>正交频分复用的特点</h4><ul>
+<h4 id="正交频分复用的特点"><a href="#正交频分复用的特点" class="headerlink" title="正交频分复用的特点"></a>正交频分复用的特点</h4><p>正交频分复用的优点是：  </p>
+<ul>
 <li><p>高频谱利用率<br>正交频分复用在载波之间不需要保护频带，大大提高了频谱利用率。  </p>
 </li>
 <li><p>自适应荷载<br>由于正交频分复用中使用了比特映射，更多的比特可以被调制到一条子载波上，因此正交频分复用的信噪比很高。  </p>
 </li>
 <li><p>抵御窄带干扰<br>正交频分复用中使用了多个子载波，每个OFDM符号的带宽更大，因此正交频分复用也是一种扩频技术，可以抵御窄带干扰。  </p>
 </li>
-<li><p>高峰均比<br>由于正交频分复用信号是一组不同频率的正弦信号的和，其幅度变化非常大，因此正交频分复用有非常高的峰值-均值比(peak-to-average power rato, PAPR).高均衡比对信号的接收实现造成了困难。  </p>
-</li>
+</ul>
+<p>其缺点是：  </p>
+<ul>
+<li>高峰均比<br>由于正交频分复用信号是一组不同频率的正弦信号的和，其幅度变化非常大，因此正交频分复用有非常高的峰值-均值比(peak-to-average power rato, PAPR).高均衡比对信号的接收实现造成了困难。  </li>
 </ul>
 <h2 id="蜂窝移动通信组网技术"><a href="#蜂窝移动通信组网技术" class="headerlink" title="蜂窝移动通信组网技术"></a>蜂窝移动通信组网技术</h2><h3 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h3><p>目前的移动通信大多采用全双工技术，可以分为频分双工(FDD)和时分双工(TDD)两种。  </p>
 <ul>
 <li>频分双工<br>利用两个不同的频率进行区分上行和下行通信， 并且收发频带之间有一定保护间隔以提高抗干扰能力。  </li>
 <li>时分双工<br>上行和下行通信工作在同一频率，但是不同时隙区分上行和下行通信。  </li>
 </ul>
-<h3 id="频率复用技术"><a href="#频率复用技术" class="headerlink" title="频率复用技术"></a>频率复用技术</h3><p>将覆盖区域分割为多个小区(cell)，一个基站覆盖一个小区。由于正六边形的密铺性质好，理论上小区的覆盖形状应该为正六边形。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220410143455.png width=50%>  </p>
-<p>共同使用全部可用频率的若干个小区组成一个小区簇/区群(clustering)。<br>频率复用技术所指就是不同的区群之间使用对应的相同频率，使用各相同频率的两个小区的间隔应当相等，称为再用距离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220410143747.png width=50%>  </p>
+<h3 id="频率复用技术"><a href="#频率复用技术" class="headerlink" title="频率复用技术"></a>频率复用技术</h3><p>将覆盖区域分割为多个小区(cell)，一个基站覆盖一个小区。<br>共同使用全部可用频率的若干个小区组成一个小区簇/区群(clustering)。<br>频率复用技术所指就是不同的区群之间使用对应的相同频率，使用各相同频率的两个小区的间隔应当相等，称为再用距离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220410143747.png width=50%>  </p>
 <h3 id="移动性管理"><a href="#移动性管理" class="headerlink" title="移动性管理"></a>移动性管理</h3><h4 id="越区切换"><a href="#越区切换" class="headerlink" title="越区切换"></a>越区切换</h4><p>越区切换（HO，hand-over/hand-off）指在作出越区切换决定后，将一个连接的所有无线电资源切换给另一个基站的情况。  </p>
 <p>切换过程分为：  </p>
 <ul>
@@ -570,13 +572,13 @@ p.spoiler {
 <p>越区切换需要考虑何时切换的问题，发生越区切换的判定依据一般是功率或者是通话质量。<br>越区切换的控制分为测量过程和判定过程：</p>
 <ul>
 <li>移动控制(Mobile Controlled)：两者全部由移动台完成的策略。  </li>
-<li>网络控制(Network Controlled)：两者全部由网络完成的策略。  </li>
+<li>网络控制(Network Controlled)：两者全部由网络控制器完成的策略。  </li>
 <li>移动台辅助控制(Network Controlled and Mobile assisted Handovers,MAHO)：<br>移动台测量到每个小区的信号强度，并报告给网络控制器，网络控制器决定是否进行切换以及切换的小区。<br>GSM中采用的是移动台辅助控制切换。  </li>
 </ul>
 <h4 id="位置管理"><a href="#位置管理" class="headerlink" title="位置管理"></a>位置管理</h4><p>用户设备在特定的情况下（比如开机、关机、间隔一定时间、参数变化等）需要向网络报告其位置，这个过程称为位置登记(Location Registration)。<br>位置管理的区域称为位置区(LA,Location Area)，位置区中含有若干个小区。位置区越大，包含的小区数目越多，需要进行跨区登记的负荷就越轻。但是位置区越大，寻呼被叫移动台时浪费的呼叫资源就更多。  </p>
 <h2 id="移动通信系统演进"><a href="#移动通信系统演进" class="headerlink" title="移动通信系统演进"></a>移动通信系统演进</h2><h3 id="网络架构和关键技术"><a href="#网络架构和关键技术" class="headerlink" title="网络架构和关键技术"></a>网络架构和关键技术</h3><table>
 <tr><th>移动通信系统</th><th>用户终端</th><th>接入网</th><th>核心网</th><th>关键技术</th></tr>
-<tr><td>2G</td><td><b>MS(Mobile Station)</b><br>SIM卡：存储用户通信数据<br>TE：终端设备<br>特点是机卡分离</td><td><b>BSS(BaseStation Subsystem)</b><br>BTS：基站收发信机，负责收发信号<br>BSC：用于控制基站收发信机</td><td><b>NSS(Network and Switching Subsystem)</b><br>MSC：移动交换中心，负责交换数据<br>HLR:记录和管理本地常驻用户永久和半永久设备信息<br>VLR:记录和管理漫游用户临时设备信息<br>AUC：鉴权中心，负责安全和权限管理</td><td>特有多址：TDMA<br>信道编码：卷积码<br>调制方式：GMSK<br>切换方式：移动台辅助控制切换<br>越区切换/频率重用</td></tr>
+<tr><td>2G</td><td><b>MS(Mobile Station)</b><br>SIM卡：存储用户通信数据<br>TE：终端设备<br>特点是机卡分离</td><td><b>BSS(BaseStation Subsystem)</b><br>BTS：基站收发信机，负责收发信号<br>BSC：用于控制基站收发信机</td><td><b>NSS(Network and Switching Subsystem)</b><br>MSC：移动交换中心，负责交换数据<br>HLR:记录和管理本地常驻用户永久和半永久设备信息<br>VLR:记录和管理漫游用户临时设备信息<br>AUC：鉴权中心，负责安全和权限管理</td><td>特有多址：TDMA<br>信道编码：卷积码<br>调制方式：GMSK<br>切换方式：移动台辅助控制的硬切换<br>越区切换/频率重用</td></tr>
 <tr><td rowspan='4'>3G</td><td rowspan='6'><b>UE(User Equipment)</b><br>USIM卡：存储用户通信数据<br>TE：终端设备</td><td rowspan='4'><b>RAN(Radio Access Network)</b><br>NodeB:基站，负责收发信号<br>RNC:负责控制NodeB</td><td><b>CN(Core Network)</b><br></td><td rowspan='4'>特有多址：CDMA<br>信道编码：卷积码和涡轮码<br>调制方式：QPSK<br>切换：软切换<br>Rake接收机技术/宏分集/功率控制</td></tr><tr><td>电路交换域<br>MSC：移动交换中心，负责交换数据<br>VLR:记录和管理漫游用户临时设备信息<br>GMSC:外部基于电路的网络的接口</td></tr><tr><td>分组交换域<br>SGSN:负责移动性、会话管理和计费<br>GGSN:确保和管理与外部分组交换网络的连接</td></tr><tr><td>公共部分<br>AUC：鉴权中心，负责安全和权限管理<br>HLR:记录和管理本地常驻用户永久和半永久设备信息</td></tr>
 <tr><td>4G</td><td><b>eRAN(enhanced RAN)</b><br>eNodeB:负责收发信号，并带有管理控制功能</td><td><b>EPC</b><br>MME:信令处理<br>S-GW:连接不同的网络<br>P-GW:功能类似于GGSN，用于提供IP接入等功能<br>HSS:数据库，存储用户信息</td><td>特有多址：OFDMA（下行）SCDMA（单载波FDMA，上行）<br>信道编码：DPC<br>调制方式：QAM<br>MIMO多天线技术</td></tr>
 <tr><td>5G</td><td><b>NG-RAN(Next Generation RAN)</b><br>gNB：5G基站</td><td><b>5GC(5G Corenetwork)</b><br>AMF：类似于MME，进行控制面的处理<br>UPF:进行用户面业务处理</td><td>特有多址：NOMA<br>Massive-MIMO/NFV+SDN/边缘计算</td></tr>
