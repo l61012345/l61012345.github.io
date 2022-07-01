@@ -24,7 +24,7 @@
 <meta property="og:description" content="无线资源利用技术复用技术复用技术是一种将物理传输介质划分为多条逻辑信道使之能传输多个信号的技术。复用技术包括频分复用、时分复用、码分复用和空分复用。   频分复用和时分复用频率分复用是一种通过将信号调制到不同频率上，使得同一个传输介质可以同时传输不同频率的信号。频分复用的优点是原始的频分复用不需要资源动态调整，不需要同步；其次不仅适用于数字信号，也适用于模拟信号。缺点是缺乏灵活性；由于多路信道的话">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-31T08:41:46.174Z">
-<meta property="article:modified_time" content="2022-07-01T10:16:19.175Z">
+<meta property="article:modified_time" content="2022-07-01T10:18:05.986Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          90 分钟
+          89 分钟
         
       </span>
     
@@ -434,7 +434,7 @@ p.spoiler {
 <h4 id="正交频分复用调制和解调"><a href="#正交频分复用调制和解调" class="headerlink" title="正交频分复用调制和解调"></a>正交频分复用调制和解调</h4><p>正交频分复用的调制和解调是通过离散傅里叶变换和反离散傅里叶变换得到的。<br>子载波调制后，每一个OFDM符号可以表示为：  </p>
 <script type="math/tex; mode=display">g(t)=ℜ(∑_{n=0}^{N-1}b_ne^{j2π(f_c+\frac{n}{T}t)})=\sum_{n=0}^{N-1}b_ne^{j2πn\frac{t}{T}},0≤t≤T</script><p>其中$b_n$表示比特符号，$N$是采用的子载波个数，$T$是每一个每个OFDM符号的符号持续时间。<br>对其以$\frac{T}{N}$的速率进行采样，得到：  </p>
 <script type="math/tex; mode=display">g[k]=\sum_{n=0}^{N-1}b_ne^{j2πn\frac{k}{N}}</script><p>可以发现，$g[k]$正好是$b_n$的反离散傅里叶变换。<br>因此，可以发现离散傅里叶变换和反离散傅里叶变换可以用于正交频分复用信号的调制中：<br>发射机通过离散傅里叶反变换（inverse DFT, IDFT）把频域序列转换到时域，形成相互正交的载波信号。接收机通过离散傅里叶变换（discrete Fourier transform, DFT）把时域序列转换到频域对符号进行解正交频分复用。  </p>
-<h4 id="添加循环前缀"><a href="#添加循环前缀" class="headerlink" title="添加循环前缀"></a>添加循环前缀</h4><p>由于多径效应造成的传输信号的相移可能会使得原来的载波之间不再具有正交性，并且导致载波间干扰(ICI,inter-carrier interference)和码间串扰，因此有必要在每个载波前面添加一定的保护间隔，并且这个保护间隔中的信号是原信号的多个复制，称为循环前缀(CP,cyclic prefix)。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611111122.png width=50%>  </p>
+<h4 id="添加循环前缀"><a href="#添加循环前缀" class="headerlink" title="添加循环前缀"></a>添加循环前缀</h4><p>由于多径效应造成的传输信号的相移可能会使得原来的载波之间不再具有正交性，并且导致码间串扰，因此有必要在每个载波前面添加一定的保护间隔，并且这个保护间隔中的信号是原信号的多个复制，称为循环前缀(CP,cyclic prefix)。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611111122.png width=50%>  </p>
 <p>循环前缀的长度必须要超过信道的最大时延，以消除多径时延造成的码间干扰。  </p>
 <h4 id="正交频分复用系统中的信道均衡"><a href="#正交频分复用系统中的信道均衡" class="headerlink" title="正交频分复用系统中的信道均衡"></a>正交频分复用系统中的信道均衡</h4><p>如果循环前缀的持续时间大于信道时延扩展的时间，则平稳多径信道的影响可以通过其对每个子载波的系数振幅和相位的影响精确地为信道建模。<br>在IEEE802.11和802.16中都在承载信息的子载波信号前额外添加了一段子载波信号，称为导频信号(pilot)。导频信号的作用就是使得接收端能够根据信道中导频信号幅度和相位的变化对信道进行建模，从而在接收端实现信道均衡。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611111432.png width=50%>  </p>
 <h4 id="正交频分复用的特点"><a href="#正交频分复用的特点" class="headerlink" title="正交频分复用的特点"></a>正交频分复用的特点</h4><ul>
