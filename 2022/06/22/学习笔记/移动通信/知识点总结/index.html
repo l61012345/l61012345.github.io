@@ -24,7 +24,7 @@
 <meta property="og:description" content="移动通信-知识点总结移动通信环境无线电波传播的实质是多径传播。   移动通信的特点移动通信所面对的问题可以由“四三二一”总结为：    四个效应多径效应、阴影效应、远近效应、多普勒效应 三个干扰共道干扰、邻道干扰、互调干扰 两个噪声内部噪声、外部噪声 一个矛盾日益增长的通信需求矛盾与有限的通信资源之间的矛盾    移动通信方式    传播类型 频段 特点* 应用举例     地波&#x2F;地表面波 2MH">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-22T12:12:25.276Z">
-<meta property="article:modified_time" content="2022-07-01T10:17:53.454Z">
+<meta property="article:modified_time" content="2022-07-02T02:52:17.062Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          108 分钟
+          112 分钟
         
       </span>
     
@@ -316,7 +316,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月1日 上午
+                    本文最后更新于：2022年7月2日 凌晨
                   
                 
               </p>
@@ -366,7 +366,7 @@ p.spoiler {
 <h3 id="衰落"><a href="#衰落" class="headerlink" title="衰落"></a>衰落</h3><p>衰落是指在发送信号功率一定的前提下，接收到的无线电信号的功率出现路损模型无法预测的、有尺度的变化。<br>根据无线电波传播效应，通常将无线信道衰落按照持续时间或者幅度分为两类：大尺度衰落和小尺度（小尺度一般与信号波长为一个量级）衰落，尺度指时间或者距离的大小。  </p>
 <h4 id="大尺度衰落"><a href="#大尺度衰落" class="headerlink" title="大尺度衰落"></a>大尺度衰落</h4><p>无线电信号的幅度和相位在长时间和长距离内的波动称为大尺度衰落。<br>大尺度衰落主要由路径损耗和阴影效应造成。  </p>
 <ul>
-<li><p>路径损耗<br>无线电信号通过大尺度距离的信道传输时，随传输路径的增加，电波能量扩散，导致接收信号平均功率衰减，其衰减量与传输距离有关，距离越大，衰减量越多。<br>自由空间损耗可以描述为：  </p>
+<li><p>路径损耗<br>无线电信号通过大尺度距离的信道传输时，随传输路径的增加，电波能量扩散，导致接收信号平均功率衰减，其衰减量与传输距离有关，距离越大，衰减量越多。它是发送功率与接收的平均功率的差值。<br>自由空间损耗可以描述为：  </p>
 <script type="math/tex; mode=display">L_{fs}|_{dB}=32.44+20lgd_{km}+20lgf_{Mhz}</script></li>
 <li><p>阴影效应<br>由于高大障碍物遮挡，导致信号被削弱甚至是阻挡而出现的功率的随机波动。其衰落特性服从对数正态分布。  </p>
 </li>
@@ -440,7 +440,10 @@ p.spoiler {
 <li>链路预算是指：知道无线电波在具体环境中的路径损耗可以得到接收信号的功率、从而得到一个大致的信号覆盖范围，从而帮助规划位置和数量天线的设置，还可以帮助确定发送天线功率、增益和尺寸的设置。   </li>
 <li>通过对比估计和实际的信号功率，利用路径损耗模型也可以实现对于移动台的定位。  </li>
 </ul>
-<h2 id="无线资源利用技术"><a href="#无线资源利用技术" class="headerlink" title="无线资源利用技术"></a>无线资源利用技术</h2><h3 id="复用技术"><a href="#复用技术" class="headerlink" title="复用技术"></a>复用技术</h3><p>复用技术的对象是基带信号，本质上是一种提高资源利用效率的技术。  </p>
+<h4 id="链路模型"><a href="#链路模型" class="headerlink" title="链路模型"></a>链路模型</h4><p>在移动通信链路中，发送功率和接收功率的差异除了考虑收发天线增益$G_t$和$G_r$和路径损耗外，通常还要考虑大气散射损耗$L_g$、收发天线的馈线损耗$L_t$和$L_r$，以及噪声$N$，因此在基本无线传输链路模型下，增加了如下的环节：  </p>
+<script type="math/tex; mode=display">P_r|_{dB}=P_t|_{dB}+G_t|_{dB}+G_r|_{dB}-L_t|{dB}-L_r{dB}-L_{fs}|_{dB}-L_{g}|dB</script><p>其中：$P_t|_{dB}+G_t|_{dB}-L_t|{dB}$为发送机的有效辐射功率。如果采用全向天线，那么天线的增益为$G|dB=1$。<br>载噪比CNR表示为：  </p>
+<script type="math/tex; mode=display">CNR|_{dB}=P_r|_{dB}-N|_{dB}</script><p>噪声的功率表示为： </p>
+<script type="math/tex; mode=display">N|_{dB}=[kTBF]=-228.6+10lgT|_{K}+10lgf|_{Hz}+F|_{dB}</script><h2 id="无线资源利用技术"><a href="#无线资源利用技术" class="headerlink" title="无线资源利用技术"></a>无线资源利用技术</h2><h3 id="复用技术w"><a href="#复用技术w" class="headerlink" title="复用技术w"></a>复用技术w</h3><p>复用技术的对象是基带信号，本质上是一种提高资源利用效率的技术。  </p>
 <div class="table-container">
 <table>
 <thead>
@@ -483,11 +486,12 @@ p.spoiler {
 <h4 id="频分多址-FDMA"><a href="#频分多址-FDMA" class="headerlink" title="频分多址/FDMA"></a>频分多址/FDMA</h4><p>频分多址是对频带信号的频分复用。<br>频分复用的优点是：</p>
 <ul>
 <li>复杂度低，易于同步。  </li>
+<li>鲁棒性(robust)好。</li>
 <li>使用频分复用的物理层比特开销不大。  </li>
 </ul>
 <p>缺点是：</p>
 <ul>
-<li>频分多址的频带固定分配给固定链路，链路空闲会造成分配的频带被浪费。  </li>
+<li>频段是稀缺资源，频分多址的频带固定分配给固定链路，链路空闲会造成分配的频带被浪费。  </li>
 <li>同时对射频干扰滤波器(RF filter)要求较高以减少邻道干扰。  </li>
 </ul>
 <h4 id="时分多址-TDMA"><a href="#时分多址-TDMA" class="headerlink" title="时分多址/TDMA"></a>时分多址/TDMA</h4><p>时分多址将一帧分为多个时隙并分配给各用户。每一时隙会预留一些保护时间以避免多径效应带来的时移对帧同步的影响。<br>原始的时分多址需要一个中央结点控制其他所有节点进行帧同步。<br>时分多址的优点是：</p>
@@ -507,6 +511,7 @@ p.spoiler {
 <li>基站使用多个有向天线划<strong>分为多个扇区</strong>。不同的天线接收来自不同扇区的信号。  </li>
 <li>天线发送信号时进行<strong>波束赋形</strong>(beamforming)，使发送的电磁波的能量集中在某个方向上。  </li>
 </ul>
+<p>空分多址的优点是实现简单，因此大部分移动通信系统都采用了空分多址。其缺点是对天线的类型有所指定，不灵活。</p>
 <h4 id="码分多址-CDMA"><a href="#码分多址-CDMA" class="headerlink" title="码分多址/CDMA"></a>码分多址/CDMA</h4><p>时分多址和频分多址所使用的时间和频率带宽都是容量有限的资源，这些容量被称为硬容量。而码分复用利用不同的码片序列，称为伪随机码序列(presudo random code/presudo noise code,PN code)区分不同的用户。理论上码分复用可以支持无限个码片序列对应的用户，因此码分复用所使用的码片序列是一种无限容量的资源。<br>同码分复用，码分多址中的特定码片序列只能够被指定的接收机接收。<br>码分多址中要求用于区分不同用户的码片序列必须彼此不相关，以在接收机可以清晰地分辨各用户的信号。<br>当不同码片序列并非完全不相关时，不同码片序列彼此出现相互干扰，称为多址干扰(multi access interference).  <strong>多址干扰是码分多址特有的一种干扰现象</strong>，会造成解扩的困难。    </p>
 <p>码分多址的优点是：  </p>
 <ul>
@@ -619,8 +624,8 @@ p.spoiler {
 <h4 id="位置管理"><a href="#位置管理" class="headerlink" title="位置管理"></a>位置管理</h4><p>用户设备在特定的情况下（比如开机、关机、间隔一定时间、参数变化等）需要向网络报告其位置，这个过程称为位置登记(Location Registration)。<br>位置管理的区域称为位置区(LA,Location Area)，位置区中含有若干个小区。位置区越大，包含的小区数目越多，需要进行跨区登记的负荷就越轻。但是位置区越大，寻呼被叫移动台时浪费的呼叫资源就更多。  </p>
 <h2 id="移动通信系统演进"><a href="#移动通信系统演进" class="headerlink" title="移动通信系统演进"></a>移动通信系统演进</h2><h3 id="网络架构和关键技术"><a href="#网络架构和关键技术" class="headerlink" title="网络架构和关键技术"></a>网络架构和关键技术</h3><table>
 <tr><th>移动通信系统</th><th>用户终端</th><th>接入网</th><th>核心网</th><th>关键技术</th></tr>
-<tr><td>2G</td><td><b>MS(Mobile Station)</b><br>SIM卡：存储用户通信数据<br>TE：终端设备<br>特点是机卡分离</td><td><b>BSS(BaseStation Subsystem)</b><br>BTS：基站收发信机，负责收发信号<br>BSC：用于控制基站收发信机</td><td><b>NSS(Network and Switching Subsystem)</b><br>MSC：移动交换中心，负责交换数据<br>HLR:记录和管理本地常驻用户永久和半永久设备信息<br>VLR:记录和管理漫游用户临时设备信息<br>AUC：鉴权中心，负责安全和权限管理</td><td>多址：FDMA+TDMA<br>双工：FDD<br>信道编码：卷积码<br>调制方式：GMSK<br>切换方式：移动台辅助控制的硬切换<br>越区切换/频率重用</td></tr>
-<tr><td rowspan='4'>3G</td><td rowspan='6'><b>UE(User Equipment)</b><br>USIM卡：存储用户通信数据<br>TE：终端设备</td><td rowspan='4'><b>RAN(Radio Access Network)</b><br>NodeB:基站，负责收发信号<br>RNC:负责控制NodeB</td><td><b>CN(Core Network)</b><br></td><td rowspan='4'>多址：FDMA+CDMA<br>双工：FDD+TDD<br>信道编码：卷积码和涡轮码<br>调制方式：QPSK<br>切换：软切换<br>Rake接收机技术/宏分集/功率控制</td></tr><tr><td>电路交换域<br>MSC：移动交换中心，负责交换数据<br>VLR:记录和管理漫游用户临时设备信息<br>GMSC:外部基于电路的网络的接口</td></tr><tr><td>分组交换域<br>SGSN:负责移动性、会话管理和计费<br>GGSN:确保和管理与外部分组交换网络的连接</td></tr><tr><td>公共部分<br>AUC：鉴权中心，负责安全和权限管理<br>HLR:记录和管理本地常驻用户永久和半永久设备信息</td></tr>
+<tr><td>2G</td><td><b>MS(Mobile Station)</b><br>SIM卡：存储用户通信数据<br>TE：终端设备<br>特点是机卡分离</td><td><b>BSS(BaseStation Subsystem)</b><br>BTS：基站收发信机，负责收发信号<br>BSC：用于控制基站收发信机，和无线信道的交换</td><td><b>NSS(Network and Switching Subsystem)</b><br>MSC：移动交换中心，负责交换数据<br>HLR:记录和管理本地常驻用户永久和半永久设备信息<br>VLR:记录和管理漫游用户临时设备信息<br>AUC：鉴权中心，负责安全和权限管理</td><td>多址：FDMA+TDMA<br>双工：FDD<br>信道编码：卷积码<br>调制方式：GMSK<br>切换方式：移动台辅助控制的硬切换<br>越区切换/频率重用</td></tr>
+<tr><td rowspan='4'>3G</td><td rowspan='6'><b>UE(User Equipment)</b><br>USIM卡：存储用户通信数据<br>TE：终端设备</td><td rowspan='4'><b>RAN(Radio Access Network)</b><br>NodeB:基站，负责收发信号<br>RNC:负责控制基站和分配无线资源</td><td><b>CN(Core Network)</b><br></td><td rowspan='4'>多址：FDMA+CDMA<br>双工：FDD+TDD<br>信道编码：卷积码和涡轮码<br>调制方式：QPSK<br>切换：软切换<br>Rake接收机技术/宏分集/功率控制</td></tr><tr><td>电路交换域<br>MSC：移动交换中心，负责交换数据<br>VLR:记录和管理漫游用户临时设备信息<br>GMSC:外部基于电路的网络的接口</td></tr><tr><td>分组交换域<br>SGSN:负责移动性、会话管理和计费<br>GGSN:确保和管理与外部分组交换网络的连接</td></tr><tr><td>公共部分<br>AUC：鉴权中心，负责安全和权限管理<br>HLR:记录和管理本地常驻用户永久和半永久设备信息</td></tr>
 <tr><td>4G</td><td><b>eRAN(enhanced RAN)</b><br>eNodeB:负责收发信号，并带有管理控制功能</td><td><b>EPC</b><br>MME:信令处理<br>S-GW:连接不同的网络<br>P-GW:功能类似于GGSN，用于提供IP接入等功能<br>HSS:数据库，存储用户信息</td><td>多址：OFDMA（下行）SC-FDMA（单载波FDMA，上行）<br>双工：FDD+TDD<br>信道编码：DPC<br>调制方式：QAM<br>MIMO多天线技术</td></tr>
 <tr><td>5G</td><td><b>NG-RAN(Next Generation RAN)</b><br>gNB：5G基站</td><td><b>5GC(5G Corenetwork)</b><br>AMF：类似于MME，进行控制面的处理<br>UPF:进行用户面业务处理</td><td>多址：NOMA<br>双工：FDD+TDD<br>Massive-MIMO/NFV+SDN/边缘计算</td></tr>
 </table>
@@ -748,7 +753,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年7月1日</div>
+          <div>2022年7月2日</div>
         </div>
       
       <div class="license-meta-item">
