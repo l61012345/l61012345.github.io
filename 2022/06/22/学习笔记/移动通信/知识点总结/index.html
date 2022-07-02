@@ -24,7 +24,7 @@
 <meta property="og:description" content="移动通信-知识点总结移动通信环境无线电波传播的实质是多径传播。   移动通信的特点移动通信所面对的问题可以由“四三二一”总结为：    四个效应多径效应、阴影效应、远近效应、多普勒效应 三个干扰共道干扰、邻道干扰、互调干扰 两个噪声内部噪声、外部噪声 一个矛盾日益增长的通信需求矛盾与有限的通信资源之间的矛盾    移动通信方式    传播类型 频段 特点* 应用举例     地波&#x2F;地表面波 2MH">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-22T12:12:25.276Z">
-<meta property="article:modified_time" content="2022-07-02T07:50:43.799Z">
+<meta property="article:modified_time" content="2022-07-02T08:16:02.897Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -255,7 +255,7 @@ p.spoiler {
         
         
         
-          113 分钟
+          114 分钟
         
       </span>
     
@@ -548,7 +548,11 @@ p.spoiler {
 </ul>
 <p>为了减少远近效应，采用码分多址的通信系统会使用更加精准和复杂的功率控制(power control)技术来调整发送给不同距离用户的信号功率。  </p>
 <h2 id="抗衰落技术"><a href="#抗衰落技术" class="headerlink" title="抗衰落技术"></a>抗衰落技术</h2><h3 id="差错补偿技术"><a href="#差错补偿技术" class="headerlink" title="差错补偿技术"></a>差错补偿技术</h3><p>无线信道中最重要的差错补偿技术有三个：分集技术、误差控制编码和信道均衡。  </p>
-<h4 id="信道均衡技术"><a href="#信道均衡技术" class="headerlink" title="信道均衡技术"></a>信道均衡技术</h4><p><strong>对于频率选择性信道，信道中的信号由于带宽有限而发生时域的展宽，导致符号之间出现重叠</strong>——这是导致码间串扰(ISI)的主要原因。<br>信道均衡技术(channel equalization)可以有效的减少码间串扰。<br>简单来说，信道均衡的想法是在接收端的滤波器后和判决器之间增加一个新的器件——均衡器。均衡器是一种FIR滤波器，它能够根据信道的脉冲响赋予调整接收信号在各频点权重$C_i$。具体赋予权重的方式多样，常见的是使用最小均方误差算法(MMSE,minimum mean squared error)来赋予权重。<br>自适应信道均衡(adaptive cahnnel equalization)技术可以根据信道状态信息(channel state information, CSI)自动调整权重，使得码间串扰的程度减少到最小。  </p>
+<h4 id="信道均衡技术"><a href="#信道均衡技术" class="headerlink" title="信道均衡技术"></a>信道均衡技术</h4><p><strong>对于频率选择性信道，信道中的信号由于带宽有限而发生时延拓展，导致符号频谱出现重叠</strong>——这是导致码间串扰(ISI)的主要原因。  </p>
+<div class="note note-info">
+            <p>码间串扰出现的原因有二：其一是因为信道带宽有限，其二是多径效应，无论是哪一种都会引起时延拓展，进而导致符号频谱重叠。  </p>
+          </div>
+<p>信道均衡技术(channel equalization)可以有效的减少码间串扰。<br>简单来说，信道均衡的想法是在接收端的滤波器后和判决器之间增加一个新的器件——均衡器。均衡器是一种FIR滤波器，它能够根据信道的脉冲响赋予调整接收信号在各频点权重$C_i$。具体赋予权重的方式多样，常见的是使用最小均方误差算法(MMSE,minimum mean squared error)来赋予权重。<br>自适应信道均衡(adaptive cahnnel equalization)技术可以根据信道状态信息(channel state information, CSI)自动调整权重，使得码间串扰的程度减少到最小。  </p>
 <h4 id="误差控制编码"><a href="#误差控制编码" class="headerlink" title="误差控制编码"></a>误差控制编码</h4><p>误差控制编码是在信源编码阶段使用一些可以规避或者减少特定误差的编码方式的抗衰落技术。误差控制编码技术有前向纠错(forward error-correction，FEC)和自动请求重发(auto-repeat request,ARQ)两种。  </p>
 <ul>
 <li><p>前向纠错<br>前向纠错技术指在发送端，发送方根据发送数据的内容生成一组校验码，附加在数据前或后方。<br>在接收方，接收者收到数据后按照相同的方式计算出一个校验码，并与发送方附带的校验码进行比对，如果两者不一致，则说明数据在传输的过程中发生了改变。某些校验方式还可以找到具体出错的比特位置，并且自动进行校正。<br>根据编码器中是否需要内存(memory)，前向纠错码又分为卷积码(convolutional code)和分组码(block code)。<br>经典的分组码是线性分组码，通常以$(n,k)$线性分组码表示，其意义是：对于$k$比特的信息，使其添加上$n-k$比特的校验信息。在线性分组码中，通常以$\frac{n}{k}$表示编码效率。<br>卷积码是编码器冲激响应与一段比特数据进行离散时间卷积，从而生成校验码，卷积序列的长度和编码的有效性与编码器的冲激响应序列长度和卷积的序列长度——即内存的大小有关。  </p>
@@ -630,10 +634,10 @@ p.spoiler {
 <h4 id="位置管理"><a href="#位置管理" class="headerlink" title="位置管理"></a>位置管理</h4><p>用户设备在特定的情况下（比如开机、关机、间隔一定时间、参数变化等）需要向网络报告其位置，这个过程称为位置登记(Location Registration)。<br>位置管理的区域称为位置区(LA,Location Area)，位置区中含有若干个小区。位置区越大，包含的小区数目越多，需要进行跨区登记的负荷就越轻。但是位置区越大，寻呼被叫移动台时浪费的呼叫资源就更多。  </p>
 <h2 id="移动通信系统演进"><a href="#移动通信系统演进" class="headerlink" title="移动通信系统演进"></a>移动通信系统演进</h2><h3 id="网络架构和关键技术"><a href="#网络架构和关键技术" class="headerlink" title="网络架构和关键技术"></a>网络架构和关键技术</h3><table>
 <tr><th>移动通信系统</th><th>用户终端</th><th>接入网</th><th>核心网</th><th>关键技术</th></tr>
-<tr><td>2G</td><td><b>MS(Mobile Station)</b><br>SIM卡：存储用户通信数据<br>TE：终端设备<br>特点是机卡分离</td><td><b>BSS(BaseStation Subsystem)</b><br>BTS：基站收发信机，负责收发信号<br>BSC：用于控制基站收发信机，和无线信道的交换</td><td><b>NSS(Network and Switching Subsystem)</b><br>MSC：移动交换中心，负责交换数据<br>HLR:记录和管理本地常驻用户永久和半永久设备信息<br>VLR:记录和管理漫游用户临时设备信息<br>AUC：鉴权中心，负责安全和权限管理</td><td>多址：FDMA+TDMA<br>双工：FDD<br>信道编码：卷积码<br>调制方式：GMSK<br>切换方式：移动台辅助控制的硬切换<br>越区切换/频率重用</td></tr>
-<tr><td rowspan='4'>3G</td><td rowspan='6'><b>UE(User Equipment)</b><br>USIM卡：存储用户通信数据<br>TE：终端设备</td><td rowspan='4'><b>RAN(Radio Access Network)</b><br>NodeB:基站，负责收发信号<br>RNC:负责控制基站和分配无线资源</td><td><b>CN(Core Network)</b><br></td><td rowspan='4'>多址：FDMA+CDMA<br>双工：FDD+TDD<br>信道编码：卷积码和涡轮码<br>调制方式：QPSK<br>切换：软切换<br>Rake接收机技术/宏分集/功率控制</td></tr><tr><td>电路交换域<br>MSC：移动交换中心，负责交换数据<br>VLR:记录和管理漫游用户临时设备信息<br>GMSC:外部基于电路的网络的接口</td></tr><tr><td>分组交换域<br>SGSN:负责移动性、会话管理和计费<br>GGSN:确保和管理与外部分组交换网络的连接</td></tr><tr><td>公共部分<br>AUC：鉴权中心，负责安全和权限管理<br>HLR:记录和管理本地常驻用户永久和半永久设备信息</td></tr>
-<tr><td>4G</td><td><b>eRAN(enhanced RAN)</b><br>eNodeB:负责收发信号，并带有管理控制功能</td><td><b>EPC</b><br>MME:信令处理<br>S-GW:连接不同的网络<br>P-GW:功能类似于GGSN，用于提供IP接入等功能<br>HSS:数据库，存储用户信息</td><td>多址：OFDMA（下行）SC-FDMA（单载波FDMA，上行）<br>双工：FDD+TDD<br>信道编码：DPC<br>调制方式：QAM<br>MIMO多天线技术</td></tr>
-<tr><td>5G</td><td><b>NG-RAN(Next Generation RAN)</b><br>gNB：5G基站</td><td><b>5GC(5G Corenetwork)</b><br>AMF：类似于MME，进行控制面的处理<br>UPF:进行用户面业务处理</td><td>多址：NOMA<br>双工：FDD+TDD<br>Massive-MIMO/NFV+SDN/边缘计算</td></tr>
+<tr><td>2G<br>特点：全球通</td><td><b>MS(Mobile Station)</b><br>SIM卡：存储用户通信数据<br>TE：终端设备<br>特点是机卡分离</td><td><b>BSS(BaseStation Subsystem)</b><br>BTS：基站收发信机，负责收发信号<br>BSC：用于控制基站收发信机，和无线信道的交换</td><td><b>NSS(Network and Switching Subsystem)</b><br>MSC：移动交换中心，负责交换数据<br>HLR:记录和管理本地常驻用户永久和半永久设备信息<br>VLR:记录和管理漫游用户临时设备信息<br>AUC：鉴权中心，负责安全和权限管理</td><td>多址：FDMA+TDMA<br>双工：FDD<br>信道编码：卷积码<br>调制方式：GMSK<br>切换方式：移动台辅助控制的硬切换<br>越区切换/频率重用</td></tr>
+<tr><td rowspan='4'>3G<br>特点：多媒体</td><td rowspan='6'><b>UE(User Equipment)</b><br>USIM卡：存储用户通信数据<br>TE：终端设备</td><td rowspan='4'><b>RAN(Radio Access Network)</b><br>NodeB:基站，负责收发信号<br>RNC:负责控制基站和分配无线资源</td><td><b>CN(Core Network)</b><br></td><td rowspan='4'>多址：FDMA+CDMA<br>双工：FDD+TDD<br>信道编码：卷积码和涡轮码<br>调制方式：QPSK<br>切换：软切换<br>Rake接收机技术/宏分集/功率控制</td></tr><tr><td>电路交换域<br>MSC：移动交换中心，负责交换数据<br>VLR:记录和管理漫游用户临时设备信息<br>GMSC:外部基于电路的网络的接口</td></tr><tr><td>分组交换域<br>SGSN:负责移动性、会话管理和计费<br>GGSN:确保和管理与外部分组交换网络的连接</td></tr><tr><td>公共部分<br>AUC：鉴权中心，负责安全和权限管理<br>HLR:记录和管理本地常驻用户永久和半永久设备信息</td></tr>
+<tr><td>4G<br>特点：全IP</td><td><b>eRAN(enhanced RAN)</b><br>eNodeB:负责收发信号，并带有管理控制功能</td><td><b>EPC(Evolved Packet Core)</b><br>MME:信令处理<br>S-GW:连接不同的网络<br>P-GW:功能类似于GGSN，用于提供IP接入等功能<br>HSS:数据库，存储用户信息</td><td>多址：OFDMA（下行）SC-FDMA（单载波FDMA，上行）<br>双工：FDD+TDD<br>信道编码：DPC<br>调制方式：QAM<br>MIMO多天线技术</td></tr>
+<tr><td>5G<br>特点：万物互联</td><td><b>NG-RAN(Next Generation RAN)</b><br>gNB：5G基站</td><td><b>5GC(5G Corenetwork)</b><br>AMF：类似于MME，进行控制面的处理<br>UPF:进行用户面业务处理</td><td>多址：NOMA<br>双工：FDD+TDD<br>Massive-MIMO/NFV+SDN/边缘计算</td></tr>
 </table>
 
 
