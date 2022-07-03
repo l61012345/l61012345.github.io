@@ -24,7 +24,7 @@
 <meta property="og:description" content="无线信道无线电波传播环境电磁波传播现象在自由空间中，无线电波的传播是点对点的视距传播。然而实际传播中，无线电波在传播过程中会遇到各种各样的障碍物，由此发生各种类型的传播现象。这些传播现象会导致无线电波的原有性质发生改变。    反射(reflection)电磁波遇到大型障碍物（指障碍物尺寸远远大于电磁波波长）时发生能量损耗和传播方向的变化，能量损耗由吸收或电磁波进入障碍物介质引起。   散射(sc">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-18T05:10:41.754Z">
-<meta property="article:modified_time" content="2022-07-03T07:15:55.798Z">
+<meta property="article:modified_time" content="2022-07-03T08:21:07.026Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -351,9 +351,6 @@ p.spoiler {
 <script type="math/tex; mode=display">N=kTBF</script><p>其中，$k=1.3805×10^{-23}J/K$为玻尔兹曼常数；$T$为环境的开尔文温度；$B$为带宽；$F$为噪声系数，在理想条件下$F=1$。<br>对数化后为：  </p>
 <script type="math/tex; mode=display">N|_{dB}=[kTBF]=-228.6+10lgT|_{K}+10lgB|_{Hz}+F|_{dB}</script><h2 id="路径损耗模型"><a href="#路径损耗模型" class="headerlink" title="路径损耗模型"></a>路径损耗模型</h2><h3 id="无线传输链路模型"><a href="#无线传输链路模型" class="headerlink" title="无线传输链路模型"></a>无线传输链路模型</h3><p>基本的无线传输链路模型由接收天线和发送天线的功率$P_t$和$P_r$以及它们的增益$G_t$和$G_r$、以及传播过程中的损耗$L$组成：  </p>
 <script type="math/tex; mode=display">P_r|_{dB}=P_t|_{dB}+G_t|_{dB}+G_r|_{dB}-L|_{dB}</script><p>移动通信中最关心的问题是无线电波在发送机和接收机之间传播过程当中的损耗。定义路径损耗(path loss)为发送机发送的信号功率和接收机接收信号的平均功率之比。  </p>
-<div class="note note-info">
-            <p>在移动通信链路中，发送功率和接收功率的差异除了考虑收发天线增益$G_t$和$G_r$和路径损耗外，通常还要考虑大气散射损耗$L_g$、收发天线的馈线损耗$L_t$和$L_r$，以及噪声$N$，因此在基本无线传输链路模型下，增加了如下的环节：  </p><script type="math/tex; mode=display">P_r|_{dB}=P_t|_{dB}+G_t|_{dB}+G_r|_{dB}-L_t|{dB}-L_r{dB}-L_{fs}|_{dB}-L_{g}|_{dB}</script><p>其中：$P_t|_{dB}+G_t|_{dB}-L_t|{dB}$为发送机的有效辐射功率。如果采用全向天线，那么天线的增益为$G|_{dB}=1$。<br>载噪比CNR表示为：  </p><script type="math/tex; mode=display">CNR|_{dB}=P_r|_{dB}-N|_{dB}</script>
-          </div>  
 <p>知道无线电波在具体环境中的路径损耗可以得到接收信号的功率、从而得到一个大致的信号覆盖范围，从而帮助规划位置和数量天线的设置，还可以帮助确定发送天线功率、增益和尺寸的设置（称为链路预算）。<br>同时，利用路径损耗模型也可以实现对于移动台的定位。<br>路径损耗模型则是通过实验和理论分析，将具体环境下的路径损耗通过数学模型表达出来。路径损耗模型的分类如下表所示：</p>
 <div class="table-container">
 <table>
@@ -400,7 +397,9 @@ p.spoiler {
 <script type="math/tex; mode=display">L_{fs}=10lg\frac{P_t}{P_r}=-20lg\frac{4πd}{λ}</script><p>有：  </p>
 <script type="math/tex; mode=display">L_{fs}|_{dB}=32.4+20lgf_{MHz}+20lgd_{km}</script><p>从链路模型和自由空间损耗公式可以推断，在自由空间下，发送天线只需要非常小的发送功率即可覆盖千米级别的区域。  </p>
 <h4 id="馈线损耗"><a href="#馈线损耗" class="headerlink" title="馈线损耗"></a>馈线损耗</h4><p>除了考虑传播损耗，在构建自由空间模型时有时候还会考虑到天线与发送系统之间的传输线损耗，这样的损耗称为馈线损耗。馈线损耗与采用的传输线材质有关。  </p>
-<h3 id="双射线模型"><a href="#双射线模型" class="headerlink" title="双射线模型"></a>双射线模型</h3><p>双射线模型(two ray model)是一种射线追踪模型，在自由空间模型的基础上还考虑了平地反射。双射线模型由一条视距传播链路和一条经过地面反射的链路组成，并且考虑了接收和发送天线的高度$h_T$和$h_R$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220519132301.png width=50%>  </p>
+<h4 id="细化的链路模型"><a href="#细化的链路模型" class="headerlink" title="细化的链路模型"></a>细化的链路模型</h4><p>在移动通信链路中，发送功率和接收功率的差异除了考虑收发天线增益$G_t$和$G_r$和路径损耗外，通常还要考虑大气散射损耗$L_g$、收发天线的馈线损耗$L_t$和$L_r$，以及噪声$N$，因此在基本无线传输链路模型下，增加了如下的环节：  </p>
+<script type="math/tex; mode=display">P_r|_{dB}=P_t|_{dB}+G_t|_{dB}+G_r|_{dB}-L_t|{dB}-L_r{dB}-L_{fs}|_{dB}-L_{g}|_{dB}</script><p>其中：$P_t|_{dB}+G_t|_{dB}-L_t|{dB}$为发送机的有效辐射功率。如果采用全向天线，那么天线的增益为$G|_{dB}=1$。<br>载噪比CNR表示为：  </p>
+<script type="math/tex; mode=display">CNR|_{dB}=P_r|_{dB}-N|_{dB}</script><h3 id="双射线模型"><a href="#双射线模型" class="headerlink" title="双射线模型"></a>双射线模型</h3><p>双射线模型(two ray model)是一种射线追踪模型，在自由空间模型的基础上还考虑了平地反射。双射线模型由一条视距传播链路和一条经过地面反射的链路组成，并且考虑了接收和发送天线的高度$h_T$和$h_R$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220519132301.png width=50%>  </p>
 <p>同样根据链路模型可以推导出：  </p>
 <script type="math/tex; mode=display">L=\frac{1}{4sin^2(\frac{2πh_Th_R}{λd}\left(\frac{λ}{4πd})^2\right)}</script><p>考虑$λd&gt;&gt;h_Th_R$，并使用$sinx≈x$近似，可以得到：  </p>
 <script type="math/tex; mode=display">L=\frac{d^4}{(h_Th_R)^2}</script><script type="math/tex; mode=display">L|_{dB}=40lg(d)-20lg(h_Th_R)</script><p>相比于自由空间模型，可以发现双射线模型中：  </p>
