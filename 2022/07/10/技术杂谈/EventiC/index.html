@@ -16,15 +16,15 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="EventiC——一种无偏置的复杂系统实时事件建模器 EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Transactions On Systems, Man, and Cybernetics:Systems.  Ev">
+    <meta name="description" content="EventiC——一种无偏置的复杂系统实时事件建模器 EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Tran灵敏度ctions On Systems, Man, and Cybernetics:Systems.  E">
 <meta property="og:type" content="article">
 <meta property="og:title" content="EventiC——一种无偏的复杂系统实时事件建模器">
 <meta property="og:url" content="https://l61012345.top/2022/07/10/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/EventiC/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="EventiC——一种无偏置的复杂系统实时事件建模器 EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Transactions On Systems, Man, and Cybernetics:Systems.  Ev">
+<meta property="og:description" content="EventiC——一种无偏置的复杂系统实时事件建模器 EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Tran灵敏度ctions On Systems, Man, and Cybernetics:Systems.  E">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-10T11:50:53.881Z">
-<meta property="article:modified_time" content="2022-07-12T03:12:32.611Z">
+<meta property="article:modified_time" content="2022-07-12T07:38:53.735Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="遗传算法">
 <meta property="article:tag" content="事件建模器">
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月12日 凌晨
+                    本文最后更新于：2022年7月12日 早上
                   
                 
               </p>
@@ -326,11 +326,11 @@ p.spoiler {
             <div class="markdown-body">
               
               <h1 id="EventiC——一种无偏置的复杂系统实时事件建模器"><a href="#EventiC——一种无偏置的复杂系统实时事件建模器" class="headerlink" title="EventiC——一种无偏置的复杂系统实时事件建模器"></a>EventiC——一种无偏置的复杂系统实时事件建模器</h1><blockquote>
-<p>EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Transactions On Systems, Man, and Cybernetics:Systems.</p>
+<p>EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Tran灵敏度ctions On Systems, Man, and Cybernetics:Systems.</p>
 </blockquote>
 <p>EventiC 提出了一种对于实时物理系统建模的方法。当设定好关心的事件后，其通过对离散事件系统进行采样、过滤，然后应用ROC聚类算法对所关心的事件发生的触发进行聚类，从而找到触发与事件的关联性。  </p>
 <h2 id="问题动机"><a href="#问题动机" class="headerlink" title="问题动机"></a>问题动机</h2><p>对于复杂控制系统建模，传统的建模方法依赖于非线性或者是线性的微分方程来描述控制系统的行为，这种方法需要对系统的输入变量、以及每个输入变量对系统的影响因素有着充分的了解。换句话说，传统的复杂控制系统建模具有高度的经验依赖性。第二，在系统中实时地对模型评估和验证准确性和正确性会浪费大量的时间和财力。对于传统的数据建模方法，其将系统的状态变量$V_n=[x_1,…,x_n]$表示为一组关于输出的复杂信息。随后的对于状态变量的操作都是基于一个假设——这个状态变量一定与已知的系统输出相关，本论文中称为“真实表现(true presentation)”。而本文所提出来的EventiC不需要基于这样的假设，即所获得的数据不一定与系统的输出产生关联，这个关联性是通过EventiC的处理过程得到的。  </p>
-<h2 id="现有解决方案"><a href="#现有解决方案" class="headerlink" title="现有解决方案"></a>现有解决方案</h2><p>简单来说，系统建模的方法即是寻找系统输入和输出之间的关系。系统输入对每个输出的影响。描述系统输入在其发生时对每个输出的影响的方法在工程领域一般被称为IVS，在数学领域被称为SA。现阶段，SA或者是IVS可以由如下表所示的几种方法得到。  </p>
+<h2 id="现有解决方案"><a href="#现有解决方案" class="headerlink" title="现有解决方案"></a>现有解决方案</h2><p>简单来说，系统建模的方法即是寻找系统输入和输出之间的关系。系统输入对每个输出的影响。描述系统输入在其发生时对每个输出的影响的方法在工程领域一般被称为IVS，在数学领域被称为灵敏度。现阶段，灵敏度或者是IVS可以由如下表所示的几种方法得到。  </p>
 <div class="table-container">
 <table>
 <thead>
@@ -391,13 +391,13 @@ p.spoiler {
 <script type="math/tex; mode=display">a_{ij}=[TD_{i}]XNOR[ED_j]</script><p>对于同或，其行为简述为“相同为1，不同为0”，也就是说，<strong>只有当某个触发和某个事件都发生或者都不发生时，混淆矩阵中的对应元素才为1</strong>——这体现了触发与事件的相关性。<br>紧接着，对每一行都赋予一个权重$BW_i$，对于每一行/每个触发，计算出一个评分$DE_i$：  </p>
 <script type="math/tex; mode=display">DE_i=∑_{j=1}^m2^{m-j}a_{ij}</script><p>接着将每一行按照对应的评分从大到小排列。<br>对列也进行相同的操作：对每一列都赋予一个权重$BW_j$，对于每一行/每个触发，计算出一个评分$DE_j$：  </p>
 <script type="math/tex; mode=display">DE_j=∑_{i=1}^m2^{m-i}a_{ij}</script><p>每一列按照对应的评分从大到小排列。<br>如此，整个相关矩阵被化简为一个对角矩阵。如下图中的例子：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220711164640.png width=40%>  </p>
-<p>如上图，可以发现，如果从上到下和从左到右依次是得分最高的触发和事件，可以发现显然，触发4/6/7和事件1/4的发生有着明显的关联性，而且触发4发生与事件1的关联性最大。触发2/3/5/8与事件2/3/5的发生有明显的关联性。这个关联性被量化为SA。  </p>
-<h4 id="计算灵敏度"><a href="#计算灵敏度" class="headerlink" title="计算灵敏度"></a>计算灵敏度</h4><p>每一个输入对输出参数的平均灵敏度通过被计算出来。灵敏度根据在总采样中该触发在该事件发生下的发生频率/概率得出。根据这个灵敏度对每一个触发的SA进行加权处理。  </p>
+<p>如上图，可以发现，如果从上到下和从左到右依次是得分最高的触发和事件，可以发现显然，触发4/6/7和事件1/4的发生有着明显的关联性，而且触发4发生与事件1的关联性最大。触发2/3/5/8与事件2/3/5的发生有明显的关联性。这个关联性被量化为灵敏度。  </p>
+<h4 id="计算灵敏度"><a href="#计算灵敏度" class="headerlink" title="计算灵敏度"></a>计算灵敏度</h4><p>每一个输入对输出参数的平均灵敏度通过被计算出来。并根据在总采样中该触发在该事件发生下的发生频率/概率对每一个触发的灵敏度进行加权处理。  </p>
 <h4 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h4><p>让每一个触发通过一个基于触发阈值的过滤器，以过滤出对某一事件关系很大的触发，以具体分析这些触发的灵敏度事件的相关性。  </p>
 <h4 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h4><p>找到了与事件相关的触发之后，可以通过回溯达到事件阈值时的触发参数配置，对达到事件阈值时的事件进行复现。  </p>
 <h2 id="应用案例：水泥烧块生产"><a href="#应用案例：水泥烧块生产" class="headerlink" title="应用案例：水泥烧块生产"></a>应用案例：水泥烧块生产</h2><p>水泥生产中最重要的一个环节是水泥烧块/熟料(clinker)的生产：其需要将湿生料（damp rawmix nodules）放入工业炉预热器(lepol grate preheater)通过热气进行预加热后，送入窑(kiln)中进行烧制，最终通过冷却形成水泥熟料，整个过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712102208.png width=50%>  </p>
-<p>整个系统中产生的源数据通过SCADA系统（一种工业控制系统）获得，输出数据通过在输出端设置好的计数器和传感器获得，EventiC将对应的参数和输出数据转换成触发和事件，此处，考虑的事件有有三个：产率(吨/小时)、二氧化碳排放量和能量消耗。在这个系统中EventiC的采样率为SCADA系统的采样率，为每分钟一次。<br>第二步，对每一个采样都建立一个ROC矩阵，并根据ROC矩阵分别计算每一个触发对这三个事件的灵敏度。<br>设置一个触发阈值，描述对触发事件的关心程度，此处设置对产率为90%，对产率的SA低于90%的触发被过滤掉。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712103746.png width=50%>  </p>
-<p>根据SA，在193个系统触发中，有36个触发被过滤掉，留下82%的触发继续进行分析。下表列出了9个最关键的输入：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712104450.png width=50%>  </p>
+<p>整个系统中产生的源数据通过SCADA系统（一种工业控制系统）获得，输出数据通过在输出端设置好的计数器和传感器获得，EventiC将对应的参数和输出数据转换成触发和事件，此处，考虑的事件有有三个：产率(吨/小时)、二氧化碳排放量和能量消耗。在这个系统中EventiC的采样率为SCADA系统的采样率，为每分钟一次。<br>第二步，对每一个采样都建立一个ROC矩阵，并根据ROC矩阵分别计算每一个触发对这三个事件的灵敏度。<br>设置一个触发阈值，描述对触发事件的关心程度，此处设置对产率为90%，对产率的灵敏度低于90%的触发被过滤掉。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712103746.png width=50%>  </p>
+<p>根据灵敏度，在193个系统触发中，有36个触发被过滤掉，留下82%的触发继续进行分析。下表列出了9个最关键的输入：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712104450.png width=50%>  </p>
 <p>可以发现最相关的/敏感度最高的5个指标分别是：窑内温度、窑内的风扇开关、二氧化碳排放量、倒入生料的马达转速、I/h return of kiln.  </p>
 <p>紧接着，对采样应用事件阈值，过滤出所关心的事件，并提取出这些采样时刻的相关触发的参数配置，例如：在42001次采样中，提取出产率最高的5次采样:9.68-9.76吨/小时，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712110147.png width=50%>  </p>
 <p>回溯这五次采样相关的指标参数：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712111020.png width=50%>  </p>
