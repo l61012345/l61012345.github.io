@@ -24,7 +24,7 @@
 <meta property="og:description" content="EventiC——一种无偏置的复杂系统实时事件建模器 EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Transactions On Systems, Man, and Cybernetics:Systems.  Ev">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-10T11:50:53.881Z">
-<meta property="article:modified_time" content="2022-07-12T07:50:20.859Z">
+<meta property="article:modified_time" content="2022-07-12T12:05:03.701Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="遗传算法">
 <meta property="article:tag" content="事件建模器">
@@ -246,7 +246,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          4.6k 字
         
       </span>
     
@@ -257,7 +257,7 @@ p.spoiler {
         
         
         
-          33 分钟
+          39 分钟
         
       </span>
     
@@ -318,7 +318,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月12日 早上
+                    本文最后更新于：2022年7月12日 中午
                   
                 
               </p>
@@ -365,14 +365,16 @@ p.spoiler {
 </div>
 <p>除了上述三种方法外，还有一种寻找系统输入和输出关系的方法，称为事件聚类(Event clustering)。事件聚类不依赖于任何有关对于数据关系的预设（比如判断好坏等等），从这个方面来说，这是一种无偏的(unbiased)方法。<br>事件聚类基于的前提条件是可以通过改变输入变量的状态将这个系统的状态分解为若干个离散的事件。<br>聚类是一种无监督或半监督学习方法，聚类算法的效果受到三个方面的影响：数据量、实时系统数据流的速率、数据的种类。早期的一些文献发现ROC聚类算法(Rank Order Clustering)在对实时系统数据的处理中表现出一定潜能。面对大而广泛的数据时，ROC聚类算法表现出了极高的高效性和有效性。EventiC中使用了这一方法。  </p>
 <h2 id="EventiC的方法论"><a href="#EventiC的方法论" class="headerlink" title="EventiC的方法论"></a>EventiC的方法论</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><p>在复杂控制系统中，任何一个系统状态的变化称为一个事件(event).  </p>
-<h4 id="离散事件系统"><a href="#离散事件系统" class="headerlink" title="离散事件系统"></a>离散事件系统</h4><p>离散事件系统(discret event system)指在一定时间限度内中事件的发生是离散的系统。  </p>
+<h4 id="离散事件系统"><a href="#离散事件系统" class="headerlink" title="离散事件系统"></a>离散事件系统</h4><p>离散事件系统(discret event system)指在一定时间限度内中事件的发生是离散的系统。换句话说，事件之间出现的的间隔在整个观测期内是十分明显的。   </p>
 <h4 id="触发数据和事件数据"><a href="#触发数据和事件数据" class="headerlink" title="触发数据和事件数据"></a>触发数据和事件数据</h4><p>一组其本身改变可以引起事件发生的输入变量称为一组触发(trigger)，它们的值组成了触发数据(TD, trigger data)。<br>一组可以表现任何时间下系统状态的数据称为事件数据(ED, event data)。  </p>
 <h4 id="触发阈值和事件阈值"><a href="#触发阈值和事件阈值" class="headerlink" title="触发阈值和事件阈值"></a>触发阈值和事件阈值</h4><p>简单来说即是分别对触发和事件设定的关心值：当触发数据或者是事件数据达到了设定好的这个阈值，才对这些触发和事件进行分析，否则忽略。<br>比如如果只关心生产效率在90%以上的事件，那么事件阈值即为90%。<br>触发阈值和事件阈值都需要由系统专家进行设定。  </p>
 <h3 id="运行条件"><a href="#运行条件" class="headerlink" title="运行条件"></a>运行条件</h3><p>EventiC的作用条件基于如下的三个假设：  </p>
 <ul>
 <li>触发是及时的。也就是说系统会立即对一个触发产生响应并生成一个事件。换言之，触发和时间之间的时间差可以忽略不计。  </li>
-<li>要考虑的触发和事件阈值由系统专家预先设定，以避免“出生体重悖论”（birth-weight paradox）。换言之，触发和事件之间必须具有因果性，这个因果性依赖于人类经验保证。  </li>
-<li>触发和事件是同质的(homogenous)，异质的(heterogeneous)系统参数必须要以某种方式转化为同质的事件。  </li>
+<li>要考虑的触发和事件阈值由系统专家预先设定，以避免“出生体重悖论”（birth-weight paradox）。换言之，触发和事件之间必须具有因果性，这个因果性依赖于人类经验保证。  <div class="note note-info">
+            <p>此处对避免“出生体重悖论”的机制存疑。  </p>
+          </div>  </li>
+<li>触发和事件是同质的(homogenous)，异质的(heterogeneous)系统参数必须要以某种方式转化为同质的事件。即用同样的方法处理触发数据和事件数据对两者的作用相同，触发数据和事件数据的信息密度需要保持在同一个水平。  </li>
 </ul>
 <h3 id="运行过程"><a href="#运行过程" class="headerlink" title="运行过程"></a>运行过程</h3><p>EventiC的过程可以简述为三步：  </p>
 <ul>
@@ -391,8 +393,8 @@ p.spoiler {
 <script type="math/tex; mode=display">a_{ij}=[TD_{i}]XNOR[ED_j]</script><p>对于同或，其行为简述为“相同为1，不同为0”，也就是说，<strong>只有当某个触发和某个事件都发生或者都不发生时，混淆矩阵中的对应元素才为1</strong>——这体现了触发与事件的相关性。<br>紧接着，对每一行都赋予一个权重$BW_i$，对于每一行/每个触发，计算出一个评分$DE_i$：  </p>
 <script type="math/tex; mode=display">DE_i=∑_{j=1}^m2^{m-j}a_{ij}</script><p>接着将每一行按照对应的评分从大到小排列。<br>对列也进行相同的操作：对每一列都赋予一个权重$BW_j$，对于每一行/每个触发，计算出一个评分$DE_j$：  </p>
 <script type="math/tex; mode=display">DE_j=∑_{i=1}^m2^{m-i}a_{ij}</script><p>每一列按照对应的评分从大到小排列。<br>如此，整个相关矩阵被化简为一个对角矩阵。如下图中的例子：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220711164640.png width=40%>  </p>
-<p>如上图，可以发现，如果从上到下和从左到右依次是得分最高的触发和事件，可以发现显然，触发4/6/7和事件1/4的发生有着明显的关联性，而且触发4发生与事件1的关联性最大。触发2/3/5/8与事件2/3/5的发生有明显的关联性。这个关联性被量化为灵敏度。  </p>
-<h4 id="计算灵敏度"><a href="#计算灵敏度" class="headerlink" title="计算灵敏度"></a>计算灵敏度</h4><p>每一个输入对输出参数的平均灵敏度通过被计算出来。并根据在总采样中该触发在该事件发生下的发生频率/概率对每一个触发的灵敏度进行加权处理。  </p>
+<p>如上图，可以发现，如果从上到下和从左到右依次是得分最高的触发和事件，可以发现显然，触发4/6/7和事件1/4的发生有着明显的关联性，而且触发4发生与事件1的关联性最大。触发2/3/5/8与事件2/3/5的发生有明显的关联性。  </p>
+<h4 id="计算灵敏度"><a href="#计算灵敏度" class="headerlink" title="计算灵敏度"></a>计算灵敏度</h4><p>每一个输入对输出参数的平均灵敏度通过某种机制被计算出来，灵敏度可以理解为表示某个事件对某个触发的灵敏程度。并根据在总采样中该触发在该事件发生下的发生频率/概率对每一个触发的灵敏度进行加权处理。  </p>
 <h4 id="过滤"><a href="#过滤" class="headerlink" title="过滤"></a>过滤</h4><p>让每一个触发通过一个基于触发阈值的过滤器，以过滤出对某一事件关系很大的触发，以具体分析这些触发的灵敏度事件的相关性。  </p>
 <h4 id="复现"><a href="#复现" class="headerlink" title="复现"></a>复现</h4><p>找到了与事件相关的触发之后，可以通过回溯达到事件阈值时的触发参数配置，对达到事件阈值时的事件进行复现。  </p>
 <h2 id="应用案例：水泥烧块生产"><a href="#应用案例：水泥烧块生产" class="headerlink" title="应用案例：水泥烧块生产"></a>应用案例：水泥烧块生产</h2><p>水泥生产中最重要的一个环节是水泥烧块/熟料(clinker)的生产：其需要将湿生料（damp rawmix nodules）放入工业炉预热器(lepol grate preheater)通过热气进行预加热后，送入窑(kiln)中进行烧制，最终通过冷却形成水泥熟料，整个过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712102208.png width=50%>  </p>
@@ -402,6 +404,14 @@ p.spoiler {
 <p>紧接着，对采样应用事件阈值，过滤出所关心的事件，并提取出这些采样时刻的相关触发的参数配置，例如：在42001次采样中，提取出产率最高的5次采样:9.68-9.76吨/小时，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712110147.png width=50%>  </p>
 <p>回溯这五次采样相关的指标参数：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220712111020.png width=50%>  </p>
 <p>根据这五次采样相关指标的参数，可以决定后续系统的参数配置。也可以在如上图所示，在最优的产率下寻找最小窑温度或者最小二氧化碳排放量的参数配置，起到综合考量的效果。  </p>
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>EventiC通过实时采样和分析可以对系统进行实时聚类，通过聚类结果可以找到系统在期望状态下的参数配置，并进行复现。而期望状态可以很方便地通过设置不同的事件阈值对其进行过滤，或者设置多维度的滤波器以从多个方面对系统的“最佳状态”进行考量。其二，由于没有假设输入和输出之间必然具有相关性（无偏的），通过对触发事件合理的设置，EventiC可以发现容易忽略的引起系统改变的触发，例如在本文中发现了倒料口马达的转速与熟料产生产率有着直接关系，这个结果在土木类文献当中是从未有过的记录。此外，ROC聚类算法本身的计算量比较小，易于在工程中应用。<br>EventiC的缺点是，其本质上仍然是基于历史数据的一种查找和聚类方式，通过回溯历史上出现的最高点对应的参数设置对系统未必可以进行完美复现，这是EventiC的局限性。  </p>
+<h2 id="疑问和讨论"><a href="#疑问和讨论" class="headerlink" title="疑问和讨论"></a>疑问和讨论</h2><ul>
+<li>权重是如何被赋予的，灵敏度是如何被计算出来的？（可通过查阅文献解答）  </li>
+<li>在EventiC中，新生儿低体重悖论是如何被避免的？  </li>
+<li>采样后对事件进行过滤再应用ROC算法对过滤后的事件进行处理，而非如文中对每一个采样先进行ROC聚类，再应用事件阈值进行过滤。这样可以进一步减小计算量。  </li>
+<li>可以通过EventiC寻找相关变量，应用遗传算法或者GEP算法，将相关变量转化为基因，对数据进行深度挖掘或许可以避免EventiC的局限性。  </li>
+<li>模式识别中，或许可以通过挖掘数据集，用EventiC寻找与识别结果高度相关的识别特征，将这些特征通过GA/GEP算法模拟产生新的个体，从而实现对数据集的扩增。  </li>
+</ul>
 
               
             </div>
