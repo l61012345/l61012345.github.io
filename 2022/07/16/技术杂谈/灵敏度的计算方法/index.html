@@ -24,7 +24,7 @@
 <meta property="og:description" content="灵敏度分析方法 Sensitivity analysis approaches applied to systems biology models, Zhike Zi, IET Systems Biology, 2011.    问题动机在复杂系统分析时，一些系统的参数十分复杂甚至不能通过实验进行测量，还有一些参数在不同的实验条件下有非常大的变化。这些参数的复杂性和多变性为系统建模造成了困难。灵敏">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-16T03:45:13.930Z">
-<meta property="article:modified_time" content="2022-07-16T05:31:56.895Z">
+<meta property="article:modified_time" content="2022-07-17T10:05:25.109Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          3.7k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          19 分钟
+          32 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月16日 凌晨
+                    本文最后更新于：2022年7月17日 上午
                   
                 
               </p>
@@ -339,11 +339,11 @@ p.spoiler {
               <h1 id="灵敏度分析方法"><a href="#灵敏度分析方法" class="headerlink" title="灵敏度分析方法"></a>灵敏度分析方法</h1><blockquote>
 <p><em>Sensitivity analysis approaches applied to systems biology models</em>, Zhike Zi, IET Systems Biology, 2011.  </p>
 </blockquote>
-<h2 id="问题动机"><a href="#问题动机" class="headerlink" title="问题动机"></a>问题动机</h2><p>在复杂系统分析时，一些系统的参数十分复杂甚至不能通过实验进行测量，还有一些参数在不同的实验条件下有非常大的变化。这些参数的复杂性和多变性为系统建模造成了困难。灵敏度分析可以量化来自系统输入的变化对输出变化程度的影响。具体而言，通过灵敏度分析可以知道：  </p>
+<h2 id="问题动机"><a href="#问题动机" class="headerlink" title="问题动机"></a>问题动机</h2><p>在复杂系统分析时，一些系统的参数十分复杂甚至不能通过实验进行测量，还有一些参数在不同的实验条件下有非常大的变化。这些参数的复杂性和多变性为系统建模造成了困难。灵敏度/敏感度分析(sensitivity anlysis)可以量化来自系统输入的变化对输出变化程度的影响。具体而言，通过灵敏度分析可以知道：  </p>
 <ul>
 <li>系统输出对于每个输入变化的鲁棒性。  </li>
 <li>检验一个模型的预测结果是否与假设有关，并指导参数估计和实验设计。  </li>
-<li>通过量化模型输出和输入的相关性来简化模型。  </li>
+<li>通过量化模型输出和输入的相关性，去掉系数灵敏度很小的输入，重点考虑灵敏度系数较大的输入。这样就可以大大降低模型的复杂度。  </li>
 </ul>
 <p>另外，下述的所有系统模型都指系统的微分方程(ODE, ordinary differential equation)，但是下述的这些灵敏度的分析方法也适用于其他形式的系统模型。  </p>
 <h2 id="灵敏度的类型"><a href="#灵敏度的类型" class="headerlink" title="灵敏度的类型"></a>灵敏度的类型</h2><p>系统灵敏度有两种类型：局部灵敏度(local sensitivity)和全局灵敏度(global sensitivity)。  </p>
@@ -361,7 +361,24 @@ p.spoiler {
     S_1\\S_2\\...\\S_n
 \end{bmatrix}</script><script type="math/tex; mode=display">\bf{\dot{S}}=\bf{f_p}+\bf{J×S}</script><p>直接计算法的优点是避免了$Δp$的选取的问题，但是对于复杂的问题需要耗时更久，计算量也更大。  </p>
 <p>除了上述两种方法外，还有伴随灵敏度方法(adjoint sensitivity method，应用格林函数对直接微分法的计算量进行简化。)和代谢控制分析方法(metabolic control anlysis，MCA，一种主要应用于生物建模的方法，通过公式计算每个输入和输出的灵敏度：$C_x^y=\frac{x}{y}×\frac{∂y}{∂x}$)。  </p>
-<h2 id="全局灵敏度的计算方法"><a href="#全局灵敏度的计算方法" class="headerlink" title="全局灵敏度的计算方法"></a>全局灵敏度的计算方法</h2><h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><h3 id="局部灵敏度和全局灵敏度"><a href="#局部灵敏度和全局灵敏度" class="headerlink" title="局部灵敏度和全局灵敏度"></a>局部灵敏度和全局灵敏度</h3><p>从整个系统的参数空间（即整个系统所有可能的参数设置的范围）上来看，局部灵敏度只能在一个基准的参数设置点上衡量小范围变化的影响程度，因此灵敏度的可靠性依赖于这个基准点的参数设置。此外，相比于全局灵敏度，单个或者几个一阶导的计算使得局部灵敏度的计算量要远远小于全局灵敏度。<br>而全局灵敏度不需要依赖某个点的参数设置，它更适用于输入变量在较大范围内变化的情况。  </p>
+<h2 id="全局灵敏度的计算方法"><a href="#全局灵敏度的计算方法" class="headerlink" title="全局灵敏度的计算方法"></a>全局灵敏度的计算方法</h2><p>全局灵敏度分析适用于输入振荡范围较大的场合。全局灵敏度分析通常会使用采样来模拟整个输入的变化情况，常用的采样方法是拉丁超立方采样。</p>
+<h3 id="拉丁超立方采样"><a href="#拉丁超立方采样" class="headerlink" title="拉丁超立方采样"></a>拉丁超立方采样</h3><p>拉丁超立方采样(Latin hypercube sampling)是一种采样方法，它可以保证在每个区间都拥有均等的采样次数。<br>具体而言，对于$N$个变量$x_1,…,x_n$，拉丁超立方采样的过程是：  </p>
+<ul>
+<li>每个变量的值域均等地划分为$M$个区间。  </li>
+<li>对于每个区间，从其中随机地选择一个值，选择过程的概率服从该区间的概率密度函数。  </li>
+<li>将每个变量采样到的$M$个采样值组合，构成$M×N$维的采样结果。  </li>
+</ul>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220717171131.png width=6%>  </p>
+<p>上图对比了拉丁超立方采样(a)和随机采样(b)的采样结果。可以发现，拉丁超立方采样在每个区间内都各有一次采样，保证了采样的公平性。而随机采样无法保证每个区间内被采样的次数都相同。  </p>
+<h3 id="莫里斯灵敏度分析法"><a href="#莫里斯灵敏度分析法" class="headerlink" title="莫里斯灵敏度分析法"></a>莫里斯灵敏度分析法</h3><p>莫里斯灵敏度分析法(Morris sensitivity)的基本实现基于控制变量，即一次只改变一个变量。对于$k$个系统的参数/输入，其对每一个参数离散地采样$p$次，采样方法可以是蒙特卡罗方法，最终形成$k×p$的矩阵。对于第$i$个系统参数$x_i$的某次采样，其对整个系统影响的贡献(elementary effects)可以表示为：  </p>
+<script type="math/tex; mode=display">d(x_i)=\frac{y(x_1,...,x_{i-1},x_i+Δ,x_{i+1},...,x_k)-y(x)}{Δ}</script><p>其中$x∈[x_1,x_2,x_{k-1},x_k]$，是一个参考值。$Δ=z\frac{1}{p-1},z∈z^*$。<br>在莫里斯灵敏度分析中，一个变量$x_i$的均值（$μ_i=\frac{1}{p}\sum_{i=1}^pd_i$）和均方差($\sigma_i=\sqrt{\sum_{i=1}^q(d_i-μ_i)/q}$)称为$x_i$的灵敏度因子，可对该参数的灵敏度进行判断：当平均值很小时，则说明该参数对模型的影响很小，该参数不重要；当平均值较大，则说明该参数与模型输出有线性关系；均方差比较小时，则说明该参数与其他参数的相关性弱；但当平均值和均方差都比较大时，则说明该参数与模型输出有非线性关系，并且该参数与其他参数的相关性、关联性强。<br>莫里斯方法的计算量比较小，但是只能在模型是单调的、且$d(x_i)$每次采样值均大于0时（避免采样之间相互对消而造成的干扰）效果才比较好。此外，$p$和$Δ$的选取也会对灵敏度分析产生影响。  </p>
+<h3 id="WALS算法-有权局部灵敏度均值法"><a href="#WALS算法-有权局部灵敏度均值法" class="headerlink" title="WALS算法/有权局部灵敏度均值法"></a>WALS算法/有权局部灵敏度均值法</h3><p>WALS算法(weighted average of local sensitivities)的想法和莫里斯方法相似，都是独立的对参数的灵敏度贡献进行计算，WALS算法的过程如下：  </p>
+<ul>
+<li>在整个参数空间中，随机地选取参数设置点，在计算该点下的每个参数的局部灵敏度。  </li>
+<li>按照玻尔兹曼分布：$exp(-E/Tk_b)$为每个参数赋予权重，其中$E$是该参数$p$下$y(p+\Delta)$该参数点一个参考输出$y(p_r)$的有权最小均方差(WLSE)，$y(p_r)$可以通过实验进行观测；$k_bT$是一个尺度系数。具体而言，在参数空间中点$\bf{x_k}$下，参数$p$的有权局部灵敏度为：  <script type="math/tex; mode=display">w_p^k=exp\left(-\frac{WLSE(x_k)}{min[WLSE(x_i),i=1,2,...,N]}\right)</script>其中$N$表示在参数空间中的采样次数。  </li>
+<li>计算参数$p$的全局灵敏度：  <script type="math/tex; mode=display">WALS_p=\sum_{k=1}^NS_p^kw_p^k</script>其中$S_p^k$是参数$p$在点$\bf{x_k}$下的局部灵敏度。  </li>
+</ul>
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><h3 id="局部灵敏度和全局灵敏度"><a href="#局部灵敏度和全局灵敏度" class="headerlink" title="局部灵敏度和全局灵敏度"></a>局部灵敏度和全局灵敏度</h3><p>从整个系统的参数空间（即整个系统所有可能的参数设置的范围）上来看，局部灵敏度只能在一个基准的参数设置点上衡量小范围变化的影响程度，因此灵敏度的可靠性依赖于这个基准点的参数设置。此外，相比于全局灵敏度，单个或者几个一阶导的计算使得局部灵敏度的计算量要远远小于全局灵敏度。<br>而全局灵敏度不需要依赖某个点的参数设置，它更适用于输入变量在较大范围内变化的情况。  </p>
 
               
             </div>
@@ -425,7 +442,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年7月16日</div>
+          <div>2022年7月17日</div>
         </div>
       
       <div class="license-meta-item">
