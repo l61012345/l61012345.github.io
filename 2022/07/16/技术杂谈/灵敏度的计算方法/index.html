@@ -24,7 +24,7 @@
 <meta property="og:description" content="灵敏度分析方法 Sensitivity analysis approaches applied to systems biology models, Zhike Zi, IET Systems Biology, 2011.    问题动机在复杂系统分析时，一些系统的参数十分复杂甚至不能通过实验进行测量，还有一些参数在不同的实验条件下有非常大的变化。这些参数的复杂性和多变性为系统建模造成了困难。灵敏">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-16T03:45:13.930Z">
-<meta property="article:modified_time" content="2022-07-17T10:05:25.109Z">
+<meta property="article:modified_time" content="2022-07-17T11:11:09.665Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="灵敏度分析方法">
             
           </span>
         </div>
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.7k 字
+          5.2k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          32 分钟
+          44 分钟
         
       </span>
     
@@ -369,16 +369,31 @@ p.spoiler {
 <li>将每个变量采样到的$M$个采样值组合，构成$M×N$维的采样结果。  </li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220717171131.png width=6%>  </p>
-<p>上图对比了拉丁超立方采样(a)和随机采样(b)的采样结果。可以发现，拉丁超立方采样在每个区间内都各有一次采样，保证了采样的公平性。而随机采样无法保证每个区间内被采样的次数都相同。  </p>
+<p>上图对比了拉丁超立方采样(a)和随机采样(b)的采样结果。可以发现，拉丁超立方采样在每个区间内都各有一次采样，保证了采样的公平性。而随机采样无法保证每个区间内被采样的次数都相同。<br>拉丁超立方采样的缺点是在抽样过程中实施了对样本方差的有偏估计，因此在使用基于方差的灵敏度方法时，应当避免使用拉丁超立方采样。  </p>
 <h3 id="莫里斯灵敏度分析法"><a href="#莫里斯灵敏度分析法" class="headerlink" title="莫里斯灵敏度分析法"></a>莫里斯灵敏度分析法</h3><p>莫里斯灵敏度分析法(Morris sensitivity)的基本实现基于控制变量，即一次只改变一个变量。对于$k$个系统的参数/输入，其对每一个参数离散地采样$p$次，采样方法可以是蒙特卡罗方法，最终形成$k×p$的矩阵。对于第$i$个系统参数$x_i$的某次采样，其对整个系统影响的贡献(elementary effects)可以表示为：  </p>
 <script type="math/tex; mode=display">d(x_i)=\frac{y(x_1,...,x_{i-1},x_i+Δ,x_{i+1},...,x_k)-y(x)}{Δ}</script><p>其中$x∈[x_1,x_2,x_{k-1},x_k]$，是一个参考值。$Δ=z\frac{1}{p-1},z∈z^*$。<br>在莫里斯灵敏度分析中，一个变量$x_i$的均值（$μ_i=\frac{1}{p}\sum_{i=1}^pd_i$）和均方差($\sigma_i=\sqrt{\sum_{i=1}^q(d_i-μ_i)/q}$)称为$x_i$的灵敏度因子，可对该参数的灵敏度进行判断：当平均值很小时，则说明该参数对模型的影响很小，该参数不重要；当平均值较大，则说明该参数与模型输出有线性关系；均方差比较小时，则说明该参数与其他参数的相关性弱；但当平均值和均方差都比较大时，则说明该参数与模型输出有非线性关系，并且该参数与其他参数的相关性、关联性强。<br>莫里斯方法的计算量比较小，但是只能在模型是单调的、且$d(x_i)$每次采样值均大于0时（避免采样之间相互对消而造成的干扰）效果才比较好。此外，$p$和$Δ$的选取也会对灵敏度分析产生影响。  </p>
+<div class="note note-info">
+            <p>系统的单调性：给定控制系统初始值的上下界，给定输入（也可理解为扰动）的上下界，以及控制模型，则可以得到控制系统状态的上下界。  </p>
+          </div>  
 <h3 id="WALS算法-有权局部灵敏度均值法"><a href="#WALS算法-有权局部灵敏度均值法" class="headerlink" title="WALS算法/有权局部灵敏度均值法"></a>WALS算法/有权局部灵敏度均值法</h3><p>WALS算法(weighted average of local sensitivities)的想法和莫里斯方法相似，都是独立的对参数的灵敏度贡献进行计算，WALS算法的过程如下：  </p>
 <ul>
 <li>在整个参数空间中，随机地选取参数设置点，在计算该点下的每个参数的局部灵敏度。  </li>
 <li>按照玻尔兹曼分布：$exp(-E/Tk_b)$为每个参数赋予权重，其中$E$是该参数$p$下$y(p+\Delta)$该参数点一个参考输出$y(p_r)$的有权最小均方差(WLSE)，$y(p_r)$可以通过实验进行观测；$k_bT$是一个尺度系数。具体而言，在参数空间中点$\bf{x_k}$下，参数$p$的有权局部灵敏度为：  <script type="math/tex; mode=display">w_p^k=exp\left(-\frac{WLSE(x_k)}{min[WLSE(x_i),i=1,2,...,N]}\right)</script>其中$N$表示在参数空间中的采样次数。  </li>
 <li>计算参数$p$的全局灵敏度：  <script type="math/tex; mode=display">WALS_p=\sum_{k=1}^NS_p^kw_p^k</script>其中$S_p^k$是参数$p$在点$\bf{x_k}$下的局部灵敏度。  </li>
 </ul>
+<p>WALS算法依赖于采样方法，由于存在均方差计算，其计算量相比莫里斯方法更大。  </p>
+<h3 id="索伯灵敏度分析法"><a href="#索伯灵敏度分析法" class="headerlink" title="索伯灵敏度分析法"></a>索伯灵敏度分析法</h3><p>前两种灵敏度分析方法都基于采样，索伯灵敏度分析法(sobel sensitivity analysis method)基于方差，索伯方法是一种无偏的分析方法，在实施前没有假设模型的输入和输出有必然联系。索伯方法基于对系统输出的方差函数的分解：将关于系统输出的方差函数$f(x)$分解为多个输入变量导致的方差函数，并在这个过程中增加函数的维度。<br>对于整个输出函数$f(x)$，可以分解为多个输入变量导致的输出：  </p>
+<script type="math/tex; mode=display">f(x)=f_0+∑_{i=1}^kf_i(x_i)+∑_{i=1}^k∑_{j=i+1}^kf_{ij}(x_i,x_j)+...+f_{1...k}(x_1,x_2,...,x_k)</script><p>其中，输出函数的方差为：  </p>
+<script type="math/tex; mode=display">D=∫f^2(x)dx-(∫f(x)dx)^2</script><p>某些输出变量导致的部分方差表示为：  </p>
+<script type="math/tex; mode=display">D_{i_1,i_2,i_3,...,i_s}=∫...∫f^2(x_{i_1},...,x_{i_s})dx_{i_1}...dx_{i_s}</script><p>那么$i_1,i_2,i_3,…,i_s$整体的全局灵敏度可以表示为：  </p>
+<script type="math/tex; mode=display">S_{i_1,i_2,i_3,...,i_s}=\frac{D_{i_1,i_2,i_3,...,i_s}}{D}</script><p>其中第$i$个输入的灵敏度表示为$S_i=D_i/D$.<br>不难看出，索伯方法是一种计算量极大的算法。  </p>
+<h3 id="傅里叶振幅分析法"><a href="#傅里叶振幅分析法" class="headerlink" title="傅里叶振幅分析法"></a>傅里叶振幅分析法</h3><p>另一种基于方差的全局灵敏度计算方法是傅里叶振幅分析法(FAST,Fourier amplitude sensitivity test)。傅里叶振幅分析法预先假设了所有的参数都与其他参数独立无关。傅里叶振幅分析方法的步骤是：<br>对每一个参数进行采样，第$i$个参数$p_i$的采样服从传递函数：  </p>
+<script type="math/tex; mode=display">p_i=p_i^0e^{G_i(sinω_is)}</script><p>其中$p_i^0$是对$p_i$的一个参考值;$G_i$是$p_i$的概率密度函数在$s$域的表达;$ω_i$是一系列线性无关的整数角频率;$s$是一个尺度系数。<br>输出的期望为：$\frac{1}{2π}\int_{-π}^πf(s)ds$，其中$f(s)=f(G_1sin(ω_1s),…,G_ksin(ω_ks))$，根据帕塞瓦尔定律，有输出的方差为：   </p>
+<script type="math/tex; mode=display">D≊2∑_{i=1}(A_j^2+B_j^2)</script><script type="math/tex; mode=display">A_j=\frac{1}{2π}\int_{-π}^πf(s)cos(js)ds</script><script type="math/tex; mode=display">B_j=\frac{1}{2π}\int_{-π}^πf(s)sin(js)ds</script><p>在这种方法下某个输入$x_i$的部分方差可以表示为：  </p>
+<script type="math/tex; mode=display">D_i≊2∑_{p=1}(A^2_{pω_i}+B^2_{pω_i})</script><p>$p$表示对$x_i$一共进行了$p$次采样。<br>那么，$x_i$的灵敏度可以表示为归一化方差：  </p>
+<script type="math/tex; mode=display">S_i=\frac{D_i}{D}≊\frac{2∑_{p=1}(A^2_{pω_i}+B^2_{pω_i})}{2∑_{p=1}(A^2_{j}+B^2_{j})}</script><p>傅里叶振幅分析也是一种计算量非常大的方法。  </p>
 <h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><h3 id="局部灵敏度和全局灵敏度"><a href="#局部灵敏度和全局灵敏度" class="headerlink" title="局部灵敏度和全局灵敏度"></a>局部灵敏度和全局灵敏度</h3><p>从整个系统的参数空间（即整个系统所有可能的参数设置的范围）上来看，局部灵敏度只能在一个基准的参数设置点上衡量小范围变化的影响程度，因此灵敏度的可靠性依赖于这个基准点的参数设置。此外，相比于全局灵敏度，单个或者几个一阶导的计算使得局部灵敏度的计算量要远远小于全局灵敏度。<br>而全局灵敏度不需要依赖某个点的参数设置，它更适用于输入变量在较大范围内变化的情况。  </p>
+<h3 id="全局灵敏度分析法的选择"><a href="#全局灵敏度分析法的选择" class="headerlink" title="全局灵敏度分析法的选择"></a>全局灵敏度分析法的选择</h3><p>全局灵敏度分析法可以分为两种：基于采样的分析方法（莫里斯法、WALS法）和基于方差的分析方法（索伯分析、傅里叶振幅分析）。  </p>
 
               
             </div>
@@ -850,20 +865,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
