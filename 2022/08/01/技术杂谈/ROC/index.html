@@ -24,7 +24,7 @@
 <meta property="og:description" content="ROC聚类算法 Machine-Component Group Formation in Group Technology, John R King, 1979.Machine-component grouping in production flow analysis: an approach using a rank order clustering algorithm, John R Kin">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-01T01:23:27.753Z">
-<meta property="article:modified_time" content="2022-08-01T03:11:54.822Z">
+<meta property="article:modified_time" content="2022-08-01T07:51:34.178Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          14 分钟
+          18 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月1日 凌晨
+                    本文最后更新于：2022年8月1日 早上
                   
                 
               </p>
@@ -358,7 +358,16 @@ p.spoiler {
 <p>在Python中可以使用<code>scipy.cluster</code>中的<code>hierarchy.linkage()</code>函数作图。  </p>
 <p>绘制好的聚类树状图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801110828.png width=50%>  </p>
 <p>根据图上可以找到需要的聚类层次，此处选择第二次聚类的结果：即(02,04,01)一组，(03,05)一组。并依据聚类结果对混淆矩阵的行列重新排序，得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801111142.png width=50%>  </p>
-<h3 id="结合能聚类"><a href="#结合能聚类" class="headerlink" title="结合能聚类"></a>结合能聚类</h3>
+<h3 id="结合能聚类"><a href="#结合能聚类" class="headerlink" title="结合能聚类"></a>结合能聚类</h3><p>结合能聚类方法的基础思想基于化学中的结合能概念，在这种方法中，定义行/列的结合能为：对于矩阵中某一为1的元素$x_{ij}=1$，如果其相邻行/列$x_{i,j+1}$或$x_{i+1,j}=1$，那么该元素所在的行/列结合能加1。总结合能等于所有行结合能与列结合能之和。<br>例如下图展示了figure1的结合能：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801154114.png width=50%>  </p>
+<p>通过用结合能表示相邻1的元素个数，使得行列排序问题被转化为了最优化问题：通过行列排序使得整个矩阵的总结合能达到最大即可。<br>结合能算法使用了一种复杂的迭代过程，描述如下：  </p>
+<ul>
+<li>任意移动一列，并令$i=1$</li>
+<li>尝试分别移动其他的$N-i$列到$i+1$中可能的位置中，计算每一列的结合能。找到此时可以给出最大结合能的位置移动方法。然后$i+1$，重复上述操作直到$i=N$。（$N$是矩阵的列数）。  </li>
+<li>对行也重复上述的迭代过程，令$j$从$j=1$一直迭代到$j=M$。（$M$是矩阵的行数）。  </li>
+</ul>
+<p>结合能聚类方法对figure1的聚类结果如下，可以发现其聚类结果基本上和单链接聚类是相同的。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801155028.png width=50%>  </p>
+<p>可以发现，这种算法对最初随机选取的列和行的位置十分敏感，而且计算量巨大。  </p>
+
               
             </div>
             <hr/>
