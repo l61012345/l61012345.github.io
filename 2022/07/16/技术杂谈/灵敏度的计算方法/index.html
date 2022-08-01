@@ -24,7 +24,7 @@
 <meta property="og:description" content="灵敏度分析方法 Sensitivity analysis approaches applied to systems biology models, Zhike Zi, IET Systems Biology, 2011.    问题动机在复杂系统分析时，一些系统的参数十分复杂甚至不能通过实验进行测量，还有一些参数在不同的实验条件下有非常大的变化。这些参数的复杂性和多变性为系统建模造成了困难。灵敏">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-16T03:45:13.930Z">
-<meta property="article:modified_time" content="2022-07-18T07:22:37.363Z">
+<meta property="article:modified_time" content="2022-08-01T01:56:49.807Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="灵敏度分析方法">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月18日 早上
+                    本文最后更新于：2022年8月1日 凌晨
                   
                 
               </p>
@@ -368,7 +368,7 @@ p.spoiler {
 <li>对于每个区间，从其中随机地选择一个值，选择过程的概率服从该区间的概率密度函数。  </li>
 <li>将每个变量采样到的$M$个采样值组合，构成$M×N$维的采样结果。  </li>
 </ul>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220717171131.png width=6%>  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220717171131.png width=60%>  </p>
 <p>上图对比了拉丁超立方采样(a)和随机采样(b)的采样结果。可以发现，拉丁超立方采样在每个区间内都各有一次采样，保证了采样的公平性。而随机采样无法保证每个区间内被采样的次数都相同。<br>拉丁超立方采样的缺点是在抽样过程中实施了对样本方差的有偏估计，因此在使用基于方差的灵敏度方法时，应当避免使用拉丁超立方采样。  </p>
 <h3 id="莫里斯灵敏度分析法"><a href="#莫里斯灵敏度分析法" class="headerlink" title="莫里斯灵敏度分析法"></a>莫里斯灵敏度分析法</h3><p>莫里斯灵敏度分析法(Morris sensitivity)的基本实现基于控制变量，即一次只改变一个变量。对于$k$个系统的参数/输入，其对每一个参数离散地采样$p$次，采样方法可以是蒙特卡罗方法，最终形成$k×p$的矩阵。对于第$i$个系统参数$x_i$的某次采样，其对整个系统影响的贡献(elementary effects)可以表示为：  </p>
 <script type="math/tex; mode=display">d(x_i)=\frac{y(x_1,...,x_{i-1},x_i+Δ,x_{i+1},...,x_k)-y(x)}{Δ}</script><p>其中$x∈[x_1,x_2,x_{k-1},x_k]$，是一个参考值。$Δ=z\frac{1}{p-1},z∈z^*$。<br>在莫里斯灵敏度分析中，$r$个输入变量的均值（$μ=\frac{1}{r}\sum_{i=1}^rd_i$）和均方差($\sigma=\sqrt{\sum_{i=1}^r(d_i-μ_i)/q}$)称为这$r$个输入变量$\bf{x_r}=[x_1,…,x_r]$整体的灵敏度因子，可对$\bf{x_r}$的灵敏度进行判断：当平均值很小时，则说明$\bf{x_r}$对模型的影响很小，该参数不重要；当平均值较大，则说明$\bf{x_r}$与模型输出有线性关系；均方差比较小时，则说明该参数与其他参数的相关性弱；但当平均值和均方差都比较大时，则说明该参数与模型输出有非线性关系，并且该参数与其他参数的相关性、关联性强。<br>莫里斯方法的计算量比较小，但是只能在模型是单调的、且$d(x_i)$每次采样值均大于0时（避免采样之间相互对消而造成的干扰）效果才比较好。此外，$p$和$Δ$的选取也会对灵敏度分析产生影响。  </p>
@@ -458,7 +458,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年7月18日</div>
+          <div>2022年8月1日</div>
         </div>
       
       <div class="license-meta-item">
@@ -872,5 +872,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
