@@ -24,7 +24,7 @@
 <meta property="og:description" content="EventiC——一种无偏置的复杂系统实时事件建模器 EventiC：A Real-Time Unbiased Event-Based Learning Techique for Complex Systems. Morad Danishvar, et al. 2018. IEEE Transactions On Systems  Man and Cybernetics:Systems.【ROC算">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-10T11:50:53.881Z">
-<meta property="article:modified_time" content="2022-07-19T07:53:57.367Z">
+<meta property="article:modified_time" content="2022-08-01T01:22:52.538Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="EventiC——一种无偏的复杂系统实时事件建模器">
             
           </span>
         </div>
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          4.9k 字
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年7月19日 早上
+                    本文最后更新于：2022年8月1日 凌晨
                   
                 
               </p>
@@ -401,9 +401,14 @@ p.spoiler {
 <h4 id="采样"><a href="#采样" class="headerlink" title="采样"></a>采样</h4><p>对整个系统进行实时采样，采样率和采样数（用于建立相关矩阵的采样个数）由系统专家确定，通常采样值的下限是250。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220711162713.png width=60%>  </p>
 <h4 id="ROC聚类算法"><a href="#ROC聚类算法" class="headerlink" title="ROC聚类算法"></a>ROC聚类算法</h4><p>对于ROC聚类算法，其首先会对每一次采样建立一个相关/混淆矩阵(incidance matrix/confusion matrix)，其行表示每一个触发数据，其列表示每一个事件数据。对于矩阵当中的每一个元素$a_{ij}$，表示为对应行$i$（触发）和对应列$j$（事件）的<strong>同或</strong>（XNOR）：  </p>
-<script type="math/tex; mode=display">a_{ij}=[TD_{i}]XNOR[ED_j]</script><p>对于同或，其行为简述为“相同为1，不同为0”，也就是说，<strong>只有当某个触发和某个事件都发生或者都不发生时，混淆矩阵中的对应元素才为1</strong>——这体现了触发与事件的相关性。<br>紧接着，对每一行都赋予一个二进制权重$BW_i=2^{m-j}$，对于每一行/每个触发，计算出一个评分/十进制表示$DE_i$：  </p>
-<script type="math/tex; mode=display">DE_i=∑_{j=1}^m2^{m-j}a_{ij}</script><p>接着将每一行按照对应的评分从大到小排列。<br>对列也进行相同的操作：对每一列都赋予一个二进制权重$BW_j$，对于每一行/每个触发，计算出一个评分$DE_j$：  </p>
-<script type="math/tex; mode=display">DE_j=∑_{i=1}^m2^{m-i}a_{ij}</script><p>每一列按照对应的评分从大到小排列。<br>一个ROC的例子如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220719104304.png width=50%>  </p>
+<script type="math/tex; mode=display">a_{ij}=[TD_{i}]XNOR[ED_j]</script><p>对于同或，其行为简述为“相同为1，不同为0”，也就是说，<strong>只有当某个触发和某个事件都发生或者都不发生时，混淆矩阵中的对应元素才为1</strong>——这体现了触发与事件的相关性。<br>紧接着，进入如下的迭代过程：  </p>
+<ol>
+<li>对每一行都赋予一个二进制权重$BW_i=2^{m-j}$，对于每一行/每个触发，计算出一个评分/十进制表示$DE_i$：  <script type="math/tex; mode=display">DE_i=∑_{j=1}^m2^{m-j}a_{ij}</script></li>
+<li>检查现在行从上到下位置是否和评分排序相同，如果是，则停止算法。如果不是，则进入3.  </li>
+<li>将每一行按照对应的评分从大到小排列。<br>对列也进行相同的操作：对每一列都赋予一个二进制权重$BW_j$，对于每一行/每个触发，计算出一个评分$DE_j$：  <script type="math/tex; mode=display">DE_j=∑_{i=1}^m2^{m-i}a_{ij}</script></li>
+<li>检查现在行从上到下位置是否和评分排序相同，如果是，则停止算法。如果不是，则每一列按照对应的评分从大到小排列后返回1。  </li>
+</ol>
+<p>一个ROC的例子如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220719104304.png width=50%>  </p>
 <p>如此，整个相关矩阵被化简为一个对角矩阵。如下图中的例子：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220711164640.png width=40%>  </p>
 <p>如上图，可以发现，触发4/6/7和事件1/4的发生有着明显的关联性。触发2/3/5/8与事件2/3/5的发生有明显的关联性。  </p>
 <h4 id="计算灵敏度"><a href="#计算灵敏度" class="headerlink" title="计算灵敏度"></a>计算灵敏度</h4><p>每一个输入对输出参数的平均灵敏度通过某种机制被计算出来，灵敏度可以理解为表示某个事件对某个触发的灵敏程度。并根据在总采样中该触发在该事件发生下的发生频率/概率对每一个触发的灵敏度进行加权处理。<br>灵敏度的计算方式有多种，根据具体问题进行具体选择，详见灵敏度分析方法一讲。  </p>
@@ -493,7 +498,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年7月19日</div>
+          <div>2022年8月1日</div>
         </div>
       
       <div class="license-meta-item">
@@ -907,20 +912,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
