@@ -24,7 +24,7 @@
 <meta property="og:description" content="ROC聚类算法 Machine-Component Group Formation in Group Technology, John R King, 1979.Machine-component grouping in production flow analysis: an approach using a rank order clustering algorithm, John R Kin">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-01T01:23:27.753Z">
-<meta property="article:modified_time" content="2022-08-02T05:46:23.229Z">
+<meta property="article:modified_time" content="2022-08-03T01:48:27.569Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="ROC聚类算法">
             
           </span>
         </div>
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          3.2k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          25 分钟
+          27 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月2日 凌晨
+                    本文最后更新于：2022年8月3日 凌晨
                   
                 
               </p>
@@ -388,7 +388,10 @@ p.spoiler {
 <p>下图表示了使用ROC算法对figure1的矩阵行列进行排序的迭代过程：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220802132816.png width=60%></p>
 <p>计算机在执行ROC算法时，为了进一步节约计算量，并不需要将二进制编码转换为十进制再比较大小，而是可以通过从高位到低位，逐位比较的方法直接对二进制编码的大小进行比较。<br>可以发现，相比于结合能和单链接算法，ROC算法的计算量更小，算法达到收敛的时间也更快。  </p>
 <h3 id="例外元素"><a href="#例外元素" class="headerlink" title="例外元素"></a>例外元素</h3><p>在聚类结束之后，有时混淆矩阵会出现不属于任何类的“1”元素，这样的元素称为例外元素(exceptional elements).<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220802134040.png width=40%><br>如上图所示，聚类结束后标⋆位置的两个“1”不属于任何一类，是例外元素。<br>对于这些例外元素，原作者认为如果聚类结束后出现了例外元素，应当将其在最初的矩阵中删除，然后重新进行ROC聚类。<br>这些例外元素应当采用集中化的生产方式或者直接购买这些部件，而非使用细胞生产。  </p>
-<h3 id="关键机器"><a href="#关键机器" class="headerlink" title="关键机器"></a>关键机器</h3><h2 id="疑问和讨论"><a href="#疑问和讨论" class="headerlink" title="疑问和讨论"></a>疑问和讨论</h2><ul>
+<h3 id="关键机器"><a href="#关键机器" class="headerlink" title="关键机器"></a>关键机器</h3><p>在论文中，作者还考虑到了一种情况：如果非常多的组件都需要经过同一个机器操作，那么这样的机器就称为关键机器(bottleneck machines)，关键机器决定了生产效率。在论文中，作者建议如果出现关键机器，可以在生产中增加若干个相同的这个机器，同时在混淆矩阵中将这个关键机器所在的行拆分为若干行，拆分方法如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094449.png width=40%>  </p>
+<p>如上图，例如对于figure1，可以将机器05和03所在行分别拆分为若干行，每一行只含有一个“1”元素，再进行聚类，聚类结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094641.png width=40%>  </p>
+<p>对于左上角的类，又可以将相同的机器进行合并，最终得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094807.png width=40%>  </p>
+<h2 id="疑问和讨论"><a href="#疑问和讨论" class="headerlink" title="疑问和讨论"></a>疑问和讨论</h2><ul>
 <li>ROC算法如果不采用二进制而使用其他权重对每一行/列进行转义，对结果会有多大的影响？  </li>
 <li>收敛结果和最初部件和机器所处的位置有关吗？</li>
 <li>ROC算法一定收敛吗？</li>
@@ -456,7 +459,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月2日</div>
+          <div>2022年8月3日</div>
         </div>
       
       <div class="license-meta-item">
@@ -864,20 +867,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
