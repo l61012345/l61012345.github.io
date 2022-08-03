@@ -24,7 +24,7 @@
 <meta property="og:description" content="ROC聚类算法 Machine-Component Group Formation in Group Technology, John R King, 1979.Machine-component grouping in production flow analysis: an approach using a rank order clustering algorithm, John R Kin">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-01T01:23:27.753Z">
-<meta property="article:modified_time" content="2022-08-03T01:48:27.569Z">
+<meta property="article:modified_time" content="2022-08-03T02:41:16.346Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          3.5k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          27 分钟
+          30 分钟
         
       </span>
     
@@ -360,6 +360,7 @@ p.spoiler {
 <p>在Python中可以使用<code>scipy.cluster</code>中的<code>hierarchy.linkage()</code>函数作图。  </p>
 <p>绘制好的聚类树状图如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801110828.png width=40%>  </p>
 <p>根据图上可以找到需要的聚类层次，此处选择第二次聚类的结果：即(02,04,01)一组，(03,05)一组。并依据聚类结果对混淆矩阵的行列重新排序，得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801111142.png width=40%>  </p>
+<p>单链接聚类在混淆矩阵建立完成后需要对其进行二次处理和重新绘图，过程较为复杂。  </p>
 <h3 id="结合能聚类"><a href="#结合能聚类" class="headerlink" title="结合能聚类"></a>结合能聚类</h3><p>结合能聚类方法的基础思想基于化学中的结合能概念，在这种方法中，定义行/列的结合能为：对于矩阵中某一为1的元素$x_{ij}=1$，如果其相邻行/列$x_{i,j+1}$或$x_{i+1,j}=1$，那么该元素所在的行/列结合能加1。总结合能等于所有行结合能与列结合能之和。<br>例如下图展示了figure1的结合能：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220801154114.png width=40%>  </p>
 <p>通过用结合能表示相邻1的元素个数，使得行列排序问题被转化为了最优化问题：通过行列排序使得整个矩阵的总结合能达到最大即可。<br>结合能算法使用了一种复杂的迭代过程，描述如下：  </p>
 <ul>
@@ -388,13 +389,20 @@ p.spoiler {
 <p>下图表示了使用ROC算法对figure1的矩阵行列进行排序的迭代过程：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220802132816.png width=60%></p>
 <p>计算机在执行ROC算法时，为了进一步节约计算量，并不需要将二进制编码转换为十进制再比较大小，而是可以通过从高位到低位，逐位比较的方法直接对二进制编码的大小进行比较。<br>可以发现，相比于结合能和单链接算法，ROC算法的计算量更小，算法达到收敛的时间也更快。  </p>
 <h3 id="例外元素"><a href="#例外元素" class="headerlink" title="例外元素"></a>例外元素</h3><p>在聚类结束之后，有时混淆矩阵会出现不属于任何类的“1”元素，这样的元素称为例外元素(exceptional elements).<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220802134040.png width=40%><br>如上图所示，聚类结束后标⋆位置的两个“1”不属于任何一类，是例外元素。<br>对于这些例外元素，原作者认为如果聚类结束后出现了例外元素，应当将其在最初的矩阵中删除，然后重新进行ROC聚类。<br>这些例外元素应当采用集中化的生产方式或者直接购买这些部件，而非使用细胞生产。  </p>
-<h3 id="关键机器"><a href="#关键机器" class="headerlink" title="关键机器"></a>关键机器</h3><p>在论文中，作者还考虑到了一种情况：如果非常多的组件都需要经过同一个机器操作，那么这样的机器就称为关键机器(bottleneck machines)，关键机器决定了生产效率。在论文中，作者建议如果出现关键机器，可以在生产中增加若干个相同的这个机器，同时在混淆矩阵中将这个关键机器所在的行拆分为若干行，拆分方法如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094449.png width=40%>  </p>
-<p>如上图，例如对于figure1，可以将机器05和03所在行分别拆分为若干行，每一行只含有一个“1”元素，再进行聚类，聚类结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094641.png width=40%>  </p>
-<p>对于左上角的类，又可以将相同的机器进行合并，最终得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094807.png width=40%>  </p>
+<h3 id="关键机器"><a href="#关键机器" class="headerlink" title="关键机器"></a>关键机器</h3><p>在论文中，作者还考虑到了一种情况：如果非常多的组件都需要经过同一个机器操作，那么这样的机器就称为关键机器(bottleneck machines)，关键机器决定了生产效率。在论文中，作者建议如果出现关键机器，可以在生产中增加若干个相同的这个机器，同时在混淆矩阵中将这个关键机器所在的行拆分为若干行，拆分方法如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094449.png width=30%>  </p>
+<p>如上图，例如对于figure1，可以将机器05和03所在行分别拆分为若干行，每一行只含有一个“1”元素，再进行聚类，聚类结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094641.png width=30%>  </p>
+<p>对于左上角的类，又可以将相同的机器进行合并，最终得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094807.png width=30%>  </p>
+<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>结合能算法和单链接算法在最初的混淆矩阵建立完成后还需要对数据进行二次处理，其中结合能算法还包含复杂的迭代过程，这两种算法的过程和计算量都相对较为复杂，而ROC算法在混淆矩阵建立后不需要对数据再进行二次处理，只是简单地设计了一种方法为混淆矩阵进行排序，在计算量和算法复杂度方面相比前两者更加简单。  </p>
 <h2 id="疑问和讨论"><a href="#疑问和讨论" class="headerlink" title="疑问和讨论"></a>疑问和讨论</h2><ul>
 <li>ROC算法如果不采用二进制而使用其他权重对每一行/列进行转义，对结果会有多大的影响？  </li>
-<li>收敛结果和最初部件和机器所处的位置有关吗？</li>
-<li>ROC算法一定收敛吗？</li>
+<li>收敛结果和最初部件和机器所处的位置有关吗？  <ul>
+<li>有关。因为ROC算法只是一个排序算法而非优化过程，所以产生的解决方案是由初始矩阵的形式决定的。<br>例如下图的例子：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803103848.png width=60%><br>可以发现如果初始的混淆矩阵形态不同，那么最终稳定时的矩阵是不同的。但是聚类结果相似。  </li>
+</ul>
+</li>
+<li>ROC算法一定收敛吗？  <ul>
+<li>一定。由于每次运行完成后只判断行或者列的终止条件，算法是一定收敛的。   </li>
+</ul>
+</li>
 </ul>
 
               
