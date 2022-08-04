@@ -24,7 +24,7 @@
 <meta property="og:description" content="ROC聚类算法 Machine-Component Group Formation in Group Technology, John R King, 1979.Machine-component grouping in production flow analysis: an approach using a rank order clustering algorithm, John R Kin">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-01T01:23:27.753Z">
-<meta property="article:modified_time" content="2022-08-03T02:41:16.346Z">
+<meta property="article:modified_time" content="2022-08-04T08:43:07.516Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          4.7k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          30 分钟
+          40 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月3日 凌晨
+                    本文最后更新于：2022年8月4日 早上
                   
                 
               </p>
@@ -392,7 +392,29 @@ p.spoiler {
 <h3 id="关键机器"><a href="#关键机器" class="headerlink" title="关键机器"></a>关键机器</h3><p>在论文中，作者还考虑到了一种情况：如果非常多的组件都需要经过同一个机器操作，那么这样的机器就称为关键机器(bottleneck machines)，关键机器决定了生产效率。在论文中，作者建议如果出现关键机器，可以在生产中增加若干个相同的这个机器，同时在混淆矩阵中将这个关键机器所在的行拆分为若干行，拆分方法如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094449.png width=30%>  </p>
 <p>如上图，例如对于figure1，可以将机器05和03所在行分别拆分为若干行，每一行只含有一个“1”元素，再进行聚类，聚类结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094641.png width=30%>  </p>
 <p>对于左上角的类，又可以将相同的机器进行合并，最终得到：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803094807.png width=30%>  </p>
-<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>结合能算法和单链接算法在最初的混淆矩阵建立完成后还需要对数据进行二次处理，其中结合能算法还包含复杂的迭代过程，这两种算法的过程和计算量都相对较为复杂，而ROC算法在混淆矩阵建立后不需要对数据再进行二次处理，只是简单地设计了一种方法为混淆矩阵进行排序，在计算量和算法复杂度方面相比前两者更加简单。  </p>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><h3 id="对ROC算法的评价"><a href="#对ROC算法的评价" class="headerlink" title="对ROC算法的评价"></a>对ROC算法的评价</h3><p>结合能算法和单链接算法在最初的混淆矩阵建立完成后还需要对数据进行二次处理，其中结合能算法还包含复杂的迭代过程，这两种算法的过程和计算量都相对较为复杂，而ROC算法在混淆矩阵建立后不需要对数据再进行二次处理，只是简单地设计了一种方法为混淆矩阵进行排序，在计算量和算法复杂度方面相比前两者更加简单。<br>但是，ROC算法只是一个排序算法而非优化过程，所以产生的解决方案是由初始矩阵的形式决定的。<br>例如下图的例子：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220803103848.png width=60%><br>可以发现如果初始的混淆矩阵形态不同，那么最终稳定时的矩阵是不同的。如何决定最原始的混淆矩阵中机器和部件的排序也是一个问题。  </p>
+<h3 id="改进的ROC算法"><a href="#改进的ROC算法" class="headerlink" title="改进的ROC算法"></a>改进的ROC算法</h3><p>ROC算法是一种简单的混淆矩阵排序算法。“Modified Rank Order Clustering Algorithm Approach by Including Manufacturing Data”一文的作者提出ROC算法的执行过于理想化：实际生产中不可能所有的机器生产效率和工作情况完全相同，而ROC算法中没有包含任何有关于机器和零部件状态的生产数据。因此，该作者根据生产数据，对混淆矩阵中的每一个机器和部件都赋予了权重。矩阵中每一个元素可以根据对应机器和零部件的循环时间(cycle time，生产线上每相邻两个产品产出的时间)、可靠性、以及设置时间为其赋予权重。该论文中根据循环时间和产率为每个机器赋予了权重，具体而言，每一个机器的权重$n_{wi}$为：  </p>
+<script type="math/tex; mode=display">n_{wi}=\frac{CT_i}{∑CT_i}+\frac{PV_i}{∑PV}</script><p>其中$CT_i$为机器$i$的循环时间；$PV_i$为机器$i$的产率。由于单位不同，对二者均做了归一化处理。<br>也可以根据相应的生产数据为每个部件赋予权重$n_{wj}$，但是论文中并没有给出具体的例子进行说明。  </p>
+<p>改进后的ROC算法的执行步骤为：  </p>
+<ol>
+<li>为每一个机器和每一个部件生成各自的权重$n_{wj}$和$n_{wi}$。  </li>
+<li>为整个生产过程建立混淆矩阵。  </li>
+<li><strong>根据权重，按照从大到小的顺序为行列排序</strong>。<br>==下面的步骤与ROC算法基本相同==  </li>
+<li>对每一行机器，将每一行的01组合视为一个二进制编码，并转换为十进制。根据十进制大小为每一行赋予一个等级(rank)。如果两行的十进制大小相同，那么在上的一行被赋予更高的等级。  </li>
+<li>检查现在矩阵的各行是否是按照等级从大到小的顺序排列。  <ul>
+<li>如果是，则停止算法。  </li>
+<li>如果不是，则跳到1.  </li>
+</ul>
+</li>
+<li>按照十进制大小从大到小重新排列每一行的顺序。<br>对每一列部件，将每一列的01组合视为一个二进制编码，并转换为十进制。根据十进制大小为每一列赋予一个等级。如果两列的十进制大小相同，那么在左的一行被赋予更高的等级。  </li>
+<li>检查现在矩阵的各列是否是按照等级从大到小的顺序排列。  <ul>
+<li>如果是，则停止算法。  </li>
+<li>如果不是，则在执行1后跳转到6.  </li>
+</ul>
+</li>
+<li>按照十进制大小从大到小重新排列每一列的顺序。  </li>
+</ol>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>由于在执行ROC算法之前加入了一步：按照权重从大到小为矩阵的行列排序，因此最终每个类中相邻元素的权重都比较接近。权重接近的好处是每个类中的机器生产部件的速率以及其他参数都差不多，整个生产系统中不会出现“短板”——即所有零部件的处理速度都大幅度受到类中处理最慢的那个机器的影响。  </p>
 <h2 id="疑问和讨论"><a href="#疑问和讨论" class="headerlink" title="疑问和讨论"></a>疑问和讨论</h2><ul>
 <li>ROC算法如果不采用二进制而使用其他权重对每一行/列进行转义，对结果会有多大的影响？  </li>
 <li>收敛结果和最初部件和机器所处的位置有关吗？  <ul>
@@ -467,7 +489,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月3日</div>
+          <div>2022年8月4日</div>
         </div>
       
       <div class="license-meta-item">
