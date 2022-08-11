@@ -1,0 +1,960 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数字系统设计-知识点总结 本文是BUL EE2634 Digital Systems Design and Reliability Engineering 数字系统部分的知识点总结。本节授课教师：Dr.Ruiheng Wu（武瑞恒）    逻辑门的晶体管实现晶体管在数字电路中用做开关，实现数字逻辑。有两种最基本的晶体管：NMOS和PMOS。对于NMOS，如果栅极处于高电平，那么晶体管导通，如果处于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字系统设计-知识点总结">
+<meta property="og:url" content="https://l61012345.top/2021/12/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="数字系统设计-知识点总结 本文是BUL EE2634 Digital Systems Design and Reliability Engineering 数字系统部分的知识点总结。本节授课教师：Dr.Ruiheng Wu（武瑞恒）    逻辑门的晶体管实现晶体管在数字电路中用做开关，实现数字逻辑。有两种最基本的晶体管：NMOS和PMOS。对于NMOS，如果栅极处于高电平，那么晶体管导通，如果处于">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-24T03:05:12.020Z">
+<meta property="article:modified_time" content="2022-04-20T13:19:26.636Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>数字系统设计-知识点总结 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/essay-map/">
+                <i class="iconfont icon-books"></i>
+                论文导图
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          <span id="subtitle" title="随便写点什么">
+            
+          </span>
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-12-24 03:05" pubdate>
+          2021年12月24日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          51 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">数字系统设计-知识点总结</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年4月20日 下午
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="数字系统设计-知识点总结"><a href="#数字系统设计-知识点总结" class="headerlink" title="数字系统设计-知识点总结"></a>数字系统设计-知识点总结</h1><blockquote>
+<p>本文是BUL EE2634 Digital Systems Design and Reliability Engineering 数字系统部分的知识点总结。<br>本节授课教师：Dr.Ruiheng Wu（武瑞恒）  </p>
+</blockquote>
+<h2 id="逻辑门的晶体管实现"><a href="#逻辑门的晶体管实现" class="headerlink" title="逻辑门的晶体管实现"></a>逻辑门的晶体管实现</h2><p>晶体管在数字电路中用做开关，实现数字逻辑。有两种最基本的晶体管：NMOS和PMOS。<br>对于NMOS，如果栅极处于高电平，那么晶体管导通，如果处于低电平，晶体管关断。<br>PMOS的行为和NMOS完全相反，在电路符号中栅极处多了一个∘。<br>CMOS晶体管电路是使用PMOS和NMOS的混合电路，其优点在于相比于PMOS和NMOS电路，CMOS在表达数字逻辑“0”或“1”时电路中只有电压的变化，始终没有任何电流的变化，因此理论下在表达过程中不会有任何的功率损失。此外还有高阻抗，匹配功率范围广的优势。因此CMOS被广泛运用。  </p>
+<h3 id="传输门"><a href="#传输门" class="headerlink" title="传输门"></a>传输门</h3><p>传输门由一个PMOS和一个NMOS组成，其作用相当于一个开关，电路表示如下图所示：当控制信号$s=0$时，电路开路，输出$f=0$。当控制信号$s=1$时，电路闭合，$f=x$。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225200724.png width=20%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225200944.png width=25%>  </p>
+<h3 id="逻辑门的晶体管数量"><a href="#逻辑门的晶体管数量" class="headerlink" title="逻辑门的晶体管数量"></a>逻辑门的晶体管数量</h3><p>实现各逻辑门所含晶体管数量如下表所示：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">逻辑门</th>
+<th style="text-align:center">NOT</th>
+<th style="text-align:center">2NAND</th>
+<th style="text-align:center">2NOR</th>
+<th style="text-align:center">2AND</th>
+<th style="text-align:center">2OR</th>
+<th style="text-align:center">传输门</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">晶体管数量</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>对于CMOS电路而言，每增加一个输入，就会分别增加一个PMOS和NMOS，因此$n$个输入的NAND或者NOR门需要的晶体管数目为：  </p>
+<script type="math/tex; mode=display">\#transistors=2n</script><p>AND门和OR门是在NAND和NOR的基础上增加一个NOT门，NOT含有两个晶体管，因此$n$个输入的AND或者OR门需要的晶体管数目为：  </p>
+<script type="math/tex; mode=display">\#transistors=2n+2</script><h2 id="系统的逻辑表达"><a href="#系统的逻辑表达" class="headerlink" title="系统的逻辑表达"></a>系统的逻辑表达</h2><p>系统的逻辑表达式有两种：SOP（Sum of Product）和POS（Product of Sum）。  SOP可以用全部用NAND门表达:   </p>
+<script type="math/tex; mode=display">A.B+C.D=\overline{(\overline{A}.\overline{B}).(\overline{C}.\overline{D})}</script><p>POS可以全部用NOR门表达:   </p>
+<script type="math/tex; mode=display">(A+B).(C+D)=\overline{\overline{A+B}+\overline{C+D}}</script><h2 id="减少成本的方式-化简数字电路的方式"><a href="#减少成本的方式-化简数字电路的方式" class="headerlink" title="减少成本的方式/化简数字电路的方式"></a>减少成本的方式/化简数字电路的方式</h2><p>数字系统设计中最核心的实现是减少系统设计的成本（Cost），数字电路的成本可以用门成本表示：  </p>
+<script type="math/tex; mode=display">Cost=\#inputs+\#gates</script><p>其中$inputs$指电路中所有门的输入数，$gates$是电路中所有逻辑门的数量。需要注意的是，只有在“非”逻辑下方有非逻辑时（比如：$\overline{A+\overline{A}B}$），才将NOT门及其输入计入$gates$和$inputs$。  </p>
+<h3 id="逻辑运算律化简"><a href="#逻辑运算律化简" class="headerlink" title="逻辑运算律化简"></a>逻辑运算律化简</h3><p>通过逻辑运算律进行化简，几个重要的逻辑运算律：  </p>
+<ul>
+<li>吸收律：<br>$A+AB=A$<br>$A(A+B)=A$</li>
+<li>德摩根律：<br>$\overline{AB}=\overline{A}+\overline{B}$<br>$\overline{A+B}=\overline{A}.\overline{B}$  </li>
+</ul>
+<h3 id="卡诺图化简"><a href="#卡诺图化简" class="headerlink" title="卡诺图化简"></a>卡诺图化简</h3><ul>
+<li>SOP圈“1”，“1→x”</li>
+<li>POS圈“0”，“0→x”</li>
+<li>每个圈中的蕴含项个数只能为$2^n$</li>
+<li>尽可能圈住最多的蕴含项</li>
+<li>四个边视为相邻，四个角视为相邻</li>
+<li>如果一个圈里面所有的蕴含项都在其他圈中出现，这个圈可以被取消</li>
+<li>通配符“d”可以被圈住</li>
+<li>一个电路多个输出时，对多个输出分别画卡诺图，多张卡诺图中圈的位置尽可能相同。  </li>
+</ul>
+<div class="note note-info">
+            <p>如果题目中的设计目标是“最小成本”，那么做完卡诺图化简后还需要提取公因项化简。<br>如果题目中的设计目标是“最简SOP/POS”，那么做完卡诺图化简后即可。  </p>
+          </div>
+<h2 id="逻辑电路元件"><a href="#逻辑电路元件" class="headerlink" title="逻辑电路元件"></a>逻辑电路元件</h2><h3 id="加法器"><a href="#加法器" class="headerlink" title="加法器"></a>加法器</h3><p>半加器为不含进位的加法器，全加器相比于半加器有另一个输出用于表示进位。<br>加法器可以通过列出真值表，对进位（carry）和和（sum）分别用卡诺图化简即可。<br>第$i+1$位的进位表示为：  </p>
+<script type="math/tex; mode=display">c_{i+1}=x_iy_i+x_ic_i+y_ic_i</script><p>第$i$位的和表示为：  </p>
+<script type="math/tex; mode=display">s_i=x_i⊕y_i⊕c_i</script><p>如果将加法器的其中一个输入和一个控制信号与异或门连接，就能将这个输入在控制信号为0时转为二补码，实现两个输入的减法。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225225637.png width=50%></p>
+<h3 id="多路复用器"><a href="#多路复用器" class="headerlink" title="多路复用器"></a>多路复用器</h3><p>多路复用器是一种通过控制信号，实现从多个输入信号中选择一个信号输出的数字电路器件。当输入信号为从00..0到11..1的不同组合时，多路复用器会对应输出其结果，利用这一特性可以让多路复用器实现逻辑表达式。  </p>
+<h3 id="解码器·编码器"><a href="#解码器·编码器" class="headerlink" title="解码器·编码器"></a>解码器·编码器</h3><p>解码器是一种输入$n$个比特，返回对应的$2^n$个比特值的电路器件。编码器的行为和解码器相反，输入$2^n$个比特，返回$n$个比特的器件。<br>对于解码器，当$En=1$时，输入$w_1w_0$为特定的比特组合时，输出端对应的输出为1，其余输出为0.其真值表如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227140215.png width=50%>  </p>
+<p>编码器的行为和解码器完全相反：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227140437.png width=50%></p>
+<h3 id="比较器"><a href="#比较器" class="headerlink" title="比较器"></a>比较器</h3><p>比较器在一个电路中可以实现对两个输入信号$A$,$B$的比较，并用布尔值返回其比较结果。比较器有三个输出结果：$AeqB,AgtB,AleB$，$A$和$B$满足哪一个关系，比较器对应的输出结果就是1。  </p>
+<ul>
+<li><p>$AeqB$<br>判断A和B是否相等的简单思路是利用XOR门的特性逐位比较每一个比特是否相同，但是XOR门在相同时输出结果为0，因此最后还需要取反才能得到每一位正确的比较结果。每一个比特位的比较可以表示为：  </p>
+<script type="math/tex; mode=display">i_k=\overline{a_k⊕b_k}</script><p>当所有位都相同时，$AeqB=1$：</p>
+<script type="math/tex; mode=display">AeqB=i_ni_{n-1}...i_1i_0</script></li>
+<li><p>$AgtB$<br>在每一个比特位上，只有$a_i=1$，$b_i=0$时才能判断在该位上$a_i&gt;b_i$。$AgtB$表示为：  </p>
+<script type="math/tex; mode=display">AgtB=a_n\overline{b_n}+i_na_{n-1}\overline{b_{n-1}}+i_ni_{n-1}a_{n-2}\overline{b_{n-2}}+...+∏_{i=1}^ni_ka_0\overline{b_0}</script></li>
+<li><p>$AleB$<br>当A既不大于B，也不等于B时，其结果为$A&lt;B$:</p>
+<script type="math/tex; mode=display">AleB=\overline{AgtB+AeqB}</script></li>
+</ul>
+<h2 id="逻辑电路的实现方式"><a href="#逻辑电路的实现方式" class="headerlink" title="逻辑电路的实现方式"></a>逻辑电路的实现方式</h2><h3 id="CMOS电路"><a href="#CMOS电路" class="headerlink" title="CMOS电路"></a>CMOS电路</h3><p>CMOS电路由两部分构成：上拉和下拉电路。<br>上拉电路由PMOS管组成，电路上端接$V_{dd}$，当一条回路上的PMOS全部导通时，对应的输出为1。<br>下拉电路由PMOS管组成，电路下端接地，当一条回路上的PMOS全部导通时，对应的逻辑输出为0。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225194842.png width=50%>  </p>
+<p>使用CMOS电路实现逻辑表达式的思想是：  </p>
+<ul>
+<li>逻辑表达式中的每一项对应电路中的一条支路。  </li>
+<li>对于每一项，AND逻辑用串联电路构建，OR逻辑用并联电路实现。  </li>
+<li>对于上拉电路，应当用POS表达$f$。</li>
+<li>对于下拉电路，应当对上拉电路的表达式取反$\overline{f}$，用德摩根律化简。  </li>
+</ul>
+<h3 id="多路复用器电路"><a href="#多路复用器电路" class="headerlink" title="多路复用器电路"></a>多路复用器电路</h3><p>从逻辑表达式实现多路复用器电路的过程：  </p>
+<ol>
+<li>看输入信号的数量，并选取其中一些输入信号的作为控制信号。<br>控制信号的数量满足：  <script type="math/tex; mode=display">2^{控制信号的数量} ≥ 剩余输入信号的数量</script></li>
+<li>利用香农展开，从逻辑表达式中提取出一个控制信号，并将逻辑表达式写作如下形式：  <script type="math/tex; mode=display">f(w_1,w_2,..,w_n)=\overline{w_1}f(0,w_2,...,w_n)+w_1f(1,w_2,...,w_n)</script></li>
+<li>再从$f(0,w_2,…,w_n)$和$f(1,w_2,…,w_n)$使用相同的方法提取出第二个控制信号，重复直到所有的控制信号都被提取。  </li>
+</ol>
+<h4 id="移位器（Shifter）电路"><a href="#移位器（Shifter）电路" class="headerlink" title="移位器（Shifter）电路"></a>移位器（Shifter）电路</h4><p>移位器设计的关键是写出不同的控制信号对应的每一位上的输出，列表。然后竖着看表，根据每一位输出在不同控制信号下对应的输出，对这个输出用多路复用器搭建电路。重复直到每一个输出都用一个对应的多路复用器电路表达，然后将相同的输入连接到一起即可。  </p>
+<h3 id="解码器电路"><a href="#解码器电路" class="headerlink" title="解码器电路"></a>解码器电路</h3><p>SOP可以直接用解码器电路表达，如果在SOP中最小项$i=1$，那么解码器电路中的$y_i$需要被输出，解码器中所有的$y_i$用OR门相连，剩下的输出端口不需要输出。  </p>
+<h3 id="查找表（LUT）电路"><a href="#查找表（LUT）电路" class="headerlink" title="查找表（LUT）电路"></a>查找表（LUT）电路</h3><p>单级的查找表只需要写明输入信号，并在寄存器图标上填入真值表的输出即可。<br>多级的查找表电路需要利用香农展开，提取变量作为控制信号后，对括号内的项构建查找表电路，再使用输出和控制信号构建下一级的查找表电路。  </p>
+<h3 id="可编程逻辑阵列（PLA）和可编程阵列逻辑（PAL）"><a href="#可编程逻辑阵列（PLA）和可编程阵列逻辑（PAL）" class="headerlink" title="可编程逻辑阵列（PLA）和可编程阵列逻辑（PAL）"></a>可编程逻辑阵列（PLA）和可编程阵列逻辑（PAL）</h3><p>可编程逻辑阵列（PLA）和可编程阵列逻辑（PAL）中逻辑门的输入端存在可编程开关，因此可以通过控制开关的开闭来实现不同的布尔函数。<br>可编程逻辑阵列（PLA）实现的是先AND，再OR的SOP逻辑，例子如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225195501.png width=50%><br>在可编程逻辑中，电路中的“×”代表此处是连接的。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225195620.png width=50%></p>
+<p>在PLA当中，电路中OR门所在的区域（称为OR平面）是固定好的，不可以被编程。  </p>
+<p>可编程开关的劣势：  </p>
+<ul>
+<li>影响运行速度</li>
+<li>占据大量空间</li>
+<li>增加功耗</li>
+</ul>
+<h3 id="门阵列"><a href="#门阵列" class="headerlink" title="门阵列"></a>门阵列</h3><p>门阵列中，阵列外围是输入或者输出端口，其内部为位置固定的NAND门或者NOR门的阵列，可通过将端口和逻辑门连接实现对应的NAND-only或NOR-only的布尔表达式。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211225200257.png width=50%>  </p>
+<h2 id="锁存器和触发器"><a href="#锁存器和触发器" class="headerlink" title="锁存器和触发器"></a>锁存器和触发器</h2><p>锁存器（Latch）是一类有记忆功能的数字电路器件。触发器在锁存器的基础上被构建出来。  </p>
+<h3 id="RS锁存器"><a href="#RS锁存器" class="headerlink" title="RS锁存器"></a>RS锁存器</h3><p>RS锁存器的电路结构和真值表如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227144607.png width=50%>  </p>
+<p>其表现归纳为：“<strong>只有SR处于不同值时，对应输出为1</strong>”。<br>SR锁存器的问题是当$S=1,R=1$时，$Q_a=1,Q_b=1$，如果此时设置$S=0，R=0$时，触发器的输出$Q_a=0,Q_b=0$，并作为下一次的输入，此时$Q_a=1,Q_b=1$，接下来，锁存器将处于不断的0-1跳变当中。  </p>
+<h3 id="D锁存器"><a href="#D锁存器" class="headerlink" title="D锁存器"></a>D锁存器</h3><p>RS锁存器存在跳变的解决办法是使用一个输入D来代替原来的RS两个输入端口，并使用一个NOT门让D输入的一条支路的逻辑值反转，对于整个电路而言，就永远不可能出现SR值相同的情况，进而无法出现跳变。此外，D锁存器加入了时钟信号clk，使得当时钟信号为0时，锁存器当永久保存当前的输出状态，直到时钟信号变为1。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227151048.png width=50%><br>其真值表为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227151112.png width=50%></p>
+<h2 id="主从D触发器"><a href="#主从D触发器" class="headerlink" title="主从D触发器"></a>主从D触发器</h2><p>主从D触发器能够保留一个时钟的信息，其结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227151301.png width=50%><br>D触发器的真值表为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227154837.png width=50%></p>
+<p>D触发器的行为规则是：  </p>
+<ul>
+<li><strong>在clk=1的时刻，其输出随着D的变换而变化</strong>。  </li>
+<li><strong>在clk=0的时刻，其输出保留之前的状态</strong>。  </li>
+</ul>
+<p>D触发器的触发规则有上升沿触发、下降沿触发，不同的触发方式对于同一个输入信号，其结果可能是不同的：  </p>
+<ul>
+<li>对于D锁存器/主从D触发器，其在clk=1的时刻与D完全同步变化。在clk=0的时刻，其输出保留之前的状态  </li>
+<li>对于上升沿D触发器，其始终保留在clk=1的上升沿前最后一个D，直到下一个clk=1的上升沿出现。  </li>
+<li>对于下升沿D触发器，其始终保留在clk=1的下降沿前最后一个D。直到下一个clk=1的下降沿出现。  </li>
+</ul>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227152645.png width=70%>  </p>
+<h3 id="T触发器"><a href="#T触发器" class="headerlink" title="T触发器"></a>T触发器</h3><p>T触发器的结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227152859.png width=70%><br>T触发器的真值表为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227154618.png width=50%></p>
+<p>其clk=1的时间中，其行为为：<br><strong>T=1时发生比特反转，T=0时保留原来的比特。</strong></p>
+<h3 id="JK触发器"><a href="#JK触发器" class="headerlink" title="JK触发器"></a>JK触发器</h3><p>JK触发器是SR触发器和D触发器的变形，其结构为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227155154.png width=50%>  </p>
+<p>JK触发器的真值表为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211227155746.png width=50%>  </p>
+<p>其行为可以描述为：  </p>
+<ul>
+<li><strong>JK=1时，输出$\overline{Q}$。JK=0时，输出$Q$。</strong>  </li>
+<li><strong>J代表set，仅$J=1$时，$Q$强制为1。</strong>  </li>
+<li><strong>K代表reset，仅$K=1$时，$Q$强制为0。</strong></li>
+</ul>
+<h2 id="VHDL程序基础"><a href="#VHDL程序基础" class="headerlink" title="VHDL程序基础"></a>VHDL程序基础</h2><p>VHDL是一种用于描述逻辑电路的程序，程序的基本结构由用于声明输入和输出端口的ENTITY和用于描述逻辑电路功能的ARCHITECTURE组成。<br>ENTITY的写法如下例程所示，这段例程program1声明了$x_1$，$x_2$，$x_3$是输入变量，其数据类型为<code>STD_Logic</code>(standard logic，此处的数据类型也可以是<code>BIT</code>)，并指定输出端口为$f$：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vhdl"><span class="hljs-keyword">ENTITY</span> program1 <span class="hljs-keyword">IS</span><br>  <span class="hljs-keyword">PORT</span>(x1,x2,x3 : <span class="hljs-keyword">IN</span> <span class="hljs-built_in">STD_Logic</span>;<br>       f : <span class="hljs-keyword">OUT</span> <span class="hljs-built_in">STD_Logic</span>;);<br><span class="hljs-keyword">END</span> program1 ;<br></code></pre></td></tr></table></figure><br>在声明变量之后，用布尔运算式描述逻辑电路的功能，注意，VHDL中<code>&lt;=</code>表示赋值。<br>下面的例程中展示了program1是如何实现$f=x_1x_2+\overline{x_2}x_3$的：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs vhdl"><span class="hljs-keyword">ARCHITECTURE</span> LogicFunc <span class="hljs-keyword">OF</span> program1 <span class="hljs-keyword">IS</span><br><span class="hljs-keyword">Begin</span><br>  f&lt;= (x1 <span class="hljs-keyword">AND</span> x2) <span class="hljs-keyword">OR</span> (<span class="hljs-keyword">NOT</span> x2 <span class="hljs-keyword">AND</span> x3);<br><span class="hljs-keyword">END</span> LogicFunc;<br></code></pre></td></tr></table></figure><br>LogicFunc是这段结构的名字，可以自定义命名。<br>在VHDL中，逻辑运算是没有优先级的，需要通过给定括号<code>()</code>来制定优先级。  </p>
+<p>此外，VHDL语言中还支持使用分支结构来表达：<br>分支结构中使用<code>WHITH</code>声明控制变量，使用<code>WHEN &#39;bit&#39;</code>和<code>WHEN OTHERS</code>来指定控制信号为对应比特值<code>bit</code>时和其他时候的对应的情况。<br>需要注意最后一种情况对应的一定是<code>WHEN OTHERS</code>以排除可能出现的所有不稳定值。<br>比如下面例程所示的2-1多路复用器，当输入信号$s=0$时，$f=w_1$，$s=1$时，$f=w_2$。<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vhdl"><span class="hljs-keyword">LIBRARY</span> ieee;<br><span class="hljs-keyword">USE</span> ieee.std_logic_1164.<span class="hljs-keyword">all</span>;<br><br><span class="hljs-keyword">ENTITY</span> mux2to1 <span class="hljs-keyword">IS</span><br>  <span class="hljs-keyword">PORT</span>(w0,w1,s <span class="hljs-keyword">IN</span> <span class="hljs-built_in">STD_logic</span><br>       f <span class="hljs-keyword">OUT</span> <span class="hljs-built_in">STD_logic</span>);<br><span class="hljs-keyword">END</span> mux2to1;<br><br><span class="hljs-keyword">ARCHITECTURE</span> behavior <span class="hljs-keyword">OF</span> mux2t01 <span class="hljs-keyword">IS</span><br><span class="hljs-keyword">BEGIN</span><br> <span class="hljs-keyword">WITH</span> s <span class="hljs-keyword">SELECT</span><br>   f&lt;=w1 <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&#x27;0&#x27;</span>;<br>   f&lt;=w0 <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">OTHERS</span>;<br><span class="hljs-keyword">END</span> behavior;<br></code></pre></td></tr></table></figure><br>除了<code>STD_logic</code>和<code>BIT</code>之外，VHDL还支持<code>STD_logic_vector()</code>这样的逻辑向量表达，有升序：<code>STD_logic_vector(m TO n)</code>表示从m 到 n的比特值组成的向量，和降序：<code>STD_logic_vector(n DOWNTO m)</code>两种。字节长度在ACHITECURE中指定。<br>比如下面例程所示的2-4解码器：<br><figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vhdl"><span class="hljs-keyword">LIBRARY</span> ieee;<br><span class="hljs-keyword">USE</span> ieee.std_logic_1164.<span class="hljs-keyword">all</span>;<br><br><span class="hljs-keyword">ENTITY</span> dec2to4 <span class="hljs-keyword">IS</span><br>  <span class="hljs-keyword">PORT</span>(<br>    w : <span class="hljs-keyword">IN</span> <span class="hljs-built_in">STD_logic_vector</span>(<span class="hljs-number">1</span> <span class="hljs-keyword">DOWNTO</span> <span class="hljs-number">0</span>);<br>    En : <span class="hljs-keyword">IN</span> <span class="hljs-built_in">STD_logic</span>;<br>    y : <span class="hljs-keyword">OUT</span> <span class="hljs-built_in">STD_LOGIC_VECTOR</span>(<span class="hljs-number">0</span> <span class="hljs-keyword">TO</span> <span class="hljs-number">3</span>);<br>  )<br><span class="hljs-keyword">END</span> dec2to4;<br><br>ARCHITECUTURE behavior <span class="hljs-keyword">OF</span> dec2t04 <span class="hljs-keyword">IS</span><br> <span class="hljs-keyword">SIGNAL</span> Enw: <span class="hljs-built_in">STD_logic_vector</span>(<span class="hljs-number">2</span> <span class="hljs-keyword">DOWNTO</span> <span class="hljs-number">0</span>);<br> <span class="hljs-keyword">BEGIN</span><br>  Enw &lt;= En <span class="hljs-keyword">AND</span> w;<br>  <span class="hljs-keyword">WITH</span> Enw <span class="hljs-keyword">SELECT</span><br>    y &lt;= <span class="hljs-string">&quot;1000&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&quot;100&quot;</span>,<br>         <span class="hljs-string">&quot;0100&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&quot;101&quot;</span>,<br>         <span class="hljs-string">&quot;0010&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&quot;110&quot;</span>,<br>         <span class="hljs-string">&quot;0000&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">OTHERS</span>;<br><span class="hljs-keyword">END</span> behavior;<br></code></pre></td></tr></table></figure></p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/" class="category-chain-item">数字系统与可靠性工程</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>数字系统设计-知识点总结</div>
+      <div>https://l61012345.top/2021/12/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年12月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年4月20日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="电子系统-知识点总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">电子系统-知识点总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/11.%20IIR%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="11. IIR滤波器设计方法">
+                        <span class="hidden-mobile">11. IIR滤波器设计方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建和渲染。<br> ©OrekiKigiha 2021 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var title = subtitle.title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.staticfile.org/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>

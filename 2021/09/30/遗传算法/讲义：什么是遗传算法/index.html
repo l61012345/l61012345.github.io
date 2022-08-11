@@ -1,0 +1,992 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="讲义：什么是遗传算法？ 参考资料：  Flappy Learning- https:&#x2F;&#x2F;xviniette.github.io&#x2F;FlappyLearning 北京大兴国际机场旅客航站楼和综合换乘中心, 北京市建筑设计研究院有限公司 Technological overview of the next generation Shinkansen high-speed train Series N70">
+<meta property="og:type" content="article">
+<meta property="og:title" content="讲义：什么是遗传算法（GA）？">
+<meta property="og:url" content="https://l61012345.top/2021/09/30/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="讲义：什么是遗传算法？ 参考资料：  Flappy Learning- https:&#x2F;&#x2F;xviniette.github.io&#x2F;FlappyLearning 北京大兴国际机场旅客航站楼和综合换乘中心, 北京市建筑设计研究院有限公司 Technological overview of the next generation Shinkansen high-speed train Series N70">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+<meta property="article:published_time" content="2021-09-30T02:30:13.818Z">
+<meta property="article:modified_time" content="2022-04-17T06:14:27.782Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+  
+  
+  <title>讲义：什么是遗传算法（GA）？ - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/essay-map/">
+                <i class="iconfont icon-books"></i>
+                论文导图
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          <span id="subtitle" title="随便写点什么">
+            
+          </span>
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-30 02:30" pubdate>
+          2021年9月30日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          60 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">讲义：什么是遗传算法（GA）？</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年4月17日 早上
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="讲义：什么是遗传算法？"><a href="#讲义：什么是遗传算法？" class="headerlink" title="讲义：什么是遗传算法？"></a>讲义：什么是遗传算法？</h1><blockquote>
+<p>参考资料：</p>
+<ol>
+<li><em>Flappy Learning</em>- <a target="_blank" rel="noopener" href="https://xviniette.github.io/FlappyLearning">https://xviniette.github.io/FlappyLearning</a></li>
+<li><em>北京大兴国际机场旅客航站楼和综合换乘中心</em>, 北京市建筑设计研究院有限公司</li>
+<li><em>Technological overview of the next generation Shinkansen high-speed train Series N700</em>, Central Japan Railway Company, Tokyo, Japan</li>
+<li><em>Towards Safe Evolutionary Optimization</em>, Chao Qian, Nanjing University</li>
+<li><em>‘Genshin Impact’: Building a Scalable AI System</em>, Shou Xu, miHoYo Inc., 2021</li>
+<li><em>遗传算法在游戏开发中的应用</em>，杨科选等，中科院软件研究所，2009⋆</li>
+<li><em>遗传算法原理及应用</em>，周明等，国防工业出版社，1999⋆</li>
+<li><em>A genetic algorithm tutorial</em>, Darrell Whitley, 1994⋆</li>
+<li><em>自然与人工系统中的适应:理论分析及其在生物控制和人工智能中的应用</em>,John.H.Holland ,高等教育出版社，2008⋆</li>
+<li><em>Adaptation in Nature and Artificial Systems</em>,John.H.Holland, A Bradford Book, 2008 （9的英文版）⋆</li>
+</ol>
+</blockquote>
+<div class="note note-warning">
+            <p>这是Brunel University London EE1619：Engineering Science, Systems and Society（工程科学、系统与社会）面向大一学生的一节Seminar的中文讲义。<br>本文中避免了对于Holland博士提出的经典遗传算法收敛性的讨论，省略了交叉、突变对于算法收敛性的改进作用；并在有效性方面只介绍了模式定理，还请读者注意。  </p>
+          </div>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h2><h3 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h3><ol>
+<li>了解一些遗传算法的应用案例</li>
+<li>了解经典遗传算法的运行流程</li>
+<li>使用数学方法证明经典遗传算法的有效性</li>
+<li>对遗传算法进行评价：知晓其优点和缺点  </li>
+</ol>
+<h3 id="遗传算法的定义"><a href="#遗传算法的定义" class="headerlink" title="遗传算法的定义"></a>遗传算法的定义</h3><p>遗传算法是一类将特定问题潜在的解决方案编码，然后应用进化理论对解决方案进行优胜劣汰式的反复筛选的算法。   </p>
+<h2 id="遗传算法的应用"><a href="#遗传算法的应用" class="headerlink" title="遗传算法的应用"></a>遗传算法的应用</h2><h3 id="Github-开源项目FlappyLearning"><a href="#Github-开源项目FlappyLearning" class="headerlink" title="Github 开源项目FlappyLearning"></a>Github 开源项目FlappyLearning</h3><p>项目地址：<a target="_blank" rel="noopener" href="https://xviniette.github.io/FlappyLearning/">https://xviniette.github.io/FlappyLearning/</a><br>项目通过每一代生成50个flappy bird，每一只鸟由随机的操作进行控制，通过游戏对其进行淘汰，而能够活得久，获得高分的游戏策略会有高概率继承给下一代。<br>大约在第25-50代时的鸟能够稳定地存活下去。<br>在游戏设计中，有些怪物可以应用遗传算法随机切换攻击模式，并通过进化和玩家的对抗不断地筛选出不容易被玩家打败的攻击模式，从而提升游戏可持续的难度。  </p>
+<h3 id="大兴机场穹顶力学结构设计"><a href="#大兴机场穹顶力学结构设计" class="headerlink" title="大兴机场穹顶力学结构设计"></a>大兴机场穹顶力学结构设计</h3><p>大兴机场的穹顶设计使用了遗传算法来符合力学要求。具体而言，大兴机场的穹顶在在设计时，穹顶的主划分线被赋予了88个控制点，遗传算法可以对这88个控制点的位置进行选择，使建造出的穹顶不会倒塌。  </p>
+<h3 id="新干线N700系车头外形"><a href="#新干线N700系车头外形" class="headerlink" title="新干线N700系车头外形"></a>新干线N700系车头外形</h3><p>高速铁路列车在通过隧道时由于列车和隧道对空气的挤压发出巨大的响声，新干线N700系列车在设计时通过遗传算法对列车的外形进行选择，最终设计出抗噪性较好的列车外形。  </p>
+<h2 id="遗传算法的概念"><a href="#遗传算法的概念" class="headerlink" title="遗传算法的概念"></a>遗传算法的概念</h2><h3 id="举例：遗传算法面对的问题"><a href="#举例：遗传算法面对的问题" class="headerlink" title="举例：遗传算法面对的问题"></a>举例：遗传算法面对的问题</h3><p>开始之前，我们需要明确几个概念。<br>思考如下的场景：我们需要从一口井中取水，井中水的水位是由一个水阀进行控制，这个水阀有8个档位，每一个档位对应了不同的水位高度，要想更方便地取水自然水位的高度越高越好，现在我们想要找到那个最适合我们取水的档位，就可以用遗传算法解决这个问题。<br>在遗传算法中，这个水阀的8个档位实际上就是系统的八种状态，这八种状态对应了系统不同的输出，像这样的，<strong>系统的某些或全部状态的集合称为一个种群（Population）。</strong> 称这个<strong>状态集合中的一个特定状态为个体（Individual）或者染色体（Chromosome）。</strong>  </p>
+<blockquote>
+<p>此处要注意与生物学上个体和染色体的数量关系进行区分，遗传算法领域认为一个个体只含有一条染色体。  </p>
+</blockquote>
+<h2 id="经典遗传算法的流程"><a href="#经典遗传算法的流程" class="headerlink" title="经典遗传算法的流程"></a>经典遗传算法的流程</h2><p>经典遗传算法通过对当前种群的<strong>评估（Evaluation）</strong>，<strong>选择（Selection）</strong>，<strong>重组（Recombination）</strong>和<strong>突变（Mutation）</strong>  后，能够在现有种群的基础上产生下一代种群。经过数次进化之后，遗传算法能够选择出对目标问题解决的最佳方案组合。    </p>
+<h3 id="状态编码"><a href="#状态编码" class="headerlink" title="状态编码"></a>状态编码</h3><p>当然，计算机是无法直接读懂这些状态的意义，对数学运算而言，函数的自变量也必须是一个数，因此需要对系统的所有状态进行编码（Coding）。<strong>编码的过程就是将状态用数进行编号的过程。</strong> 遗传算法中采用的编码机制是二进制编码，如上面例子当中水阀的8个档位，就可以用3个比特位（称为<strong>位串</strong>（Strings））：从000 编码到111，对这个水阀的8个档位状态进行表达。<br><strong>种群中的每一个个体都可以用位串的形式进行表达。</strong><br>编码之后的个体就能够用函数去评估它是好的还是坏的了。  </p>
+<h3 id="原始种群"><a href="#原始种群" class="headerlink" title="原始种群"></a>原始种群</h3><p>由于实际问题中遗传算法要面临的状态编码数量非常庞大，不可能一下子对所有的状态都进行评估，因此遗传算法需要从所有个体中随机地抓取一些个体生成<strong>原始种群</strong>（Initial population）。遗传算法最开始的操作都是对原始种群进行的。  </p>
+<h3 id="评估和适应度"><a href="#评估和适应度" class="headerlink" title="评估和适应度"></a>评估和适应度</h3><p>原始种群被生成后，每一个个体会通过评估函数和适应度函数（Fitness funtion）生成其对种群的适应度（Fitness）。  </p>
+<p>对适应度函数的直观理解：<br>我们想要从一个班的学生中选择出优等生，最简单的方法就是考试，每个学生通过考试会得到一个分数，以衡量他们的学习水平。在这里，考试就是适应度函数，而每个学生的分数就是适应度。  </p>
+<p>种群中个体$i$的适应度定义为：  </p>
+<script type="math/tex; mode=display">\frac{f_i}{\overline{f}}</script><p>其中，$f_i$表示评估函数对第$i$个个体的评估结果，$\overline{f}$表示种群的平均评估。<br>个体的适应度越高，表明这个状态对应的系统结果越能够符合我们的要求。  </p>
+<h3 id="复制·选择（轮盘赌选择）"><a href="#复制·选择（轮盘赌选择）" class="headerlink" title="复制·选择（轮盘赌选择）"></a>复制·选择（轮盘赌选择）</h3><p>选择后的每个个体的适应度格式为x.xx，即有小数部分和整数部分。适应度的整数部分表示该个体会被复制多少次。<br>复制中的选择机制：<br>这样就能直接地让优秀的个体获得更多被复制的机会，而适应度整数部分为0的个体因为不会被复制而被淘汰。<br>但是，那些适应度比较低的个体中仍然可能有对系统有益的部分，为了尽可能地保留这些部分，遗传算法在选择阶段还规定：<br>对所有的个体，适应度的小数部分表示额外被复制的概率。<br>如此，每一个个体中对系统有益的部分都能够被尽可能地复制。<br>比如，适应度2.3的个体能够获得2次复制，并且有0.3的概率能获得第三次复制的机会。<br>这样的机制能够用数学表示为：   </p>
+<script type="math/tex; mode=display">M(H,t+1)=M(H,t)\frac{f(H,t)}{\overline{f}}</script><p>其中M表示的是种群中的一个亚种(Sub-populations)。  </p>
+<p>总结：<br>选择的过程即为有概率地对种群中的个体进行复制，可以发现，适应度越高的个体被复制的概率就越大。  </p>
+<p>原始种群经过复制后形成<strong>中间种</strong>（Intermediate Generation）。  </p>
+<h3 id="重组（单点交叉）"><a href="#重组（单点交叉）" class="headerlink" title="重组（单点交叉）"></a>重组（单点交叉）</h3><p><strong>遗传算法中重组的本质是杂交（Crossover）</strong>，其过程主要有两步： </p>
+<ol>
+<li>随机地使得个体间两两配对。  </li>
+<li>随机地选取一对个体，两者在某个随机且相同的比特位处断开，前后的两段基因型进行交叉互换。  </li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>新生成的两个个体称为后代（Offspring），后代能够插入到下一代的概率计作$p_c$。  </p>
+<h3 id="突变（反转突变）"><a href="#突变（反转突变）" class="headerlink" title="突变（反转突变）"></a>突变（反转突变）</h3><p>重组之后利用突变算子对后代作突变处理，对于种群中的所有比特位，其有$p_m$的概率发生比特反转。同遗传学一样，突变概率一个非常小的概率，通常小于1%。<br>中间种经过重组和突变，最终能称为新的种群。</p>
+<p><div align="center">  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210718132905.png width=80% />  
+</div></p>
+<center>▲ 经典遗传算法的选择和重组过程</center>  
+
+<h2 id="遗传算法的有效性证明"><a href="#遗传算法的有效性证明" class="headerlink" title="遗传算法的有效性证明"></a>遗传算法的有效性证明</h2><p>上述的过程中很难直观地让我们感受到重组和突变对算法带来的实际效果，也很难感受到遗传算法的有效性，下面从数学的角度说明这两点。  </p>
+<h3 id="采样空间"><a href="#采样空间" class="headerlink" title="采样空间"></a>采样空间</h3><p>在几何学上，称n维空间的某一个小于n维的子空间为<strong>超平面</strong>（hyperplane）， 比如二维空间的超平面是一条线，三位空间的超平面是一个面。<br><strong>在位串长度固定位$L$的前提下，种群中所有可能的编码方式所构成的空间称为搜索空间（Search space）。</strong> 如果每一种特定的编码方式在L维搜索空间中对应了一个角（Corner），那么共超平面的几个角对应的编码中必定在相同的某几个比特位上的值是相同的，此时引入通配符（Don‘t care，以*记）的概念，那么搜索空间的一个超平面就可以表示为含有Don’t care（*）的位串（比如：0****，11*****），这样的位串称为<strong>模式</strong>（Schema），每一个模式对应了一个超平面。   </p>
+<h3 id="模式定理"><a href="#模式定理" class="headerlink" title="模式定理"></a>模式定理</h3><h4 id="适应度选择"><a href="#适应度选择" class="headerlink" title="适应度选择"></a>适应度选择</h4><p>由之前提出的经过选择后超平面$H$留存的样本（个体）数目$M(H,t+1)$：  </p>
+<script type="math/tex; mode=display">M(H,t+1)=M(H,t)\frac{f(H,t)}{\overline{f}}</script><h4 id="重组的作用·定义距"><a href="#重组的作用·定义距" class="headerlink" title="重组的作用·定义距"></a>重组的作用·定义距</h4><p>考虑重组对选择后超平面$H$中种群样本数目的影响：</p>
+<ol>
+<li>重组是有概率发生的，概率为$p_c$。  </li>
+<li>对于发生重组的种群，交叉既有可能产生出现有空间内某个模式的副本（比如100和010交叉就可能产生000，使得000的副本增加一个）即为$gains$，单位为个数，同时也有可能使得原有的样本消失，这个消失的概率记为$losses$。    </li>
+</ol>
+<p>那么现在后代中落在超平面$H$的样本数目：  </p>
+<script type="math/tex; mode=display">M(H,t+1)=(1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-losses)+gains]</script><p>模式定理认为gain发生的概率要远远小于losses。为了简化计算，忽略gain，并且假设发生在Schema上有义部分的交叉必然导致染色体破坏，记破坏概率为$disruption$，那么有：  </p>
+<script type="math/tex; mode=display">M(H,t+1) \geq (1-p_c)M(H,t) \frac{f(H,t)}{\overline{f}} +p_c [M(H,t)\frac{f(H,t)}{\overline{f}}(1-disruption)]</script><p>定义超平面$H$的采样率表示超平面$H$的样本数目与种群中样本数目的比，以$P(H,t)$记。  </p>
+<p><strong>定义距</strong>$Δ(H)$表示超平面$H$对应模式中第一个确定字符的位置和最后一个确定字符的位置之间的距离。如：$Δ( 011 ∗ 1 ∗ ∗ )=4$。<br>按照我们对重组的理解：<strong>对原信息的破坏只可能发生在定义距的区间段内。</strong>  </p>
+<p>此外，如果发生重组的位串都在平面$H$内，那么重组也不可能对原本信息造成破坏，因此要想让重组破坏原有的信息，亲本中的另一条位串必定来自于其他平面，另一个位串来自其他平面的概率为$1-P(H,t)$。<br>由这上述两点可以将破坏概率定义为：  </p>
+<script type="math/tex; mode=display">\frac{\Delta(H)}{L-1}(1-P(H,t))</script><p>由破坏的定义可以得出如下结论：<br><strong>定义距$Δ(H)$越小，模式受到破坏的概率就越小</strong>。从直观上来说，定义距越小，交叉发生在定义距内（即一定能破坏信息）的概率也越小。<br>那么下一代超平面$H$的采样率可以表示为：</p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t))]</script><p>如果考虑亲代是基于适应度选择出来的：  </p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]</script><h4 id="突变的作用·模式阶"><a href="#突变的作用·模式阶" class="headerlink" title="突变的作用·模式阶"></a>突变的作用·模式阶</h4><p>最后，考虑突变的影响：记突变发生的概率为$p_m$，超平面$H$的阶数为$o(H)$，<strong>阶数表示模式中确定字符的个数，当突变发生在这些字符上时，才会对原来的位串产生破坏。</strong><br>那么表示超平面$H$的Schema不会受到突变影响的概率为：  </p>
+<script type="math/tex; mode=display">(1-p_m)^{o(H)}</script><p>可以得出结论：<br><strong>模式的阶数$o(H)$越小,模式不会受到突变影响的概率越大</strong>。从直观上来看，模式的阶数代表着有效字符的个数，有效字符越少，在交叉过程中越容易被保留下来。<br>最终，超平面$H$在下一代中被采样到的概率可以表示为：  </p>
+<script type="math/tex; mode=display">P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}</script><h4 id="指数增长"><a href="#指数增长" class="headerlink" title="指数增长"></a>指数增长</h4><p>可以通过数学推算出，在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时：</p>
+<script type="math/tex; mode=display">P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]=P(H,t) \frac{f(H,t)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,t) \frac{f(H,t)}{\overline{f}} ]^2</script><p>用$t=0$代来推算$t$代时候的采样率：  </p>
+<script type="math/tex; mode=display">P(H,t) ≥ \{P(H,0) \frac{f(H,0)}{\overline{f}}(1-p_c \frac{\Delta(H)}{L-1})+[P(H,0) \frac{f(H,0)}{\overline{f}} ]^2\}^t(1-p_m)^{o(H)}</script><p>可以发现：<strong>在适应度$\frac{f(H,t)}{\overline{f}}&gt;1$时，采样率呈现指数型上升。</strong><br>可以总结为：<br><strong>在选择、重组、突变算子的作用下，当某个超平面的适应度大于1时，模式的阶数$o(H)$越小，定义距$Δ(H)$越小的个体越能够被保留下来，且数目成指数型上升。</strong><br>定义距和模式阶都是染色体本身的参数，通过重组和突变这两个参数被引入到进化中，并对选择起到了关键的作用。  </p>
+<h4 id="对模式定理结论的直观理解"><a href="#对模式定理结论的直观理解" class="headerlink" title="对模式定理结论的直观理解"></a>对模式定理结论的直观理解</h4><p>定义距相当于基因的长度，基因越长，在进化过程中被破坏概率就越大，因此定义距越短的个体越容易在进化中得到保留。<br>例子：兔子的性状<br>模式阶相当于个体携带性状的个数。单纯的红眼兔显然比裂唇长耳红眼兔更容易传递给后代。因此模式阶越小，个体越容易在进化中得到保留。  </p>
+<p>模式定理在数学上证明了重组和突变的有效性，并给出了采样率的下界，是遗传算法中重要的理论基础之一。  </p>
+<h2 id="其他进化算法"><a href="#其他进化算法" class="headerlink" title="其他进化算法"></a>其他进化算法</h2><h3 id="Genitor-算法"><a href="#Genitor-算法" class="headerlink" title="Genitor 算法"></a>Genitor 算法</h3><blockquote>
+<p>进化策略中细分为两种类型：$(μ+λ)-ES$和$(μ,λ)-ES$。<br>在$(μ+λ)-ES$机制中，亲代$μ$产生后代$λ$后，种群还会对亲代和后代共同进行选择，选择其中表现出色的个体生成下一代。在这种选择机制下，亲代会被保留直到被比亲代表现更出色的个体替代。<br>在$(μ,λ)-ES$机制中，后代被产生后就直接替代亲代，选择在后代中执行。这种进化机制在选择阶段与经典遗传算法近似。但是在重组阶段所采用的算子与经典遗传算法不同。<br>$(μ+λ)-ES$机制相比于$(μ,λ)-ES$机制，其被优化的后代数目一定是单调增加的。  </p>
+</blockquote>
+<p>传统的进化算法在进行到最后时，由于留存的都是表现的比较好的个体，因此采用适应度淘汰个体（即选择过程）的压力会随着算法运行次数的增加而不断减弱，最后甚至根本不能对个体有任何选择。Gnitor算法可以加强选择的压力，一定程度上避免这种情况的发生。<br>Genitor算法是一种使用$(μ+λ)-ES$机制的算法，其与经典遗传算法中的进化模型不同点有三处。  </p>
+<ol>
+<li>选择在亲代中执行，选择后的亲代产生的后代被立即投放到下一代种群中。  </li>
+<li>后代不会替代亲代，但是每一代中适应度最差的个体被直接移除以加强选择压力。  </li>
+<li>适应度函数通过排名算法（Ranking）而非比值来表现。排名也同样能够保持选择压力的有效性。  </li>
+</ol>
+<h4 id="排名算法"><a href="#排名算法" class="headerlink" title="排名算法"></a>排名算法</h4><p>设三个个体的适应度评估为：$h_1,h_2,h_3$.<br>首先对所有个体按照适应度从小到大排序，比如：$h_2,h_1,h_3$;<br>按照上面的顺序重新赋予fitness，即$f(h_2)=1,f(h_1)=2,f(h_3)=3$<br>计算选择概率:$p(h_2)=\frac{1}{1+2+3}=\frac{1}{6},p(h_1)=\frac{2}{6},p(h_3)=\frac{3}{6}$<br>排名算法能够不受制于适应度的限制，选择压力不会因为总体适应度的上升而减小，保证了选择的有效性。<br>同时排名算法的运行机制也参考了适应度，保证了选择的可靠性。  </p>
+<h3 id="锦标赛（Tournaments）算法"><a href="#锦标赛（Tournaments）算法" class="headerlink" title="锦标赛（Tournaments）算法"></a>锦标赛（Tournaments）算法</h3><ol>
+<li>确定每次选择的个体数量N。（二元锦标赛选择即选择2个个体）</li>
+<li>从种群中随机选择N个个体(每个个体被选择的概率相同) ，根据每个个体的适应度值，选择其中适应度值最好的个体进入下一代种群。</li>
+<li>重复步骤(2)多次（重复次数为种群的大小），直到新的种群规模达到原来的种群规模。<br>锦标赛算法相当于是有噪声的排序算法。<br>由于2这一步可以同时选择若干个体数量为N的组，每一组内的选择是独立的，因此通过锦标赛算法可以将遗传算法进行并行化处理，大大地节省了运算时间。  </li>
+</ol>
+<h2 id="遗传算法的局限性"><a href="#遗传算法的局限性" class="headerlink" title="遗传算法的局限性"></a>遗传算法的局限性</h2><h3 id="计算量问题"><a href="#计算量问题" class="headerlink" title="计算量问题"></a>计算量问题</h3><p>对于遗传算法来说评估函数的计算速度和计算量是一个问题：首先，对于现有种群的评估计算量就比较大。不仅如此，种群的后代也需要进行评估——这会导致计算量的暴增。  </p>
+<h3 id="信息表达问题"><a href="#信息表达问题" class="headerlink" title="信息表达问题"></a>信息表达问题</h3><p>遗传算法的每个个体用位串来表示，能够存储的信息量、用于描述单个个体的精度有限。  </p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" class="category-chain-item">遗传算法</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>讲义：什么是遗传算法（GA）？</div>
+      <div>https://l61012345.top/2021/09/30/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月30日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年4月17日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/5.%20%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6/" title="05. 模拟基带信号的线性调制方法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">05. 模拟基带信号的线性调制方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" title="04. 高斯噪声">
+                        <span class="hidden-mobile">04. 高斯噪声</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="true"
+      >
+        遗传算法
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/30/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建和渲染。<br> ©OrekiKigiha 2021 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var title = subtitle.title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.staticfile.org/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</body>
+</html>
