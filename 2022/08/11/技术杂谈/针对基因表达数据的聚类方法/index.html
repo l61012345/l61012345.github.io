@@ -24,7 +24,7 @@
 <meta property="og:description" content="针对基因表达数据的聚类方法 Cluster Analysis for Gene Expression Data: A Survey. Daxin Jiang et al, 2004.DNA微阵列（基因芯片）简介:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;46017763基因表达数据：https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;%E5%9F%BA%E5%9B%A0%E8">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-11T06:18:26.327Z">
-<meta property="article:modified_time" content="2022-08-11T08:32:07.429Z">
+<meta property="article:modified_time" content="2022-08-12T02:24:57.014Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.6k 字
+          5.1k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          30 分钟
+          43 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月11日 早上
+                    本文最后更新于：2022年8月12日 凌晨
                   
                 
               </p>
@@ -337,7 +337,7 @@ p.spoiler {
             <div class="markdown-body">
               
               <h1 id="针对基因表达数据的聚类方法"><a href="#针对基因表达数据的聚类方法" class="headerlink" title="针对基因表达数据的聚类方法"></a>针对基因表达数据的聚类方法</h1><blockquote>
-<p><em>Cluster Analysis for Gene Expression Data: A Survey.</em> Daxin Jiang et al, 2004.<br>DNA微阵列（基因芯片）简介:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46017763">https://zhuanlan.zhihu.com/p/46017763</a><br>基因表达数据：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE/347523">https://baike.baidu.com/item/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE/347523</a>  </p>
+<p><em>Cluster Analysis for Gene Expression Data: A Survey.</em> Daxin Jiang et al, 2004.<br>DNA微阵列（基因芯片）简介:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46017763">https://zhuanlan.zhihu.com/p/46017763</a><br>基因表达数据：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE/347523">https://baike.baidu.com/item/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE/347523</a><br>SOM(自组织映射神经网络)——理论篇：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73534694">https://zhuanlan.zhihu.com/p/73534694</a></p>
 </blockquote>
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h3 id="DNA微阵列技术"><a href="#DNA微阵列技术" class="headerlink" title="DNA微阵列技术"></a>DNA微阵列技术</h3><p>随着人类基因组（测序）计划（Human genome project）的逐步实施以及分子生物学相关学科的迅猛发展，越来越多的动植物、微生物基因组序列得以测定，基因序列数据正在以前所未有的速度迅速增长，传统的基因检测方式效率低下，为此，建立新型杂交和测序方法以对大量的遗传信息进行高效、快速的检测、分析显得格外重要。<br>cDNA微阵列技术/基因芯片技术（cDNA Microarrays/gene chip）是解决这一问题的重要技术：通过微加工技术将数以万计、乃至百万计的特定序列的DNA片段（基因探针），有规律地排列固定于2平方厘米左右的硅片、玻片等支持物上，构成的一个二维DNA探针阵列，其结构与计算机的电子芯片十分相似，所以被称为基因芯片。基因芯片主要用于基因检测工作。  </p>
 <h3 id="基因表达数据"><a href="#基因表达数据" class="headerlink" title="基因表达数据"></a>基因表达数据</h3><p>通过cDNA技术检测出来的基因数据称为基因表达数据(gene expression data)。基因表达数据反映的是直接或间接测量得到的基因转录产物mRNA在细胞中的丰度，这些数据可以用于分析哪些基因的表达发生了改变，基因之间有何相关性，在不同条件下基因的活动是如何受影响的。它们在医学临床诊断、药物疗效判断、揭示疾病发生机制等方面有重要的应用。随着 cDNA 微阵列和寡核苷酸芯片等高通量检测技术的发展，生物学家可以从全基因组水平定量或定性检测基因转录产物 mRNA。由于生物体中的细胞种类繁多，同时基因表达具有<strong>时空特异性</strong>，因此，基因表达数据与基因组数据相比，要更为复杂，数据量更大，数据的增长速度更快。<br>在本论文中，基因表达数据以矩阵的形式出现：矩阵的每一行$\boldsymbol{g_i}$表示每一个基因，矩阵的每一列$\boldsymbol{s_j}$表示一次在某一特定条件下对基因的表达实验，称为一次采样（sample）。矩阵的每一个元素$w_{i,j}$表示基因$g_i$在实验$s_j$下的表达水平(expression level)，表达水平是一个实数值。基因表达数据的组织形式如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220811144554.png width=60%>  </p>
@@ -366,7 +366,18 @@ p.spoiler {
 <h3 id="标准化的数据"><a href="#标准化的数据" class="headerlink" title="标准化的数据"></a>标准化的数据</h3><p>前文中提到，如果对基因表达数据进行标准化处理，那么欧氏距离的度量效果会好得多。数据的标准化定义为：  </p>
 <script type="math/tex; mode=display">O'_{id}=\frac{O_{id}-μ_{O_i}}{σ_{O_i}}</script><p>通过数学公式可以证明如下式子成立：  </p>
 <script type="math/tex; mode=display">Pearson(O_i,O_j)=Pearson(O'_i,O'_j)</script><script type="math/tex; mode=display">Euclidean(O'_i,O'_j)=\sqrt{2p}(\sqrt{1-Pearson(O'_i,O'_j)})</script><p>上述式子可以说明，在标准化的前提下，皮尔森相关系数和欧氏距离的效果是相同的。  </p>
-
+<h2 id="基于基因的聚类"><a href="#基于基因的聚类" class="headerlink" title="基于基因的聚类"></a>基于基因的聚类</h2><h3 id="K均值算法"><a href="#K均值算法" class="headerlink" title="K均值算法"></a>K均值算法</h3><p>K均值算法(K-means)是一种最基本的基于划分的(partition-based)聚类方法。在运行K-means之前需要设置类别数$K$，K-means会最终将数据分为$K$类。<br>对于如图所示的数据集，使用K均值算法将其分成两类数据。<br>K均值算法的第一步是在数据集中随机生成两点，称为聚类中心/质心（Cluster Centroid）。（要分为多少类，就要生成多少个聚类中心）<br>K均值算法是一个迭代算法，每一次迭代过程分为两部分：</p>
+<ul>
+<li>簇分配<br>K均值算法会遍历每一个数据，计算该点与每一个聚类中心的距离，该点会被归属到最近的质心。  </li>
+<li>移动聚类中心<br>移动聚类中心到当前集群的平均位置<br>之后K均值算法会重复上述两步，直到聚类中心不再移动，此时可以认为聚类已经实现。<br>K均值算法的优化函数为：  <script type="math/tex; mode=display">E=∑_{i=1}^K∑_{O∈C_i}|O-μ_i|^2</script>其中$O$为$C_i$簇中的一个数据点，$μ_i$为$C_i$簇的质心。<br>因此K均值算法尝试最小化距离的各数据点到簇的质心的距离的平方和。  </li>
+</ul>
+<h4 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h4><p>K均值算法快而简单，往往经过很少的迭代就能够达到收敛。<br>K均值算法的缺点是，对于基因表达数据，往往$K$是不能通过先验知识可以确定的，因此需要使用不同的$K$多次执行K均值算法以找到最合适的$K$。这种做法对数据量大和潜在类别数多的数据集来说往往是不切实际的。<br>再者，K均值算法强制为每一个基因都会找到一个簇，即使这个基因可能并不适合每一个簇。对于信噪比非常低的基因表达数据，这些噪声也会被聚类到某些簇中，因此K均值算法对噪声非常敏感。<br>某些改进后的K均值算法通过设置某些全局参数来对K均值算法的运行过程进行限制，但是这些全局参数的设置仍然需要多次尝试以找到合适的设置。  </p>
+<h3 id="自组织映射神经网络"><a href="#自组织映射神经网络" class="headerlink" title="自组织映射神经网络"></a>自组织映射神经网络</h3><p>自组织映射神经网络(SOM,Self-organizing)是一种只有两层的无监督的人工神经网络。通过学习输入空间中的数据，生成一个低维、离散的映射(Map)，从某种程度上也可看成一种降维算法。不同于一般神经网络基于损失函数的反向传播来训练，它运用竞争学习(competitive learning)策略，依靠神经元之间互相竞争逐步优化网络。且使用近邻关系函数(neighborhood function)来维持输入空间的拓扑结构。<br>SOM的结构如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812094845.png width=50%>  </p>
+<p>SOM只有两层，第一层为输入层，第二层为输出层，也称为竞争层(computational layer)。<br>输入层神经元的数量是由输入向量的维度决定的，一个神经元对应一个特征。<br>神经网络的每个神经元都与一个参考向量相关，每个数据点都被映射到具有 “最接近 “参考向量的神经元上。在运行该算法的过程中，每个数据对象作为一个训练样本，引导参考向量向输入向量空间的密集区域移动，从而使这些参考向量被训练成适合输入数据集的分布。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/v2-f52b70ceb4be67a91ebd807236a27fbf_b.gif width=50%>  </p>
+<p>训练完成后，所有的数据点都被映射到竞争层的神经元，在竞争层观察到竞争层的神经元移动到输入层数据密集的区域。  </p>
+<h4 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h4><p>自组织映射神经网络最突出的特点是在输出层可以非常直观地观察到数据分布的特性；并且相比于K均值算法的抗噪性更好。但是自组织神经网络需要设定类别和初始竞争层的结构（如下图所示），这些参数的设置是一门学问。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812101143.png width=50%><br>如果数据集中有大量的与目标无关紧要的数据，在算法运行结束后，每一个簇中充斥着大量的这样的无关紧要的数据。   </p>
+<h3 id="分层聚类"><a href="#分层聚类" class="headerlink" title="分层聚类"></a>分层聚类</h3><p>K均值算法和自组织映射神经网络都是基于划分的聚类方法，另一种聚类方法是分层聚类(hierarchical clustering)。  </p>
+<h3 id="基于基因聚类的困难性"><a href="#基于基因聚类的困难性" class="headerlink" title="基于基因聚类的困难性"></a>基于基因聚类的困难性</h3>
               
             </div>
             <hr/>
@@ -429,7 +440,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月11日</div>
+          <div>2022年8月12日</div>
         </div>
       
       <div class="license-meta-item">
