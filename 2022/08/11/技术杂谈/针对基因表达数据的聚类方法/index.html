@@ -24,7 +24,7 @@
 <meta property="og:description" content="针对基因表达数据的聚类方法 Cluster Analysis for Gene Expression Data: A Survey. Daxin Jiang et al, 2004.DNA微阵列（基因芯片）简介:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;46017763基因表达数据：https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;%E5%9F%BA%E5%9B%A0%E8">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-11T06:18:26.327Z">
-<meta property="article:modified_time" content="2022-08-12T02:24:57.014Z">
+<meta property="article:modified_time" content="2022-08-14T05:01:16.897Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.1k 字
+          5.7k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          43 分钟
+          48 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月12日 凌晨
+                    本文最后更新于：2022年8月14日 凌晨
                   
                 
               </p>
@@ -376,7 +376,9 @@ p.spoiler {
 <p>SOM只有两层，第一层为输入层，第二层为输出层，也称为竞争层(computational layer)。<br>输入层神经元的数量是由输入向量的维度决定的，一个神经元对应一个特征。<br>神经网络的每个神经元都与一个参考向量相关，每个数据点都被映射到具有 “最接近 “参考向量的神经元上。在运行该算法的过程中，每个数据对象作为一个训练样本，引导参考向量向输入向量空间的密集区域移动，从而使这些参考向量被训练成适合输入数据集的分布。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/v2-f52b70ceb4be67a91ebd807236a27fbf_b.gif width=50%>  </p>
 <p>训练完成后，所有的数据点都被映射到竞争层的神经元，在竞争层观察到竞争层的神经元移动到输入层数据密集的区域。  </p>
 <h4 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h4><p>自组织映射神经网络最突出的特点是在输出层可以非常直观地观察到数据分布的特性；并且相比于K均值算法的抗噪性更好。但是自组织神经网络需要设定类别和初始竞争层的结构（如下图所示），这些参数的设置是一门学问。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812101143.png width=50%><br>如果数据集中有大量的与目标无关紧要的数据，在算法运行结束后，每一个簇中充斥着大量的这样的无关紧要的数据。   </p>
-<h3 id="分层聚类"><a href="#分层聚类" class="headerlink" title="分层聚类"></a>分层聚类</h3><p>K均值算法和自组织映射神经网络都是基于划分的聚类方法，另一种聚类方法是分层聚类(hierarchical clustering)。  </p>
+<h3 id="分层聚类"><a href="#分层聚类" class="headerlink" title="分层聚类"></a>分层聚类</h3><p>K均值算法和自组织映射神经网络都是基于划分的聚类方法，另一种聚类方法是分层聚类(hierarchical clustering)。与将数据直接划分为类别不同的是，分层聚类的聚类结果是相互交织叠加的类别，这些类别具有层级之分，层级可以通过聚类树状图(bendgram)进行表示，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220814124704.png width=50%>  </p>
+<p>聚类树状图表示了类别之间的从属关系，可以允许根据需要的聚类层级来让用户自由选择聚类的程度。<br>分层聚类可以分为自上而下(divisive)和自下而上(agglomerative)两种算法类别。<br>自下而上的分层聚类最初将每一个数据点视为单独的一类，接下来的每一次迭代都根据度量将数据点两两聚为一类，最终所有数据全部聚为一类时，算法收敛。自下而上的分层聚类算法的度量通常是相似度(proximity)。常见的自下而上的分层聚类比如单链接聚类(single link)、完全链接聚类(complete link)、最小方差聚类等算法(minimum-variance)。<br>自上而下的分层最初将整个数据集中的所有数据视为一类，然后使用启发式算法或者基本图论对类别逐一划分，最终每一个数据点都为单独的一类时，算法收敛。  </p>
+<p>分层聚类的优点是为数据提供了一种直观的表达形式，而且允许算法的使用者根据结果自行决定聚类的深度。分层聚类的缺点是鲁棒性不高：对数据集的些许扰动最终可能会导致整个聚类树状图出现较大的变动。其次，算法的计算复杂度比较高。最后，由于分层聚类的贪心特性，每一次迭代的结果都基于前一次迭代，如果某一次迭代的聚类效果并不好，那么将会影响到之后的所有迭代。  </p>
 <h3 id="基于基因聚类的困难性"><a href="#基于基因聚类的困难性" class="headerlink" title="基于基因聚类的困难性"></a>基于基因聚类的困难性</h3>
               
             </div>
@@ -440,7 +442,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月12日</div>
+          <div>2022年8月14日</div>
         </div>
       
       <div class="license-meta-item">
