@@ -24,7 +24,7 @@
 <meta property="og:description" content="针对基因表达数据的聚类方法 Cluster Analysis for Gene Expression Data: A Survey. Daxin Jiang et al, 2004.DNA微阵列（基因芯片）简介:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;46017763基因表达数据：https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;%E5%9F%BA%E5%9B%A0%E8">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-11T06:18:26.327Z">
-<meta property="article:modified_time" content="2022-08-15T02:20:38.181Z">
+<meta property="article:modified_time" content="2022-08-15T03:03:34.443Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="针对基因表达数据的聚类方法">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.3k 字
+          8k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          61 分钟
+          67 分钟
         
       </span>
     
@@ -395,6 +395,16 @@ p.spoiler {
 </ul>
 <p>CLICK算法的同质性(homogeneity，同一个簇中的个体相似度高)和异质性/分离性(heterogeneity/seperation，不同簇中的个体相似度低，差异大)都比较好。<br>但是CLICK几乎不能保证迭代过程不走错路，最终导致生成高度不平衡的划分(highly-unbalanced partitions)：比如一个将数据集分为数据点数量差异非常悬殊的划分。此外，如果最终的簇与簇之间可能存在交叠的话，CLICK算法也不能处理好这样的数据。对于基因表达数据而言，可以通过经验判断其最终簇和簇之间可能会有交叠，因此CLICK算法可能无法正确处理这样的基因表达数据。  </p>
 <h4 id="CAST算法"><a href="#CAST算法" class="headerlink" title="CAST算法"></a>CAST算法</h4><p>CAST算法认为对数据集正确的簇分类可以表示为一个团图(clique graph)$ℋ$，这个团图中的每一个团都对应了一个簇。团图的相似度图可以根据以概率$α$翻转每条连接得到。对于数据的聚类可以认为是通过对相似度图进行一定的翻转，最终得到一个确定的团图。<br>CAST算法用亲和度(affinity)来衡量每一个数据点对某个簇的从属关系，并通过一个设定的亲和度阈值(affinity threshold)$t$来决定某个数据点是否属于这个簇。在算法的迭代过程中，CAST会不断删除这个簇中亲和度小的数据点，并添加亲和度高的数据点。亲和度阈值实际上是当前这个簇中所有数据点配对的平均相似度，因此无需设置。<br>CAST算法的优点是不需要用户提前对簇的数量等参数进行设置。但是对于大量数据，寻找亲和度阈值过程的计算量和复杂度都比较高。  </p>
+<h3 id="基于模型的聚类"><a href="#基于模型的聚类" class="headerlink" title="基于模型的聚类"></a>基于模型的聚类</h3><p>基于模型的聚类方法 (Model-based Clustering Methods)的基本其基本思想是:整个数据集的分布一定由有限个已知的概率分布模型叠加而成；其中每一个簇对应了一个已知的概率分布模型。那么整个整个数据集的概率模型可以表示为:  </p>
+<script type="math/tex; mode=display">L_{mix}(Θ,Γ)=∑_{i=1}^kγ_r^if_i(x_r|θ_i)</script><p>其中，$n$是数据点的数量；$k$是簇（即概率模型）的数量；$x_r$是一个数据点；$γ_r^i$表示$x_r$属于簇$C_i$的概率，称为隐含参数；$f_i(x_r|θ_i)$是引入$x_r$后簇$C_i$概率密度函数，其中包含一些未知参数$θ_i$，称为模型参数。  </p>
+<p>基于模型的聚类方法需要找到使得$L_{mix}(Θ,Γ)$最大的所有$Θ=\{θ_i|1≤i≤k\}$和$Γ=\{γ^i_r|1≤i≤k,1≤r≤n\}$。<br>通常，可以通过EM算法/期望最大化算法(Expectation-Maximum)找到合适的$Γ$和$Θ$。EM算法的运行过程分为两步：期望和最大化。  </p>
+<ul>
+<li>首先对每一个簇的概率模型中参数$Θ$（比如均值和方差）进行的随机初始化。</li>
+<li>期望过程(E过程)：计算每个数据点$x_r$更属于哪一个簇的概率分布，计算每个数据点对最佳簇的$γ_r^i$，得到$Γ$。  </li>
+<li>最大化过程(M过程)：利用现在每个簇中的数据点分别对每个簇的概率密度参数$θ_i$进行极大似然估计，得到$Θ$.  </li>
+</ul>
+<p>然后重新计算每个数据点$x_r$更属于哪一个簇的概率分布，如此重复E过程和M过程，直到$Γ$和$Θ$不再发生变化。  </p>
+<p>基因表达数据可能会出现单个基因与两个不同的簇有高度相关性的情况。基于模型的聚类的概率性质适合处理这种情况。但是基于模型的聚类假设了每一个簇一定服从某个特定的概率分布模型，事实上这一假设未必符合实际。  </p>
 <h3 id="基于基因聚类的困难性"><a href="#基于基因聚类的困难性" class="headerlink" title="基于基因聚类的困难性"></a>基于基因聚类的困难性</h3>
               
             </div>
@@ -866,5 +876,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
