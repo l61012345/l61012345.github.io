@@ -24,7 +24,7 @@
 <meta property="og:description" content="针对基因表达数据的聚类方法 Cluster Analysis for Gene Expression Data: A Survey. Daxin Jiang et al, 2004.DNA微阵列（基因芯片）简介:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;46017763基因表达数据：https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;%E5%9F%BA%E5%9B%A0%E8">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-11T06:18:26.327Z">
-<meta property="article:modified_time" content="2022-08-14T05:36:03.841Z">
+<meta property="article:modified_time" content="2022-08-15T02:20:38.181Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="针对基因表达数据的聚类方法">
             
           </span>
         </div>
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.2k 字
+          7.3k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          52 分钟
+          61 分钟
         
       </span>
     
@@ -329,7 +329,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年8月14日 凌晨
+                    本文最后更新于：2022年8月15日 凌晨
                   
                 
               </p>
@@ -378,15 +378,23 @@ p.spoiler {
 <h4 id="评价-1"><a href="#评价-1" class="headerlink" title="评价"></a>评价</h4><p>自组织映射神经网络最突出的特点是在输出层可以非常直观地观察到数据分布的特性；并且相比于K均值算法的抗噪性更好。但是自组织神经网络需要设定类别和初始竞争层的结构（如下图所示），这些参数的设置是一门学问。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812101143.png width=50%><br>如果数据集中有大量的与目标无关紧要的数据，在算法运行结束后，每一个簇中充斥着大量的这样的无关紧要的数据。   </p>
 <h3 id="分层聚类"><a href="#分层聚类" class="headerlink" title="分层聚类"></a>分层聚类</h3><p>K均值算法和自组织映射神经网络都是基于划分的聚类方法，另一种聚类方法是分层聚类(hierarchical clustering)。与将数据直接划分为类别不同的是，分层聚类的聚类结果是相互交织叠加的类别，这些类别具有层级之分，层级可以通过聚类树状图(bendgram)进行表示，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220814124704.png width=50%>  </p>
 <p>聚类树状图表示了类别之间的从属关系，可以允许根据需要的聚类层级来让用户自由选择聚类的程度。<br>分层聚类可以分为自上而下(divisive)和自下而上(agglomerative)两种算法类别。<br>自下而上的分层聚类最初将每一个数据点视为单独的一类，接下来的每一次迭代都根据度量将两个距离差最小的数据点为一类，最终所有数据全部聚为一类时，算法收敛。自下而上的分层聚类算法的度量通常是相似度(proximity)。常见的自下而上的分层聚类比如单链接聚类(single link)、完全链接聚类(complete link)、最小方差聚类等算法(minimum-variance)。<br>自上而下的分层最初将整个数据集中的所有数据视为一类，然后使用启发式算法或者基本图论对类别逐一划分，最终每一个数据点都为单独的一类时，算法收敛。  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220814131607.png width=50%>   </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/v2-799328533a95593af257a7a1649f521e_720w.gif width=50%>   </p>
 <p>分层聚类的优点是为数据提供了一种直观的表达形式，而且允许算法的使用者根据结果自行决定聚类的深度。分层聚类的缺点是鲁棒性不高：对数据集的些许扰动最终可能会导致整个聚类树状图出现较大的变动。其次，算法的计算复杂度比较高。最后，由于分层聚类的贪心特性，每一次迭代的结果都基于前一次迭代，如果某一次迭代的聚类效果并不好，那么将会影响到之后的所有迭代。  </p>
-<h3 id="图论聚类"><a href="#图论聚类" class="headerlink" title="图论聚类"></a>图论聚类</h3><p>对于一个数据集$X$，可以建立起一个相似度矩阵$P$，使得矩阵$P$中的每一个元素为对应的两个数据点的相似度：$P[i,j]=proximity(O_i,O_j)$. 在图论聚类(graph thoertical clustering)中，根据相似度矩阵建立一个相似度图(proximity graph)，这个图中的每个定点代表一个数据点。两个数据点的连线上根据这两个数据点的相似度被赋予一定权重。如此就将一个聚类问题转化为了图论中的最小割问题(minimum cut)或者最大团(maximum cliques)问题。  </p>
+<h3 id="图论聚类"><a href="#图论聚类" class="headerlink" title="图论聚类"></a>图论聚类</h3><p>对于一个数据集$X$，可以建立起一个相似度矩阵$P$，使得矩阵$P$中的每一个元素为对应的两个数据点的相似度：$P[i,j]=proximity(O_i,O_j)$. 在图论聚类(graph thoertical clustering)中，根据相似度矩阵建立一个相似度图(proximity graph)$𝒢$，这个图中的每个定点代表一个数据点。两个数据点的连线上根据这两个数据点的相似度被赋予一定权重。如此就将一个聚类问题转化为了图论中的最小割问题(minimum cut)或者最大团(maximum cliques)问题。  </p>
 <div class="note note-info">
-            <p>最小割问题：<br>在图论中，去掉其中所有边能使一张网络流图不再连通（即分成两个子图）的边集称为图的割，一张图上最小的割称为最小割。图中所有的割中，边权值和最小的割为最小割。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220814133519.png width=30%>  </p>
+            <p>最小割问题：<br>在图论中，去掉其中所有边能使一张网络流图不再连通（即分成两个子图）的边集称为图的割，一张图上最小的割称为最小割。图中所有的割中，边权值和最小的割为最小割。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220814133519.png width=30%><br>可以理解，在相似度图$𝒢$中的最小割代表使得相似度最小的几个连线被断开，形成两个新的簇。  </p>
           </div>
 <div class="note note-info">
             <p>最大团问题：<br>对于一个无向图$G=(V,E)$，$V$是点集，$E$是边集。取$V$的一个子集$U$，若对于$U$中任意两个点$u$和$v$，有边$(u,v)∈E$，那么称$U$是$G$的一个完全子图。如果该完全子图$U$不包含在更大的完全子图中，那么称$U$是一个团。$G$的最大团指的是顶点数最多的一个团。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220814132739.png width=20%>  </p>
           </div>
+<p>本论文中提到的图论聚类的两种算法为CLICK和CAST。  </p>
+<h4 id="CLICK算法"><a href="#CLICK算法" class="headerlink" title="CLICK算法"></a>CLICK算法</h4><p>CLICK算法(CLuster Identification via Connectivity Kernels)试图将相似度图中具有较大权值连接的顶点聚为一簇。CLICK算法基于一个假设：标准化后的权值服从正态分布。CLICK算法中相似图的某条连接的权重$w_{ij}$可以理解为顶点$i$和顶点$j$被分到同一个簇中的概率。CLICK的迭代过程需要不断地找到整个相似度图$𝒢$以及其最小割后的子图的最小割。<br>之后，CLICK算法有额外的两步对聚类结果进行修饰(refine)：  </p>
+<ul>
+<li>“采用”步骤(adoption step)用于处理迭代过程之后剩下的单个顶点(singletions)，并更新当前的簇。  </li>
+<li>“合并”步骤(merge step)用于合并两个相似度超过某个提前设定好的阈值的簇。  </li>
+</ul>
+<p>CLICK算法的同质性(homogeneity，同一个簇中的个体相似度高)和异质性/分离性(heterogeneity/seperation，不同簇中的个体相似度低，差异大)都比较好。<br>但是CLICK几乎不能保证迭代过程不走错路，最终导致生成高度不平衡的划分(highly-unbalanced partitions)：比如一个将数据集分为数据点数量差异非常悬殊的划分。此外，如果最终的簇与簇之间可能存在交叠的话，CLICK算法也不能处理好这样的数据。对于基因表达数据而言，可以通过经验判断其最终簇和簇之间可能会有交叠，因此CLICK算法可能无法正确处理这样的基因表达数据。  </p>
+<h4 id="CAST算法"><a href="#CAST算法" class="headerlink" title="CAST算法"></a>CAST算法</h4><p>CAST算法认为对数据集正确的簇分类可以表示为一个团图(clique graph)$ℋ$，这个团图中的每一个团都对应了一个簇。团图的相似度图可以根据以概率$α$翻转每条连接得到。对于数据的聚类可以认为是通过对相似度图进行一定的翻转，最终得到一个确定的团图。<br>CAST算法用亲和度(affinity)来衡量每一个数据点对某个簇的从属关系，并通过一个设定的亲和度阈值(affinity threshold)$t$来决定某个数据点是否属于这个簇。在算法的迭代过程中，CAST会不断删除这个簇中亲和度小的数据点，并添加亲和度高的数据点。亲和度阈值实际上是当前这个簇中所有数据点配对的平均相似度，因此无需设置。<br>CAST算法的优点是不需要用户提前对簇的数量等参数进行设置。但是对于大量数据，寻找亲和度阈值过程的计算量和复杂度都比较高。  </p>
 <h3 id="基于基因聚类的困难性"><a href="#基于基因聚类的困难性" class="headerlink" title="基于基因聚类的困难性"></a>基于基因聚类的困难性</h3>
               
             </div>
@@ -450,7 +458,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年8月14日</div>
+          <div>2022年8月15日</div>
         </div>
       
       <div class="license-meta-item">
@@ -858,20 +866,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
