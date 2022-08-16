@@ -1,0 +1,840 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="TensorFlow 入门项目：训练一个VGG模型 代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：  读取数据集，加载数据集中的图像和标签 划分训练集和测试集 定义分类器，此处需要定义使用的Google的VGG模型 将训练集放入分类器训练，并用测试集输出评价 输出设定的评">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TensorFlow 入门项目：训练一个VGG模型">
+<meta property="og:url" content="https://l61012345.top/2021/09/25/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E4%BD%BF%E7%94%A8tensorflow/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="TensorFlow 入门项目：训练一个VGG模型 代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：  读取数据集，加载数据集中的图像和标签 划分训练集和测试集 定义分类器，此处需要定义使用的Google的VGG模型 将训练集放入分类器训练，并用测试集输出评价 输出设定的评">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-25T07:18:25.792Z">
+<meta property="article:modified_time" content="2022-04-02T12:01:16.226Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta property="article:tag" content="Tensorflow">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>TensorFlow 入门项目：训练一个VGG模型 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/essay-map/">
+                <i class="iconfont icon-books"></i>
+                论文导图
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          <span id="subtitle" title="TensorFlow 入门项目：训练一个VGG模型">
+            
+          </span>
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-09-25 07:18" pubdate>
+          2021年9月25日 早上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">TensorFlow 入门项目：训练一个VGG模型</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年4月2日 中午
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="TensorFlow-入门项目：训练一个VGG模型"><a href="#TensorFlow-入门项目：训练一个VGG模型" class="headerlink" title="TensorFlow 入门项目：训练一个VGG模型"></a>TensorFlow 入门项目：训练一个VGG模型</h1><blockquote>
+<p>代码环境建议为：Python37/38/39 Tensorflow 2.3.0/2.6.0</p>
+</blockquote>
+<p>同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：</p>
+<ol>
+<li>读取数据集，加载数据集中的图像和标签</li>
+<li>划分训练集和测试集</li>
+<li>定义分类器，此处需要定义使用的Google的VGG模型</li>
+<li>将训练集放入分类器训练，并用测试集输出评价</li>
+<li>输出设定的评价标准</li>
+<li>保存模型</li>
+</ol>
+<p>整个过程需要的函数库如下所示：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> glob<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> cv2 <span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> Model, Sequential, layers, models<br><span class="hljs-keyword">from</span> tensorflow.keras.callbacks <span class="hljs-keyword">import</span> EarlyStopping, ReduceLROnPlateau<br><span class="hljs-keyword">from</span> tensorflow.keras.preprocessing.image <span class="hljs-keyword">import</span> ImageDataGenerator<br></code></pre></td></tr></table></figure><br>在正式进行训练之前，可以利用tf中的<code>tf.config.experimental.list_physical_devices(&#39;GPU&#39;)</code>查找并选择使用GPU，写法是固定的。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment">#调用GPU</span><br>gpus = tf.config.experimental.list_physical_devices(<span class="hljs-string">&#x27;GPU&#x27;</span>)<br><span class="hljs-keyword">if</span> gpus:<br>    <span class="hljs-keyword">for</span> gpu <span class="hljs-keyword">in</span> gpus:<br>        tf.config.experimental.set_memory_growth(gpu, <span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="加载数据集"><a href="#加载数据集" class="headerlink" title="加载数据集"></a>加载数据集</h2><p>这一部分的思路与NUS项目中使用Sklearn创建交通标志分类器的思路几乎完全相同：定义两个list用于分别存放图像集和标签集。遍历整个数据集。遍历数据集的方法使用<code>glob()</code>函数，数据集的文件夹层级为；<br>—dataset<br>..|-images<br>….|-cato1<br>….|-cato2<br>….|-cato3<br>….|-cato4<br>其中每一张图像以类似<code>001_photoname.jpg</code>命名，001是图像的类别标签。<br>对于图像，使用<code>cv2.imread()</code>将图像转为np.array格式后存放到list即可。对于图像所对应的标签，此处使用的是<code>split()</code>函数对文件路径、或者是文件名中含有的标签信息进行提取。如果标签在数据集中以<em>.csv或者</em>.exls的表格文件储存，则需要调用pandas函数库进行处理。<br>需要注意的是，图像需要用<code>cv2.resize()</code>保证每张图片的大小相同，即矩阵的大小是相等的。  </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 定义容器</span><br>x = []  <span class="hljs-comment"># 图像集</span><br>y = []  <span class="hljs-comment"># 标签集</span><br><br>ImgHight = <span class="hljs-number">64</span> <span class="hljs-comment"># 图片高度</span><br>ImgWidth = <span class="hljs-number">64</span> <span class="hljs-comment"># 图片宽度</span><br><br><span class="hljs-comment"># 加载数据集</span><br>dataset_root = <span class="hljs-string">&#x27;dataset/images/**/&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> glob.glob(dataset_root + <span class="hljs-string">&#x27;*.jpg&#x27;</span>, recursive=<span class="hljs-literal">True</span>):<br>    img = cv2.imread(i)<br>    img_resize = cv2.resize(img, (ImgWidth, ImgHight))  <span class="hljs-comment"># 裁剪图像</span><br>    x.append(img_resize)<br>    label = i.split(<span class="hljs-string">&quot;\\&quot;</span>)[<span class="hljs-number">2</span>][<span class="hljs-number">0</span>:<span class="hljs-number">3</span>]  <span class="hljs-comment"># 分词找标签</span><br>    y.append(<span class="hljs-built_in">int</span>(label))<br><br><span class="hljs-comment"># 错误代码</span><br><span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(x) == <span class="hljs-number">0</span>:<br>    print(<span class="hljs-string">&#x27;Missing files&#x27;</span>)<br><span class="hljs-keyword">elif</span> <span class="hljs-built_in">len</span>(y) == <span class="hljs-number">0</span>:<br>    print(<span class="hljs-string">&quot;missing names&quot;</span>)<br><br>print(<span class="hljs-string">&quot;reading completed&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>由于tf只支持标签和图像都为np.array格式，因此需要将标签和图像列表都转换为np.array格式。<br>此外还需要将图像列表转为一个长向量，以便输入分类器进行拟合。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 把标签和图像转为nparry格式</span><br>x = np.array(x).reshape(-<span class="hljs-number">1</span>, ImgHight, ImgWidth, <span class="hljs-number">3</span>)  <span class="hljs-comment"># 转为1维长向量</span><br>y = np.array(y)<br></code></pre></td></tr></table></figure><br>同样地，此处使用Sklearn中的<code>train_test_split()</code>函数对数据集进行随机划分，划分为测试集和训练集两部分。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 划分训练集和测试集</span><br>x_train, x_test, y_train, y_test = train_test_split(x,<br>                                                    y,<br>                                                    test_size=<span class="hljs-number">0.4</span>,<br>                                                    shuffle=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="加载模型"><a href="#加载模型" class="headerlink" title="加载模型"></a>加载模型</h2><p>此处使用<code>tf.keras.applications.vgg16.VGG16()</code>来加载TensorFlow中预制的VGG算法模型。<br>由于数据集的量比较小，因此设置数据输入到最后的四层。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python">print(<span class="hljs-string">&quot;Loading the model..&quot;</span>)<br><span class="hljs-comment"># VGG16预训练网络</span><br>covn_base = tf.keras.applications.vgg16.VGG16(weights=<span class="hljs-string">&#x27;imagenet&#x27;</span>,<br>                                              include_top=<span class="hljs-literal">False</span>)<br>covn_base.trainable = <span class="hljs-literal">True</span><br><span class="hljs-comment"># 冻结前面的层，训练最后四层</span><br><span class="hljs-keyword">for</span> layers <span class="hljs-keyword">in</span> covn_base.layers[:-<span class="hljs-number">4</span>]:<br>    layers.trainable = <span class="hljs-literal">False</span><br>    <br></code></pre></td></tr></table></figure><br>对每一层，都需要用<code>tf.keras.layers</code>中的函数指定每一层的用途和相关的参数（比如激活函数，池化方法等等）。由于采用的是预制的标准VGG16算法，因此最后4层每一层的设置遵循标准VGG16的结构。需要注意损失函数的定义，当标签以整实数形式存放时，应该使用<code>tf.keras.losses.SparseCategoricalCrossentropy()</code>，如果以二进制编码，如标签3为011，则应该使用<code>tf.keras.losses.CategoricalCrossentropy()</code>。<br>Logits表示网络的直接输出 。没经过sigmoid或者softmax的概率化。<code>from_logits=False</code>就表示把已经概率化了的输出，重新映射回原值。$log(p/(1-p))$。  当<code>from_logits=True</code>时损失函数会做softmax，并进行概率归一化操作。<br>由于有四类图像需要识别，此处<code>tf.keras.layers.Dense()</code>的第一个参数应该为4，表示样本空间的维度。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 构建模型</span><br>model = tf.keras.Sequential()<br>model.add(covn_base)<br>model.add(tf.keras.layers.GlobalAveragePooling2D())<br>model.add(tf.keras.layers.Dense(<span class="hljs-number">256</span>, activation=<span class="hljs-string">&#x27;relu&#x27;</span>))<br>model.add(tf.keras.layers.Dropout(<span class="hljs-number">0.2</span>))<br>model.add(tf.keras.layers.Dense(<span class="hljs-number">4</span>, activation=<span class="hljs-string">&#x27;softmax&#x27;</span>))<br>model.summary()<br><span class="hljs-comment"># 编译模型，初始学习率0.001</span><br><span class="hljs-comment"># 编译模型，初始学习率0.001</span><br>model.<span class="hljs-built_in">compile</span>(<br>    optimizer=tf.keras.optimizers.Adam(learning_rate=<span class="hljs-number">0.001</span>),<br>    loss=tf.keras.losses.SparseCategoricalCrossentropy(<br>        from_logits=<span class="hljs-literal">False</span>),  <span class="hljs-comment"># 标签为实数</span><br>    <span class="hljs-comment"># CategoricalCrossentropy(from_logits=False)，标签为二进制编码</span><br>    metrics=[<span class="hljs-string">&quot;accuracy&quot;</span>])<br></code></pre></td></tr></table></figure><br>对于大数据集，在训练后期，当loss不再明显时，减小学习率以加大学习的压力。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 监视&#x27;val_loss&#x27;，当两个epoch的loss不变时，学习率减小为1/10</span><br>reduce_lr = ReduceLROnPlateau(monitor=<span class="hljs-string">&#x27;val_loss&#x27;</span>,<br>                              factor=<span class="hljs-number">0.1</span>,<br>                              patience=<span class="hljs-number">2</span>,<br>                              verbose=<span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure><br>将训练集的图像和标签输入到分类器中拟合，拟合过程指定训练的轮数epochs，批数等等。使用TensorFlow2.0特性<code>validation_data()</code>导入测试集图像和标签，训练器在每一轮训练后会使用测试集进行测试，并返回准确率、loss到<code>history</code>中。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 开始训练</span><br>history = model.fit(<br>    x_train,<br>    y_train,<br>    batch_size=<span class="hljs-number">128</span>,<br>    epochs=<span class="hljs-number">15</span>,<br>    validation_data=(x_test, y_test),<br>)<br>print(<span class="hljs-string">&quot;train complieted&quot;</span>)<br></code></pre></td></tr></table></figure></p>
+<h2 id="读取训练参数并保存模型"><a href="#读取训练参数并保存模型" class="headerlink" title="读取训练参数并保存模型"></a>读取训练参数并保存模型</h2><p>将记录到的loss、准确率进行读取，并使用pyPlot函数库对训练结果进行可视化处理。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 记录准确率和损失值</span><br>history_dict = history.history<br>train_loss = history_dict[<span class="hljs-string">&quot;loss&quot;</span>]<br>train_accuracy = history_dict[<span class="hljs-string">&quot;accuracy&quot;</span>]<br>val_loss = history_dict[<span class="hljs-string">&quot;val_loss&quot;</span>]<br>val_accuracy = history_dict[<span class="hljs-string">&quot;val_accuracy&quot;</span>]<br><br><span class="hljs-comment"># Generate predictions (probabilities -- the output of the last layer)</span><br><span class="hljs-comment"># on new data using `predict`</span><br>print(<span class="hljs-string">&quot;Generate predictions for 3 samples&quot;</span>)<br>predictions = model.predict(x_test[:<span class="hljs-number">3</span>])<br>print(<span class="hljs-string">&quot;predictions shape:&quot;</span>, predictions.shape)<br><br>print(<span class="hljs-string">&quot;ploting..&quot;</span>)<br><span class="hljs-comment"># 绘制损失值</span><br>plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), train_loss, label=<span class="hljs-string">&#x27;train_loss&#x27;</span>)<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), val_loss, label=<span class="hljs-string">&#x27;val_loss&#x27;</span>)<br>plt.legend()<br>plt.xlabel(<span class="hljs-string">&#x27;epochs&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;loss&#x27;</span>)<br><br><span class="hljs-comment"># 绘制准确率</span><br>plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), train_accuracy, label=<span class="hljs-string">&#x27;train_accuracy&#x27;</span>)<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), val_accuracy, label=<span class="hljs-string">&#x27;val_accuracy&#x27;</span>)<br>plt.legend()<br>plt.xlabel(<span class="hljs-string">&#x27;epochs&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;accuracy&#x27;</span>)<br>plt.show()<br></code></pre></td></tr></table></figure><br>使用<code>model.save()</code>函数保存训练模型，训练模型的格式有两种：  </p>
+<ol>
+<li>h5，生成的是一个*.h5文件，需要使用<code>keras</code>进行读取。  </li>
+<li>tf，生成的是一个模型文件夹，比较容易读取。  </li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">print(<span class="hljs-string">&quot;saving the model...&quot;</span>)<br><span class="hljs-comment"># 模型保存，注意：仅仅是多了一个save_format的参数而已</span><br><span class="hljs-comment"># 注意：这里的&#x27;path_to_saved_model&#x27;不再是模型名称，仅仅是一个文件夹，模型会保存在这个文件夹之下</span><br>model.save(<span class="hljs-string">&#x27;model/&#x27;</span>, save_format=<span class="hljs-string">&#x27;tf&#x27;</span>)<br>print(<span class="hljs-string">&quot;completed&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/" class="category-chain-item">技术杂谈</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Tensorflow/">#Tensorflow</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TensorFlow 入门项目：训练一个VGG模型</div>
+      <div>https://l61012345.top/2021/09/25/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E4%BD%BF%E7%94%A8tensorflow/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年9月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年4月2日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" title="04. 高斯噪声">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">04. 高斯噪声</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/09/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/3.%20%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="03. 离散时间傅里叶变换">
+                        <span class="hidden-mobile">03. 离散时间傅里叶变换</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建和渲染。<br> ©OrekiKigiha 2021 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var title = subtitle.title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.staticfile.org/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

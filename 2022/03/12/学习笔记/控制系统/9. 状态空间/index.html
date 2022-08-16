@@ -1,0 +1,2456 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="连续系统的状态空间表示和分析现代复杂控制系统中往往包含多个输入和多个输出，系统的分析更加复杂。使用一些数学方法可以简化对这些系统的分析。这些数学方法建立在对系统状态(state)的理解上：系统的状态是指系统变量、输入信号和用于描述系统动态变化的方程的集合，系统状态可以理解为系统的记忆，$t&#x3D;t_0$时的系统状态能够记忆系统在$t&lt;t_0$时系统的全部输入和之前全部系统的状态。系统的状态可以提">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09. 连续系统的状态空间表示和分析">
+<meta property="og:url" content="https://l61012345.top/2022/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/9.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="连续系统的状态空间表示和分析现代复杂控制系统中往往包含多个输入和多个输出，系统的分析更加复杂。使用一些数学方法可以简化对这些系统的分析。这些数学方法建立在对系统状态(state)的理解上：系统的状态是指系统变量、输入信号和用于描述系统动态变化的方程的集合，系统状态可以理解为系统的记忆，$t&#x3D;t_0$时的系统状态能够记忆系统在$t&lt;t_0$时系统的全部输入和之前全部系统的状态。系统的状态可以提">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-03-12T03:13:35.123Z">
+<meta property="article:modified_time" content="2022-06-23T02:23:21.329Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>09. 连续系统的状态空间表示和分析 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/essay-map/">
+                <i class="iconfont icon-books"></i>
+                论文导图
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          <span id="subtitle" title="09. 连续系统的状态空间表示和分析">
+            
+          </span>
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-03-12 03:13" pubdate>
+          2022年3月12日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          81 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">09. 连续系统的状态空间表示和分析</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2022年6月23日 凌晨
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="连续系统的状态空间表示和分析"><a href="#连续系统的状态空间表示和分析" class="headerlink" title="连续系统的状态空间表示和分析"></a>连续系统的状态空间表示和分析</h1><p>现代复杂控制系统中往往包含多个输入和多个输出，系统的分析更加复杂。使用一些数学方法可以简化对这些系统的分析。这些数学方法建立在对系统状态(state)的理解上：系统的状态是指系统变量、输入信号和用于描述系统动态变化的方程的集合，系统状态可以理解为系统的记忆，$t=t_0$时的系统状态能够记忆系统在$t&lt;t_0$时系统的全部输入和之前全部系统的状态。系统的状态可以提供对系统未来状态和系统输出的分析。  </p>
+<h2 id="系统的状态空间表示"><a href="#系统的状态空间表示" class="headerlink" title="系统的状态空间表示"></a>系统的状态空间表示</h2><p>系统的响应可以用一系列的由状态变量($x_i$)和输入信号表示的一阶微分方程：  </p>
+<script type="math/tex; mode=display">\dot{x_1}=a_{11}x_1+a_{12}x_2+...+a_{1n}x_n+b_{11}u_1+...b_{1m}u_m</script><script type="math/tex; mode=display">\dot{x_2}=a_{21}x_1+a_{22}x_2+...+a_{2n}x_n+b_{21}u_1+...b_{2m}u_m</script><script type="math/tex; mode=display">...</script><script type="math/tex; mode=display">\dot{x_n}=a_{n1}x_1+a_{n2}x_2+...+a_{nn}x_n+b_{n1}u_1+...b_{nm}u_m</script><p>其中$\dot{x}=\frac{d}{dt}x$.<br>这些系数和变量都可以被矩阵化：  </p>
+<script type="math/tex; mode=display">\frac{d}{dt}\begin{bmatrix}
+    x_1 \\ x_2 \\ ⋮ \\ x_n
+\end{bmatrix}=\begin{bmatrix}
+    a_{11} & a_{12} & \dots &a_{1n}\\
+    a_{21} & a_{22} & \dots &a_{2n}\\
+    ⋮ & &\dots & ⋮ \\
+    a_{n1} & a_{n2} & \dots &a_{nn}\\
+\end{bmatrix}\begin{bmatrix}
+    x_1 \\ x_2 \\ ⋮ \\ x_n
+\end{bmatrix}+\begin{bmatrix}
+    b_{11} & \dots & b_{1m} \\
+    ⋮ & & ⋮ \\
+    b_{n1} & \dots & b_{nm}
+\end{bmatrix}\begin{bmatrix}
+    u_1 \\ u_2 \\ ⋮ \\ u_m
+\end{bmatrix}</script><p>上述矩阵化方程可以被简写为：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+Bu</script><p>$A$是系统原型的系数矩阵(plant coeffient matrix)，$B$是控制矩阵(control matrix)。<br>这个微分方程称为系统的<strong>状态方程</strong>(state equation)，对应传递函数的极点多项式。<br>其中，$\vec{\dot{x}}$可以表示视为前一个时刻系统的状态（微分表示时延），$\vec{x}$和$u$是当前系统的状态和输入。即当系统之前的状态和当前的输入已知时，当前的系统状态被确定下来。<br>同时，线性系统的输出也可以由系统状态和输入信号两部分组成：  </p>
+<script type="math/tex; mode=display">y=C\vec{x}+Du</script><p>$C$是系统的输出观测矩阵（output observation matrix），$D$是直接耦合矩阵(direct coupling matrix)。<br>这个微分方程称为系统的<strong>输出方程</strong>(output equation)，对应传递函数的零点多项式。<br>这两个方程组共同作用，可以准确的描述一个系统。用系统的状态方程和输出方程来描述系统的表达方式称为系统的状态空间表示（state-space representation/state-variable representation）。<br>某个特定系统的状态空间表达不是唯一的。<br>根据这两个方程可以建立如下的系统框图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220312161154.png width=50%>  </p>
+<h2 id="微分方程与状态空间的转换"><a href="#微分方程与状态空间的转换" class="headerlink" title="微分方程与状态空间的转换"></a>微分方程与状态空间的转换</h2><p>对于一个$n$阶微分方程：  </p>
+<script type="math/tex; mode=display">\frac{d^ny}{dt^n}+a_{n-1}\frac{d^{n-1}y}{dt^{n-1}}+...+a_0y=b_0u</script><p>可以将系统的输出变量及其微分形式视为系统的状态变量：  </p>
+<script type="math/tex; mode=display">x_1=y</script><script type="math/tex; mode=display">x_2=\frac{dy}{dt}⇒\dot{x_1}=x_2</script><script type="math/tex; mode=display">...</script><script type="math/tex; mode=display">x_n=\frac{d^{n-1}y}{dt^{n-1}}⇒\dot{x_n}=\frac{d^ny}{dt^n}=-a_0x_1-a_1x_2-...-a_{n-1}x_n+b_0u</script><p>整理后就可以得到一系列的系统的状态方程：  </p>
+<script type="math/tex; mode=display">x_1=y</script><script type="math/tex; mode=display">\dot{x_1}=x_2</script><script type="math/tex; mode=display">...</script><script type="math/tex; mode=display">\dot{x_n}=-a_0x_1-a_1x_2-...-a_{n-1}x_n+b_0u</script><p>将这些状态方程矩阵化即可得到系统的状态方程与输出方程：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+Bu</script><script type="math/tex; mode=display">y=C\vec{x}+Du</script><h3 id="信号流图与状态空间的转换"><a href="#信号流图与状态空间的转换" class="headerlink" title="信号流图与状态空间的转换"></a>信号流图与状态空间的转换</h3><p>信号流图可以从一系列的系统状态方程得到：  </p>
+<ul>
+<li>画出系统的输入$u$或者$r$，系统的每一个状态$x_i$，以及系统输出$y$的节点。  </li>
+<li>根据每一个状态方程，将对应的节点用箭头连接，并标上对应的系数，注意用$\frac{1}{s}$表示微分。<br>下图表示了$\begin{cases}<br>  \dot{x_1}=x_2\\<br>  \dot{x_2}=x_3\\<br>  \dot{x_3}=-24x_1-26x_2-9x_3+24r\\<br>  y=x_1<br>\end{cases}$的信号流图：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313134750.png width=50%>  </li>
+</ul>
+<h3 id="状态空间的表达形式（传递函数与状态空间的转换）"><a href="#状态空间的表达形式（传递函数与状态空间的转换）" class="headerlink" title="状态空间的表达形式（传递函数与状态空间的转换）"></a>状态空间的表达形式（传递函数与状态空间的转换）</h3><p>下面将介绍四种表达状态空间的形式，对于$n$阶微分方程：  </p>
+<script type="math/tex; mode=display">\frac{d^ny}{dt^n}+a_{1}\frac{d^{n-1}y}{dt^{n-1}}+...+a_ny=\frac{d^nu}{dt^n}+b_{1}\frac{d^{n-1}u}{dt^{n-1}}+...+b_nu</script><p>$u$表示系统输入，$y$表示系统输出。<br>那么在s域中有系统的传递函数：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><h4 id="能控标准型"><a href="#能控标准型" class="headerlink" title="能控标准型"></a>能控标准型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">TF(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><p>的传递函数。<br>能控标准型（controllable-canonical form）的系数矩阵如下：  </p>
+<script type="math/tex; mode=display">A=\begin{bmatrix}
+    -a_1 & -a_2 & ... & -a_{n-1} & -a_n \\
+    1 & 0 & ... & 0 & 0\\
+    0 & 1 & ... & 0 & 0\\
+    ⋮ & ⋮ & ⋱ & ⋮ & ⋮ \\
+    0 & 0 & ... & 1 & 0\\
+\end{bmatrix}</script><script type="math/tex; mode=display">B=\begin{bmatrix}
+    1 \\ 0 \\ ⋮ \\ 0
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
+    b_1 & b_2 & b_3 &\dots&b_n
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><p>能控标准型在系统所有状态都已知的情况下分析系统是很有用的。  </p>
+<h4 id="相位变化型"><a href="#相位变化型" class="headerlink" title="相位变化型"></a>相位变化型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">TF(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><p>的传递函数。<br>相位变化型（phase-variable form）的系数矩阵如下：  </p>
+<script type="math/tex; mode=display">A=\begin{bmatrix}
+    0 & 1 & ... & 0 & 0\\
+    ⋮ & ⋮ & ⋱ & ⋮ & ⋮ \\
+    0 & 0 & ... & 1 & 0\\
+    0 & 0 & ... & 0 & 1\\
+    -a_n & -a_{n-1} & ... & -a_{2} & -a_1 \\
+\end{bmatrix}</script><script type="math/tex; mode=display">B= \begin{bmatrix}
+    0 \\ 0 \\ ⋮ \\ 1
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
+    b_n & b_{n-1} & b_{n-2} &\dots&b_1
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><p><strong>相位变化型矩阵在控制器设计中十分有用。</strong>  </p>
+<h4 id="能观标准型"><a href="#能观标准型" class="headerlink" title="能观标准型"></a>能观标准型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">TF(s)=\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{s^n+a_1s^{n-1}+...+a_{n-1}s+a_n}</script><p>的传递函数。<br>能观标准型（observable-canonical form）的系数矩阵如下：  </p>
+<script type="math/tex; mode=display">A=\begin{bmatrix}
+    -a_1 & 1 & 0 &... & 0 & 0 \\
+    -a_2 & 0 & 1 &... & 0 & 0\\
+    -a_3 & 0 & 0 &... & 0 & 0\\
+    ⋮ & ⋮ &⋮ &⋱ & ⋮ & ⋮ \\
+    -a_{n-1} & 0 & 0 &... & 0 & 1\\
+    -a_n & 0 & 0 &... & 0 & 0\\
+\end{bmatrix}</script><script type="math/tex; mode=display">B=\begin{bmatrix}
+    b_1 \\ b_2 \\ b_3 \\ ⋮ \\ b_n
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
+    1 & 0 & 0 &\dots&0
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><p><strong>能观标准型在设计观测器时很有用。</strong>  </p>
+<h4 id="对角标准型"><a href="#对角标准型" class="headerlink" title="对角标准型"></a>对角标准型</h4><p>对于形如：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=b_0+\frac{c_1}{s+p_1}+\frac{c_2}{s+p_2}+...+\frac{c_n}{s+p_n}</script><p>的传递函数。<br>在标准对角型（diagonal canonical form）下，状态矩阵$A$是一个对角矩阵，其对角线为其特征值，同时也是系统方程的极点。对角标准型只适用于系统没有重极点的情况。  </p>
+<script type="math/tex; mode=display">A=\begin{bmatrix}
+    -p_1 & 0 & ... & 0 & 0\\
+    0 & -p_2 & ... & 0 & 0\\
+    ⋮ & ⋮ & ⋱ & ⋮ & ⋮ \\
+    0 & 0 & ... & 0 & -p_n\\
+\end{bmatrix}</script><script type="math/tex; mode=display">B=\begin{bmatrix}
+    1 \\ 1 \\ ⋮ \\ 1
+\end{bmatrix}</script><script type="math/tex; mode=display">C=\begin{bmatrix}
+    c_1 & c_2 & c_3 &\dots &c_n
+\end{bmatrix}</script><script type="math/tex; mode=display">D=[b_0]</script><h4 id="约旦标准型"><a href="#约旦标准型" class="headerlink" title="约旦标准型"></a>约旦标准型</h4><p>当系统有重极点时，系统的状态空间表示可以用约旦标准型表示。当系统的传输函数为：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0s^n+b_1s^{n-1}+...+b_n}{(s+p_1)^3(s+p_4)...(s+p_n)}</script><p>其中的状态矩阵是：  </p>
+<script type="math/tex; mode=display">A=\left[\begin{matrix}
+    -p_1 & 1 & 0 &... & 0 & 0\\
+    0 & -p_1 & 1 &... & 0 & 0\\
+    0 & 0 & -p_1 &... & 0 & 0\\
+    ⋮ & ⋮ & ⋮ & ⋱ & ⋮ & ⋮ \\
+    0 & 0 & ... & 0 & -p_n\\
+\end{matrix}\right]</script><script type="math/tex; mode=display">B=\left[ \begin{matrix}
+    0 \\ 0 \\ ⋮ \\ 1
+\end{matrix}\right]</script><script type="math/tex; mode=display">C=[\begin{matrix}
+    c_1 & c_2 & c_3 &\dots &c_n
+\end{matrix}]</script><script type="math/tex; mode=display">D=[b_0]</script><p>其中的$c_i$可以通过部分分式展开得到：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=b_0+\frac{c_1}{(s+p_1)^3}+\frac{c_1}{(s+p_1)^2}+\frac{c_1}{s+p_1}+\frac{c_2}{s+p_2}+...+\frac{c_n}{s+p_n}</script><h3 id="状态空间表示与信号流图的转换"><a href="#状态空间表示与信号流图的转换" class="headerlink" title="状态空间表示与信号流图的转换"></a>状态空间表示与信号流图的转换</h3><ul>
+<li><p>相位变化型<br>  对传递函数$\frac{Y(s)}{U(s)}$，可将其分解为：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{V(s)}{U(s)}\frac{Y(s)}{V(s)}=\frac{∑b_is^{(m-i)}}{∑a_is^{(n-i)}}</script><p>  令$x_1=v$作为状态变量，对$\frac{V(s)}{U(s)}$可以得到一系列系统的状态方程。对$\frac{Y(s)}{V(s)}$可以得到系统的输出方程。<br>  再根据状态方程和输出方程即可绘制信号流图。<br>  <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313141835.png width=50%></p>
+<p>  如果$x_1,x_2,x_3$的次序相反，那么得到的是能控标准型。  </p>
+</li>
+<li><p>能观标准型<br>对系统的传递函数$\frac{Y(s)}{U(s)}$，如果其写作如下的形式：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{b_0+b_1s^{-1}+...+b_ns^{-n}}{1+a_1s^{-1}+...+a_ns^{-n}}</script><p>则可以根据这个结构直接写出系统的状态方程和输出方程：  </p>
+<script type="math/tex; mode=display">\dot{x_k}=-a_kx_1+x_{k+1}+b+ku,1≤k≤n-1</script><script type="math/tex; mode=display">\dot{x_n}=-a_nx_1+b_nu</script><script type="math/tex; mode=display">y=x_1+b+0u</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313142033.png width=50%></p>
+</li>
+<li><p>级联型<br>如果系统的传递函数$\frac{Y(s)}{U(s)}$写作：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=\frac{(s+z)}{∏^n(s+p_i)}</script><p>那么可以视为：  </p>
+<script type="math/tex; mode=display">\frac{x_n}{u}=\frac{1}{s+p_n}⇒\dot{x_n}=-p_ix_n+u</script><script type="math/tex; mode=display">\frac{x_k}{x_{k+1}}=\frac{1}{s+k_n}⇒\dot{x_k}=-p_ix_k+x_{k+1}</script><script type="math/tex; mode=display">\frac{y}{x_1}=s+z⇒y=\dot{x_1}+zx_1</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313141619.png width=50%></p>
+</li>
+<li><p>并联型<br>如果系统的传递函数$\frac{Y(s)}{U(s)}$写作：  </p>
+<script type="math/tex; mode=display">\frac{Y(s)}{U(s)}=∑\frac{α_i}{(s+p_i)}</script><p>那么系统的状态方程可以写作：  </p>
+<script type="math/tex; mode=display">\dot{x_i}=-p_ix_i+α_i</script><p>系统的输出方程可以写作：  </p>
+<script type="math/tex; mode=display">y=∑α_ix_i</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220313142926.png width=50%>  </p>
+</li>
+</ul>
+<h2 id="状态空间表示分析"><a href="#状态空间表示分析" class="headerlink" title="状态空间表示分析"></a>状态空间表示分析</h2><h3 id="状态空间转换传输函数"><a href="#状态空间转换传输函数" class="headerlink" title="状态空间转换传输函数"></a>状态空间转换传输函数</h3><p>对于系统的状态方程：  </p>
+<script type="math/tex; mode=display">\vec{\dot{x}}=A\vec{x}+Bu</script><p>由拉普拉斯变换得到：  </p>
+<script type="math/tex; mode=display">s\vec{X}(s)=A\vec{X}(s)+B\vec{U}(s)</script><p>可以得到:  </p>
+<script type="math/tex; mode=display">(sI-A)\vec{X}(s)=B\vec{U}(s)</script><p>整理可以得到：  </p>
+<script type="math/tex; mode=display">\vec{X}(s)=[sI-A]^{-1}B\vec{U}(s)</script><p>令：</p>
+<script type="math/tex; mode=display">Φ(s)=[sI-A]^{-1}</script><p>称其对应的矩阵$ϕ(t)$为状态转移矩阵(state transform matrix)，其后会进一步讨论这个矩阵的作用。<br>将其带入系统的输出方程的拉普拉斯变换中：$\vec{Y}(s)=C\vec{X}(s)+D\vec{U}(s)$，有：  </p>
+<script type="math/tex; mode=display">\vec{Y}(s)=[CΦ(s)B+D]\vec{U}(s)</script><p>根据系统传递函数的定义可知：  </p>
+<script type="math/tex; mode=display">T(s)=\frac{Y(s)}{U(s)}=C[sI-A]^{-1}B+D</script><p>$[sI-A]$的行列式$|sI-A|$结果为系统的特征多项式。  </p>
+<h3 id="稳态误差"><a href="#稳态误差" class="headerlink" title="稳态误差"></a>稳态误差</h3><p>对于系统 $\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\<br>y=C\vec{x} \end{cases}$，根据稳态误差的定义：$E(s)=\frac{1}{G(s)+1}R(s)$，有：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    E(s)&=R(s)[1-T(s)]\\
+    &=R(s)[1-C[sI-A]^{-1}B]
+\end{aligned}</script><p>有终值定理：  </p>
+<script type="math/tex; mode=display">e(∞)=\lim_{s→0}sE(s)=\lim_{s→0}R(s)[1-C[sI-A]^{-1}B]</script><ul>
+<li>当$R(s)=1$时，$e(∞)=1+CA^{-1}B$</li>
+<li>当$R(s)=s$时，$e(∞)=\lim_{t→∞}[(1+CA^{-1}B)t+C(A^{-1})^2B$</li>
+</ul>
+<h3 id="系统分解（对角化）"><a href="#系统分解（对角化）" class="headerlink" title="系统分解（对角化）"></a>系统分解（对角化）</h3><p>对于系统 $\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\ y=C\vec{x}+Du \end{cases}$，现在指定一组新的状态变量$z$，与$x$之间存在如下关系：  </p>
+<script type="math/tex; mode=display">\vec{x}=P\vec{z}</script><p>且有$\vec{\dot{x}}=P\vec{\dot{z}}$.<br>$P$称为转换矩阵是$A$的特征向量$\vec{m}$组成的矩阵$[\vec{m_1} \vec{m_2}…\vec{m_n}]$，带入系统的状态空间表示中，有：  </p>
+<script type="math/tex; mode=display">\begin{cases} \vec{\dot{z}}=P^{-1}AP\vec{z}+P^{-1}Bu\\ y=CP\vec{z}+Du \end{cases}</script><p>可以发现$P^{-1}AP$是$A$的对角矩阵。  </p>
+<h2 id="齐次状态方程和非齐次状态方程"><a href="#齐次状态方程和非齐次状态方程" class="headerlink" title="齐次状态方程和非齐次状态方程"></a>齐次状态方程和非齐次状态方程</h2><p>已知系统的当前输入，则可以根据系统的状态方程求得系统的当前状态。简而言之，系统的当前状态就是系统状态方程的解。本小节将从简单的齐次状态方程入手寻找系统的当前状态。  </p>
+<h3 id="齐次状态方程"><a href="#齐次状态方程" class="headerlink" title="齐次状态方程"></a>齐次状态方程</h3><p>对状态方程$\vec{\dot{x}}=A\vec{x}+Bu$，B等于0时的情况称为齐次状态方程(Homogeneous state equation)。换言之，系统的齐次状态方程表示了系统在零输入下系统的前一个状态和当前状态之间的关系，是系统的零输入响应(Zero-state response)。   </p>
+<h4 id="齐次状态方程的解"><a href="#齐次状态方程的解" class="headerlink" title="齐次状态方程的解"></a>齐次状态方程的解</h4><p>对于齐次状态方程$\vec{\dot{x}}=A\vec{x}$，如果已知系统的初始状态$x(0)$，那么可以求解到：  </p>
+<script type="math/tex; mode=display">x(t)=e^{At}x(0)</script><p>这是齐次状态方程的解，称为零输入解，其物理意义是伺服系统的自由振动情况。<br>称$ϕ(t)=e^{At}$为该系统的状态转移矩阵（时域）。  </p>
+<h4 id="状态转移矩阵"><a href="#状态转移矩阵" class="headerlink" title="状态转移矩阵"></a>状态转移矩阵</h4><div class="note note-info">
+            <p>在数学上$ϕ(t)=e^{At}$与$Φ(s)=[sI-A]^{-1}$为拉普拉斯变换对：  </p><script type="math/tex; mode=display">ϕ(t)=e^{At}⇔Φ(s)=[sI-A]^{-1}</script>
+          </div>  
+<p>于是将$ϕ(t)$带入其次状态方程，其可以转化为：  </p>
+<script type="math/tex; mode=display">x(t)=ϕ(t)x(0)</script><script type="math/tex; mode=display">x(t)=ϕ(t-t_0)x(t_0),t≥t_0</script><p>可以发现系统状态转移矩阵的作用是：<strong>已知系统在某一时刻$t_0$的系统状态$x(t_0)$，通过系统的状态转移矩阵，可以得到系统在$t_0$任何一个时刻$t$的系统状态$x(t)$</strong>。   </p>
+<p>状态转移矩阵可以通过如下三种方法求得：  </p>
+<ul>
+<li>通过拉普拉斯反变换$[sI-A]^{-1}$求得</li>
+<li>根据泰勒展开式：  <script type="math/tex; mode=display">e^{At}=I+At+\frac{1}{2!}A^2t^2+\frac{1}{3!}A^3t^3+...+\frac{1}{k!}A^kt^k+...</script>进行近似计算。  </li>
+<li>如果状态矩阵$A$可以被写作约旦标准型$A^{J}$，有：  <script type="math/tex; mode=display">e^{At}=Se^{A^Jt}S^{-1}</script>即$e^{A^Jt}$的对角矩阵。  </li>
+<li>如果状态矩阵$A$可以被对角化为$A^D$，有：  <script type="math/tex; mode=display">e^{At}=Pe^{A^Dt}P^{-1}</script>即$e^{A^Dt}$的对角矩阵。  </li>
+</ul>
+<h3 id="非齐次状态方程的解"><a href="#非齐次状态方程的解" class="headerlink" title="非齐次状态方程的解"></a>非齐次状态方程的解</h3><p>非齐次状态方程$\vec{\dot{x}}=A\vec{x}+Bu$的解是系统输入不为0时的解，其物理意义是伺服系统的受迫振动情况。<br>非齐次状态方程的解的格式为：  </p>
+<ul>
+<li>如果已知初始状态$x(0)$：  <script type="math/tex; mode=display">\vec{x}=e^{At}\vec{x}(0)+∫_0^te^{A(t-τ)}Bu(τ)dτ</script></li>
+<li>如果已知某一状态$x(t_0)$：<script type="math/tex; mode=display">\vec{x}=e^{A(t-t_0)}\vec{x}(t_0)+∫_{t_0}^te^{A(t-τ)}Bu(τ)dτ</script></li>
+</ul>
+<h2 id="能控性和能观性"><a href="#能控性和能观性" class="headerlink" title="能控性和能观性"></a>能控性和能观性</h2><h3 id="能控性"><a href="#能控性" class="headerlink" title="能控性"></a>能控性</h3><p>在某一时刻$t_0$，如果系统可以通过控制向量将系统的状态$\vec{x}(t_0)$转变为系统的其他状态(即只要知道目前的状态，以后所有的状态都是已知的)，则系统是能控的(controllable)。换言之，如果系统状态和系统输入是独立的，那么系统是能控的。<br>对于系统$\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\ y=C\vec{x}+Du \end{cases}$，它的状态方程是非齐次的，因此其状态方程的解为：  </p>
+<script type="math/tex; mode=display">\vec{x}(t)=e^{A(t-t_0)}\vec{x}(t_0)+∫_{t_0}^te^{A(t-τ)}Bu(τ)dτ</script><p>假设$\vec{x}(t_0)=0$，有：  </p>
+<script type="math/tex; mode=display">\vec{x}(0)=-∫_{0}^{t_0}e^{-Aτ}Bu(τ)dτ</script><p>带入$e^{-Aτ}=∑a_k(τ)A^k$，并令$β_k=∫_0^{t_0}a_k(τ)u(τ)dτ$，可以得到：  </p>
+<script type="math/tex; mode=display">\vec{x}(0)=-∑_{k=0}^{n-1}A^kBβ_k</script><p>矩阵化该表达式，有：  </p>
+<script type="math/tex; mode=display">\vec{x}(0)=-[B|AB|A^2B|…|A^{n-1}B]\begin{bmatrix}
+    β_0\\
+    -\\
+    β_1\\
+    -\\
+    ⋮\\
+    -\\
+    β_{n-1}
+\end{bmatrix}</script><p>如果满足上述式子成立，则称系统是完全状态能控的(completely state controllable)。<br>其中由$A$及其幂和$B$的乘积向量扩增的矩阵$[B|AB|A^2B|…|A^{n-1}B]$称为能控矩阵（controllability matrix），对于有$n$个状态的系统，它是一个$n×n$的方阵。通过之前的分析可以发现，<strong>当且仅当能控矩阵满秩，即其秩为$n$时，系统是完全状态能控(state controllable)的。</strong><br><div class="note note-info">
+            <p>满秩的等价条件：  </p><ul><li>组成扩增矩阵的向量$A^{i-1}B$线性无关</li><li>控制矩阵的行列式结果不为0</li></ul>
+          </div><br>同样地，如果将齐次方程的解带入到系统的输出方程，同理也可以在计算过程中得到一个$m × (n+1)$的输出内控矩阵：  </p>
+<script type="math/tex; mode=display">[CB|CAB|CA^2B|…|CA^{n-1}B|D]</script><p><strong>当且仅当输出能控矩阵满秩即其秩为$m$（或者说组成扩增矩阵的向量$CA^{i-1}B$线性无关/输出控制矩阵行列式结果不为零）时，系统是完全输出能控(output controllable)的。</strong>  </p>
+<h3 id="能观性"><a href="#能观性" class="headerlink" title="能观性"></a>能观性</h3><p>在某一时刻$t_0$，如果系统可以通过在有限时间内的输出（由输出矩阵和控制矩阵两部分决定）来判断系统初始状态$\vec{x}(0)$,则系统是能观的（observable）。系统的能观性与系统输出有关。<br>对其次系统$\begin{cases} \vec{\dot{x}}=A\vec{x}\\ y=C\vec{x} \end{cases}$而言，其能观矩阵(observability matrix)是一个$n×nm$的矩阵：  </p>
+<script type="math/tex; mode=display">[C^T|A^TC^T|(A^T)^2C^T…|(A^T)^{n-1}C]</script><p>当系统的能观矩阵满秩（或者说组成扩增矩阵的向量$(A^T)^{i-1}C$线性无关/能观矩阵行列式结果不为零）时，表明系统是完全能观的（completely observable）。  </p>
+<h3 id="对偶"><a href="#对偶" class="headerlink" title="对偶"></a>对偶</h3><p>系统的能控性和能观性是对偶的。<br>有如下结论：<br>对于系统I：$\begin{cases} \vec{\dot{x}}=A\vec{x}+Bu\\ y=C\vec{x} \end{cases}$和系统II：$\begin{cases} \vec{\dot{z}}=A^T\vec{z}+C^T\vec{v}\\ \vec{n}=B^T\vec{z} \end{cases}$，有：<br>如果系统I完全状态能控，那么系统II完全能观。  </p>
+<h3 id="快速判断法"><a href="#快速判断法" class="headerlink" title="快速判断法"></a>快速判断法</h3><p>对于写作标准形式的系统矩阵，有可以根据状态矩阵$A$、$B$和$C$的形状快速判断系统能观性和能控性的方法。<br>对于约旦标准型：  </p>
+<ul>
+<li>如果对应$A^J$最后一列的矩阵$B$或者$S^{-1}B$($S$是将$A$转换为其约旦标准型$A^J$的转换矩阵)中的任意一行非零，同时$B$或者$S^{-1}B$中对应特征值的行非零，那么系统是能控的。  </li>
+<li>如果对应$A^J$第一列的矩阵$CS$或$C$非零，同时$C$或者$CS$中对应特征值的非列零，那么系统是能观的。  </li>
+</ul>
+<p>对于对角型：  </p>
+<ul>
+<li>如果$B$不含有非零行，则系统是能控的。</li>
+<li>如果$C$不含任何非零列，则系统是能观的。</li>
+</ul>
+<h2 id="可镇定性和可探测性"><a href="#可镇定性和可探测性" class="headerlink" title="可镇定性和可探测性"></a>可镇定性和可探测性</h2><h3 id="特征向量的模"><a href="#特征向量的模" class="headerlink" title="特征向量的模"></a>特征向量的模</h3><p>另外，某些系统可能呈现一定的能控性和能观性，称为部分能控或部分能观系统。此时可以通过探究状态矩阵$A$的特征值$λ_i$来研究每一个特征向量对应的模对系统可镇定性、能控性、能观性的贡献。  </p>
+<ul>
+<li>如果状态矩阵$A$的特征值$λ_i$在坐标轴左半平面，称其对应的模是可镇定的。  </li>
+<li>如果矩阵$[(λ_iI-A)B]$满秩，那么特征值$λ_i$对应的模是能控的。  </li>
+<li>如果矩阵$\begin{bmatrix}<br>  (λ_iI-A)\\<br>  C<br>\end{bmatrix}$满秩，那么特征值$λ_i$对应的模是能观的。  </li>
+</ul>
+<h3 id="可镇定性和可探测性的定义和对偶"><a href="#可镇定性和可探测性的定义和对偶" class="headerlink" title="可镇定性和可探测性的定义和对偶"></a>可镇定性和可探测性的定义和对偶</h3><p>对于一个部分可控的系统，如果非可控的模都稳定，且不稳定的模都可控，那么系统是可镇定(stablizable)的。<br>对于一个部分能观的系统，如果非能观的模都稳定，且能观的模都不稳定，那么系统是可探测(detectable)的。<br>对于完全能控的系统，它是可镇定的。<br>对于完全能观的系统，它是可探测的。<br>可以发现，可探测性和可镇定性是对偶的。  </p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" class="category-chain-item">控制系统</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>09. 连续系统的状态空间表示和分析</div>
+      <div>https://l61012345.top/2022/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/9.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年3月12日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年6月23日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/10.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%AE%BE%E8%AE%A1/" title="10. 连续系统状态空间的补偿器设计">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">10. 连续系统状态空间的补偿器设计</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/8.%20%E9%80%9A%E8%BF%87%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E8%AE%BE%E8%AE%A1/" title="08. 通过频率响应对PID控制系统进行改进">
+                        <span class="hidden-mobile">08. 通过频率响应对PID控制系统进行改进</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习笔记"
+        id="heading-078425eaf316a180b0989442e53f920b" role="tab" data-toggle="collapse" href="#collapse-078425eaf316a180b0989442e53f920b"
+        aria-expanded="true"
+      >
+        学习笔记
+        <span class="list-group-count">(115)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-078425eaf316a180b0989442e53f920b"
+           role="tabpanel" aria-labelledby="heading-078425eaf316a180b0989442e53f920b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+          
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="信号与系统"
+        id="heading-a689289a45acd89c65bfc841fd6791cc" role="tab" data-toggle="collapse" href="#collapse-a689289a45acd89c65bfc841fd6791cc"
+        aria-expanded="false"
+      >
+        信号与系统
+        <span class="list-group-count">(15)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a689289a45acd89c65bfc841fd6791cc"
+           role="tabpanel" aria-labelledby="heading-a689289a45acd89c65bfc841fd6791cc">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/03/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="0. 课程简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0. 课程简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1.%20%E4%BF%A1%E5%8F%B7%E6%A6%82%E8%BF%B0/" title="01. 信号概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 信号概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2.%20%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="02. 系统概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 系统概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3.%20%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/" title="03. 信号的傅里叶级数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 信号的傅里叶级数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="04. 频谱·非周期信号的傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 频谱·非周期信号的傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5.%20%E7%A6%BB%E6%95%A3%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90%E6%B3%95/" title="05. 时域分析方法（微分/差分方程·卷积）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 时域分析方法（微分/差分方程·卷积）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/6.%20%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="06. 能量·周期信号的傅里叶变换·采样"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 能量·周期信号的傅里叶变换·采样</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/7.%20%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" title="07. 拉普拉斯变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 拉普拉斯变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/8.%20z%E5%8F%98%E6%8D%A2/" title="08. Z变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. Z变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9.%20%E7%B3%BB%E7%BB%9F%E6%96%B9%E7%A8%8B/" title="09. 系统方程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 系统方程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10.%20%E5%8F%8D%E9%A6%88%E7%B3%BB%E7%BB%9F/" title="10. 反馈系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 反馈系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/11.%20%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="11. 滤波器设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. 滤波器设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%80%83%E7%9F%A5%E8%AF%86%E7%82%B9/" title="常考知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">常考知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E9%99%84%E5%BD%951%EF%BC%9A%E5%B8%B8%E8%A7%81%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%8F%98%E6%8D%A2/" title="附录1：冲激函数的特性·常见信号的傅里叶/拉普拉斯/Z变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录1：冲激函数的特性·常见信号的傅里叶/拉普拉斯/Z变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E9%99%84%E5%BD%952%EF%BC%9A%E5%8D%B7%E7%A7%AF%E3%80%81%E4%B8%89%E5%A4%A7%E5%8F%98%E6%8D%A2%E7%9A%84%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8/" title="附录2：冲激信号·卷积·傅里叶/拉普拉斯/Z变换的运算性质"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录2：冲激信号·卷积·傅里叶/拉普拉斯/Z变换的运算性质</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="复习笔记"
+        id="heading-69d302bc157d80f9c3ab2cfaaf811104" role="tab" data-toggle="collapse" href="#collapse-69d302bc157d80f9c3ab2cfaaf811104"
+        aria-expanded="false"
+      >
+        复习笔记
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-69d302bc157d80f9c3ab2cfaaf811104"
+           role="tabpanel" aria-labelledby="heading-69d302bc157d80f9c3ab2cfaaf811104">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/04/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E4%B8%8B)/" title="大学物理下-常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大学物理下-常考知识点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/" title="数字系统与微处理器-常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字系统与微处理器-常考知识点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" title="概率论与数理统计-常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率论与数理统计-常考知识点</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="天线与通信传输原理"
+        id="heading-72fd57eeea52f7cf2a10c13025f6195b" role="tab" data-toggle="collapse" href="#collapse-72fd57eeea52f7cf2a10c13025f6195b"
+        aria-expanded="false"
+      >
+        天线与通信传输原理
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-72fd57eeea52f7cf2a10c13025f6195b"
+           role="tabpanel" aria-labelledby="heading-72fd57eeea52f7cf2a10c13025f6195b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/1.%20%E7%94%B5%E7%A3%81%E5%9C%BA/" title="Lecture 1 电磁场"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 1 电磁场</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/2.%20%E4%BC%A0%E8%BE%93%E7%BA%BF%E6%A8%A1%E5%9E%8B/" title="Lecture 2 传输线模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 2 传输线模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/3.%20%E5%A4%A9%E7%BA%BF%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%8F%82%E6%95%B0/" title="Lecture 3 天线的类型与参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 3 天线的类型与参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/4.%20%E5%81%B6%E6%9E%81%E5%AD%90%E5%A4%A9%E7%BA%BF/" title="Lecture 4 偶极子天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 4 偶极子天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/5.%20%E6%88%90%E5%83%8F%E7%90%86%E8%AE%BA/" title="Lecture 5 成像理论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 5 成像理论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/6.%20%E5%A4%A9%E7%BA%BF%E9%98%B5%E5%88%97/" title="Lecture 6 天线阵列"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 6 天线阵列</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/7.%20%E7%8E%AF%E5%BD%A2%E5%A4%A9%E7%BA%BF/" title="Lecture 7 环形天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 7 环形天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/8.%20%E9%9D%9E%E9%A2%91%E5%8F%98%E5%A4%A9%E7%BA%BF/" title="Lecture 8 非频变天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 8 非频变天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/9.%20%E5%BE%AE%E5%B8%A6%E5%A4%A9%E7%BA%BF/" title="Lecture 9 微带天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 9 微带天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/%E5%A4%A9%E7%BA%BF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="天线知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">天线知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="控制系统"
+        id="heading-e06b713f684e011d7f3fd352234f4fe4" role="tab" data-toggle="collapse" href="#collapse-e06b713f684e011d7f3fd352234f4fe4"
+        aria-expanded="true"
+      >
+        控制系统
+        <span class="list-group-count">(17)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-e06b713f684e011d7f3fd352234f4fe4"
+           role="tabpanel" aria-labelledby="heading-e06b713f684e011d7f3fd352234f4fe4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/02/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="0. 课程简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0. 课程简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/1.%20%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90/" title="01. 控制系统的组成和模型表示"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 控制系统的组成和模型表示</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/2.%20%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="02. 控制系统的瞬态和稳态响应分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 控制系统的瞬态和稳态响应分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/3.%20%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E5%8F%8A%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="03. 极坐标图/奈奎斯特图的绘制和分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 极坐标图/奈奎斯特图的绘制和分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/" title="04. 波特图的绘制和分析·电路实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 波特图的绘制和分析·电路实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/5.%20%E5%B0%BC%E6%9F%AF%E5%B0%94%E6%96%AF%E5%9B%BE/" title="05. 尼柯尔斯图的绘制和分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 尼柯尔斯图的绘制和分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/6.%20%E7%89%B9%E6%AE%8A%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B3%BB%E7%BB%9F%E8%BF%91%E4%BC%BC/" title="06. 时延·非最小相位·系统近似方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 时延·非最小相位·系统近似方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/7.%20PID%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" title="07. PID 控制系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. PID 控制系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/8.%20%E9%80%9A%E8%BF%87%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E8%AE%BE%E8%AE%A1/" title="08. 通过频率响应对PID控制系统进行改进"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 通过频率响应对PID控制系统进行改进</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/9.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4/" title="09. 连续系统的状态空间表示和分析"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">09. 连续系统的状态空间表示和分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/10.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%AE%BE%E8%AE%A1/" title="10. 连续系统状态空间的补偿器设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 连续系统状态空间的补偿器设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/11.%20%E6%95%B0%E5%AD%97%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" title="11. 数字控制系统概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. 数字控制系统概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/12.%20%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8E%A7%E5%88%B6/" title="12. 数字控制稳定性"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 数字控制稳定性</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/16/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/13.%20%E6%A0%B9%E8%BD%A8%E8%BF%B9%E5%9B%BE/" title="13. 根轨迹图·采样周期的影响"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13. 根轨迹图·采样周期的影响</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/14.%20%E6%95%B0%E5%AD%97%E6%8E%A7%E5%88%B6%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="14. 数字PID控制器和补偿器及其设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14. 数字PID控制器和补偿器及其设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/15.%20%E7%A6%BB%E6%95%A3%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4/" title="15. 离散系统的状态空间的表示和补偿器设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">15. 离散系统的状态空间的表示和补偿器设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="控制系统-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制系统-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字信号处理"
+        id="heading-e10491ffae5e895f78327ed37d3c445b" role="tab" data-toggle="collapse" href="#collapse-e10491ffae5e895f78327ed37d3c445b"
+        aria-expanded="false"
+      >
+        数字信号处理
+        <span class="list-group-count">(13)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e10491ffae5e895f78327ed37d3c445b"
+           role="tabpanel" aria-labelledby="heading-e10491ffae5e895f78327ed37d3c445b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="0. 课程简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0. 课程简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/1.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7/" title="01. 数字信号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 数字信号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2.%20%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F/" title="02. 数字系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 数字系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/3.%20%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="03. 离散时间傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 离散时间傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/4.%20Z%E5%8F%98%E6%8D%A2/" title="04. Z变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. Z变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/5.%20%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%C2%B7%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="05. 离散傅里叶级数·离散傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 离散傅里叶级数·离散傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/6.%20%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="06. 快速傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 快速傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/7.%20%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="07. 数字滤波器·数字系统的表示"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 数字滤波器·数字系统的表示</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/8.%20%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" title="08. 数字滤波器的结构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 数字滤波器的结构设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/9.%20%E7%BA%BF%E6%80%A7%E7%9B%B8%E4%BD%8D%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="09. 线性相位滤波器·FIR滤波器类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 线性相位滤波器·FIR滤波器类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/10.%20FIR%20%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" title="10. FIR滤波器设计方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. FIR滤波器设计方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/11.%20IIR%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="11. IIR滤波器设计方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. IIR滤波器设计方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" title="数字信号处理-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字信号处理-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字系统与可靠性工程"
+        id="heading-12fb5db9f76d7bdc3b0ad9424ce02181" role="tab" data-toggle="collapse" href="#collapse-12fb5db9f76d7bdc3b0ad9424ce02181"
+        aria-expanded="false"
+      >
+        数字系统与可靠性工程
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-12fb5db9f76d7bdc3b0ad9424ce02181"
+           role="tabpanel" aria-labelledby="heading-12fb5db9f76d7bdc3b0ad9424ce02181">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/12/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/" title="可靠性工程-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可靠性工程-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" title="数字系统设计-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字系统设计-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电信传输理论与工程"
+        id="heading-28ac311000f78573e3c3db6feaa45caf" role="tab" data-toggle="collapse" href="#collapse-28ac311000f78573e3c3db6feaa45caf"
+        aria-expanded="false"
+      >
+        电信传输理论与工程
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-28ac311000f78573e3c3db6feaa45caf"
+           role="tabpanel" aria-labelledby="heading-28ac311000f78573e3c3db6feaa45caf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/04/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E4%BC%A0%E8%BE%93%E7%90%86%E8%AE%BA/" title="1.传输理论概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.传输理论概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E9%87%91%E5%B1%9E%E4%BC%A0%E8%BE%93%E7%BA%BF%E7%90%86%E8%AE%BA/" title="2.金属线传输理论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.金属线传输理论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E4%BB%8B%E8%B4%A8%E4%BC%A0%E8%BE%93%E7%BA%BF%E7%90%86%E8%AE%BA/" title="3.介质传输理论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.介质传输理论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E9%99%84%E5%BD%95%EF%BC%9A%E4%BC%A0%E8%BE%93%E7%BA%BF%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%A6%81/" title="4.传输线工程与施工概要"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.传输线工程与施工概要</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" title="电信传输理论-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电信传输理论-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电子系统"
+        id="heading-b39c3b04dc208f383088f6021a0ee899" role="tab" data-toggle="collapse" href="#collapse-b39c3b04dc208f383088f6021a0ee899"
+        aria-expanded="false"
+      >
+        电子系统
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b39c3b04dc208f383088f6021a0ee899"
+           role="tabpanel" aria-labelledby="heading-b39c3b04dc208f383088f6021a0ee899">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/1.%20OpAmp/" title="01. 运算放大器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 运算放大器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/2.%20Filter/" title="02. 滤波器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 滤波器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/3.%20Feedbacks/" title="03. 反馈放大器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 反馈放大器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/4.%20Osillator/" title="04. 振荡器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 振荡器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/5.%20timers/" title="05. 定时器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 定时器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/6.%20foundamentals%20of%20BJT/" title="06. 晶体管的结构和直流工作状态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 晶体管的结构和直流工作状态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/7.%20BJT_Biasing/" title="07. 晶体管的直流偏置状态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 晶体管的直流偏置状态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/8.%20BJT%20models/" title="08. 晶体管的交流工作分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 晶体管的交流工作分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/9.%20ICamplifier/" title="09. 晶体管单级放大电路"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 晶体管单级放大电路</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/10.%20IC_buildingblocks/" title="10. 双晶体管电路·多级放大电路"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 双晶体管电路·多级放大电路</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="电子系统-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电子系统-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电路与器件"
+        id="heading-1db9ff3a105b52dc9499ceb9f5e5356d" role="tab" data-toggle="collapse" href="#collapse-1db9ff3a105b52dc9499ceb9f5e5356d"
+        aria-expanded="false"
+      >
+        电路与器件
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-1db9ff3a105b52dc9499ceb9f5e5356d"
+           role="tabpanel" aria-labelledby="heading-1db9ff3a105b52dc9499ceb9f5e5356d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%85%83%E4%BB%B6%E6%8E%A8%E5%AF%BC/" title="半导体电路推导"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">半导体电路推导</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/" title="常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">常考知识点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="滤波器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">滤波器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="电路分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电路分析方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="移动通信"
+        id="heading-cf1e837e555de079ca221a731a82cfa6" role="tab" data-toggle="collapse" href="#collapse-cf1e837e555de079ca221a731a82cfa6"
+        aria-expanded="false"
+      >
+        移动通信
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-cf1e837e555de079ca221a731a82cfa6"
+           role="tabpanel" aria-labelledby="heading-cf1e837e555de079ca221a731a82cfa6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/04/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/1.%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/" title="1.移动通信概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.移动通信概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/2.%E7%A7%BB%E5%8A%A8%E4%BF%A1%E9%81%93/" title="2.无线信道"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.无线信道</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/3.%20%E6%8A%97%E8%A1%B0%E8%90%BD%E6%8A%80%E6%9C%AF/" title="3.移动通信关键技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.移动通信关键技术</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/4.%20%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B/" title="4.蜂窝移动电话网演进·卫星定位系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.蜂窝移动电话网演进·卫星定位系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="移动通信-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">移动通信-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/%E9%99%84%E5%BD%95%EF%BC%9A%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E6%BC%94%E8%BF%9B/" title="附录：蜂窝移动电话网演进"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录：蜂窝移动电话网演进</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="计算机结构与接口"
+        id="heading-ba239b57c06107ef37236e10fecae7db" role="tab" data-toggle="collapse" href="#collapse-ba239b57c06107ef37236e10fecae7db"
+        aria-expanded="false"
+      >
+        计算机结构与接口
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ba239b57c06107ef37236e10fecae7db"
+           role="tabpanel" aria-labelledby="heading-ba239b57c06107ef37236e10fecae7db">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/06/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/3.%20%E7%BB%8F%E5%85%B8PIC16F%E5%8D%95%E7%89%87%E6%9C%BA%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A1%88%E4%BE%8B/" title="PIC16F系列单片机接口程序设计经典案例"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PIC16F系列单片机接口程序设计经典案例</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/16/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/2.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8E%A5%E5%8F%A3%E7%A8%8B%E5%BA%8F/" title="计算机接口程序（C语言）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机接口程序（C语言）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/4.%20%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%8E%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" title="计算机结构-知识点与题型总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机结构-知识点与题型总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" title="计算机结构基础-课堂笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机结构基础-课堂笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信原理"
+        id="heading-21bcb4ca3640cc59985ea60fa9875fd8" role="tab" data-toggle="collapse" href="#collapse-21bcb4ca3640cc59985ea60fa9875fd8"
+        aria-expanded="false"
+      >
+        通信原理
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-21bcb4ca3640cc59985ea60fa9875fd8"
+           role="tabpanel" aria-labelledby="heading-21bcb4ca3640cc59985ea60fa9875fd8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/1.%20%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E3%80%81%E4%BF%A1%E6%81%AF/" title="01. 通信系统·信息"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 通信系统·信息</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/2.%20%E4%BF%A1%E5%8F%B7/" title="02. 信号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 信号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/3.%20%E6%A6%82%E7%8E%87%E4%B8%8E%E9%9A%8F%E6%9C%BA/" title="03. 随机变量和随机过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 随机变量和随机过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" title="04. 高斯噪声"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 高斯噪声</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/5.%20%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6/" title="05. 模拟基带信号的线性调制方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 模拟基带信号的线性调制方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/6.%20%E7%BA%BF%E6%80%A7%E8%A7%A3%E8%B0%83/" title="06. 线性调制的解调方法·抗噪性"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 线性调制的解调方法·抗噪性</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/7.%20%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6%C2%B7%E8%A7%A3%E8%B0%83/" title="07. 模拟基带信号的非线性调制和解调方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 模拟基带信号的非线性调制和解调方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/23/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/8.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93/" title="08. 模拟信号的数字化/信源编码"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 模拟信号的数字化/信源编码</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/9.%20%E7%A0%81%E5%9E%8B%E5%92%8C%E6%B3%A2%E5%BD%A2%E5%88%86%E6%9E%90/" title="09. 数字基带传输系统中信号的码型、波形和频谱"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 数字基带传输系统中信号的码型、波形和频谱</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/10.%20%E7%A0%81%E9%97%B4%E4%B8%B2%E6%89%B0/" title="10. 无码间串扰的数字基带传输系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 无码间串扰的数字基带传输系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/11.%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" title="11. 数字基带系统的抗噪性分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. 数字基带系统的抗噪性分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/12.%20%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93/" title="12. 数字带通系统的调制解调方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 数字带通系统的调制解调方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/13.%20%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8A%97%E5%99%AA%E6%80%A7%E5%88%86%E6%9E%90/" title="13. 数字带通系统的抗噪性分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13. 数字带通系统的抗噪性分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="通信原理-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">通信原理-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E5%8F%AF%E8%83%BD%E7%94%A8%E5%88%B0%E7%9A%84%E5%85%AC%E5%BC%8F/" title="附录1：其他数学公式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录1：其他数学公式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/ASKFSKPSK%E6%B3%A2%E5%BD%A2/" title="附录2：ASK/FSK/PSK/DPSK 解调过程及波形"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录2：ASK/FSK/PSK/DPSK 解调过程及波形</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信和计算机网络"
+        id="heading-00696fa5a068c4786e804147ec4a31e0" role="tab" data-toggle="collapse" href="#collapse-00696fa5a068c4786e804147ec4a31e0"
+        aria-expanded="false"
+      >
+        通信和计算机网络
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-00696fa5a068c4786e804147ec4a31e0"
+           role="tabpanel" aria-labelledby="heading-00696fa5a068c4786e804147ec4a31e0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/0.%E9%80%9A%E4%BF%A1%E7%BD%91/" title="0.通信网络概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0.通信网络概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/1.%E7%89%A9%E7%90%86%E5%B1%82%E6%8A%80%E6%9C%AF/" title="1.物理层技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.物理层技术</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/2.%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" title="2.数据链路层技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.数据链路层技术</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/3.%E7%BD%91%E7%BB%9C%E5%B1%82/" title="3.网络层技术：路由选择"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.网络层技术：路由选择</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/4.LAN/" title="4.计算机局域网"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.计算机局域网</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/5.ip%E5%8D%8F%E8%AE%AE/" title="5.计算机互联网：IP协议群"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.计算机互联网：IP协议群</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/6.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%BF%90%E8%BE%93%E5%B1%82/" title="6.计算机网络：运输层"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.计算机网络：运输层</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="通信与计算机网络-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">通信与计算机网络-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/%E9%99%84%E5%BD%95%EF%BC%9A%E5%85%B3%E9%94%AE%E5%8D%8F%E8%AE%AE%E5%A4%B4%E9%83%A8%E7%BB%93%E6%9E%84/" title="附录：关键协议头部结构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录：关键协议头部结构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建和渲染。<br> ©OrekiKigiha 2021 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var title = subtitle.title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.staticfile.org/mathjax/3.2.0/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
