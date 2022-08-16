@@ -229,7 +229,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="5.7. 神经网络的优化">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -337,10 +337,10 @@ p.spoiler {
             
             <div class="markdown-body">
               
-              <h1 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h1><h2 id="参数展开"><a href="#参数展开" class="headerlink" title="参数展开"></a>参数展开</h2><p>参数展开是一种将矩阵展开为向量的方法，常用于很多高级优化中。<br>例如如下的高级优化：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">function[jVal,gradient]=costFunction(theta)<br>...<br>optTheta=fminunc(@costFunction,initialTheta,options)<br></code></pre></td></tr></table></figure><br>fminuc是一种高级的优化算法。这些高级优化算法的输入值的形式都是参数向量。<br>在神经网络中，很多参数并非是向量的形式，而是完整的矩阵，比如第l层的参数矩阵$Θ^{(l)}$和梯度矩阵$D^{(l)}$(见5.1.)，这时就需要应用参数展开将这些矩阵展开为向量，方法是在Octave中应用<code>[;]</code>表达将所有的元素从矩阵中取出，展开成一个长向量，并应用<code>reshape</code>语法重新合成矩阵。<br>比如如下的10层神经网络：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/master/img/20210204151039.png" srcset="/img/loading.gif" lazyload alt="">   </p>
+              <h1 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h1><h2 id="参数展开"><a href="#参数展开" class="headerlink" title="参数展开"></a>参数展开</h2><p>参数展开是一种将矩阵展开为向量的方法，常用于很多高级优化中。<br>例如如下的高级优化：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">function[jVal,gradient]=<span class="hljs-built_in">costFunction</span>(theta)<br>...<br>optTheta=<span class="hljs-built_in">fminunc</span>(@costFunction,initialTheta,options)<br></code></pre></td></tr></table></figure><br>fminuc是一种高级的优化算法。这些高级优化算法的输入值的形式都是参数向量。<br>在神经网络中，很多参数并非是向量的形式，而是完整的矩阵，比如第l层的参数矩阵$Θ^{(l)}$和梯度矩阵$D^{(l)}$(见5.1.)，这时就需要应用参数展开将这些矩阵展开为向量，方法是在Octave中应用<code>[;]</code>表达将所有的元素从矩阵中取出，展开成一个长向量，并应用<code>reshape</code>语法重新合成矩阵。<br>比如如下的10层神经网络：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/master/img/20210204151039.png" srcset="/img/loading.gif" lazyload alt="">   </p>
 <h2 id="梯度检测"><a href="#梯度检测" class="headerlink" title="梯度检测"></a>梯度检测</h2><p>反向传播算法的实现过程非常的繁琐，因此在与其他算法一同工作的时候可能会产生一些bug，这些bug可能本身不会影响程序的运行，但是最终输出的模型准确度可能会非常低。 因此需要引入梯度检测(Gredient Check)来解决反向传播算法或类梯度下降算法中出现的这类问题。  </p>
 <ul>
-<li>从数值上近似梯度<br>要想求出代价函数$J(\Theta)$在某一点$\theta$的梯度（在二维内反映为该点的斜率），可以在$\theta$的两边取$\theta \plusmn \epsilon, \epsilon \rightarrow 0$,$\theta$处的梯度可以近似的表示为（实数形式）：<script type="math/tex; mode=display">\frac{dJ(θ )}{dθ }≈  \frac{J(θ +ε )-J(θ -ε )}{2ε }</script>称为双侧差分（Two-side difference）。<br>当$\theta$是$\Theta^{(i)}$的展开时，可以用双侧差分来估计所有的偏导数项：<script type="math/tex; mode=display">\frac{∂ J(θ)}{∂ θ_k}≈ \frac{J(θ _k+ε ,θ_1,...,θ_n )-J(θ _k-ε ,\theta_1,...,θ_n  )}{2ε }</script>在Octave中用如下的代码实现：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Cpp"><span class="hljs-keyword">for</span> i=<span class="hljs-number">1</span>:n,<br>  thetaPlus=theta;<br>  thetaPlus=thetaPlus(i)+epsilon;<br>  thetaMinus=theta;<br>  thetaMinus(i)=thetaMinus(i)-epsilon;<br>  gradApprox(i)=(J(thetaPlus)-J(thetaMinus))/(<span class="hljs-number">2</span>*epsilon);<br>end;<br>Check gradApprox≈DVec<br></code></pre></td></tr></table></figure></li>
+<li>从数值上近似梯度<br>要想求出代价函数$J(\Theta)$在某一点$\theta$的梯度（在二维内反映为该点的斜率），可以在$\theta$的两边取$\theta \plusmn \epsilon, \epsilon \rightarrow 0$,$\theta$处的梯度可以近似的表示为（实数形式）：<script type="math/tex; mode=display">\frac{dJ(θ )}{dθ }≈  \frac{J(θ +ε )-J(θ -ε )}{2ε }</script>称为双侧差分（Two-side difference）。<br>当$\theta$是$\Theta^{(i)}$的展开时，可以用双侧差分来估计所有的偏导数项：<script type="math/tex; mode=display">\frac{∂ J(θ)}{∂ θ_k}≈ \frac{J(θ _k+ε ,θ_1,...,θ_n )-J(θ _k-ε ,\theta_1,...,θ_n  )}{2ε }</script>在Octave中用如下的代码实现：<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Cpp"><span class="hljs-keyword">for</span> i=<span class="hljs-number">1</span>:n,<br>  thetaPlus=theta;<br>  thetaPlus=<span class="hljs-built_in">thetaPlus</span>(i)+epsilon;<br>  thetaMinus=theta;<br>  <span class="hljs-built_in">thetaMinus</span>(i)=<span class="hljs-built_in">thetaMinus</span>(i)-epsilon;<br>  <span class="hljs-built_in">gradApprox</span>(i)=(<span class="hljs-built_in">J</span>(thetaPlus)-<span class="hljs-built_in">J</span>(thetaMinus))/(<span class="hljs-number">2</span>*epsilon);<br>end;<br>Check gradApprox≈DVec<br></code></pre></td></tr></table></figure></li>
 <li>总结流程<ol>
 <li>利用反向传播算法算出$D^{(i)}$的展开向量DVec</li>
 <li>利用双侧差分计算gradApprox</li>
@@ -349,7 +349,7 @@ p.spoiler {
 </ol>
 </li>
 </ul>
-<h2 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h2><p>在最开始执行高级优化或者是神经网络的梯度下降时，应当对$Θ$设置一些初始值，即初始化$Θ$。<br>在逻辑回归中，将参数全部初始化为0的做法会导致神经网络中一个单元出发的所有的参数都相等，导致神经网络中所有的隐藏单元都在计算相同的特征。正确的做法是对$Θ$随机地设定一些值来初始化它，具体的做法是：<br>设置某个区间$[-ϵ,ϵ]$，使得所有$θ$都在这个区间内随机取到，用Octave代码实现：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">theta1 = rand(<span class="hljs-number">10</span>,<span class="hljs-number">11</span>)*(<span class="hljs-number">2</span>*init_epsilon)-init_epsilon; <br><span class="hljs-meta">#rand()的作用是随机生成一个mxn的矩阵，矩阵里面所有的元素值都介于0,1之间。</span><br></code></pre></td></tr></table></figure></p>
+<h2 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h2><p>在最开始执行高级优化或者是神经网络的梯度下降时，应当对$Θ$设置一些初始值，即初始化$Θ$。<br>在逻辑回归中，将参数全部初始化为0的做法会导致神经网络中一个单元出发的所有的参数都相等，导致神经网络中所有的隐藏单元都在计算相同的特征。正确的做法是对$Θ$随机地设定一些值来初始化它，具体的做法是：<br>设置某个区间$[-ϵ,ϵ]$，使得所有$θ$都在这个区间内随机取到，用Octave代码实现：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">theta1 = <span class="hljs-built_in">rand</span>(<span class="hljs-number">10</span>,<span class="hljs-number">11</span>)*(<span class="hljs-number">2</span>*init_epsilon)-init_epsilon; <br><span class="hljs-meta">#rand()的作用是随机生成一个mxn的矩阵，矩阵里面所有的元素值都介于0,1之间。</span><br></code></pre></td></tr></table></figure></p>
 
               
             </div>
@@ -832,6 +832,21 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function (w, d, s, id) {
             if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script></body>
 </html>

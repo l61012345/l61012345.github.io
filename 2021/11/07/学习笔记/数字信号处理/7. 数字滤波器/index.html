@@ -227,7 +227,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="07. 数字滤波器·数字系统的表示">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -390,8 +390,9 @@ p.spoiler {
 <li>需要对$h[n]$进行周期延拓，方法是使用<code>zeros(1,L)</code>创建一个长度为L的全0向量用<code>x=[x,zeros(1,L)]</code>对其填充。  </li>
 <li>使用<code>fft()</code>函数求其FFT结果。<code>abs()</code>求结果的绝对值得到幅频响应，<code>angle()</code>求FFT结果的相频响应。  </li>
 <li>横轴应当为<code>[0:(N+L)]*2*pi/(N+L+1)</code>使得0-2π内每一格的长度为$\frac{2π}{N+L+1}$ （因为<code>0:(N+L)</code>有N+L+1个数）<br>下面的示例程序展示了如何绘制$h[n]=Sa(0.1(n-50)),0≤n≤100$的幅频和相频响应曲线：  <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>; <span class="hljs-comment">%100点FFT</span><br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)]; <span class="hljs-comment">%对x周期延拓到长度为1000</span><br>X<span class="hljs-built_in">=</span>fft(x); <span class="hljs-comment">%求其FFT/DFS结果（Amplitude Response）</span><br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<span class="hljs-comment">%横轴，每一格表示2π/(N+1001)</span><br>plot(w./pi,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）并作π归一化</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></td></tr></table></figure>
-给定系统Z域下的传递函数$H(z)=\frac{∑b_kz^{-k}}{∑a_kz^{-k}}$时，可以使用<code>[H,w]=freqz(b,a,n)</code>返回其频率响应<code>H</code>和对应的π归一化的角频率横轴<code>w</code>，其中<code>a</code>是$∑a_kz^{-k}$由高次幂到低次幂排列时的系数向量，其中<code>b</code>是$∑b_kz^{-k}$由高次幂到低次幂排列时的系数向量，<code>n</code>为计算时所指定的N点FFT的点数，缺省值为512。<br>如下的例程中给出了如何绘制$H(z)=\frac{1-0.5z^{-1}}{1-2z^{-1}+z^{-2}}$的频率响应图：  <figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs m">b<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">0.5</span>];<br>a<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">2</span>,<span class="hljs-number">1</span>];<br>[H,w]<span class="hljs-built_in">=</span>freqz(b,a); <br>plot(w,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>plot(w,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br></code></pre></td></tr></table></figure></li>
+</li>
 </ul>
+<p>给定系统Z域下的传递函数$H(z)=\frac{∑b_kz^{-k}}{∑a_kz^{-k}}$时，可以使用<code>[H,w]=freqz(b,a,n)</code>返回其频率响应<code>H</code>和对应的π归一化的角频率横轴<code>w</code>，其中<code>a</code>是$∑a_kz^{-k}$由高次幂到低次幂排列时的系数向量，其中<code>b</code>是$∑b_kz^{-k}$由高次幂到低次幂排列时的系数向量，<code>n</code>为计算时所指定的N点FFT的点数，缺省值为512。<br>如下的例程中给出了如何绘制$H(z)=\frac{1-0.5z^{-1}}{1-2z^{-1}+z^{-2}}$的频率响应图：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs m">b<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">0.5</span>];<br>a<span class="hljs-built_in">=</span>[<span class="hljs-number">1</span>,-<span class="hljs-number">2</span>,<span class="hljs-number">1</span>];<br>[H,w]<span class="hljs-built_in">=</span>freqz(b,a); <br>plot(w,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>plot(w,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br></code></pre></td></tr></table></figure></p>
 
               
             </div>
@@ -2322,6 +2323,21 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function (w, d, s, id) {
             if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script></body>
 </html>
