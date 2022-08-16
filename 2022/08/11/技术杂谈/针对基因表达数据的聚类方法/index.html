@@ -24,7 +24,7 @@
 <meta property="og:description" content="针对基因表达数据的聚类方法 Cluster Analysis for Gene Expression Data: A Survey. Daxin Jiang et al, 2004.DNA微阵列（基因芯片）简介:https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;46017763基因表达数据：https:&#x2F;&#x2F;baike.baidu.com&#x2F;item&#x2F;%E5%9F%BA%E5%9B%A0%E8">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-08-11T06:18:26.327Z">
-<meta property="article:modified_time" content="2022-08-15T03:03:34.443Z">
+<meta property="article:modified_time" content="2022-08-15T03:18:25.519Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta property="article:tag" content="复杂系统分析">
 <meta name="twitter:card" content="summary_large_image">
@@ -228,7 +228,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="针对基因表达数据的聚类方法">
             
           </span>
         </div>
@@ -257,7 +257,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8k 字
+          8.1k 字
         
       </span>
     
@@ -268,7 +268,7 @@ p.spoiler {
         
         
         
-          67 分钟
+          68 分钟
         
       </span>
     
@@ -340,7 +340,7 @@ p.spoiler {
 <p><em>Cluster Analysis for Gene Expression Data: A Survey.</em> Daxin Jiang et al, 2004.<br>DNA微阵列（基因芯片）简介:<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/46017763">https://zhuanlan.zhihu.com/p/46017763</a><br>基因表达数据：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE/347523">https://baike.baidu.com/item/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE/347523</a><br>SOM(自组织映射神经网络)——理论篇：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73534694">https://zhuanlan.zhihu.com/p/73534694</a></p>
 </blockquote>
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><h3 id="DNA微阵列技术"><a href="#DNA微阵列技术" class="headerlink" title="DNA微阵列技术"></a>DNA微阵列技术</h3><p>随着人类基因组（测序）计划（Human genome project）的逐步实施以及分子生物学相关学科的迅猛发展，越来越多的动植物、微生物基因组序列得以测定，基因序列数据正在以前所未有的速度迅速增长，传统的基因检测方式效率低下，为此，建立新型杂交和测序方法以对大量的遗传信息进行高效、快速的检测、分析显得格外重要。<br>cDNA微阵列技术/基因芯片技术（cDNA Microarrays/gene chip）是解决这一问题的重要技术：通过微加工技术将数以万计、乃至百万计的特定序列的DNA片段（基因探针），有规律地排列固定于2平方厘米左右的硅片、玻片等支持物上，构成的一个二维DNA探针阵列，其结构与计算机的电子芯片十分相似，所以被称为基因芯片。基因芯片主要用于基因检测工作。  </p>
-<h3 id="基因表达数据"><a href="#基因表达数据" class="headerlink" title="基因表达数据"></a>基因表达数据</h3><p>通过cDNA技术检测出来的基因数据称为基因表达数据(gene expression data)。基因表达数据反映的是直接或间接测量得到的基因转录产物mRNA在细胞中的丰度，这些数据可以用于分析哪些基因的表达发生了改变，基因之间有何相关性，在不同条件下基因的活动是如何受影响的。它们在医学临床诊断、药物疗效判断、揭示疾病发生机制等方面有重要的应用。随着 cDNA 微阵列和寡核苷酸芯片等高通量检测技术的发展，生物学家可以从全基因组水平定量或定性检测基因转录产物 mRNA。由于生物体中的细胞种类繁多，同时基因表达具有<strong>时空特异性</strong>，因此，基因表达数据与基因组数据相比，要更为复杂，数据量更大，数据的增长速度更快。<br>在本论文中，基因表达数据以矩阵的形式出现：矩阵的每一行$\boldsymbol{g_i}$表示每一个基因，矩阵的每一列$\boldsymbol{s_j}$表示一次在某一特定条件下对基因的表达实验，称为一次采样（sample）。矩阵的每一个元素$w_{i,j}$表示基因$g_i$在实验$s_j$下的表达水平(expression level)，表达水平是一个实数值。基因表达数据的组织形式如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220811144554.png width=60%>  </p>
+<h3 id="基因表达数据"><a href="#基因表达数据" class="headerlink" title="基因表达数据"></a>基因表达数据</h3><p>通过cDNA技术检测出来的基因数据称为基因表达数据(gene expression data)。基因表达数据反映的是直接或间接测量得到的基因转录产物mRNA在细胞中的丰度，这些数据可以用于分析哪些基因的表达发生了改变，基因之间有何相关性，在不同条件下基因的活动是如何受影响的。它们在医学临床诊断、药物疗效判断、揭示疾病发生机制等方面有重要的应用。随着 cDNA 微阵列和寡核苷酸芯片等高通量检测技术的发展，生物学家可以从全基因组水平定量或定性检测基因转录产物 mRNA。由于生物体中的细胞种类繁多，同时基因表达具有<strong>时空特异性</strong>，因此，基因表达数据与基因组数据相比，要更为复杂，数据量更大，数据的增长速度更快。<br>在本论文中，基因表达数据以矩阵的形式出现：矩阵的每一行$\boldsymbol{g<em>i}$表示每一个基因，矩阵的每一列$\boldsymbol{s_j}$表示一次在某一特定条件下对基因的表达实验，称为一次采样（sample）。矩阵的每一个元素$w</em>{i,j}$表示基因$g_i$在实验$s_j$下的表达水平(expression level)，表达水平是一个实数值。基因表达数据的组织形式如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220811144554.png width=60%>  </p>
 <h4 id="数据特征"><a href="#数据特征" class="headerlink" title="数据特征"></a>数据特征</h4><ul>
 <li>矩阵的维度是及其不对等的，通常在微矩阵实验中的基因数量级在$10^3$到$10^4$左右，甚至可以达到$10^6$，而参与的采样次数通常小于100，矩阵的长宽数量级差别非常大。  </li>
 <li>有些基因可能参与的共调控过程不止一个，因此聚类结果中的簇之间可能相互重叠。  </li>
@@ -357,10 +357,10 @@ p.spoiler {
 <li>子空间聚类(subspace clustering)：在这样的聚类中，基因和采样被同等地视为个体和特征。  </li>
 </ul>
 <h2 id="相似度度量"><a href="#相似度度量" class="headerlink" title="相似度度量"></a>相似度度量</h2><p>相似度(proximity)表示了两个数据的相似程度，在采样空间中表示为两个数据点的空间距离：两个数据点距离越近，两个数据点越相似。在基因表达数据中相似度度量有两种：欧氏距离(Eculidean distance)和皮尔森相关系数(Pearson correlation coeffitient)。  </p>
-<h3 id="欧氏距离"><a href="#欧氏距离" class="headerlink" title="欧氏距离"></a>欧氏距离</h3><p>欧氏距离是最常见的一种距离度量，其为高维空间中两点$O_i=(o_{i1},…,o_{ip}),O_j=(o_{j1},…,o_{jp})$之间的距离公式：  </p>
-<script type="math/tex; mode=display">Eculidean(O_i,O_j)=\sqrt{\sum_{d=1}^p(o_{id}-o_{jd})^2}</script><p>如果某些维度上的数值数量级可能过大也可能过小，因此有必要在各维度上进行归一化处理。此外，经验证明欧氏距离对标准化$O’_{id}=\frac{O_{id}-μ_{O_i}}{σ_{O_i}}$后的基因表达数据的相似度度量要比非标准化的数据好得多。  </p>
-<h3 id="皮尔森相关系数"><a href="#皮尔森相关系数" class="headerlink" title="皮尔森相关系数"></a>皮尔森相关系数</h3><p>另一种方法是皮尔森系数，皮尔森系数通过数据的统计特征来衡量两个数据之间的相似度，高维空间中两点$O_i=(o_{i1},…,o_{ip}),O_j=(o_{j1},…,o_{jp})$的皮尔森相关系数表示为：  </p>
-<script type="math/tex; mode=display">Pearson(O_i,O_j)=ρ_{ij}=\frac{\sum_{d=1}^p(o_{id}-μ_{o_i})(o_{jd}-μ_{o_j})}{\sqrt{\sum_{d=1}^p(o_{id}-μ_{o_i})^2}\sqrt{\sum_{d=1}^p(o_{jd}-μ_{o_j})^2}}</script><p>其中$μ_{o_i}$和$μ_{o_j}$分别为$O_i$和$O_j$的均值。  </p>
+<h3 id="欧氏距离"><a href="#欧氏距离" class="headerlink" title="欧氏距离"></a>欧氏距离</h3><p>欧氏距离是最常见的一种距离度量，其为高维空间中两点$O<em>i=(o</em>{i1},…,o<em>{ip}),O_j=(o</em>{j1},…,o_{jp})$之间的距离公式：  </p>
+<script type="math/tex; mode=display">Eculidean(O_i,O_j)=\sqrt{\sum_{d=1}^p(o_{id}-o_{jd})^2}</script><p>如果某些维度上的数值数量级可能过大也可能过小，因此有必要在各维度上进行归一化处理。此外，经验证明欧氏距离对标准化$O’<em>{id}=\frac{O</em>{id}-μ<em>{O_i}}{σ</em>{O_i}}$后的基因表达数据的相似度度量要比非标准化的数据好得多。  </p>
+<h3 id="皮尔森相关系数"><a href="#皮尔森相关系数" class="headerlink" title="皮尔森相关系数"></a>皮尔森相关系数</h3><p>另一种方法是皮尔森系数，皮尔森系数通过数据的统计特征来衡量两个数据之间的相似度，高维空间中两点$O<em>i=(o</em>{i1},…,o<em>{ip}),O_j=(o</em>{j1},…,o_{jp})$的皮尔森相关系数表示为：  </p>
+<script type="math/tex; mode=display">Pearson(O_i,O_j)=ρ_{ij}=\frac{\sum_{d=1}^p(o_{id}-μ_{o_i})(o_{jd}-μ_{o_j})}{\sqrt{\sum_{d=1}^p(o_{id}-μ_{o_i})^2}\sqrt{\sum_{d=1}^p(o_{jd}-μ_{o_j})^2}}</script><p>其中$μ<em>{o_i}$和$μ</em>{o_j}$分别为$O_i$和$O_j$的均值。  </p>
 <p>由于皮尔森相关系数只根据数据的统计特性（均值和均方值）来衡量相似度，因此极有可能出现两个数据分布完全不同，但是在近似的地方出现最值被皮尔森相关系数判定为相似的情况。<br>改进这个问题的方法是刀切法(Jackknife)，刀切法的相关系数表示为：  </p>
 <script type="math/tex; mode=display">Jackknife(O_i,O_j)=min\{ρ_{ij}^{(1)},ρ_{ij}^{(2)},...,ρ_{ij}^{(l)}\}</script><p>其中$ρ_{ij}^{(l)}$指$O_i,O_j$都去掉第$l$个特征后的皮尔森相关系数。<br>从定义式中不难发现刀切法相比于皮尔森相关系数更为客观，其考虑到了每一个特征对总体分布的贡献。但是当特征数较大时，需要计算(特征数)次皮尔森相关系数，计算量较大。<br>此外，皮尔森相关系数假设了所有的数据服从高斯分布，对于实际上不符合高斯分布的数据，皮尔森公式的效果比较差。<br>改进这个问题的方法是 斯皮尔曼等级相关系数(Spearsman’s rank order correlation efficient)。它被定义成等级变量之间的皮尔森相关系数:对于样本容量为$n$的样本，$n$个原始数据被转换成等级数据，相关系数$ρ$为原始数据依据其在总体数据中平均的降序位置。斯皮尔曼等级相关系数虽然避免了皮尔森相关系数中对于数据分布的假设，但是使用等级来替代原有的数据使得大量的数据特征被丢失。  </p>
 <h3 id="标准化的数据"><a href="#标准化的数据" class="headerlink" title="标准化的数据"></a>标准化的数据</h3><p>前文中提到，如果对基因表达数据进行标准化处理，那么欧氏距离的度量效果会好得多。数据的标准化定义为：  </p>
@@ -397,7 +397,7 @@ p.spoiler {
 <h4 id="CAST算法"><a href="#CAST算法" class="headerlink" title="CAST算法"></a>CAST算法</h4><p>CAST算法认为对数据集正确的簇分类可以表示为一个团图(clique graph)$ℋ$，这个团图中的每一个团都对应了一个簇。团图的相似度图可以根据以概率$α$翻转每条连接得到。对于数据的聚类可以认为是通过对相似度图进行一定的翻转，最终得到一个确定的团图。<br>CAST算法用亲和度(affinity)来衡量每一个数据点对某个簇的从属关系，并通过一个设定的亲和度阈值(affinity threshold)$t$来决定某个数据点是否属于这个簇。在算法的迭代过程中，CAST会不断删除这个簇中亲和度小的数据点，并添加亲和度高的数据点。亲和度阈值实际上是当前这个簇中所有数据点配对的平均相似度，因此无需设置。<br>CAST算法的优点是不需要用户提前对簇的数量等参数进行设置。但是对于大量数据，寻找亲和度阈值过程的计算量和复杂度都比较高。  </p>
 <h3 id="基于模型的聚类"><a href="#基于模型的聚类" class="headerlink" title="基于模型的聚类"></a>基于模型的聚类</h3><p>基于模型的聚类方法 (Model-based Clustering Methods)的基本其基本思想是:整个数据集的分布一定由有限个已知的概率分布模型叠加而成；其中每一个簇对应了一个已知的概率分布模型。那么整个整个数据集的概率模型可以表示为:  </p>
 <script type="math/tex; mode=display">L_{mix}(Θ,Γ)=∑_{i=1}^kγ_r^if_i(x_r|θ_i)</script><p>其中，$n$是数据点的数量；$k$是簇（即概率模型）的数量；$x_r$是一个数据点；$γ_r^i$表示$x_r$属于簇$C_i$的概率，称为隐含参数；$f_i(x_r|θ_i)$是引入$x_r$后簇$C_i$概率密度函数，其中包含一些未知参数$θ_i$，称为模型参数。  </p>
-<p>基于模型的聚类方法需要找到使得$L_{mix}(Θ,Γ)$最大的所有$Θ=\{θ_i|1≤i≤k\}$和$Γ=\{γ^i_r|1≤i≤k,1≤r≤n\}$。<br>通常，可以通过EM算法/期望最大化算法(Expectation-Maximum)找到合适的$Γ$和$Θ$。EM算法的运行过程分为两步：期望和最大化。  </p>
+<p>基于模型的聚类方法需要找到使得$L_{mix}(Θ,Γ)$最大的所有$Θ={θ_i|1≤i≤k}$和$Γ={γ^i_r|1≤i≤k,1≤r≤n}$。<br>通常，可以通过EM算法/期望最大化算法(Expectation-Maximum)找到合适的$Γ$和$Θ$。EM算法的运行过程分为两步：期望和最大化。  </p>
 <ul>
 <li>首先对每一个簇的概率模型中参数$Θ$（比如均值和方差）进行的随机初始化。</li>
 <li>期望过程(E过程)：计算每个数据点$x_r$更属于哪一个簇的概率分布，计算每个数据点对最佳簇的$γ_r^i$，得到$Γ$。  </li>
@@ -405,6 +405,7 @@ p.spoiler {
 </ul>
 <p>然后重新计算每个数据点$x_r$更属于哪一个簇的概率分布，如此重复E过程和M过程，直到$Γ$和$Θ$不再发生变化。  </p>
 <p>基因表达数据可能会出现单个基因与两个不同的簇有高度相关性的情况。基于模型的聚类的概率性质适合处理这种情况。但是基于模型的聚类假设了每一个簇一定服从某个特定的概率分布模型，事实上这一假设未必符合实际。  </p>
+<h3 id="基于密度的分层聚类-DHC"><a href="#基于密度的分层聚类-DHC" class="headerlink" title="基于密度的分层聚类/DHC"></a>基于密度的分层聚类/DHC</h3><p>基于密度的分层聚类又称为DHC算法(Density-based Hierarchical Clustering)，其基本思想是将一个簇视为一个多维的稠密区域，这个稠密区域中的数据点之间相互“吸引”(attract)，区域核心部分的数据点非常接近，因此具有高密度。  </p>
 <h3 id="基于基因聚类的困难性"><a href="#基于基因聚类的困难性" class="headerlink" title="基于基因聚类的困难性"></a>基于基因聚类的困难性</h3>
               
             </div>
@@ -876,20 +877,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </body>
 </html>
