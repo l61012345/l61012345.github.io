@@ -1,6 +1,11 @@
 ---
 title: TensorFlow 入门项目：训练一个VGG模型
-categories: 技术杂谈
+date: 2021/09/25
+categories: 
+- 论文
+- 神经网络
+
+category_bar: true
 tags:
 - Tensorflow
 ---

@@ -59,4 +59,9 @@ date: 2022-07-15 10:08:03
 - 【适用于生物系统建模的灵敏度计算方法综述，介绍了灵敏度类型和计算方法、以及在不同场景下如何选择灵敏度、以及相关软件的介绍，十分推荐】  
    Sentitivity analysis approaches applied to systems biology models, Zhike Zi, 2011
 
+# 神经网络
+## 对抗神经网络/GAN
+- 【开山之作，介绍了GAN原理，包括训练和识别过程，以及数学原理】  
+  Generative Adversarial Net, Ian J et al, 2014.  
+
 {% endmarkmap %}

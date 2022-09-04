@@ -1,7 +1,8 @@
 ---
 title: Python学习路线
 category_bar: true
-author: Yushen Cheng
+author: Yushen Chen
+date: 2022/05/07
 categories: 
 - YF408实验室培训资料
 ---
