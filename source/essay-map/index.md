@@ -60,8 +60,8 @@ date: 2022-07-15 10:08:03
    Sentitivity analysis approaches applied to systems biology models, Zhike Zi, 2011
 
 # 神经网络
-## 对抗神经网络/GAN
+## 生成对抗网络/GAN
 - 【开山之作，介绍了GAN原理，包括训练和识别过程，以及数学原理】  
-  Generative Adversarial Net, Ian J et al, 2014.  
+  Generative Adversarial Nets, Ian J et al, 2014.  
 
 {% endmarkmap %}
