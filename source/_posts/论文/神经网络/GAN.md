@@ -95,9 +95,14 @@ GAN的学习分为两个内外两个循环：对于每一次迭代（外循环�
 具体过程如下所示：  
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220906171000.png width=70%>  
 
+
 |algorithm|
 |:-|
 |**for** number of training iterations **do**<br>&emsp;**for** $k$ steps **do**<br>&emsp;&emsp;在噪声分布$p_g(z)$中采样$m$个样本：$\{z^{(1)},...,z^{(m)}\}$ <br>&emsp;&emsp;在真实数据分布$p_{data}(x)$中采样$m$个样本：$\{x^{(1)},...,x^{(m)}\}$<br>&emsp;&emsp;使用**梯度上升**算法更新辨别器梯度：$$▿_{θ_d}\frac{1}{m}\sum_{i=1}^m[logD(x^{(i)})]+log(1-D(G(z^{(i)})))]$$ <br>&emsp;**end for**<br>&emsp;在噪声分布$p_g(z)$中采样$m$个样本：$\{z^{(1),...,z^{(m)}}\}$ <br>&emsp;使用**梯度下降**算法更新生成器梯度：$$▿_{θ_g}\frac{1}{m}\sum_{i=1}^mlog(1-D(G(z^{(i)})))$$ <br>**end for**|
+
+整个算法的实质是构造一个鞍型函数，并寻找其鞍点。该鞍形函数的一侧为凸函数(鉴别器的鉴别能力)，另一侧为凹函数（生成器的生成能力）。如下图所示：  
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220906183021.png width=40%>  
+
 
 事实上，该算法有可能无法为生成器$G$的学习提供足够的梯度。在训练早期，生成器$G$还比较弱，不足以模仿数据集中的数据时，鉴别器$D$可以很轻松地鉴别出生成数据。此时$log(1-D(G(z)))$处于接近1的饱和状态。因此为了避免这种情况，可以在训练生成器时最大化$log(D(G(z)))$，这种策略可以在训练早期为生成器$G$提供足够的精度。  
 设$p_{data}$表示数据集的数据分布，$p_g$表示生成器生成的数据的数据分布。整个训练过程中鉴别器、生成器产生的分布如下图所示：  
@@ -137,7 +142,7 @@ $$\begin{aligned}
     &=∫_xp_{data}(x)log(\frac{p_{data}(x)}{p_{data}(x)+p_g(x)})+p_G(x)log(\frac{p_G(x)}{p_{data}(x)+p_g(x)})dx
 \end{aligned}$$
 上述式子可以转化为：  
-$$C(G)=-log4+∫_xp_{data}(x)\left(log(2)+log(\frac{2p_{data}(x)}{p_{data}(x)+p_g(x)})\right)dx+∫_xp_G(x)log(\frac{2p_G(x)}{p_G(x)+p_g(x)})$$
+$$C(G)=-log4+∫_xp_{data}(x)\left(log(2)+log(\frac{2p_{data}(x)}{p_{data}(x)+p_g(x)})\right)dx+∫_xp_G(x)log(\frac{2p_G(x)}{p_G(x)+p_g(x)}dx)$$
 带入KL散度公式，得到：  
 $$C(G)=-log4+KL(p_{data}||\frac{p_{data}+p_G}{2})+KL(p_G|\frac{p_{data}+p_G}{2})$$
 由于$KL(p_{data}||\frac{p_{data}+p_G}{2})$和$KL(p_G|\frac{p_{data}+p_G}{2})$总是非负的，因此$C(G)≥-log4$。
@@ -151,6 +156,13 @@ $$V_f(D,G)=D(x)[1-D(x)]$$
 该函数在$D(x)=\frac{1}{2}$时取得最大值。  
 这个快速证明方法并不严谨，但是有助于简单理解上述数学证明的过程。  
 {% endnote %}  
+
+### 算法收敛性
+如果G和D具有足够的容量，并且在算法1的每个步骤中，允许鉴别器达到其给定的最佳G，并更新以提高评估标准，使得趋近$\mathop{min}\limits_{G}\mathop{max}\limits_{D}V(D,G)=\mathbb{E}_{x\sim p_{data}(x)}log(D(x))+\mathbb{E}_{z\sim p_{z}(z)}log(1-D(G(z)))$。  
+证明：将$V(G,D)= U(p_g,D)$视为上述过程中关于$p_g$的函数且$U(p_g,D)$是对$p_g$的凸函数。$U(p_g,D)$且具有之前所证明的证明的唯一全局最优值，因此在$p_g$的更新足够小的情况下，$p_g$能收敛到$p_x$。  
+
+事实上，对抗网络通过函数$G(z;θ_g)$表示一系列有限的分布，并且而且通常优化的是$θ_g$而不是$p_g$本身，因此证明不适用。但是多层感知器在实践中的出色性能表明，尽管缺乏理论上的保证，它们还是可以使用的合理模型。  
+
 
 ## 实验验证
 论文中使用GAN和其他生成网络学习MINST、TFD等数据集。其中生成器网络使用了线性和sigmoid函数作为激活函数，鉴别器网络使用了maxout激活。并且dropout算法应用在鉴别器的训练上。  
