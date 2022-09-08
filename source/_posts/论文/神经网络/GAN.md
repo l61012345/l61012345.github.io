@@ -135,7 +135,8 @@ $$\mathbb{E}_{p(x;θ)}[f(x)]=\mathbb{E}_{p(ϵ)}[f(g(ϵ;θ))]$$
 对于形如"$alog(y)+blog(1-y),y∈[0,1]$"的函数，其最大值在$y=\frac{a}{a+b}$上取得，对于上式，其最大值应当在$D^*_G(x)=\frac{p_{data}(x)}{p_{data}(x)+p_g(x)}$上取得。  
 
 ### 最优生成器
-对于固定的鉴别器$D$，当且仅当$p_G=p_{data}$时，才可以得到$C(G)=max_DV(G,D^*)$的最小值。此时$D^*=\frac{1}{2}$，$V(G,D^*_G)=-log4$。证明过程如下：  
+对于固定的鉴别器$D$，当且仅当$p_G=p_{data}$时，才可以得到$C(G)=max_DV(G,D^*)$的最小值。
+此时$D^*=\frac{1}{2}$，$V(G,D^*_G)=-log4$。证明过程如下：  
 $$\begin{aligned}
     C(G)&=max_DV(G,D^*)\\
     &=∫_xp_{data}(x)log(\frac{p_{data}(x)}{p_{data}(x)+p_g(x)})+p_G(x)log(1-\frac{p_{data}(x)}{p_{data}(x)+p_g(x)})dx\\
