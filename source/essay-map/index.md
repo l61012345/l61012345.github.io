@@ -43,7 +43,9 @@ date: 2022-07-15 10:08:03
    Zero Defect Manufacturing of Microsemiconductors – An Application of Machine Learning and Artificial Intelligence，Zhengwen Huang et al,2018
 
 # 事件建模
-- ROC聚类算法
+- 【介绍了数学建模的基本方法和常识】  
+  数学建模方法与分析(原书第4版)，Mark M. Meerschaert，2021，机械工业出版社。  
+- ROC聚类算法  
   - 【开山之作，介绍了ROC算法的工作流程】  
      Machine-Component Group Formation in Group Technology, John R King, 1979.  
   - 【将ROC算法与结合能算法和single-link算法做了对比，并举了一个工业应用的例子】  
