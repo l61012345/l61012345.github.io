@@ -62,6 +62,8 @@ date: 2022-07-15 10:08:03
 # 神经网络
 ## 生成对抗网络/GAN
 - 【开山之作，介绍了GAN原理，包括训练和识别过程，以及数学原理】  
-  Generative Adversarial Nets, Ian J et al, 2014.  
+  Generative Adversarial Nets, Ian J Goodfellow et al, 2014.  
+- 【条件生成对抗网络，将GAN改进为监督学习，通过加入条件(标签)可以指定生成器生成特定的样本】  
+  Condtional Generative Adversarial Nets, Mehdi Mirza et al, 2014.  
 
 {% endmarkmap %}
