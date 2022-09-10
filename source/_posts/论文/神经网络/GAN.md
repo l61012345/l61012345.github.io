@@ -220,5 +220,12 @@ $$\mathop{min}\limits_{G}\mathop{max}\limits_{D}V(D,G)=\mathbb{E}_{x\sim p_{data
 CGAN的架构如下图所示：  
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910203450.png width=90%>  
 
-下图展示了使用CGAN的生成器生成的一些样本，这些样本指定了标签进行生成：
-<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204352.png width=60%>
+{% note info %}  
+随着之后的演化，现在CGAN的鉴别器有两种结构，一种是将数据$x$和条件$y$（图中的$c$）分别经过一个网络处理后再融合为一个网络，对模型进行评价。另一种是使用一个网络评价$x$是来自生成的数据还是数据集，再使用另一个网络评价条件和数据是否吻合。  
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204805.png width=60%>  
+{% endnote %}  
+
+
+下图展示了使用CGAN的生成器生成的一些样本，这些样本指定了标签进行生成：  
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204352.png width=60%>  
+
