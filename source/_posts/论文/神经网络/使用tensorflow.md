@@ -5,8 +5,6 @@ category_bar: true
 categories: 
 - 论文
 - 神经网络
-
-category_bar: true
 tags:
 - Tensorflow
 ---
