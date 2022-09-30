@@ -42,7 +42,6 @@ date: 2022-07-15 10:08:03
 - 【Koza创建的公司的Homepage，里面有很多GP的概念性解释】  
   the home page of Genetic Programming Inc.., Genetic Programming Inc.,http://www.genetic-programming.com/.  
 
-术语
 ## GEP
 - 【GEP和事件建模器在生产上的应用，只是概要性地介绍了应用】  
    Zero Defect Manufacturing of Microsemiconductors – An Application of Machine Learning and Artificial Intelligence，Zhengwen Huang et al,2018
