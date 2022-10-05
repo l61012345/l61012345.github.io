@@ -27,4 +27,8 @@ date: 2022/9/22
 
 【解决AMD Radeon Software弹出“The version of AMD Radeon Software ......”框问题】[解决联想拯救者打开AMD Radeon Software弹出“The version of AMD Radeon Software ......”框问题_来自大山深处的Doge_的博客-CSDN博客_amd radeon software打不开](https://blog.csdn.net/qq_45822970/article/details/124208616)  
 
+【解决显示“WLAN没有有效的IP配置”】  
+在服务中找到WLAN AutoConfig、WWAN AutoConfig、Wired AutoConfig三个服务，分别设置为自动启动并且打开服务。  
+
+
 
