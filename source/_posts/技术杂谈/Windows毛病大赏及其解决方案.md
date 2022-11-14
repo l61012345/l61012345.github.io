@@ -1,6 +1,7 @@
 ---
 title: Windows毛病大赏及可能解决办法
 categories: 技术杂谈
+category_bar: true
 date: 2022/9/22
 ---
 # Windows毛病大赏及可能解决办法

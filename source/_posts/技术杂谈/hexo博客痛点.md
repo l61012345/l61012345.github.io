@@ -1,5 +1,6 @@
 ---
 title: Hexo搭建博客记录
+category_bar: true
 date: 2021/02/20
 categories: 技术杂谈
 ---
