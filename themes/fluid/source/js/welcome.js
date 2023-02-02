@@ -16,8 +16,8 @@ function welcome(){
             timer: 30000,//弹出时间
             showConfirmButton: true
         });
-        // 标记：已经向该访客弹出过消息。1天之内不要再弹
-        setCookie("yilin-visited","true", 1);
+        // 标记：已经向该访客弹出过消息。3天之内不要再弹
+        setCookie("yilin-visited","true", 3);
         }else{
         }
      });
