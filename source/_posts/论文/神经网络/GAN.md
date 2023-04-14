@@ -5,9 +5,8 @@ category_bar: true
 categories: 
 - 论文
 - 神经网络
-
-category_bar: true
 ---
+
 # 生成对抗网络
 > *Generative Adversarial Nets*, Ian J Goodfellow et al, 2014.  
 > *Conditional Generative Aversarial Nets*, Mehdi Mirza et al, 2014.  
