@@ -7,6 +7,9 @@ categories:
 - 遗传算法
 ---
 # 自适应遗传算法：理论、Python实现和改进
+
+> M. Srinivas and L. M. Patnaik, "Adaptive probabilities of crossover and mutation in genetic algorithms," IEEE Transactions on Systems, Man, and Cybernetics, vol. 24, no. 4, pp. 656-667, 1994, doi: https://doi.org/10.1109/21.286385.  
+
 ## 问题动机
 ### 回顾：突变的效应
 经典遗传算法中突变存在两种效应：  
