@@ -28,7 +28,7 @@
 <meta property="og:description" content="Sequential Logic 2: Circuit DesignNext State Feedback LogicThe sequenctial logic circuit operating the external inputs and internal state, feedback to form internal inputs, which is called next state">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-14T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-14T07:40:38.994Z">
+<meta property="article:modified_time" content="2023-05-14T08:32:38.472Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -235,7 +235,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="随便写点什么">
+          <span id="subtitle" title="7. 时序逻辑2：时序逻辑电路的设计[英]">
             
           </span>
         </div>
@@ -264,7 +264,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k 字
+          7.4k 字
         
       </span>
     
@@ -275,7 +275,7 @@ p.spoiler {
         
         
         
-          47 分钟
+          62 分钟
         
       </span>
     
@@ -623,6 +623,53 @@ p.spoiler {
 <h2 id="Cellular-Sequentail-Logic"><a href="#Cellular-Sequentail-Logic" class="headerlink" title="Cellular Sequentail Logic"></a>Cellular Sequentail Logic</h2><p>A large number of input variables, the canonical forms become increasingly complex and unwieldy.  Any minor change(e.g. add one more variable) in the specification of the system often leads to a major redesign of the circuit.<br>To solve this problem, the cellular can be designed, in cellular diagram, the repeat parts are condensed into Standard Cell, they enable the resolution in the logic system to be increased without requiring a total redesign of the system.   </p>
 <p>Example: n-bit timer<br>Using TFFs to complete this task:<br>In cellular form:  </p>
 <script type="math/tex; mode=display">T_0=I</script><script type="math/tex; mode=display">T_1=I.Q_0</script><script type="math/tex; mode=display">T_2=T_1.Q_1</script><script type="math/tex; mode=display">…</script><script type="math/tex; mode=display">T_n=T_{n-1}.Q_{n-1}</script><p>Its Cellular diagram is:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514153900.png width=60%>    </p>
+<h2 id="State-Transition-Diagram"><a href="#State-Transition-Diagram" class="headerlink" title="State Transition Diagram"></a>State Transition Diagram</h2><p>state transistion diagram（状态转换图）is a graphical representation of a sequential system.<br>The state transition diagrams can be easily transferred to the N/P tables.<br>It contains two basic elements:  </p>
+<ul>
+<li>Nodes: represent the internal states. </li>
+<li>Flow lines: connect nodes labelled with the inputs causing the state transition and the resulting output.<br>Meanwhile, every flow starts from and terminates in a node.  </li>
+</ul>
+<p>Besides, each flow line will have a corresponding comment in the form like “input value/output value”.  </p>
+<p>Example: a state transistion diagram of JKFF is shwon as:  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514155659.png width=60%>    </p>
+<p>The annotations are shown as follows:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514160023.png width=60%>    </p>
+<p>Example:  Sequence detector(序列检测器)<br>If the input sequence is $101$, then the output is $001$.<br>Otherwise, the output is $000$.  </p>
+<p>Its state transition diagram is:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514162644.png width=80%>  </p>
+<p>• Node A   </p>
+<ul>
+<li>Input $I = 0$ , stay in $A$<ul>
+<li>Input $I = 1$, go to $B$.</li>
+</ul>
+</li>
+<li>Output both $0$. </li>
+</ul>
+<p>• Node B  </p>
+<ul>
+<li>Input $I = 1$, stay in $B$ </li>
+<li>Input $I = 0$, go to $C$ </li>
+<li>Output both $0$. </li>
+</ul>
+<p>• Node C  </p>
+<ul>
+<li>Input $I=0$ go to $A$ output $0$  </li>
+<li>Input $I=1$ go to $D$ output $1$  </li>
+</ul>
+<p>• Node D<br>(Here State $D$ is used to avoid the overlaping cases like 1010)  </p>
+<ul>
+<li>Input $I=1$ go to $B$ output $0$ </li>
+<li>Input $I=0$ go to $A$ output $0$</li>
+</ul>
+<p>It can be transferred to P/N table containing nodes.  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514160941.png width=50%>  </p>
+<p>Where states are ranked with gray code:  $A = 00$, $B = 01$, $C = 11$ and $D = 10$<br>Meanwhile, Two JKFFs will be needed.<br>Acorrding to the P/N table, the $J$s and $K$s in different present states can be obtained according to its characteristics.<br>Thus, the Kmaps between $T$ and $Q$ can be constructed as:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514161107.png width=50%>    </p>
+<p>Final circuit is:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514161322.png width=50%>    </p>
+<h3 id="Minimization"><a href="#Minimization" class="headerlink" title="Minimization"></a>Minimization</h3><p>In P/N State table, if two rows are the same, the one of the states can be reduced.<br>Example:<br>In previous P/N table:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514160941.png width=50%>  </p>
+<p>row A and row D are the same, so D can be reduced to A.  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514162839.png width=50%>    </p>
+<h3 id="Equivalent-states"><a href="#Equivalent-states" class="headerlink" title="Equivalent states"></a>Equivalent states</h3><p>It is sometimes possible for states to be combined even if the ‘next states’ are not identical.<br>The corresponding outputs must still however be the same for every input condition if two or more states are to be reduced.<br>Example:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514163026.png width=50%>    </p>
+<p>In above P/N table,  $C=E$ and $B=D$, thus, the table can be reduced as:  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514163123.png width=50%>  </p>
+<p>Further, it can be found that $A=B$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514163211.png width=50%>    </p>
+<p>A and B have been shown to be equivalent they do not lead to the same immediate next states.<br>The final state of the machine will however be the same regardless whether one starts from state A or state B.  </p>
 
               
             </div>
@@ -645,7 +692,7 @@ p.spoiler {
   
     <span>></span>
     
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/" class="category-chain-item">数字系统和微处理器</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E9%80%BB%E8%BE%91%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/" class="category-chain-item">数字逻辑电路设计</a>
   
   
 
@@ -1473,17 +1520,17 @@ p.spoiler {
     
     <div class="category row nomargin-x">
       <a class="category-item 
-          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字系统和微处理器"
-        id="heading-9bc6b5b7224afe4682e376e81daa7ac7" role="tab" data-toggle="collapse" href="#collapse-9bc6b5b7224afe4682e376e81daa7ac7"
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字逻辑电路设计"
+        id="heading-2d6e2047da2aa00f2a07c3783beebd0a" role="tab" data-toggle="collapse" href="#collapse-2d6e2047da2aa00f2a07c3783beebd0a"
         aria-expanded="true"
       >
-        数字系统和微处理器
+        数字逻辑电路设计
         <span class="list-group-count">(8)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-9bc6b5b7224afe4682e376e81daa7ac7"
-           role="tabpanel" aria-labelledby="heading-9bc6b5b7224afe4682e376e81daa7ac7">
+      <div class="category-collapse collapse show" id="collapse-2d6e2047da2aa00f2a07c3783beebd0a"
+           role="tabpanel" aria-labelledby="heading-2d6e2047da2aa00f2a07c3783beebd0a">
         
         
           
@@ -2782,21 +2829,6 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function (w, d, s, id) {
             if (typeof (w.webpushr) !== 'undefined') return; w.webpushr = w.webpushr || function () { (w.webpushr.q = w.webpushr.q || []).push(arguments) }; var js, fjs = d.getElementsByTagName(s)[0]; js = d.createElement(s); js.id = id; js.async = 1; js.src = "https://cdn.webpushr.com/app.min.js";fjs.parentNode.appendChild(js);}(window, document, 'script', 'webpushr-jssdk'));webpushr('setup', { 'key': 'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script></body>
 </html>
