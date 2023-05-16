@@ -28,7 +28,7 @@
 <meta property="og:description" content="多目标遗传算法：NSGA和NSGA-II N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-16T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-16T07:37:13.793Z">
+<meta property="article:modified_time" content="2023-05-16T08:29:22.260Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -358,7 +358,13 @@ p.spoiler {
 <script type="math/tex; mode=display">min[𝑭(\boldsymbol{x})]=max[Z_j(\boldsymbol{x})],j=1,2,...,N</script><p>其中：  </p>
 <script type="math/tex; mode=display">Z_j(\boldsymbol{x})=\frac{f_j-\overline{f}_j}{\overline{f}_j}</script><p>$\overline{f}_j$是在目标函数$j$上的平均适应度。<br>对于相同优先级的目标函数，这种方法可以得出相对折中的最优方案；同时可以通过引入标量权重来设置目标函数的优先级。  </p>
 <p>如上传统方法的缺点在于，虽然这些方法可以保证帕累托优化，但是每次只能找到一个点而不能够一次性找到多个帕累托最优解。在充满噪声和离散变量的空间中，这些方法工作效率低下。同时其中的一些方法对于先验知识的要求很高，并且对权重和需求的设置十分敏感。  </p>
-<h3 id="VEGA"><a href="#VEGA" class="headerlink" title="VEGA"></a>VEGA</h3>
+<h3 id="VEGA和种群多样性的改进"><a href="#VEGA和种群多样性的改进" class="headerlink" title="VEGA和种群多样性的改进"></a>VEGA和种群多样性的改进</h3><p>Schaffer提出的VEGA是最早的多目标优化遗传算法。VEGA根据目标函数的个数将整个种群分成了若干个子种群，其中每个子种群对应一个特定的目标函数进行优化：每一代中按照该目标函数赋予适应度、进行选择后再综合进行交叉和变异等遗传操作。<br>VEGA最大的问题是无法保证其无偏性：在进化数代之后，VEGA的进化方向总是倾向于帕累托前沿的某些特定区域和某些特定的个体。解决VEGA中种群多样性问题的办法有三种：</p>
+<ul>
+<li>其一，使用一种叫做非支配选择(nondominated selection)的选择方法，这种选择方法引入了惩罚函数(peanalty function)：惩罚函数使用一个非常小的固定值减少受支配个体的复制次数。这种方法的缺点是，在种群中只有少数非支配解时，这些非支配解的适应度会非常高，造成严重的选择压力。  </li>
+<li>另一种选择机制称为配对选择(mating selection)，在这种机制下，一个随机选择的个体和与其具有最大欧氏距离的个体进行配对，旨在通过配对增加种群的多样性。但是由于第一个个体是随机选择的，其无法保证比它更差的个体与其配对并参与到之后的遗传操作中。有些文献甚至认为，配对选择的性能还不如随机配对。  </li>
+<li>Goldberg提出了一种称为适应度共享(fitness sharing)的方法为NSGA所采用的方法，这种方法相比于前两者都更好，将在之后详细描述。  </li>
+</ul>
+<h2 id="NSGA"><a href="#NSGA" class="headerlink" title="NSGA"></a>NSGA</h2>
               
             </div>
             <hr/>
