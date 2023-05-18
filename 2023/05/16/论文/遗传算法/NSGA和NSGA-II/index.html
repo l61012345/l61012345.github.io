@@ -28,7 +28,7 @@
 <meta property="og:description" content="多目标遗传算法：NSGA和NSGA-II N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-16T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-17T07:24:31.393Z">
+<meta property="article:modified_time" content="2023-05-18T08:09:13.340Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -336,7 +336,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年5月17日 早上
+                    本文最后更新于：2023年5月18日 早上
                   
                 
               </p>
@@ -377,6 +377,7 @@ p.spoiler {
     1-\left(\frac{d_{ij}}{σ_{share}}\right)^2,\text{if }d_{ij}<σ_{share};\\
     0, \text{otherwise}.
 \end{cases}</script><p>其中，$d_{ij}$是当前非支配前沿中同一个小生境中个体$i$和个体$j$之间的距离。而每个个体附近个体的数量定义为小生境距离$nc_i$，它是在所有目标函数方向上的$Sb(d_{ij})$的和。  </p>
+<p>NSGA的算法流程图如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230518155602.png width=50%>    </p>
 <p>在非支配排序后，NSGA的原论文中采用了随机余数选择以及常规的交叉和突变算子。由于第一非支配前沿中的个体具有最大的适应度，在随机余数选择中它们往往可以得到相当多的复制次数。这样的机制可以保证快速收敛。适应度共享机制可以保证搜索始终朝着更多未搜索的帕累托前沿的区域进行。  </p>
 <h3 id="近似方法比较"><a href="#近似方法比较" class="headerlink" title="近似方法比较"></a>近似方法比较</h3><h4 id="MOGA"><a href="#MOGA" class="headerlink" title="MOGA"></a>MOGA</h4><p>Fonesca 和 Fleming提出的MOGA同样也使用了Goldenberg的非支配排序的思想。对于一个个体，首先想找到在种群中严格支配该个体的个体数量，然后该个体的排名是这些支配个体的排名+1。因此可能存在具有相同排名的个体。然后选择过程会依据这个排名删除一些个体，进而形成中间种群进行交配。<br>MOGA虽然也使用了非支配排序，但是相比于NSGA具有如下的缺点：  </p>
 <ul>
@@ -395,6 +396,68 @@ p.spoiler {
 <li>计算复杂度高：NSGA的计算复杂度为$O(MN^3)$（其中$M$是目标点的数量，$N$是种群大小）。这个计算复杂度主要是由于每一代中都要执行非支配排序所造成的。庞大的计算复杂度导致NSGA在种群大小非常大时消耗大量的计算资源。  </li>
 <li>精英策略(elitism)可以提高遗传算法的性能、同时保护优秀的个体。NSGA论文提出的时代精英策略还不受到重视，因此NSGA没有使用精英策略。  </li>
 <li>NSGA中引入了小生境距离$σ_{share}$这个超参数。导致NSGA的结果也依赖于对小生境距离$σ_{share}$的设置。  </li>
+</ul>
+<h2 id="NSGA-II"><a href="#NSGA-II" class="headerlink" title="NSGA-II"></a>NSGA-II</h2><h3 id="快速非支配排序"><a href="#快速非支配排序" class="headerlink" title="快速非支配排序"></a>快速非支配排序</h3><p>在进行快速非支配排序前，对每个个体计算如下的两个属性：  </p>
+<ul>
+<li>支配大小(dominiation count)$n_p$：表示支配个体$p$的支配者数量。  </li>
+<li>$S_p$:由$p$支配的个体所组成的集合。这一步计算需要$O(MN^2)$次比较。  </li>
+</ul>
+<p>然后对所有在第一非支配前沿的个体，令他们的支配大小为0：$n_p=0$。然后找到这些个体的$S_p$，并且对在$S_p$中的个体的$n_p$减1。  这个过程中如果发现某个个体的$n_p=0$，那么该个体属于第二非支配前沿。<br>然后对第二非支配前沿的所有个体重复上述操作，如此循环直到所有的个体都被找到对应的非支配前沿。  </p>
+<p>整个算法描述如下：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    \text{for each } p∈P\\
+    S_p=∅&\\
+    n_p=0&\\
+    \text{for each } q ∈ &P\\
+    \text{if } p≻&q \text{ then}\\
+    S_p&=S_p∪\{q\}\\
+    \text{else if }&q≻p \text{ then}\\
+    n_p&=n_p+1\\
+    \\
+    \text{if }n_p=0, &\text{then}\\
+    p_{rank}&=1\\
+    𝑭_1&=𝑭_1∪\{p\}\\
+    \\
+\end{aligned}</script><script type="math/tex; mode=display">\begin{aligned}
+    i=1&\\
+    \text{while }&𝑭_i≠∅:\\
+    Q=&\emptyset \\
+    &\text{for each } p \in 𝑭_i:\\
+    &\text{  for each } q \in S_p:\\
+    &\text{           }n_q=n_q-1\\
+    &\text{           }\text{if }n_q=0\text{ then}\\
+    &\text{                      }q_{rank}=i+1\\
+    &\text{                      }Q=Q∪\{q\}\\
+    i=i&+1
+\end{aligned}</script><h4 id="快速非支配排序的计算量"><a href="#快速非支配排序的计算量" class="headerlink" title="快速非支配排序的计算量"></a>快速非支配排序的计算量</h4><p>如果一个个体已经被放入到了对应的非支配前沿，那么该个体在排序过程中将不再被访问。<br>对于位于第二及以上的非支配前沿中的个体，其$n_p$最大为$N-1$，因此在这种情况下每个个体$p$在其$n_p$减少到0之前最多被访问$N-1$次。最坏的情况下，这样的个体$p$有$N-1$个，因此每个目标的计算复杂度为$O(N^2)$.<br>从另一个角度思考该计算过程：对于如上算法的第一个大循环（$\text{for each } p∈𝑭_i$），其最多运行$N$次，其中的内循环($\text{  for each } q \in S_p$)最多运行$N-1$次，因此每个目标的计算复杂度为$O(N^2)$.<br>一共有$M$个目标，也就是说个体会在每个目标上都进行比较，因此整个算法总体的计算复杂度为$O(MN^2)$.<br>每个个体需要保存对应的$n_p$和$S_p$，存储上需要$O(N^2)$的计算量。  </p>
+<p>从如上的分析可以看出，快速非支配排序简化了非支配排序中的比较过程。所有的非支配前沿只需要一次遍历就可以被确定。  </p>
+<h3 id="拥挤距离"><a href="#拥挤距离" class="headerlink" title="拥挤距离"></a>拥挤距离</h3><p>NSGA-II延续了NSGA中的适应度共享的思路。但是NSGA-II的作者认为，NSGA中基于小生境的适应度共享存在如下问题：  </p>
+<ul>
+<li>基于小生境的适应度共享受到超参数小生境距离$σ_{share}$的影响。  </li>
+<li>由于每个个体都需要与其他个体进行比较，因此NSGA中的适应度共享的计算复杂度为$O(N^2)$.  </li>
+</ul>
+<p>为了解决上述问题，NSGA-II中提出了一种基于拥挤距离(crowding distance)的适应度共享方案。这种算法不依赖任何超参数的设置，并且拥有更小的计算量。  </p>
+<h4 id="稠密度估计"><a href="#稠密度估计" class="headerlink" title="稠密度估计"></a>稠密度估计</h4><p>为了找到相邻的个体，在进行稠密度估计之前需要根据个体在各个目标函数的值对整个种群进行排序。然后以个体$i$附近相邻两个个体$i-1$和$i+1$在各个目标函数方向上的距离的平均值来估计每个个体周围的个体分布的稠密程度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230518142650.png width=50%>  </p>
+<p>考虑到首尾个体（拥有最大和最小目标函数值的个体）在一边不存在相邻个体，定义它们的拥挤都为无穷。其余个体的拥挤距离$cd$为附近相邻两个个体$i-1$和$i+1$在各个目标函数方向上的距离的平均值的极差归一化结果。<br>对于使用帕累托排序生成的若干个非支配前沿$F_1,…,F_R$，对于每一个目标函数$k$，对$F_j$中的每一个解升序排序。设$N=|F_j|$，$\boldsymbol{x}_{[i,k]}$表示对$k$个目标函数排序列表中的第$i$个个体。令$cd_k(\boldsymbol{x}_{[1,k]})=∞$, $cd_k(\boldsymbol{x}_{[l,k]})=∞$，对剩下的$i=2,3,…,N-1$:  </p>
+<script type="math/tex; mode=display">cd_k(\boldsymbol{x}_{[i,k]})=\frac{z_k(\boldsymbol{x}_{[i+1,k]}-\boldsymbol{x}_{[i-1,k]})}{z_k^{max}-z_k^{min}}</script><p>个体的拥挤距离表示为：  </p>
+<script type="math/tex; mode=display">i_{distance}=cd(\boldsymbol{x_i})=∑_kcd_k(\boldsymbol{x}_{[i,k]})</script><p>这个算法总的计算复杂度为$O(MNlogN)$。<br>可以看出拥挤距离$cd$反应了个体$i$周围的个体分布稠密程度，$cd$越小，说明$i$的周围越拥挤。  </p>
+<h4 id="基于拥挤的选择"><a href="#基于拥挤的选择" class="headerlink" title="基于拥挤的选择"></a>基于拥挤的选择</h4><p>经过快速非支配排序和适应度共享的个体$i$现在拥有如下的两个属性：  </p>
+<ul>
+<li>非支配排名(nondomination rank)：$i_{rank}$</li>
+<li>拥挤距离(crowding distance)：$i_{distance}$</li>
+</ul>
+<p>定义基于拥挤距离的选择算子$≻_n$：<br>如果$i_{rank}<j_{rank}$（排名越靠前越优）或者$[(i_{rank}=j_{rank})AND(i_{distance}>j_{distance})]$，称$i≻_nj$。<br>也就是说，两个个体先比较非支配排名，非支配排名靠前的个体胜出；如果两者的排名相同，那么比较两者的拥挤距离，拥挤距离大的胜出。  </p>
+<h3 id="主循环"><a href="#主循环" class="headerlink" title="主循环"></a>主循环</h3><p>主循环中应用了精英机制。具体的表述如下：<br>定义种群$P$经过锦标赛、重组和突变后产生了后代$Q$，它们的种群大小都固定为$N$，然后进行如下的操作：  </p>
+<ul>
+<li>创建一个列表$R_t=P_t∪Q_t$，其列表大小为$2N$  </li>
+<li>对$R_t$使用快速非支配排序</li>
+<li>将$F_1$到$F_N$中的个体按照基于拥挤距离的选择算子填充一个大小为$N$的列表$P’$，即，$F_1$中的个体优先填入$P’$，然后依次填入$F_2,F_3,…$的个体。直到$P’$的种群大小为$N$。需要注意的是，最后一个填入$P’$的非支配前沿中的个体按照基于拥挤的选择填入个体。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230518154830.png width=50%>    </li>
+</ul>
+<p>最坏的情况下，一轮主循环需要的计算量如下：  </p>
+<ul>
+<li>快速非支配排序：$O(M(2N)^2)$  </li>
+<li>适应度共享：$O(M(2N)log(2N))$  </li>
+<li>基于拥挤的选择:$O(2Nlog(2N))$<br>整个算法的计算复杂度为$O(MN^2)$，取决于非支配排序。  </li>
 </ul>
 
               
@@ -459,7 +522,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年5月17日</div>
+          <div>2023年5月18日</div>
         </div>
       
       <div class="license-meta-item">
