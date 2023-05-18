@@ -206,3 +206,13 @@ $$i_{distance}=cd(\boldsymbol{x_i})=∑_kcd_k(\boldsymbol{x}_{[i,k]})$$
 - 适应度共享：$O(M(2N)log(2N))$  
 - 基于拥挤的选择:$O(2Nlog(2N))$  
 整个算法的计算复杂度为$O(MN^2)$，取决于非支配排序。  
+
+### 条件限制
+在单目标优化中，常见的条件限制方法是使用锦标赛算法：随机配对两个个体，两个个体中具有更高实现度的个体将被选中。由于单目标优化中不需要在各个目标函数的维度上都进行比较，因此单目标优化中没必要使用惩罚函数。  
+借用这种方法，NSGA-II中提出了有限制的锦标赛选择机制(constrained tournament selection)。在这种机制中，如果个体$\boldsymbol{x}$满足如下任何一个条件，称个体$\boldsymbol{x}$有条件地支配(constrain-dominate)个体$\boldsymbol{y}$：  
+- $\boldsymbol{x}$可行，$\boldsymbol{y}$不可行
+- $\boldsymbol{x}$和$\boldsymbol{y}$都不可行，但是$\boldsymbol{x}$对条件的破坏低于$\boldsymbol{y}$
+- $\boldsymbol{x}$和$\boldsymbol{y}$都可行，$\boldsymbol{x}$支配$\boldsymbol{y}$
+
+首先，若干个条件限制的非支配前沿$F_1,...,F_R$可以通过使用上述的“有条件支配”的定义进行帕累托排序得出。在这样的选择机制中，随机选择两个个体$\boldsymbol{x}$ 和 $\boldsymbol{y}$，然后比较两者在条件限制的非支配前沿中的地位。  
+使用有条件的支配这一概念时，可行个体的排名将比不可行个体的排名更优。同时这样简单的定义改变不会影响NSGA-II中快速非支配排序的计算复杂度。  
