@@ -28,7 +28,7 @@
 <meta property="og:description" content="多目标遗传算法：NSGA和NSGA-II N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-16T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-18T08:09:13.340Z">
+<meta property="article:modified_time" content="2023-05-18T08:43:38.997Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -459,6 +459,13 @@ p.spoiler {
 <li>适应度共享：$O(M(2N)log(2N))$  </li>
 <li>基于拥挤的选择:$O(2Nlog(2N))$<br>整个算法的计算复杂度为$O(MN^2)$，取决于非支配排序。  </li>
 </ul>
+<h3 id="条件限制"><a href="#条件限制" class="headerlink" title="条件限制"></a>条件限制</h3><p>在单目标优化中，常见的条件限制方法是使用锦标赛算法：随机配对两个个体，两个个体中具有更高实现度的个体将被选中。由于单目标优化中不需要在各个目标函数的维度上都进行比较，因此单目标优化中没必要使用惩罚函数。<br>借用这种方法，NSGA-II中提出了有限制的锦标赛选择机制(constrained tournament selection)。在这种机制中，如果个体$\boldsymbol{x}$满足如下任何一个条件，称个体$\boldsymbol{x}$有条件地支配(constrain-dominate)个体$\boldsymbol{y}$：  </p>
+<ul>
+<li>$\boldsymbol{x}$可行，$\boldsymbol{y}$不可行</li>
+<li>$\boldsymbol{x}$和$\boldsymbol{y}$都不可行，但是$\boldsymbol{x}$对条件的破坏低于$\boldsymbol{y}$</li>
+<li>$\boldsymbol{x}$和$\boldsymbol{y}$都可行，$\boldsymbol{x}$支配$\boldsymbol{y}$</li>
+</ul>
+<p>首先，若干个条件限制的非支配前沿$F_1,…,F_R$可以通过使用上述的“有条件支配”的定义进行帕累托排序得出。在这样的选择机制中，随机选择两个个体$\boldsymbol{x}$ 和 $\boldsymbol{y}$，然后比较两者在条件限制的非支配前沿中的地位。<br>使用有条件的支配这一概念时，可行个体的排名将比不可行个体的排名更优。同时这样简单的定义改变不会影响NSGA-II中快速非支配排序的计算复杂度。  </p>
 
               
             </div>
