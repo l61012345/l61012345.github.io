@@ -29,6 +29,7 @@ function welcome(){
         }
         else{
         }
+     });
 }
 
 $(document).ready(()=>{//若未引用JQuery，请引用
