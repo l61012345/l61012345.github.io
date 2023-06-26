@@ -15,7 +15,7 @@ function welcome(){
             imageUrl: "/img/welcome.jpg",//图片，自行修改位置对应source下文件
             timer: 30000,//弹出时间
             showConfirmButton: true
-        });
+        })
         // 标记：已经向该访客弹出过消息。5天之内不要再弹
         setCookie("yilin-visited","true", 5);
         }
