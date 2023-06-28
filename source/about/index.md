@@ -23,3 +23,4 @@ layout: about
 - Xindi Huang  
 - 林正/Kobayashi Hikari，他的博客在：https://www.zhenglinblog.top/.  
 - 文丹丹老师  
+- 刘旭康，感谢他对许多培养方案上新增课程笔记的更新  
