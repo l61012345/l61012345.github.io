@@ -23,7 +23,11 @@ date: 2023/10/09
 | Three Tunes | 4 | 菜品和菜单上的照片完全一致，咖喱入口后有一种浓稠但清新的味道。烤屁股肉有一点老，但是总体还是非常好吃的 | 14 | Uxbridge Station | 
 | KFC | 1 | 太油了，难以下咽 | 10 | Uxbridge Belmond Road |
 | 麦当劳 | 3 | 至少比肯德基好吃，也不算难吃，也吃不腻，多吃几天甚至觉得还有点好吃，尤其是连续几天吃了Junction之后。Uxbridge这家店员无论如何都不会主动给你蘸酱，需要你自己找店员拿。就番茄酱和国内的糖醋酱还可以。另外优惠挺多的。 | 10 | Uxbridge Belmond Road |
-| Wendy's | 2.5 | 和麦当劳比起来还是有差距的 | 15 | Uxbridge Belmond Road |
+| Wendy's | 3 | 薯条比麦当劳好吃，汉堡不如麦当劳 | 15 | Uxbridge Belmond Road |
+| The Good Yarn | 4.5 | 老伦敦专属酒吧，烤肉恰到好处，比他好吃的比他贵，比他便宜的没他好吃| 13 | Uxbridge Belmond Road |
+| 老友记 <br> Chummy Yummy | 4 | 正宗的中餐，有点小贵，但是水煮肉片之类的味道也还不错 |30| Uxbridge Road |
 | 荔枝湾 <br> Lychee Bay | 4 | 好吃的粤菜，牛肉炒时蔬的酱汁非常好吃。就是茉莉花茶和红茶怎么都是康师傅？？ | 22 | Westfield London附近 |
 | Busaba | 2.5 | 泰国菜，小红书上面说好吃，番石榴汁过于甜了，牛肉碎炒饭有股牛肉的腥臭味，但是吃着不觉得，就是对不起20磅的价格 | 20 | Westfield London |
-| Rasa Sayang London | 5 | 海南鸡饭，相当好吃！是那种吃进去一口就会非常惊艳的程度 | 15 | 伦敦中国城 |
+| Rasa Sayang London | 5 | 海南鸡饭，相当好吃！是那种吃进去一口就会非常惊艳的程度 | 15 |  Macclesfield Street |
+| Tuttons | 3 | 猪肉非常的软烂，配上烤苹果风味很独特，配菜的土豆泥有点怪味，价格有点高 | 28 | Russell Street London |
+
