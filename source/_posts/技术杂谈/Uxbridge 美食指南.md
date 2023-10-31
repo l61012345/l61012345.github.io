@@ -19,7 +19,7 @@ date: 2023/10/09
 | Brown's Bread <br> 1966 前的白色帐篷 | 3 | Lamp/Chicken Samosa 印度炸角好吃，就是是冷的，如果是热的就会更好吃了。其他的甜品有点齁，咸的奶酪卷啥的虽然好吃但是也是过于咸了。另外附近蜜蜂时常光顾，当天卖不完的东西也不知道是怎么处理的，如果选择把这家作为长期吃早饭的地方建议忽略这些细节。 | 5 | Brunel Univ. |
 | Wagamama | 2.5 | 相当不正宗的日料，如果你不把他当做是日料来吃味道还是尚可的，但是对不起20磅人均的价格 | 20 | Uxbridge Civil Center |
 | Nando's | 3.5 | 烤鸡味道不错，烤玉米非常香甜 | 15 | Uxbridge Civil Center |
-| Chez Melissa | 3.5 | 炸鸡好吃，炒饭里面有一种蜜汁香料的味道 | 10 | UB8 1JN |
+| Chez Melissa | 3.5 | 炸鸡好吃，炒饭里面有一种蜜汁香料的味道 | 10 | Uxbridge Civil Center |
 | Five Guys | 4 | 我愿称之为全伦敦最好吃的薯条，现炸现切的辣味薯条真的非常好吃。就是不能天天吃，不太健康，店员身材结实的像是Five Guys喂出来的一样 | 15 | Uxbridge Station |
 | Queen's Head | 3.5 | 烤鸡上面的酱汁甜的有点腻，所有菜品的口味比较重。但是有学生优惠所以比Three Tunes便宜。 | 11 | Uxbridge Station |
 | Three Tunes | 4 | 菜品和菜单上的照片完全一致，咖喱入口后有一种浓稠但清新的味道。烤屁股肉有一点老，但是总体还是非常好吃的。另外牛肉肋条和周天的特别套餐是我的心头好。 | 14 | Uxbridge Station | 
