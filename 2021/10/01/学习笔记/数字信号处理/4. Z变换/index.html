@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="04. Z变换">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -389,13 +480,13 @@ p.spoiler {
 <script type="math/tex; mode=display">x[n]=\frac{1}{2πj}∮_{ROC}X(z)z^{n-1}dz</script><p>反变换的定义式涉及到曲线积分、计算比较困难，由于LIT系统的系统方程都能够写作多项式分数的形式，因此对LIT系统方程而言通常不采用求解定义式的方式来求解反变换，而更多地采用如下方法求解反变换式： </p>
 <h4 id="Z变换式的部分分式形式"><a href="#Z变换式的部分分式形式" class="headerlink" title="Z变换式的部分分式形式"></a>Z变换式的部分分式形式</h4><p>序列$x(n)$的z变换式$X(z)$的一般形式可以写作由两个多项式组成的分式，称为部分分式：  </p>
 <script type="math/tex; mode=display">X(z)=\frac{N(z)}{D(z)}=\frac{∑b_mz^m}{∑a_nz^n}</script><p>其中$b_m$称为方程的零点，$a_m$称为方程的极点。<br>当极点为一阶时,对等式两边同时除以$z$以提取常系数$A$：  </p>
-<script type="math/tex; mode=display">\frac{X(z)}{z}=∑_{i=1}^N\frac{A_i}{z-a_i}</script><p>其中$A<em>i=(z-a_i)\frac{X(z)}{z}|</em>{z=a_i}$。<br>再乘上$z$：  </p>
+<script type="math/tex; mode=display">\frac{X(z)}{z}=∑_{i=1}^N\frac{A_i}{z-a_i}</script><p>其中$A_i=(z-a_i)\frac{X(z)}{z}|_{z=a_i}$。<br>再乘上$z$：  </p>
 <script type="math/tex; mode=display">X(z)=∑_{i=1}^N\frac{A_iz}{z-a_i}</script><p>其中$A_i$为$x(n)$的常系数，$a_i$为底数，也是极点。<br>对应的$x(n)$：</p>
 <script type="math/tex; mode=display">x(n)=∑_{i=0}^∞A_i(a_i)^nu[n],n≥0</script><p>需要注意的是，需要根据$z-a_i$的正负对Z变换的收敛域进行讨论:  </p>
 <ul>
-<li>当$|z|&lt;(a<em>i)</em>{min}$时，根据极点对应序列形式（收敛特性一小节中提到的表格），该项对应的指数序列为左边序列$-A_i(a_i)^nu[-n-1]$。对应分式项$\frac{A_iz}{z-a_i}$应写作$-\frac{A_iz}{z-a_i}$以保证$z-a_i$恒正。  </li>
-<li>当$|z|&gt;(a<em>i)</em>{max}$时，根据极点对应序列形式，该项对应的指数序列为右边序列$A_i(a_i)^nu[n]$。 对应分式项应写作$\frac{A_iz}{z-a_i}$以保证$z-a_i$恒正。  </li>
-<li>当$a<em>{min}&lt;|z|&lt;a</em>{max}$时，根据极点对应序列形式，该项对应的指数序列为双边序列。</li>
+<li>当$|z|&lt;(a_i)_{min}$时，根据极点对应序列形式（收敛特性一小节中提到的表格），该项对应的指数序列为左边序列$-A_i(a_i)^nu[-n-1]$。对应分式项$\frac{A_iz}{z-a_i}$应写作$-\frac{A_iz}{z-a_i}$以保证$z-a_i$恒正。  </li>
+<li>当$|z|&gt;(a_i)_{max}$时，根据极点对应序列形式，该项对应的指数序列为右边序列$A_i(a_i)^nu[n]$。 对应分式项应写作$\frac{A_iz}{z-a_i}$以保证$z-a_i$恒正。  </li>
+<li>当$a_{min}&lt;|z|&lt;a_{max}$时，根据极点对应序列形式，该项对应的指数序列为双边序列。</li>
 </ul>
 <h2 id="离散系统的频率响应与传递函数"><a href="#离散系统的频率响应与传递函数" class="headerlink" title="离散系统的频率响应与传递函数"></a>离散系统的频率响应与传递函数</h2><p>离散系统的差分方程可以写作：  </p>
 <script type="math/tex; mode=display">∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k]</script><p>求得系统的传递函数为：  </p>
@@ -2709,5 +2800,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

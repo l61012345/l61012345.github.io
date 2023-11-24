@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="07.图像复原">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -384,7 +475,7 @@ p.spoiler {
 <script type="math/tex; mode=display">F(u,v)=\frac{G(u,v)}{\mathcal{H}(u,v)}</script><p>因此，倘若能够正确估计退化函数$\mathcal{H}(u,v)$或者$h(x,y)$，那么图像就可以通过与退化函数相除，再进行傅里叶反变换被正确复原。<br>逆滤波的难点是如何估计退化函数$\mathcal{H}$，通常情况是根据经验预测图像所经受的退化类型，但是也有可能原始图像本身就是一张退化图像，这种情况下退化函数难以被估计。  </p>
 <h3 id="维纳滤波"><a href="#维纳滤波" class="headerlink" title="维纳滤波"></a>维纳滤波</h3><p>维纳滤波(Wiener filtering)是另一种复原退化的方法。其基本思想是将原图和复原图的均方差表达式最小化，并求出此时复原图像的值。<br>原图和复原图的均方差表示为：  </p>
 <script type="math/tex; mode=display">MSE=E[(\hat{f}-f)^2]</script><p>根据期望的式子将其展开，并使用傅里叶变换转到频域，最后求导，得到$MSE$在频域上最小的复原图表达式为：   </p>
-<script type="math/tex; mode=display">\hat{F}(u,v)=G(u,v)\frac{\mathcal{H}^*(u,v)}{\mathcal{H}^2(u,v)+\frac{P_η}{P_f}}</script><p>其中$\mathcal{H}^*(u,v)$是$\mathcal{H}(u,v)$的共轭函数；$P<em>η$和$P_f$分别对应噪声$η$和原图$f$的功率谱密度，可以由维纳-辛钦定理计算得到。不过实际处理问题时由于$\frac{P</em>η}{P_f}$是一个常数，简记为$K$，通常不会计算这两者的功率谱密度，而是尝试如下式子：  </p>
+<script type="math/tex; mode=display">\hat{F}(u,v)=G(u,v)\frac{\mathcal{H}^*(u,v)}{\mathcal{H}^2(u,v)+\frac{P_η}{P_f}}</script><p>其中$\mathcal{H}^*(u,v)$是$\mathcal{H}(u,v)$的共轭函数；$P_η$和$P_f$分别对应噪声$η$和原图$f$的功率谱密度，可以由维纳-辛钦定理计算得到。不过实际处理问题时由于$\frac{P_η}{P_f}$是一个常数，简记为$K$，通常不会计算这两者的功率谱密度，而是尝试如下式子：  </p>
 <script type="math/tex; mode=display">\hat{F}(u,v)=G(u,v)\frac{\mathcal{H}^*(u,v)}{\mathcal{H}^2(u,v)+K}</script><script type="math/tex; mode=display">\hat{f}(x,y)=F^{-1}[\hat{F}(u,v)]</script><p>为$K$设置一个范围，然后不断地尝试不同的$K$值，观察$\hat{f}(x,y)$的清晰程度来复原图片。<br>下图展示了使用逆滤波法(下图第二列左图)和维纳滤波（下图第二列右图）分别复原的具有高斯模糊的图像：<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221222155341.png width=50%>  </p>
 <p>下图展示了使用逆滤波法(下图第二列)和维纳滤波（下图第三列）分别复原的具有运动模糊的图像：<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221222155054.png width=50%>  </p>
 <p>可以发现维纳滤波的效果要比逆滤波法更好，同时倘若可以对图像进行降噪处理(上图第二行和第三行)，那么两种滤波方法的效果都会得到提升。  </p>
@@ -2689,5 +2780,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

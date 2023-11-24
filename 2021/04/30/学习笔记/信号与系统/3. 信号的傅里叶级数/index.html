@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="03. 信号的傅里叶级数">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -344,7 +435,7 @@ p.spoiler {
             <div class="markdown-body">
               
               <h1 id="信号的傅里叶级数"><a href="#信号的傅里叶级数" class="headerlink" title="信号的傅里叶级数"></a>信号的傅里叶级数</h1><h2 id="信号变换"><a href="#信号变换" class="headerlink" title="信号变换"></a>信号变换</h2><p>分解、响应、叠加是信号与系统中最基础的信号处理方式。对信号的变换思路来源于时域内的信号$f(t)$是以时间为变量的函数方程，在时域内噪声和有用信号往往是同时发生的，难以将噪声从信号中剥离，因此需要对信号进行变换，将信号从时域变换到频域（以频率为自变量的空间，频域中的信号可以表示为$H(ω)$），通过频率的不同就能利用滤波器将噪声剥离。  </p>
-<h2 id="正交分解"><a href="#正交分解" class="headerlink" title="正交分解"></a>正交分解</h2><h3 id="正交函数与正交函数集"><a href="#正交函数与正交函数集" class="headerlink" title="正交函数与正交函数集"></a>正交函数与正交函数集</h3><p>在信号领域，如果两个信号在$(t<em>1,t_2)$内有$∫</em>{t_1}^{t_2}f_1(t)f_2(t)dt=0$，称两个信号是正交的。<br>如果有n个函数构成的函数集：${ϕ_1(t),…,ϕ_n(t)}$在$(t_1,t_2)$内有：  </p>
+<h2 id="正交分解"><a href="#正交分解" class="headerlink" title="正交分解"></a>正交分解</h2><h3 id="正交函数与正交函数集"><a href="#正交函数与正交函数集" class="headerlink" title="正交函数与正交函数集"></a>正交函数与正交函数集</h3><p>在信号领域，如果两个信号在$(t_1,t_2)$内有$∫_{t_1}^{t_2}f_1(t)f_2(t)dt=0$，称两个信号是正交的。<br>如果有n个函数构成的函数集：${ϕ_1(t),…,ϕ_n(t)}$在$(t_1,t_2)$内有：  </p>
 <script type="math/tex; mode=display">∫_{t_1}^{t_2}ϕ_i(t)ϕ_j(t)dt=\begin{cases}
   0,i\not=j \\ K_i \not= 0, i=j
 \end{cases}</script><p>称这是一个正交函数集。<br>如果在这个函数集以外找不到任何的另外一个函数满足其与集内函数两两正交，称这个函数集是一个完备的正交函数集。<br><strong>三角函数集${1,cosnΩt,sinnΩt}$就是一个完备的正交函数集。</strong></p>
@@ -358,7 +449,7 @@ p.spoiler {
 <h2 id="信号的傅里叶级数-1"><a href="#信号的傅里叶级数-1" class="headerlink" title="信号的傅里叶级数"></a>信号的傅里叶级数</h2><p>周期信号$f(t)$在一个周期内可以展开为在完正交信号空间中的无穷级数。而三角函数集正好就是一个完备正交集，因此将信号分解为三角函数集是一种理想的正交分解方法。  高等数学中，任何满足有界可积，有有限个间断点（狄利赫里条件）的函数都可以被描述为傅里叶级数：  </p>
 <script type="math/tex; mode=display">f(t)=a_0+∑_{n=1}^{∞}[a_ncos(nω_1t)+b_nsin(nω_1t)]</script><p>在信号中，$a_0$称为直流分量，是函数在周期内的均值。  </p>
 <script type="math/tex; mode=display">a_0=\frac{1}{T}∫_{t_0}^{t_0+T}f(t)dt</script><blockquote>
-<p>有时定义傅里叶级数的第一项为$\frac{a<em>0}{2}$，此时$a_0=\frac{2}{T}∫</em>{t_0}^{t_0+T}f(t)dt$。  </p>
+<p>有时定义傅里叶级数的第一项为$\frac{a_0}{2}$，此时$a_0=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)dt$。  </p>
 </blockquote>
 <p>$a_n$称为基波分量，是一个偶函数:  </p>
 <script type="math/tex; mode=display">a_n=\frac{2}{T}∫_{t_0}^{t_0+T}f(t)cos(nω_1t)dt</script><p>$b_n$称为谐波分量，是一个奇函数:  </p>
@@ -2680,5 +2771,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

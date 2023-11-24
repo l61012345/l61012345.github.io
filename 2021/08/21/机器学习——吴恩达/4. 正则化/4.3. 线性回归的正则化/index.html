@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="4.3. 线性回归的正则化">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -347,7 +438,7 @@ p.spoiler {
 <script type="math/tex; mode=display">θ_0:=θ_0-\alpha\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}</script><blockquote>
 <p>$θ_0$  不需要正则化  </p>
 </blockquote>
-<script type="math/tex; mode=display">θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j] \tag{2}</script><script type="math/tex; mode=display">j=1,2,3,...,n</script><p>}<br>事实上： $\frac{1}{m}\Sigma<em>{i=1}^{m}(h</em>θ(x^{(i)})-y^{(i)})x<em>j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}$<br>$\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}$  </p>
+<script type="math/tex; mode=display">θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j] \tag{2}</script><script type="math/tex; mode=display">j=1,2,3,...,n</script><p>}<br>事实上： $\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}$<br>$\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}$  </p>
 <p>如果将（2）中的$\theta_j$统一，那么就可以得到（3）：  </p>
 <script type="math/tex; mode=display">θ_j:=θ_j（1-α\frac{λ}{m}）-\frac{α}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)} \tag{3}</script><p>由于$1-α\frac{λ}{m}&lt;1$,且只比1小一点点，也就是说，梯度下降算法每次更新的时候$θ_j$在一开始都会比原来小一点点，再进行原来的梯度下降更新  </p>
 <h2 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h2><p>在之前的讲义中，探讨过设计两个矩阵：<br>$X=\begin{bmatrix} (x^{(1)})^T \ …\ (x^{(m)})^T \end{bmatrix}$ 代表有m个数据的数据集 和 $y=\begin{bmatrix} y^{(1)} \ …\ y^{(m)} \end{bmatrix}$ 代表训练集当中的所有的标签<br>通过：</p>
@@ -1850,5 +1941,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

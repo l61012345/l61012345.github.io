@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -237,7 +328,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="05. 时域分析方法（微分/差分方程·卷积）">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -410,7 +501,7 @@ p.spoiler {
 <li>将$r(t)$的结构代回微分/差分方程，利用对应阶数项系数相等建立方程，解出$r(t)$结构中的常系数。  </li>
 </ol>
 <p>如果已知了一些特解，求另一些特解，可以使用<strong>迭代法</strong>。<br>即从$h(0)$开始列出微分方程，直到列到所求的特解对应的微分方程，将已知的特解带入，从而求出未知的特解。 </p>
-<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><h3 id="零状态响应和零输入响应"><a href="#零状态响应和零输入响应" class="headerlink" title="零状态响应和零输入响应"></a>零状态响应和零输入响应</h3><p>在第二讲中对零状态响应和零输入响应以及线性关系进行过介绍，值得注意的是：零状态响应$r<em>{zs}(t)$和零输入响应$r</em>{zi}(t)$是相互独立的，即任何的输入只会影响到零状态响应中t的取值，而不会影响零输入响应中t的取值。<br>零输入响应与系统方程的通解有关，零状态响应与系统方程的特解/非齐次解有关。<br>两者可以通过解非齐次的微分/差分方程得到，解微分/差分方程的通用方法是卷积。  </p>
+<h2 id="卷积"><a href="#卷积" class="headerlink" title="卷积"></a>卷积</h2><h3 id="零状态响应和零输入响应"><a href="#零状态响应和零输入响应" class="headerlink" title="零状态响应和零输入响应"></a>零状态响应和零输入响应</h3><p>在第二讲中对零状态响应和零输入响应以及线性关系进行过介绍，值得注意的是：零状态响应$r_{zs}(t)$和零输入响应$r_{zi}(t)$是相互独立的，即任何的输入只会影响到零状态响应中t的取值，而不会影响零输入响应中t的取值。<br>零输入响应与系统方程的通解有关，零状态响应与系统方程的特解/非齐次解有关。<br>两者可以通过解非齐次的微分/差分方程得到，解微分/差分方程的通用方法是卷积。  </p>
 <h3 id="卷积方法"><a href="#卷积方法" class="headerlink" title="卷积方法"></a>卷积方法</h3><p>在连续系统中，定义$*$ 为卷积符号，定义卷积运算：  </p>
 <script type="math/tex; mode=display">g(t)=f(t)*h(t)=∫f(τ)h(t-τ)dτ</script><p>由于任何信号都可以被分解为$n$个宽为τ，高为$f(nτ)$的门信号，在$τ$非常小的时候可以认为$gate(t)=u’(t)Δτ=δ(t)$，因此任何的信号都可以用与冲激信号的卷积来表示：  </p>
 <script type="math/tex; mode=display">f(t)=∫f(τ)δ(t-τ)dτ</script><h3 id="几何意义"><a href="#几何意义" class="headerlink" title="几何意义"></a>几何意义</h3><p>两个信号$f(t)$$h(t)$卷积的几何意义是： 将其中一个图像左右翻转，然后从$t=0$处向右平移，平移过程中两个函数图像重叠面积的变化即为卷积图像。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210420111839.png" srcset="/img/loading.gif" lazyload alt="">   </p>
@@ -2729,5 +2820,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="1.4. 优化和调试方法">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -264,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          743 字
+          745 字
         
       </span>
     
@@ -348,7 +439,7 @@ p.spoiler {
 <script type="math/tex; mode=display">x_i:=(x_i−μ_i)/s_i</script><p>定义$μ_i$  为训练集$X$ 的平均值，$s_i=|x_imax−x_imin |$, 表示$x_i$ 的取值范围（近似值），或者直接设置为$s_i$ 的标准差。</p>
 <h2 id="学习率-Learning-rate"><a href="#学习率-Learning-rate" class="headerlink" title="学习率(Learning rate)"></a>学习率(Learning rate)</h2><p>有如下的两种方法可以判断梯度下降算法是否已经处于收敛：</p>
 <ol>
-<li><p>绘制$min<em>θJ(θ)-batch$的图像<br>以迭代次数为横轴，以此时使得$J(θ)$局部最小时$θ$的值（即$min</em>θJ(θ)$）为纵轴绘制图像。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822121634.png width=50%><br>这样的做法需要在固定的迭代周期（比如每迭代100次穿插）时暂停学习，并求得此时的$θ$，然后绘制图像。<br>原则：在固定的迭代周期之后$θ$的值都应该减小，这样的图像能够通过直观地表现变化率来表现梯度下降是否收敛（变化率为0）。  </p>
+<li><p>绘制$min_θJ(θ)-batch$的图像<br>以迭代次数为横轴，以此时使得$J(θ)$局部最小时$θ$的值（即$min_θJ(θ)$）为纵轴绘制图像。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822121634.png width=50%><br>这样的做法需要在固定的迭代周期（比如每迭代100次穿插）时暂停学习，并求得此时的$θ$，然后绘制图像。<br>原则：在固定的迭代周期之后$θ$的值都应该减小，这样的图像能够通过直观地表现变化率来表现梯度下降是否收敛（变化率为0）。  </p>
 </li>
 <li><p>自动收敛测试<br>如果$J(θ)$在某一次迭代之后的下降值小于某个设定好的阈值$ε$后，就能够判断算法已经达到了收敛。<br>$ε$的设定具有技巧性，所以通常采取1.中的方法进行观测。  </p>
 </li>
@@ -859,5 +950,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

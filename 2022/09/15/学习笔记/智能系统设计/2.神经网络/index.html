@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="02.神经网络">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -361,7 +452,7 @@ p.spoiler {
 <h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><p>简单来说，前向传播的过程即将数据$x$带入到神经网络的表示中，得到输出的过程：  </p>
 <script type="math/tex; mode=display">\hat{y}=a^{(N)}=f(z^{(N)})</script><p>$N$表示神经网络最后一层的标识。<br>在前向传播的过程中，会得到每一个神经元的输出$a_{jk}$</p>
 <h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>反向传播的过程是根据实际值和预测值之间的误差，从输出层开始，逐层调整各层神经元连接权重的过程。<br>在输出层第$N$层，根据得到的预测结果$\hat{y}$，使用如下式子来衡量与实际结果$y$之间的差距：  </p>
-<script type="math/tex; mode=display">δ^N_{jk}=(y_j-\hat{y}_j)\hat{y}_j(1-\hat{y}_j)</script><p>（$\hat{y}<em>j$和$y_j$都是向量，其维度等于数据集大小）<br>设第$i$层的神经元$j$与第$i-1$层的神经元$k$的权重为$w^i</em>{jk}$<br>对于隐藏层的神经元，如下式子表示了其神经网络单元输出的修正：  </p>
+<script type="math/tex; mode=display">δ^N_{jk}=(y_j-\hat{y}_j)\hat{y}_j(1-\hat{y}_j)</script><p>（$\hat{y}_j$和$y_j$都是向量，其维度等于数据集大小）<br>设第$i$层的神经元$j$与第$i-1$层的神经元$k$的权重为$w^i_{jk}$<br>对于隐藏层的神经元，如下式子表示了其神经网络单元输出的修正：  </p>
 <script type="math/tex; mode=display">δ^i_{jk}=a^{i}_j(1-a^i_j)∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}</script><div class="note note-info">
             <p>这个式子只在激活函数为逻辑斯蒂曲线、定义误差为均方差时可用。<br>完整的隐藏层神经元的修正表示为：  </p><script type="math/tex; mode=display">δ^i_{jk}=∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}</script><script type="math/tex; mode=display">Δw_{jk}=ηδ^i_{jk}\frac{df^i(z_i)}{dz_i}a^i_j</script><p>其中$f^i(·)$为激活函数，$z_i$是该神经元的输入。  </p>
           </div>  
@@ -375,7 +466,7 @@ p.spoiler {
 <ul>
 <li>随机初始化连接权重  </li>
 <li>当均方差非常大，或者数代均方差变化很大时，执行如下的循环： <ul>
-<li>前向传播：带入每一个数据$(x<em>i,y_i)$中的$x_i$到神经网络中，计算神经网络中每一个神经元对每一个数据的输出$a</em>{jk}$和神经网络对每一个数据的预测值$\hat{y}$，并整理为向量。  </li>
+<li>前向传播：带入每一个数据$(x_i,y_i)$中的$x_i$到神经网络中，计算神经网络中每一个神经元对每一个数据的输出$a_{jk}$和神经网络对每一个数据的预测值$\hat{y}$，并整理为向量。  </li>
 <li>计算真实值$y$与预测值$\hat{y}$之间的差距。  </li>
 <li>使用验证集对神经网络的准确率进行测试。</li>
 <li>反向传播：计算$δ$并更新每一层每一条连接的权重。  </li>
@@ -2934,5 +3025,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

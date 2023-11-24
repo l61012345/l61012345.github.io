@@ -5,7 +5,98 @@
 
 
 
-<head>
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
   <link rel="icon" href="/img/favicon.png">
@@ -235,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="10. FIR滤波器设计方法">
+          <span id="subtitle" title="随便写点什么">
             
           </span>
         </div>
@@ -419,7 +510,7 @@ p.spoiler {
 <h2 id="频率采样法"><a href="#频率采样法" class="headerlink" title="频率采样法*"></a>频率采样法*</h2><p>频率采样法的核心思想是滤波器的冲激响应$h[n]$的离散傅里叶变换的本质是对其频率响应$H(e^{jω})$进行采样。采样后通过在每个采样点之间插值，来近似拟合滤波器的频率响应。<br>因此，对于给定的理想滤波器频率响应$H(e^{jω})$，其对应的离散傅里叶变换应当为：  </p>
 <script type="math/tex; mode=display">H(e^{jω})|_{ω=\frac{2πk}{N}}=H[k]</script><p>$H(e^{jω})$中$\frac{N-1}{2}$的序列通过采样生成后做对称生成后半部分的序列，以满足滤波器的线性相位特性。<br>最后，对整个序列做群时延$α=\frac{N-1}{2}$以满足因果性。即可生成实际的滤波器序列。  </p>
 <h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法*"></a>优化方法*</h2><p>相当多的通信调制方法中对于滤波器的波纹要求很高，因此需要对滤波器函数做进一步的优化，优化的基本思想是对滤波器的波纹进行赋权，权值函数为$w_{rp}[n]$，使得滤波器在频域上的表现更加接近于理想滤波器。<br>定义滤波器优化方法的损失函数为：  </p>
-<script type="math/tex; mode=display">ϵ^2=\frac{1}{2π}∫_{-π}^π\lVert W_{rp}(e^{jω})\left(H_d(e^{jω})-H(e^{jω})\right)\lVert ^2dω</script><p>其中，$H<em>d(e^{jω})$是实际设计的滤波器的频率响应，$H(e^{jω})$对应理想滤波器的频率响应。<br>基本上所有的优化方法的思路都是寻找损失函数取得最小值时所对应的权重$W</em>{rp}$。<br>常见的优化算法有：帕克斯-麦克莱伦算法（Parks–McClellan algorithm）或者梯度下降算法（Gredient Desent），都是寻找全局最小值问题的常用方法，在此不做过多介绍。  </p>
+<script type="math/tex; mode=display">ϵ^2=\frac{1}{2π}∫_{-π}^π\lVert W_{rp}(e^{jω})\left(H_d(e^{jω})-H(e^{jω})\right)\lVert ^2dω</script><p>其中，$H_d(e^{jω})$是实际设计的滤波器的频率响应，$H(e^{jω})$对应理想滤波器的频率响应。<br>基本上所有的优化方法的思路都是寻找损失函数取得最小值时所对应的权重$W_{rp}$。<br>常见的优化算法有：帕克斯-麦克莱伦算法（Parks–McClellan algorithm）或者梯度下降算法（Gredient Desent），都是寻找全局最小值问题的常用方法，在此不做过多介绍。  </p>
 
               
             </div>
@@ -2721,5 +2812,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
