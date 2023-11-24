@@ -119,7 +119,7 @@
 <meta property="og:description" content="多目标遗传算法：NSGA和NSGA-II N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-16T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-11-24T14:52:32.082Z">
+<meta property="article:modified_time" content="2023-11-24T15:12:56.999Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.8k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          13 分钟
+          15 分钟
         
       </span>
     
@@ -440,6 +440,9 @@ p.spoiler {
 <h2 id="多目标优化理论概述"><a href="#多目标优化理论概述" class="headerlink" title="多目标优化理论概述"></a>多目标优化理论概述</h2><p>在数学上，多目标优化问题可以被公式化为如下表述：<br>如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}={x_1,x_2,…,x_n}$，那么多目标优化就是找到一个解$\boldsymbol{x^*}$使得$K$个目标函数(objective function)$z_i(\boldsymbol{x})$具有最小值:  </p>
 <script type="math/tex; mode=display">z(x^*)=\{z_1(\boldsymbol{x^*}),z_2(\boldsymbol{x^*}),...,z_n(\boldsymbol{x^*})\}</script><p>同时，搜索空间$X$受到一系列的约束条件(constrain)$g$的限制：$g_j(\boldsymbol{x^*})=b_j$，$j=1,…,m$.   </p>
 <p>实际情况是，许多约束的满足条件彼此之间会冲突，因此<strong>实际上想要找到一个多目标解使得所有目标函数同时达到最优解几乎是不可能的</strong>。因此，事实上多目标优化是寻找一组最优化的近似解，这个解在每一个目标函数中的结果都在可以接受的范围内，而且没有其他的解可以比这个解至少在一个目标函数中更好。<br>详细的帕累托优化理论和定义请参考：<a href="https://l61012345.top/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/">多目标遗传算法综述</a>.  </p>
+<div class="note note-info">
+            <p>非支配的数学表示可以是：对于一系列多目标适应度函数$\boldsymbol{f}=(f_1,f_2,…,f_k)$和两个多目标个体$x_i,x_j$，都有：  </p><script type="math/tex; mode=display">\boldsymbol{f}(x_i)=(f_1(x_i),f_2(x_i),...,f_k(x_i))</script><p>令$f_m(x_j)∈\boldsymbol{f}(x_j)$,$f_m(x_i)∈\boldsymbol{f}(x_i)$，如果：</p><script type="math/tex; mode=display">f_m(x_j)>f_m(x_i)</script><p>且，</p><script type="math/tex; mode=display">∀f_n(x_j)≥f_n(x_i),m ≠ n</script><p>那么$x_j≻x_i$.</p>
+          </div>
 <h2 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h2><h3 id="标量化"><a href="#标量化" class="headerlink" title="标量化"></a>标量化</h3><p>最常见的多目标优化的难点是目标之间的冲突：无法同时找到所有目标的最优。因此在数学上的帕累托最优是提供具有最小冲突的解决方案。在搜索空间中，这些解决方案表现为空间中的点，这些点从单个目标上看是最优的。但是这样的方法无法满足决策者调整不同目标满足最优的优先程度。因此，传统的一种解决多目标最优化的方法是将向量通过使用加权平均转化为单目标优化，这个过程中个体向量被标量化(scalarize)。通过权重向量来反映和调整每个目标的优先级。  </p>
 <h4 id="目标函数加权"><a href="#目标函数加权" class="headerlink" title="目标函数加权"></a>目标函数加权</h4><p>所有的目标函数使用一个使用一个权重向量$\boldsymbol{w}$进行线性组合：  </p>
 <script type="math/tex; mode=display">Z=∑_{i=1}^Nw_if_i(\boldsymbol{x})</script><p>如此，对于目标函数的优先程度反映在权重向量$\boldsymbol{w}∈(0,1)$中。通常，个体在每个目标上的值先被计算出来，然后根据决策者设置的优先级使用如上的公式将多目标优化问题转化为单目标优化问题。<br>这种算法非常简单，易于实现，而且可以根据优先级控制目标函数。但是存在两个问题：第一，最优化的结果极大地依赖于权重向量。其二，决策者可能还想知道其他的备选方案。  </p>
@@ -537,7 +540,8 @@ p.spoiler {
 <li>非支配排名(nondomination rank)：$i_{rank}$</li>
 <li>拥挤距离(crowding distance)：$i_{distance}$</li>
 </ul>
-<p>定义基于拥挤距离的选择算子$≻_n$：<br>如果$i_{rank}<j_{rank}$（排名越靠前越优）或者$[(i_{rank}=j_{rank})AND(i_{distance}>j_{distance})]$，称$i≻_nj$。<br>也就是说，两个个体先比较非支配排名，非支配排名靠前的个体胜出；如果两者的排名相同，那么比较两者的拥挤距离，拥挤距离大的胜出。  </p>
+<p>定义基于拥挤距离的选择算子$≻_n$：<br>如果$i_{rank}\<j_{rank}$（排名越靠前越优）或者
+$[(i_{rank}=j_{rank})AND(i_{distance}>j_{distance})]$<br>，称$i≻_nj$。<br>也就是说，两个个体先比较非支配排名，非支配排名靠前的个体胜出；如果两者的排名相同，那么比较两者的拥挤距离，拥挤距离大的胜出。  </p>
 <h3 id="主循环"><a href="#主循环" class="headerlink" title="主循环"></a>主循环</h3><p>主循环中应用了精英机制。具体的表述如下：<br>定义种群$P$经过锦标赛、重组和突变后产生了后代$Q$，它们的种群大小都固定为$N$，然后进行如下的操作：  </p>
 <ul>
 <li>创建一个列表$R_t=P_t∪Q_t$，其列表大小为$2N$  </li>
