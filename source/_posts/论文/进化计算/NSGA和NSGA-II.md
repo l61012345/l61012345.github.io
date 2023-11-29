@@ -20,7 +20,19 @@ $$z(x^*)=\{z_1(\boldsymbol{x^*}),z_2(\boldsymbol{x^*}),...,z_n(\boldsymbol{x^*})
 同时，搜索空间$X$受到一系列的约束条件(constrain)$g$的限制：$g_j(\boldsymbol{x^*})=b_j$，$j=1,...,m$.   
 
 实际情况是，许多约束的满足条件彼此之间会冲突，因此**实际上想要找到一个多目标解使得所有目标函数同时达到最优解几乎是不可能的**。因此，事实上多目标优化是寻找一组最优化的近似解，这个解在每一个目标函数中的结果都在可以接受的范围内，而且没有其他的解可以比这个解至少在一个目标函数中更好。  
-详细的帕累托优化理论和定义请参考：[多目标遗传算法综述](https://l61012345.top/2023/04/24/%E8%AE%BA%E6%96%87/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/).  
+详细的帕累托优化理论和定义请参考：[多目标遗传算法综述](https://l61012345.top/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/).  
+
+{% note info %}
+非支配的数学表示可以是：对于一系列多目标适应度函数$\boldsymbol{f}=(f_1,f_2,...,f_k)$和两个多目标个体$x_i,x_j$，都有：  
+$$\boldsymbol{f}(x_i)=(f_1(x_i),f_2(x_i),...,f_k(x_i))$$
+令$f_m(x_j)∈\boldsymbol{f}(x_j)$,$f_m(x_i)∈\boldsymbol{f}(x_i)$，如果：
+$$f_m(x_j)>f_m(x_i)$$
+且，
+$$∀f_n(x_j)≥f_n(x_i),m ≠ n$$
+那么$x_j≻x_i$.
+
+{% endnote %}
+
 
 ## 传统方法
 ### 标量化
@@ -190,7 +202,9 @@ $$i_{distance}=cd(\boldsymbol{x_i})=∑_kcd_k(\boldsymbol{x}_{[i,k]})$$
 - 拥挤距离(crowding distance)：$i_{distance}$
 
 定义基于拥挤距离的选择算子$≻_n$：  
-如果$i_{rank}<j_{rank}$（排名越靠前越优）或者$[(i_{rank}=j_{rank})AND(i_{distance}>j_{distance})]$，称$i≻_nj$。  
+如果$i_{rank}\<j_{rank}$（排名越靠前越优）或者
+$[(i_{rank}=j_{rank})AND(i_{distance}>j_{distance})]$
+，称$i≻_nj$。  
 也就是说，两个个体先比较非支配排名，非支配排名靠前的个体胜出；如果两者的排名相同，那么比较两者的拥挤距离，拥挤距离大的胜出。  
 
 ### 主循环
