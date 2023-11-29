@@ -2,7 +2,8 @@
 title: ROC聚类算法
 categories: 
 - 论文
-- 事件建模和聚类
+- 系统工程
+- 系统分析理论
 date: 2022/08/01
 category_bar: true
 tags:
