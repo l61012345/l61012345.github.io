@@ -119,7 +119,7 @@
 <meta property="og:description" content="遗传编程中的自动定义函数             参考资料：John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.John R Koza, Genetic Programming IV:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-07T19:42:49.610Z">
+<meta property="article:modified_time" content="2023-12-08T11:26:22.150Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="各种笔记和随笔。">
+          <span id="subtitle" title="遗传编程中的自动定义函数">
             
           </span>
         </div>
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          3.6k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          22 分钟
+          31 分钟
         
       </span>
     
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月7日 晚上
+                    本文最后更新于：2023年12月8日 上午
                   
                 
               </p>
@@ -459,13 +459,25 @@ p.spoiler {
 <h3 id="ADF的结构"><a href="#ADF的结构" class="headerlink" title="ADF的结构"></a>ADF的结构</h3><p>由于ADF具有强类型(constrained type)特点，因此不同的ADF可能由不同的函数集和端点集生成。每一个ADF的结构包括三个部分：  </p>
 <ul>
 <li>ADF的函数名</li>
-<li>形式参数集合，这个集合用于替代端点集生成ADF树形结构的端点。形式参数集合中形式参数的个数和具体哪一个形式参数会被用于生成某个特定的ADF都需要在运行前被提前指定。  </li>
+<li>形式参数集合<br>这个集合用于替代端点集生成ADF树形结构的端点。形式参数集合中形式参数的个数和具体哪一个形式参数会被用于生成某个特定的ADF都需要在运行前被提前指定。ADF使用形式参数的目的是为了让ADF在不同的环境和上下文中都能够编译运行。<br>ADF可以不含有任何形式参数，这种情况有别于直接保存一个基因片段(Building-block)：ADF的树形结构是随着进化一同动态演化的，然而后者只是单纯的保存，无法做到动态演化。  </li>
 <li>ADF具体的内容，表征为树形结构。  </li>
 </ul>
-<p>三个部分在LISP语言中通过<code>DEFUN</code>这个函数作为连接函数进行连接。  </p>
+<p>三个部分在LISP语言中通过<code>DEFUN</code>这个函数作为连接函数进行连接。<code>DEFUN</code>在LISP语言中的作用是定义函数。  </p>
 <p>下图展示了一个使用ADF函数的个体的树形结构（左）和程序框架（右）的例子。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231207193952.png width=80%>    </p>
-<h3 id="ADF的生成"><a href="#ADF的生成" class="headerlink" title="ADF的生成"></a>ADF的生成</h3><p>尽管无需对生成的ADF的大小和结构做提前定义，但是在使用ADF机制时需要提前定义每个ADF中包含的形式参数数量和具体所使用的形式参数。<br>需要注意的是，<strong>指定的形式参数未必会真的被使用到某个ADF结构中</strong>，某个形式参数使用与否是由进化过程真正决定的。   </p>
-<h2 id="ADF的进化"><a href="#ADF的进化" class="headerlink" title="ADF的进化"></a>ADF的进化</h2><h3 id="个体评估中ADF的调用"><a href="#个体评估中ADF的调用" class="headerlink" title="个体评估中ADF的调用"></a>个体评估中ADF的调用</h3><h3 id="类保护的交叉和变异"><a href="#类保护的交叉和变异" class="headerlink" title="类保护的交叉和变异"></a>类保护的交叉和变异</h3><h2 id="ADF的实现"><a href="#ADF的实现" class="headerlink" title="ADF的实现"></a>ADF的实现</h2><h3 id="避免递归的实现方式"><a href="#避免递归的实现方式" class="headerlink" title="避免递归的实现方式"></a>避免递归的实现方式</h3><h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R Koza <em>et al</em>., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.
+<h3 id="ADF的生成"><a href="#ADF的生成" class="headerlink" title="ADF的生成"></a>ADF的生成</h3><p>尽管<strong>无需对生成的ADF的大小和结构做提前定义</strong>，但是在使用ADF机制时需要提前定义每个ADF中包含的形式参数数量和具体所使用的形式参数。<br>需要注意的是，<strong>指定的形式参数未必会真的被使用到某个ADF结构中</strong>，某个形式参数使用与否是由进化过程真正决定的。<br>一个ADF生成后，它可以作为用于生成别的ADF的成分添加到函数集中。  </p>
+<h2 id="ADF的进化"><a href="#ADF的进化" class="headerlink" title="ADF的进化"></a>ADF的进化</h2><h3 id="个体评估中ADF的调用"><a href="#个体评估中ADF的调用" class="headerlink" title="个体评估中ADF的调用"></a>个体评估中ADF的调用</h3><p>在评估过程中，首先个体组成的外部调用程序（结果生成部件）会被适应度衡量(fitness measurements)程序调用，然后外部调用程序拉动内部调用程序。当ADF被调用时，形式参数会被实例化(instantiat)为声明(arguments)。也就是形式参数会被具体的值或者实际参数替代。实例化的调用可以使用两个相同或者不同的的实际参数或者是参数值、以及表达式。<br>下图展示的实例化都是被允许的。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208105232.png width=70%>   </p>
+<p>需要注意的是，ADF可以返回多个值，也可以不返回值。<br>为了节约计算量，在当前种群的评估过程中，每个ADF的函数定义部分只会运行一次而不是对每个个体都运行一次。  </p>
+<h3 id="类保护的交叉和突变"><a href="#类保护的交叉和突变" class="headerlink" title="类保护的交叉和突变"></a>类保护的交叉和突变</h3><p>带有自动定义函数机制的遗传编程中，ADF是随着每个个体一同进化的。<br>自动定义函数机制引入了一种称为“类保护”的交叉和突变(category preserving crossover and mutation)的机制，<strong>这种机制使得ADF可以自动进化</strong>，不断改进自身的结构。  </p>
+<h4 id="同一类"><a href="#同一类" class="headerlink" title="同一类"></a>同一类</h4><p>在介绍这两种机制之前，首先要明确的概念是“同一类的”交叉/突变。<br>Koza等人定义的同一类的定义有两个：<br>第一种定义是：<br>如果：  </p>
+<ol>
+<li>交叉/突变点在结果生成部件中。  </li>
+<li>交叉/突变点在ADF中，两个ADF所使用的形式参数是完全相同的。（这两个ADF被视为同一类）  </li>
+</ol>
+<p>满足任意一个条件均视为被选择的两个交叉/突变点被视为是同一类的交叉和突变。  </p>
+<p>第二种定义是如果交换/突变和被交换/突变插入的部分同属一类，那么被选择的两个交叉/突变点被视为是同一类的交叉和突变。<br>在代码实现过程中，第一种定义的实现比较简单，所以通常使用的是第一种定义。  </p>
+<h4 id="类保护的"><a href="#类保护的" class="headerlink" title="类保护的"></a>类保护的</h4><p><strong>类保护的交叉和突变只能够在同一类中进行</strong>。从另一个角度看，也就是说<strong>只有从同一个形式参数函数集合中生成的ADF之间可以做交叉和突变</strong>。更进一步的解释是，<strong>不同类别的ADF之间的进化是完全独立的</strong>。  </p>
+<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>类保护的交叉的实现是，首先随机选择一个交叉点，再随机选择第二个交叉点，如果第二个交叉点和第一个交叉点不属于同一类，那么重新随机选择第二个交叉点直到找到符合条件的交叉点。<br>类保护突变的实现是，首先随机选择一个突变点并且随机生成一个子树，然后检查被插入的生成的子树在此处是否有意义。如果没有意义则重新生成子树。  </p>
+<h2 id="ADF的实现"><a href="#ADF的实现" class="headerlink" title="ADF的实现"></a>ADF的实现</h2><h3 id="避免递归的实现方式"><a href="#避免递归的实现方式" class="headerlink" title="避免递归的实现方式"></a>避免递归的实现方式</h3><h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R Koza <em>et al</em>., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
             </div>
@@ -529,7 +541,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月7日</div>
+          <div>2023年12月8日</div>
         </div>
       
       <div class="license-meta-item">
@@ -1402,20 +1414,5 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
