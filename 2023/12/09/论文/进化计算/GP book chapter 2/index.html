@@ -119,7 +119,7 @@
 <meta property="og:description" content="背景·遗传编程基础             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第一章： Chapter 2： Background on Gentic Programming.这一章讲述了遗传编程的运行流程，以及遗传编程的高级功能。  原书的免费公开版本在作者Koza">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-09T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-09T19:39:42.388Z">
+<meta property="article:modified_time" content="2023-12-09T19:40:33.397Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -502,7 +502,7 @@ p.spoiler {
           </div>  
 <p>初始种群中的每一个个体都将从端点集和函数集中生成。生成之后的个体需要用适应度函数对其评估，在这个问题中，适应度函数可以通过当前个体$\hat{y}$与目标函数$y_e=x^2+x+1$在$x ∈ [-1,1]$上的值的差距来衡量。定义这个问题中的适应度函数为：  </p>
 <script type="math/tex; mode=display">f(i)=∫_{-1}^1|\hat{y_i}-y_e|dx</script><p>对于这个适应度函数而言，个体的适应度越小代表与目标函数的差距越小，个体表现更加“优秀”。<br>接下来应当决定运行参数，为了简化解释，此处设定每一代中仅存在四个个体（但是实际上每一代的个体数量往往是成千或者百万级别的）并设置各遗传操作发生的概率，通常情况下设置<strong>交叉的概率为90%，繁殖的概率为8%，突变的概率为1%，结构变换的概率为1%。</strong><br><div class="note note-info">
-            <p>GP通过交叉对搜索空间进行查找，因此交叉的概率应当比较大，才能保证搜索空间中的个体尽可能被搜索完全。<br>由于本书的作者所强调的“遗传多样性”，因此直接对个体的复制应当保留在一个非常低的概率，以产生更多可能的个体祝贺。<br>突变和结构变换的随机性会带来负面效应，因此应当尽量保持在非常低的水平。事实上突变和结构变换对于遗传编程中的个体的打击几乎是毁灭性的。  </p>
+            <p>GP通过交叉对搜索空间进行查找，因此交叉的概率应当比较大，才能保证搜索空间中的个体尽可能被搜索完全。<br>由于本书的作者所强调的“遗传多样性”，因此直接对个体的复制应当保留在一个非常低的概率，以产生更多可能的个体结构。<br>突变和结构变换的随机性会带来负面效应，因此应当尽量保持在非常低的水平。事实上突变和结构变换对于遗传编程中的个体的打击几乎是毁灭性的。  </p>
           </div><br>最后设置运行的终止条件，对于回归问题通常可以设置个体与目标之间的差值低于某一水平时终止运行。在这个例子中设定当出现适应度小于0.01的个体时，遗传编程终止运行。   </p>
 <h3 id="初始种群生成和个体评估"><a href="#初始种群生成和个体评估" class="headerlink" title="初始种群生成和个体评估"></a>初始种群生成和个体评估</h3><p>初始种群从搜索空间中随机挑选得到，这个例子中随机生成的初始种群中的四个个体如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115142521.png width=60%>  </p>
 <p>通过解释，这四个个体表示为：$x+1$、$x^2+1$、$2$和$x$。<br>将这四个个体$\hat{y}$分别带入适应度函数中，可以计算得出四个个体的适应度为0.67、1.0、1.67和2.67，可视化表示如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115143355.png width=70%><br>可以发现前两个个体(a)、(b)的适应度更低（或者说更“好”），在这个例子中意味着这两个个体更接近与目标，它们有更高的概率被选择做遗传操作。   </p>
