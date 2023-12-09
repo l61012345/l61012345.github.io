@@ -9,7 +9,7 @@ categories:
 ---
 {% note info %}  
 这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第一章： Chapter 1： Introduction.   
-这一张讲述了对机器学习最根本三个性质的定义以及进化计算在这三个性质上的体现。以及本书其他核心观点的解读。  
+这一章讲述了对机器学习最根本三个性质的定义以及进化计算在这三个性质上的体现。以及本书其他核心观点的解读。  
   
   
 原书的免费公开版本在作者Koza本人的Research gate主页上：https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence  
