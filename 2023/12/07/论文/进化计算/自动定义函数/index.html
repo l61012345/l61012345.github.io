@@ -119,7 +119,7 @@
 <meta property="og:description" content="遗传编程中的自动定义函数             参考资料：John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.John R Koza, Genetic Programming IV:">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-09T19:40:45.805Z">
+<meta property="article:modified_time" content="2023-12-11T18:25:00.576Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.8k 字
+          4.9k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          41 分钟
+          42 分钟
         
       </span>
     
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月9日 晚上
+                    本文最后更新于：2023年12月11日 晚上
                   
                 
               </p>
@@ -484,16 +484,20 @@ p.spoiler {
 ">[2]</span></a></sup>的评述，这样搜索的失败率非常的高。交叉和突变非常容易找到不属于同一类的交叉和突变点，然后重试。  </p>
 <h2 id="ADF的实现"><a href="#ADF的实现" class="headerlink" title="ADF的实现"></a>ADF的实现</h2><h3 id="避免递归的实现方式"><a href="#避免递归的实现方式" class="headerlink" title="避免递归的实现方式"></a>避免递归的实现方式</h3><p>最后一点需要说明的是，虽然允许ADF调用其他ADF是可以将问题分层分解为一个个层级性的函数结构，但是在最一般的形式中，允许自动定义的函数调用其他同一类类函数将导致重复引用。为便于解释，在所示示例中不允许自动定义函数之间的递归引用。由于基因生成的实体经常是问题的错误解决方案，如果允许任何自动定义的函数引用自身，就必须预见无限递归的可能性。<br>因此需要设计机制避免出现无限递归。<br>第一种方法是按照ADF的生成顺序，有序地加入其他ADF的函数集。比如在生成第一个ADF，ADF0时，ADF0所使用的函数集就是基函数集合$\mathcal{F}_{ADF0}=\mathcal{F}$。然后第二个生成的ADF，ADF1使用的函数集是：$\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}$，然后第三个生成的ADF2使用的函数集是：$\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}⋃\{ADF_1\}$，以此类推。  </p>
 <p>第二种方法比较复杂，是使用程序检查非环引用：也就是从函数定义到函数调用的路线中过程不允许循环引用。  </p>
+<div class="note note-info">
+            <p>有观点认为不应该避免递归调用，但是递归调用的好处仍然需要调查。  </p>
+          </div>  
 <h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>对遗传编程中的自动定义函数，Candida Ferreira在<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.  
 ">[3]</span></a></sup>中指出具有如下的不足：  </p>
 <ul>
 <li>GP中的ADF彼此之间无法通过遗传操作交换遗传信息。  </li>
 <li>ADF中形式变量的个数需要被提前确定，引入了更多的先验知识。 而且形式变量的数量限制了ADF对目标的表达。  </li>
 </ul>
-<section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R Koza <em>et al</em>., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.
+<p>尽管Koza等人声称ADF可以通过只运行一次重复过程来减少计算量，但是该过程也可以同样通过记录计算结果实现。<br>但是事实上ADF的调用只是单纯的把子树打包，无法缩减个体的“实际”大小。   <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R Koza <em>et al</em>., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ferreira, C., 2001. Gene Expression Programming: A New Adaptive Algorithm for Solving Problems. Complex Systems, Vol. 13, issue 2: 87-129.
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section></p>
+
               
             </div>
             <hr/>
@@ -556,7 +560,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月9日</div>
+          <div>2023年12月11日</div>
         </div>
       
       <div class="license-meta-item">
