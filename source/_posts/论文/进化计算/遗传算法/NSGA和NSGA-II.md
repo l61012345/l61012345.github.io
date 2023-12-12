@@ -5,6 +5,7 @@ category_bar: true
 categories: 
 - 论文
 - 进化计算
+- 遗传算法
 ---
 
 # 多目标遗传算法：NSGA和NSGA-II
