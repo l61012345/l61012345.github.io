@@ -5,6 +5,7 @@ category_bar: true
 categories: 
 - 论文
 - 进化计算
+- 遗传编程
 - 遗传编程 IV： 例程化的可比拟人类的机器智能
 ---
 {% note info %}  
