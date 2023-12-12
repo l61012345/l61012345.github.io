@@ -119,7 +119,7 @@
 <meta property="og:description" content="结构变换操作 John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.    在自然界中，基因重复(gene duplication)是一种非法的基因重组行为，它将导致单挑染色体上的一段较长的核">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-12T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-12T11:47:38.432Z">
+<meta property="article:modified_time" content="2023-12-12T13:48:28.917Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.9k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          20 分钟
+          25 分钟
         
       </span>
     
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月12日 中午
+                    本文最后更新于：2023年12月12日 下午
                   
                 
               </p>
@@ -460,10 +460,30 @@ p.spoiler {
           </div>  
 <h3 id="基因缺失"><a href="#基因缺失" class="headerlink" title="基因缺失"></a>基因缺失</h3><p>核苷酸长链中确实了一段可以被翻译和产生功能蛋白质的基因片段。  </p>
 <h2 id="带有自动定义函数机制的遗传编程存在的问题"><a href="#带有自动定义函数机制的遗传编程存在的问题" class="headerlink" title="带有自动定义函数机制的遗传编程存在的问题"></a>带有自动定义函数机制的遗传编程存在的问题</h2><p>自动定义函数机制在<a href="https://l61012345.top/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/">遗传编程中的自动定义函数</a>一讲中介绍过，此处不多赘述。<br>带有自动定义函数机制的遗传编程存在两个问题：<br>第一是基本上不可能根据先验知识设定到底用多少个ADF才合适，并且ADF中的参数也很难通过先验知识去调整。第二是由于在带有自动定义函数机制的遗传编程中，突变和交叉都是类保护的，也就是说突变和交叉无法改变个体的架构（也就是整体需要多少个函数定义部件和结果生成部件，并且ADF之间的层级关系是如何的）。事实上，如果没有结构变换操作，整个进化过程中种群的结构被限制在了随机生成的初始种群的结构中，无法得到改变。<br>而结构变换操作提供了一种可以使用进化对个体结构自然而然进行调整的方式。  </p>
-<h2 id="结构变换操作-1"><a href="#结构变换操作-1" class="headerlink" title="结构变换操作"></a>结构变换操作</h2><p>结构变换操作一共有三大类：重复(duplication)、缺失(deletion)和创建(creation)。  </p>
-<h3 id=""><a href="#" class="headerlink" title=" "></a> </h3><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.
+<h2 id="结构变换操作-1"><a href="#结构变换操作-1" class="headerlink" title="结构变换操作"></a>结构变换操作</h2><p>结构变换操作一共有三大类：重复(duplication)、缺失(deletion)和创建(creation)。重复和缺失都有对应的生物遗传学基础。  </p>
+<h3 id="重复"><a href="#重复" class="headerlink" title="重复"></a>重复</h3><h4 id="子程序重复"><a href="#子程序重复" class="headerlink" title="子程序重复"></a>子程序重复</h4><p>子程序重复(branch duplication)是复制当前一个ADF定义部分的操作，具体如下：  </p>
+<ol>
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件(function-defining componet).</li>
+<li>复制该部件，并且重新命名复制后的函数。复制品具有与原函数完全相同的结构和声明列表(argument list)  </li>
+<li>在该个体中任何需要调用到原函数的地方，随机地选择这个位置仍然调用原函数，或者改为调用复制品函数。  </li>
+</ol>
+<p>下图展示了一个子程序重复的例子：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212132916.png width=90%>   </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/branch-dup2.gif></p>
+<p>子程序重复可以被解释为一种条件划分。如果把不同的子树分支视作是不同的调用环境的话，子程序重复事实上是把原本不同调用环境的同一处理方式分成了多种处理方式。因此，子程序重复可以看做是一种对某个ADF在不同调用环境下的特化(specialization)。  </p>
+<h3 id="声明重复"><a href="#声明重复" class="headerlink" title="声明重复"></a>声明重复</h3><p>声明重复是一种复制某个ADF中形式参数的方法，具体如下：  </p>
+<ol>
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件.</li>
+<li>选择该部件中的一个声明</li>
+<li>复制这个声明，并且重新命名。</li>
+<li>在这个被选择的函数定义部件中，找到所有需要这个声明的地方，随机选择仍然使用这个声明或者替换为复制后的声明。  </li>
+<li>在该个体中任何需要调用到这个函数的地方，找到这个函数，并且该调用下一个合适的实体参数作为新的输入接口的输入。  </li>
+</ol>
+<p>下图展示了一个声明重复的例子：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212134748.png width=80%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/arg-dup2.gif><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ohno, S. (1970). Forbidden Mutations. In: Evolution by Gene Duplication. Springer, Berlin, Heidelberg. <a target="_blank" rel="noopener" href="https://doi.org/10.1007/978-3-642-86659-3_6">https://doi.org/10.1007/978-3-642-86659-3_6</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section></p>
+
               
             </div>
             <hr/>
