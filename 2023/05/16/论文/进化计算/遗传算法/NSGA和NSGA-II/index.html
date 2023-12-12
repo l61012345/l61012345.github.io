@@ -111,20 +111,20 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="遗传编程中的自动定义函数             参考资料：John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.John R Koza, Genetic Programming IV:">
+    <meta name="description" content="多目标遗传算法：NSGA和NSGA-II N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi:">
 <meta property="og:type" content="article">
-<meta property="og:title" content="遗传编程中的自动定义函数">
-<meta property="og:url" content="https://l61012345.top/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:title" content="多目标遗传算法：NSGA和NSGA-II">
+<meta property="og:url" content="https://l61012345.top/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="遗传编程中的自动定义函数             参考资料：John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.John R Koza, Genetic Programming IV:">
+<meta property="og:description" content="多目标遗传算法：NSGA和NSGA-II N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi:">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-11T13:01:42.123Z">
+<meta property="article:published_time" content="2023-05-16T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-12T10:18:50.237Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>遗传编程中的自动定义函数 - Mirror</title>
+  <title>多目标遗传算法：NSGA和NSGA-II - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -343,8 +343,8 @@ p.spoiler {
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-07 00:00" pubdate>
-          2023年12月7日 凌晨
+        <time datetime="2023-05-16 00:00" pubdate>
+          2023年5月16日 凌晨
         </time>
       </span>
     
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.9k 字
+          1.8k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          42 分钟
+          15 分钟
         
       </span>
     
@@ -422,81 +422,145 @@ p.spoiler {
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">遗传编程中的自动定义函数</h1>
+            <h1 style="display: none">多目标遗传算法：NSGA和NSGA-II</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月11日 下午
+                    本文最后更新于：2023年12月12日 上午
                   
                 
               </p>
             
             <div class="markdown-body">
               
-              <h1 id="遗传编程中的自动定义函数"><a href="#遗传编程中的自动定义函数" class="headerlink" title="遗传编程中的自动定义函数"></a>遗传编程中的自动定义函数</h1><div class="note note-info">
-            <p>参考资料：<br>John R Koza <em>et al</em>., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.<br>John R Koza, Genetic Programming IV: Routine Human-Competitive Machine Intelligence, 2002.<br>John R Koza, Genetic programming III: Darwinian invention and problem solving, 1999.<br>John R Koza <em>et al</em>., Resue, Parameterized Resue, and Hierarchical Reuse of Substructures in Evolving Electrical Circuits Using Genetic Programming, 1996.<br>Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.  </p>
-          </div>  
-<div class="note note-info">
-            <p>GP和GEP中都有自动定义函数的机制，此处介绍的是Koza等人最初在遗传编程中提出的自动定义函数机制。  </p>
-          </div>  
-<div class="note note-info">
-            <p>此处用“自动定义函数”表示这种机制，用“ADF”表示用这种机制产生的函数。  </p>
-          </div>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>许多计算机程序中都会有重复使用的程序结构，这些反复出现的结构可以被定义为一些包含形式参数(formal parameter)的函数，并在程序主函数中被调用，如此可以减少代码的长度。基于这样的思想，遗传编程(Genetic Programming, GP)中提出了自动定义函数(Automatically Defined Function, ADF)的机制，以减少不必要的计算量。<br>自动定义函数是一种参数化的、可以被层级结构组织并且反复使用的函数，它在进化的过程中随着整个种群共同进化。ADF作为一种特殊的函数被添加到构成种群个体的函数集(function set)中，和其他函数集中的函数一样被随机选择形成个体。在进化的评估(evaluation)阶段，含有ADF的个体会通过在树形结构被转义为计算机程序时通过调用函数(calling function)在相应的位置调用自动定义函数，并将ADF下层的端点和函数作为ADF的实际参数(practical parameter)引入到ADF中。<br>实验证明，引入自动定义函数机制后，计算量显著减少，并且个体的大小得到控制。  </p>
-<h2 id="ADF的组织方式"><a href="#ADF的组织方式" class="headerlink" title="ADF的组织方式"></a>ADF的组织方式</h2><h3 id="含有ADF的个体结构"><a href="#含有ADF的个体结构" class="headerlink" title="含有ADF的个体结构"></a>含有ADF的个体结构</h3><p>Koza等人在<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.  
-">[1]</span></a></sup>中定义了外部调用实体(external invoked entity)和内部调用实体(internal invoked entity)。外部调用实体指的是整个个体转义后得到的程序，它由若干个基函数(primitive function)，也就是用于生成初始种群的函数集中的函数、内部调用函数和端点组成，并且在使用内部调用函数的前提下，函数之间还具有一定的层级关系。<br>内部调用函数在这里指ADF，包括了基函数，形式参数(这里称之为dummy vairable)和可能的其他（或者自己，如此将形成递归）的内部调用函数。<br>按照功能划分，Koza等人在<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.  
-">[1]</span></a></sup>中由把含有ADF的个体结构分为两个部分：<br>第一段是结果生成部件(result-producing component)，这个部分可以看做是一个计算机程序的主函数，运行之后会产生相应的结果。一个个体需要产生多少个结果就需要拥有多少个结果生成部件，且至少需要一个结果生成部件以便进行评估。<br>第二段是函数定义部件(function-defining component)，这个部件用于生成ADF。<br>这两个部分通过连接函数进行连接，使得它们形成一个整体。由于最早的遗传编程的目的是为了自动生成LISP语言的程序，因此最早Koza等人使用的连接函数是LISP语言中的<code>PROGN</code> 函数，它的作用是将若干个函数一并运行。  </p>
-<div class="note note-info">
-            <p>需要注意的是，连接函数(linking function)这个概念是在GEP中被正式提出的，此处Koza等人使用<code>PROGN</code>函数组织个体的想法基本接近连接函数这个概念。  </p>
-          </div>  
-<blockquote>
-<p>LISP语言中<code>PROGN</code>函数的使用可以参考：<a target="_blank" rel="noopener" href="https://www.cs.drexel.edu/~popyack/Courses/AI/Su12/extras/LISP/PROG_LISP.html">Blasting the PROG feature in Common LISP</a></p>
+              <h1 id="多目标遗传算法：NSGA和NSGA-II"><a href="#多目标遗传算法：NSGA和NSGA-II" class="headerlink" title="多目标遗传算法：NSGA和NSGA-II"></a>多目标遗传算法：NSGA和NSGA-II</h1><blockquote>
+<p>N. Srinivas and K. Deb, “Muiltiobjective Optimization Using Nondominated Sorting in Genetic Algorithms,” in Evolutionary Computation, vol. 2, no. 3, pp. 221-248, Sept. 1994, doi: 10.1162/evco.1994.2.3.221.<br>K. Deb, A. Pratap, S. Agarwal and T. Meyarivan, “A fast and elitist multiobjective genetic algorithm: NSGA-II,” in IEEE Transactions on Evolutionary Computation, vol. 6, no. 2, pp. 182-197, April 2002, doi: 10.1109/4235.996017.  </p>
 </blockquote>
-<p>在使用带有自动定义函数机制的遗传编程算法时，<strong>个体的拓扑结构需要被提前确定</strong>。具体而言，一个个体转义出来的程序中有几个结果生成部件和函数定义部件，以及彼此内部的层级关系是需要被提前确定的。<br><div class="note note-info">
-            <p>在结构变换操作(Architecture-altering Operation)加入之后，还可以用结构变换操作自动决定ADF的个数（也就是进化中会自我淘汰一部分ADF的子树结构）。   </p>
-          </div></p>
-<h3 id="ADF的结构"><a href="#ADF的结构" class="headerlink" title="ADF的结构"></a>ADF的结构</h3><p>由于ADF具有强类型(constrained type)特点，因此不同的ADF可能由不同的函数集和端点集生成。每一个ADF的结构包括三个部分：  </p>
-<ul>
-<li>ADF的函数名</li>
-<li>形式参数集合<br>这个集合用于替代端点集生成ADF树形结构的端点。形式参数集合中形式参数的个数和具体哪一个形式参数会被用于生成某个特定的ADF都需要在运行前被提前指定。ADF使用形式参数的目的是为了让ADF在不同的环境和上下文中都能够编译运行。<br>ADF可以不含有任何形式参数，这种情况有别于直接保存一个基因片段(Building-block)：ADF的树形结构是随着进化一同动态演化的，然而后者只是单纯的保存，无法做到动态演化。  </li>
-<li>ADF具体的内容，表征为树形结构。  </li>
-</ul>
-<p>三个部分在LISP语言中通过<code>DEFUN</code>这个函数作为连接函数进行连接。<code>DEFUN</code>在LISP语言中的作用是定义函数。  </p>
-<p>下图展示了一个使用ADF函数的个体的树形结构（左）和程序框架（右）的例子。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231207193952.png width=80%>    </p>
-<h3 id="ADF的生成"><a href="#ADF的生成" class="headerlink" title="ADF的生成"></a>ADF的生成</h3><p>尽管<strong>无需对生成的ADF的大小和结构做提前定义</strong>，但是在使用ADF机制时需要提前定义每个ADF中包含的形式参数数量和具体所使用的形式参数。<br>需要注意的是，<strong>指定的形式参数未必会真的被使用到某个ADF结构中</strong>，某个形式参数使用与否是由进化过程真正决定的。<br>一个ADF生成后，它可以作为用于生成别的ADF的成分添加到函数集中。  </p>
-<h2 id="ADF的进化"><a href="#ADF的进化" class="headerlink" title="ADF的进化"></a>ADF的进化</h2><h3 id="个体评估中ADF的调用"><a href="#个体评估中ADF的调用" class="headerlink" title="个体评估中ADF的调用"></a>个体评估中ADF的调用</h3><p>在评估过程中，首先个体组成的外部调用程序（结果生成部件）会被适应度衡量(fitness measurements)程序调用，然后外部调用程序拉动内部调用程序。当ADF被调用时，形式参数会被实例化(instantiat)为声明(arguments)。也就是形式参数会被具体的值或者实际参数替代。实例化的调用可以使用两个相同或者不同的的实际参数或者是参数值、以及表达式。<br>下图展示的实例化都是被允许的。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208105232.png width=70%>   </p>
-<p>需要注意的是，ADF可以返回多个值，也可以不返回值。<br>为了节约计算量，在当前种群的评估过程中，每个ADF的函数定义部分只会运行一次而不是对每个个体都运行一次。  </p>
-<h3 id="类保护的交叉和突变"><a href="#类保护的交叉和突变" class="headerlink" title="类保护的交叉和突变"></a>类保护的交叉和突变</h3><p>带有自动定义函数机制的遗传编程中，ADF是随着每个个体一同进化的。<br>自动定义函数机制引入了一种称为“类保护”的交叉和突变(category preserving crossover and mutation)的机制，<strong>这种机制使得ADF可以自动进化</strong>，不断改进自身的结构。  </p>
-<h4 id="同一类"><a href="#同一类" class="headerlink" title="同一类"></a>同一类</h4><p>在介绍这两种机制之前，首先要明确的概念是“同一类的”交叉/突变。<br>Koza等人定义的同一类的定义有两个：<br>第一种定义是：<br>如果：  </p>
-<ol>
-<li>交叉/突变点在结果生成部件中。  </li>
-<li>交叉/突变点在ADF中，两个ADF所使用的形式参数是完全相同的。（这两个ADF被视为同一类）  </li>
-</ol>
-<p>满足任意一个条件均视为被选择的两个交叉/突变点被视为是同一类的交叉和突变。  </p>
-<p>第二种定义是如果交换/突变和被交换/突变插入的部分同属一类，那么被选择的两个交叉/突变点被视为是同一类的交叉和突变。<br>在代码实现过程中，第一种定义的实现比较简单，所以通常使用的是第一种定义。  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208114053.png width=70%>  </p>
-<p>比如，对如上的两个个体2420和2470，如果两个交叉点分别选择在图示红线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2420的交叉点位于ADF1，其形式参数集合为${ARG0,ARG1,ARG2}$，与个体2470交叉点属于的ADF0的形式参数集合${ARG0,ARG1}$并不相同，于是类保护交叉不会发生。  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208115119.png width=70%>    </p>
-<p>再比如，对如上的两个个体2520和2570，如果两个交叉点都发生在图示虚线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2520和2570的交叉点都位于结果生成部件当中，因此两个交叉点属于同一类。类保护交叉将会发生。  </p>
-<h4 id="类保护的"><a href="#类保护的" class="headerlink" title="类保护的"></a>类保护的</h4><p><strong>类保护的交叉和突变只能够在同一类中进行</strong>。从另一个角度看，也就是说<strong>只有从同一个形式参数函数集合中生成的ADF之间可以做交叉和突变</strong>。更进一步的解释是，<strong>不同类别的ADF之间的进化是完全独立的</strong>。  </p>
-<h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>类保护的交叉的实现是，首先随机选择一个交叉点，再随机选择第二个交叉点，如果第二个交叉点和第一个交叉点不属于同一类，那么重新随机选择第二个交叉点直到找到符合条件的交叉点。<br>类保护突变的实现是，首先随机选择一个突变点并且随机生成一个子树，然后检查被插入的生成的子树在此处是否有意义。如果没有意义则重新生成子树。<br>从此处可以看出，使用自动函数生成机制的进化过程是相当冗杂的，根据其后<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ferreira, C., 2001. Gene Expression Programming: A New Adaptive Algorithm for Solving Problems. Complex Systems, Vol. 13, issue 2: 87-129.
-">[2]</span></a></sup>的评述，这样搜索的失败率非常的高。交叉和突变非常容易找到不属于同一类的交叉和突变点，然后重试。  </p>
-<h2 id="ADF的实现"><a href="#ADF的实现" class="headerlink" title="ADF的实现"></a>ADF的实现</h2><h3 id="避免递归的实现方式"><a href="#避免递归的实现方式" class="headerlink" title="避免递归的实现方式"></a>避免递归的实现方式</h3><p>最后一点需要说明的是，虽然允许ADF调用其他ADF是可以将问题分层分解为一个个层级性的函数结构，但是在最一般的形式中，允许自动定义的函数调用其他同一类类函数将导致重复引用。为便于解释，在所示示例中不允许自动定义函数之间的递归引用。由于基因生成的实体经常是问题的错误解决方案，如果允许任何自动定义的函数引用自身，就必须预见无限递归的可能性。<br>因此需要设计机制避免出现无限递归。<br>第一种方法是按照ADF的生成顺序，有序地加入其他ADF的函数集。比如在生成第一个ADF，ADF0时，ADF0所使用的函数集就是基函数集合$\mathcal{F}_{ADF0}=\mathcal{F}$。然后第二个生成的ADF，ADF1使用的函数集是：$\mathcal{F}_{ADF1}=\mathcal{F}⋃{ADF_0}$，然后第三个生成的ADF2使用的函数集是：$\mathcal{F}_{ADF1}=\mathcal{F}⋃{ADF_0}⋃{ADF_1}$，以此类推。  </p>
-<p>第二种方法比较复杂，是使用程序检查非环引用：也就是从函数定义到函数调用的路线中过程不允许循环引用。  </p>
+<h2 id="多目标优化理论概述"><a href="#多目标优化理论概述" class="headerlink" title="多目标优化理论概述"></a>多目标优化理论概述</h2><p>在数学上，多目标优化问题可以被公式化为如下表述：<br>如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}={x_1,x_2,…,x_n}$，那么多目标优化就是找到一个解$\boldsymbol{x^*}$使得$K$个目标函数(objective function)$z_i(\boldsymbol{x})$具有最小值:  </p>
+<script type="math/tex; mode=display">z(x^*)=\{z_1(\boldsymbol{x^*}),z_2(\boldsymbol{x^*}),...,z_n(\boldsymbol{x^*})\}</script><p>同时，搜索空间$X$受到一系列的约束条件(constrain)$g$的限制：$g_j(\boldsymbol{x^*})=b_j$，$j=1,…,m$.   </p>
+<p>实际情况是，许多约束的满足条件彼此之间会冲突，因此<strong>实际上想要找到一个多目标解使得所有目标函数同时达到最优解几乎是不可能的</strong>。因此，事实上多目标优化是寻找一组最优化的近似解，这个解在每一个目标函数中的结果都在可以接受的范围内，而且没有其他的解可以比这个解至少在一个目标函数中更好。<br>详细的帕累托优化理论和定义请参考：<a href="https://l61012345.top/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/">多目标遗传算法综述</a>.  </p>
 <div class="note note-info">
-            <p>有观点认为不应该避免递归调用，但是递归调用的好处仍然需要调查。  </p>
-          </div>  
-<h2 id="评价"><a href="#评价" class="headerlink" title="评价"></a>评价</h2><p>对遗传编程中的自动定义函数，Candida Ferreira在<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.  
-">[3]</span></a></sup>中指出具有如下的不足：  </p>
+            <p>非支配的数学表示可以是：对于一系列多目标适应度函数$\boldsymbol{f}=(f_1,f_2,…,f_k)$和两个多目标个体$x_i,x_j$，都有：  </p><script type="math/tex; mode=display">\boldsymbol{f}(x_i)=(f_1(x_i),f_2(x_i),...,f_k(x_i))</script><p>令$f_m(x_j)∈\boldsymbol{f}(x_j)$,$f_m(x_i)∈\boldsymbol{f}(x_i)$，如果：</p><script type="math/tex; mode=display">f_m(x_j)>f_m(x_i)</script><p>且，</p><script type="math/tex; mode=display">∀f_n(x_j)≥f_n(x_i),m ≠ n</script><p>那么$x_j≻x_i$.</p>
+          </div>
+<h2 id="传统方法"><a href="#传统方法" class="headerlink" title="传统方法"></a>传统方法</h2><h3 id="标量化"><a href="#标量化" class="headerlink" title="标量化"></a>标量化</h3><p>最常见的多目标优化的难点是目标之间的冲突：无法同时找到所有目标的最优。因此在数学上的帕累托最优是提供具有最小冲突的解决方案。在搜索空间中，这些解决方案表现为空间中的点，这些点从单个目标上看是最优的。但是这样的方法无法满足决策者调整不同目标满足最优的优先程度。因此，传统的一种解决多目标最优化的方法是将向量通过使用加权平均转化为单目标优化，这个过程中个体向量被标量化(scalarize)。通过权重向量来反映和调整每个目标的优先级。  </p>
+<h4 id="目标函数加权"><a href="#目标函数加权" class="headerlink" title="目标函数加权"></a>目标函数加权</h4><p>所有的目标函数使用一个使用一个权重向量$\boldsymbol{w}$进行线性组合：  </p>
+<script type="math/tex; mode=display">Z=∑_{i=1}^Nw_if_i(\boldsymbol{x})</script><p>如此，对于目标函数的优先程度反映在权重向量$\boldsymbol{w}∈(0,1)$中。通常，个体在每个目标上的值先被计算出来，然后根据决策者设置的优先级使用如上的公式将多目标优化问题转化为单目标优化问题。<br>这种算法非常简单，易于实现，而且可以根据优先级控制目标函数。但是存在两个问题：第一，最优化的结果极大地依赖于权重向量。其二，决策者可能还想知道其他的备选方案。  </p>
+<h4 id="距离函数"><a href="#距离函数" class="headerlink" title="距离函数"></a>距离函数</h4><p>这种方法使用需求层级向量(demand-level vector)$\overline{\boldsymbol{y}}$来对多目标优化问题进行标量化：  </p>
+<script type="math/tex; mode=display">Z=\left[\sum_{i=1}^N|f_i(\boldsymbol{x})-\overline{y}_i|^r\right]^{1/r},1≤r<∞</script><p>其中需求层级向量$\overline{\boldsymbol{y}}$的值是由决策者预先设置好的。通常使用欧氏距离$r=2$。<br>这种方法的优化结果极大地依赖于对需求层级向量的设置。错误的需求层级向量的设置会导致错误的帕累托优化结果，对需求层级向量需要决策者有足够的先验知识。<br>这种方法其实与目标函数加权非常类似，只是在这种方法中提供的权重表示对目标的满足程度，而前者的权重强调目标函数的重视程度。  </p>
+<h3 id="最小-最大博弈"><a href="#最小-最大博弈" class="headerlink" title="最小-最大博弈"></a>最小-最大博弈</h3><p>另一种解决目标冲突的方法是使用最小-最大博弈(Min-Max)：在最大化每个目标函数的前提下最小化目标函数之间的冲突：  </p>
+<script type="math/tex; mode=display">min[𝑭(\boldsymbol{x})]=max[Z_j(\boldsymbol{x})],j=1,2,...,N</script><p>其中：  </p>
+<script type="math/tex; mode=display">Z_j(\boldsymbol{x})=\frac{f_j-\overline{f}_j}{\overline{f}_j}</script><p>$\overline{f}_j$是在目标函数$j$上的平均适应度。<br>对于相同优先级的目标函数，这种方法可以得出相对折中的最优方案；同时可以通过引入标量权重来设置目标函数的优先级。  </p>
+<p>如上传统方法的缺点在于，虽然这些方法可以保证帕累托优化，但是每次只能找到一个点而不能够一次性找到多个帕累托最优解。在充满噪声和离散变量的空间中，这些方法工作效率低下。同时其中的一些方法对于先验知识的要求很高，并且对权重和需求的设置十分敏感。  </p>
+<h3 id="VEGA和种群多样性的改进"><a href="#VEGA和种群多样性的改进" class="headerlink" title="VEGA和种群多样性的改进"></a>VEGA和种群多样性的改进</h3><p>Schaffer提出的VEGA是最早的多目标优化遗传算法。VEGA根据目标函数的个数将整个种群分成了若干个子种群，其中每个子种群对应一个特定的目标函数进行优化：每一代中按照该目标函数赋予适应度、进行选择后再综合进行交叉和变异等遗传操作。<br>VEGA最大的问题是无法保证其无偏性：在进化数代之后，VEGA的进化方向总是倾向于帕累托前沿的某些特定区域和某些特定的个体。解决VEGA中种群多样性问题的办法有三种：</p>
 <ul>
-<li>GP中的ADF彼此之间无法通过遗传操作交换遗传信息。  </li>
-<li>ADF中形式变量的个数需要被提前确定，引入了更多的先验知识。 而且形式变量的数量限制了ADF对目标的表达。  </li>
+<li>其一，使用一种叫做非支配选择(nondominated selection)的选择方法，这种选择方法引入了惩罚函数(peanalty function)：惩罚函数使用一个非常小的固定值减少受支配个体的复制次数。这种方法的缺点是，在种群中只有少数非支配解时，这些非支配解的适应度会非常高，造成严重的选择压力。  </li>
+<li>另一种选择机制称为配对选择(mating selection)，在这种机制下，一个随机选择的个体和与其具有最大欧氏距离的个体进行配对，旨在通过配对增加种群的多样性。但是由于第一个个体是随机选择的，其无法保证比它更差的个体与其配对并参与到之后的遗传操作中。有些文献甚至认为，配对选择的性能还不如随机配对。  </li>
+<li>Goldberg提出了一种称为适应度共享(fitness sharing)的方法为NSGA所采用的方法，这种方法相比于前两者都更好，将在之后详细描述。  </li>
 </ul>
-<p>尽管Koza等人声称ADF可以通过只运行一次重复过程来减少计算量，但是该过程也可以同样通过记录计算结果实现。<br>但是事实上ADF的调用只是单纯的把子树打包，无法缩减个体的“实际”大小。   <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>John R Koza <em>et al</em>., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Ferreira, C., 2001. Gene Expression Programming: A New Adaptive Algorithm for Solving Problems. Complex Systems, Vol. 13, issue 2: 87-129.
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section></p>
+<h2 id="NSGA"><a href="#NSGA" class="headerlink" title="NSGA"></a>NSGA</h2><h3 id="非支配排序"><a href="#非支配排序" class="headerlink" title="非支配排序"></a>非支配排序</h3><p>帕累托排序(Pareto ranking)或者称为非支配排序(nondominated ranking)利用了帕累托最优理论中“支配”的概念来为不同的个体赋予适应度。简单来说，种群中的个体适应度表示为排序。具有更高支配地位的个体会具有更好的适应度。在本文中，越好的个体具有更低的适应度，排名更小更靠前。<br>Goldberg提出了第一种帕累托排序方法，简单来说就是对于当前种群中的所有个体，选择出其中的帕累托解并移入另一个列表中，然后再筛选剩余个体中的新的帕累托解。（即去掉上一次的帕累托解后现有集合中新的不受其他种群支配的个体），如此往复。<br>其过程详细描述如下：  </p>
+<ul>
+<li>首先从整个种群中找到所有的非支配个体，这些非支配个体对应的多目标函数的值构成第一非支配前沿。  </li>
+<li>然后所有在第一非支配前沿的个体都被赋予一个非常大的冗余适应度(dummy fitness)，使得第一个非支配前沿中最差个体的适应度仍然高于第二个非支配前沿中最好个体的适应度。  </li>
+<li>接着，为了保持种群的多样性，具有相同冗余适应度的个体会通过适应度共享被惩罚。适应度共享机制会在后文中详细介绍。  </li>
+<li>然后第一非支配前沿的所有个体被给予适应度后从种群中移除，然后再看种群中剩余所有个体中新产生的非支配个体，这些个体构成第二非支配前沿。如此重复，直到所有的个体都被绑定到一个非支配前沿中。  </li>
+</ul>
+<h4 id="非支配排序的计算量"><a href="#非支配排序的计算量" class="headerlink" title="非支配排序的计算量"></a>非支配排序的计算量</h4><p>对于$M$个目标函数，大小为$N$的种群，种群中的每一个个体都需要与其他个体在所有目标函数的维度上进行比较才能确定其受支配的程度。这样的比较需要的计算复杂度为$O(MN)$。要想找到第一非支配前沿中所有的个体，计算复杂度为$O((MN)×N)=O(MN^2)$.<br>在最坏的情况下，寻找到第二个非支配前沿中所有个体的计算复杂度也为$O(MN^2)$。如此寻找到第$N$个非支配前沿所需要的计算复杂度应当为$O((MN^2)×N)=O(MN^3)$.<br>同时储存每个个体的排名还需要$O(N)$的计算量。  </p>
+<h3 id="适应度共享"><a href="#适应度共享" class="headerlink" title="适应度共享"></a>适应度共享</h3><p>在NSGA中，同一个非支配前沿的个体进行适应度共享。适应度共享的过程是将个体原来的适应度除以其附近个体的个数。<br>NSGA中对于“附近”的定义属于称为小生境(niching)，$σ_{share}$是小生境大小，代表的是两个个体被认定在同一个小生境的最大距离。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230516205708.png width=50%><br>具体用公式表示为：  </p>
+<script type="math/tex; mode=display">f'_i=\frac{f_i}{nc_i}</script><script type="math/tex; mode=display">nc_i=∑_kSb(d_{ij})</script><script type="math/tex; mode=display">Sb(d_{ij})=\begin{cases}
+    1-\left(\frac{d_{ij}}{σ_{share}}\right)^2,\text{if }d_{ij}<σ_{share};\\
+    0, \text{otherwise}.
+\end{cases}</script><p>其中，$d_{ij}$是当前非支配前沿中同一个小生境中个体$i$和个体$j$之间的距离。而每个个体附近个体的数量定义为小生境距离$nc_i$，它是在所有目标函数方向上的$Sb(d_{ij})$的和。  </p>
+<p>NSGA的算法流程图如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230518155602.png width=50%>    </p>
+<p>在非支配排序后，NSGA的原论文中采用了随机余数选择以及常规的交叉和突变算子。由于第一非支配前沿中的个体具有最大的适应度，在随机余数选择中它们往往可以得到相当多的复制次数。这样的机制可以保证快速收敛。适应度共享机制可以保证搜索始终朝着更多未搜索的帕累托前沿的区域进行。  </p>
+<h3 id="近似方法比较"><a href="#近似方法比较" class="headerlink" title="近似方法比较"></a>近似方法比较</h3><h4 id="MOGA"><a href="#MOGA" class="headerlink" title="MOGA"></a>MOGA</h4><p>Fonesca 和 Fleming提出的MOGA同样也使用了Goldenberg的非支配排序的思想。对于一个个体，首先想找到在种群中严格支配该个体的个体数量，然后该个体的排名是这些支配个体的排名+1。因此可能存在具有相同排名的个体。然后选择过程会依据这个排名删除一些个体，进而形成中间种群进行交配。<br>MOGA虽然也使用了非支配排序，但是相比于NSGA具有如下的缺点：  </p>
+<ul>
+<li>在选择阶段直接去掉一些个体可能会导致提前收敛。  </li>
+<li>MOGA也使用了小生境作为适应度共享的方法，但是其距离度量基于的是每个个体在目标函数上的值而非个体本身的参数，这样的方法虽然可以保证在目标函数空间中的多样性，但是无法保证在个体本身分布的参数空间中的种群多样性。  </li>
+<li>实验证明，MOGA可能无法在同一个目标函数值的位置上找到多个帕累托解。  </li>
+</ul>
+<h4 id="帕累托支配锦标赛"><a href="#帕累托支配锦标赛" class="headerlink" title="帕累托支配锦标赛"></a>帕累托支配锦标赛</h4><p>在多目标优化问题中，Nafpliotis和Goldberg使用了帕累托支配锦标赛(Pareto domination tournaments)而非非支配排序。<br>在帕累托支配锦标赛中，首先从现在的种群内中随机挑选$t_{dom}$个个体形成一个参考集合(称为comparision set)作为比较的依据。然后两个个体被随机地从种群中挑选出来并与参考集合中的个体进行比较，然后根据受支配情况决定两个个体中哪一个个体是胜者：<br>如果两个个体其中一个个体受参考集合个体支配，另一个支配参考集合的个体，那么支配个体为胜者；当两个个体都为非支配个体或者支配个体时，则根据个体的小生境大小进行比较，小生境大小更大的个体胜出。<br>在NSGA中并没有采用这种锦标赛方法，原因如下：  </p>
+<ul>
+<li>帕累托支配锦标赛的结果依赖于对参考集合大小$t_{dom}$的设置：如果$t_{dom}$过小，那么将无法筛选出真正的非支配解；如果$t_{dom}$过大，种群中过多数量的个体被筛选，进而导致过早收敛。  </li>
+<li>其次，帕累托支配锦标赛的结果也依赖于小生境大小$nc$以及对距离的定义。  </li>
+</ul>
+<p>相比帕累托支配锦标赛，NSGA中的非支配排序对Goldenberg的非支配排序的思想实现更好。  </p>
+<h3 id="NSGA的缺点"><a href="#NSGA的缺点" class="headerlink" title="NSGA的缺点"></a>NSGA的缺点</h3><p>在NSGA-II的论文中提到NSGA的缺点主要有如下三点：  </p>
+<ul>
+<li>计算复杂度高：NSGA的计算复杂度为$O(MN^3)$（其中$M$是目标点的数量，$N$是种群大小）。这个计算复杂度主要是由于每一代中都要执行非支配排序所造成的。庞大的计算复杂度导致NSGA在种群大小非常大时消耗大量的计算资源。  </li>
+<li>精英策略(elitism)可以提高遗传算法的性能、同时保护优秀的个体。NSGA论文提出的时代精英策略还不受到重视，因此NSGA没有使用精英策略。  </li>
+<li>NSGA中引入了小生境距离$σ_{share}$这个超参数。导致NSGA的结果也依赖于对小生境距离$σ_{share}$的设置。  </li>
+</ul>
+<h2 id="NSGA-II"><a href="#NSGA-II" class="headerlink" title="NSGA-II"></a>NSGA-II</h2><h3 id="快速非支配排序"><a href="#快速非支配排序" class="headerlink" title="快速非支配排序"></a>快速非支配排序</h3><p>在进行快速非支配排序前，对每个个体计算如下的两个属性：  </p>
+<ul>
+<li>支配大小(dominiation count)$n_p$：表示支配个体$p$的支配者数量。  </li>
+<li>$S_p$:由$p$支配的个体所组成的集合。这一步计算需要$O(MN^2)$次比较。  </li>
+</ul>
+<p>然后对所有在第一非支配前沿的个体，令他们的支配大小为0：$n_p=0$。然后找到这些个体的$S_p$，并且对在$S_p$中的个体的$n_p$减1。  这个过程中如果发现某个个体的$n_p=0$，那么该个体属于第二非支配前沿。<br>然后对第二非支配前沿的所有个体重复上述操作，如此循环直到所有的个体都被找到对应的非支配前沿。  </p>
+<p>整个算法描述如下：  </p>
+<script type="math/tex; mode=display">\begin{aligned}
+    \text{for each } p∈P\\
+    S_p=∅&\\
+    n_p=0&\\
+    \text{for each } q ∈ &P\\
+    \text{if } p≻&q \text{ then}\\
+    S_p&=S_p∪\{q\}\\
+    \text{else if }&q≻p \text{ then}\\
+    n_p&=n_p+1\\
+    \\
+    \text{if }n_p=0, &\text{then}\\
+    p_{rank}&=1\\
+    𝑭_1&=𝑭_1∪\{p\}\\
+    \\
+\end{aligned}</script><script type="math/tex; mode=display">\begin{aligned}
+    i=1&\\
+    \text{while }&𝑭_i≠∅:\\
+    Q=&\emptyset \\
+    &\text{for each } p \in 𝑭_i:\\
+    &\text{  for each } q \in S_p:\\
+    &\text{           }n_q=n_q-1\\
+    &\text{           }\text{if }n_q=0\text{ then}\\
+    &\text{                      }q_{rank}=i+1\\
+    &\text{                      }Q=Q∪\{q\}\\
+    i=i&+1
+\end{aligned}</script><h4 id="快速非支配排序的计算量"><a href="#快速非支配排序的计算量" class="headerlink" title="快速非支配排序的计算量"></a>快速非支配排序的计算量</h4><p>如果一个个体已经被放入到了对应的非支配前沿，那么该个体在排序过程中将不再被访问。<br>对于位于第二及以上的非支配前沿中的个体，其$n_p$最大为$N-1$，因此在这种情况下每个个体$p$在其$n_p$减少到0之前最多被访问$N-1$次。最坏的情况下，这样的个体$p$有$N-1$个，因此每个目标的计算复杂度为$O(N^2)$.<br>从另一个角度思考该计算过程：对于如上算法的第一个大循环（$\text{for each } p∈𝑭_i$），其最多运行$N$次，其中的内循环($\text{  for each } q \in S_p$)最多运行$N-1$次，因此每个目标的计算复杂度为$O(N^2)$.<br>一共有$M$个目标，也就是说个体会在每个目标上都进行比较，因此整个算法总体的计算复杂度为$O(MN^2)$.<br>每个个体需要保存对应的$n_p$和$S_p$，存储上需要$O(N^2)$的计算量。  </p>
+<p>从如上的分析可以看出，快速非支配排序简化了非支配排序中的比较过程。所有的非支配前沿只需要一次遍历就可以被确定。  </p>
+<h3 id="拥挤距离"><a href="#拥挤距离" class="headerlink" title="拥挤距离"></a>拥挤距离</h3><p>NSGA-II延续了NSGA中的适应度共享的思路。但是NSGA-II的作者认为，NSGA中基于小生境的适应度共享存在如下问题：  </p>
+<ul>
+<li>基于小生境的适应度共享受到超参数小生境距离$σ_{share}$的影响。  </li>
+<li>由于每个个体都需要与其他个体进行比较，因此NSGA中的适应度共享的计算复杂度为$O(N^2)$.  </li>
+</ul>
+<p>为了解决上述问题，NSGA-II中提出了一种基于拥挤距离(crowding distance)的适应度共享方案。这种算法不依赖任何超参数的设置，并且拥有更小的计算量。  </p>
+<h4 id="稠密度估计"><a href="#稠密度估计" class="headerlink" title="稠密度估计"></a>稠密度估计</h4><p>为了找到相邻的个体，在进行稠密度估计之前需要根据个体在各个目标函数的值对整个种群进行排序。然后以个体$i$附近相邻两个个体$i-1$和$i+1$在各个目标函数方向上的距离的平均值来估计每个个体周围的个体分布的稠密程度。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230518142650.png width=50%>  </p>
+<p>考虑到首尾个体（拥有最大和最小目标函数值的个体）在一边不存在相邻个体，定义它们的拥挤都为无穷。其余个体的拥挤距离$cd$为附近相邻两个个体$i-1$和$i+1$在各个目标函数方向上的距离的平均值的极差归一化结果。<br>对于使用帕累托排序生成的若干个非支配前沿$F_1,…,F_R$，对于每一个目标函数$k$，对$F_j$中的每一个解升序排序。设$N=|F_j|$，$\boldsymbol{x}_{[i,k]}$表示对$k$个目标函数排序列表中的第$i$个个体。令$cd_k(\boldsymbol{x}_{[1,k]})=∞$, $cd_k(\boldsymbol{x}_{[l,k]})=∞$，对剩下的$i=2,3,…,N-1$:  </p>
+<script type="math/tex; mode=display">cd_k(\boldsymbol{x}_{[i,k]})=\frac{z_k(\boldsymbol{x}_{[i+1,k]}-\boldsymbol{x}_{[i-1,k]})}{z_k^{max}-z_k^{min}}</script><p>个体的拥挤距离表示为：  </p>
+<script type="math/tex; mode=display">i_{distance}=cd(\boldsymbol{x_i})=∑_kcd_k(\boldsymbol{x}_{[i,k]})</script><p>这个算法总的计算复杂度为$O(MNlogN)$。<br>可以看出拥挤距离$cd$反应了个体$i$周围的个体分布稠密程度，$cd$越小，说明$i$的周围越拥挤。  </p>
+<h4 id="基于拥挤的选择"><a href="#基于拥挤的选择" class="headerlink" title="基于拥挤的选择"></a>基于拥挤的选择</h4><p>经过快速非支配排序和适应度共享的个体$i$现在拥有如下的两个属性：  </p>
+<ul>
+<li>非支配排名(nondomination rank)：$i_{rank}$</li>
+<li>拥挤距离(crowding distance)：$i_{distance}$</li>
+</ul>
+<p>定义基于拥挤距离的选择算子$≻_n$：<br>如果$i_{rank}\<j_{rank}$（排名越靠前越优）或者
+$[(i_{rank}=j_{rank})AND(i_{distance}>j_{distance})]$<br>，称$i≻_nj$。<br>也就是说，两个个体先比较非支配排名，非支配排名靠前的个体胜出；如果两者的排名相同，那么比较两者的拥挤距离，拥挤距离大的胜出。  </p>
+<h3 id="主循环"><a href="#主循环" class="headerlink" title="主循环"></a>主循环</h3><p>主循环中应用了精英机制。具体的表述如下：<br>定义种群$P$经过锦标赛、重组和突变后产生了后代$Q$，它们的种群大小都固定为$N$，然后进行如下的操作：  </p>
+<ul>
+<li>创建一个列表$R_t=P_t∪Q_t$，其列表大小为$2N$  </li>
+<li>对$R_t$使用快速非支配排序</li>
+<li>将$F_1$到$F_N$中的个体按照基于拥挤距离的选择算子填充一个大小为$N$的列表$P’$，即，$F_1$中的个体优先填入$P’$，然后依次填入$F_2,F_3,…$的个体。直到$P’$的种群大小为$N$。需要注意的是，最后一个填入$P’$的非支配前沿中的个体按照基于拥挤的选择填入个体。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230518154830.png width=50%>    </li>
+</ul>
+<p>最坏的情况下，一轮主循环需要的计算量如下：  </p>
+<ul>
+<li>快速非支配排序：$O(M(2N)^2)$  </li>
+<li>适应度共享：$O(M(2N)log(2N))$  </li>
+<li>基于拥挤的选择:$O(2Nlog(2N))$<br>整个算法的计算复杂度为$O(MN^2)$，取决于非支配排序。  </li>
+</ul>
+<h3 id="条件限制"><a href="#条件限制" class="headerlink" title="条件限制"></a>条件限制</h3><p>在单目标优化中，常见的条件限制方法是使用锦标赛算法：随机配对两个个体，两个个体中具有更高实现度的个体将被选中。由于单目标优化中不需要在各个目标函数的维度上都进行比较，因此单目标优化中没必要使用惩罚函数。<br>借用这种方法，NSGA-II中提出了有限制的锦标赛选择机制(constrained tournament selection)。在这种机制中，如果个体$\boldsymbol{x}$满足如下任何一个条件，称个体$\boldsymbol{x}$有条件地支配(constrain-dominate)个体$\boldsymbol{y}$：  </p>
+<ul>
+<li>$\boldsymbol{x}$可行，$\boldsymbol{y}$不可行</li>
+<li>$\boldsymbol{x}$和$\boldsymbol{y}$都不可行，但是$\boldsymbol{x}$对条件的破坏低于$\boldsymbol{y}$</li>
+<li>$\boldsymbol{x}$和$\boldsymbol{y}$都可行，$\boldsymbol{x}$支配$\boldsymbol{y}$</li>
+</ul>
+<p>首先，若干个条件限制的非支配前沿$F_1,…,F_R$可以通过使用上述的“有条件支配”的定义进行帕累托排序得出。在这样的选择机制中，随机选择两个个体$\boldsymbol{x}$ 和 $\boldsymbol{y}$，然后比较两者在条件限制的非支配前沿中的地位。<br>使用有条件的支配这一概念时，可行个体的排名将比不可行个体的排名更优。同时这样简单的定义改变不会影响NSGA-II中快速非支配排序的计算复杂度。  </p>
 
               
             </div>
@@ -522,6 +586,13 @@ p.spoiler {
   <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
   
   
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" class="category-chain-item">遗传算法</a>
+  
+  
+
+  
 
   
 
@@ -541,8 +612,8 @@ p.spoiler {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>遗传编程中的自动定义函数</div>
-      <div>https://l61012345.top/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/</div>
+      <div>多目标遗传算法：NSGA和NSGA-II</div>
+      <div>https://l61012345.top/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/</div>
     </div>
     <div class="license-meta">
       
@@ -554,13 +625,13 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月7日</div>
+          <div>2023年5月16日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月11日</div>
+          <div>2023年12月12日</div>
         </div>
       
       <div class="license-meta-item">
@@ -589,9 +660,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础">
+                      <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">02. 背景·遗传编程基础</span>
+                        <span class="hidden-mobile">电力线缆的寿命预测模型</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -599,8 +670,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/GP%20book%20chapter%201/" title="01. 绪论">
-                        <span class="hidden-mobile">01. 绪论</span>
+                      <a href="/2023/05/15/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/9.%20Realization%20of%20logical%20gates/" title="9. 逻辑门实现[英]">
+                        <span class="hidden-mobile">9. 逻辑门实现[英]</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -926,82 +997,10 @@ p.spoiler {
     
       
       
-        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">多目标优化遗传算法综述</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">并行遗传算法</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">经典遗传算法的Python实现</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">自适应遗传算法的Python实现</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">遗传算法（GA）导论</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
-           class="list-group-item list-group-item-action
-           active">
           <span class="category-post">遗传编程中的自动定义函数</span>
-        </a>
-      
-    
-      
-      
-        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
-           class="list-group-item list-group-item-action
-           ">
-          <span class="category-post">遗传编程（GP）导论</span>
         </a>
       
     
@@ -1010,6 +1009,134 @@ p.spoiler {
           
           
   
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="true"
+      >
+        遗传算法
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="false"
+      >
+        遗传编程
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
   
     
     
@@ -1035,7 +1162,7 @@ p.spoiler {
     
       
       
-        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/GP%20book%20chapter%201/" title="01. 绪论"
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">01. 绪论</span>
@@ -1044,7 +1171,7 @@ p.spoiler {
     
       
       
-        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">02. 背景·遗传编程基础</span>
