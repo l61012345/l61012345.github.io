@@ -11,7 +11,7 @@ categories:
 # 背景·遗传编程基础
 
 {% note info %}  
-这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第一章： Chapter 2： Background on Gentic Programming.   
+这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第二章： Chapter 2： Background on Gentic Programming.   
 这一章讲述了遗传编程的运行流程，以及遗传编程的高级功能。  
   
   
