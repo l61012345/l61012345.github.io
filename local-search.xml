@@ -4,6 +4,50 @@
   
   
   <entry>
+    <title>树莓派4b开启热点功能</title>
+    <link href="/2023/12/19/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9/"/>
+    <url>/2023/12/19/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h1 id="树莓派4b开启热点功能"><a href="#树莓派4b开启热点功能" class="headerlink" title="树莓派4b开启热点功能"></a>树莓派4b开启热点功能</h1><blockquote><p>基本上是按照 <a href="https://www.cnblogs.com/dch0/p/14292702.html">https://www.cnblogs.com/dch0/p/14292702.html</a> 的教程设置的</p></blockquote><h2 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h2><p>Raspberry Pi OS中已经默认启用了网卡，但是需要安装如下依赖项：<code>network-manager</code>,<code>git</code>,<code>iptable</code>,<code>dnsmasq</code><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo apt-get install network-manager<br>sudo apt-get install git<br>sudo apt-get install iptable<br>sudo apt-get install util-linux procps hostapd iproute2 iw haveged dnsmasq<br></code></pre></td></tr></table></figure></p><h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="修改-NetworkManager-配置文件"><a href="#修改-NetworkManager-配置文件" class="headerlink" title="修改 NetworkManager 配置文件"></a>修改 NetworkManager 配置文件</h3><p>用nano修改：<code>/etc/NetworkManager/NetworkManager.conf</code><br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo nano /etc/NetworkManager/NetworkManager.conf<br></code></pre></td></tr></table></figure><br>在该文件末尾增加一行：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">dns=dnsmasq<br></code></pre></td></tr></table></figure><br>对nano编辑器用ctrl+C，选择y后回车保存退出。  </p><h3 id="修改-dnsmasq-配置文件"><a href="#修改-dnsmasq-配置文件" class="headerlink" title="修改 dnsmasq 配置文件"></a>修改 dnsmasq 配置文件</h3><p>用nano修改：<code>/etc/dnsmasq.conf</code>：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo nano /etc/dnsmasq.conf<br></code></pre></td></tr></table></figure></p><p>对nano编辑器用ctrl+W，查找 <code>listen-address</code> 一行内容。<br>取消该行注释，并设置为：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">listen-address=127.0.0.1<br></code></pre></td></tr></table></figure><br>然后重启 dnsmasq 服务。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo /etc/init.d/dnsmasq restart<br></code></pre></td></tr></table></figure></p><h2 id="启用create-ap"><a href="#启用create-ap" class="headerlink" title="启用create_ap"></a>启用create_ap</h2><h3 id="克隆create-ap项目"><a href="#克隆create-ap项目" class="headerlink" title="克隆create_ap项目"></a>克隆create_ap项目</h3><p>create_ap这个项目在：<a href="https://github.com/oblique/create_ap">https://github.com/oblique/create_ap</a> 目前已经不再维护。<br>用git克隆该项目后放在本地编译：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo git clone https://github.com/oblique/create_ap<br>cd create_ap<br>sudo make install<br></code></pre></td></tr></table></figure></p><h3 id="启用热点"><a href="#启用热点" class="headerlink" title="启用热点"></a>启用热点</h3><p>用<code>--no-virt</code>选项设置热点并启用<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo create_ap --no-virt wlan0 eth0 热点名 密码<br></code></pre></td></tr></table></figure></p><h3 id="设置服务开机启动"><a href="#设置服务开机启动" class="headerlink" title="设置服务开机启动"></a>设置服务开机启动</h3><p>修改重启服务的配置，添加<code>--no-virt</code>参数。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo nano /usr/lib/systemd/system/create_ap.service<br></code></pre></td></tr></table></figure><br>然后找到<code>ExecStart=</code>开头的一行，把这一行修改为：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">ExecStart=/usr/bin/create_ap --no-virt --config /etc/create_ap.conf<br></code></pre></td></tr></table></figure><br>修改服务脚本参数：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">sudo nano /etc/create_ap.conf<br></code></pre></td></tr></table></figure></p><p>找到这个文件中的<code>GATEWAY</code>、<code>SSID</code>、<code>PASSPHRASE</code>三行，进行自定义设置：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs terminal">GATEWAY = 网关地址<br>SSID = 热点名<br>PASSPHRASE = 热点密码<br></code></pre></td></tr></table></figure><br>对nano编辑器用ctrl+C，选择y后回车保存退出。  </p><p>设置开机启动：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs terminal">systemctl enable create_ap.service<br></code></pre></td></tr></table></figure></p><p>如此树莓派将会开机的时候就启动热点（但是树莓派自带的无线网卡性能非常有限）  </p><h3 id="服务操作"><a href="#服务操作" class="headerlink" title="服务操作"></a>服务操作</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs terminal"># 启动服务：<br>systemctl start create_ap.service<br># 关闭服务：<br>systemctl stop create_ap.service<br># 重启服务：<br>systemctl restart create_ap.service<br># 显示服务状态：<br>systemctl status create_ap.service<br># 禁用服务开机启动：<br>systemctl disable create_ap.service<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>技术杂谈</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>03. 控制器的自动综合</title>
+    <link href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/"/>
+    <url>/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/</url>
+    
+    <content type="html"><![CDATA[<h1 id="控制器的自动综合"><a href="#控制器的自动综合" class="headerlink" title="控制器的自动综合"></a>控制器的自动综合</h1><div class="note note-info">            <p>这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.<br>这一章讲述了如何使用遗传编程完成控制器的自动设计。  </p><p>原书的免费公开版本在作者Koza本人的Research gate主页上：<a href="https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence">https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence</a><br>这本书也可以在Springer 购买电子版： <a href="https://link.springer.com/book/10.1007/b137549">https://link.springer.com/book/10.1007/b137549</a><br>或者在亚马逊英国购买纸质版：  <a href="https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670">https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670</a>  </p>          </div>  <p>人类工程师进行设计的过程涉及到对各种考量的权衡，因此可以说设计的过程是需要使用到人类的智能的。这一章讲自动设计控制器(controller)作为例子讲述遗传编程在设计领域的应用，这一章包括了使用遗传编程设计如下的控制器：  </p><ul><li>二阶滞后补偿器  </li><li>三阶滞后补偿器  <ul><li>带有时延的三阶滞后补偿器  </li></ul></li><li>非最小相位系统  </li></ul><h2 id="控制器背景"><a href="#控制器背景" class="headerlink" title="控制器背景"></a>控制器背景</h2><h3 id="控制器原理"><a href="#控制器原理" class="headerlink" title="控制器原理"></a>控制器原理</h3><p>使用控制器的目的是为了让系统原型(plant)、也就是控制器控制的目标系统的响应能够与一个设计者所期望的响应尽可能的匹配。此后作者举了一个控制车速的巡航控制器(cruise control device)的例子来说明控制器是如何工作来控制系统的。简单来说，控制器对系统的作用不是一蹴而就的，而是需要时间让整个系统不断调整自己的输出。在控制器控制系统原型的过程中，控制器需要通过监控系统原型的输出，并且比较和参考信号(reference signal)之间的误差(error signal)来调整原型系统的输入，从而让整个系统的输出你能够更加贴近参考信号。这样通过接收输出、改进输出、再将改进后的输出作为输入的控制方法称为反馈控制(feedback control)。如果反馈控制通过误差信号作为原型的下一次输入，那么这样的反馈控制称为负反馈控制(negative feedback control)。<br>含有反馈的控制系统也称为闭环控制系统（closed-loop control system），输入与反馈信号比较后的差值（即误差信号）加给控制器，然后再调节受控对象的输出，从而形成闭环控制回路。所以，闭环系统又称为反馈控制系统，这种反馈称为负反馈。与开环系统相比，闭环系统具有突出的优点，包括精度高、动态性能好、抗干扰能力强等。它的缺点是结构比较复杂，价格比较贵，对维修人员要求较高。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301095016.png width=60%>  </p><div class="note note-info">            <p>更多关于控制论的内容请参考学习笔记中的控制系统课程。  </p>          </div>  <p>现实世界当中大部分的控制器都是手动的（比如阀门、手动控制的开关等等），但是这本书中强调的控制器都是自动控制器，也就是自动根据反馈输入调整系统输出的控制器。  </p><h3 id="控制器的设计指标"><a href="#控制器的设计指标" class="headerlink" title="控制器的设计指标"></a>控制器的设计指标</h3><p>在设计时需要考虑的控制器的特征非常多，下面列出了常见的一些控制器的设计指标，这些指标都和系统的阶跃响应有关(step response，指系统输入为单位阶跃信号时系统的时域输出变化)。  </p><ul><li><p>上升时间和调节时间<br>设计控制器的过程中最常见的考虑因素是让系统响应表现为理想响应的时间尽可能小。这一设计指标通常被诠释为上升时间$t_r$（rise time）或者是调节时间$t_s$(settling time)。<br>上升时间是指定义为阶跃响应曲线从稳态值的10%第一次上升到90%所需的时间。<br>调节时间是指阶跃响应达到并永远保持在一个允许误差范围(误差带：通常取±5%或±2%)内，所需的最短时间。  </p></li><li><p>ITAE<br>控制工程中喜欢使用参考信号和系统原型的响应之差的绝对值在时间上的积分(the integral of the time-weighted absolute error)来衡量控制器的性能。由于按照时间的加权中会对比较晚出现的误差有更大的惩罚、应用ITAE作为适应度有助于迅速减小误差。  </p></li><li><p>过冲率<br>过冲率$M_p$(overshoot)是指的系统原型的响应超出参考信号的最大百分比。过冲会消耗大量能量，设计时需要尽可能的考虑减小过冲。  </p></li><li><p>鲁棒性<br>在现实中还会出现干扰（disturbance）。这种干扰对系统的影响通常被建模为在系统原型输出端的加性噪声。鲁棒性可以表示为系统对于噪声的灵敏度，即系统输出对噪声的偏微分：   </p><script type="math/tex; mode=display">\frac{∂S_{output}}{∂N}</script><p>好的控制系统可以对噪声表现出高鲁棒性，也就是输出对噪声的灵敏度不高。  </p></li><li><p>稳定性<br>稳定性(stability)是指系统随着输入信号微小变化的响应程度。如果整个系统的性能随着系统原型的微小变化而变化很大，那么这个系统可能毫无用处甚至会有危险。</p></li></ul><p>这些设计指标在系统的阶跃响应图上表现如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301212556.png width=80%>  </p><h3 id="控制器的基本组成"><a href="#控制器的基本组成" class="headerlink" title="控制器的基本组成"></a>控制器的基本组成</h3><p>一个控制器电路通常可能会用到如下的器件：<br>放大器(gain)、积分器(integrator)、差分器(differentiator)、加法器(adder)、减法器(substractor)、超前补偿(laed)、滞后补偿(lag)、延时器(delay)、翻转器(invertor)、取绝对值(absolute)、限制器(limitor)、乘法器(multiplier)、分配器(divider)、开关(switch)。  </p><p>控制器的拓扑结构可以描述为：  </p><ul><li>控制器内部用到的器件数</li><li>用到的器件类型</li><li>控制器内部器件的输入和输出的连接方式</li><li>控制器的外部输入和外部输出</li></ul><h3 id="PID控制器"><a href="#PID控制器" class="headerlink" title="PID控制器"></a>PID控制器</h3><p>PID控制器是控制系统中最常用的控制器类型，它由基本的三个控制器：P控制器、I控制器、D控制器组成。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220105903.png width=60%>    </p><p>三个部分都对PID控制器整体的输出有对应的贡献。  </p><ul><li>P控制器(proportional controller)，又称为比例段，它的作用是将参考信号和原型系统的输出之间的误差直接反馈给系统。  </li><li>I控制器(integral controller)，又被称为积分段，它的作用是使得控制器在稳态时候的误差更小。  </li><li>D控制器(derivative controller)，又被称为微分段。由于比例段提供的误差补偿总是滞后的，利用这一点P控制器可以通过求误差信号的斜率来预测未来误差信号的变化情况。  </li></ul><p>PID控制器的作用用PID控制器的发明者Callender和Stenvenson的说法是：<br>“本发明的一个具体目的是提供一种系统，该系统将产生一种补偿效果，该补偿效果受与偏差的总范围、偏差率和给定期间内偏差的总和成比例的因素所支配。”   </p><blockquote><p>A specific object of the invention is to provide a system which will produce a compensating effect governed by factors proportional to the totoal extent of the deviation, the rate of the deviation, and the summation of the deviation during a given period.  </p></blockquote><p>尽管PID控制器在现在的工业界应用非常广泛，但是对更好的控制器的需求从来没有停止过。在Astrom和Hagglund(1995)的论文中提到，只有20%的控制器工作的比较好。  </p><h2 id="控制器的智能设计方法论"><a href="#控制器的智能设计方法论" class="headerlink" title="控制器的智能设计方法论"></a>控制器的智能设计方法论</h2><h3 id="智能设计方法总述"><a href="#智能设计方法总述" class="headerlink" title="智能设计方法总述"></a>智能设计方法总述</h3><p>对控制器的智能设计，或者说智能综合需要设同时计控制器的拓扑结构和相应的参数的值，来满足用户指定的高阶的设计需求。下面列出了一些常见的对设计需求的高阶表达：  </p><ul><li>优化要求<br>比如最小化ITAE  </li><li>时域要求<br>比如最小化过冲、最大化抗噪性等等  </li><li>频域要求<br>比如系统带宽、随着噪声的衰减等等</li><li>稳定性要求  </li><li>鲁棒性要求  </li><li>对特定信号的值的限制  </li></ul><p>用传统的设计方法（比如说状态空间设计、根据波特图的设计等等）很难同时满足上述几个设计要求的任意组合，因此需要使用到智能算法来进行优化。下面的几种启发式的方法可能可以解决这样的设计要求：  </p><ul><li>爬山算法 (hill climbing)和基于梯度的算法(gradient methods)</li><li>模拟退火算法(simulated annealing)</li><li>进化计算(*这本书写作之时还没有进化计算这个概念，原书中写的是evolutionary methods)  </li></ul><p>上述的这些方法都是启发式学习的方法，这些方法的迭代操作都类似，高层级的语言表示如下：  </p><ol><li>从搜索空间中的一个或者几个点上开始搜索，衡量这一个或者几个点的表现  </li><li>通过改变现有的搜索点的结构来创建新的备选点  </li><li>衡量新的备选点的表现，并得到一个指标  </li><li>用这个指标对备选点进行选择  </li><li>重复上述操作</li></ol><div class="note note-info">            <p>整个人工智能算法大致可以分为两类：启发式学习（又分为构造算法和改进算法，改进算法中包括了贪心算法和非贪心算法）和精确方法(比如专家系统、统计回归等等)。  </p>          </div>  <p>不管是何种搜索算法，搜索行为的主要动力来源于对个体表现的衡量，用于衡量的函数以代价的形式（越低越好）或者以适应度的形式（越高越好）出现。并且通常新的个体是基于现有的个体产生的，下面将详述这几种算法的搜索行为。  </p><h4 id="爬山算法和基于梯度的算法"><a href="#爬山算法和基于梯度的算法" class="headerlink" title="爬山算法和基于梯度的算法"></a>爬山算法和基于梯度的算法</h4><p>爬山算法开始于整个搜索空间的一个个体，对这个个体指定适应度后再创建新的个体，指定这个新的个体的适应度，然后通过适应度的衡量决定选择原来的个体还是新创建的个体。新个体的创建方式依照问题的不同而不同。<br>梯度下降可以看做是使用梯度作为适应度衡量的爬山算法。<br>爬山算法是一种点对点的贪心算法。在每一个循环中，爬山算法会无条件拒绝没有任何改进的个体，同时也会无条件接受具有改进的个体。(*形象的形容为：猴子搬玉米)在单次尝试当中，爬山算法容易陷入局部最优。如果问题允许多次尝试，那么多次尝试可能会找到全局最优。但是每一次尝试都是独立的，新一次的搜索并不会继承原来的搜索(*找不找得到全凭运气)。<br>爬山算法的另一个问题是并行化，虽然有并行化的爬山算法，但是并行线程之间的工作是独立的，并没有信息交流。<br><div class="note note-info">            <p>遗传算法并行化过程的信息交流参考<a href="https://l61012345.top/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/">并行遗传算法</a>  </p>          </div>  </p><h4 id="模拟退火算法"><a href="#模拟退火算法" class="headerlink" title="模拟退火算法"></a>模拟退火算法</h4><p>模拟退火算法也是一种点对点的搜索算法。这种算法也使用了一种特定问题的修改操作来基于现有个体产生新的个体，但是与爬山算法和梯度下降算法不同的是，模拟退火算法中使用了Metropolis算法和玻尔兹曼算法来来决定是否保留那些没有任何改进的个体。<br>此外，模拟退火运用了一个变量温度(temperature)$T$来控制算法的运行过程和收敛情况，$T$在运行过程中指数单调递减，并且影响Metropolis算法和玻尔兹曼算法对个体是否保留的抉择。在$T$很高的时候，算法更倾向于接收那些没有任何改进的个体，随着算法迭代次数的增加，$T$很低的时候，算法更倾向于拒绝那些没有任何改进的个体，以加快算法的收敛，但是为了保证全局性，算法也不会完全拒绝任何个体。  </p><h4 id="进化计算"><a href="#进化计算" class="headerlink" title="进化计算"></a>进化计算</h4><p>进化计算的搜索方法并不是贪心的，而是一种全局的搜索方式。并且，进化计算的操纵对象是群，因此是一种群智能搜索方法，而非点对点的搜索方法。在运行过程中，进化计算会在一开始会产生大量的个体，但是在趋于收敛时只有一小部分的个体生成。<br>遗传编程对于控制器的设计方法会在之后详述。  </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>论文</category>
+      
+      <category>进化计算</category>
+      
+      <category>遗传编程</category>
+      
+      <category>遗传编程 IV： 例程化的可比拟人类的机器智能</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>结构变换操作</title>
     <link href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/"/>
     <url>/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/</url>
@@ -52,7 +96,7 @@
     <link href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/"/>
     <url>/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/</url>
     
-    <content type="html"><![CDATA[<h1 id="背景·遗传编程基础"><a href="#背景·遗传编程基础" class="headerlink" title="背景·遗传编程基础"></a>背景·遗传编程基础</h1><div class="note note-info">            <p>这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第一章： Chapter 2： Background on Gentic Programming.<br>这一章讲述了遗传编程的运行流程，以及遗传编程的高级功能。  </p><p>原书的免费公开版本在作者Koza本人的Research gate主页上：<a href="https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence">https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence</a><br>这本书也可以在Springer 购买电子版： <a href="https://link.springer.com/book/10.1007/b137549">https://link.springer.com/book/10.1007/b137549</a><br>或者在亚马逊英国购买纸质版：  <a href="https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670">https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670</a>  </p>          </div>  <p>遗传编程是一种独立于特定领域(domain-independent)的搜索方法，它可以遵循遗传的方式为目标问题产生出一个用于解决这个问题的计算机程序的集合（称为一个种群,population）。具体而言，遗传编程通过模拟自然界中进化的方式来更新种群。</p><h2 id="遗传编程的准备工作"><a href="#遗传编程的准备工作" class="headerlink" title="遗传编程的准备工作"></a>遗传编程的准备工作</h2><div class="note note-info">            <p>这一节的内容基本上同上一章的1.1.6小节。  </p>          </div>  <p>遗传编程准备工作的实质是人类使用者将对问题的描述和期望所达成的目标进行高等级的描述，使计算机可以理解，并且辅佐以控制参数来控制遗传编程程序的运行和终值。<br>在运行之前人类使用者需要做的准备工作一共有五个：  </p><ol><li>确定基函数集合</li><li>确定端点集合</li><li>确定衡量适应度的方式</li><li>确定控制运行过程的控制方式</li><li>确定何时停止算法运行，并规定如何确定最终的解。  </li></ol><p>前两条是用于描述整个问题，基函数集合和端点集合被用于确定计算机程序的基本“原材料”。对于一些问题，函数集中可能存在加减乘除之类的数学运算符和条件分支运算符(conditional branching operator)（比如IF-THEN）结构。而端点集中可能存在外部的独立输入变量和常数。<br><div class="note note-info">            <p>遗传编程的函数集中允许存在循环结构吗？  </p><ul><li>事实上这个问题在《GP IV》这本书中的描述非常的模糊。因为在此处第一次正式出现函数集结构时作者只提到了存在条件分支结构，并未提到循环结构的参与。但是在随后第40页2.3.3一节中出现了自动定义循环，也就是作者认为遗传编程中是可以实现循环结构的。<br>但是如果我们细致的分析，LISP语言中存在两种循环结构，一种是进行判断退出的<code>loop</code>函数、另一种是进行进行进入判断的<code>dotimes</code>结构。遗传编程应该只能实现判断退出的<code>loop</code>函数，即生成树的函数集合中添加<code>loop</code>和条件退出(<code>when ()(return )</code>，甚至<code>return</code>结构都不应该被使用)两种结构，如此使得树可以生成条件退出的循环，但是循环内部的大小可能非常大，而且不容易控制。如果是条件进入的循环，整个树形结构将会崩毁。  </li></ul>          </div>  </p><p>第三条的本质上是对问题解决方案的期望的高级描述。<br>第四条和第五条是为了控制遗传编程的运行过程。其中最重要的控制参数是种群大小，在这本书中，作者通常根据“在容忍的计算时间内可以产生最大的代数”来设置种群的大小。终止条件通常是最大代数或者是达到预期结果的表征。本书当中所有的程序的终止条件都是连续多轮种群中的最大适应度在期望的范围内。<br>由于最终的结果应该是一个含有若干个个体的种群，因此还需要确定选择哪一个个体作为最终的解。（*单目标问题中）通常选择最后一代中适应度最高的个体。<br><div class="note note-info">            <p>多目标问题中最终解的选取规则有非常多，但是基本上还是依照使用者对不同目标的偏好进行选择。  </p>          </div></p><h2 id="遗传编程的运行"><a href="#遗传编程的运行" class="headerlink" title="遗传编程的运行"></a>遗传编程的运行</h2><p>遗传编程的运行从随机初始化个体形成初始种群开始，个体通过适应度函数对其量化评估，得到个体的适应度后，基于适应度，有概率地挑选个体进行遗传操作，生成下一代种群。整个运行的流程图如下所示。  </p><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220114180854.png width=100%>  </p><p>总的运行流程可以描述为：  </p><ol><li><p>随机生成初始种群，它们是树形结构的，从可用的基函数集和端点集中挑选出来生成。  </p><div class="note note-info">            <p>树的生成方式有Full和Grow两种，具体在遗传编程导论中。  </p>          </div>  <div class="note note-info">            <p>这里是书中第一次强调遗传编程中的个体是树形结构的，遗传编程中使用树形结构的原因是因为LISP语言使用的S表达是树形结构的。  </p>          </div>  </li><li><p>迭代更新种群的过程有可以分为如下子步骤，这个循环会运行到满足设定的终止条件为止：  </p><ol><li>编译运行每一个个体对应的程序，然后使用之前定义的适应度评估方法对个体的适应度进行评估。  </li><li><p>根据个体的适应度，有概率地选择一个或者两个个体进行如下的操作：  </p><ul><li>繁殖 (reproduction)<br>根据个体的适应度，直接将这个个体复制到下一代的种群中。  </li><li><p>交叉 (crossover)<br>   <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130723.png width=50%>  </p><p>   交叉的步骤是：<br>   基于概率$p_c$和适应度从当前种群中选择两个个体，随机的选择两个个体某一位置上的一个连接或者结点作为交叉点，然后交换两个体交叉点以下的子树。<br>   通常选择函数作为交叉点的概率要远高于端点作为交叉点的概率（比如90%的概率选择一个函数，10%的概率选择端点。），这是因为选择函数作为交叉点时，交叉对个体的影响更大，遗传编程在搜索空间中单次搜索的范围更广。</p></li><li><p>突变 (mutation)<br>   <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130749.png width=50%>  </p><p>   突变的步骤是：<br>   基于概率$p_m$和适应度从当前种群中选择一个个体，并随机在这个个体内选择一个突变点，突变点下的子树被一个随机生成的子树替代（相当于与这个随机生成的子树发生交叉）。  </p></li><li>结构变换操作 (architecture-altering operation)<br>结构转换会在之后的节中详述，在此不做叙述。  </li></ul></li></ol></li></ol><div class="note note-info">            <p>需要注意的是，和遗传算法不同的是，遗传编程中不存在中间种(intermediate population)这个概念，四次对当前种群的选择均是独立进行的。遗传算法中是先创建中间种，然后从中间种中选择个体进行串行的遗传操作。相对比，此处遗传操作是并行进行的，并且每个遗传操作是直接从当前种群中选择的个体。<br>这样导致的结果是：<br>遗传编程中并行的操作不会积累遗传物质和遗传效应。而串行的操作是会积累的。遗传编程中四次选择的目标种群中不存在多个相同的个体，也就不存在对同一个个体的若干进化可能分支。这样细小的差别在个体数量非常庞大时对进化的影响会被体现出来。  </p>          </div>  <div class="note note-info">            <p>遗传编程的并行化执行和所使用的LISP语言的限制有关。  </p>          </div>  <p>遗传编程基于个体的适应度，有概率的对个体进行这些遗传操作。通常个体的适应度越高，个体被选中进行遗传操作的概率就更高，这暗示了遗传编程将更倾向于在高适应度个体的周围去搜索搜索空间中的其他个体。通常选择个体进行遗传操作的算法有轮盘赌算法和锦标赛算法，这些算法都不是贪心算法，即是从全局而非当前的局部最优来考虑优化问题。这种非贪心的特性能够保证遗传编程/遗传算法不会陷入局部最优解。<br><div class="note note-info">            <p>但是在一些文献中仍然声称GEP和GP是会陷入局部最优解的，GP和GEP陷入局部最优解的原因是所使用的树的深度并未能达到足够表达全局最优解的精度。在树的深度足够的情况下，GP和GEP是可以找到全局最优解的。  </p>          </div>  </p><h2 id="遗传编程的运行案例"><a href="#遗传编程的运行案例" class="headerlink" title="遗传编程的运行案例"></a>遗传编程的运行案例</h2><p>这一节将举例说明遗传编程是如何通过遗传操作解决目标问题的。目标问题为自动的生成一个程序使得其在$x ∈ [-1,1]$区间内生成的值满足函数$x^2+x+1$。这种试图发现某种隐藏的数学公式，以此利用特征变量预测目标变量的问题称之为符号回归（symbolic regression）类问题。  </p><h3 id="搜索空间确定和参数设置"><a href="#搜索空间确定和参数设置" class="headerlink" title="搜索空间确定和参数设置"></a>搜索空间确定和参数设置</h3><p>对于这个问题，在遗传编程的准备阶段，端点集由随机常数和变量$x$构成：  </p><script type="math/tex; mode=display">T=\{X,ℜ\}</script><p>其中的$ℜ$表示一个随机数，人为地设置其范围为$ℜ∈[-5.0,5.0]$。<br>接下来指定遗传编程的函数集，可以将函数集设置为四则运算即可：  </p><script type="math/tex; mode=display">F=\{+,-,×,\%\}</script><div class="note note-info">            <p>为了避免运行错误，指定了$ℜ÷0=1$。  </p>          </div>  <p>初始种群中的每一个个体都将从端点集和函数集中生成。生成之后的个体需要用适应度函数对其评估，在这个问题中，适应度函数可以通过当前个体$\hat{y}$与目标函数$y_e=x^2+x+1$在$x ∈ [-1,1]$上的值的差距来衡量。定义这个问题中的适应度函数为：  </p><script type="math/tex; mode=display">f(i)=∫_{-1}^1|\hat{y_i}-y_e|dx</script><p>对于这个适应度函数而言，个体的适应度越小代表与目标函数的差距越小，个体表现更加“优秀”。<br>接下来应当决定运行参数，为了简化解释，此处设定每一代中仅存在四个个体（但是实际上每一代的个体数量往往是成千或者百万级别的）并设置各遗传操作发生的概率，通常情况下设置<strong>交叉的概率为90%，繁殖的概率为8%，突变的概率为1%，结构变换的概率为1%。</strong><br><div class="note note-info">            <p>GP通过交叉对搜索空间进行查找，因此交叉的概率应当比较大，才能保证搜索空间中的个体尽可能被搜索完全。<br>由于本书的作者所强调的“遗传多样性”，因此直接对个体的复制应当保留在一个非常低的概率，以产生更多可能的个体结构。<br>突变和结构变换的随机性会带来负面效应，因此应当尽量保持在非常低的水平。事实上突变和结构变换对于遗传编程中的个体的打击几乎是毁灭性的。  </p>          </div><br>最后设置运行的终止条件，对于回归问题通常可以设置个体与目标之间的差值低于某一水平时终止运行。在这个例子中设定当出现适应度小于0.01的个体时，遗传编程终止运行。   </p><h3 id="初始种群生成和个体评估"><a href="#初始种群生成和个体评估" class="headerlink" title="初始种群生成和个体评估"></a>初始种群生成和个体评估</h3><p>初始种群从搜索空间中随机挑选得到，这个例子中随机生成的初始种群中的四个个体如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115142521.png width=60%>  </p><p>通过解释，这四个个体表示为：$x+1$、$x^2+1$、$2$和$x$。<br>将这四个个体$\hat{y}$分别带入适应度函数中，可以计算得出四个个体的适应度为0.67、1.0、1.67和2.67，可视化表示如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115143355.png width=70%><br>可以发现前两个个体(a)、(b)的适应度更低（或者说更“好”），在这个例子中意味着这两个个体更接近与目标，它们有更高的概率被选择做遗传操作。   </p><h3 id="遗传操作"><a href="#遗传操作" class="headerlink" title="遗传操作"></a>遗传操作</h3><h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><p>由于个体(a)适应度最好，它更有高概率被选择。此处假设它被选择出来进行复制操作，它被复制到下一代种群中。即它在下一代被保留。  </p><h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p>假设个体(c)的某个点位发生了突变，其下面的子树会被一个随机生成的子树替代，如图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115144408.png width=50%><br>可以发现，原本适应度不佳的个体(c)通过突变后，其适应度可能会有所好转。<strong>除了在运行快要收敛时对现有种群施加扰动、改善算法的运行情况外</strong>，<strong>突变还能够有概率地改善适应度不加的个体的适应度，在搜索空间中调整在这些点附近的查找方向。</strong>  </p><h4 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h4><p>前两个个体(a)、(b)的适应度更好，更有高概率被选择配对进行交叉操作，假设(a)(b)个体发生如下图所示的交叉：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115145005.png width=60%>  </p><p>可以发现，个体(a)和个体(b)中各自都有一部分贴近于目标函数（称为各自的优良性状），<strong>通过交叉，两个亲本的优良性状更容易被结合，从而生成更加贴近目标的后代。</strong>  </p><h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><p>通过遗传操作后的后代如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115145739.png width=60%><br>可以发现，个体(d)的适应度已经为0，达到了预先设定的终止条件，遗传编程停止运行。  </p><h2 id="遗传编程的高级功能"><a href="#遗传编程的高级功能" class="headerlink" title="遗传编程的高级功能"></a>遗传编程的高级功能</h2><div class="note note-info">            <p>以我自己的观点来说，这些高级功能被设计出来的目的是为了弥补遗传编程自身存在的缺陷，比如强类型用于解决遗传操作不合法的问题、自动定义函数用于解决遗传操作对有效基因破坏力度大的问题、结构变换操作用于解决“基因多样性”的问题。这些机制相当于补丁，但是引入之后又会为遗传编程带来更大的问题。<br>以我自己的观点来说，这些高级功能被设计出来的目的是为了弥补遗传编程自身存在的缺陷，比如强类型用于解决遗传操作不合法的问题、自动定义函数用于解决遗传操作对有效基因破坏力度大的问题、结构变换操作用于解决“基因多样性”的问题（尤其是在引入类保护的变异之后个体的结构基本上从生成开始就不会改变了）。这些机制相当于补丁，但是引入之后又会为遗传编程带来更大的问题。  </p>          </div>  <h3 id="强类型"><a href="#强类型" class="headerlink" title="强类型"></a>强类型</h3><p>对许多问题而言，函数集和端点集都需要是强类型的(constrained syntactic structures)，也就是说，一个函数下侧连接的子树和端点的类型是需要被指定的。遗传编程实现强类型的方式是使用若干个函数集和端点集来满足不同函数的语法需求。  </p><div class="note note-info">            <p>以我的观点，强类型的本质是利用先验知识在搜索空间中强行规避一些不合法的部分被搜索到。<br>以我的观点，强类型的函数集和端点集必须是整个遗传编程使用的函数集和端点集的对应子集，否则搜索空间会出现扭曲和不规则的扩张。  </p>          </div>  <h3 id="自动定义函数"><a href="#自动定义函数" class="headerlink" title="自动定义函数"></a>自动定义函数</h3><p>自动定义函数是利用问题对称性、规律性和模块化的特点，将目标问题分解为若干个子问题，并对子问题进行分别解答后进行合并。这些子问题的解答就是自动定义函数(automatically defined functions, ADF). 自动定义函数与个体一同进化，但是相对独立，具体的介绍在：<br><a href="https://l61012345.top/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/">遗传编程中的自动定义函数</a>  </p><p>有自动定义函数之后，和自动定义函数的机制类似，也有自动定义循环、自动定义递归等等。  </p><h3 id="程序结构和结构变换操作"><a href="#程序结构和结构变换操作" class="headerlink" title="程序结构和结构变换操作"></a>程序结构和结构变换操作</h3><p>程序的结构需要由用户首先指定，但是通过结构变换操作(architecture-altering operation,AAO)可以进化改进程序的结构。<br>具体的介绍在<a href="https://l61012345.top/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/">结构变换操作</a></p><h3 id="遗传编程问题解决器"><a href="#遗传编程问题解决器" class="headerlink" title="遗传编程问题解决器"></a>遗传编程问题解决器</h3><p>遗传编程可用于为无数不同领域的问题提供解决方案。无论在哪个领域实施，遗传编程几乎总是遵循相同的严格但基本的框架。因此，如果能以简单明了的方式提供基本的遗传编程框架，就能很好地为程序员服务，使他们可以相对轻松地解决这一范例中的问题。<br>现有系统旨在为程序员提供用遗传编程解决一般问题的框架，但一般都过于复杂，难以操作。现有的两个这样的系统是 gpc++ 及其 Java 移植版本 gpj++。这些系统要求程序员将基因编程系统的一般要求与其自身的严格框架相匹配。例如，它们假定程序员将以一种非常特定的格式来表示要培育的程序或函数，这样系统就能自己进行基因重组。虽然这也是一种有用的工具，但同样有用的是，将某些实现决定权完全留给程序员，因为这些决定权往往在很大程度上取决于相关领域。  </p><p>遗传编程问题解决器(Genetic Programming Problem Solver, GPPS)是一种通用的遗传编程框架。这些组件是所有遗传编程程序共有的部分。它们是执行选择、变异、交叉和复制的功能。抽象的其他功能可能包括检查终止条件、测试个体的适应性、打印结果等方法。基于上述考虑，在构建系统时，程序员只需关注其具体问题的实现，而无需关注基因程序在个体空间中的搜索方式。也就是说，在给定一个必须遵循的模板后，程序员只需深入研究其问题的具体细节，就能实现 GP 的基本部分（变异、交叉等）。<br><div class="note note-info">            <p>上述这段话的来源是：<a href="https://www1.cs.columbia.edu/~evs/ais/finalprojs/kalina/">https://www1.cs.columbia.edu/~evs/ais/finalprojs/kalina/</a>  </p>          </div>  </p><p>由于GPPS本身自带一个通用的函数集（包括四则运算和条件选择）和一个通用的端点集（包括输入向量和常数），因此用户在使用GPPS时无需指定函数集和端点集。<br>在GPPS2.0中，用户甚至不需要自己指定子函数、递归和循环结构的优先级。  </p><h2 id="遗传编程系列书籍的主要观点"><a href="#遗传编程系列书籍的主要观点" class="headerlink" title="遗传编程系列书籍的主要观点"></a>遗传编程系列书籍的主要观点</h2><p>遗传编程系列书籍的主要观点如下图所示：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231211101004.png width=70%>   </p><p>其中需要强调的几个点：  </p><ul><li>92版书中指出，几乎所有的问题都可以视为对计算机程序的搜索。这句话强调了遗传编程解决问题的潜能。  </li><li>94版书中的论点基本上都和自动定义函数有关。  </li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="背景·遗传编程基础"><a href="#背景·遗传编程基础" class="headerlink" title="背景·遗传编程基础"></a>背景·遗传编程基础</h1><div class="note note-info">            <p>这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第二章： Chapter 2： Background on Gentic Programming.<br>这一章讲述了遗传编程的运行流程，以及遗传编程的高级功能。  </p><p>原书的免费公开版本在作者Koza本人的Research gate主页上：<a href="https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence">https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence</a><br>这本书也可以在Springer 购买电子版： <a href="https://link.springer.com/book/10.1007/b137549">https://link.springer.com/book/10.1007/b137549</a><br>或者在亚马逊英国购买纸质版：  <a href="https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670">https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670</a>  </p>          </div>  <p>遗传编程是一种独立于特定领域(domain-independent)的搜索方法，它可以遵循遗传的方式为目标问题产生出一个用于解决这个问题的计算机程序的集合（称为一个种群,population）。具体而言，遗传编程通过模拟自然界中进化的方式来更新种群。</p><h2 id="遗传编程的准备工作"><a href="#遗传编程的准备工作" class="headerlink" title="遗传编程的准备工作"></a>遗传编程的准备工作</h2><div class="note note-info">            <p>这一节的内容基本上同上一章的1.1.6小节。  </p>          </div>  <p>遗传编程准备工作的实质是人类使用者将对问题的描述和期望所达成的目标进行高等级的描述，使计算机可以理解，并且辅佐以控制参数来控制遗传编程程序的运行和终值。<br>在运行之前人类使用者需要做的准备工作一共有五个：  </p><ol><li>确定基函数集合</li><li>确定端点集合</li><li>确定衡量适应度的方式</li><li>确定控制运行过程的控制方式</li><li>确定何时停止算法运行，并规定如何确定最终的解。  </li></ol><p>前两条是用于描述整个问题，基函数集合和端点集合被用于确定计算机程序的基本“原材料”。对于一些问题，函数集中可能存在加减乘除之类的数学运算符和条件分支运算符(conditional branching operator)（比如IF-THEN）结构。而端点集中可能存在外部的独立输入变量和常数。<br><div class="note note-info">            <p>遗传编程的函数集中允许存在循环结构吗？  </p><ul><li>事实上这个问题在《GP IV》这本书中的描述非常的模糊。因为在此处第一次正式出现函数集结构时作者只提到了存在条件分支结构，并未提到循环结构的参与。但是在随后第40页2.3.3一节中出现了自动定义循环，也就是作者认为遗传编程中是可以实现循环结构的。<br>但是如果我们细致的分析，LISP语言中存在两种循环结构，一种是进行判断退出的<code>loop</code>函数、另一种是进行进行进入判断的<code>dotimes</code>结构。遗传编程应该只能实现判断退出的<code>loop</code>函数，即生成树的函数集合中添加<code>loop</code>和条件退出(<code>when ()(return )</code>，甚至<code>return</code>结构都不应该被使用)两种结构，如此使得树可以生成条件退出的循环，但是循环内部的大小可能非常大，而且不容易控制。如果是条件进入的循环，整个树形结构将会崩毁。  </li></ul>          </div>  </p><p>第三条的本质上是对问题解决方案的期望的高级描述。<br>第四条和第五条是为了控制遗传编程的运行过程。其中最重要的控制参数是种群大小，在这本书中，作者通常根据“在容忍的计算时间内可以产生最大的代数”来设置种群的大小。终止条件通常是最大代数或者是达到预期结果的表征。本书当中所有的程序的终止条件都是连续多轮种群中的最大适应度在期望的范围内。<br>由于最终的结果应该是一个含有若干个个体的种群，因此还需要确定选择哪一个个体作为最终的解。（*单目标问题中）通常选择最后一代中适应度最高的个体。<br><div class="note note-info">            <p>多目标问题中最终解的选取规则有非常多，但是基本上还是依照使用者对不同目标的偏好进行选择。  </p>          </div></p><h2 id="遗传编程的运行"><a href="#遗传编程的运行" class="headerlink" title="遗传编程的运行"></a>遗传编程的运行</h2><p>遗传编程的运行从随机初始化个体形成初始种群开始，个体通过适应度函数对其量化评估，得到个体的适应度后，基于适应度，有概率地挑选个体进行遗传操作，生成下一代种群。整个运行的流程图如下所示。  </p><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220114180854.png width=100%>  </p><p>总的运行流程可以描述为：  </p><ol><li><p>随机生成初始种群，它们是树形结构的，从可用的基函数集和端点集中挑选出来生成。  </p><div class="note note-info">            <p>树的生成方式有Full和Grow两种，具体在遗传编程导论中。  </p>          </div>  <div class="note note-info">            <p>这里是书中第一次强调遗传编程中的个体是树形结构的，遗传编程中使用树形结构的原因是因为LISP语言使用的S表达是树形结构的。  </p>          </div>  </li><li><p>迭代更新种群的过程有可以分为如下子步骤，这个循环会运行到满足设定的终止条件为止：  </p><ol><li>编译运行每一个个体对应的程序，然后使用之前定义的适应度评估方法对个体的适应度进行评估。  </li><li><p>根据个体的适应度，有概率地选择一个或者两个个体进行如下的操作：  </p><ul><li>繁殖 (reproduction)<br>根据个体的适应度，直接将这个个体复制到下一代的种群中。  </li><li><p>交叉 (crossover)<br>   <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130723.png width=50%>  </p><p>   交叉的步骤是：<br>   基于概率$p_c$和适应度从当前种群中选择两个个体，随机的选择两个个体某一位置上的一个连接或者结点作为交叉点，然后交换两个体交叉点以下的子树。<br>   通常选择函数作为交叉点的概率要远高于端点作为交叉点的概率（比如90%的概率选择一个函数，10%的概率选择端点。），这是因为选择函数作为交叉点时，交叉对个体的影响更大，遗传编程在搜索空间中单次搜索的范围更广。</p></li><li><p>突变 (mutation)<br>   <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130749.png width=50%>  </p><p>   突变的步骤是：<br>   基于概率$p_m$和适应度从当前种群中选择一个个体，并随机在这个个体内选择一个突变点，突变点下的子树被一个随机生成的子树替代（相当于与这个随机生成的子树发生交叉）。  </p></li><li>结构变换操作 (architecture-altering operation)<br>结构转换会在之后的节中详述，在此不做叙述。  </li></ul></li></ol></li></ol><div class="note note-info">            <p>需要注意的是，和遗传算法不同的是，遗传编程中不存在中间种(intermediate population)这个概念，四次对当前种群的选择均是独立进行的。遗传算法中是先创建中间种，然后从中间种中选择个体进行串行的遗传操作。相对比，此处遗传操作是并行进行的，并且每个遗传操作是直接从当前种群中选择的个体。<br>这样导致的结果是：<br>遗传编程中并行的操作不会积累遗传物质和遗传效应。而串行的操作是会积累的。遗传编程中四次选择的目标种群中不存在多个相同的个体，也就不存在对同一个个体的若干进化可能分支。这样细小的差别在个体数量非常庞大时对进化的影响会被体现出来。  </p>          </div>  <div class="note note-info">            <p>遗传编程的并行化执行和所使用的LISP语言的限制有关。  </p>          </div>  <p>遗传编程基于个体的适应度，有概率的对个体进行这些遗传操作。通常个体的适应度越高，个体被选中进行遗传操作的概率就更高，这暗示了遗传编程将更倾向于在高适应度个体的周围去搜索搜索空间中的其他个体。通常选择个体进行遗传操作的算法有轮盘赌算法和锦标赛算法，这些算法都不是贪心算法，即是从全局而非当前的局部最优来考虑优化问题。这种非贪心的特性能够保证遗传编程/遗传算法不会陷入局部最优解。<br><div class="note note-info">            <p>但是在一些文献中仍然声称GEP和GP是会陷入局部最优解的，GP和GEP陷入局部最优解的原因是所使用的树的深度并未能达到足够表达全局最优解的精度。在树的深度足够的情况下，GP和GEP是可以找到全局最优解的。  </p>          </div>  </p><h2 id="遗传编程的运行案例"><a href="#遗传编程的运行案例" class="headerlink" title="遗传编程的运行案例"></a>遗传编程的运行案例</h2><p>这一节将举例说明遗传编程是如何通过遗传操作解决目标问题的。目标问题为自动的生成一个程序使得其在$x ∈ [-1,1]$区间内生成的值满足函数$x^2+x+1$。这种试图发现某种隐藏的数学公式，以此利用特征变量预测目标变量的问题称之为符号回归（symbolic regression）类问题。  </p><h3 id="搜索空间确定和参数设置"><a href="#搜索空间确定和参数设置" class="headerlink" title="搜索空间确定和参数设置"></a>搜索空间确定和参数设置</h3><p>对于这个问题，在遗传编程的准备阶段，端点集由随机常数和变量$x$构成：  </p><script type="math/tex; mode=display">T=\{X,ℜ\}</script><p>其中的$ℜ$表示一个随机数，人为地设置其范围为$ℜ∈[-5.0,5.0]$。<br>接下来指定遗传编程的函数集，可以将函数集设置为四则运算即可：  </p><script type="math/tex; mode=display">F=\{+,-,×,\%\}</script><div class="note note-info">            <p>为了避免运行错误，指定了$ℜ÷0=1$。  </p>          </div>  <p>初始种群中的每一个个体都将从端点集和函数集中生成。生成之后的个体需要用适应度函数对其评估，在这个问题中，适应度函数可以通过当前个体$\hat{y}$与目标函数$y_e=x^2+x+1$在$x ∈ [-1,1]$上的值的差距来衡量。定义这个问题中的适应度函数为：  </p><script type="math/tex; mode=display">f(i)=∫_{-1}^1|\hat{y_i}-y_e|dx</script><p>对于这个适应度函数而言，个体的适应度越小代表与目标函数的差距越小，个体表现更加“优秀”。<br>接下来应当决定运行参数，为了简化解释，此处设定每一代中仅存在四个个体（但是实际上每一代的个体数量往往是成千或者百万级别的）并设置各遗传操作发生的概率，通常情况下设置<strong>交叉的概率为90%，繁殖的概率为8%，突变的概率为1%，结构变换的概率为1%。</strong><br><div class="note note-info">            <p>GP通过交叉对搜索空间进行查找，因此交叉的概率应当比较大，才能保证搜索空间中的个体尽可能被搜索完全。<br>由于本书的作者所强调的“遗传多样性”，因此直接对个体的复制应当保留在一个非常低的概率，以产生更多可能的个体结构。<br>突变和结构变换的随机性会带来负面效应，因此应当尽量保持在非常低的水平。事实上突变和结构变换对于遗传编程中的个体的打击几乎是毁灭性的。  </p>          </div><br>最后设置运行的终止条件，对于回归问题通常可以设置个体与目标之间的差值低于某一水平时终止运行。在这个例子中设定当出现适应度小于0.01的个体时，遗传编程终止运行。   </p><h3 id="初始种群生成和个体评估"><a href="#初始种群生成和个体评估" class="headerlink" title="初始种群生成和个体评估"></a>初始种群生成和个体评估</h3><p>初始种群从搜索空间中随机挑选得到，这个例子中随机生成的初始种群中的四个个体如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115142521.png width=60%>  </p><p>通过解释，这四个个体表示为：$x+1$、$x^2+1$、$2$和$x$。<br>将这四个个体$\hat{y}$分别带入适应度函数中，可以计算得出四个个体的适应度为0.67、1.0、1.67和2.67，可视化表示如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115143355.png width=70%><br>可以发现前两个个体(a)、(b)的适应度更低（或者说更“好”），在这个例子中意味着这两个个体更接近与目标，它们有更高的概率被选择做遗传操作。   </p><h3 id="遗传操作"><a href="#遗传操作" class="headerlink" title="遗传操作"></a>遗传操作</h3><h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><p>由于个体(a)适应度最好，它更有高概率被选择。此处假设它被选择出来进行复制操作，它被复制到下一代种群中。即它在下一代被保留。  </p><h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p>假设个体(c)的某个点位发生了突变，其下面的子树会被一个随机生成的子树替代，如图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115144408.png width=50%><br>可以发现，原本适应度不佳的个体(c)通过突变后，其适应度可能会有所好转。<strong>除了在运行快要收敛时对现有种群施加扰动、改善算法的运行情况外</strong>，<strong>突变还能够有概率地改善适应度不加的个体的适应度，在搜索空间中调整在这些点附近的查找方向。</strong>  </p><h4 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h4><p>前两个个体(a)、(b)的适应度更好，更有高概率被选择配对进行交叉操作，假设(a)(b)个体发生如下图所示的交叉：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115145005.png width=60%>  </p><p>可以发现，个体(a)和个体(b)中各自都有一部分贴近于目标函数（称为各自的优良性状），<strong>通过交叉，两个亲本的优良性状更容易被结合，从而生成更加贴近目标的后代。</strong>  </p><h3 id="终止"><a href="#终止" class="headerlink" title="终止"></a>终止</h3><p>通过遗传操作后的后代如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115145739.png width=60%><br>可以发现，个体(d)的适应度已经为0，达到了预先设定的终止条件，遗传编程停止运行。  </p><h2 id="遗传编程的高级功能"><a href="#遗传编程的高级功能" class="headerlink" title="遗传编程的高级功能"></a>遗传编程的高级功能</h2><div class="note note-info">            <p>以我自己的观点来说，这些高级功能被设计出来的目的是为了弥补遗传编程自身存在的缺陷，比如强类型用于解决遗传操作不合法的问题、自动定义函数用于解决遗传操作对有效基因破坏力度大的问题、结构变换操作用于解决“基因多样性”的问题。这些机制相当于补丁，但是引入之后又会为遗传编程带来更大的问题。<br>以我自己的观点来说，这些高级功能被设计出来的目的是为了弥补遗传编程自身存在的缺陷，比如强类型用于解决遗传操作不合法的问题、自动定义函数用于解决遗传操作对有效基因破坏力度大的问题、结构变换操作用于解决“基因多样性”的问题（尤其是在引入类保护的变异之后个体的结构基本上从生成开始就不会改变了）。这些机制相当于补丁，但是引入之后又会为遗传编程带来更大的问题。  </p>          </div>  <h3 id="强类型"><a href="#强类型" class="headerlink" title="强类型"></a>强类型</h3><p>对许多问题而言，函数集和端点集都需要是强类型的(constrained syntactic structures)，也就是说，一个函数下侧连接的子树和端点的类型是需要被指定的。遗传编程实现强类型的方式是使用若干个函数集和端点集来满足不同函数的语法需求。  </p><div class="note note-info">            <p>以我的观点，强类型的本质是利用先验知识在搜索空间中强行规避一些不合法的部分被搜索到。<br>以我的观点，强类型的函数集和端点集必须是整个遗传编程使用的函数集和端点集的对应子集，否则搜索空间会出现扭曲和不规则的扩张。  </p>          </div>  <h3 id="自动定义函数"><a href="#自动定义函数" class="headerlink" title="自动定义函数"></a>自动定义函数</h3><p>自动定义函数是利用问题对称性、规律性和模块化的特点，将目标问题分解为若干个子问题，并对子问题进行分别解答后进行合并。这些子问题的解答就是自动定义函数(automatically defined functions, ADF). 自动定义函数与个体一同进化，但是相对独立，具体的介绍在：<br><a href="https://l61012345.top/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/">遗传编程中的自动定义函数</a>  </p><p>有自动定义函数之后，和自动定义函数的机制类似，也有自动定义循环、自动定义递归等等。  </p><h3 id="程序结构和结构变换操作"><a href="#程序结构和结构变换操作" class="headerlink" title="程序结构和结构变换操作"></a>程序结构和结构变换操作</h3><p>程序的结构需要由用户首先指定，但是通过结构变换操作(architecture-altering operation,AAO)可以进化改进程序的结构。<br>具体的介绍在<a href="https://l61012345.top/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/">结构变换操作</a></p><h3 id="遗传编程问题解决器"><a href="#遗传编程问题解决器" class="headerlink" title="遗传编程问题解决器"></a>遗传编程问题解决器</h3><p>遗传编程可用于为无数不同领域的问题提供解决方案。无论在哪个领域实施，遗传编程几乎总是遵循相同的严格但基本的框架。因此，如果能以简单明了的方式提供基本的遗传编程框架，就能很好地为程序员服务，使他们可以相对轻松地解决这一范例中的问题。<br>现有系统旨在为程序员提供用遗传编程解决一般问题的框架，但一般都过于复杂，难以操作。现有的两个这样的系统是 gpc++ 及其 Java 移植版本 gpj++。这些系统要求程序员将基因编程系统的一般要求与其自身的严格框架相匹配。例如，它们假定程序员将以一种非常特定的格式来表示要培育的程序或函数，这样系统就能自己进行基因重组。虽然这也是一种有用的工具，但同样有用的是，将某些实现决定权完全留给程序员，因为这些决定权往往在很大程度上取决于相关领域。  </p><p>遗传编程问题解决器(Genetic Programming Problem Solver, GPPS)是一种通用的遗传编程框架。这些组件是所有遗传编程程序共有的部分。它们是执行选择、变异、交叉和复制的功能。抽象的其他功能可能包括检查终止条件、测试个体的适应性、打印结果等方法。基于上述考虑，在构建系统时，程序员只需关注其具体问题的实现，而无需关注基因程序在个体空间中的搜索方式。也就是说，在给定一个必须遵循的模板后，程序员只需深入研究其问题的具体细节，就能实现 GP 的基本部分（变异、交叉等）。<br><div class="note note-info">            <p>上述这段话的来源是：<a href="https://www1.cs.columbia.edu/~evs/ais/finalprojs/kalina/">https://www1.cs.columbia.edu/~evs/ais/finalprojs/kalina/</a>  </p>          </div>  </p><p>由于GPPS本身自带一个通用的函数集（包括四则运算和条件选择）和一个通用的端点集（包括输入向量和常数），因此用户在使用GPPS时无需指定函数集和端点集。<br>在GPPS2.0中，用户甚至不需要自己指定子函数、递归和循环结构的优先级。  </p><h2 id="遗传编程系列书籍的主要观点"><a href="#遗传编程系列书籍的主要观点" class="headerlink" title="遗传编程系列书籍的主要观点"></a>遗传编程系列书籍的主要观点</h2><p>遗传编程系列书籍的主要观点如下图所示：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231211101004.png width=70%>   </p><p>其中需要强调的几个点：  </p><ul><li>92版书中指出，几乎所有的问题都可以视为对计算机程序的搜索。这句话强调了遗传编程解决问题的潜能。  </li><li>94版书中的论点基本上都和自动定义函数有关。  </li></ul>]]></content>
     
     
     <categories>
@@ -3938,6 +3982,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>14. 机器学习实例：光学字符识别（OCR）</category>
@@ -3958,6 +4004,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -3980,6 +4028,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>15. 总结和感谢</category>
@@ -4000,6 +4050,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4022,6 +4074,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>14. 机器学习实例：光学字符识别（OCR）</category>
@@ -4042,6 +4096,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4064,6 +4120,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>13. 大规模机器学习</category>
@@ -4084,6 +4142,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4106,6 +4166,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>13. 大规模机器学习</category>
@@ -4126,6 +4188,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4167,6 +4231,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>10. 主成分分析</category>
@@ -4187,6 +4253,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4209,6 +4277,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>10. 主成分分析</category>
@@ -4229,6 +4299,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4251,6 +4323,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>11. 异常检测算法</category>
@@ -4271,6 +4345,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4293,6 +4369,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>11. 异常检测算法</category>
@@ -4313,6 +4391,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4335,6 +4415,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>12. 内容推荐</category>
@@ -4355,6 +4437,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4377,6 +4461,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>12. 内容推荐</category>
@@ -4397,6 +4483,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4419,6 +4507,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>13. 大规模机器学习</category>
@@ -4439,6 +4529,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4461,6 +4553,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>04. 正则化</category>
@@ -4481,6 +4575,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4557,6 +4653,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>09. K均值算法</category>
@@ -4599,6 +4697,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>09. K均值算法</category>
@@ -4619,6 +4719,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -4945,6 +5047,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>08. 支持向量机</category>
@@ -5222,6 +5326,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>08. 支持向量机</category>
@@ -5243,6 +5349,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>08. 支持向量机</category>
@@ -5263,6 +5371,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5369,6 +5479,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>06. 诊断与调试</category>
@@ -5389,6 +5501,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5411,6 +5525,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>06. 诊断与调试</category>
@@ -5431,6 +5547,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5453,6 +5571,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>07. 机器学习系统设计</category>
@@ -5474,6 +5594,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>07. 机器学习系统设计</category>
@@ -5494,6 +5616,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5537,6 +5661,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>03. 逻辑回归与正则化</category>
@@ -5557,6 +5683,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5600,6 +5728,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>05. 神经网络</category>
@@ -5620,6 +5750,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5642,6 +5774,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>05. 神经网络</category>
@@ -5662,6 +5796,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5684,6 +5820,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>05. 神经网络</category>
@@ -5705,6 +5843,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>05. 神经网络</category>
@@ -5725,6 +5865,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5789,6 +5931,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>01. 线性回归</category>
@@ -5809,6 +5953,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5831,6 +5977,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>01. 线性回归</category>
@@ -5851,6 +5999,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5873,6 +6023,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>01. 线性回归</category>
@@ -5893,6 +6045,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       
@@ -5915,6 +6069,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>02. Octave语言初步</category>
@@ -5936,6 +6092,8 @@
     
     <categories>
       
+      <category>学习笔记</category>
+      
       <category>机器学习基础课程——吴恩达</category>
       
       <category>02. Octave语言初步</category>
@@ -5956,6 +6114,8 @@
     
     
     <categories>
+      
+      <category>学习笔记</category>
       
       <category>机器学习基础课程——吴恩达</category>
       

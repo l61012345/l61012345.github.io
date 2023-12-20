@@ -1,0 +1,1581 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!--欢迎弹窗-->
+  <script src="/js/sweetalert.js"></script>
+  <link rel="stylesheet" href="/css/sweetalert.css">
+  <!--以上是欢迎弹窗-->
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03. 控制器的自动综合">
+<meta property="og:url" content="https://l61012345.top/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-20T13:23:43.412Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>03. 控制器的自动综合 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":5},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/essay-map/">
+                <i class="iconfont icon-books"></i>
+                论文导图
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于我
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          <span id="subtitle" title="各种笔记和随笔。">
+            
+          </span>
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-19 00:00" pubdate>
+          2023年12月19日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">03. 控制器的自动综合</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2023年12月20日 下午
+                  
+                
+              </p>
+            
+            <div class="markdown-body">
+              
+              <h1 id="控制器的自动综合"><a href="#控制器的自动综合" class="headerlink" title="控制器的自动综合"></a>控制器的自动综合</h1><div class="note note-info">
+            <p>这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.<br>这一章讲述了如何使用遗传编程完成控制器的自动设计。  </p><p>原书的免费公开版本在作者Koza本人的Research gate主页上：<a target="_blank" rel="noopener" href="https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence">https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence</a><br>这本书也可以在Springer 购买电子版： <a target="_blank" rel="noopener" href="https://link.springer.com/book/10.1007/b137549">https://link.springer.com/book/10.1007/b137549</a><br>或者在亚马逊英国购买纸质版：  <a target="_blank" rel="noopener" href="https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670">https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670</a>  </p>
+          </div>  
+<p>人类工程师进行设计的过程涉及到对各种考量的权衡，因此可以说设计的过程是需要使用到人类的智能的。这一章讲自动设计控制器(controller)作为例子讲述遗传编程在设计领域的应用，这一章包括了使用遗传编程设计如下的控制器：  </p>
+<ul>
+<li>二阶滞后补偿器  </li>
+<li>三阶滞后补偿器  <ul>
+<li>带有时延的三阶滞后补偿器  </li>
+</ul>
+</li>
+<li>非最小相位系统  </li>
+</ul>
+<h2 id="控制器背景"><a href="#控制器背景" class="headerlink" title="控制器背景"></a>控制器背景</h2><h3 id="控制器原理"><a href="#控制器原理" class="headerlink" title="控制器原理"></a>控制器原理</h3><p>使用控制器的目的是为了让系统原型(plant)、也就是控制器控制的目标系统的响应能够与一个设计者所期望的响应尽可能的匹配。此后作者举了一个控制车速的巡航控制器(cruise control device)的例子来说明控制器是如何工作来控制系统的。简单来说，控制器对系统的作用不是一蹴而就的，而是需要时间让整个系统不断调整自己的输出。在控制器控制系统原型的过程中，控制器需要通过监控系统原型的输出，并且比较和参考信号(reference signal)之间的误差(error signal)来调整原型系统的输入，从而让整个系统的输出你能够更加贴近参考信号。这样通过接收输出、改进输出、再将改进后的输出作为输入的控制方法称为反馈控制(feedback control)。如果反馈控制通过误差信号作为原型的下一次输入，那么这样的反馈控制称为负反馈控制(negative feedback control)。<br>含有反馈的控制系统也称为闭环控制系统（closed-loop control system），输入与反馈信号比较后的差值（即误差信号）加给控制器，然后再调节受控对象的输出，从而形成闭环控制回路。所以，闭环系统又称为反馈控制系统，这种反馈称为负反馈。与开环系统相比，闭环系统具有突出的优点，包括精度高、动态性能好、抗干扰能力强等。它的缺点是结构比较复杂，价格比较贵，对维修人员要求较高。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301095016.png width=60%>  </p>
+<div class="note note-info">
+            <p>更多关于控制论的内容请参考学习笔记中的控制系统课程。  </p>
+          </div>  
+<p>现实世界当中大部分的控制器都是手动的（比如阀门、手动控制的开关等等），但是这本书中强调的控制器都是自动控制器，也就是自动根据反馈输入调整系统输出的控制器。  </p>
+<h3 id="控制器的设计指标"><a href="#控制器的设计指标" class="headerlink" title="控制器的设计指标"></a>控制器的设计指标</h3><p>在设计时需要考虑的控制器的特征非常多，下面列出了常见的一些控制器的设计指标，这些指标都和系统的阶跃响应有关(step response，指系统输入为单位阶跃信号时系统的时域输出变化)。  </p>
+<ul>
+<li><p>上升时间和调节时间<br>设计控制器的过程中最常见的考虑因素是让系统响应表现为理想响应的时间尽可能小。这一设计指标通常被诠释为上升时间$t_r$（rise time）或者是调节时间$t_s$(settling time)。<br>上升时间是指定义为阶跃响应曲线从稳态值的10%第一次上升到90%所需的时间。<br>调节时间是指阶跃响应达到并永远保持在一个允许误差范围(误差带：通常取±5%或±2%)内，所需的最短时间。  </p>
+</li>
+<li><p>ITAE<br>控制工程中喜欢使用参考信号和系统原型的响应之差的绝对值在时间上的积分(the integral of the time-weighted absolute error)来衡量控制器的性能。由于按照时间的加权中会对比较晚出现的误差有更大的惩罚、应用ITAE作为适应度有助于迅速减小误差。  </p>
+</li>
+<li><p>过冲率<br>过冲率$M_p$(overshoot)是指的系统原型的响应超出参考信号的最大百分比。过冲会消耗大量能量，设计时需要尽可能的考虑减小过冲。  </p>
+</li>
+<li><p>鲁棒性<br>在现实中还会出现干扰（disturbance）。这种干扰对系统的影响通常被建模为在系统原型输出端的加性噪声。鲁棒性可以表示为系统对于噪声的灵敏度，即系统输出对噪声的偏微分：   </p>
+<script type="math/tex; mode=display">\frac{∂S_{output}}{∂N}</script><p>好的控制系统可以对噪声表现出高鲁棒性，也就是输出对噪声的灵敏度不高。  </p>
+</li>
+<li><p>稳定性<br>稳定性(stability)是指系统随着输入信号微小变化的响应程度。如果整个系统的性能随着系统原型的微小变化而变化很大，那么这个系统可能毫无用处甚至会有危险。</p>
+</li>
+</ul>
+<p>这些设计指标在系统的阶跃响应图上表现如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301212556.png width=80%>  </p>
+<h3 id="控制器的基本组成"><a href="#控制器的基本组成" class="headerlink" title="控制器的基本组成"></a>控制器的基本组成</h3><p>一个控制器电路通常可能会用到如下的器件：<br>放大器(gain)、积分器(integrator)、差分器(differentiator)、加法器(adder)、减法器(substractor)、超前补偿(laed)、滞后补偿(lag)、延时器(delay)、翻转器(invertor)、取绝对值(absolute)、限制器(limitor)、乘法器(multiplier)、分配器(divider)、开关(switch)。  </p>
+<p>控制器的拓扑结构可以描述为：  </p>
+<ul>
+<li>控制器内部用到的器件数</li>
+<li>用到的器件类型</li>
+<li>控制器内部器件的输入和输出的连接方式</li>
+<li>控制器的外部输入和外部输出</li>
+</ul>
+<h3 id="PID控制器"><a href="#PID控制器" class="headerlink" title="PID控制器"></a>PID控制器</h3><p>PID控制器是控制系统中最常用的控制器类型，它由基本的三个控制器：P控制器、I控制器、D控制器组成。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220105903.png width=60%>    </p>
+<p>三个部分都对PID控制器整体的输出有对应的贡献。  </p>
+<ul>
+<li>P控制器(proportional controller)，又称为比例段，它的作用是将参考信号和原型系统的输出之间的误差直接反馈给系统。  </li>
+<li>I控制器(integral controller)，又被称为积分段，它的作用是使得控制器在稳态时候的误差更小。  </li>
+<li>D控制器(derivative controller)，又被称为微分段。由于比例段提供的误差补偿总是滞后的，利用这一点P控制器可以通过求误差信号的斜率来预测未来误差信号的变化情况。  </li>
+</ul>
+<p>PID控制器的作用用PID控制器的发明者Callender和Stenvenson的说法是：<br>“本发明的一个具体目的是提供一种系统，该系统将产生一种补偿效果，该补偿效果受与偏差的总范围、偏差率和给定期间内偏差的总和成比例的因素所支配。”   </p>
+<blockquote>
+<p>A specific object of the invention is to provide a system which will produce a compensating effect governed by factors proportional to the totoal extent of the deviation, the rate of the deviation, and the summation of the deviation during a given period.  </p>
+</blockquote>
+<p>尽管PID控制器在现在的工业界应用非常广泛，但是对更好的控制器的需求从来没有停止过。在Astrom和Hagglund(1995)的论文中提到，只有20%的控制器工作的比较好。  </p>
+<h2 id="控制器的智能设计方法论"><a href="#控制器的智能设计方法论" class="headerlink" title="控制器的智能设计方法论"></a>控制器的智能设计方法论</h2><h3 id="智能设计方法总述"><a href="#智能设计方法总述" class="headerlink" title="智能设计方法总述"></a>智能设计方法总述</h3><p>对控制器的智能设计，或者说智能综合需要设同时计控制器的拓扑结构和相应的参数的值，来满足用户指定的高阶的设计需求。下面列出了一些常见的对设计需求的高阶表达：  </p>
+<ul>
+<li>优化要求<br>比如最小化ITAE  </li>
+<li>时域要求<br>比如最小化过冲、最大化抗噪性等等  </li>
+<li>频域要求<br>比如系统带宽、随着噪声的衰减等等</li>
+<li>稳定性要求  </li>
+<li>鲁棒性要求  </li>
+<li>对特定信号的值的限制  </li>
+</ul>
+<p>用传统的设计方法（比如说状态空间设计、根据波特图的设计等等）很难同时满足上述几个设计要求的任意组合，因此需要使用到智能算法来进行优化。下面的几种启发式的方法可能可以解决这样的设计要求：  </p>
+<ul>
+<li>爬山算法 (hill climbing)和基于梯度的算法(gradient methods)</li>
+<li>模拟退火算法(simulated annealing)</li>
+<li>进化计算(*这本书写作之时还没有进化计算这个概念，原书中写的是evolutionary methods)  </li>
+</ul>
+<p>上述的这些方法都是启发式学习的方法，这些方法的迭代操作都类似，高层级的语言表示如下：  </p>
+<ol>
+<li>从搜索空间中的一个或者几个点上开始搜索，衡量这一个或者几个点的表现  </li>
+<li>通过改变现有的搜索点的结构来创建新的备选点  </li>
+<li>衡量新的备选点的表现，并得到一个指标  </li>
+<li>用这个指标对备选点进行选择  </li>
+<li>重复上述操作</li>
+</ol>
+<div class="note note-info">
+            <p>整个人工智能算法大致可以分为两类：启发式学习（又分为构造算法和改进算法，改进算法中包括了贪心算法和非贪心算法）和精确方法(比如专家系统、统计回归等等)。  </p>
+          </div>  
+<p>不管是何种搜索算法，搜索行为的主要动力来源于对个体表现的衡量，用于衡量的函数以代价的形式（越低越好）或者以适应度的形式（越高越好）出现。并且通常新的个体是基于现有的个体产生的，下面将详述这几种算法的搜索行为。  </p>
+<h4 id="爬山算法和基于梯度的算法"><a href="#爬山算法和基于梯度的算法" class="headerlink" title="爬山算法和基于梯度的算法"></a>爬山算法和基于梯度的算法</h4><p>爬山算法开始于整个搜索空间的一个个体，对这个个体指定适应度后再创建新的个体，指定这个新的个体的适应度，然后通过适应度的衡量决定选择原来的个体还是新创建的个体。新个体的创建方式依照问题的不同而不同。<br>梯度下降可以看做是使用梯度作为适应度衡量的爬山算法。<br>爬山算法是一种点对点的贪心算法。在每一个循环中，爬山算法会无条件拒绝没有任何改进的个体，同时也会无条件接受具有改进的个体。(*形象的形容为：猴子搬玉米)在单次尝试当中，爬山算法容易陷入局部最优。如果问题允许多次尝试，那么多次尝试可能会找到全局最优。但是每一次尝试都是独立的，新一次的搜索并不会继承原来的搜索(*找不找得到全凭运气)。<br>爬山算法的另一个问题是并行化，虽然有并行化的爬山算法，但是并行线程之间的工作是独立的，并没有信息交流。<br><div class="note note-info">
+            <p>遗传算法并行化过程的信息交流参考<a href="https://l61012345.top/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/">并行遗传算法</a>  </p>
+          </div>  </p>
+<h4 id="模拟退火算法"><a href="#模拟退火算法" class="headerlink" title="模拟退火算法"></a>模拟退火算法</h4><p>模拟退火算法也是一种点对点的搜索算法。这种算法也使用了一种特定问题的修改操作来基于现有个体产生新的个体，但是与爬山算法和梯度下降算法不同的是，模拟退火算法中使用了Metropolis算法和玻尔兹曼算法来来决定是否保留那些没有任何改进的个体。<br>此外，模拟退火运用了一个变量温度(temperature)$T$来控制算法的运行过程和收敛情况，$T$在运行过程中指数单调递减，并且影响Metropolis算法和玻尔兹曼算法对个体是否保留的抉择。在$T$很高的时候，算法更倾向于接收那些没有任何改进的个体，随着算法迭代次数的增加，$T$很低的时候，算法更倾向于拒绝那些没有任何改进的个体，以加快算法的收敛，但是为了保证全局性，算法也不会完全拒绝任何个体。  </p>
+<h4 id="进化计算"><a href="#进化计算" class="headerlink" title="进化计算"></a>进化计算</h4><p>进化计算的搜索方法并不是贪心的，而是一种全局的搜索方式。并且，进化计算的操纵对象是群，因此是一种群智能搜索方法，而非点对点的搜索方法。在运行过程中，进化计算会在一开始会产生大量的个体，但是在趋于收敛时只有一小部分的个体生成。<br>遗传编程对于控制器的设计方法会在之后详述。  </p>
+
+              
+            </div>
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BA%E6%96%87/" class="category-chain-item">论文</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" class="category-chain-item">遗传编程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B-IV%EF%BC%9A-%E4%BE%8B%E7%A8%8B%E5%8C%96%E7%9A%84%E5%8F%AF%E6%AF%94%E6%8B%9F%E4%BA%BA%E7%B1%BB%E7%9A%84%E6%9C%BA%E5%99%A8%E6%99%BA%E8%83%BD/" class="category-chain-item">遗传编程 IV： 例程化的可比拟人类的机器智能</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>03. 控制器的自动综合</div>
+      <div>https://l61012345.top/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年12月20日</div>
+        </div>
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/19/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9/" title="树莓派4b开启热点功能">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">树莓派4b开启热点功能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作">
+                        <span class="hidden-mobile">结构变换操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="论文"
+        id="heading-0b7dcde9565d642e74382fc9cbae0ad5" role="tab" data-toggle="collapse" href="#collapse-0b7dcde9565d642e74382fc9cbae0ad5"
+        aria-expanded="true"
+      >
+        论文
+        <span class="list-group-count">(27)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0b7dcde9565d642e74382fc9cbae0ad5"
+           role="tabpanel" aria-labelledby="heading-0b7dcde9565d642e74382fc9cbae0ad5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+          
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="神经网络"
+        id="heading-40850ccab8cdabc6868888fd85808d0e" role="tab" data-toggle="collapse" href="#collapse-40850ccab8cdabc6868888fd85808d0e"
+        aria-expanded="false"
+      >
+        神经网络
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-40850ccab8cdabc6868888fd85808d0e"
+           role="tabpanel" aria-labelledby="heading-40850ccab8cdabc6868888fd85808d0e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" title="TensorFlow 入门项目：训练一个VGG模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">TensorFlow 入门项目：训练一个VGG模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" title="卷积神经网络简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">卷积神经网络简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" title="深度卷积生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">深度卷积生成对抗网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" title="生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">生成对抗网络</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统工程"
+        id="heading-20662cd9022948e3fc8b6c3a81b6107e" role="tab" data-toggle="collapse" href="#collapse-20662cd9022948e3fc8b6c3a81b6107e"
+        aria-expanded="true"
+      >
+        系统工程
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-20662cd9022948e3fc8b6c3a81b6107e"
+           role="tabpanel" aria-labelledby="heading-20662cd9022948e3fc8b6c3a81b6107e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+          
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="各类系统"
+        id="heading-588aa3ee8bda6c2f94ead12b3332d921" role="tab" data-toggle="collapse" href="#collapse-588aa3ee8bda6c2f94ead12b3332d921"
+        aria-expanded="false"
+      >
+        各类系统
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-588aa3ee8bda6c2f94ead12b3332d921"
+           role="tabpanel" aria-labelledby="heading-588aa3ee8bda6c2f94ead12b3332d921">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" title="CNC铣床基本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CNC铣床基本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电力线缆的寿命预测模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">钢铁淬火的简单仿真</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统分析理论"
+        id="heading-5d5b60b74e73d4405eebcb4bb7170ee0" role="tab" data-toggle="collapse" href="#collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+        aria-expanded="false"
+      >
+        系统分析理论
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+           role="tabpanel" aria-labelledby="heading-5d5b60b74e73d4405eebcb4bb7170ee0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/07/10/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/EventiC/" title="EventiC——一种无偏的复杂系统实时事件建模器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">EventiC——一种无偏的复杂系统实时事件建模器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/01/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/ROC/" title="ROC聚类算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROC聚类算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/19/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E4%B8%80%E7%A7%8D%E5%BA%94%E7%94%A8%E4%BA%8E%E7%BB%86%E8%83%9E%E5%BC%8F%E7%94%9F%E4%BA%A7%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="一种应用于细胞式生产的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种应用于细胞式生产的聚类方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/" title="无序变量的基本相关性分析方法和Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无序变量的基本相关性分析方法和Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/16/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%81%B5%E6%95%8F%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="灵敏度分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">灵敏度分析方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/11/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E9%92%88%E5%AF%B9%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="针对基因表达数据的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">针对基因表达数据的聚类方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="进化计算"
+        id="heading-393d3b280ef394972e740c7191996f04" role="tab" data-toggle="collapse" href="#collapse-393d3b280ef394972e740c7191996f04"
+        aria-expanded="true"
+      >
+        进化计算
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-393d3b280ef394972e740c7191996f04"
+           role="tabpanel" aria-labelledby="heading-393d3b280ef394972e740c7191996f04">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/20/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/evolution%20everthing/" title="从进化计算到万物进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从进化计算到万物进化</span>
+        </a>
+      
+    
+  </div>
+
+          
+          
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="false"
+      >
+        遗传算法
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="true"
+      >
+        遗传编程
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+          
+          
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程 IV： 例程化的可比拟人类的机器智能"
+        id="heading-cdf5b5baa87b8f9df335b10065b8eadb" role="tab" data-toggle="collapse" href="#collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+        aria-expanded="true"
+      >
+        遗传编程 IV： 例程化的可比拟人类的机器智能
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+           role="tabpanel" aria-labelledby="heading-cdf5b5baa87b8f9df335b10065b8eadb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 绪论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 背景·遗传编程基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" title="03. 控制器的自动综合"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">03. 控制器的自动综合</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  <script src="./node_modules/pjax/pjax.js"></script>
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建和渲染。<br> ©OrekiKigiha 2021 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var title = subtitle.title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.18.0/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script>
+  (function() {
+    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
+    var enableCopy = CONFIG.copy_btn;
+    if (!enableLang && !enableCopy) {
+      return;
+    }
+
+    function getBgClass(ele) {
+      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
+    }
+
+    var copyTmpl = '';
+    copyTmpl += '<div class="code-widget">';
+    copyTmpl += 'LANG';
+    copyTmpl += '</div>';
+    jQuery('.markdown-body pre').each(function() {
+      var $pre = jQuery(this);
+      if ($pre.find('code.mermaid').length > 0) {
+        return;
+      }
+      if ($pre.find('span.line').length > 0) {
+        return;
+      }
+
+      var lang = '';
+
+      if (enableLang) {
+        lang = CONFIG.code_language.default;
+        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
+          lang = $pre[0].children[0].classList[1];
+        } else if ($pre[0].getAttribute('data-language')) {
+          lang = $pre[0].getAttribute('data-language');
+        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
+          lang = $pre[0].children[0].classList[1];
+          $pre.parent().addClass('code-wrapper');
+        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
+          $pre.wrap('<div class="code-wrapper"></div>');
+        }
+        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
+      }
+      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
+        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
+
+      if (enableCopy) {
+        Fluid.utils.createScript('https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js', function() {
+          var clipboard = new window.ClipboardJS('.copy-btn', {
+            target: function(trigger) {
+              var nodes = trigger.parentNode.childNodes;
+              for (var i = 0; i < nodes.length; i++) {
+                if (nodes[i].tagName === 'CODE') {
+                  return nodes[i];
+                }
+              }
+            }
+          });
+          clipboard.on('success', function(e) {
+            e.clearSelection();
+            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
+            setTimeout(function() {
+              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
+            }, 2000);
+          });
+        });
+      }
+    });
+  })();
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        MathJax = {
+          tex    : {
+            inlineMath: { '[+]': [['$', '$']] }
+          },
+          loader : {
+            load: ['ui/lazy']
+          },
+          options: {
+            renderActions: {
+              findScript    : [10, doc => {
+                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                  const display = !!node.type.match(/; *mode=display/);
+                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                  const text = document.createTextNode('');
+                  node.parentNode.replaceChild(text, node);
+                  math.start = { node: text, delim: '', n: 0 };
+                  math.end = { node: text, delim: '', n: 0 };
+                  doc.math.push(math);
+                });
+              }, '', false],
+              insertedScript: [200, () => {
+                document.querySelectorAll('mjx-container').forEach(node => {
+                  let target = node.parentNode;
+                  if (target.nodeName.toLowerCase() === 'li') {
+                    target.parentNode.classList.add('has-jax');
+                  }
+                });
+              }, '', false]
+            }
+          }
+        };
+      </script>
+    
+
+  <script  src="https://cdn.staticfile.org/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+  <script>
+    // pjax
+    var pjax = new Pjax({
+    selectors: [
+      "title", //加载标题
+      "main", //加载主体框架部分
+      "header", //加载头部（文章页头图等）
+      "welcome" // 欢迎弹窗
+    ]
+   })
+</script>
+  <!-- start webpushr tracking code --> 
+<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
+  fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
+  webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
+  <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>
