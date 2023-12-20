@@ -119,7 +119,7 @@
 <meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-20T15:17:58.062Z">
+<meta property="article:modified_time" content="2023-12-20T15:55:14.403Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          7.1k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          56 分钟
+          60 分钟
         
       </span>
     
@@ -629,7 +629,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>IF_POSITIVE</code></td>
 <td style="text-align:left">开关，运算结果为正时输出某个声明，反之输出另一个声明</td>
-<td style="text-align:center">$\begin{aligned} f_1, f_0&gt;0 \ f_2,f_0 ≤0\end{aligned}$</td>
+<td style="text-align:center">$\begin{cases} f_1, f_0&gt;0 \ f_2,f_0 ≤0\end{cases}$</td>
 <td style="text-align:left">1. 时域信号 <br> 2. 时域信号 <br> 3.时域信号</td>
 </tr>
 <tr>
@@ -654,7 +654,24 @@ p.spoiler {
 <li><p>反馈结构<br>ADF的递归结构可以视为是将上一次ADF的输出又重新返回到ADF的输入中，这样的操作在电路中是一种内部反馈。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220151633.png width=40%>   </p>
 </li>
 </ul>
-<h4 id="调试器件参数的方法"><a href="#调试器件参数的方法" class="headerlink" title="调试器件参数的方法"></a>调试器件参数的方法</h4>
+<h4 id="调试器件参数的方法"><a href="#调试器件参数的方法" class="headerlink" title="调试器件参数的方法"></a>调试器件参数的方法</h4><p>如之前所说，对控制器的设计包括拓扑结构的设计和器件参数调试两方面。器件之间的拓扑结构可以通过树内部的端点和函数的连接来表示，但是在进化过程中演化器件拓扑结构的同时调整器件参数却并没有那么容易做到。这本书中介绍了三种进化过程中同时达成这两个目标的方法。需要注意的是，这三种方法都需要借助强类型实现。  </p>
+<ul>
+<li><p>第一种方法是：使用一种专门进行算术演算的子树结构，书中称为算术子树(arithmetic-performing subtree)，这种子树结构包含多个数值运算的函数并以自然常数作为端点。</p>
+</li>
+<li><p>第二种方法是，子树中直接将可扰数值(perturbable numberical value)作为一个节点。  </p>
+</li>
+<li><p>第三种方法是算术子树中的端点都为可扰数值。</p>
+</li>
+</ul>
+<p>书中还提到了一种称为非线性映射(NLM,none-linear mapping)的方法来表示算术子树的结果。对数形式的非线性映射可使相差几个数量级的常数得到有效进化。除非另有说明，本书中使用的非线性映射将-5到5之间的数值转换为超过 10 个数量级的数字。<br>一个非线性映射函数的例子如下：  </p>
+<script type="math/tex; mode=display">NLM(x)=\begin{cases}
+  10^0,\text{ if }x<-100\\
+  10^{-\frac{100}{19}-\frac{1}{19}x},\text{ if }-100≤x<-5\\
+  10^x,\text{ if }-5≤x≤5\\
+  10^{\frac{100}{19}-\frac{1}{19}x},\text{ if }5<x≤100\\
+  10^0,\text{ if }x>100\\
+\end{cases}</script><p>从图像上可以看出，这个函数的作用是成倍放大-5到5之间的$x$的值。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220155339.png width=40%> </p>
+
               
             </div>
             <hr/>
