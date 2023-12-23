@@ -365,7 +365,7 @@ LISP语言采用的S-expression方法可以和程序树互转，因此上面的�
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223152000.png width=80%>  
 下面的SPICE指令用于构建上图的电路并且进行仿真。  
 
-```ltspice-symbol
+```SPICE
 .PID CONTROLLER, TWO-LAG PLANT, AND ITAE CALCULATOR
 *
 * THE PID CONTROLLER
