@@ -302,3 +302,214 @@ $$NLM(x)=\begin{cases}
 
 [^1]:J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, "A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS)," in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160. 
 
+#### 控制器的表示方法
+{% note info %}  
+这一小节中讲了使用传递函数、LISP语言、程序树、Mathematica语言、连接清单、SPICE 网表表示控制器电路的方法。   
+这里的笔记中只介绍后面会用到的表示方法。  
+{% endnote %}
+
+##### LISP语言和程序树
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223133342.png width=80%>    
+
+在LISP语言中一个PID控制器的例子表示上图的控制器和原型电路：  
+```LISP
+( PROGN
+  ( DEFUN ADF0 ()
+    ( VALUES
+      (- REFERENCE_SIGNAL PLANT_OUTPUT))) ;表示并联区域信号的输入和输出
+    ( VALUES
+      ( +
+        (GAIN 214.0 ADF0) ;P控制器
+        (INTEGRATOR (GAIN 1000.0 ADF0 )) ;I控制器
+        (DERIVATIVE (GAIN 15.5 ADF0 )))) ;D控制器
+)
+```
+
+{% note warning %}  
+此处书中有一个印刷错误，程序的第8行应该是`INTEGRATOR`，第9行应该是`DERIVATIVE`，此处已经纠正过来了。  
+{% endnote %}
+
+LISP语言采用的S-expression方法可以和程序树互转，因此上面的程序也可以表示为：  
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223133047.png width=80%>    
+
+##### 连接清单
+连接清单(connection list)是一个记录电路元件之间连接关系的列表，包括元件的名称、引脚号、连接方式等信息。在电路仿真中，连接清单可以帮助用户更好地理解电路的结构和工作原理，方便用户进行电路的设计和调试。  
+连接清单基本结构是一行一个器件：每一行的开头为器件的输入节点，最后一个节点编号对应输出节点。然后紧随器件模块的名称和对应的声明。  
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223152000.png width=80%>  
+比如对于上面的电路，连接清单表示如下：  
+
+```SPICE
+#输入   输出 模块
+508 596 512 SUBTRACT
+#输入输出 模块 声明
+512 538 GAIN 214.0
+512 548 GAIN 1000.0
+548 568 INTEGRATOR
+512 558 GAIN 15.5
+558 578 DERIVATIVE
+538 568 578 590 ADDITION
+590 626 LIMITER 40.0 40.0
+626 636 LAG 1.0
+636 596 LAG 1.0
+```
+
+##### SPICE网表
+在这个设计例子中，每一个个体最终都会被翻译为SPICE网表(SPICE netlist)然后进入SPICE仿真。SPICE网表的命令包括如下几个成分：  
+- 电路器件的命名
+- 需要仿真的电路的网表
+- 让SPICE进行何种仿真的指令
+- 子电路定义
+- `END`结束符
+
+但是原始的SPICE仿真软件中的器件库太少，因此还需要自己对一些器件的功能和结构进行定义。  
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223152000.png width=80%>  
+下面的SPICE指令用于构建上图的电路并且进行仿真。  
+
+```ltspice-symbol
+.PID CONTROLLER, TWO-LAG PLANT, AND ITAE CALCULATOR
+*
+* THE PID CONTROLLER
+* THE OUTPUT OF CONTROLLER (CONTROL VARIABLE) IS AT 590
+* THE REFERENCE SIGNAL IS AT 508
+* THE PLANT OUTPUT (FEEDBACK TO CONTROLLER) IS AT 596
+X1 508 596 512 SUBV_SUBCKT * V(512)=V(508)-V(596)
+B2 538 0   V=V(512)*214.0  * V=V(512)-GND
+B3 548 0   V=V(512)*1000.0
+X4 548 0   568 DII_SUBCKT  * X表示这一行用到了Subcircuit
+B5 558 0   V=V(512)*15.5
+X6 558 578 DIFFB_SUBCKT
+X7 538 568 578 590 ADD3_SUBCKT
+*
+* THE TWO-LAG PLANT
+* THE PLANT INPUT IS AT 590
+* THE PLANT OUTPUT (FEEDBACK TO CONTROLLER) IS AT 594
+X8 590 626 622 624 LIMIT_SUBCKT
+X9 626 632 636 LAG_SUBCKT
+X10 636 642 594 LAG_SUBCKT
+V11 622 0 DC 40 * V表示供电，下同
+V12 624 0 DC 40
+V13 632 0 DC 1.0 * 这是LAG的供电
+V14 642 0 DC 1.0
+*
+* 没有积分器的器件，需要自己写一个，下同
+* CALCULATION OF INTEGRAL OF TIME-WEIGHTED ABSOLUTE ERROR (ITAE)
+X15 508 594 508 7 ITAE_SUBCKT
+* 表示V(508) - V(594)的时域积分，V(508)是参考信号，V(594)是原型输出
+*
+* 产生的参考信号的描述
+* REFERENCE SIGNAL 508
+VP16 508 0 PULSE(0.0 1 0.1 0.001 0.001 10 15) 
+* 参考信号是一个持续15秒，脉宽为10秒，上升沿下降沿各0.001秒，间隔0.1秒的方波脉冲信号
+*
+* SPICE的仿真和画图
+* COMMANDS TO SPICE FOR TRANSIENT ANALYSIS AND PLOT
+.TRAN 0.08 9.6 0.0 0.04 UIC
+* 以0-9.6秒，每0.08一个step进行时域分析
+.PLOT TRAN V(7)
+* 画出V(7)的时域图
+*
+* SUBCIRCUIT DEFINITION FOR SUBV
+.SUBCKT SUBV 1 2 3 * 有三个输入输出端口
+B1 3 0  V=V(1)–V(2) * B表示一个理想电压/电流源，VCC=3V，VDD=0V
+.ENDS SUBV * 定义结束
+* SUBCIRCUIT DEFINITION FOR TWO-ARGUMENT ADDV
+.SUBCKT ADDV 1 2 3
+B1 3 0 V=V(1)+V(2)
+.ENDS ADDV
+*
+* SUBCIRCUIT DEFINITION FOR THREE-ARGUMENT ADD3
+.SUBCKT ADD3 1 2 3 4
+B1 4 0 V=V(1)+V(2)+V(3)
+.ENDS ADD3
+*
+* SUBCIRCUIT DEFINITION FOR INVERTER
+.SUBCKT INVERTER_SUBCKT 1 2
+B1 2 0 V= V(1)
+.ENDS INVERTER_SUBCKT
+*
+* SUBCIRCUIT DEFINITION FOR MULV
+.SUBCKT MULV 1 2 3
+B1 3 0 V=V(1)*V(2)
+.ENDS MULV
+*
+* SUBCIRCUIT DEFINITION FOR DIVV
+.SUBCKT DIVV 1 2 3
+B1 3 0 V=V(1)/V(2)
+.ENDS DIVV
+*
+* SUBCIRCUIT DEFINITION FOR ABSV
+.SUBCKT ABSV 1 2
+B1 2 0 V=ABS(V(1))
+.ENDS ABSV
+*
+* SUBCIRCUIT DEFINITION FOR DIFFB (DERIVATIVE)
+.SUBCKT DIFFB_SUBCKT 1 2
+G1 4 0 1 0 1.0 * G表示VCCS
+L1 4 0 1.0     * L表示电感
+B1 2 0 V= V(4) * B表示电压源
+.ENDS DIFFB_SUBCKT
+*
+* SUBCIRCUIT DEFINITION FOR DII
+.SUBCKT DII_SUBCKT 1 2 3
+G1 4 0 1 2 1.0
+R1 4 0 1000MEG
+C1 4 0 1.0 IC=0V
+X1 4 3 INVERTER_SUBCKT
+.ENDS DII_SUBCKT
+*
+* SUBCIRCUIT DEFINITION FOR LAG
+.SUBCKT LAG_SUBCKT 1 2 3
+X1 1 3 4 DII_SUBCKT
+X2 4 5 3 MULV
+X3 6 2 5 DIVV
+V1 6 0 DC 1.0
+.ENDS LAG_SUBCKT
+*
+* SUBCIRCUIT DEFINITION FOR LEAD
+.SUBCKT LEAD_SUBCKT 1 2 3
+X1 1 4 DIFFB_SUBCKT
+X2 2 4 5 MULV
+X3 1 5 3 ADDV
+.ENDS LEAD_SUBCKT
+*
+.SUBCKT LAG2_SUBCKT 1 2 3 4
+X1 1 4 5 DII_SUBCKT
+B2 6 0 
++ V=0.5*V(5)*V(2)/V(3)
+X3 6 7 4 LAG_SUBCKT
+B1 7 0 V=1/(2*V(2)*V(5))
+.ENDS LAG2_SUBCKT
+*
+* SUBCIRCUIT DEFINITION FOR LIMIT
+.SUBCKT LIMIT_SUBCKT 1 2 3 4
+B1 2 0
++ V=URAMP(V(1)–V(4))+V(4)-URAMP(V(1)–V(3))
+.ENDS LIMIT_SUBCKT
+*
+* MODEL FOR SSW
+.MODEL SSW SW()
+*
+* SUBCIRCUIT DEFINITION FOR ITAE
+.SUBCKT ITAE_SUBCKT 31 32 34 33
+VOSPCT 3 0 DC 0.02V
+VOSPEN 11 0 DC 10V
+X1 6 34 4 DIVV
+V2 10 0 DC 1.0 
+X3 9 12 7 MULV
+S4 11 9 4 3 SSW
+S5 14 13 31 0 SSW
+V6 14 0 DC 1.0
+X7 15 34 33 DIVV
+X8 7 18 17 MULV
+X9 6 12 ABSV
+X10 32 31 6 SUBV
+X11 13 0 18 DII_SUBCKT
+X12 17 0 15 DII_SUBCKT
+R13 9 10 1K
+R14 0 13 1K
+R15 0 33 1K
+.ENDS ITAE_SUBCKT
+*
+* END COMMAND FOR SPICE INPUT FILE
+.END
+```
