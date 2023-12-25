@@ -119,7 +119,7 @@
 <meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-25T13:49:21.105Z">
+<meta property="article:modified_time" content="2023-12-25T16:56:20.928Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -495,6 +495,9 @@ p.spoiler {
 <li>鲁棒性要求  </li>
 <li>对特定信号的值的限制  </li>
 </ul>
+<div class="note note-info">
+            <p>在后续，</p>
+          </div>
 <p>用传统的设计方法（比如说状态空间设计、根据波特图的设计等等）很难同时满足上述几个设计要求的任意组合，因此需要使用到智能算法来进行优化。下面的几种启发式的方法可能可以解决这样的设计要求：  </p>
 <ul>
 <li>爬山算法 (hill climbing)和基于梯度的算法(gradient methods)</li>
@@ -916,6 +919,53 @@ p.spoiler {
 <li>这个设计任务中使用SPICE作为评价的介质——这并不是必须的，使用SPICE只是为了自动和高效地让程序收敛到最优解，在理想状态下甚至可以由人类去实现所有个体的电路然后再测量得到适应度。SPICE本身是一个通用电路设计软件，因此其中不具备任何的有关控制器的专家知识。同时SPICE软件没有任何预设。写SPICE所加入的人类知识只是为了让SPICE程序合法。</li>
 <li>控制参数的选择是和任务无关的，并且在几乎所有的任务中通用。  </li>
 </ul>
+<h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><p>最初生成的第一代个体中对于设计要求基本上没有任何的感知：有些个体没有用到<code>PLANT_OUTPUT</code>/<code>REFERENCE_SIGNAL</code>，或者是使用了冗余的<code>CONSTANT_0</code>：  </p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs LISP">(<span class="hljs-name">LEAD</span> (<span class="hljs-name">LAG</span> (<span class="hljs-name">LAG2</span> (<span class="hljs-name">CONSTANT_0</span>) <span class="hljs-number">0.991705</span> <span class="hljs-number">0.333394</span>)<br> (<span class="hljs-name">+</span> <span class="hljs-number">0.403004</span> <span class="hljs-number">0.438887</span>)) (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">0.720283</span> <span class="hljs-number">0.273918</span>)<br> (<span class="hljs-name">+</span> <span class="hljs-number">0.482394</span> <span class="hljs-number">0.075069</span>)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">INVERTER</span> PLANT_OUTPUT)<br></code></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LAG2</span> (<span class="hljs-name">DIFFERENTIATOR</span> (<span class="hljs-name">DIFFERENTIATOR</span> CONTROLLER_<br> OUTPUT))( (<span class="hljs-name">+</span> <span class="hljs-number">0.335119</span> <span class="hljs-number">0.720933</span>)( <span class="hljs-number">0.724019</span> <span class="hljs-number">0.773270</span>))<br> <span class="hljs-number">0.194707</span>)<br></code></pre></td></tr></table></figure>
+<p>虽然是盲选，但是第一代中最优秀的个体的适应度已经有8.26，这是因为这个个体的结构中都考虑了<code>PLANT_OUTPUT</code>和<code>REFERENCE_SIGNAL</code>，但是还没有形成负反馈结构：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">GAIN</span><br> (<span class="hljs-name">DIFFERENTIATOR</span> (<span class="hljs-name">DIFFERENTIAL_INPUT_INTEGRATOR</span><br> (<span class="hljs-name">LAG</span> REFERENCE_SIGNAL <span class="hljs-number">0.708707</span>) PLANT_OUTPUT))<br> <span class="hljs-number">62.8637</span>)<br></code></pre></td></tr></table></figure><br>（此处为了简便表示把一个具有29个结点的算术子树浓缩为了62.8637。）</p>
+<p>第一代会在随机初始化搜索的基础上进行进一步的搜寻，结果是当前种群中不能仿真的个体占比从60%下降到了14%。初始化搜索为后续的搜索提供了一个基线。<br>在第32代中，最好的个体的适应度已经达到了0.1639，遂停止搜索。这个个体的10个子适应度表现如下，整个个体表示的控制器框图如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225164026.png width=60%>  </p>
+<p>相比于Dorf和Bishop设计的控制器，用遗传编程设计的控制器在各方面的表现都更优秀：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">GP的方法</th>
+<th style="text-align:center">Dorf和Bishop的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ITAE</td>
+<td style="text-align:center">$19mVs^2$</td>
+<td style="text-align:center">$46mVs^2$</td>
+</tr>
+<tr>
+<td style="text-align:center">干扰敏感度</td>
+<td style="text-align:center">$644mV/V$</td>
+<td style="text-align:center">$5775mV/V$</td>
+</tr>
+<tr>
+<td style="text-align:center">上升时间</td>
+<td style="text-align:center">$296ms$</td>
+<td style="text-align:center">$465ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">设置时间</td>
+<td style="text-align:center">$304ms$</td>
+<td style="text-align:center">$944ms$</td>
+</tr>
+<tr>
+<td style="text-align:center">系统带宽<br>3dB</td>
+<td style="text-align:center">1.5Hz</td>
+<td style="text-align:center">1Hz</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225164610.png width=50%>   </p>
+<p>在进化的过程中，最早的初始个体中是没有ADF的，在第32代，最终种群产生了3个ADF。<br>ADF0的表示如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">ADF2</span>)<br></code></pre></td></tr></table></figure><br>ADF1的表示如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">()<br></code></pre></td></tr></table></figure></p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, “A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS),” in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
