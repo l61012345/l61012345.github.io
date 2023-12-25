@@ -119,7 +119,7 @@
 <meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-25T16:56:20.928Z">
+<meta property="article:modified_time" content="2023-12-25T20:02:40.087Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月25日 下午
+                    本文最后更新于：2023年12月25日 晚上
                   
                 
               </p>
@@ -882,6 +882,9 @@ p.spoiler {
 <li>限制系统使其不会出现极大的输入</li>
 <li>限制整个系统的带宽</li>
 </ul>
+<div class="note note-info">
+            <p>对系统输入的限制要求体现在<code>DIFFENRENTIATION</code>函数中使用了<code>DIV</code>，而<code>DIV</code>函数中使用了<code>LIMITER</code>。  </p>
+          </div>
 <p>整个评估的过程描述如下：每个个体的树会表达为控制器电路，然后再将这个电路接入输入信号和系统原型。需要注意的是，作者没有预先规定遗传编程设计的电路一定需要连接输入信号<code>REFERNCE_SIGNAL</code>和系统原型，也没有预先规定连接方式。输入信号和系统原型连不连、怎么连、连几个这些问题都交给进化过程自动判断。<br>然后整个系统的网表会通过作者修改的SPICE模拟器自动生成，并且加入到SPICE代码中。最后运行SPICE指令，得到仿真结果。  </p>
 <ul>
 <li><p>对于这个二阶补偿器原型的控制器设计，每个个体需要在8种不同环境下进行测试，这8种环境是如下设置的排列组合：  </p>
@@ -919,6 +922,7 @@ p.spoiler {
 <li>这个设计任务中使用SPICE作为评价的介质——这并不是必须的，使用SPICE只是为了自动和高效地让程序收敛到最优解，在理想状态下甚至可以由人类去实现所有个体的电路然后再测量得到适应度。SPICE本身是一个通用电路设计软件，因此其中不具备任何的有关控制器的专家知识。同时SPICE软件没有任何预设。写SPICE所加入的人类知识只是为了让SPICE程序合法。</li>
 <li>控制参数的选择是和任务无关的，并且在几乎所有的任务中通用。  </li>
 </ul>
+<p>从此可以推断出，这个设计任务的AI比非常高。  </p>
 <h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><p>最初生成的第一代个体中对于设计要求基本上没有任何的感知：有些个体没有用到<code>PLANT_OUTPUT</code>/<code>REFERENCE_SIGNAL</code>，或者是使用了冗余的<code>CONSTANT_0</code>：  </p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs LISP">(<span class="hljs-name">LEAD</span> (<span class="hljs-name">LAG</span> (<span class="hljs-name">LAG2</span> (<span class="hljs-name">CONSTANT_0</span>) <span class="hljs-number">0.991705</span> <span class="hljs-number">0.333394</span>)<br> (<span class="hljs-name">+</span> <span class="hljs-number">0.403004</span> <span class="hljs-number">0.438887</span>)) (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">0.720283</span> <span class="hljs-number">0.273918</span>)<br> (<span class="hljs-name">+</span> <span class="hljs-number">0.482394</span> <span class="hljs-number">0.075069</span>)))<br></code></pre></td></tr></table></figure>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">INVERTER</span> PLANT_OUTPUT)<br></code></pre></td></tr></table></figure>
@@ -965,7 +969,13 @@ p.spoiler {
 </table>
 </div>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225164610.png width=50%>   </p>
-<p>在进化的过程中，最早的初始个体中是没有ADF的，在第32代，最终种群产生了3个ADF。<br>ADF0的表示如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">ADF2</span>)<br></code></pre></td></tr></table></figure><br>ADF1的表示如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">()<br></code></pre></td></tr></table></figure></p>
+<p>传递函数表示如下：  </p>
+<script type="math/tex; mode=display">G(s)=\frac{(1+0.1262s)(1+0.2029s)}{(1+.03851s)(1+.05146s)(1+.08375)(1+.1561s)(1+.1680s)}</script><p>在进化的过程中，最早的初始个体中是没有ADF的，在第32代，最终种群产生了3个ADF。<br>ADF0的表示如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">ADF2</span>)<br></code></pre></td></tr></table></figure><br><div class="note note-info">
+            <p>相当于ADF0收敛到了ADF2。  </p>
+          </div><br>ADF1的表示如下：<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LAG</span> REFERENCE_SIGNAL (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.390529</span> <br>  (<span class="hljs-name">+</span> (<span class="hljs-name">-</span> <span class="hljs-number">-0.382748</span> <span class="hljs-number">-0.853353</span>) (<span class="hljs-name">-</span> <span class="hljs-number">-0.558397</span> <span class="hljs-number">-0.021241</span>))) <span class="hljs-number">-0.349639</span>))<br></code></pre></td></tr></table></figure><br>ADF1在最好的个体中没有被调用过。<br>ADF2中调用了ADF0，虽然存在了三个<code>PLANT_OUTPUT</code>（其中一个在ADF0中）但是有两个<code>PLANT_OUTPUT</code>相互减掉了。<br><div class="note note-info">
+            <p>出现种情况的原因是因为遗传编程找到了全局最优解的近似，但是由于精度限制始终无法进一步逼近。  </p>
+          </div><br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LEAD</span> (<span class="hljs-name">ADD_SIGNAL</span> (<span class="hljs-name">GAIN</span> (<span class="hljs-name">DIFFERENTIAL_INPUT_INTEGRATOR</span> (<span class="hljs-name">LEAD</span>(<span class="hljs-name">LEAD</span> PLANT_OUTPUT (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">0.331753</span> <span class="hljs-number">-0.813045</span>) (<span class="hljs-name">-</span> <span class="hljs-number">-0.448149</span> <span class="hljs-number">0.359068</span>))) (<span class="hljs-name">+</span> <span class="hljs-number">-0.719664</span> <span class="hljs-number">-0.357372</span>)) (<span class="hljs-name">ADF1</span>)) (<span class="hljs-name">-</span> (<span class="hljs-name">-0</span>.<span class="hljs-number">773578</span> <span class="hljs-number">0.059952</span>) <span class="hljs-number">-0.197462</span>)) (<span class="hljs-name">CONSTANT_0</span>) (<span class="hljs-name">+</span> <span class="hljs-number">-0.961429</span> (<span class="hljs-name">-</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.629573</span> <span class="hljs-number">0.801392</span>) (<span class="hljs-name">+</span> <span class="hljs-number">-0.495284</span> (<span class="hljs-name">-</span> <span class="hljs-number">-0.130435</span>) (<span class="hljs-name">-</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.310777</span> <span class="hljs-number">-0.988344</span>) (<span class="hljs-name">+</span> <span class="hljs-number">0.601379</span> <span class="hljs-number">-0.649952</span>)))))))<br></code></pre></td></tr></table></figure></p>
+<p>从上面的结果可以发现，由于较少的人类知识的投入，遗传编程甚至发现了比Dorf和Bishop解决方案更好的2D-PID架构。这足以证明在这个设计问题中遗传编程是可以比拟人类的。   </p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, “A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS),” in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
