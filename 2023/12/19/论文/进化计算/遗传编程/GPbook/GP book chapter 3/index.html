@@ -119,7 +119,7 @@
 <meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-25T20:02:40.087Z">
+<meta property="article:modified_time" content="2023-12-27T11:11:49.158Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月25日 晚上
+                    本文最后更新于：2023年12月27日 上午
                   
                 
               </p>
@@ -852,7 +852,7 @@ p.spoiler {
 <li>过冲率小于2%.</li>
 <li>面对不同的$K$和$τ$的变化时，控制器应该有足够的鲁棒性。在这个设计问题中，设计的基准是$K=1,τ=1$.  </li>
 <li>输入信号的振幅应该限制在$[-40,40]$之间。  </li>
-<li>系统可以限制高<br>频噪声。  </li>
+<li>系统可以限制高频噪声。  </li>
 </ul>
 <p>在这个设计中遗传编程结果将会与Dorf与Bishop两人在1998年设计的低通滤波器与PID补偿器串联的控制电路结果进行对比。结果发现遗传编程设计的电路只有对比电路上升时间的56%和设置时间的32%。并且结果优于对比目标。  </p>
 <h4 id="准备步骤"><a href="#准备步骤" class="headerlink" title="准备步骤"></a>准备步骤</h4><p>由于加入了自动定义函数机制，在运行遗传编程前的准备步骤增加了一步决定程序树结构的操作。所有的操作列在下方：  </p>
@@ -900,7 +900,7 @@ p.spoiler {
 <p>这8中情况下的子适应度表示为：  </p>
 <script type="math/tex; mode=display">∫_0^{9.6}t|e(t)|A((e(t)))Bdt</script><p>其中$B$是一个常数，用于平衡参考信号幅值不同时的误差贡献：当参考信号的幅值为$1V$时，$B=1$；当参考信号幅值为$1mV$时，$B=10^6$.<br>$A$是一个与误差$e(t)$有关的函数，用于放大惩罚系统响应稳定后的偏移和过冲：对所有振荡幅值低于$2\%$的部分$A=1$，对稳定后大于$2\%$的过冲部分$A=10$.<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225113031.png width=50%>  </p>
 </li>
-<li><p>除此之外，为了测量控制器的抗干扰性（对冲激信号不会有过度响应），在$K=1,τ=1$下额外测试当输入的参考信号为脉冲时的系统响应。具体做法是输入一个$10^{-9}V$的脉冲信号，仿真时长为120毫秒，在这121个采样点中，对原型输出的绝对值低于$10^{-8}V$的样本不进行惩罚。对输出的绝对值高于$10^{-8}V$的样本，惩罚为$500(0.00012-t)$。   </p>
+<li><p>除此之外，为了让控制器对冲激信号不会有过度响应，在$K=1,τ=1$下额外测试当输入的参考信号为脉冲时的系统响应。具体做法是输入一个$10^{-9}V$的脉冲信号，仿真时长为120毫秒，在这121个采样点中，对原型输出的绝对值低于$10^{-8}V$的样本不进行惩罚。对输出的绝对值高于$10^{-8}V$的样本，惩罚为$500(0.00012-t)$。   </p>
 <div class="note note-warning">
             <p>此处本书出现了错误，书中的描述是如此在$t=0$时惩罚最小，$t=1.2$时惩罚最大，但是根据上述函数的特征并非如此。事实上这里需要达成的目的系统对于脉冲的响应持续时间越长应该惩罚越大。  </p>
           </div>  
@@ -976,6 +976,71 @@ p.spoiler {
             <p>出现种情况的原因是因为遗传编程找到了全局最优解的近似，但是由于精度限制始终无法进一步逼近。  </p>
           </div><br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LEAD</span> (<span class="hljs-name">ADD_SIGNAL</span> (<span class="hljs-name">GAIN</span> (<span class="hljs-name">DIFFERENTIAL_INPUT_INTEGRATOR</span> (<span class="hljs-name">LEAD</span>(<span class="hljs-name">LEAD</span> PLANT_OUTPUT (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">0.331753</span> <span class="hljs-number">-0.813045</span>) (<span class="hljs-name">-</span> <span class="hljs-number">-0.448149</span> <span class="hljs-number">0.359068</span>))) (<span class="hljs-name">+</span> <span class="hljs-number">-0.719664</span> <span class="hljs-number">-0.357372</span>)) (<span class="hljs-name">ADF1</span>)) (<span class="hljs-name">-</span> (<span class="hljs-name">-0</span>.<span class="hljs-number">773578</span> <span class="hljs-number">0.059952</span>) <span class="hljs-number">-0.197462</span>)) (<span class="hljs-name">CONSTANT_0</span>) (<span class="hljs-name">+</span> <span class="hljs-number">-0.961429</span> (<span class="hljs-name">-</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.629573</span> <span class="hljs-number">0.801392</span>) (<span class="hljs-name">+</span> <span class="hljs-number">-0.495284</span> (<span class="hljs-name">-</span> <span class="hljs-number">-0.130435</span>) (<span class="hljs-name">-</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.310777</span> <span class="hljs-number">-0.988344</span>) (<span class="hljs-name">+</span> <span class="hljs-number">0.601379</span> <span class="hljs-number">-0.649952</span>)))))))<br></code></pre></td></tr></table></figure></p>
 <p>从上面的结果可以发现，由于较少的人类知识的投入，遗传编程甚至发现了比Dorf和Bishop解决方案更好的2D-PID架构。这足以证明在这个设计问题中遗传编程是可以比拟人类的。   </p>
+<h3 id="三阶补偿器为原型的设计"><a href="#三阶补偿器为原型的设计" class="headerlink" title="三阶补偿器为原型的设计"></a>三阶补偿器为原型的设计</h3><p>三阶补偿器的原型系统的传递函数表示如下：  </p>
+<script type="math/tex; mode=display">G(s)=\frac{K}{(1+τs)^3}</script><p>如果要对这个原型设计一个控制器，从高层次的设计表述可以是：  </p>
+<ul>
+<li>整个系统的输出信号与参考信号的误差尽可能小。  </li>
+<li>过冲率小于2%.</li>
+<li>面对不同的$K$和$τ$的变化时，控制器应该有足够的鲁棒性。在这个设计问题中，设计的基准是$K=1,τ=1$.  </li>
+<li>输入信号的振幅应该限制在$[-10,10]$之间。  </li>
+</ul>
+<p>为了说明适应度函数的设计可以非常灵活地整合各种设计要求，此处没有对高频噪声的限制。</p>
+<h4 id="准备步骤-1"><a href="#准备步骤-1" class="headerlink" title="准备步骤"></a>准备步骤</h4><h5 id="端点集和基函数集"><a href="#端点集和基函数集" class="headerlink" title="端点集和基函数集"></a>端点集和基函数集</h5><p>此处采用的是直接用可扰数值来挖掘器件参数的方式，这里寻找数值的子树对应的端点集为实数范围内的可扰动化的数值。  </p>
+<script type="math/tex; mode=display">T_{VSS}=\{R_p\}</script><p>其他子树的端点集、基函数集保持与上一个设计任务相同。  </p>
+<h5 id="适应度评估-1"><a href="#适应度评估-1" class="headerlink" title="适应度评估"></a>适应度评估</h5><p>适应度的组成部分如下：  </p>
+<ul>
+<li>每个个体仍然在上述的8种不同环境下进行测试其ITAE、过冲率和鲁棒性。  </li>
+<li>为了让控制器对冲激信号不会有过度响应，在$K=1,τ=1$下额外测试当输入的参考信号为脉冲时的系统响应。  </li>
+<li>为了测量控制器的抗干扰性，在$t=0$时对控制器的输出信号添加一个加性噪声，再变为反馈输入。  </li>
+</ul>
+<h5 id="运行控制-1"><a href="#运行控制-1" class="headerlink" title="运行控制"></a>运行控制</h5><p>设置初始种群大小为66000.<br>其他的控制参数和上一个任务比略有不同。  </p>
+<h4 id="结果分析-1"><a href="#结果分析-1" class="headerlink" title="结果分析"></a>结果分析</h4><p>遗传编程在第31代的个体中找到最优，其系统框图表示如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227110314.png width=50%>  </p>
+<p>这个结果与Astrom和Hagglund设计的控制器进行对比：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">GP的方法</th>
+<th style="text-align:center">Astrom和Hagglund的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ITAE</td>
+<td style="text-align:center">$0.36Vs^2$</td>
+<td style="text-align:center">$2.6Vs^2$</td>
+</tr>
+<tr>
+<td style="text-align:center">干扰敏感度</td>
+<td style="text-align:center">$4.3μV/V$</td>
+<td style="text-align:center">$186000μV/V$</td>
+</tr>
+<tr>
+<td style="text-align:center">上升时间</td>
+<td style="text-align:center">$1.25s$</td>
+<td style="text-align:center">$2.49s$</td>
+</tr>
+<tr>
+<td style="text-align:center">设置时间</td>
+<td style="text-align:center">$1.87s$</td>
+<td style="text-align:center">$6.46s$</td>
+</tr>
+<tr>
+<td style="text-align:center">系统带宽<br>3dB</td>
+<td style="text-align:center">0.72Hz</td>
+<td style="text-align:center">0.248Hz</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>可以发现GP的方法所设计的控制器的抗干扰性要远远好于Astrom和Hagglund设计的控制器。  </p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227110823.png width=50%>  </p>
+<h4 id="例程化分析"><a href="#例程化分析" class="headerlink" title="例程化分析"></a>例程化分析</h4><p>如果将以二阶滞后补偿器为原型的设计和以三阶滞后补偿器为原型的设计流程进行对比，可以总结出如下两个结论：  </p>
+<ul>
+<li>适应度的设计可以直接迁移到其他的控制器设计的问题上</li>
+<li>即使换了寻找数值的方法，对于遗传编程的搜索过程也没有较大的影响，最终遗传编程仍然可以找到最优解 </li>
+</ul>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, “A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS),” in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
@@ -1054,7 +1119,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月25日</div>
+          <div>2023年12月27日</div>
         </div>
       
       <div class="license-meta-item">
