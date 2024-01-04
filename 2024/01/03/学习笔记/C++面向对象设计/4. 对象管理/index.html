@@ -111,20 +111,20 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="动态制造对象 [施工中]动态制造对象new之前提到的所有的对象都是本地变量，除了这种方式之外，C++中可以动态的进行内存分配，为此C++中有两个关键字：new和delete，这两个关键字都是运算符。new用于制造一个对象，并为其动态的分配内存:123new int; &#x2F;&#x2F;new后面如果是类型，那么将会分配一块该类型的内存new Stash;&#x2F;&#x2F;new后面如果是对象，那么将会分配一块该对象的内存，然">
+    <meta name="description" content="对象的管理             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频11-13部分。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="4. 动态制造对象 [施工中]">
-<meta property="og:url" content="https://l61012345.top/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%8A%A8%E6%80%81%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:title" content="4. 对象的管理">
+<meta property="og:url" content="https://l61012345.top/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="动态制造对象 [施工中]动态制造对象new之前提到的所有的对象都是本地变量，除了这种方式之外，C++中可以动态的进行内存分配，为此C++中有两个关键字：new和delete，这两个关键字都是运算符。new用于制造一个对象，并为其动态的分配内存:123new int; &#x2F;&#x2F;new后面如果是类型，那么将会分配一块该类型的内存new Stash;&#x2F;&#x2F;new后面如果是对象，那么将会分配一块该对象的内存，然">
+<meta property="og:description" content="对象的管理             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频11-13部分。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-03T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-04T11:34:12.824Z">
+<meta property="article:modified_time" content="2024-01-04T11:36:21.682Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>4. 动态制造对象 [施工中] - Mirror</title>
+  <title>4. 对象的管理 - Mirror</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          3.5k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          28 分钟
+          29 分钟
         
       </span>
     
@@ -422,7 +422,7 @@ p.spoiler {
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">4. 动态制造对象 [施工中]</h1>
+            <h1 style="display: none">4. 对象的管理</h1>
             
               <p class="note note-info">
                 
@@ -434,7 +434,10 @@ p.spoiler {
             
             <div class="markdown-body">
               
-              <h1 id="动态制造对象-施工中"><a href="#动态制造对象-施工中" class="headerlink" title="动态制造对象 [施工中]"></a>动态制造对象 [施工中]</h1><h2 id="动态制造对象"><a href="#动态制造对象" class="headerlink" title="动态制造对象"></a>动态制造对象</h2><h3 id="new"><a href="#new" class="headerlink" title="new"></a><code>new</code></h3><p>之前提到的所有的对象都是本地变量，除了这种方式之外，C++中可以动态的进行内存分配，为此C++中有两个关键字：<code>new</code>和<code>delete</code>，这两个关键字都是运算符。<code>new</code>用于制造一个对象，并为其动态的分配内存:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">new</span> <span class="hljs-type">int</span>; <span class="hljs-comment">//new后面如果是类型，那么将会分配一块该类型的内存</span><br><span class="hljs-keyword">new</span> Stash;<span class="hljs-comment">//new后面如果是对象，那么将会分配一块该对象的内存，然后调用这个对象的构造函数</span><br><span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">10</span>];<span class="hljs-comment">//new后面如果是类型，那么将会分配10个该类型的内存</span><br></code></pre></td></tr></table></figure><br><code>new</code>返回的结果是分配好的内存，比如：  </p>
+              <h1 id="对象的管理"><a href="#对象的管理" class="headerlink" title="对象的管理"></a>对象的管理</h1><div class="note note-info">
+            <p>这是浙江大学翁恺老师的公开课，《面向对象设计C++》<br>视频地址：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255">https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255</a></p><p>本节对应视频11-13部分。  </p>
+          </div>
+<h2 id="动态制造对象"><a href="#动态制造对象" class="headerlink" title="动态制造对象"></a>动态制造对象</h2><h3 id="new"><a href="#new" class="headerlink" title="new"></a><code>new</code></h3><p>之前提到的所有的对象都是本地变量，除了这种方式之外，C++中可以动态的进行内存分配，为此C++中有两个关键字：<code>new</code>和<code>delete</code>，这两个关键字都是运算符。<code>new</code>用于制造一个对象，并为其动态的分配内存:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">new</span> <span class="hljs-type">int</span>; <span class="hljs-comment">//new后面如果是类型，那么将会分配一块该类型的内存</span><br><span class="hljs-keyword">new</span> Stash;<span class="hljs-comment">//new后面如果是对象，那么将会分配一块该对象的内存，然后调用这个对象的构造函数</span><br><span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">10</span>];<span class="hljs-comment">//new后面如果是类型，那么将会分配10个该类型的内存</span><br></code></pre></td></tr></table></figure><br><code>new</code>返回的结果是分配好的内存，比如：  </p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> * psome = <span class="hljs-keyword">new</span> <span class="hljs-type">int</span> [<span class="hljs-number">10</span>]; <span class="hljs-comment">//申请10个int的内存空间交给指针psome</span><br></code></pre></td></tr></table></figure>
 <p>如此<code>new</code>返回的是这10个内存空间的地址。<br>内存的申请不需要操作系统介入，因为在程序开始运行前操作系统会自动分配一定大小的内存空间，因此内存的申请是申请占用操作系统已经为编译器分配好的空间。<br>在申请的过程当中，首先会在堆里面寻找一块合适的空间，足够放下目标，然后指针会指向这个地址。与此同时会有一张表会记录下申请下这个内存，表包括了内存的大小和内存的地址。  </p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> *p=<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>;<br><span class="hljs-type">int</span> *a=<span class="hljs-keyword">new</span> <span class="hljs-type">int</span>[<span class="hljs-number">10</span>];<br>Student *q=<span class="hljs-keyword">new</span> <span class="hljs-built_in">Student</span>();<br>Student *q=<span class="hljs-keyword">new</span> Student[<span class="hljs-number">10</span>];<br></code></pre></td></tr></table></figure>
@@ -505,8 +508,8 @@ p.spoiler {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>4. 动态制造对象 [施工中]</div>
-      <div>https://l61012345.top/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%8A%A8%E6%80%81%E5%AF%B9%E8%B1%A1/</div>
+      <div>4. 对象的管理</div>
+      <div>https://l61012345.top/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/</div>
     </div>
     <div class="license-meta">
       
@@ -3395,10 +3398,10 @@ p.spoiler {
     
       
       
-        <a href="/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%8A%A8%E6%80%81%E5%AF%B9%E8%B1%A1/" title="4. 动态制造对象 [施工中]"
+        <a href="/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/" title="4. 对象的管理"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">4. 动态制造对象 [施工中]</span>
+          <span class="category-post">4. 对象的管理</span>
         </a>
       
     
