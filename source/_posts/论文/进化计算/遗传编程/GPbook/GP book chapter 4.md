@@ -1,0 +1,102 @@
+---
+title: 04. 电路的自动综合
+date: 2024/1/10
+category_bar: true
+categories: 
+- 论文
+- 进化计算
+- 遗传编程
+- 遗传编程 IV： 例程化的可比拟人类的机器智能
+---
+# 电路的自动综合
+{% note info %}  
+这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第四章： Chapter 4： Automatic Synthesis of Circuitss.   
+这一章讲述了如何使用遗传编程完成模拟电路和混合电路的自动设计。  
+  
+  
+原书的免费公开版本在作者Koza本人的Research gate主页上：https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence  
+这本书也可以在Springer 购买电子版： https://link.springer.com/book/10.1007/b137549  
+或者在亚马逊英国购买纸质版：  https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670  
+{% endnote %}  
+
+和上一章控制器的自动综合一样，电路的自动综合也包括电路拓扑设计和器件的取值(sizing)两个方面。电路的拓扑结构(topology)包括电路中器件的个数、位置和端口连接。电路中器件的特性通常是由对应的数值进行描述的（比如：电阻、电感等等）。  
+有相当多的前人尝试过若干种电路的自动综合方法，但是包含模拟电路和数字电路部分的混合电路是否可以进行自动综合仍然是一个待解决的问题。其原因是虽然混合电路中模拟电路部分的占比通常比较少，但是其综合时间花费往往相比于数字电路部分要多得多。模拟电路部分的综合是混合电路综合问题的瓶颈。为了模拟设计以观察其运行特性，工程师必须开发测试平台，设定运行目标，运行模拟，必要时修改电路，并重复这一过程，直到达到设计目标。由于模拟仿真是计算密集型的，因此这一过程所需的时间比数字仿真更长"。  
+
+## 使用遗传编程进行电路自动综合的方法论
+如果使用遗传编程来完成这个任务，使用者需要：  
+- 用遗传编程使用的树形结构或者S-expression表示电路
+- 设置一个合理的适应度评估标准
+
+### 个体的表示
+在这个任务上的整体思路是保持遗传编程的运行逻辑，对评估过程进行问题的特化，在这个任务中评估过程的流程可以描述为：  
+- 将每个个体从树形结构翻译为电路的网表
+- 通过电路仿真得到电路的特性
+- 通过电路的特性计算个体的适应度
+
+在这个评估过程中涉及到若干种个体表示方法的转换，涉及到的个体表示方法有电路图、树形结构/S-expression、以及SPICE网表。  
+在这个任务上，设计个体表示方式过程中遇到的最大问题是，电路是一种循环图(cyclic graph, \*有起点和终点为同一个点的部分的图)，而遗传编程使用的树形结构是一种非循环图(acyclic graph)。为此，作者想到的方法是借用Kitano [^1] 和Gruau [^2]利用遗传编程修改神经网络的拓扑结构的方法，也采用修改的方式完成这一任务。  
+
+[^1]: H. Kitano, Designing Neural Networks Using Genetic Algorithms with Graph Generation System, Complex Systems, 1990.  
+[^2]: Gruau, Frédéric. (1994). Automatic Definition of Modular Neural Networks. Adaptive Behavior - ADAPT BEHAV. 3. 151-183. 10.1177/105971239400300202.   
+
+具体来说，一个电路被拆分为两个部分：基板电路(embryo)和测试板(test fixture)电路。其中基板电路包含至少一个可以被调整的接线(modifiable wires)。所有的修改都源于这些可以被调整的接线上。  
+遗传编程中的每个个体对应对这些可调接线的操作，每一个个体可能会含有插入器件、修改拓扑结构、控制合法性、进行数值运算（\*用于挖掘器件的参数数值）和自动定义函数。在评估阶段，这些操作被逐个应用到基板电路上，这一过程称为“发育”(developmental process)。  
+紧接着，将基板电路与测试板电路连接。测试板电路会对测试板电路部分的电路性质进行测量，它的目标是将基板电路的性质以数值化的方式进行表示，以便进行适应度评估。  
+在本书中，我们总是特别指明测试板电路。然而，测试板电这个概念通常不会在机器学习和人工智能的文献中被明确提及，因为它们被认为是理所当然的。测试板被广泛用于用于评估由其他自动解决问题的方法（包括神经网络等等）所创建的实体的性能。 人工智能文献中经常提到的 "输入接口 "和 "输出接口 "事实上就是一个测试板。  
+
+{% note info %}  
+作者在第139页举了一个在机器学习中使用测试板概念的例子：这个例子讲述了机器学习是如何根据点的空间坐标分类这个点是在双螺旋结构的哪一条支链上的。为了达成这个目的，神经网络的输出连接到了一个无法改变的外部实体(external hard-wired entity)上，这个实体用于将神经网络的输出进行二值化，得出结论这个点在哪一条支链上。这个实体就相当于此处的测试板。  
+{% endnote %}  
+
+在电路综合中，测试板电路通常包括信号源和源电阻、输出端和负载电阻等等。需要注意的是，测试板电路是不可以被修改的。  
+  
+
+使用发育方法的好处如下：  
+- 发育方法具有保持局部性(locality)的特殊优势。由于大部分元件创建、拓扑修改和开发控制功能都是在电路的一个小局部区域内进行的，因此通过交叉操作移植的子树一般都是在局部区域内运行。发育过程与交叉操作共同作用，以保持局部性。当交叉操作将一个个体的子树替换为另一个个体的子树时，它（通常）将第一个个体创建的电路中的局部结构替换为第二个个体创建的电路中的局部结构。发育过程与突变操作在保持局部性方面的作用类似。  
+- 发育方法保留了电路的连通性(connectivity):由于基板电路本身与不可修改的测试板电路连接，因此进化过程中产生的电路很难失去连通性。  
+- 同时ADF机制允许部分有效电路得到重用。  
+
+
+#### 基函数集和端点集
+根据上述方法，基函数集由四部分组成：  
+- 拓扑结构修改函数(topology-modifying functions)：顾名思义，用于修改电路的拓扑，比如并联、串联等等。  
+- 器件插入函数(component-creating functions)：在电路中插入RLC等器件，并给它们赋予对应的数值。  
+- 过程控制函数(development-controlling functions)：用于控制修改电路的过程，比如`no-operation`函数。  
+- 数值运算函数(arithmetic-performing functions)：进行数值运算。  
+- 自动定义函数。  
+
+端点集包括如下几类：  
+- 常数
+- 可扰数值(\*通过上一章可知，可扰数值用于适当地增加进化过程的随机性)
+- 自由变量
+- 电路符号  
+- 零参数函数(比如：`end`)
+
+在进化过程中，初始种群中的个体所有的都是合法创建的，并且运行过程中执行的所有遗传操作（即交叉、变异、繁殖和改变结构操作）都是为了保持强类型结构而设计的。 特别是，交叉操作使用点类型来确保保留强类型。因此，遗传操作所创建的个体也都是合法的。由此可得进化过程中的所有个体都应该是合法的。
+
+> In a run of genetic programming, all the individual program trees created in generation 0 of the population are syntactically valid executable programs. All the genetic operations of genetic programming (i.e., crossover, mutation, reproduction, and the architecture-altering operations) operate so as to create syntactically valid executable programs. Thus, all the individuals encountered during the run (including, in particular, the best-of-run individual) are syntactically valid executable programs.  
+
+{% note info %}
+此处所谓的“遗传操作的合法性”要么通过类保护的遗传操作和强类型实现，要么在进化过程中通过检查每一个个体实现。前者会导致进化材料无法充分在种群中交流，后者本质上是“检查-舍弃”的过程，这会浪费大量的计算资源。  
+{% endnote %}
+
+## 不可能的设计 - 使用遗传编程综合RC电路
+这一小节的目的是为了说明由于没有先验知识的加入，遗传编程可能可以找到超越人类的问题解答方式。这一小节用两个RC电路自动综合的案例来说明了这一点。  
+
+问题的背景是，Robert Pease曾经质疑过是否可以只使用电阻和电容设计出增益大于1的电路，他的结论是世界上不存在这种电路。本书的作者也曾经向若干电子工程师询问过这个问题，得到的答复都是不可能实现。但是当作者向他们展示出实际电路时，这些电子工程师通过经验分析出这个电路时可以实现增益大于1的。这件事说明由于先验知识的存在是的工程师留下了“只使用电阻和电容不可能设计出增益大于1的电路”这样的思维定式。  
+1956年，Phibrick [^3] 仅仅使用电阻和电容只做了一个震荡滤波器，根据奈奎斯特定理，振荡电路的增益一定大于1，后来证明该电路的增益为1.19打破了Pease的质疑。下图展示了Phibrick的电路的结构和频率响应：   
+[^3]:George A. Philbrick,. Dover, Mass., Delayed-Recovery Electric Filter Network, US Patent: 226963, 1951.  
+
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110140802.png width=60%>   
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110140832.png width=60%>   
+
+那么，问题在于是否可以让这个综合设计的过程自动化？  
+
+### 综合增益大于1的RC电路
+Phibrick设计这个电路的用途是，在通电后的早期，该滤波器网络瞬态电压信号几乎不失真，当时当输入信号变为静态时，其输出也迅速地恢复到0电压，这种电路特性可以应用在阴极射线示波器(cathode ray oscillograph)电路中。  
+这个电路的另一个好处是，传统滤波器电路的组合在这个目标下的应用会出现比较大的问题：如果在非常小的失真下传输高频瞬态电压信号，那么过长的恢复时间(recovery time,\*指输入开始变化到输出开始变化的时间间隔)会导致发明的实用性不高。反之如果要追求较短的恢复时间，那么传输过程的失真就很大。Phibrick的电路中几乎没有使用传统的滤波器，其传输特性使输入信号的初始高频瞬态传输基本上不失真，在经过预定的时间延迟后，无论输入信号的静态值的实际大小如何，输出电压都能相对迅速地恢复到零。  
+
+#### 准备步骤
+##### 初始电路
+初始电路分为基板电路和测试板电路，如下所示。基板电路只包括了一条可以修改的接线，而且没有参考任何已知的电路。  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110143114.png width=40%>   
