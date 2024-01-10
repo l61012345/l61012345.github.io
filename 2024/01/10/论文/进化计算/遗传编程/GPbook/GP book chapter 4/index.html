@@ -119,7 +119,7 @@
 <meta property="og:description" content="电路的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第四章： Chapter 4： Automatic Synthesis of Circuitss.这一章讲述了如何使用遗传编程完成模拟电路和混合电路的自动设计。  原书的免费公开版本在作者Koz">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-10T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T15:42:25.877Z">
+<meta property="article:modified_time" content="2024-01-10T15:57:02.573Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.5k 字
+          6.4k 字
         
       </span>
     
@@ -510,11 +510,10 @@ p.spoiler {
 <script type="math/tex; mode=display">F_{aps}=\{+,-\}</script><p>  对于修改电路的子树，基函数集为：<br>  $F_{ccs}=${<code>R</code>,<code>C</code>，<code>SERIES</code>，<code>PARALLEL0</code>,<code>PARALLEL1</code>,<code>FLIP</code>,<code>NOP</code>,<code>PAIR_CONNECT_0</code>,<code>PAIR_CONNECT_1</code>,<code>RETAINING_THREE_GROUND0</code>,<code>RETAINING_THREE_GROUND1</code>}<br>  其中,<code>R</code>和<code>C</code>分别对应在电路中插入一个电阻或者电容，并计算它们的数值；<code>SERIES</code>用于将可修改导线或可修改元件分成由可修改导线或元件组成的串联组合；<code>PARALLEL0</code>,<code>PARALLEL1</code>是两种不同的并联方式，作用是将某个点分割为由可修改导线或元件组成的并联组合；<code>FLIP</code> 用于翻转一个可修改导线或者元器件的极性；<code>NOP</code>代表不进行任何操作；<code>PAIR_CONNECT_0</code>,<code>PAIR_CONNECT_1</code>用于将两个点强行合并到一起。<br>  <code>RETAINING_THREE_GROUND0</code>,<code>RETAINING_THREE_GROUND1</code>用于将某个点接地。  </p>
 </li>
 </ul>
-<pre><code class="hljs">&#123;% note info %&#125;  
-    具体的函数差异并没有在这本书以及原版论文<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="John R. Koza et al, Searching for the Impossible using Genetic Programming, 1999.  
-">[4]</span></a></sup>中进行详细说明。  
-    &#123;% endnote %&#125;  
-</code></pre><ul>
+<div class="note note-info">
+            <p>具体的函数差异并没有在这本书以及原版论文<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="John R. Koza et al, Searching for the Impossible using Genetic Programming, 1999.  ">[4]</span></a></sup>中进行详细说明。  </p>
+          </div>  
+<ul>
 <li>端点集<br>对于数值运算子树，端点集为$[-1,1]$的浮点型数。<br>对于电路搭建子树，端点集包括包含一个零参数的发育控制函数和一个零参数的拓扑修改函数。<br>$T_{css}=${<code>END</code>,<code>SAFE_CUT</code>}<br>简言之，零参数函数<code>END</code>是一个发育控制函数，它使与之相关的可修改导线或者元器件变成不可修改的，从而结束特定的发育路径；零参数函数<code>SAFE_CUT</code>是拓扑结构修改函数，用于从发育电路中删除可修改导线或组件，同时保留电路的有效性。  </li>
 </ul>
 <h5 id="适应度评估"><a href="#适应度评估" class="headerlink" title="适应度评估"></a>适应度评估</h5><p>每一个个体的适应度评估的步骤如下：  </p>
