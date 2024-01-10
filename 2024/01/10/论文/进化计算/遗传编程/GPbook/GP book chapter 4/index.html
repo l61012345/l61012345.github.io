@@ -119,7 +119,7 @@
 <meta property="og:description" content="电路的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第四章： Chapter 4： Automatic Synthesis of Circuitss.这一章讲述了如何使用遗传编程完成模拟电路和混合电路的自动设计。  原书的免费公开版本在作者Koz">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-10T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-10T14:31:29.401Z">
+<meta property="article:modified_time" content="2024-01-10T15:42:25.877Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="04. 电路的自动综合">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.5k 字
+          6.5k 字
         
       </span>
     
@@ -366,7 +366,7 @@ p.spoiler {
         
         
         
-          38 分钟
+          54 分钟
         
       </span>
     
@@ -467,7 +467,7 @@ p.spoiler {
 <ul>
 <li>拓扑结构修改函数(topology-modifying functions)：顾名思义，用于修改电路的拓扑，比如并联、串联等等。  </li>
 <li>器件插入函数(component-creating functions)：在电路中插入RLC等器件，并给它们赋予对应的数值。  </li>
-<li>过程控制函数(development-controlling functions)：用于控制修改电路的过程，比如<code>no-operation</code>函数。  </li>
+<li>发育过程控制函数(development-controlling functions)：用于控制修改电路的过程，比如<code>no-operation</code>函数。  </li>
 <li>数值运算函数(arithmetic-performing functions)：进行数值运算。  </li>
 <li>自动定义函数。  </li>
 </ul>
@@ -492,11 +492,52 @@ p.spoiler {
 <p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110140802.png width=60%><br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110140832.png width=60%>   </p>
 <p>那么，问题在于是否可以让这个综合设计的过程自动化？  </p>
 <h3 id="综合增益大于1的RC电路"><a href="#综合增益大于1的RC电路" class="headerlink" title="综合增益大于1的RC电路"></a>综合增益大于1的RC电路</h3><p>Phibrick设计这个电路的用途是，在通电后的早期，该滤波器网络瞬态电压信号几乎不失真，当时当输入信号变为静态时，其输出也迅速地恢复到0电压，这种电路特性可以应用在阴极射线示波器(cathode ray oscillograph)电路中。<br>这个电路的另一个好处是，传统滤波器电路的组合在这个目标下的应用会出现比较大的问题：如果在非常小的失真下传输高频瞬态电压信号，那么过长的恢复时间(recovery time,*指输入开始变化到输出开始变化的时间间隔)会导致发明的实用性不高。反之如果要追求较短的恢复时间，那么传输过程的失真就很大。Phibrick的电路中几乎没有使用传统的滤波器，其传输特性使输入信号的初始高频瞬态传输基本上不失真，在经过预定的时间延迟后，无论输入信号的静态值的实际大小如何，输出电压都能相对迅速地恢复到零。  </p>
-<h4 id="准备步骤"><a href="#准备步骤" class="headerlink" title="准备步骤"></a>准备步骤</h4><h5 id="初始电路"><a href="#初始电路" class="headerlink" title="初始电路"></a>初始电路</h5><p>初始电路分为基板电路和测试板电路，如下所示。基板电路只包括了一条可以修改的接线，而且没有参考任何已知的电路。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110143114.png width=40%>   </p>
+<h4 id="准备步骤"><a href="#准备步骤" class="headerlink" title="准备步骤"></a>准备步骤</h4><p>准备步骤包括：  </p>
+<ol>
+<li>确定包含基板电路和测试板的初始电路结构</li>
+<li>确定电路搭建子树(circuit-constructing program tree)的结构</li>
+<li>决定基函数集和端点集</li>
+<li>确定适应度评估的方式</li>
+<li>选择合适的控制参数</li>
+<li>确定停止进化的条件和最优个体的选择方法  </li>
+</ol>
+<p>其中第一条是新增加的。  </p>
+<h5 id="初始电路"><a href="#初始电路" class="headerlink" title="初始电路"></a>初始电路</h5><p>初始电路分为基板电路和测试板电路，如下所示。基板电路只包括了一条可以修改的接线，而且没有参考任何已知的电路。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110143114.png width=40%>   </p>
+<h5 id="个体结构、函数集和端点集"><a href="#个体结构、函数集和端点集" class="headerlink" title="个体结构、函数集和端点集"></a>个体结构、函数集和端点集</h5><ul>
+<li><p>个体结构<br>这个问题中每个个体的结构由两种子树构成，用于修改电路拓扑结构的电路搭建子树和用于搜索插入的器件的数值的数值运算子树。<br>对于电路搭建子树，由于每一条可修改的接线都需要进行输出，因此一条可修改的接线对应一个结果生成部件。在这个问题中，结构变换操作和自动定义函数都没有被使用。  </p>
+</li>
+<li><p>函数集<br>  对于数值运算子树，函数集只有加减：  </p>
+<script type="math/tex; mode=display">F_{aps}=\{+,-\}</script><p>  对于修改电路的子树，基函数集为：<br>  $F_{ccs}=${<code>R</code>,<code>C</code>，<code>SERIES</code>，<code>PARALLEL0</code>,<code>PARALLEL1</code>,<code>FLIP</code>,<code>NOP</code>,<code>PAIR_CONNECT_0</code>,<code>PAIR_CONNECT_1</code>,<code>RETAINING_THREE_GROUND0</code>,<code>RETAINING_THREE_GROUND1</code>}<br>  其中,<code>R</code>和<code>C</code>分别对应在电路中插入一个电阻或者电容，并计算它们的数值；<code>SERIES</code>用于将可修改导线或可修改元件分成由可修改导线或元件组成的串联组合；<code>PARALLEL0</code>,<code>PARALLEL1</code>是两种不同的并联方式，作用是将某个点分割为由可修改导线或元件组成的并联组合；<code>FLIP</code> 用于翻转一个可修改导线或者元器件的极性；<code>NOP</code>代表不进行任何操作；<code>PAIR_CONNECT_0</code>,<code>PAIR_CONNECT_1</code>用于将两个点强行合并到一起。<br>  <code>RETAINING_THREE_GROUND0</code>,<code>RETAINING_THREE_GROUND1</code>用于将某个点接地。  </p>
+</li>
+</ul>
+<pre><code class="hljs">&#123;% note info %&#125;  
+    具体的函数差异并没有在这本书以及原版论文<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="John R. Koza et al, Searching for the Impossible using Genetic Programming, 1999.  
+">[4]</span></a></sup>中进行详细说明。  
+    &#123;% endnote %&#125;  
+</code></pre><ul>
+<li>端点集<br>对于数值运算子树，端点集为$[-1,1]$的浮点型数。<br>对于电路搭建子树，端点集包括包含一个零参数的发育控制函数和一个零参数的拓扑修改函数。<br>$T_{css}=${<code>END</code>,<code>SAFE_CUT</code>}<br>简言之，零参数函数<code>END</code>是一个发育控制函数，它使与之相关的可修改导线或者元器件变成不可修改的，从而结束特定的发育路径；零参数函数<code>SAFE_CUT</code>是拓扑结构修改函数，用于从发育电路中删除可修改导线或组件，同时保留电路的有效性。  </li>
+</ul>
+<h5 id="适应度评估"><a href="#适应度评估" class="headerlink" title="适应度评估"></a>适应度评估</h5><p>每一个个体的适应度评估的步骤如下：  </p>
+<ol>
+<li>将个体转换为对基板电路的操作，并将这些操作逐步应用在基板电路上。  </li>
+<li>讲完成修改的基板电路连接到测试板上，并建立SPICE网表。网表应该同时包括基板电路和测试板电路。  </li>
+<li>将网表输入SPICE进行仿真，并得到电路特性。  </li>
+<li>根据电路特性计算个体的适应度。  </li>
+</ol>
+<p>具体而言，适应度评估了每一个个体所表示的电路与Philbrick所建立的电路的在时域和频域上的响应特性的差距：  </p>
+<ul>
+<li>在频域上，选择从1mHz到1000Hz的频率响应曲线，包括121个频点。将每一个频点的电压与Philbrick电路上对应频点的电压进行比较：对1Hz到1000Hz的61个频点，如果个体的电压值高于970mV，那么对两者的电压值差的绝对值以1的权重进行惩罚；反之如果个体的电压值低于970mV，那么对电压差的绝对值以10的权重进行惩罚。特别地，对在1mHz上的频点，对电压差加以权重为60的惩罚。最终的子适应度为各个频点上的电压差的加权和。其余的59个频点被忽略。  </li>
+<li>在时域上，Philbrick要求10ms之前可以尽可能无失真的传输高频电压，在100ms之后电路的输出电压值应当保持为0.因此，在0到10ms之间的11个采样点，如果输出的电压与1V之间的电压差的绝对值小于30mV，那么加以60的权重对电压差进行惩罚，反之则以600的权重进行惩罚；对于60ms到120ms之间的61个采样点，如果输出的电压与0V之间的电压差的绝对值小于300mV，那么加以1的权重对电压差进行惩罚，反之则以10的权重进行惩罚；  </li>
+</ul>
+<h5 id="控制参数"><a href="#控制参数" class="headerlink" title="控制参数"></a>控制参数</h5><p>种群的大小为660000，此外<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="John R. Koza et al, Searching for the Impossible using Genetic Programming, 1999.  
+">[4]</span></a></sup>中提到单个个体的节点数上限为800.  </p>
+<h4 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h4><p>尽管最优秀的个体出现在第214代，适应度为663.03，但是第39代中的最优个体的适应度已经为665.55，两者提升不到0.4%。因此将第39代的最优个体视为是整个任务的最优解，其电路展示如下：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110153824.png width=60%><br>其在频率响应上的对比如下：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110153923.png width=40%><br>在时域上的对比如下：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240110154102.png width=50%>  </p>
+<p>可以发现前10ms两个电路的表现基本一致，但是在10ms之后，遗传编程设计的电路的表现要好于Philbrick的设计。上述的结果满足了可比拟人类的条件。  </p>
 <section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span>H. Kitano, Designing Neural Networks Using Genetic Algorithms with Graph Generation System, Complex Systems, 1990.
 <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span>Gruau, Frédéric. (1994). Automatic Definition of Modular Neural Networks. Adaptive Behavior - ADAPT BEHAV. 3. 151-183. 10.1177/105971239400300202.
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:3" class="footnote-text"><span>George A. Philbrick,. Dover, Mass., Delayed-Recovery Electric Filter Network, US Patent: 226963, 1951.
-<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:4" class="footnote-text"><span>John R. Koza et al, Searching for the Impossible using Genetic Programming, 1999.
+<a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
             </div>
             <hr/>
@@ -1543,5 +1584,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
