@@ -254,6 +254,8 @@ $$\frac{1}{1+v_{out-infinite}}+\frac{1}{1+v_{out-oscilloscope}}$$
 这个电路设计中用0V表示0，5V表示1。  
 评估过程如下：向个体的输入端输入从00到11的所有波形，然后比对个体的输出波形和2NAND门的理想输入波形的差距： 如果所需的数字信号为 1，而实际电压电压在$[4.7,5.3]V$以内，或者预期数字信号为0，而实际电压在$[-0.4, 0.4]$V以内，则与预期输出电压（5V或0V）的偏差绝对值按系数 1.0 加权。    
 
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240111131624.png width=40%> 
+
 ##### 控制参数
 由于消耗的计算资源更多，因此种群大小的设置比之前更少，大小为132000.  
 
@@ -261,3 +263,23 @@ $$\frac{1}{1+v_{out-infinite}}+\frac{1}{1+v_{out-oscilloscope}}$$
 遗传编程在第17代就得出了最好的个体，其适应度为7.85.  
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240111123714.png width=40%>   
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240111123731.png width=40%>   
+
+可以发现电路产生的波形中有许多毛刺，这个毛刺出现的原因和解决办法在[^6]中提到。  
+
+[^6]: Bennett, Forrest H., John R. Koza, Martin A. Keane, Jessen Yu, William Mydlowec and Oscar Stiffelman. “Evolution by Means of Genetic Programming of Analog Circuits that Perform Digital Functions.” Annual Conference on Genetic and Evolutionary Computation (1999).  
+
+### 两个指令集的ALU的自动综合
+#### 准备步骤
+这个设计任务是使用遗传编程创建一个具有NAND和NOR两条指令的ALU。其初始电路如下：  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240111131913.png width=40%>  
+
+其中第三个输入VSOURCE2用于选择ALU执行的指令是NAND还是NOR。  
+这个任务用到的端点集和函数集、控制参数和上个任务完全相同。  
+适应度衡量的基本思路也是输入从000到111的所有波形，检查个体的输出波形与理想波形的差距。  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240111132243.png width=40%>   
+
+#### 结果分析
+遗传编程在第33代找到最优个体，其适应度为215.6：  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240111132431.png width=60%>   
+
+遗传编程对这一问题产生的解决方案具有中等程度的 "A"。这个问题的准备步骤包含了少量的 "I"。因此，遗传编程产生的解决方案的人工智能比率为中等偏上。  
