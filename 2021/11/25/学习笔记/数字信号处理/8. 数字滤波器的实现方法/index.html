@@ -119,7 +119,7 @@
 <meta property="og:description" content="数字滤波器的结构设计数字滤波器设计的核心是通过给定的时域或频域系统方程，在时域设计出对应的滤波器。数字系统的差分方程表示为：   ∑_{k&#x3D;0}^Na_ky[n-k]&#x3D;∑_{k&#x3D;0}^Mb_kx[n-k]从中提取出$y[n]$，并简单变换后得到关于现态输出$y[n]$的差分方程：   y[n]&#x3D;\frac{1}{a_0}(∑_{k&#x3D;0}^Mb_kx[n-k]-∑_{k&#x3D;1}^Na_ky[n-k])">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-25T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-14T05:17:01.431Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:15.110Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="08. 数字滤波器的结构设计">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年5月14日 凌晨
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -462,10 +462,10 @@ p.spoiler {
 </ul>
 <p>直接型虽然容易搭建，但是消耗器件较多。此外，由于加法器和延迟器都处于系统干路上，如果任何一个延迟器或者加法器出现故障，则整个滤波器系统将无法正常工作。  </p>
 <h3 id="级联型"><a href="#级联型" class="headerlink" title="级联型"></a>级联型</h3><p>系统方程（z域）和系统的冲激响应之间存在如下关系：  </p>
-<script type="math/tex; mode=display">H(z)=∑_{n=0}^Mh[n]z^{-n}</script><p>可以考虑构造若干个关于$z^{-n}$的多项式$(b_{0k}+b_{1k}z^{-1}+b_{2k}z^{-2})$，通过若干个多项式相乘构造$∑_{n=0}^Mh[n]z^{-n}$，即：  </p>
-<script type="math/tex; mode=display">H(z)=∑_{n=}^Mh[n]z^{-n}=∏_{k=1}^{M_s}(b_{0k}+b_{1k}z^{-1}+b_{2k}z^{-2})</script><p>其中$M_s=[(M+1)/2]$,向下取整。$b_{1k}$表示第$k$个多项式的第1项系数，以此类推。<br>那么有Z域下系统输入输出关系为：  </p>
+<script type="math/tex; mode=display">H(z)=∑_{n=0}^Mh[n]z^{-n}</script><p>可以考虑构造若干个关于$z^{-n}$的多项式$(b<em>{0k}+b</em>{1k}z^{-1}+b<em>{2k}z^{-2})$，通过若干个多项式相乘构造$∑</em>{n=0}^Mh[n]z^{-n}$，即：  </p>
+<script type="math/tex; mode=display">H(z)=∑_{n=}^Mh[n]z^{-n}=∏_{k=1}^{M_s}(b_{0k}+b_{1k}z^{-1}+b_{2k}z^{-2})</script><p>其中$M<em>s=[(M+1)/2]$,向下取整。$b</em>{1k}$表示第$k$个多项式的第1项系数，以此类推。<br>那么有Z域下系统输入输出关系为：  </p>
 <script type="math/tex; mode=display">Y(z)=(b_{01}+b_{11}z^{-1}+b_{21}z^{-2})...(b_{0M_s}+b_{1M_s}z^{-1}+b_{2M_s}z^{-2})X(z)</script><p>回到时域，得到此时系统的差分方程为：  </p>
-<script type="math/tex; mode=display">y[n]=(b_{01}x[n]+b_{11}x[n-1]+b_{21}x[n-2])*...*(b_{0M_s}x[n]+b_{1M_s}x[n-1]+b_{2M_s}x[n-2])</script><p>差分方程中卷积的实际意义是当前的节点（指某个卷积号）上携带此前所有节点的信息：<br>令$w_1[n]=b_{01}x[n]+b_{11}x[n-1]+b_{21}x[n-2]$为初始节点，有：  </p>
+<script type="math/tex; mode=display">y[n]=(b_{01}x[n]+b_{11}x[n-1]+b_{21}x[n-2])*...*(b_{0M_s}x[n]+b_{1M_s}x[n-1]+b_{2M_s}x[n-2])</script><p>差分方程中卷积的实际意义是当前的节点（指某个卷积号）上携带此前所有节点的信息：<br>令$w<em>1[n]=b</em>{01}x[n]+b<em>{11}x[n-1]+b</em>{21}x[n-2]$为初始节点，有：  </p>
 <script type="math/tex; mode=display">w_2=b_{02}w_1[n]+b_{12}w_1[n-1]+b_{22}w_1[n-2]</script><script type="math/tex; mode=display">w_3=b_{03}w_2[n]+b_{13}w_2[n-1]+b_{23}w_2[n-2]</script><script type="math/tex; mode=display">...</script><p>以此类推。<br>级联型结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125170748.png width=80%></p>
 <h4 id="硬件消耗-1"><a href="#硬件消耗-1" class="headerlink" title="硬件消耗"></a>硬件消耗</h4><p>在这个模块中，需要：  </p>
 <ul>
@@ -480,7 +480,7 @@ p.spoiler {
 <h2 id="IIR系统的物理结构类型"><a href="#IIR系统的物理结构类型" class="headerlink" title="IIR系统的物理结构类型"></a>IIR系统的物理结构类型</h2><p>描述IIR系统的差分方程可以表示为：  </p>
 <script type="math/tex; mode=display">y[n]=∑_{k=0}^Mb_kx[n-k]+∑_{k=1}^Na_ky[n-k]</script><p>描述IIR系统的差分方程中除了$y[n]$外还有其他的含$y$项，即$y[n-m]$。因此IIR系统的物理结构中含有反馈信号。  </p>
 <h3 id="直接型-直接型I"><a href="#直接型-直接型I" class="headerlink" title="直接型/直接型I"></a>直接型/直接型I</h3><p>描述IIR系统的差分方程在z域上可以表示为：  </p>
-<script type="math/tex; mode=display">Y(z)=H(z)X(z)=(∑_{k=0}^Mb_kz^{-k})\frac{1}{1-∑_{k=1}^Na_kz^{-k}}X(z)</script><p>设$H_1(z)=∑_{k=0}^Mb_kz^{-k}$,$H_2=\frac{1}{1-∑_{k=1}^Na_kz^{-k}}$。<br>可以发现$H_1(z)$没有极点，是FIR系统，$H_2(z)$是IIR系统。<br>在直接型I中，$X(z)$首先与$H_1(z)$结合，有：  </p>
+<script type="math/tex; mode=display">Y(z)=H(z)X(z)=(∑_{k=0}^Mb_kz^{-k})\frac{1}{1-∑_{k=1}^Na_kz^{-k}}X(z)</script><p>设$H<em>1(z)=∑</em>{k=0}^Mb<em>kz^{-k}$,$H_2=\frac{1}{1-∑</em>{k=1}^Na_kz^{-k}}$。<br>可以发现$H_1(z)$没有极点，是FIR系统，$H_2(z)$是IIR系统。<br>在直接型I中，$X(z)$首先与$H_1(z)$结合，有：  </p>
 <script type="math/tex; mode=display">V(z)=H_1(z)X(z)</script><script type="math/tex; mode=display">Y(z)=V(z)H_2(z)</script><p>在时域中，直接型I将系统的差分方程分解为了两部分：  </p>
 <script type="math/tex; mode=display">y[n]=v[n]+∑_{k=1}^Na_ky[n-k]</script><script type="math/tex; mode=display">v[n]=∑_{k=0}^Mb_kx[n-k]</script><blockquote>
 <p>可以看出$y[n]$是IIR系统，$v[n]$是一个FIR系统。  </p>
@@ -507,7 +507,7 @@ p.spoiler {
 </ul>
 <p>相比于直接型I，直接型II大幅度减少了时延单元的消耗。   </p>
 <h3 id="级联型-1"><a href="#级联型-1" class="headerlink" title="级联型"></a>级联型</h3><p>IIR系统的级联型原理与FIR系统的级联型原理相同，都是在Z域内把一个多项式分解为多个多项式的乘积。</p>
-<script type="math/tex; mode=display">H(z)=G∏_{k=1}^{N_s}\frac{1+b'_{1k}z^{-1}+b'_{2k}z^{-2}}{1-a'_{1k}z^{-1}-a'_{2k}z^{-2}}</script><p>其中$N_s=\frac{N+1}{2}$<br>但是IIR系统中每一个二级多项式单元$\frac{1+b’_{1k}z^{-1}+b’_{2k}z^{-2}}{1-a’_{1k}z^{-1}-a’_{2k}z^{-2}}$可以选择用直接型I或者直接型II实现，但是通常仍然选择使用直接型II以节省时延单元的使用个数。  </p>
+<script type="math/tex; mode=display">H(z)=G∏_{k=1}^{N_s}\frac{1+b'_{1k}z^{-1}+b'_{2k}z^{-2}}{1-a'_{1k}z^{-1}-a'_{2k}z^{-2}}</script><p>其中$N<em>s=\frac{N+1}{2}$<br>但是IIR系统中每一个二级多项式单元$\frac{1+b’</em>{1k}z^{-1}+b’<em>{2k}z^{-2}}{1-a’</em>{1k}z^{-1}-a’_{2k}z^{-2}}$可以选择用直接型I或者直接型II实现，但是通常仍然选择使用直接型II以节省时延单元的使用个数。  </p>
 <p>级联型的结构图如下所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127141419.png width=70%></p>
 <h4 id="硬件消耗-4"><a href="#硬件消耗-4" class="headerlink" title="硬件消耗"></a>硬件消耗</h4><p>当$M=N$时，级联型需要：  </p>
 <ul>
@@ -594,7 +594,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年5月14日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -3889,5 +3889,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

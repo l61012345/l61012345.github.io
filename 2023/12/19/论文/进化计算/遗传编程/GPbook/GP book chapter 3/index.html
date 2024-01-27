@@ -119,7 +119,7 @@
 <meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-27T12:59:48.212Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:21.377Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="03. 控制器的自动综合">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月27日 下午
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -566,7 +566,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>ADD_SIGNAL</code> <br> <code>SUB_SIGNAL</code> <br> <code>MULT_SIGNAL</code></td>
 <td style="text-align:left">分别对应对信号的加减乘一个常数</td>
-<td style="text-align:center">$f_1 [·] f_2$<br>$[·]∈\{+,-,×\}$</td>
+<td style="text-align:center">$f_1 [·] f_2$<br>$[·]∈{+,-,×}$</td>
 <td style="text-align:left">1. 时域信号 <br> 2. 时域信号</td>
 </tr>
 <tr>
@@ -620,7 +620,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>DIV</code></td>
 <td style="text-align:left">两个时域信号相除并限制</td>
-<td style="text-align:center">$[\frac{f_1}{f_2}]_{capped}$</td>
+<td style="text-align:center">$[\frac{f<em>1}{f_2}]</em>{capped}$</td>
 <td style="text-align:left">1.时域信号 <br> 2.时域信号 <br> 3下界 <br> 4.上界</td>
 </tr>
 <tr>
@@ -632,7 +632,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>IF_POSITIVE</code></td>
 <td style="text-align:left">开关，运算结果为正时输出某个声明，反之输出另一个声明</td>
-<td style="text-align:center">$\begin{cases} f_1, f_0&gt;0 \\ f_2,f_0 ≤0\end{cases}$</td>
+<td style="text-align:center">$\begin{cases} f_1, f_0&gt;0 \ f_2,f_0 ≤0\end{cases}$</td>
 <td style="text-align:left">1. 时域信号 <br> 2. 时域信号 <br> 3.时域信号</td>
 </tr>
 <tr>
@@ -871,9 +871,9 @@ p.spoiler {
 <script type="math/tex; mode=display">T_{aps}=\{R\},R∈[-1,1]</script><div class="note note-info">
             <p>限制范围是为了避免突变的影响过大。  </p>
           </div>
-<p>对于结果生成子树，端点集都是时域信号：<br>$T=$\{<code>REFERENCE_SIGNAL</code>,<code>CONTROLLER_OUTPUT</code>,<code>PLANT_OUTPUT</code>,<code>CONSTANT_0</code>\}  </p>
+<p>对于结果生成子树，端点集都是时域信号：<br>$T=${<code>REFERENCE_SIGNAL</code>,<code>CONTROLLER_OUTPUT</code>,<code>PLANT_OUTPUT</code>,<code>CONSTANT_0</code>}  </p>
 <h5 id="基函数集-1"><a href="#基函数集-1" class="headerlink" title="基函数集"></a>基函数集</h5><p>同理，对于算术子树，基函数集为：  </p>
-<script type="math/tex; mode=display">T_{aps}=\{+,-\}</script><p>对结果生成子树，基函数集都是对时域信号的操作：<br>$T=$\{<code>GAIN</code>,<code>INVERTER</code>,<code>LEAD</code>,<code>LAG</code>,<code>LAG2</code>,<code>DIFFERENTIAL_INPUT_INTEGRATOR</code>,<code>DIFFERENTIATOR</code>,<code>ADD_SIGNAL</code>,<code>SUB_SIGNAL</code>,<code>ADD_3_SIGNAL</code>,<code>ADF0</code>,<code>ADF1</code>,<code>ADF2</code>,<code>ADF3</code>,<code>ADF4</code>\}<br>每个ADF的基函数集为$T$和已经生成的其他ADF。  </p>
+<script type="math/tex; mode=display">T_{aps}=\{+,-\}</script><p>对结果生成子树，基函数集都是对时域信号的操作：<br>$T=${<code>GAIN</code>,<code>INVERTER</code>,<code>LEAD</code>,<code>LAG</code>,<code>LAG2</code>,<code>DIFFERENTIAL_INPUT_INTEGRATOR</code>,<code>DIFFERENTIATOR</code>,<code>ADD_SIGNAL</code>,<code>SUB_SIGNAL</code>,<code>ADD_3_SIGNAL</code>,<code>ADF0</code>,<code>ADF1</code>,<code>ADF2</code>,<code>ADF3</code>,<code>ADF4</code>}<br>每个ADF的基函数集为$T$和已经生成的其他ADF。  </p>
 <h5 id="适应度评估"><a href="#适应度评估" class="headerlink" title="适应度评估"></a>适应度评估</h5><p>本书当中所有的适应度评估最终都会将不同的评价尺度转化为单个适应度。控制器设计是一个多目标优化问题，这里采用的方法是将不同评价尺度的适应度使用线性组合进行综合。这个设计案例中需要达到的设计要求如下：  </p>
 <ul>
 <li>最小化ITAE  </li>
@@ -1139,7 +1139,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月27日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -2115,5 +2115,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

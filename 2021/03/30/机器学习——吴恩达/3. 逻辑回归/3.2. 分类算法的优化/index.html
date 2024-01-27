@@ -119,7 +119,7 @@
 <meta property="og:description" content="分类算法的优化其他代价函数优化算法对于代价函数，它可以被拆分成求$J(θ)$和求$\frac{∂J(θ)}{∂θ_j }$  两个基础的部分   事实上，除了基础的梯度下降算法能够求到最小值之外，还有如下的集中基本方法：  共轭梯度算法（Conjugate Gradient） BFGS L-BFGS  这些算法有一些共同的特点：  这些算法利用线搜索算法（一种智能内循环）不需要手动选择学习率 α。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-30T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-19T18:20:47.378Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:19.660Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="3.2. 分类算法的优化">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          469 字
+          465 字
         
       </span>
     
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月19日 晚上
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -447,7 +447,7 @@ p.spoiler {
 <li>收敛的速度高于梯度下降算法</li>
 <li>复杂度高于梯度下降算法</li>
 </ol>
-<h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p>对于同一个数据集x，需要分类的目标不只有两种，意味着离散取值y的值不只有0，1两个值。<br>基本思想是<strong>将一个n元分类问题转化为n个二分类问题</strong>。<br>比如对y=1，2，3:<br>可以先将2，3 设置为负类，使用之前的逻辑分类方法就能够将1与（2，3）分开，重复三次，能得到三个逻辑斯蒂函数：$h_θ^i (x)i=1,2,3$。<br>由于$h_θ^i (x)=P(y=i│x; θ)$， 因此$h_θ^i (x)$表示将1设置为正类别，分类器中是1的概率。<br>最后给定函数$max(h_θ^i (x))$， 表示选择出三个当中概率最高的部分，作为判断的结果。</p>
+<h2 id="多分类问题"><a href="#多分类问题" class="headerlink" title="多分类问题"></a>多分类问题</h2><p>对于同一个数据集x，需要分类的目标不只有两种，意味着离散取值y的值不只有0，1两个值。<br>基本思想是<strong>将一个n元分类问题转化为n个二分类问题</strong>。<br>比如对y=1，2，3:<br>可以先将2，3 设置为负类，使用之前的逻辑分类方法就能够将1与（2，3）分开，重复三次，能得到三个逻辑斯蒂函数：$h<em>θ^i (x)i=1,2,3$。<br>由于$h</em>θ^i (x)=P(y=i│x; θ)$， 因此$h<em>θ^i (x)$表示将1设置为正类别，分类器中是1的概率。<br>最后给定函数$max(h</em>θ^i (x))$， 表示选择出三个当中概率最高的部分，作为判断的结果。</p>
 
               
             </div>
@@ -518,7 +518,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月19日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -3813,5 +3813,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

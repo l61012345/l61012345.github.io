@@ -119,7 +119,7 @@
 <meta property="og:description" content="线性回归的正则化正则化的梯度下降算法在线性回归中，我们使用修改后的梯度下降算法：Repeat {    θ_0:&#x3D;θ_0-\alpha\frac{1}{m}\Sigma_{i&#x3D;1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1} $θ_0$  不需要正则化    θ_j:&#x3D;θ_j-\alpha[\frac{1}{m}\Sigma_{i&#x3D;1}^{m}(h_θ(x">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-19T18:20:47.379Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:19.769Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="4.3. 线性回归的正则化">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月19日 晚上
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -438,19 +438,19 @@ p.spoiler {
 <script type="math/tex; mode=display">θ_0:=θ_0-\alpha\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}</script><blockquote>
 <p>$θ_0$  不需要正则化  </p>
 </blockquote>
-<script type="math/tex; mode=display">θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j] \tag{2}</script><script type="math/tex; mode=display">j=1,2,3,...,n</script><p>}<br>事实上： $\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}$<br>$\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}$  </p>
+<script type="math/tex; mode=display">θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j] \tag{2}</script><script type="math/tex; mode=display">j=1,2,3,...,n</script><p>}<br>事实上： $\frac{1}{m}\Sigma<em>{i=1}^{m}(h</em>θ(x^{(i)})-y^{(i)})x<em>j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}$<br>$\Sigma</em>{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}$  </p>
 <p>如果将（2）中的$\theta_j$统一，那么就可以得到（3）：  </p>
 <script type="math/tex; mode=display">θ_j:=θ_j（1-α\frac{λ}{m}）-\frac{α}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)} \tag{3}</script><p>由于$1-α\frac{λ}{m}&lt;1$,且只比1小一点点，也就是说，梯度下降算法每次更新的时候$θ_j$在一开始都会比原来小一点点，再进行原来的梯度下降更新  </p>
-<h2 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h2><p>在之前的讲义中，探讨过设计两个矩阵：<br>$X=\begin{bmatrix} (x^{(1)})^T \\ …\\ (x^{(m)})^T \end{bmatrix}$ 代表有m个数据的数据集 和 $y=\begin{bmatrix} y^{(1)} \\ …\\ y^{(m)} \end{bmatrix}$ 代表训练集当中的所有的标签<br>通过：</p>
+<h2 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h2><p>在之前的讲义中，探讨过设计两个矩阵：<br>$X=\begin{bmatrix} (x^{(1)})^T \ …\ (x^{(m)})^T \end{bmatrix}$ 代表有m个数据的数据集 和 $y=\begin{bmatrix} y^{(1)} \ …\ y^{(m)} \end{bmatrix}$ 代表训练集当中的所有的标签<br>通过：</p>
 <script type="math/tex; mode=display">θ=(X^TX)^{-1}X^Ty</script><p>（相当于对$J(θ)$中的每一个θ求偏导数，并且使其等于0）<br>可以求出最适合的θ<br>现在改变在正规方程中加入一项：</p>
 <script type="math/tex; mode=display">θ=(X^TX+λ
 \begin{bmatrix}
 0 & 0 & 0 & ...&0 \\   0 & 1 & 0& ...&0 \\ 0 & 0 & 1& ...&0 \\ ... & ... & ...& ...&... \\ 0 & 0 & 0& ...&1
 \end{bmatrix})^{-1}X^Ty</script><p>来达到同样的效果  </p>
 <blockquote>
-<p>$\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \\   0 &amp; 1 &amp; 0&amp; …&amp;0 \\ 0 &amp; 0 &amp; 1&amp; …&amp;0 \\ … &amp; … &amp; …&amp; …&amp;… \\ 0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix}$是一个(n+1)的方阵  </p>
+<p>$\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \   0 &amp; 1 &amp; 0&amp; …&amp;0 \ 0 &amp; 0 &amp; 1&amp; …&amp;0 \ … &amp; … &amp; …&amp; …&amp;… \ 0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix}$是一个(n+1)的方阵  </p>
 </blockquote>
-<p>如果矩阵X不可逆$（m&lt;=n）$,那么$(X^TX)^{-1}$也同样不可逆,但是经过数学证明，无论如何$(X^TX+λ<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \\   0 &amp; 1 &amp; 0&amp; …&amp;0 \\ 0 &amp; 0 &amp; 1&amp; …&amp;0 \\ … &amp; … &amp; …&amp; …&amp;…\\ 0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix})^{-1}$ 都是可逆的。</p>
+<p>如果矩阵X不可逆$（m&lt;=n）$,那么$(X^TX)^{-1}$也同样不可逆,但是经过数学证明，无论如何$(X^TX+λ<br>\begin{bmatrix}<br>0 &amp; 0 &amp; 0 &amp; …&amp;0 \   0 &amp; 1 &amp; 0&amp; …&amp;0 \ 0 &amp; 0 &amp; 1&amp; …&amp;0 \ … &amp; … &amp; …&amp; …&amp;…\ 0 &amp; 0 &amp; 0&amp; …&amp;1<br>\end{bmatrix})^{-1}$ 都是可逆的。</p>
 
               
             </div>
@@ -521,7 +521,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月19日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -550,9 +550,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.1.%20%E8%BF%87%E6%8B%9F%E5%90%88%E9%97%AE%E9%A2%98/" title="4.1. 过拟合问题">
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.2.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E7%9A%84%E6%AD%A3%E5%88%99%E5%8C%96/" title="4.2. 代价函数的正则化">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">4.1. 过拟合问题</span>
+                        <span class="hidden-mobile">4.2. 代价函数的正则化</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -560,8 +560,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.2.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E7%9A%84%E6%AD%A3%E5%88%99%E5%8C%96/" title="4.2. 代价函数的正则化">
-                        <span class="hidden-mobile">4.2. 代价函数的正则化</span>
+                      <a href="/2021/07/31/%E6%97%A5%E8%AF%AD/%E6%A8%B1%E8%8A%B1%E6%95%99%E6%9D%90/%E5%8D%81%E7%BA%A7%E5%88%AB/" title="十级别语法">
+                        <span class="hidden-mobile">十级别语法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -3816,5 +3816,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

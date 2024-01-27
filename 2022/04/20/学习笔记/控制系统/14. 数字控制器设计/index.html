@@ -119,7 +119,7 @@
 <meta property="og:description" content="数字PID控制器和补偿器及其设计数字PID控制器的设计思路是首先根据设计要求设计出模拟的PID控制器，再使用一定的离散化(Discretisation)方法使其转变为数字PID控制器。数字控制器在整个数字控制系统中的位置如下：   尽管系统中存在大量的模拟环节和模拟信号，对于整个数字系统的分析和设计需要以数字控制器为准，即在数字控制器设计时，应当将整个系统放在Z域中考虑。   离散化方法所谓离散化">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-20T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-14T05:17:01.421Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:14.455Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="14. 数字PID控制器和补偿器及其设计">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年5月14日 凌晨
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -504,7 +504,7 @@ p.spoiler {
 <li>使用离散化方法对设计出的模拟控制器$D(s)$进行离散化得到$D(z)$。  </li>
 </ul>
 <p>如果零阶保持器和系统原型的离散化写作$G_{ZA}(z)$，设计好的数字控制系统的闭环传递函数为：  </p>
-<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$找到其稳态误差。  </p>
+<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G<em>{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e</em>{ss}=1-\lim_{z→1}(z-1)Y(z)$找到其稳态误差。  </p>
 <h3 id="根轨迹方法"><a href="#根轨迹方法" class="headerlink" title="根轨迹方法"></a>根轨迹方法</h3><p>根轨迹方法是一种在Z域中进行直接设计的方法。  </p>
 <h4 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h4><ul>
 <li>理论一<br>根据z变换中的定义：$s=σ+jω$，$z=e^{sT}=e^{T(σ+jω)}$，有z域上任意一极点$z$:  <script type="math/tex; mode=display">|z|=e^{-Tσ}=e^{-Tζω_n}</script><script type="math/tex; mode=display">∠z=Tω_d=\frac{2πω_d}{ω_s}</script>其中，采样次数为：  <script type="math/tex; mode=display">n_s=\frac{ω_s}{ω_d}</script>工程设计中通常需要满足$8&lt;n_s&lt;10$。  </li>
@@ -519,7 +519,7 @@ p.spoiler {
 <li>将系统原型剩余的零极点与P连线的夹角利用$arctan(\frac{y_1-y_2}{x_1-x_2})$算出每一条连线与实轴正半轴的夹角。  </li>
 <li>利用$∠β=∑∠zero-∑∠pole+180°$找到需要增加的零点$β$的角度。  </li>
 <li>利用$∠β=arctan(\frac{b}{a-β})$求得需要增加的零点的具体位置$β$。  </li>
-<li>利用$|D(z)G_{ZA}(z)|_{z=a+bj}=1$解方程求得$K$。  </li>
+<li>利用$|D(z)G<em>{ZA}(z)|</em>{z=a+bj}=1$解方程求得$K$。  </li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220610152116.png width=80%>  </p>
 <p>对于PID控制器也可以使用同样的设计方法对其进行设计，只是其控制器结构发生变化，由于I和D控制器均存在确定的分子分母，在利用根轨迹方法设计时还需要考虑这些确定的分子分母对系统角度的贡献：  </p>
@@ -528,7 +528,7 @@ p.spoiler {
 <li>对于PID控制器，其在(0,0)和(1,0)处分别贡献了一个极点。  </li>
 </ul>
 <p>如果零阶保持器和系统原型的离散化写作$G_{ZA}(z)$，设计好的数字控制系统的闭环传递函数为：  </p>
-<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G_{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e_{ss}=1-\lim_{z→1}(z-1)Y(z)$或者静态误差系数找到其稳态误差。 </p>
+<script type="math/tex; mode=display">TF_{cl}(z)=\frac{D(z)G_{ZA}(z)}{1+D(z)G_{ZA}(z)}</script><p>找到其特征多项式$1+D(z)G<em>{ZA}(z)$后可以使用朱利判据测试其稳定性。<br>如果系统稳定，可以通过$e</em>{ss}=1-\lim_{z→1}(z-1)Y(z)$或者静态误差系数找到其稳态误差。 </p>
 
               
             </div>
@@ -592,7 +592,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年5月14日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -3887,5 +3887,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

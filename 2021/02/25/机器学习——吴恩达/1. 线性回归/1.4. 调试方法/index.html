@@ -119,7 +119,7 @@
 <meta property="og:description" content="优化和调试方法特征缩放对于某些不具有比较性的样本特征$x_i$ （比如对其他的x来说$x_i$ 相当大或者相当小），梯度下降的过程可能会非常漫长，并且可能来回波动才能最后收敛到全局的最小值。在这样的情况下，可以对$x_i$ 进行缩放（如 $x_i≔αx_i$  或者 $x_i&#x3D;x_i&#x2F;α$），使得$x_i$ 与其他的$x$具有可比性，以增加梯度下降的效率。通常将$x$缩放至[-1,1]的区间内。（">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-25T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-19T18:20:47.364Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:18.646Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="1.4. 优化和调试方法">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -355,7 +355,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          745 字
+          743 字
         
       </span>
     
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年12月19日 晚上
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -439,7 +439,7 @@ p.spoiler {
 <script type="math/tex; mode=display">x_i:=(x_i−μ_i)/s_i</script><p>定义$μ_i$  为训练集$X$ 的平均值，$s_i=|x_imax−x_imin |$, 表示$x_i$ 的取值范围（近似值），或者直接设置为$s_i$ 的标准差。</p>
 <h2 id="学习率-Learning-rate"><a href="#学习率-Learning-rate" class="headerlink" title="学习率(Learning rate)"></a>学习率(Learning rate)</h2><p>有如下的两种方法可以判断梯度下降算法是否已经处于收敛：</p>
 <ol>
-<li><p>绘制$min_θJ(θ)-batch$的图像<br>以迭代次数为横轴，以此时使得$J(θ)$局部最小时$θ$的值（即$min_θJ(θ)$）为纵轴绘制图像。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822121634.png width=50%><br>这样的做法需要在固定的迭代周期（比如每迭代100次穿插）时暂停学习，并求得此时的$θ$，然后绘制图像。<br>原则：在固定的迭代周期之后$θ$的值都应该减小，这样的图像能够通过直观地表现变化率来表现梯度下降是否收敛（变化率为0）。  </p>
+<li><p>绘制$min<em>θJ(θ)-batch$的图像<br>以迭代次数为横轴，以此时使得$J(θ)$局部最小时$θ$的值（即$min</em>θJ(θ)$）为纵轴绘制图像。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822121634.png width=50%><br>这样的做法需要在固定的迭代周期（比如每迭代100次穿插）时暂停学习，并求得此时的$θ$，然后绘制图像。<br>原则：在固定的迭代周期之后$θ$的值都应该减小，这样的图像能够通过直观地表现变化率来表现梯度下降是否收敛（变化率为0）。  </p>
 </li>
 <li><p>自动收敛测试<br>如果$J(θ)$在某一次迭代之后的下降值小于某个设定好的阈值$ε$后，就能够判断算法已经达到了收敛。<br>$ε$的设定具有技巧性，所以通常采取1.中的方法进行观测。  </p>
 </li>
@@ -521,7 +521,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月19日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -957,5 +957,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

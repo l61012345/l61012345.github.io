@@ -119,7 +119,7 @@
 <meta property="og:description" content="快速傅里叶变换快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。   离散傅里叶变换的计算量回顾离散傅里叶变换：   X[k]&#x3D;\sum_{n&#x3D;0}^{N-1}x[n]W^{kn}_N可以发现，计算一个离散傅里叶变换需要计算：    N个$x[n]W$，即N次复数乘法 N-1次$x[i]W+x[i">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-30T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-05-14T05:17:01.431Z">
+<meta property="article:modified_time" content="2024-01-27T16:50:15.047Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -326,7 +326,7 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="06. 快速傅里叶变换">
+          <span id="subtitle" title="各种笔记和随笔。">
             
           </span>
         </div>
@@ -427,7 +427,7 @@ p.spoiler {
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年5月14日 凌晨
+                    本文最后更新于：2024年1月27日 下午
                   
                 
               </p>
@@ -452,7 +452,7 @@ p.spoiler {
     X[k]&=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{(2r+1)k}_N\\
     &=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+W_N^{k}\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{2rk}_N
 \end{aligned}</script><p>根据复数的共轭对称性质：$W_N^{k(N-n)}=W_N^{kN}W^{-kn}_N=W^{-kn}_N$，前半段（$0-N/2$）的表达式可以写作：  </p>
-<script type="math/tex; mode=display">X[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}+W_N^k\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}</script><p>令$G[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}$，$H[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}$:  </p>
+<script type="math/tex; mode=display">X[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}+W_N^k\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}</script><p>令$G[k]=\sum<em>{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}</em>{N/2}$，$H[k]=\sum<em>{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}</em>{N/2}$:  </p>
 <script type="math/tex; mode=display">X[k]=G[k]+W^k_NH[k],k=0,1,..,N-1</script><p>将前半段式子的下标加上$N/2$考虑后半段式子的和，由于$W_N^{k+N/2}=-1$，因此：  </p>
 <script type="math/tex; mode=display">X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N-1</script><p>综合两段，得到时域抽取的快速傅里叶变换：  </p>
 <script type="math/tex; mode=display">X[k]=G[k]+W^k_NH[k],k=0,1,..,N/2-1</script><script type="math/tex; mode=display">X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N/2-1</script><p>上述式子称为蝶式结构，用图示可以表示为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030143805.png width=40%> </p>
@@ -538,7 +538,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年5月14日</div>
+          <div>2024年1月27日</div>
         </div>
       
       <div class="license-meta-item">
@@ -3833,5 +3833,20 @@ p.spoiler {
   fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
   webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
   <!-- end webpushr tracking code -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
