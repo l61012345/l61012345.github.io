@@ -102,10 +102,6 @@
   <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <!--欢迎弹窗-->
-  <script src="/js/sweetalert.js"></script>
-  <link rel="stylesheet" href="/css/sweetalert.css">
-  <!--以上是欢迎弹窗-->
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Oreki Kigiha">
@@ -120,9 +116,12 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
 
@@ -155,10 +154,45 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
   
 <style type="text/css">
@@ -222,9 +256,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -234,9 +268,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>时间线</span>
               </a>
             </li>
           
@@ -246,9 +280,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/essay-map/">
+              <a class="nav-link" href="/essay-map/" target="_self">
                 <i class="iconfont icon-books"></i>
-                论文导图
+                <span>论文导图</span>
               </a>
             </li>
           
@@ -258,9 +292,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -270,9 +304,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -282,9 +316,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于我
+                <span>关于我</span>
               </a>
             </li>
           
@@ -292,15 +326,16 @@ p.spoiler {
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -316,9 +351,9 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="各种笔记和随笔。">
-            
-          </span>
+          
+            <span id="subtitle" data-typed-text="记一些有用的东西。"></span>
+          
         </div>
 
         
@@ -353,19 +388,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" target="_blank">
           经典遗传算法的Python实现
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" target="_blank">
-          
-          经典遗传算法的Python实现理论遗传算法(Genetic Algorithm, GA)由Prof.Holland 提出，是一种模拟生物染色体遗传行为结合达尔文生物进化理论的进化算法。它可以在给定的有限的搜索空间中找到全局最优解。其运行过程如下图所示：   其运行的主要过程分为：种群初始化(population initialization)、评估(evaluation)、复制&#x2F;选择(produc
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" target="_blank">
+        <div>
+          经典遗传算法的Python实现理论遗传算法(Genetic Algorithm, GA)由Prof.Holland 提出，是一种模拟生物染色体遗传行为结合达尔文生物进化理论的进化算法。它可以在给定的有限的搜索空间中找到全局最优解。其运行过程如下图所示：   其运行的主要过程分为：种群初始化(population initialization)、评估(evaluation)、复制/选择(produc
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -421,19 +456,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" target="_blank">
           钢铁淬火的简单仿真
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" target="_blank">
+        <div>
           钢铁淬火的简单仿真介绍钢铁淬火(quenching)过程是将钢铁加热到奥氏体(Austenite)以上温度后快速冷却的过程，其目的是通过冷却将奥氏体向着马氏体或贝氏体转变，得到马氏体或贝氏体组织，然后配合以不同温度的回火，以大幅提高钢的强度、硬度、耐磨性、疲劳强度以及韧性等，从而满足各种机械零件和工具的不同使用要求。在快速降温的过程中，奥氏体会转化为不同相的结晶，最后会形成马氏体(Marterns
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -489,19 +524,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/11/13/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E5%B7%A5%E7%A8%8B%E7%A7%91%E5%AD%A6%E8%AE%A8%E8%AE%BA%E8%8C%83%E5%BC%8F/" target="_blank">
           工程科学讨论范式
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/11/13/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E5%B7%A5%E7%A8%8B%E7%A7%91%E5%AD%A6%E8%AE%A8%E8%AE%BA%E8%8C%83%E5%BC%8F/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/13/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E5%B7%A5%E7%A8%8B%E7%A7%91%E5%AD%A6%E8%AE%A8%E8%AE%BA%E8%8C%83%E5%BC%8F/" target="_blank">
+        <div>
           工程科学讨论范式时间暂定： 第11周周二  （暂时没课） 分成三个部分：  背景介绍 问题分析 理论介绍  Topic： 脑机接口 都需要有文献材料支持 背景设定： 给定了一个Topic Overview： 脑机接口 已经给了一个关于BCI的概念，要求了解相关领域的问题并且提出一个可能的解决方法（SPSE）。   背景介绍和问题分析(12 min)
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -543,19 +578,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/11/01/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8C%87%E5%8D%97/" target="_blank">
           腾讯云服务器Linux机器学习初学环境配置指南
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/11/01/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8C%87%E5%8D%97/" target="_blank">
-          
-          腾讯云服务器Linux机器学习初学环境配置指南服务器选购腾讯云服务器对学生有首次购买优惠，对比华为云和阿里云，性价比相对更高。矩池云的学生优惠力度也比较大，但是学生优惠只能按照运行时间（卡时）计费，包月价格仍然较贵。在如下页面：https:&#x2F;&#x2F;cloud.tencent.com&#x2F;act&#x2F;campus   购买学生服务器，购买之前需要在腾讯云个人账户信息页面完成实名认证。需要注意的是，每个学生账号对
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/01/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%8C%87%E5%8D%97/" target="_blank">
+        <div>
+          腾讯云服务器Linux机器学习初学环境配置指南服务器选购腾讯云服务器对学生有首次购买优惠，对比华为云和阿里云，性价比相对更高。矩池云的学生优惠力度也比较大，但是学生优惠只能按照运行时间（卡时）计费，包月价格仍然较贵。在如下页面：https://cloud.tencent.com/act/campus   购买学生服务器，购买之前需要在腾讯云个人账户信息页面完成实名认证。需要注意的是，每个学生账号对
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -597,19 +632,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/09/22/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/Windows%E6%AF%9B%E7%97%85%E5%A4%A7%E8%B5%8F%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank">
           Windows毛病大赏及可能解决办法
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/09/22/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/Windows%E6%AF%9B%E7%97%85%E5%A4%A7%E8%B5%8F%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank">
-          
-          Windows毛病大赏及可能解决办法             以下收集的都是我遇到过的windows的BUG及解决办法……不定时持续更新                【解决Windows10&#x2F;11 UWP无法联网的问题】-Windows10中的UWP联网问题-silence_night   【解决Windows10磁贴不会更新的问题】-win10动态磁贴不会动（不会联网更新）怎么解决？   【解
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/22/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/Windows%E6%AF%9B%E7%97%85%E5%A4%A7%E8%B5%8F%E5%8F%8A%E5%85%B6%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" target="_blank">
+        <div>
+          Windows毛病大赏及可能解决办法             以下收集的都是我遇到过的windows的BUG及解决办法……不定时持续更新                【解决Windows10/11 UWP无法联网的问题】-Windows10中的UWP联网问题-silence_night   【解决Windows10磁贴不会更新的问题】-win10动态磁贴不会动（不会联网更新）怎么解决？   【解
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -651,19 +686,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" target="_blank">
           深度卷积生成对抗网络
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" target="_blank">
-          
-          深度卷积生成对抗网络 Unsupervised Representation Learning With Deep Convolutional Generative Adversarial Networks, Alec Radford et al, 2016.    介绍Goodfellow等人在2014年提出的GAN由生成器和鉴别器两部分组成，由于其没有启发式的损失函数&#x2F;代价函数（cost fu
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" target="_blank">
+        <div>
+          深度卷积生成对抗网络 Unsupervised Representation Learning With Deep Convolutional Generative Adversarial Networks, Alec Radford et al, 2016.    介绍Goodfellow等人在2014年提出的GAN由生成器和鉴别器两部分组成，由于其没有启发式的损失函数/代价函数（cost fu
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -712,19 +747,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/09/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/3.%20%E6%A8%A1%E7%B3%8A%E7%B3%BB%E7%BB%9F/" target="_blank">
           03.模糊系统
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/09/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/3.%20%E6%A8%A1%E7%B3%8A%E7%B3%BB%E7%BB%9F/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/3.%20%E6%A8%A1%E7%B3%8A%E7%B3%BB%E7%BB%9F/" target="_blank">
+        <div>
           模糊系统模糊逻辑生活中人们在描述对某些系统的设置时常常并不是使用准确的数值来表述这些设置，而是使用较为模糊的语言来描述：例如人们通常会说“将空调温度调高一点”而非“将空调温度调高1摄氏度”。在系统工程中，专家通常依赖于基于经验的直觉来解决问题，这些直觉通常也是模糊的(vague)。那么如何让计算机理解这些模糊的设置呢？模糊逻辑(fuzzy logic)就是一种使用逻辑来描述设置中的不确定性和模糊性
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -773,19 +808,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/09/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/2.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" target="_blank">
           02.神经网络
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/09/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/2.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/2.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" target="_blank">
+        <div>
           神经网络介绍神经网络(ANN，Artificial Neural Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。像其他的人工智
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -834,19 +869,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/09/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/1.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D/" target="_blank">
           01.智能系统介绍
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/09/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/1.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/1.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D/" target="_blank">
+        <div>
           智能系统介绍智能系统概要在了解智能系统之前，首先先要明确系统智能(intelligence)的定义：通常，如果一个系统是智能的，这意味着这个系统具有如下特性：    推理(reasoning)：该系统可以针对特定的问题给出解决方法，或者答案。   学习(learning)：该系统可以对输入的信息进行建模并存储。   自适应(adaptivity)：该系统可以根据不同的目标问题自动调整模型的参数。目
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -895,19 +930,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" target="_blank">
           生成对抗网络
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" target="_blank">
+        <div>
           生成对抗网络 Generative Adversarial Nets, Ian J Goodfellow et al, 2014.Conditional Generative Aversarial Nets, Mehdi Mirza et al, 2014.    简介问题动机深度学习的意义是挖掘人工智能应用领域不同种类的数据集的丰富的、层次化的概率统计分布模型。目前，深度学习领域最成功的研究已经
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -1004,7 +1039,6 @@ p.spoiler {
 
   <footer>
     <div class="footer-inner">
-  <script src="./node_modules/pjax/pjax.js"></script>
   
     <div class="footer-content">
        如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2024 
@@ -1043,8 +1077,8 @@ p.spoiler {
 
   <!-- Scripts -->
   
-  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":true,"trickleSpeed":100})
@@ -1055,19 +1089,13 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -1075,9 +1103,9 @@ p.spoiler {
       if (!subtitle || !typing) {
         return;
       }
-      var title = subtitle.title;
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -1086,19 +1114,8 @@ p.spoiler {
 
 
   
-
+    <script  src="/js/img-lazyload.js" ></script>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
 
 
 
@@ -1126,22 +1143,6 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-  <script>
-    // pjax
-    var pjax = new Pjax({
-    selectors: [
-      "title", //加载标题
-      "main", //加载主体框架部分
-      "header", //加载头部（文章页头图等）
-      "welcome" // 欢迎弹窗
-    ]
-   })
-</script>
-  <!-- start webpushr tracking code --> 
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
-  fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
-  webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
-  <!-- end webpushr tracking code -->
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
