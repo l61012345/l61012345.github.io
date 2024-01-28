@@ -4,6 +4,27 @@
   
   
   <entry>
+    <title>7. 引用·向上造型 [施工中]</title>
+    <link href="/2024/01/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/7.%20%E5%BC%95%E7%94%A8%E5%92%8C%E5%90%91%E4%B8%8A%E9%80%A0%E5%9E%8B/"/>
+    <url>/2024/01/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/7.%20%E5%BC%95%E7%94%A8%E5%92%8C%E5%90%91%E4%B8%8A%E9%80%A0%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="引用·向上造型"><a href="#引用·向上造型" class="headerlink" title="引用·向上造型"></a>引用·向上造型</h1><div class="note note-info">            <p>这是浙江大学翁恺老师的公开课，《面向对象设计C++》<br>视频地址：<br><a href="https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255">https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255</a></p><p>本节对应视频21-22部分。  </p>          </div><h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>C++中提供了多种对象的存储方式：对象可以在堆栈、堆和全局数据区中；它也提供了多种访问对象的方式：对象可以通过直接掌握（变量中是对象）、指针、引用的方式被访问。<br>引用是一种C++中的数据类型。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">char</span> c;<br><span class="hljs-type">char</span>* p = &amp;c; <span class="hljs-comment">// 指针</span><br><span class="hljs-type">char</span>&amp; r = c; <span class="hljs-comment">// 引用</span><br></code></pre></td></tr></table></figure><br>引用需要在定义的时候做初始化，其初始值必须是一个变量。引用也被称为别名，表示被引用目标除了本身的名字<code>name</code>之外，还拥有引用的别名<code>refname</code>。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">type&amp; refname = name;<br></code></pre></td></tr></table></figure><br>在参数表或者成员变量中可以不用给出初始值。  </p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> x = <span class="hljs-number">47</span>;<br><span class="hljs-type">int</span>&amp; y =x; <span class="hljs-comment">//y是x的引用；</span><br>cout &lt;&lt; <span class="hljs-string">&quot;Y = &quot;</span>&lt;&lt; y &lt;&lt; endl;<span class="hljs-comment">//y的值是47</span><br>y = <span class="hljs-number">18</span>;<br>cout &lt;&lt; <span class="hljs-string">&quot;X=&quot;</span> &lt;&lt; x &lt;&lt; endl;<br><span class="hljs-comment">//结果：X=18</span><br></code></pre></td></tr></table></figure><p>引用的目标必须是一个实际名字的内容：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;)</span></span>;<br><span class="hljs-built_in">func</span>(i*<span class="hljs-number">3</span>); <span class="hljs-comment">// error</span><br></code></pre></td></tr></table></figure></p><h3 id="引用和指针"><a href="#引用和指针" class="headerlink" title="引用和指针"></a>引用和指针</h3><div class="table-container"><table><thead><tr><th style="text-align:left">引用</th><th style="text-align:left">指针</th></tr></thead><tbody><tr><td style="text-align:left">不能为空</td><td style="text-align:left">可以为空</td></tr><tr><td style="text-align:left">与已经存在的一个变量相关联，是这个变量的别名</td><td style="text-align:left">独立于任何存在的对象</td></tr><tr><td style="text-align:left">不能改变引用的对象</td><td style="text-align:left">可以改变指向的对象</td></tr></tbody></table></div><h3 id="使用引用的规则"><a href="#使用引用的规则" class="headerlink" title="使用引用的规则"></a>使用引用的规则</h3><ul><li>不能引用一个引用</li><li>不能指向一个引用(但是可以引用一个指针)  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs `cpp">int &amp;*p; //illegal<br>void f (int*&amp;p); // ok<br></code></pre></td></tr></table></figure></li><li>没有引用的数组（因为引用不是一个实体）</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>学习笔记</category>
+      
+      <category>面向对象设计C++</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>04. 电路的自动综合</title>
     <link href="/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/"/>
     <url>/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/</url>
