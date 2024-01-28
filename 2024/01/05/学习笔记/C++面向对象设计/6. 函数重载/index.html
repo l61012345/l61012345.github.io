@@ -109,13 +109,13 @@
   
     <meta name="description" content="函数重载·内联函数             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频17-19部分。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6. 函数重载·内联函数 [施工中]">
+<meta property="og:title" content="6. 函数重载·内联函数·&#96;const&#96;">
 <meta property="og:url" content="https://l61012345.top/2024/01/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/6.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/index.html">
 <meta property="og:site_name" content="Mirror">
 <meta property="og:description" content="函数重载·内联函数             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频17-19部分。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-05T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-28T13:19:59.034Z">
+<meta property="article:modified_time" content="2024-01-28T16:25:50.726Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -123,7 +123,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>6. 函数重载·内联函数 [施工中] - Mirror</title>
+  <title>6. 函数重载·内联函数·`const` - Mirror</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -362,7 +362,7 @@ p.spoiler {
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="6. 函数重载·内联函数 [施工中]"></span>
+            <span id="subtitle" data-typed-text="6. 函数重载·内联函数·`const`"></span>
           
         </div>
 
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          1.8k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          12 分钟
+          15 分钟
         
       </span>
     
@@ -459,7 +459,7 @@ p.spoiler {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">6. 函数重载·内联函数 [施工中]</h1>
+            <h1 id="seo-header">6. 函数重载·内联函数·`const`</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
@@ -494,6 +494,9 @@ p.spoiler {
 <p>在函数声明中：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">plusOne</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>;<br></code></pre></td></tr></table></figure><br>在函数定义中:<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-type">int</span> <span class="hljs-title">plusOne</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span></span>&#123;<span class="hljs-keyword">return</span> ++x;&#125;;<br></code></pre></td></tr></table></figure><br>需要注意的是，使用内联函数时如果在函数声明的位置给出了函数体的部分（如此可以便于以便编译器插入），此时的函数声明其实是一个函数的定义，此时<code>*.cpp</code>文件可以不被需要，否则会出现重复定义。  </p>
 <p>内联函数牺牲代码空间，但是会降低调用函数时候额外的开销，从而降低运行时间。但是在大多数时候，这是值得的。<br>如果成员函数在<code>class</code>声明时就给出函数体，那么这些函数都是内联函数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Point</span> &#123;<br>    <span class="hljs-type">int</span> i,j,k<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">Point</span>() &#123;i=j=k=<span class="hljs-number">0</span>&#125;;<br>    <span class="hljs-built_in">Point</span>(<span class="hljs-type">int</span> ii, <span class="hljs-type">int</span> jj, <span class="hljs-type">int</span> kk)&#123;i=ii,j=jj,k=kk;&#125;<span class="hljs-comment">//内联函数</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">print</span><span class="hljs-params">(string&amp; msg = <span class="hljs-string">&#x27;&#x27;)&#123; //内联函数</span></span></span><br><span class="hljs-string"><span class="hljs-params"><span class="hljs-function">        cout&lt;&lt;&quot;i= &quot;&lt;&lt;i&lt;&lt;&quot;,&quot;</span></span></span><br><span class="hljs-string"><span class="hljs-params"><span class="hljs-function">            &lt;&lt;&quot;j=&quot;&lt;&lt;j&lt;&lt;&quot;,&quot;</span></span></span><br><span class="hljs-string"><span class="hljs-params"><span class="hljs-function">            &lt;&lt;&quot;k=&quot;&lt;&lt;k&lt;&lt; endl;</span></span></span><br><span class="hljs-string"><span class="hljs-params"><span class="hljs-function">    &#125;</span></span></span><br><span class="hljs-string"><span class="hljs-params"><span class="hljs-function">&#125;;</span></span></span><br></code></pre></td></tr></table></figure></p>
 <p>被频繁调用或者非常小的函数(2-3行)值得做成内联函数。非常大的函数（20行）以及递归的函数不要做内联。  </p>
+<h2 id="const"><a href="#const" class="headerlink" title="const"></a><code>const</code></h2><p><code>const</code>用于变量之前，表示这个变量被赋值之后其值不可以做任何修改：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> x=<span class="hljs-number">1</span>;<br>x =<span class="hljs-number">2</span>; <span class="hljs-comment">//非法</span><br>x++; <span class="hljs-comment">//非法</span><br></code></pre></td></tr></table></figure><br>需要注意的是，这个变量仍然是变量，也遵循scope rule。<code>const</code>变量的值需要在编译时让编译器知道(才能提前为本地变量分配内存大小)才能够通过编译：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">int</span> class_size = <span class="hljs-number">12</span><br><span class="hljs-type">int</span> finalGrade[class_size]; <span class="hljs-comment">// OK</span><br>```  <br>```cpp<br><span class="hljs-type">int</span> x; <br>cin &gt;&gt; x; <span class="hljs-comment">// 编译时编译器并不知道x的值</span><br><span class="hljs-type">const</span> <span class="hljs-type">int</span> size = x;<br><span class="hljs-type">double</span> classAverage[size]; <span class="hljs-comment">//error</span><br></code></pre></td></tr></table></figure></p>
+<h3 id="const指针"><a href="#const指针" class="headerlink" title="const指针"></a><code>const</code>指针</h3><p>当一个指针变量是<code>const</code>时，有两种写法：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">* <span class="hljs-type">const</span> q = <span class="hljs-string">&#x27;abc&#x27;</span>; <span class="hljs-comment">// q is const</span><br>*q = <span class="hljs-string">&#x27;c&#x27;</span>; <span class="hljs-comment">// ok</span><br>q++; <span class="hljs-comment">// error</span><br></code></pre></td></tr></table></figure><br>在这一种写法中，指针<code>q</code>本身是<code>const</code>，<code>*q</code>指向的内存的内容并不是<code>const</code>，因此对应内存的内容可以改变，这种写法称为常量指针。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">const</span> <span class="hljs-type">char</span> *p = <span class="hljs-string">&#x27;abc&#x27;</span> <span class="hljs-comment">// *p is a const char</span><br>*p=<span class="hljs-string">&#x27;b&#x27;</span>; <span class="hljs-comment">// error</span><br>p++; <span class="hljs-comment">// ok</span><br></code></pre></td></tr></table></figure><br>在如上的写法中,<code>*p</code>指向的内存地址中的内容是<code>const</code>的，不能通过<code>p</code>去修改指向的内存单元，这种写法是指针常量。  </p>
+<h3 id="const的对象和成员函数"><a href="#const的对象和成员函数" class="headerlink" title="const的对象和成员函数"></a><code>const</code>的对象和成员函数</h3><p>如果一个对象是<code>cosnt</code>，表明这个对象内的值是不能被修改的。但是如此可能会引发一些问题，一些成员函数也许会修改其中成员变量的值。 因此需要在成员函数的声明和变量后增加<code>const</code>表示这个函数不会修改成员变量的值。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get_day</span><span class="hljs-params">()</span> <span class="hljs-type">const</span></span>;<br></code></pre></td></tr></table></figure><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get_day</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> day;<br>&#125;;<br></code></pre></td></tr></table></figure><br>其实表示的是<code>this</code>是<code>const</code>。  </p>
 
                 
               </div>
@@ -539,7 +542,7 @@ p.spoiler {
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>6. 函数重载·内联函数 [施工中]</div>
+      <div>6. 函数重载·内联函数·`const`</div>
       <div>https://l61012345.top/2024/01/05/学习笔记/C++面向对象设计/6. 函数重载/</div>
     </div>
     <div class="license-meta">
@@ -3450,10 +3453,10 @@ p.spoiler {
     
       
       
-        <a href="/2024/01/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/6.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/" title="6. 函数重载·内联函数 [施工中]"
+        <a href="/2024/01/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/6.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/" title="6. 函数重载·内联函数·`const`"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">6. 函数重载·内联函数 [施工中]</span>
+          <span class="category-post">6. 函数重载·内联函数·`const`</span>
         </a>
       
     
