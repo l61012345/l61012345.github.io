@@ -143,25 +143,42 @@ Fluid.events = {
     }
   },
 
+  registerRefreshCallback: function(callback) {
+    if (!Array.isArray(Fluid.events._refreshCallbacks)) {
+      Fluid.events._refreshCallbacks = [];
+    }
+    Fluid.events._refreshCallbacks.push(callback);
+  },
+
+  refresh: function() {
+    if (Array.isArray(Fluid.events._refreshCallbacks)) {
+      for (var callback of Fluid.events._refreshCallbacks) {
+        if (callback instanceof Function) {
+          callback();
+        }
+      }
+    }
+  },
+
   billboard: function() {
     if (!('console' in window)) {
       return;
     }
     // eslint-disable-next-line no-console
     console.log(`
-------------------------------------------------
-|                                              |
-|     ________  __            _        __      |
-|    |_   __  |[  |          (_)      |  ]     |
-|      | |_ \\_| | | __   _   __   .--.| |      |
-|      |  _|    | |[  | | | [  |/ /'\`\\' |      |
-|     _| |_     | | | \\_/ |, | || \\__/  |      |
-|    |_____|   [___]'.__.'_/[___]'.__.;__]     |
-|                                              |
-|           Powered by Hexo x Fluid            |
-|         GitHub: https://git.io/JqpVD         |
-|                                              |
-------------------------------------------------
+-------------------------------------------------
+|                                               |
+|      ________  __            _        __      |
+|     |_   __  |[  |          (_)      |  ]     |
+|       | |_ \\_| | | __   _   __   .--.| |      |
+|       |  _|    | |[  | | | [  |/ /'\`\\' |      |
+|      _| |_     | | | \\_/ |, | || \\__/  |      |
+|     |_____|   [___]'.__.'_/[___]'.__.;__]     |
+|                                               |
+|            Powered by Hexo x Fluid            |
+| https://github.com/fluid-dev/hexo-theme-fluid |
+|                                               |
+-------------------------------------------------
     `);
   }
 };

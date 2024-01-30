@@ -102,10 +102,6 @@
   <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <!--欢迎弹窗-->
-  <script src="/js/sweetalert.js"></script>
-  <link rel="stylesheet" href="/css/sweetalert.css">
-  <!--以上是欢迎弹窗-->
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Oreki Kigiha">
@@ -120,9 +116,12 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
 
@@ -155,10 +154,45 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
   
 <style type="text/css">
@@ -222,9 +256,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -234,9 +268,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>时间线</span>
               </a>
             </li>
           
@@ -246,9 +280,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/essay-map/">
+              <a class="nav-link" href="/essay-map/" target="_self">
                 <i class="iconfont icon-books"></i>
-                论文导图
+                <span>论文导图</span>
               </a>
             </li>
           
@@ -258,9 +292,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -270,9 +304,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -282,9 +316,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于我
+                <span>关于我</span>
               </a>
             </li>
           
@@ -292,15 +326,16 @@ p.spoiler {
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -316,9 +351,9 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="各种笔记和随笔。">
-            
-          </span>
+          
+            <span id="subtitle" data-typed-text="记一些有用的东西。"></span>
+          
         </div>
 
         
@@ -353,19 +388,148 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
+        
+        <a href="/2021/03/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.1.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%83%8C%E6%99%AF/" target="_blank">
+          5.1. 神经网络的背景
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/03/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.1.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%83%8C%E6%99%AF/" target="_blank">
+        <div>
+          img{    width: 60%;    padding-left: 20%;}  神经网络的背景知识激活函数算法的局限性假设一个数据集拥有非常多的原始特征和数据量，执行激活函数算法，那么次方项、交叉项会非常的多，计算量非常的大，最终的拟合结果也不好。计算机视觉中的例子：计算机读取到的是图片所对应的像素强度的矩阵。   对于灰度图像来说，像素强度就是每一个像素的灰度值。对于RGB彩色图像来说，
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-18 00:00" pubdate>
+              2021-03-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/" class="category-chain-item">机器学习基础课程——吴恩达</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/05-%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="category-chain-item">05. 神经网络</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2021/03/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/" target="_blank">
+          常考知识点
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/03/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/" target="_blank">
+        <div>
+          电路与器件常考知识点 针对Brunel University 2020: EE1618 Devices and Circuits的期末复习笔记Lecturer: Dr. Ruiheng Wu（武瑞恒）/Dr. Chunsing Lai（赖俊升）图因为挂在了github上，需要通过科技才能够看得到。  电学部分知识点静态电路分析1. Y- $\Delta$ 形电路转换现推方法：从Y电路的两个节点看整
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-03-15 00:00" pubdate>
+              2021-03-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/" class="category-chain-item">电路与器件</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
         
         <a href="/2021/03/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">
           0. 课程简介
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/03/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">
-          
-          课程简介课程： BUL 2021： EE2622 Fundamentals of Signals and Systems授课教师： Dr. Ruiheng Wu&#x2F; Zheng Luo (Assistant)   参考资料《信号与线性系统分析》 第四版 吴大正主编 高等教育出版社《信号与系统》 第二版 奥本海姆编 电子工业出版社   笔记结构笔记按照课程内容顺序按数字编号，内容包括课堂笔记总结、知识
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/03/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" target="_blank">
+        <div>
+          课程简介课程： BUL 2021： EE2622 Fundamentals of Signals and Systems授课教师： Dr. Ruiheng Wu/ Zheng Luo (Assistant)   参考资料《信号与线性系统分析》 第四版 吴大正主编 高等教育出版社《信号与系统》 第二版 奥本海姆编 电子工业出版社   笔记结构笔记按照课程内容顺序按数字编号，内容包括课堂笔记总结、知识
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -414,19 +578,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.5.%20%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8B%9F%E5%90%88%E5%92%8C%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B/" target="_blank">
           1.5. 多项式拟合和正规方程
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.5.%20%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8B%9F%E5%90%88%E5%92%8C%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B/" target="_blank">
-          
-          多项式拟合和正规方程特征点的创建和合并对于一个特定的问题，可以产生不同的特征点，通过对问题参数的重新定义和对原有特征点的数学处理合并拆分，能够得到更加优秀的特征点。 多项式回归对于更多更加常见的数学模型，其拟合往往是非线性关系的，这时候就需要考虑引用多项式来进行拟合，如：$h(x)&#x3D;θ_0+θ_1 x+θ_2 x^2+θ_3 x^3$   正规方程算法在微积分中，对于函数$f(x,y)$，其局部最
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.5.%20%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8B%9F%E5%90%88%E5%92%8C%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B/" target="_blank">
+        <div>
+          多项式拟合和正规方程特征点的创建和合并对于一个特定的问题，可以产生不同的特征点，通过对问题参数的重新定义和对原有特征点的数学处理合并拆分，能够得到更加优秀的特征点。 多项式回归对于更多更加常见的数学模型，其拟合往往是非线性关系的，这时候就需要考虑引用多项式来进行拟合，如：$h(x)=θ_0+θ_1 x+θ_2 x^2+θ_3 x^3$   正规方程算法在微积分中，对于函数$f(x,y)$，其局部最
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -482,19 +646,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.4.%20%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/" target="_blank">
           1.4. 优化和调试方法
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.4.%20%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/" target="_blank">
-          
-          优化和调试方法特征缩放对于某些不具有比较性的样本特征$x_i$ （比如对其他的x来说$x_i$ 相当大或者相当小），梯度下降的过程可能会非常漫长，并且可能来回波动才能最后收敛到全局的最小值。在这样的情况下，可以对$x_i$ 进行缩放（如 $x_i≔αx_i$  或者 $x_i&#x3D;x_i&#x2F;α$），使得$x_i$ 与其他的$x$具有可比性，以增加梯度下降的效率。通常将$x$缩放至[-1,1]的区间内。（
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.4.%20%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/" target="_blank">
+        <div>
+          优化和调试方法特征缩放对于某些不具有比较性的样本特征$x_i$ （比如对其他的x来说$x_i$ 相当大或者相当小），梯度下降的过程可能会非常漫长，并且可能来回波动才能最后收敛到全局的最小值。在这样的情况下，可以对$x_i$ 进行缩放（如 $x_i≔αx_i$  或者 $x_i=x_i/α$），使得$x_i$ 与其他的$x$具有可比性，以增加梯度下降的效率。通常将$x$缩放至[-1,1]的区间内。（
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -550,19 +714,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.3.%20%E5%A4%9A%E5%8F%98%E9%87%8F%E9%A2%84%E6%B5%8B/" target="_blank">
           1.3. 多变量线性回归
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.3.%20%E5%A4%9A%E5%8F%98%E9%87%8F%E9%A2%84%E6%B5%8B/" target="_blank">
-          
-          img{    width: 30%;    padding-left: 20%;}  多变量线性回归多元线性回归对于多个特征量(Features)，规定符号表示：$n$ 特征的总数量$x^{(i)}$  第i个训练样本的输入特征向量，$i$表示的是一个索引(Index)$x_j^i$  第i个训练样本中特征向量的第j个值   此时的假设函数不再是单纯的 $h_θ (x)&#x3D;θ_0+θ_1 x$ 的
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.3.%20%E5%A4%9A%E5%8F%98%E9%87%8F%E9%A2%84%E6%B5%8B/" target="_blank">
+        <div>
+          img{    width: 30%;    padding-left: 20%;}  多变量线性回归多元线性回归对于多个特征量(Features)，规定符号表示：$n$ 特征的总数量$x^{(i)}$  第i个训练样本的输入特征向量，$i$表示的是一个索引(Index)$x_j^i$  第i个训练样本中特征向量的第j个值   此时的假设函数不再是单纯的 $h_θ (x)=θ_0+θ_1 x$ 的
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -618,19 +782,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.2.%20%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" target="_blank">
           1.2. 梯度下降算法
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.2.%20%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.2.%20%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" target="_blank">
+        <div>
           img{    width: 40%;    padding-left: 20%;}  梯度下降算法在开始之前规定几个符号所代表的意义：$m$ 训练集中训练样本的数量$X$  输入变量$Y$  输出变量$(x,y)$ 训练样本$(x^i,y^i)$第i个训练样本（i表示一个索引）   监督学习算法的流程提供训练集&gt;学习算法得到$h$（假设函数：用于描绘$x$与$y$的关系）&gt;预测$y$
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -686,19 +850,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.1.%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" target="_blank">
           1.1. 什么是机器学习
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.1.%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.1.%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" target="_blank">
+        <div>
           什么是机器学习机器学习的定义 A computer  program is said to learn from experience E with respect to some task T and some performance measure P, if its performance on T, as measured by P, improves with experience E.
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -754,19 +918,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.1.%20%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" target="_blank">
           2.1. 基本命令
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.1.%20%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" target="_blank">
-          
-          基本命令基本运算代数运算：+ - * &#x2F; sqrt（）布尔运算：且：&amp;&amp;  或：||  非：！赋值：&#x3D;   基础命令disp() 显示（）内的命令到屏幕sprintf()用法同c语言中的printfformat lone 显示变量的更多小数位数formate short 显示变量的更少小数位数（4位）help fuction 显示function 函数的帮助文档   矩阵的快速操作
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.1.%20%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" target="_blank">
+        <div>
+          基本命令基本运算代数运算：+ - * / sqrt（）布尔运算：且：&amp;&amp;  或：||  非：！赋值：=   基础命令disp() 显示（）内的命令到屏幕sprintf()用法同c语言中的printfformat lone 显示变量的更多小数位数formate short 显示变量的更少小数位数（4位）help fuction 显示function 函数的帮助文档   矩阵的快速操作
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -822,155 +986,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.2.%20%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%92%8C%E7%BB%98%E5%88%B6%E5%9B%BE%E5%83%8F/" target="_blank">
           2.2. 数据计算和绘制
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.2.%20%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%92%8C%E7%BB%98%E5%88%B6%E5%9B%BE%E5%83%8F/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.2.%20%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%92%8C%E7%BB%98%E5%88%B6%E5%9B%BE%E5%83%8F/" target="_blank">
+        <div>
           数据计算和绘制对元素的操作A.\*B A矩阵和B矩阵的每一个元素对应相乘. 对每一个元素进行运算操作abs(A) 对A每一个元素取绝对值v+1 对向量v里面的每一个元素+1A’ 矩阵A的转置pinv(A)对A求逆矩阵，不可逆时即为伪逆矩阵max(A) A中最大的元素的值max(A,[], DI) A中DI维度下元素最大的值（1 列 2 行）ind() 某个元素的位置magic(n) 返回n*n的幻
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-22 00:00" pubdate>
-              2021-02-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/" class="category-chain-item">机器学习基础课程——吴恩达</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/02-Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/" class="category-chain-item">02. Octave语言初步</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.3.%20%E6%8E%A7%E5%88%B6%E5%92%8C%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5/" target="_blank">
-          2.3. 控制和定义语句
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.3.%20%E6%8E%A7%E5%88%B6%E5%92%8C%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5/" target="_blank">
-          
-          控制和定义语句for i&#x3D;1:10,Indices&#x3D;a : b 从a到b的索引Break Continue 与C语言相同While, end 结构体 同C语言   选择结构：123if condition,    	command   	end   分支选择结构：1234if condition,   	command;   elseif condition,   	Command;  循环结构：
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-02-22 00:00" pubdate>
-              2021-02-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/" class="category-chain-item">机器学习基础课程——吴恩达</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%9F%BA%E7%A1%80%E8%AF%BE%E7%A8%8B%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/02-Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/" class="category-chain-item">02. Octave语言初步</a>
-  
-  
-
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.4.%20%E5%90%91%E9%87%8F%E5%8C%96/" target="_blank">
-          2.4. 向量化
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.4.%20%E5%90%91%E9%87%8F%E5%8C%96/" target="_blank">
-          
-          向量化对于求和的算法，有时可以转换为矩阵的乘法来进行计算E.g.   H(θ)(x)&#x3D;∑_{j&#x3D;0}^nθ_j x_j如果直接求和，求和的过程会非常冗长而设计两个向量$θ$ $x$则有线性回归假设函数的向量形式： h(x)&#x3D;θ^T x对更新函数：
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -1074,7 +1102,6 @@ p.spoiler {
 
   <footer>
     <div class="footer-inner">
-  <script src="./node_modules/pjax/pjax.js"></script>
   
     <div class="footer-content">
        如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2024 
@@ -1113,8 +1140,8 @@ p.spoiler {
 
   <!-- Scripts -->
   
-  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":true,"trickleSpeed":100})
@@ -1125,19 +1152,13 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -1145,9 +1166,9 @@ p.spoiler {
       if (!subtitle || !typing) {
         return;
       }
-      var title = subtitle.title;
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -1156,19 +1177,8 @@ p.spoiler {
 
 
   
-
+    <script  src="/js/img-lazyload.js" ></script>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
 
 
 
@@ -1196,36 +1206,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-  <script>
-    // pjax
-    var pjax = new Pjax({
-    selectors: [
-      "title", //加载标题
-      "main", //加载主体框架部分
-      "header", //加载头部（文章页头图等）
-      "welcome" // 欢迎弹窗
-    ]
-   })
-</script>
-  <!-- start webpushr tracking code --> 
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
-  fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
-  webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
-  <!-- end webpushr tracking code -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

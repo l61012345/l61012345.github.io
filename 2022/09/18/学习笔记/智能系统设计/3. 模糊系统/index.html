@@ -102,10 +102,6 @@
   <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <!--欢迎弹窗-->
-  <script src="/js/sweetalert.js"></script>
-  <link rel="stylesheet" href="/css/sweetalert.css">
-  <!--以上是欢迎弹窗-->
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Oreki Kigiha">
@@ -124,17 +120,20 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>03.模糊系统 - Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/hint.css/2.7.0/hint.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
 
 
@@ -165,10 +164,45 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
   
 <style type="text/css">
@@ -232,9 +266,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -244,9 +278,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>时间线</span>
               </a>
             </li>
           
@@ -256,9 +290,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/essay-map/">
+              <a class="nav-link" href="/essay-map/" target="_self">
                 <i class="iconfont icon-books"></i>
-                论文导图
+                <span>论文导图</span>
               </a>
             </li>
           
@@ -268,9 +302,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -280,9 +314,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -292,9 +326,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于我
+                <span>关于我</span>
               </a>
             </li>
           
@@ -302,15 +336,16 @@ p.spoiler {
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -326,9 +361,9 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="各种笔记和随笔。">
-            
-          </span>
+          
+            <span id="subtitle" data-typed-text="03.模糊系统"></span>
+          
         </div>
 
         
@@ -406,7 +441,10 @@ p.spoiler {
       
   <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
     <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
@@ -421,20 +459,20 @@ p.spoiler {
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">03.模糊系统</h1>
+            <h1 id="seo-header">03.模糊系统</h1>
             
-              <p class="note note-info">
+              <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于：2023年10月20日 上午
+                    本文最后更新于 2023年10月20日 上午
                   
                 
               </p>
             
-            <div class="markdown-body">
-              
-              <h1 id="模糊系统"><a href="#模糊系统" class="headerlink" title="模糊系统"></a>模糊系统</h1><h2 id="模糊逻辑"><a href="#模糊逻辑" class="headerlink" title="模糊逻辑"></a>模糊逻辑</h2><p>生活中人们在描述对某些系统的设置时常常并不是使用准确的数值来表述这些设置，而是使用较为模糊的语言来描述：例如人们通常会说“将空调温度调高一点”而非“将空调温度调高1摄氏度”。在系统工程中，专家通常依赖于基于经验的直觉来解决问题，这些直觉通常也是模糊的(vague)。<br>那么如何让计算机理解这些模糊的设置呢？模糊逻辑(fuzzy logic)就是一种使用逻辑来描述设置中的不确定性和模糊性的方法论。模糊逻辑基于模糊集论(fuzzy set theory)，它试图使用近似和不确定的信息来模仿人类的直觉推理。模糊集论使用数学表达来描述这样的不确定和模糊。<br><div class="note note-info">
+            
+              <div class="markdown-body">
+                
+                <h1 id="模糊系统"><a href="#模糊系统" class="headerlink" title="模糊系统"></a>模糊系统</h1><h2 id="模糊逻辑"><a href="#模糊逻辑" class="headerlink" title="模糊逻辑"></a>模糊逻辑</h2><p>生活中人们在描述对某些系统的设置时常常并不是使用准确的数值来表述这些设置，而是使用较为模糊的语言来描述：例如人们通常会说“将空调温度调高一点”而非“将空调温度调高1摄氏度”。在系统工程中，专家通常依赖于基于经验的直觉来解决问题，这些直觉通常也是模糊的(vague)。<br>那么如何让计算机理解这些模糊的设置呢？模糊逻辑(fuzzy logic)就是一种使用逻辑来描述设置中的不确定性和模糊性的方法论。模糊逻辑基于模糊集论(fuzzy set theory)，它试图使用近似和不确定的信息来模仿人类的直觉推理。模糊集论使用数学表达来描述这样的不确定和模糊。<br><div class="note note-info">
             <p>有时也认为模糊逻辑和模糊集论是相同的概念。  </p>
           </div>  </p>
 <h3 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a>基本定义</h3><h4 id="隶属度"><a href="#隶属度" class="headerlink" title="隶属度"></a>隶属度</h4><p>对于传统的布尔逻辑，对某件个事件的描述分类是非黑即白的，即是二值的。而在模糊逻辑中，对于某个事件的描述分类是基于概率分布的，称为隶属度(DoM,Degree of Membership)，这是一种多值逻辑。<br>比如使用模糊逻辑描述一个人的身高：“小刘有15%的概率被认为是高的。”（这样的描述称为语义命题）其中的15%是“小刘身高”隶属于“高”这一分类的隶属度。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918132153.png width=50%>  </p>
@@ -560,8 +598,9 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 <script type="math/tex; mode=display">δ=(\hat{F}-F)^2</script><p>其中$F$为真实值。<br>ANIFS系统中的参数$a$、$b$、$c$的更新公式为：  </p>
 <script type="math/tex; mode=display">a:=a-η\frac{∂δ}{∂a}</script><p>输出层的梯度表示为：  </p>
 <script type="math/tex; mode=display">δ_o=\frac{∂δ}{∂(x,y,...)}</script>
-              
-            </div>
+                
+              </div>
+            
             <hr/>
             <div>
               <div class="post-metas my-3">
@@ -604,7 +643,7 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
   <div class="license-box my-3">
     <div class="license-title">
       <div>03.模糊系统</div>
-      <div>https://l61012345.top/2022/09/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/3.%20%E6%A8%A1%E7%B3%8A%E7%B3%BB%E7%BB%9F/</div>
+      <div>https://l61012345.top/2022/09/18/学习笔记/智能系统设计/3. 模糊系统/</div>
     </div>
     <div class="license-meta">
       
@@ -625,21 +664,23 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
           <div>2023年10月20日</div>
         </div>
       
-      <div class="license-meta-item">
-        <div>许可协议</div>
-        <div>
-          
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
             
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
             
-              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-              <span class="hint--top hint--rounded" aria-label="BY - 署名">
-                <i class="iconfont icon-by"></i>
-              </span>
-              </a>
-            
-          
+          </div>
         </div>
-      </div>
+      
     </div>
     <div class="license-icon iconfont"></div>
   </div>
@@ -690,7 +731,6 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 <div class="category-list">
   
   
-  
     
     
     
@@ -701,7 +741,7 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
         aria-expanded="true"
       >
         学习笔记
-        <span class="list-group-count">(209)</span>
+        <span class="list-group-count">(210)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -717,14 +757,12 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
   </div>
 
           
-          
-  
   
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="中国近代史纲要"
         id="heading-d474a6b11410e33c4c7e29850c8a29f5" role="tab" data-toggle="collapse" href="#collapse-d474a6b11410e33c4c7e29850c8a29f5"
         aria-expanded="false"
@@ -760,8 +798,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="信号与系统"
         id="heading-a689289a45acd89c65bfc841fd6791cc" role="tab" data-toggle="collapse" href="#collapse-a689289a45acd89c65bfc841fd6791cc"
         aria-expanded="false"
@@ -923,8 +961,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="天线与通信传输原理"
         id="heading-72fd57eeea52f7cf2a10c13025f6195b" role="tab" data-toggle="collapse" href="#collapse-72fd57eeea52f7cf2a10c13025f6195b"
         aria-expanded="false"
@@ -1077,8 +1115,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="控制系统"
         id="heading-e06b713f684e011d7f3fd352234f4fe4" role="tab" data-toggle="collapse" href="#collapse-e06b713f684e011d7f3fd352234f4fe4"
         aria-expanded="false"
@@ -1249,8 +1287,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字信号处理"
         id="heading-e10491ffae5e895f78327ed37d3c445b" role="tab" data-toggle="collapse" href="#collapse-e10491ffae5e895f78327ed37d3c445b"
         aria-expanded="false"
@@ -1394,8 +1432,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字系统与可靠性工程"
         id="heading-12fb5db9f76d7bdc3b0ad9424ce02181" role="tab" data-toggle="collapse" href="#collapse-12fb5db9f76d7bdc3b0ad9424ce02181"
         aria-expanded="false"
@@ -1440,8 +1478,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字逻辑电路设计"
         id="heading-2d6e2047da2aa00f2a07c3783beebd0a" role="tab" data-toggle="collapse" href="#collapse-2d6e2047da2aa00f2a07c3783beebd0a"
         aria-expanded="false"
@@ -1558,8 +1596,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item 
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="智能系统和数字图像处理应用"
         id="heading-e31811c07a34ba4500adf07b7cff9c75" role="tab" data-toggle="collapse" href="#collapse-e31811c07a34ba4500adf07b7cff9c75"
         aria-expanded="true"
@@ -1667,18 +1705,18 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item 
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="机器学习基础课程——吴恩达"
         id="heading-2b33bc4f9a87f350cc982c8a283b4cb3" role="tab" data-toggle="collapse" href="#collapse-2b33bc4f9a87f350cc982c8a283b4cb3"
-        aria-expanded="true"
+        aria-expanded="false"
       >
         机器学习基础课程——吴恩达
         <span class="list-group-count">(58)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
-      <div class="category-collapse collapse show" id="collapse-2b33bc4f9a87f350cc982c8a283b4cb3"
+      <div class="category-collapse collapse " id="collapse-2b33bc4f9a87f350cc982c8a283b4cb3"
            role="tabpanel" aria-labelledby="heading-2b33bc4f9a87f350cc982c8a283b4cb3">
         
         
@@ -1690,14 +1728,12 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
   </div>
 
           
-          
-  
   
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="01. 线性回归"
         id="heading-dc642ac1c66d63729996e51b3e237ffa" role="tab" data-toggle="collapse" href="#collapse-dc642ac1c66d63729996e51b3e237ffa"
         aria-expanded="false"
@@ -1769,8 +1805,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="02. Octave语言初步"
         id="heading-bcc95dcde8fc4271ced855841cdcadfa" role="tab" data-toggle="collapse" href="#collapse-bcc95dcde8fc4271ced855841cdcadfa"
         aria-expanded="false"
@@ -1833,8 +1869,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="03. 逻辑回归与正则化"
         id="heading-85021a7efd571d26ace2edd1294772fb" role="tab" data-toggle="collapse" href="#collapse-85021a7efd571d26ace2edd1294772fb"
         aria-expanded="false"
@@ -1879,8 +1915,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="04. 正则化"
         id="heading-dbf7b1a5c451b2b2c962f913c29a3d2f" role="tab" data-toggle="collapse" href="#collapse-dbf7b1a5c451b2b2c962f913c29a3d2f"
         aria-expanded="false"
@@ -1934,8 +1970,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="05. 神经网络"
         id="heading-8f241e583714ed65cd3a5af9153f2477" role="tab" data-toggle="collapse" href="#collapse-8f241e583714ed65cd3a5af9153f2477"
         aria-expanded="false"
@@ -2025,8 +2061,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="06. 诊断与调试"
         id="heading-00d2d530b8b88bd4f127d79e5aa7f18d" role="tab" data-toggle="collapse" href="#collapse-00d2d530b8b88bd4f127d79e5aa7f18d"
         aria-expanded="false"
@@ -2089,8 +2125,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="07. 机器学习系统设计"
         id="heading-bacfb0d0714bf3ed8869da7b391dacf2" role="tab" data-toggle="collapse" href="#collapse-bacfb0d0714bf3ed8869da7b391dacf2"
         aria-expanded="false"
@@ -2144,8 +2180,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="08. 支持向量机"
         id="heading-1f63b885cb54d88cf1030413c3c7548e" role="tab" data-toggle="collapse" href="#collapse-1f63b885cb54d88cf1030413c3c7548e"
         aria-expanded="false"
@@ -2208,8 +2244,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="09. K均值算法"
         id="heading-7648209ddcccfede8f28ed947b527d2b" role="tab" data-toggle="collapse" href="#collapse-7648209ddcccfede8f28ed947b527d2b"
         aria-expanded="false"
@@ -2263,8 +2299,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="10. 主成分分析"
         id="heading-2b6d14716687407d66e4e17051174d16" role="tab" data-toggle="collapse" href="#collapse-2b6d14716687407d66e4e17051174d16"
         aria-expanded="false"
@@ -2318,8 +2354,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="11. 异常检测算法"
         id="heading-04c8cf50cfe6ccb054d148014e8e7047" role="tab" data-toggle="collapse" href="#collapse-04c8cf50cfe6ccb054d148014e8e7047"
         aria-expanded="false"
@@ -2391,8 +2427,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="12. 内容推荐"
         id="heading-aa8c7d4838f1f557bd22d686ce574e10" role="tab" data-toggle="collapse" href="#collapse-aa8c7d4838f1f557bd22d686ce574e10"
         aria-expanded="false"
@@ -2455,8 +2491,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="13. 大规模机器学习"
         id="heading-a942f9775fd09139d2f187f6b039bf8c" role="tab" data-toggle="collapse" href="#collapse-a942f9775fd09139d2f187f6b039bf8c"
         aria-expanded="false"
@@ -2528,8 +2564,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="14. 机器学习实例：光学字符识别（OCR）"
         id="heading-6a317962e55be06bf5af1ab070d88c11" role="tab" data-toggle="collapse" href="#collapse-6a317962e55be06bf5af1ab070d88c11"
         aria-expanded="false"
@@ -2601,8 +2637,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="15. 总结和感谢"
         id="heading-6f87da922293c9c4ae1866ccee1fdb00" role="tab" data-toggle="collapse" href="#collapse-6f87da922293c9c4ae1866ccee1fdb00"
         aria-expanded="false"
@@ -2642,8 +2678,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="物理和数学"
         id="heading-33c494a1fb0df6f0e247adff28ced681" role="tab" data-toggle="collapse" href="#collapse-33c494a1fb0df6f0e247adff28ced681"
         aria-expanded="false"
@@ -2733,8 +2769,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电信传输理论与工程"
         id="heading-28ac311000f78573e3c3db6feaa45caf" role="tab" data-toggle="collapse" href="#collapse-28ac311000f78573e3c3db6feaa45caf"
         aria-expanded="false"
@@ -2806,8 +2842,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电子系统"
         id="heading-b39c3b04dc208f383088f6021a0ee899" role="tab" data-toggle="collapse" href="#collapse-b39c3b04dc208f383088f6021a0ee899"
         aria-expanded="false"
@@ -2933,8 +2969,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电路与器件"
         id="heading-1db9ff3a105b52dc9499ceb9f5e5356d" role="tab" data-toggle="collapse" href="#collapse-1db9ff3a105b52dc9499ceb9f5e5356d"
         aria-expanded="false"
@@ -2997,8 +3033,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="移动通信"
         id="heading-cf1e837e555de079ca221a731a82cfa6" role="tab" data-toggle="collapse" href="#collapse-cf1e837e555de079ca221a731a82cfa6"
         aria-expanded="false"
@@ -3088,8 +3124,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="计算机结构与接口"
         id="heading-ba239b57c06107ef37236e10fecae7db" role="tab" data-toggle="collapse" href="#collapse-ba239b57c06107ef37236e10fecae7db"
         aria-expanded="false"
@@ -3152,8 +3188,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信原理"
         id="heading-21bcb4ca3640cc59985ea60fa9875fd8" role="tab" data-toggle="collapse" href="#collapse-21bcb4ca3640cc59985ea60fa9875fd8"
         aria-expanded="false"
@@ -3324,8 +3360,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信和计算机网络"
         id="heading-00696fa5a068c4786e804147ec4a31e0" role="tab" data-toggle="collapse" href="#collapse-00696fa5a068c4786e804147ec4a31e0"
         aria-expanded="false"
@@ -3451,14 +3487,14 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
     
     
-    <div class="category row nomargin-x">
-      <a class="category-item collapsed
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
           list-group-item category-item-action col-10 col-md-11 col-xm-11" title="面向对象设计C++"
         id="heading-6eeae6fdfdcb1a7bfc4d958fa33436ab" role="tab" data-toggle="collapse" href="#collapse-6eeae6fdfdcb1a7bfc4d958fa33436ab"
         aria-expanded="false"
       >
         面向对象设计C++
-        <span class="list-group-count">(6)</span>
+        <span class="list-group-count">(7)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -3517,10 +3553,19 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
     
       
       
-        <a href="/2024/01/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/6.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/" title="6. 函数重载 [施工中]"
+        <a href="/2024/01/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/6.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/" title="6. 函数重载·内联函数·const"
            class="list-group-item list-group-item-action
            ">
-          <span class="category-post">6. 函数重载 [施工中]</span>
+          <span class="category-post">6. 函数重载·内联函数·const</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/7.%20%E5%BC%95%E7%94%A8%E5%92%8C%E5%90%91%E4%B8%8A%E9%80%A0%E5%9E%8B/" title="7. 引用·向上造型 [施工中]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7. 引用·向上造型 [施工中]</span>
         </a>
       
     
@@ -3575,6 +3620,7 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 
 
 
+
     
 
     
@@ -3612,7 +3658,6 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 
   <footer>
     <div class="footer-inner">
-  <script src="./node_modules/pjax/pjax.js"></script>
   
     <div class="footer-content">
        如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2024 
@@ -3651,8 +3696,8 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 
   <!-- Scripts -->
   
-  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":true,"trickleSpeed":100})
@@ -3663,19 +3708,13 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
   </script>
 
 
-<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -3683,9 +3722,9 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
       if (!subtitle || !typing) {
         return;
       }
-      var title = subtitle.title;
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -3694,124 +3733,60 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 
 
   
-
+    <script  src="/js/img-lazyload.js" ></script>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
 
 
 
 
   
 <script>
-  Fluid.utils.createScript('https://cdn.staticfile.org/tocbot/4.18.0/tocbot.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
     var toc = jQuery('#toc');
     if (toc.length === 0 || !window.tocbot) { return; }
     var boardCtn = jQuery('#board-ctn');
     var boardTop = boardCtn.offset().top;
 
-    window.tocbot.init({
+    window.tocbot.init(Object.assign({
       tocSelector     : '#toc-body',
       contentSelector : '.markdown-body',
-      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
       linkClass       : 'tocbot-link',
       activeLinkClass : 'tocbot-active-link',
       listClass       : 'tocbot-list',
       isCollapsedClass: 'tocbot-is-collapsed',
       collapsibleClass: 'tocbot-is-collapsible',
-      collapseDepth   : CONFIG.toc.collapseDepth || 0,
       scrollSmooth    : true,
-      headingsOffset  : -boardTop
-    });
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
     if (toc.find('.toc-list-item').length > 0) {
       toc.css('visibility', 'visible');
     }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
   });
 </script>
 
 
-  <script>
-  (function() {
-    var enableLang = CONFIG.code_language.enable && CONFIG.code_language.default;
-    var enableCopy = CONFIG.copy_btn;
-    if (!enableLang && !enableCopy) {
-      return;
-    }
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
 
-    function getBgClass(ele) {
-      return Fluid.utils.getBackgroundLightness(ele) >= 0 ? 'code-widget-light' : 'code-widget-dark';
-    }
-
-    var copyTmpl = '';
-    copyTmpl += '<div class="code-widget">';
-    copyTmpl += 'LANG';
-    copyTmpl += '</div>';
-    jQuery('.markdown-body pre').each(function() {
-      var $pre = jQuery(this);
-      if ($pre.find('code.mermaid').length > 0) {
-        return;
-      }
-      if ($pre.find('span.line').length > 0) {
-        return;
-      }
-
-      var lang = '';
-
-      if (enableLang) {
-        lang = CONFIG.code_language.default;
-        if ($pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2 && $pre.children().hasClass('hljs')) {
-          lang = $pre[0].children[0].classList[1];
-        } else if ($pre[0].getAttribute('data-language')) {
-          lang = $pre[0].getAttribute('data-language');
-        } else if ($pre.parent().hasClass('sourceCode') && $pre[0].children.length > 0 && $pre[0].children[0].classList.length >= 2) {
-          lang = $pre[0].children[0].classList[1];
-          $pre.parent().addClass('code-wrapper');
-        } else if ($pre.parent().hasClass('markdown-body') && $pre[0].classList.length === 0) {
-          $pre.wrap('<div class="code-wrapper"></div>');
-        }
-        lang = lang.toUpperCase().replace('NONE', CONFIG.code_language.default);
-      }
-      $pre.append(copyTmpl.replace('LANG', lang).replace('code-widget">',
-        getBgClass($pre[0]) + (enableCopy ? ' code-widget copy-btn" data-clipboard-snippet><i class="iconfont icon-copy"></i>' : ' code-widget">')));
-
-      if (enableCopy) {
-        Fluid.utils.createScript('https://cdn.staticfile.org/clipboard.js/2.0.10/clipboard.min.js', function() {
-          var clipboard = new window.ClipboardJS('.copy-btn', {
-            target: function(trigger) {
-              var nodes = trigger.parentNode.childNodes;
-              for (var i = 0; i < nodes.length; i++) {
-                if (nodes[i].tagName === 'CODE') {
-                  return nodes[i];
-                }
-              }
-            }
-          });
-          clipboard.on('success', function(e) {
-            e.clearSelection();
-            e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-copy', 'icon-success');
-            setTimeout(function() {
-              e.trigger.innerHTML = e.trigger.innerHTML.replace('icon-success', 'icon-copy');
-            }, 2000);
-          });
-        });
-      }
-    });
-  })();
-</script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
   
 <script>
-  Fluid.utils.createScript('https://cdn.staticfile.org/anchor-js/4.3.1/anchor.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
     window.anchors.options = {
       placement: CONFIG.anchorjs.placement,
       visible  : CONFIG.anchorjs.visible
@@ -3828,13 +3803,28 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
       window.anchors.options.class = 'anchorjs-link-left';
     }
     window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
   });
 </script>
 
 
   
 <script>
-  Fluid.utils.createScript('https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
     Fluid.plugins.fancyBox();
   });
 </script>
@@ -3842,41 +3832,46 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
 
   
       <script>
-        MathJax = {
-          tex    : {
-            inlineMath: { '[+]': [['$', '$']] }
-          },
-          loader : {
-            load: ['ui/lazy']
-          },
-          options: {
-            renderActions: {
-              findScript    : [10, doc => {
-                document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-                  const display = !!node.type.match(/; *mode=display/);
-                  const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-                  const text = document.createTextNode('');
-                  node.parentNode.replaceChild(text, node);
-                  math.start = { node: text, delim: '', n: 0 };
-                  math.end = { node: text, delim: '', n: 0 };
-                  doc.math.push(math);
-                });
-              }, '', false],
-              insertedScript: [200, () => {
-                document.querySelectorAll('mjx-container').forEach(node => {
-                  let target = node.parentNode;
-                  if (target.nodeName.toLowerCase() === 'li') {
-                    target.parentNode.classList.add('has-jax');
-                  }
-                });
-              }, '', false]
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
             }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
           }
-        };
+        });
       </script>
     
 
-  <script  src="https://cdn.staticfile.org/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
@@ -3901,36 +3896,5 @@ F(A∘B)=&\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),�
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-  <script>
-    // pjax
-    var pjax = new Pjax({
-    selectors: [
-      "title", //加载标题
-      "main", //加载主体框架部分
-      "header", //加载头部（文章页头图等）
-      "welcome" // 欢迎弹窗
-    ]
-   })
-</script>
-  <!-- start webpushr tracking code --> 
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
-  fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
-  webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
-  <!-- end webpushr tracking code -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

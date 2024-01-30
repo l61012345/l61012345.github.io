@@ -102,10 +102,6 @@
   <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <!--欢迎弹窗-->
-  <script src="/js/sweetalert.js"></script>
-  <link rel="stylesheet" href="/css/sweetalert.css">
-  <!--以上是欢迎弹窗-->
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Oreki Kigiha">
@@ -120,9 +116,12 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
 
@@ -155,10 +154,45 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
   
 <style type="text/css">
@@ -222,9 +256,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -234,9 +268,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>时间线</span>
               </a>
             </li>
           
@@ -246,9 +280,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/essay-map/">
+              <a class="nav-link" href="/essay-map/" target="_self">
                 <i class="iconfont icon-books"></i>
-                论文导图
+                <span>论文导图</span>
               </a>
             </li>
           
@@ -258,9 +292,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -270,9 +304,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -282,9 +316,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于我
+                <span>关于我</span>
               </a>
             </li>
           
@@ -292,15 +326,16 @@ p.spoiler {
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -316,9 +351,9 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="各种笔记和随笔。">
-            
-          </span>
+          
+            <span id="subtitle" data-typed-text="记一些有用的东西。"></span>
+          
         </div>
 
         
@@ -353,19 +388,148 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
+        
+        <a href="/2021/09/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/5.%20%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6/" target="_blank">
+          05. 模拟基带信号的线性调制方法
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/5.%20%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6/" target="_blank">
+        <div>
+          模拟基带信号的线性调制方法调制简单来说调制是将原本的信号（称为基带信号）$m(t)$与另一个确知信号（称为载波）$c(t)$一同进入乘法器，输出信号的过程。   S_m(t)=m(t)c(t)需要注意的是，由于载波是确知信号，因此调制过程不会发生任何信息的变化。使用调制的目的有三个：    由于天线与传输信号的波长之间存在匹配关系，通常天线的尺寸在$\frac{λ}{10}$到$\frac{λ}{
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-30 00:00" pubdate>
+              2021-09-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" class="category-chain-item">通信原理</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" target="_blank">
+          讲义：什么是遗传算法（GA）？
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" target="_blank">
+        <div>
+          讲义：什么是遗传算法？ 参考资料：  Flappy Learning- https://xviniette.github.io/FlappyLearning 北京大兴国际机场旅客航站楼和综合换乘中心, 北京市建筑设计研究院有限公司 Technological overview of the next generation Shinkansen high-speed train Series N70
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-09-30 00:00" pubdate>
+              2021-09-30
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BA%E6%96%87/" class="category-chain-item">论文</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" class="category-chain-item">遗传算法</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
         
         <a href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" target="_blank">
           04. 高斯噪声
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" target="_blank">
-          
-          高斯噪声白噪声白噪声指噪声信号的功率谱密度函数在频域内符合均匀分布。事实上，完全意义上的白噪声是不可能存在的，因此如果噪声的功率谱密度在系统的工作频段内符合均匀分布，也认为是白噪声。   白噪声的统计特性白噪声的谱密度函数（双边）可以表示为：   P_ξ(ω)&#x3D;\frac{n_0}{2}(-∞
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" target="_blank">
+        <div>
+          高斯噪声白噪声白噪声指噪声信号的功率谱密度函数在频域内符合均匀分布。事实上，完全意义上的白噪声是不可能存在的，因此如果噪声的功率谱密度在系统的工作频段内符合均匀分布，也认为是白噪声。   白噪声的统计特性白噪声的谱密度函数（双边）可以表示为：   P_ξ(ω)=\frac{n_0}{2}(-∞
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -414,19 +578,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/3.%20%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" target="_blank">
           03. 离散时间傅里叶变换
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/3.%20%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/3.%20%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" target="_blank">
+        <div>
           离散时间傅里叶变换傅里叶变换的意义对于一个线性时不变系统，系统任意的输入的信号可以表示为一系列特征函数的线性组合。而傅里叶变换的本质在于求出这个线性组合中每一项的系数和这个线性组合本身的表示。而连续时间域中的傅里叶变换是离散域中线性组合概念的拓展。离散频域中的线性时不变系统的特征函数是指数函数（序列）:$e^{jω_kn}$，因此通过傅里叶变换，任何一个满足狄利克雷条件的离散时间域中的信号都可以表
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -475,19 +639,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" target="_blank">
           TensorFlow 入门项目：训练一个VGG模型
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" target="_blank">
-          
-          TensorFlow 入门项目：训练一个VGG模型 代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：  读取数据集，加载数据集中的图像和标签 划分训练集和测试集 定义分类器，此处需要定义使用的Google的VGG模型 将训练集放入分类器训练，并用测试集输出评价 输出设定的评
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" target="_blank">
+        <div>
+          TensorFlow 入门项目：训练一个VGG模型 代码环境建议为：Python37/38/39 Tensorflow 2.3.0/2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：  读取数据集，加载数据集中的图像和标签 划分训练集和测试集 定义分类器，此处需要定义使用的Google的VGG模型 将训练集放入分类器训练，并用测试集输出评价 输出设定的评
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -543,19 +707,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/21/%E6%97%A5%E8%AF%AD/N2%E5%A4%87%E8%80%83/Unit%2011~15/" target="_blank">
           Unit 11~15
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/21/%E6%97%A5%E8%AF%AD/N2%E5%A4%87%E8%80%83/Unit%2011~15/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/21/%E6%97%A5%E8%AF%AD/N2%E5%A4%87%E8%80%83/Unit%2011~15/" target="_blank">
+        <div>
           Unit 11~15 な行・は行Unit 11 な・に ないことにはない・ないこともない・ないではない・ないではない    動詞ない形・い形容詞ない形・な形容詞～で＋ないことにはない・ないこともない         【不是不能……】消极    動詞ない形・い形容詞ない形・な形容詞～で＋ないではない・ないではない         【也不是不……】      ながら（も）動詞ます形・な形容詞・い形容詞
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -613,19 +777,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/1.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7/" target="_blank">
           01. 数字信号
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/1.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7/" target="_blank">
-          
-          数字信号数字信号是时间离散、幅值离散的信号。但是在本课中为了简化分析，认为时间离散、幅值连续的信号也是数字信号。数字信号可以由序列进行表示：   ...,x[-1],x[0],x[1],...采样模拟信号是时间连续、幅值连续的信号。使模拟信号转变为数字信号的过程称为采样。采样过程可由如下公式表示：   x[n]&#x3D;x(t)|_{t&#x3D;nT_s}&#x3D;x(nT_s),n∈Z其中$T_s$称为采样周期。
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/1.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7/" target="_blank">
+        <div>
+          数字信号数字信号是时间离散、幅值离散的信号。但是在本课中为了简化分析，认为时间离散、幅值连续的信号也是数字信号。数字信号可以由序列进行表示：   ...,x[-1],x[0],x[1],...采样模拟信号是时间连续、幅值连续的信号。使模拟信号转变为数字信号的过程称为采样。采样过程可由如下公式表示：   x[n]=x(t)|_{t=nT_s}=x(nT_s),n∈Z其中$T_s$称为采样周期。
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -674,19 +838,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2.%20%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F/" target="_blank">
           02. 数字系统
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2.%20%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2.%20%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F/" target="_blank">
+        <div>
           数字系统系统的特性线性线性系统满足两个特点：齐次性和可加性。   齐次性如果$x[n]→T→y[n]$，有：   Ax[n]→T→Ay[n]称系统具有齐次性。   可加性如果$x_1[n]→T→y_1[n]$、$x_2[n]→T→y_2[n]$，有：   x_1[n]+x_2[n]→T→y_1[n]+y_2[n]称系统具有可加性。
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -735,19 +899,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/3.%20%E6%A6%82%E7%8E%87%E4%B8%8E%E9%9A%8F%E6%9C%BA/" target="_blank">
           03. 随机变量和随机过程
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/3.%20%E6%A6%82%E7%8E%87%E4%B8%8E%E9%9A%8F%E6%9C%BA/" target="_blank">
-          
-          随机变量和随机过程 由于通信原理所研究的信号是连续的模拟信号，因此本节主要复习连续随机变量&#x2F;随机过程的性质。    随机变量概率密度和概率分布函数对于随机变量$X$，概率密度函数(PDF)$f(x)$表示当$X&#x3D;x$时候的概率：   f(x)&#x3D;P(X&#x3D;x)概率分布函数&#x2F;积累分布函数（CDF）$F(x)$表示$X$小于$x$的概率，对于连续随机变量，积累分布函数可以表示为：   F(x)&#x3D;P(X≤x
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/3.%20%E6%A6%82%E7%8E%87%E4%B8%8E%E9%9A%8F%E6%9C%BA/" target="_blank">
+        <div>
+          随机变量和随机过程 由于通信原理所研究的信号是连续的模拟信号，因此本节主要复习连续随机变量/随机过程的性质。    随机变量概率密度和概率分布函数对于随机变量$X$，概率密度函数(PDF)$f(x)$表示当$X=x$时候的概率：   f(x)=P(X=x)概率分布函数/积累分布函数（CDF）$F(x)$表示$X$小于$x$的概率，对于连续随机变量，积累分布函数可以表示为：   F(x)=P(X≤x
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -796,19 +960,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2021/09/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/2.%20%E4%BF%A1%E5%8F%B7/" target="_blank">
           02. 信号
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2021/09/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/2.%20%E4%BF%A1%E5%8F%B7/" target="_blank">
-          
-          信号信号的分类直流信号和交流信号任意信号可以分解为直流信号和交流信号：   S(t)&#x3D;S_{ac}(t)+S_{dc}(t)直流信号是信号在一周期内的平均值：   S_{dc}&#x3D;\lim_{T→∞}∫_{-\frac{T}{2}}^{\frac{T}{2}}S(t)dt由于直流信号是一个常量，直流信号不包含任何信息。 确知信号和随机信号在任意时间上的信号参数为已知的信号为确知信号，以$f(t)$表
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2021/09/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/2.%20%E4%BF%A1%E5%8F%B7/" target="_blank">
+        <div>
+          信号信号的分类直流信号和交流信号任意信号可以分解为直流信号和交流信号：   S(t)=S_{ac}(t)+S_{dc}(t)直流信号是信号在一周期内的平均值：   S_{dc}=\lim_{T→∞}∫_{-\frac{T}{2}}^{\frac{T}{2}}S(t)dt由于直流信号是一个常量，直流信号不包含任何信息。 确知信号和随机信号在任意时间上的信号参数为已知的信号为确知信号，以$f(t)$表
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -816,137 +980,6 @@ p.spoiler {
             <i class="iconfont icon-date"></i>
             <time datetime="2021-09-13 00:00" pubdate>
               2021-09-13
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/" class="category-chain-item">通信原理</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/11/%E6%97%A5%E8%AF%AD/N2%E5%A4%87%E8%80%83/Unit%206/" target="_blank">
-          Unit 06~10
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/11/%E6%97%A5%E8%AF%AD/N2%E5%A4%87%E8%80%83/Unit%206/" target="_blank">
-          
-          Unit 6~10 さ行・た行・な行Unit 6 さ（ざ）・し（じ）・す（ず）・せ・た 際（は）・際に（は）動詞辞書形・た形・名詞～の＋際（は）・際に（は）         【在……的时候&#x2F;借着……的时机】    最中（に）・最中だ動詞て形～ている・い形容詞・名詞～の＋最中（に）・最中だ         【正在……时突然发生了……】    ざるを得ない動詞ない形＋ざるを得ない         【不
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-11 00:00" pubdate>
-              2021-09-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E6%97%A5%E8%AF%AD/" class="category-chain-item">日语</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E6%97%A5%E8%AF%AD/N2%E5%A4%87%E8%80%83%E6%96%87%E6%B3%95/" class="category-chain-item">N2备考文法</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%97%A5%E8%AF%AD/">#日语</a>
-            
-              <a href="/tags/N2/">#N2</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/09/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/1.%20%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E3%80%81%E4%BF%A1%E6%81%AF/" target="_blank">
-          01. 通信系统·信息
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/09/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/1.%20%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E3%80%81%E4%BF%A1%E6%81%AF/" target="_blank">
-          
-          通信系统·信息信号模拟信号模拟信号指时间连续，幅值连续的信号。   数字信号数字信号指时间连续&#x2F;离散，幅值离散的信号。   数字信号的优势：    抗噪性高：只要幅值高于某个阈值则即为1，对幅值的精度要求不如模拟信号。   便于加密、存储、处理、传输数字信号的劣势：   需要更大的带宽需求 需要高的时协同步要求  信息信息分为连续信息（比如声音）和离散信息（比如文字）。以消息中包含的未确定事件的概
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-09-10 00:00" pubdate>
-              2021-09-10
             </time>
           </div>
         
@@ -1036,7 +1069,6 @@ p.spoiler {
 
   <footer>
     <div class="footer-inner">
-  <script src="./node_modules/pjax/pjax.js"></script>
   
     <div class="footer-content">
        如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2024 
@@ -1075,8 +1107,8 @@ p.spoiler {
 
   <!-- Scripts -->
   
-  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":true,"trickleSpeed":100})
@@ -1087,19 +1119,13 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -1107,9 +1133,9 @@ p.spoiler {
       if (!subtitle || !typing) {
         return;
       }
-      var title = subtitle.title;
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -1118,19 +1144,8 @@ p.spoiler {
 
 
   
-
+    <script  src="/js/img-lazyload.js" ></script>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
 
 
 
@@ -1158,36 +1173,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-  <script>
-    // pjax
-    var pjax = new Pjax({
-    selectors: [
-      "title", //加载标题
-      "main", //加载主体框架部分
-      "header", //加载头部（文章页头图等）
-      "welcome" // 欢迎弹窗
-    ]
-   })
-</script>
-  <!-- start webpushr tracking code --> 
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
-  fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
-  webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
-  <!-- end webpushr tracking code -->
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
