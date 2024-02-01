@@ -115,7 +115,7 @@
 <meta property="og:description" content="强类型遗传编程 D. J. Montana, “Strongly Typed Genetic Programming,” in Evolutionary Computation, vol. 3, no. 2, pp. 199-230, June 1995, doi: 10.1162&#x2F;evco.1995.3.2.199.    强类型遗传编程(Strongly Typed Genetic Progr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-30T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-30T16:22:08.393Z">
+<meta property="article:modified_time" content="2024-02-01T11:26:16.046Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2.3k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          14 分钟
+          20 分钟
         
       </span>
     
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年1月30日 下午
+                    本文最后更新于 2024年2月1日 上午
                   
                 
               </p>
@@ -500,8 +500,61 @@ p.spoiler {
 <li>生成过程不会选择让子树非法的节点，如果没有可以选择的节点，那么会尝试其他的生成深度和生成方法。  </li>
 </ul>
 <p>比如如下的个体的生成方式展示：<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240130161318.png width=60%>   </p>
-<p>由于问题需要返回<code>VECTOR-3</code>，因此根节点可以选择函数<code>SCALAR-VECT-MULT-3</code>或者<code>VECTOR-ADD-3</code>，此处随机选择<code>SCALAR-VECT-MULT-3</code>；  <code>SCALAR-VECT-MULT-3</code>的声明需要一个标量和一个类型为<code>VECTOR-3</code>的向量，对于结果返回为标量的函数，可以选择<code>DOT-PRODUCT-2</code>,<code>DOT-PRODUCT-3</code>，此处随机选择<code>DOT-PRODUCT-2</code>；返回<code>VECTOR-3</code>的函数只有<code>VECTOR-ADD-3</code>；<br>对于<code>DOT-PRODUCT-2</code>，其声明是两个<code>VECTOR-2</code>的向量，只能选择<code>V3</code>； 对于<code>VECTOR-ADD-3</code>，其声明是两个<code>VECTOR-3</code>的向量，可以选择<code>V1</code>或者<code>V2</code>.  </p>
-<p>为了实现第二个限制，STGP必须遍历完所有可以选择的节点。STGP的实现方式是将每一层级所有可用的类型都以表格的形式存放，并且以链表的形式连接。  </p>
+<p>由于问题需要返回<code>VECTOR-3</code>，因此根节点可以选择函数<code>SCALAR-VECT-MULT-3</code>或者<code>VECTOR-ADD-3</code>，此处随机选择<code>SCALAR-VECT-MULT-3</code>；  <code>SCALAR-VECT-MULT-3</code>的声明需要一个标量和一个类型为<code>VECTOR-3</code>的向量，对于结果返回为标量的函数，可以选择<code>DOT-PRODUCT-2</code>,<code>DOT-PRODUCT-3</code>，此处随机选择<code>DOT-PRODUCT-2</code>；返回<code>VECTOR-3</code>的函数只有<code>VECTOR-ADD-3</code>；<br>对于<code>DOT-PRODCT-2</code>，其声明是两个<code>VECTOR-2</code>的向量，只能选择<code>V3</code>； 对于<code>VECTOR-ADD-3</code>，其声明是两个<code>VECTOR-3</code>的向量，可以选择<code>V1</code>或者<code>V2</code>.  </p>
+<p>为了实现第二个限制，STGP必须遍历完所有可以选择的节点。STGP的实现方式是将每一层级所有可用的类型都以表格的形式存放，并且以链表的形式连接。<br>实现的伪代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">depth = <span class="hljs-number">1</span> <span class="hljs-comment">#对于深度为1的类型表</span><br><span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> terminal_set:<br>  <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(j) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> table_entry(depth):<br>    table_entry(<span class="hljs-number">1</span>).append(<span class="hljs-built_in">type</span>(j)) <span class="hljs-comment"># 将terminal set中的类型加入第一张表</span><br><br><span class="hljs-keyword">for</span> depth <span class="hljs-keyword">in</span> [<span class="hljs-number">2</span>, Max_Depth]:<br>  <span class="hljs-keyword">if</span> using_growing_method==TRUE: <span class="hljs-comment"># 如果使用了growing做初始化方法</span><br>  <span class="hljs-comment"># 那么将上一张表的所有类型加入下一张表</span><br>  <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> function_set:<br>    table_entry(depth).append(table_entry(depth - <span class="hljs-number">1</span>)) <br>    <span class="hljs-comment"># 如果这个函数的声明类型在上一张表，但是返回类型没有在这一层的类型表中</span><br>    <span class="hljs-keyword">if</span> (return_type(k) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> table_entry(depth)) &amp; (arg_type(k) <span class="hljs-keyword">in</span> table_entry(depth - <span class="hljs-number">1</span>)):<br>      table_entry(depth).append(return_type(k)) <span class="hljs-comment"># 加入返回类型</span><br></code></pre></td></tr></table></figure></p>
+<h3 id="遗传操作"><a href="#遗传操作" class="headerlink" title="遗传操作"></a>遗传操作</h3><h4 id="突变"><a href="#突变" class="headerlink" title="突变"></a>突变</h4><p>突变的操作和标准遗传编程类似，但是突变中新生成的树也需要遵守初始化生成树的原则。  </p>
+<h4 id="交叉"><a href="#交叉" class="headerlink" title="交叉"></a>交叉</h4><p>交叉的第一个交叉点可以随机任选，但是第二个交叉点的选择上需要选择和第一个交叉点对应子树的类型相同，也就是交叉点所属的父子树所需要的声明的类型相同。  </p>
+<h2 id="泛化函数和泛化类型"><a href="#泛化函数和泛化类型" class="headerlink" title="泛化函数和泛化类型"></a>泛化函数和泛化类型</h2><p>基本的STGP的最大的问题是，即便是所要求的函数的功能类似，但是因为输入类型的不同需要创建多个功能类似的函数。比如矩阵加法，就需要对输入的不同维度的矩阵分别创建不同函数。这个问题可以通过使用泛化函数解决(generic function)。泛函是一种参数多态，它是一种可以处理多种不同输入类型的函数。  </p>
+<p>上表展示了泛型和泛函的使用例子：  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Function Name</th>
+<th style="text-align:center">Argument Type</th>
+<th style="text-align:center">Return Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DOT-PRODUCT</td>
+<td style="text-align:center">VECTOR-i <br> VECTOR-i</td>
+<td style="text-align:center">FLOAT</td>
+</tr>
+<tr>
+<td style="text-align:center">VECTOR-ADD</td>
+<td style="text-align:center">VECTOR-i <br> VECTOR-i</td>
+<td style="text-align:center">VECTOR-i</td>
+</tr>
+<tr>
+<td style="text-align:center">MAT-VEC-MULT</td>
+<td style="text-align:center">MATRIX-i-j <br> VECTOR-j</td>
+<td style="text-align:center">VECTOR-i</td>
+</tr>
+<tr>
+<td style="text-align:center">CAR</td>
+<td style="text-align:center">LIST-OF-t</td>
+<td style="text-align:center">t</td>
+</tr>
+<tr>
+<td style="text-align:center">LENGTH</td>
+<td style="text-align:center">LIST-OF-t</td>
+<td style="text-align:center">INTEGER</td>
+</tr>
+<tr>
+<td style="text-align:center">IF-THEN-ELSE</td>
+<td style="text-align:center">BOOLEAN <br> t <br> t</td>
+<td style="text-align:center">t</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>需要注意的是，STGP中所有的泛型函数只能有一个返回类型。<br>在泛函运行的过程当中需要确定输入一个固定的输入类型，这一过程称为实例化(instantiate)。泛型函数在个体树被生成(种群初始化阶段和变异中随机生成的子树)的过程中被实例化。在实例化之后这个函数会一直以实例化运行。<br>引入泛型函数后，需要对STGP作出两点改变：  </p>
+<ul>
+<li>第一点是，在没有泛型函数时每一个树的深度的类型是通过表得出的，在生成过程中需要检查树的声明类型是否在<code>table_entry(depth - 1)</code>返回类型是否在<code>table_entry(depth)</code>。引入泛型函数后，就需要考虑更多的可能性，于是每一个表中就需要加入所有的合法的可能组合类型：  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 对于所有可以组成函数声明的类型组合</span><br><span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> [combination of types <span class="hljs-keyword">in</span> table_entry(i-<span class="hljs-number">1</span>)  into arg_types <span class="hljs-keyword">in</span> the function]:<br>  <span class="hljs-comment"># 如果这样的类型组合是合法的，并且不在table_entry(depth)中：    </span><br>  <span class="hljs-keyword">if</span> (arg_type_valide==<span class="hljs-number">1</span>) &amp; (return_type(k) <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> table_entry(depth)):  <br>    table_entry.append(return_type(k))<br></code></pre></td></tr></table></figure></li>
+<li>第二个改动来自于生成树的过程。在生成树的过程中需要进行的类型检查在引入泛型函数之后也需要尝试所有可能的类型组合：  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> [combination of types <span class="hljs-keyword">in</span> table_entry(i-<span class="hljs-number">1</span>)  into arg_types <span class="hljs-keyword">in</span> the function]:<br>  <span class="hljs-keyword">if</span> arg_type(k) <span class="hljs-keyword">is</span> valid :<br>    arg_type_valid = <span class="hljs-number">1</span><br>  <span class="hljs-keyword">else</span>:<br>    arg_type_valid = <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
 
                 
               </div>
@@ -573,7 +626,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年1月30日</div>
+          <div>2024年2月1日</div>
         </div>
       
       
