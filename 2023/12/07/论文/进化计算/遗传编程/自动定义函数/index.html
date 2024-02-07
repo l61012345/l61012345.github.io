@@ -512,12 +512,12 @@ p.spoiler {
 <p>满足任意一个条件均视为被选择的两个交叉/突变点被视为是同一类的交叉和突变。  </p>
 <p>第二种定义是如果交换/突变和被交换/突变插入的部分同属一类，那么被选择的两个交叉/突变点被视为是同一类的交叉和突变。<br>在代码实现过程中，第一种定义的实现比较简单，所以通常使用的是第一种定义。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208114053.png width=70%>  </p>
-<p>比如，对如上的两个个体2420和2470，如果两个交叉点分别选择在图示红线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2420的交叉点位于ADF1，其形式参数集合为${ARG0,ARG1,ARG2}$，与个体2470交叉点属于的ADF0的形式参数集合${ARG0,ARG1}$并不相同，于是类保护交叉不会发生。  </p>
+<p>比如，对如上的两个个体2420和2470，如果两个交叉点分别选择在图示红线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2420的交叉点位于ADF1，其形式参数集合为$\{ARG0,ARG1,ARG2\}$，与个体2470交叉点属于的ADF0的形式参数集合$\{ARG0,ARG1\}$并不相同，于是类保护交叉不会发生。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208115119.png width=70%>    </p>
 <p>再比如，对如上的两个个体2520和2570，如果两个交叉点都发生在图示虚线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2520和2570的交叉点都位于结果生成部件当中，因此两个交叉点属于同一类。类保护交叉将会发生。  </p>
 <h4 id="类保护的"><a href="#类保护的" class="headerlink" title="类保护的"></a>类保护的</h4><p><strong>类保护的交叉和突变只能够在同一类中进行</strong>。从另一个角度看，也就是说<strong>只有从同一个形式参数函数集合中生成的ADF之间可以做交叉和突变</strong>。更进一步的解释是，<strong>不同类别的ADF之间的进化是完全独立的</strong>。  </p>
 <h4 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h4><p>类保护的交叉的实现是，首先随机选择一个交叉点，再随机选择第二个交叉点，如果第二个交叉点和第一个交叉点不属于同一类，那么重新随机选择第二个交叉点直到找到符合条件的交叉点。<br>类保护突变的实现是，首先随机选择一个突变点并且随机生成一个子树，然后检查被插入的生成的子树在此处是否有意义。如果没有意义则重新生成子树。<br>从此处可以看出，使用自动函数生成机制的进化过程是相当冗杂的，根据其后<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ferreira, C., 2001. Gene Expression Programming: A New Adaptive Algorithm for Solving Problems. Complex Systems, Vol. 13, issue 2: 87-129.">[2]</span></a></sup>的评述，这样搜索的失败率非常的高。交叉和突变非常容易找到不属于同一类的交叉和突变点，然后重试。  </p>
-<h2 id="ADF的实现"><a href="#ADF的实现" class="headerlink" title="ADF的实现"></a>ADF的实现</h2><h3 id="避免递归的实现方式"><a href="#避免递归的实现方式" class="headerlink" title="避免递归的实现方式"></a>避免递归的实现方式</h3><p>最后一点需要说明的是，虽然允许ADF调用其他ADF是可以将问题分层分解为一个个层级性的函数结构，但是在最一般的形式中，允许自动定义的函数调用其他同一类类函数将导致重复引用。为便于解释，在所示示例中不允许自动定义函数之间的递归引用。由于基因生成的实体经常是问题的错误解决方案，如果允许任何自动定义的函数引用自身，就必须预见无限递归的可能性。<br>因此需要设计机制避免出现无限递归。<br>第一种方法是按照ADF的生成顺序，有序地加入其他ADF的函数集。比如在生成第一个ADF，ADF0时，ADF0所使用的函数集就是基函数集合$\mathcal{F}<em>{ADF0}=\mathcal{F}$。然后第二个生成的ADF，ADF1使用的函数集是：$\mathcal{F}</em>{ADF1}=\mathcal{F}⋃{ADF<em>0}$，然后第三个生成的ADF2使用的函数集是：$\mathcal{F}</em>{ADF1}=\mathcal{F}⋃{ADF_0}⋃{ADF_1}$，以此类推。  </p>
+<h2 id="ADF的实现"><a href="#ADF的实现" class="headerlink" title="ADF的实现"></a>ADF的实现</h2><h3 id="避免递归的实现方式"><a href="#避免递归的实现方式" class="headerlink" title="避免递归的实现方式"></a>避免递归的实现方式</h3><p>最后一点需要说明的是，虽然允许ADF调用其他ADF是可以将问题分层分解为一个个层级性的函数结构，但是在最一般的形式中，允许自动定义的函数调用其他同一类类函数将导致重复引用。为便于解释，在所示示例中不允许自动定义函数之间的递归引用。由于基因生成的实体经常是问题的错误解决方案，如果允许任何自动定义的函数引用自身，就必须预见无限递归的可能性。<br>因此需要设计机制避免出现无限递归。<br>第一种方法是按照ADF的生成顺序，有序地加入其他ADF的函数集。比如在生成第一个ADF，ADF0时，ADF0所使用的函数集就是基函数集合$\mathcal{F}_{ADF0}=\mathcal{F}$。然后第二个生成的ADF，ADF1使用的函数集是：$\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}$，然后第三个生成的ADF2使用的函数集是：$\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}⋃\{ADF_1\}$，以此类推。  </p>
 <p>第二种方法比较复杂，是使用程序检查非环引用：也就是从函数定义到函数调用的路线中过程不允许循环引用。  </p>
 <div class="note note-info">
             <p>有观点认为不应该避免递归调用，但是递归调用的好处仍然需要调查。  </p>
@@ -1523,5 +1523,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

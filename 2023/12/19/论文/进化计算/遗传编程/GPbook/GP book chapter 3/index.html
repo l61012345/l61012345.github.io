@@ -604,7 +604,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>ADD_SIGNAL</code> <br> <code>SUB_SIGNAL</code> <br> <code>MULT_SIGNAL</code></td>
 <td style="text-align:left">分别对应对信号的加减乘一个常数</td>
-<td style="text-align:center">$f_1 [·] f_2$<br>$[·]∈{+,-,×}$</td>
+<td style="text-align:center">$f_1 [·] f_2$<br>$[·]∈\{+,-,×\}$</td>
 <td style="text-align:left">1. 时域信号 <br> 2. 时域信号</td>
 </tr>
 <tr>
@@ -658,7 +658,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>DIV</code></td>
 <td style="text-align:left">两个时域信号相除并限制</td>
-<td style="text-align:center">$[\frac{f<em>1}{f_2}]</em>{capped}$</td>
+<td style="text-align:center">$[\frac{f_1}{f_2}]_{capped}$</td>
 <td style="text-align:left">1.时域信号 <br> 2.时域信号 <br> 3下界 <br> 4.上界</td>
 </tr>
 <tr>
@@ -670,7 +670,7 @@ p.spoiler {
 <tr>
 <td style="text-align:left"><code>IF_POSITIVE</code></td>
 <td style="text-align:left">开关，运算结果为正时输出某个声明，反之输出另一个声明</td>
-<td style="text-align:center">$\begin{cases} f_1, f_0&gt;0 \ f_2,f_0 ≤0\end{cases}$</td>
+<td style="text-align:center">$\begin{cases} f_1, f_0&gt;0 \\ f_2,f_0 ≤0\end{cases}$</td>
 <td style="text-align:left">1. 时域信号 <br> 2. 时域信号 <br> 3.时域信号</td>
 </tr>
 <tr>
@@ -909,9 +909,9 @@ p.spoiler {
 <script type="math/tex; mode=display">T_{aps}=\{R\},R∈[-1,1]</script><div class="note note-info">
             <p>限制范围是为了避免突变的影响过大。  </p>
           </div>
-<p>对于结果生成子树，端点集都是时域信号：<br>$T=${<code>REFERENCE_SIGNAL</code>,<code>CONTROLLER_OUTPUT</code>,<code>PLANT_OUTPUT</code>,<code>CONSTANT_0</code>}  </p>
+<p>对于结果生成子树，端点集都是时域信号：<br>$T=$\{<code>REFERENCE_SIGNAL</code>,<code>CONTROLLER_OUTPUT</code>,<code>PLANT_OUTPUT</code>,<code>CONSTANT_0</code>\}  </p>
 <h5 id="基函数集-1"><a href="#基函数集-1" class="headerlink" title="基函数集"></a>基函数集</h5><p>同理，对于算术子树，基函数集为：  </p>
-<script type="math/tex; mode=display">T_{aps}=\{+,-\}</script><p>对结果生成子树，基函数集都是对时域信号的操作：<br>$T=${<code>GAIN</code>,<code>INVERTER</code>,<code>LEAD</code>,<code>LAG</code>,<code>LAG2</code>,<code>DIFFERENTIAL_INPUT_INTEGRATOR</code>,<code>DIFFERENTIATOR</code>,<code>ADD_SIGNAL</code>,<code>SUB_SIGNAL</code>,<code>ADD_3_SIGNAL</code>,<code>ADF0</code>,<code>ADF1</code>,<code>ADF2</code>,<code>ADF3</code>,<code>ADF4</code>}<br>每个ADF的基函数集为$T$和已经生成的其他ADF。  </p>
+<script type="math/tex; mode=display">T_{aps}=\{+,-\}</script><p>对结果生成子树，基函数集都是对时域信号的操作：<br>$T=$\{<code>GAIN</code>,<code>INVERTER</code>,<code>LEAD</code>,<code>LAG</code>,<code>LAG2</code>,<code>DIFFERENTIAL_INPUT_INTEGRATOR</code>,<code>DIFFERENTIATOR</code>,<code>ADD_SIGNAL</code>,<code>SUB_SIGNAL</code>,<code>ADD_3_SIGNAL</code>,<code>ADF0</code>,<code>ADF1</code>,<code>ADF2</code>,<code>ADF3</code>,<code>ADF4</code>\}<br>每个ADF的基函数集为$T$和已经生成的其他ADF。  </p>
 <h5 id="适应度评估"><a href="#适应度评估" class="headerlink" title="适应度评估"></a>适应度评估</h5><p>本书当中所有的适应度评估最终都会将不同的评价尺度转化为单个适应度。控制器设计是一个多目标优化问题，这里采用的方法是将不同评价尺度的适应度使用线性组合进行综合。这个设计案例中需要达到的设计要求如下：  </p>
 <ul>
 <li>最小化ITAE  </li>
@@ -2099,5 +2099,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

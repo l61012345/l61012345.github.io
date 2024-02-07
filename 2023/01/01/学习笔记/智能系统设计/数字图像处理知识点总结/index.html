@@ -510,7 +510,7 @@ p.spoiler {
 <script type="math/tex; mode=display">\hat{T}(u,v)=[\frac{T(u,v)}{C}]_{round}×C</script><p>其中$[·]_{round}$表示取整，$C$是设定好的阈值。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220140631.png width=20%><br>对于不同位置的像素，JPEG使用了不同的量化阈值。左上角的阈值要小于右下角的阈值，以便更好地捕捉子图中左上角的信息。  </p>
 <p>实际上，JPEG的量化过程会事先建立一个8×8的量化表，将变换后的矩阵中各元素除以对应量化表中的元素，并对结果舍入取整（取最接近的整数），以便于执行最后的编码。<br>下图展示了JPEG标准中规定的灰度量化表：<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220135737.png width=20%>  </p>
 <p>经过量化阶段之后，所有的数据只保留了整数近似值，也就再度损失了一些数据内容。  </p>
-<h4 id="霍夫曼编码"><a href="#霍夫曼编码" class="headerlink" title="霍夫曼编码"></a>霍夫曼编码</h4><p>JPEG中采用的是霍夫曼编码(Huffman coding)，这种编码方式可以极大地减少信息冗余，增大信息密度。<br>简单来说，在信息论中信息的平均编码长度$avgL$可以表示为每个值$r<em>i$出现的频率$p</em>{r_i}$与对应比特长度$L_i$的乘积之和：  </p>
+<h4 id="霍夫曼编码"><a href="#霍夫曼编码" class="headerlink" title="霍夫曼编码"></a>霍夫曼编码</h4><p>JPEG中采用的是霍夫曼编码(Huffman coding)，这种编码方式可以极大地减少信息冗余，增大信息密度。<br>简单来说，在信息论中信息的平均编码长度$avgL$可以表示为每个值$r_i$出现的频率$p_{r_i}$与对应比特长度$L_i$的乘积之和：  </p>
 <script type="math/tex; mode=display">avgL=∑_ip_{r_i}×L_i</script><p>霍夫曼编码按照每个像素值（灰度值或者RGB值）在图像（子图）中出现的频率来为每个像素值确定其编码的长度：<strong>像素值出现的频率越低，那么其对应编码的长度越长。</strong><br>如此，信息的编码长度会大幅度缩短。<br>霍夫曼编码的过程分为两步，当每个像素值的出现频率被确定后，按照频率大小为其排序。接着按照排序结果为每个像素值赋予相应的编码长度和比特值。每一个频率$P_r$对应一种比特长度$L_r$，并且频率$1-n×P_r$（$n$代表具有$P_r$的像素值个数）所对应的比特长度应当为$L_r+\sqrt{n’+1}$($n’$为下一个频率对应的像素值个数)。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220122837.png width=50%>   </p>
 <p>下图展示了使用霍夫曼编码的一个例子：<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220130020.png width=50%>  </p>
 <p>霍夫曼编码的特点是：  </p>
@@ -543,7 +543,7 @@ p.spoiler {
 <tbody>
 <tr>
 <td style="text-align:center">阈值变换<br>thresholding</td>
-<td style="text-align:center">$s=\begin{cases}0, r≤k\255,r&gt;k\end{cases}$</td>
+<td style="text-align:center">$s=\begin{cases}0, r≤k\\255,r&gt;k\end{cases}$</td>
 <td style="text-align:left">高于阈值的像素将会被强化为近白色/白色的像素值，低于阈值的像素值将被弱化为近黑色/黑色的像素值</td>
 </tr>
 <tr>
@@ -688,13 +688,13 @@ p.spoiler {
 </tr>
 <tr>
 <td style="text-align:center">瑞利噪声<br>Rayleigh noise</td>
-<td style="text-align:center">$p(z)=\begin{cases}\frac{2}{b}(z-a)exp(-\frac{(z-a)^2}{b}),z ≥a\ 0,z&lt;a \end{cases}$</td>
+<td style="text-align:center">$p(z)=\begin{cases}\frac{2}{b}(z-a)exp(-\frac{(z-a)^2}{b}),z ≥a\\ 0,z&lt;a \end{cases}$</td>
 <td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221221194015.png width=30%></td>
 <td style="text-align:left">多见于水下摄影和核磁共振图像中</td>
 </tr>
 <tr>
 <td style="text-align:center">椒盐噪声<br>salt &amp; peper noise</td>
-<td style="text-align:center">$p(z)=\begin{cases}p_p,z=0\1-p_s-p_p,0&lt;z&lt;L\p_s,z=L\end{cases}$</td>
+<td style="text-align:center">$p(z)=\begin{cases}p_p,z=0\\1-p_s-p_p,0&lt;z&lt;L\\p_s,z=L\end{cases}$</td>
 <td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221221194243.png width=30%></td>
 <td style="text-align:left">影像讯号受到突如其来的强烈干扰而产生、类比数位转换器或位元传输错误等会产生</td>
 </tr>
@@ -727,7 +727,7 @@ p.spoiler {
 <script type="math/tex; mode=display">F(u,v)=\frac{G(u,v)}{\mathcal{H}(u,v)}</script><p>因此，倘若能够正确估计退化函数$\mathcal{H}(u,v)$或者$h(x,y)$，那么图像就可以通过与退化函数相除，再进行傅里叶反变换被正确复原。<br>逆滤波的难点是如何估计退化函数$\mathcal{H}$，通常情况是根据经验预测图像所经受的退化类型，但是也有可能原始图像本身就是一张退化图像，这种情况下退化函数难以被估计。  </p>
 <h4 id="维纳滤波"><a href="#维纳滤波" class="headerlink" title="维纳滤波"></a>维纳滤波</h4><p>维纳滤波(Wiener filtering)是另一种复原退化的方法。其基本思想是将原图和复原图的均方差表达式最小化，并求出此时复原图像的值。<br>原图和复原图的均方差表示为：  </p>
 <script type="math/tex; mode=display">MSE=E[(\hat{f}-f)^2]</script><p>根据期望的式子将其展开，并使用傅里叶变换转到频域，最后求导，得到$MSE$在频域上最小的复原图表达式为：   </p>
-<script type="math/tex; mode=display">\hat{F}(u,v)=G(u,v)\frac{\mathcal{H}^*(u,v)}{\mathcal{H}^2(u,v)+\frac{P_η}{P_f}}</script><p>其中$\mathcal{H}^*(u,v)$是$\mathcal{H}(u,v)$的共轭函数；$P<em>η$和$P_f$分别对应噪声$η$和原图$f$的功率谱密度，可以由维纳-辛钦定理计算得到。不过实际处理问题时由于$\frac{P</em>η}{P_f}$是一个常数，简记为$K$，通常不会计算这两者的功率谱密度，而是尝试如下式子：  </p>
+<script type="math/tex; mode=display">\hat{F}(u,v)=G(u,v)\frac{\mathcal{H}^*(u,v)}{\mathcal{H}^2(u,v)+\frac{P_η}{P_f}}</script><p>其中$\mathcal{H}^*(u,v)$是$\mathcal{H}(u,v)$的共轭函数；$P_η$和$P_f$分别对应噪声$η$和原图$f$的功率谱密度，可以由维纳-辛钦定理计算得到。不过实际处理问题时由于$\frac{P_η}{P_f}$是一个常数，简记为$K$，通常不会计算这两者的功率谱密度，而是尝试如下式子：  </p>
 <script type="math/tex; mode=display">\hat{F}(u,v)=G(u,v)\frac{\mathcal{H}^*(u,v)}{\mathcal{H}^2(u,v)+K}</script><script type="math/tex; mode=display">\hat{f}(x,y)=F^{-1}[\hat{F}(u,v)]</script><p>为$K$设置一个范围，然后不断地尝试不同的$K$值，观察$\hat{f}(x,y)$的清晰程度来复原图片。  </p>
 
                 
@@ -4028,5 +4028,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

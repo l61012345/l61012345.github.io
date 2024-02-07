@@ -475,7 +475,7 @@ p.spoiler {
                 <h1 id="数字带通系统的调制解调方法"><a href="#数字带通系统的调制解调方法" class="headerlink" title="数字带通系统的调制解调方法"></a>数字带通系统的调制解调方法</h1><h2 id="数字带通系统简述"><a href="#数字带通系统简述" class="headerlink" title="数字带通系统简述"></a>数字带通系统简述</h2><p>数字带通传输系统是将数字基带信号通过载波调制，进入信道，最后在发射端解调，然后通过抽样判决器还原数字信号的过程。数字带通系统主要应用于无线传输，其结构如下图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118084917.png width=60%>  </p>
 <p>PCM信号在经过数字基带系统之后生成数字基带系统的输入信号$S(t)$，输入信号与载波$c(t)$相乘进行调制。在信道中，存在加性高斯白噪声$n(t)$。在接收端，经过带通滤波器后，噪声的频谱收到限制，转变为窄带噪声$n_R(t)$。信号进行相干解调或者非相干解调（包络检波法），通过低通滤波器过滤出高频分量，最后在抽样判决器处还原为数字信号$m(t)$。  </p>
 <h2 id="2ASK"><a href="#2ASK" class="headerlink" title="2ASK"></a>2ASK</h2><p>2ASK(Binary amplitude shift keying)是一种针对数字信号的调幅方法。  </p>
-<h3 id="调制方法"><a href="#调制方法" class="headerlink" title="调制方法"></a>调制方法</h3><p>进入调制模块的输入信号由两部分组成：周期方波脉冲信号$g(t-nT<em>s)$和需要传输的信息$a_n=\begin{cases}<br>    1,以概率P\<br>    0,以概率1-P\<br>\end{cases}$整个信号表达为：$S(t)=∑_na_ng(t-nT_s)$。<br>该信号与载波$cosω_ct$相乘，得到$S</em>{2ASK}(t)=[∑_na_ng(t-nT_s)]cosω_ct$，其等价表达为：  </p>
+<h3 id="调制方法"><a href="#调制方法" class="headerlink" title="调制方法"></a>调制方法</h3><p>进入调制模块的输入信号由两部分组成：周期方波脉冲信号$g(t-nT_s)$和需要传输的信息$a_n=\begin{cases}<br>    1,以概率P\\<br>    0,以概率1-P\\<br>\end{cases}$整个信号表达为：$S(t)=∑_na_ng(t-nT_s)$。<br>该信号与载波$cosω_ct$相乘，得到$S_{2ASK}(t)=[∑_na_ng(t-nT_s)]cosω_ct$，其等价表达为：  </p>
 <script type="math/tex; mode=display">S_{2ASK}(t)=\begin{cases}
     cosω_ct,以概率P\\
     0,以概率1-P\\
@@ -489,13 +489,13 @@ p.spoiler {
 <script type="math/tex; mode=display">N_c=\frac{T_s}{T_c}=\frac{f_s}{R_B}</script><p>对$S(t)$和载波信号的功率时间表达做傅里叶变换后相乘，得到2ASK信号的频谱表达式：  </p>
 <script type="math/tex; mode=display">P_{2ASK}(f)=\frac{T_S}{16}\{Sa^2[π(f+f_c)T_s]+Sa^2[(f-f_c)T_s]\}+\frac{1}{16}[δ(f+f_c)+δ(f-f_c)]</script><p>其中：  </p>
 <ul>
-<li>$\frac{T_S}{16}{Sa^2[π(f+f_c)T_s]+Sa^2[(f-f_c)T_s]}$:连续信号，根据$cosω_ct$的采样性质，2ASK的频谱实际上是$s(t)$的频谱频域左右侧各复制一次，且幅度减半之后的结果。  </li>
+<li>$\frac{T_S}{16}\{Sa^2[π(f+f_c)T_s]+Sa^2[(f-f_c)T_s]\}$:连续信号，根据$cosω_ct$的采样性质，2ASK的频谱实际上是$s(t)$的频谱频域左右侧各复制一次，且幅度减半之后的结果。  </li>
 <li>$\frac{1}{16}[δ(f+f_c)+δ(f-f_c)]$：离散信号，用于提取定时脉冲。  </li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118100000.png width=60%>  </p>
 <p>由于$cosω_ct$的采样性质，同时观察频谱可以得到，2ASK的频谱带宽是基带信号带宽的2倍：  </p>
 <script type="math/tex; mode=display">B_{2ASK}=2B_s</script><p>带宽利用效率为：  </p>
-<script type="math/tex; mode=display">η=\frac{R_B}{B_{2ASK}}</script><p>当基带信号为不归零码、没有码间串扰、且基带系统中使用理想低通滤波器时：$B<em>s=2R_B=2f_s$。<br>此时带宽利用效率为$η=\frac{R_B}{B</em>{2ASK}}=0.5b/s.Hz$。  </p>
+<script type="math/tex; mode=display">η=\frac{R_B}{B_{2ASK}}</script><p>当基带信号为不归零码、没有码间串扰、且基带系统中使用理想低通滤波器时：$B_s=2R_B=2f_s$。<br>此时带宽利用效率为$η=\frac{R_B}{B_{2ASK}}=0.5b/s.Hz$。  </p>
 <h3 id="解调方法"><a href="#解调方法" class="headerlink" title="解调方法"></a>解调方法</h3><p>2ASK的解调可以有两种方法：相干解调和非相干解调（包络检波法）。<br>无论是何种解调方法，调制后的信号都要先通过带通滤波器以将高斯白噪声转换为窄带高斯白噪声，在解调模块末端，信号通过低通滤波器以除去高频分量，同时不损失原有的信息。低通滤波器的最小截止频率应当为基带信号的带宽$ω_m$（实际上往往采用1.5倍$ω_m$或者更高倍数）。  </p>
 <h4 id="相干解调"><a href="#相干解调" class="headerlink" title="相干解调"></a>相干解调</h4><p>同模拟信号调幅的解调，在接收端信号与另个同频同相的载波信号$cosω_ct$相乘得到：  </p>
 <script type="math/tex; mode=display">S(t)cos^2ω_ct=S(t)\frac{1}{2}(1+cos2ω_ct)</script><p>由上述式子可以发现：  </p>
@@ -554,7 +554,7 @@ p.spoiler {
 \end{cases}=\begin{cases}
    Acosω_Ct \text{ 表示"1"}\\
    -Acos(ω_Ct) \text{ 表示"0"}
-\end{cases}</script><p>从表达式上可以看出，PSK将原信息$a_n$由单极性码转变为双极性码：$a_n=\begin{cases}<br>   +1 \text{ 以概率P表示“1”}\<br>   -1 \text{ 以概率P表示“0”}<br>\end{cases}$，再与载波相乘。因此可以将PSK看做是双极性码的ASK。  </p>
+\end{cases}</script><p>从表达式上可以看出，PSK将原信息$a_n$由单极性码转变为双极性码：$a_n=\begin{cases}<br>   +1 \text{ 以概率P表示“1”}\\<br>   -1 \text{ 以概率P表示“0”}<br>\end{cases}$，再与载波相乘。因此可以将PSK看做是双极性码的ASK。  </p>
 <h3 id="物理实现-2"><a href="#物理实现-2" class="headerlink" title="物理实现"></a>物理实现</h3><p>物理实现的方法有两种：  </p>
 <ol>
 <li>模拟调制：将单极性码通过码型变换模块转为双极性码，再与载波相乘。  </li>
@@ -568,7 +568,7 @@ p.spoiler {
 <p>PSK信号的带宽：  </p>
 <script type="math/tex; mode=display">B_{2PSK}=2B_s</script><h3 id="解调方法-2"><a href="#解调方法-2" class="headerlink" title="解调方法"></a>解调方法</h3><h4 id="相干解调-2"><a href="#相干解调-2" class="headerlink" title="相干解调"></a>相干解调</h4><p>由于PSK信号通过全波整流器后各个码元周期内的信号完全相同，无法辨认“0”或“1”，因此PSK信号不能使用非相干解调，只能使用相干解调。<br>在相干解调中，PSK信号通过带通滤波器后和同频同向的载波相乘，表示“-1”的波形与载波相乘，得到的波形会完全在小于0的一侧，表示“1”的波形与载波相乘，得到的波形会完全在大于0的一侧。信号通过低通滤波器消除高频分量后送入抽样判决器进行判别。抽样判决器的最佳判决门限为0。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125141819.png width=60%></p>
 <h2 id="DPSK"><a href="#DPSK" class="headerlink" title="DPSK"></a>DPSK</h2><h3 id="调制方法-3"><a href="#调制方法-3" class="headerlink" title="调制方法"></a>调制方法</h3><p>传统的PSK在解调过程中需要依赖未调制载波$cosω_ct$的相位，如果载波相位发生反转，调制结果会随之发生反转，这种现象称为倒π现象。为了解决倒π现象，DPSK（相对相移键控）选择使用相对码来取代PSK中使用的绝对码，以使得解调结果不依赖$cosω_ct$的相位。<br>DPSK的具体做法是:假设$b_n$为$a_n$的差分码，有：</p>
-<script type="math/tex; mode=display">b_n=a_n⊕b_{n-1}</script><p>即当前差分码$b<em>n$是前一个差分码$b</em>{n-1}$与当前绝对码$a_n$的模二加法（异或）结果。<br>再将差分码做PSK调制即可。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125144556.png width=50%></p>
+<script type="math/tex; mode=display">b_n=a_n⊕b_{n-1}</script><p>即当前差分码$b_n$是前一个差分码$b_{n-1}$与当前绝对码$a_n$的模二加法（异或）结果。<br>再将差分码做PSK调制即可。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125144556.png width=50%></p>
 <h3 id="物理实现-3"><a href="#物理实现-3" class="headerlink" title="物理实现"></a>物理实现</h3><p>DPSK中差分和PSK调制的顺序可以倒换：  </p>
 <ol>
 <li>先求得码型的差分码$b_n$，再做PSK调制。  </li>
@@ -3920,5 +3920,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
