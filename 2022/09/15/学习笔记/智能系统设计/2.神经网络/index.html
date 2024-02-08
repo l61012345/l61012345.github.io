@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="神经网络介绍神经网络(ANN，Artificial Neural Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。像其他的人工智">
+    <meta name="description" content="神经网络 介绍 神经网络(ANN，Artificial Neural Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="02.神经网络">
 <meta property="og:url" content="https://l61012345.top/2022/09/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/2.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="神经网络介绍神经网络(ANN，Artificial Neural Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。像其他的人工智">
+<meta property="og:description" content="神经网络 介绍 神经网络(ANN，Artificial Neural Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-15T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:15.472Z">
@@ -472,296 +472,521 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="神经网络"><a href="#神经网络" class="headerlink" title="神经网络"></a>神经网络</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>神经网络(ANN，Artificial Neural Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。<br>像其他的人工智能算法，神经网络也具有学习功能。在学习过程中，神经网络根据所输入的数据及其标签（对于监督学习）自动调整网络中每两个神经元之间连接的权重。  </p>
-<h3 id="神经元的生理学结构"><a href="#神经元的生理学结构" class="headerlink" title="神经元的生理学结构"></a>神经元的生理学结构</h3><p>神经网络的结构灵感来自于大脑中神经元之间的信息传递过程。下图展示了大脑中一个神经元的结构：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915145422.png width=50%><br>如图所示，神经元有很多的输入通道（树突），同时通过轴突给其他的神经元传递信号。大脑中的每一个神经元的树突接收来自多个其他神经元的输入，同时该神经元的轴突向其他神经元输出。<br>对于神经网络中的一个神经元，其输入为来自多个其他神经元的输出数据，这样的连接类似于树突的结构；其内部通过一种简单的函数：激活函数(activation function)实现对数据的简单处理。和轴突一样，每个神经元的激活函数只有一个输出结果。下图展示了神经网络中一个神经元的结构：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915145155.png width=50%>  </p>
-<p>如上图所示，假设对一个神经元，其输入为来自若干其他神经元的输出$x_i$，那么该神经元的输出$y$可以用数学公式表达为：  </p>
-<script type="math/tex; mode=display">y=f\left[(∑_{i=0}w_ix_i)+b_i\right]</script><p>其中$b_i$表示该神经元的偏置(offset)，用于线性修正；$f[·]$是该神经元的激活函数。每一个神经元中的激活函数承担了对数据进行简单处理的任务。激活函数可以是线性的，也可以是非线性的。<br><div class="note note-warning">
-            <p>输入层的神经元一般不具有偏置，输出层和隐含层的神经元具有偏置。  </p>
-          </div>  </p>
+                <h1 id="神经网络">神经网络</h1>
+<h2 id="介绍">介绍</h2>
+<p>神经网络(ANN，Artificial Neural
+Network)是人工智能中重要的一个分支领域，它指基于类脑结构的非严格建模系统。一个神经网络中通常含有非常多的处理单元，称为神经元(Neron)。神经元之间有着多个单向的连接。这些连接负责将数据从一个神经元的输出加权并传递到另一个神经元的输入。每个神经元只能对到达这个神经元的数据进行一些简单的处理，可能会有本地存储。<br />
+像其他的人工智能算法，神经网络也具有学习功能。在学习过程中，神经网络根据所输入的数据及其标签（对于监督学习）自动调整网络中每两个神经元之间连接的权重。</p>
+<h3 id="神经元的生理学结构">神经元的生理学结构</h3>
+<p>神经网络的结构灵感来自于大脑中神经元之间的信息传递过程。下图展示了大脑中一个神经元的结构：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915145422.png width=50%><br />
+如图所示，神经元有很多的输入通道（树突），同时通过轴突给其他的神经元传递信号。大脑中的每一个神经元的树突接收来自多个其他神经元的输入，同时该神经元的轴突向其他神经元输出。<br />
+对于神经网络中的一个神经元，其输入为来自多个其他神经元的输出数据，这样的连接类似于树突的结构；其内部通过一种简单的函数：激活函数(activation
+function)实现对数据的简单处理。和轴突一样，每个神经元的激活函数只有一个输出结果。下图展示了神经网络中一个神经元的结构：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915145155.png width=50%></p>
+<p>如上图所示，假设对一个神经元，其输入为来自若干其他神经元的输出<span
+class="math inline">\(x_i\)</span>，那么该神经元的输出<span
+class="math inline">\(y\)</span>可以用数学公式表达为：<br />
+<span
+class="math display">\[y=f\left[(∑_{i=0}w_ix_i)+b_i\right]\]</span>
+其中<span
+class="math inline">\(b_i\)</span>表示该神经元的偏置(offset)，用于线性修正；<span
+class="math inline">\(f[·]\)</span>是该神经元的激活函数。每一个神经元中的激活函数承担了对数据进行简单处理的任务。激活函数可以是线性的，也可以是非线性的。<br />
+<div class="note note-warning">
+            <p>输入层的神经元一般不具有偏置，输出层和隐含层的神经元具有偏置。</p>
+          </div></p>
 <div class="note note-info">
-            <p>激活函数的选择依赖于数据集的分布特征。<br>目前常用的激活函数包括：  </p><ul><li>Sigmoid函数:$y=\frac{1}{1+e^{-θ^T X}}$</li><li>线性函数:$y=θx$ </li><li>分段线性函数/线性整流单元/ReLU函数：$y=\begin{cases} 0,x&lt;0\x,x≥0\end{cases}$ </li><li>高斯函数：$y=exp(-x^2)$</li><li>双曲正切函数：$y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}$  </li><li>对数函数：$y=log(x)$</li></ul>
-          </div>  
-<h3 id="感知机"><a href="#感知机" class="headerlink" title="感知机"></a>感知机</h3><p>这样的一个神经元也可以构成单层的神经网络，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915151203.png width=50%><br>如果这个神经网络中的输入和输出都是二进制数0或1，通过选择合适的激活函数和权重，这样的单层神经网络可以实现一些基本的逻辑函数功能、例如逻辑与(AND)、逻辑或(OR)、逻辑非(NOT)等。这样的单层神经网络被称为感知机(perceptron)。<br>感知机实现逻辑功能的过程及其由于只能找到数据的线性边界而无法进行非线性决策的问题（又称为异或问题，因为无法实现异或逻辑功能）请参见：<a href="https://l61012345.top/2021/03/20/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.3.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0/">机器学习-吴恩达 5.3 感知机</a>一讲。  </p>
-<h3 id="多层神经网络的结构"><a href="#多层神经网络的结构" class="headerlink" title="多层神经网络的结构"></a>多层神经网络的结构</h3><p>感知机的局限性最终由多层神经网络的发明而化解，多层神经网络可以实现非线性的决策边界。<br>多层神经网络是由多个神经元层构成的集合，每一个神经元层中含有多个神经元。位于本层的神经元接收来自上一层神经元的输出，并用激活函数处理，然后将处理结构输出到下一层的神经元中。整个多层神经网络的结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915152124.png width=50%>  </p>
-<p>如图所示：多层神经网络的结构主要可以分为三层：<br><strong>输入层</strong>(input layer)用于接收和处理数据。输入层的神经元个数等于输入变量的个数。传统的神经网络中，输入层的神经元是冗余的(dammy)，它们一般不会对输入数据做任何处理。<br><strong>隐含层</strong>(hidden layer)用于对数据进行进一步的处理和特征提取。隐含层可以不止有一层，其每一层神经元的个数和隐含层的层数由数据的复杂程度以及建模方法决定。数据越复杂，所使用的隐含层数越多。如果选择构建多个隐含层，通常情况下每一个隐含层中的单元数都是相同的。隐含层的单元数越多越好，但是隐藏单元数的增加会导致计算量的增大。因此每一个隐含层中隐藏单元的数目通常与输入层的维度，即特征的数目相匹配（是其整数倍）此外，每一层隐含层所使用的激活函数必须是相同的。<br><strong>输出层</strong>(output layer)用于输出处理结果。输出层的神经元个数等于输出变量的个数。<br>需要注意的是，图中每一层的每一个神经元都与下一层的每一个神经元相连，这种拓扑结构称为“全连接”(full-connected)，事实上非全连接的神经网络，即每一层的单个神经元之与下一层的某些特定神经元相连的拓扑结构也是存在的。<br>为了方便表述，令$w^i_{j,k}$表示神经网络中第$i$层，前一层第$k$个神经元到本层第$j$个神经元的连接的权重；以$a^i_j$表示第$i$层第$j$个神经元的输出；$b^i_j$表示第$i$层第$j$个神经元的偏置。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915173842.png width=50%>  </p>
-<h2 id="神经网络的学习"><a href="#神经网络的学习" class="headerlink" title="神经网络的学习"></a>神经网络的学习</h2><p>对于神经网络的训练过程，在每次迭代中，首先需要得到数据集的特征$x$输入到神经网络模型后的输出结果，即模型的预测值$\hat{y}$，然后根据其真实标签$y$返回来调整神经网络中各神经元连接的权重。因此将神经网络的每一次迭代分为前向传播(Forward Propagation/Feedforward Propagation)和反向传播两个过程：前向传播是将数据输入神经网络，然后得到预测值的过程。反向传播则是根据真实值和预测值之间的差距，来调整各连接权重的过程。  </p>
-<h3 id="数据集划分"><a href="#数据集划分" class="headerlink" title="数据集划分"></a>数据集划分</h3><p>对于学习所需要的数据集$(X,Y)={(x_0,y_0),(x_1,y_1),…,(x_n,y_n))}$，一般将其划分为三部分：用于训练调整神经网络权重的训练集(training set)；用于测试训练好的神经网络效果的测试集(testing set)；用于在训练过程中观察神经网络性能，以便于及时调整训练参数的验证集(validation set)。通常三者占比在70%、15%、15%左右。<br>对于数据集的大小，机器学习遵循“数据饥饿”（data hungry）准则，即数据集越多，模型的训练效果越好。  </p>
-<h3 id="初始化权重"><a href="#初始化权重" class="headerlink" title="初始化权重"></a>初始化权重</h3><p>需要注意的是训练的最初期，所有的权重通过一定的方式进行初始化。常见的初始化方法是在高斯分布中进行随机抽样，此外还有深度学习使用的何恺明初始化方法(Kaiming-He initialization)等等。但是一般随机初始化的权重都会进行归一化操作，使它们的范围分布在$[0,1]$之间，便于学习和调整。  </p>
-<h3 id="前向传播"><a href="#前向传播" class="headerlink" title="前向传播"></a>前向传播</h3><p>简单来说，前向传播的过程即将数据$x$带入到神经网络的表示中，得到输出的过程：  </p>
-<script type="math/tex; mode=display">\hat{y}=a^{(N)}=f(z^{(N)})</script><p>$N$表示神经网络最后一层的标识。<br>在前向传播的过程中，会得到每一个神经元的输出$a_{jk}$</p>
-<h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>反向传播的过程是根据实际值和预测值之间的误差，从输出层开始，逐层调整各层神经元连接权重的过程。<br>在输出层第$N$层，根据得到的预测结果$\hat{y}$，使用如下式子来衡量与实际结果$y$之间的差距：  </p>
-<script type="math/tex; mode=display">δ^N_{jk}=(y_j-\hat{y}_j)\hat{y}_j(1-\hat{y}_j)</script><p>（$\hat{y}<em>j$和$y_j$都是向量，其维度等于数据集大小）<br>设第$i$层的神经元$j$与第$i-1$层的神经元$k$的权重为$w^i</em>{jk}$<br>对于隐藏层的神经元，如下式子表示了其神经网络单元输出的修正：  </p>
-<script type="math/tex; mode=display">δ^i_{jk}=a^{i}_j(1-a^i_j)∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}</script><div class="note note-info">
-            <p>这个式子只在激活函数为逻辑斯蒂曲线、定义误差为均方差时可用。<br>完整的隐藏层神经元的修正表示为：  </p><script type="math/tex; mode=display">δ^i_{jk}=∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}</script><script type="math/tex; mode=display">Δw_{jk}=ηδ^i_{jk}\frac{df^i(z_i)}{dz_i}a^i_j</script><p>其中$f^i(·)$为激活函数，$z_i$是该神经元的输入。  </p>
-          </div>  
+            <p>激活函数的选择依赖于数据集的分布特征。<br />目前常用的激活函数包括：<br />- Sigmoid函数:<span class="math inline">\(y=\frac{1}{1+e^{-θ^TX}}\)</span> - 线性函数:<span class="math inline">\(y=θx\)</span> -分段线性函数/线性整流单元/ReLU函数：<spanclass="math inline">\(y=\begin{cases}0,x&lt;0\\x,x≥0\end{cases}\)</span> - 高斯函数：<spanclass="math inline">\(y=exp(-x^2)\)</span> - 双曲正切函数：<spanclass="math inline">\(y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}\)</span><br />- 对数函数：<span class="math inline">\(y=log(x)\)</span></p>
+          </div>
+<h3 id="感知机">感知机</h3>
+<p>这样的一个神经元也可以构成单层的神经网络，如图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915151203.png width=50%><br />
+如果这个神经网络中的输入和输出都是二进制数0或1，通过选择合适的激活函数和权重，这样的单层神经网络可以实现一些基本的逻辑函数功能、例如逻辑与(AND)、逻辑或(OR)、逻辑非(NOT)等。这样的单层神经网络被称为感知机(perceptron)。<br />
+感知机实现逻辑功能的过程及其由于只能找到数据的线性边界而无法进行非线性决策的问题（又称为异或问题，因为无法实现异或逻辑功能）请参见：<a
+href="https://l61012345.top/2021/03/20/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.3.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0/">机器学习-吴恩达
+5.3 感知机</a>一讲。</p>
+<h3 id="多层神经网络的结构">多层神经网络的结构</h3>
+<p>感知机的局限性最终由多层神经网络的发明而化解，多层神经网络可以实现非线性的决策边界。<br />
+多层神经网络是由多个神经元层构成的集合，每一个神经元层中含有多个神经元。位于本层的神经元接收来自上一层神经元的输出，并用激活函数处理，然后将处理结构输出到下一层的神经元中。整个多层神经网络的结构如下图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915152124.png width=50%></p>
+<p>如图所示：多层神经网络的结构主要可以分为三层：<br />
+<strong>输入层</strong>(input
+layer)用于接收和处理数据。输入层的神经元个数等于输入变量的个数。传统的神经网络中，输入层的神经元是冗余的(dammy)，它们一般不会对输入数据做任何处理。<br />
+<strong>隐含层</strong>(hidden
+layer)用于对数据进行进一步的处理和特征提取。隐含层可以不止有一层，其每一层神经元的个数和隐含层的层数由数据的复杂程度以及建模方法决定。数据越复杂，所使用的隐含层数越多。如果选择构建多个隐含层，通常情况下每一个隐含层中的单元数都是相同的。隐含层的单元数越多越好，但是隐藏单元数的增加会导致计算量的增大。因此每一个隐含层中隐藏单元的数目通常与输入层的维度，即特征的数目相匹配（是其整数倍）此外，每一层隐含层所使用的激活函数必须是相同的。<br />
+<strong>输出层</strong>(output
+layer)用于输出处理结果。输出层的神经元个数等于输出变量的个数。<br />
+需要注意的是，图中每一层的每一个神经元都与下一层的每一个神经元相连，这种拓扑结构称为“全连接”(full-connected)，事实上非全连接的神经网络，即每一层的单个神经元之与下一层的某些特定神经元相连的拓扑结构也是存在的。<br />
+为了方便表述，令<span
+class="math inline">\(w^i_{j,k}\)</span>表示神经网络中第<span
+class="math inline">\(i\)</span>层，前一层第<span
+class="math inline">\(k\)</span>个神经元到本层第<span
+class="math inline">\(j\)</span>个神经元的连接的权重；以<span
+class="math inline">\(a^i_j\)</span>表示第<span
+class="math inline">\(i\)</span>层第<span
+class="math inline">\(j\)</span>个神经元的输出；<span
+class="math inline">\(b^i_j\)</span>表示第<span
+class="math inline">\(i\)</span>层第<span
+class="math inline">\(j\)</span>个神经元的偏置。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915173842.png width=50%></p>
+<h2 id="神经网络的学习">神经网络的学习</h2>
+<p>对于神经网络的训练过程，在每次迭代中，首先需要得到数据集的特征<span
+class="math inline">\(x\)</span>输入到神经网络模型后的输出结果，即模型的预测值<span
+class="math inline">\(\hat{y}\)</span>，然后根据其真实标签<span
+class="math inline">\(y\)</span>返回来调整神经网络中各神经元连接的权重。因此将神经网络的每一次迭代分为前向传播(Forward
+Propagation/Feedforward
+Propagation)和反向传播两个过程：前向传播是将数据输入神经网络，然后得到预测值的过程。反向传播则是根据真实值和预测值之间的差距，来调整各连接权重的过程。</p>
+<h3 id="数据集划分">数据集划分</h3>
+<p>对于学习所需要的数据集<span
+class="math inline">\((X,Y)=\{(x_0,y_0),(x_1,y_1),...,(x_n,y_n))\}\)</span>，一般将其划分为三部分：用于训练调整神经网络权重的训练集(training
+set)；用于测试训练好的神经网络效果的测试集(testing
+set)；用于在训练过程中观察神经网络性能，以便于及时调整训练参数的验证集(validation
+set)。通常三者占比在70%、15%、15%左右。<br />
+对于数据集的大小，机器学习遵循“数据饥饿”（data
+hungry）准则，即数据集越多，模型的训练效果越好。</p>
+<h3 id="初始化权重">初始化权重</h3>
+<p>需要注意的是训练的最初期，所有的权重通过一定的方式进行初始化。常见的初始化方法是在高斯分布中进行随机抽样，此外还有深度学习使用的何恺明初始化方法(Kaiming-He
+initialization)等等。但是一般随机初始化的权重都会进行归一化操作，使它们的范围分布在<span
+class="math inline">\([0,1]\)</span>之间，便于学习和调整。</p>
+<h3 id="前向传播">前向传播</h3>
+<p>简单来说，前向传播的过程即将数据<span
+class="math inline">\(x\)</span>带入到神经网络的表示中，得到输出的过程：<br />
+<span class="math display">\[\hat{y}=a^{(N)}=f(z^{(N)})\]</span><br />
+<span class="math inline">\(N\)</span>表示神经网络最后一层的标识。<br />
+在前向传播的过程中，会得到每一个神经元的输出<span
+class="math inline">\(a_{jk}\)</span></p>
+<h3 id="反向传播">反向传播</h3>
+<p>反向传播的过程是根据实际值和预测值之间的误差，从输出层开始，逐层调整各层神经元连接权重的过程。<br />
+在输出层第<span
+class="math inline">\(N\)</span>层，根据得到的预测结果<span
+class="math inline">\(\hat{y}\)</span>，使用如下式子来衡量与实际结果<span
+class="math inline">\(y\)</span>之间的差距：<br />
+<span
+class="math display">\[δ^N_{jk}=(y_j-\hat{y}_j)\hat{y}_j(1-\hat{y}_j)\]</span>
+（<span class="math inline">\(\hat{y}_j\)</span>和<span
+class="math inline">\(y_j\)</span>都是向量，其维度等于数据集大小）<br />
+设第<span class="math inline">\(i\)</span>层的神经元<span
+class="math inline">\(j\)</span>与第<span
+class="math inline">\(i-1\)</span>层的神经元<span
+class="math inline">\(k\)</span>的权重为<span
+class="math inline">\(w^i_{jk}\)</span>
+对于隐藏层的神经元，如下式子表示了其神经网络单元输出的修正：<br />
+<span
+class="math display">\[δ^i_{jk}=a^{i}_j(1-a^i_j)∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}\]</span></p>
+<div class="note note-info">
+            <p>这个式子只在激活函数为逻辑斯蒂曲线、定义误差为均方差时可用。<br />完整的隐藏层神经元的修正表示为：<br /><spanclass="math display">\[δ^i_{jk}=∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}\]</span><spanclass="math display">\[Δw_{jk}=ηδ^i_{jk}\frac{df^i(z_i)}{dz_i}a^i_j\]</span>其中<span class="math inline">\(f^i(·)\)</span>为激活函数，<spanclass="math inline">\(z_i\)</span>是该神经元的输入。</p>
+          </div>
 <blockquote>
-<p><a target="_blank" rel="noopener" href="http://galaxy.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html">http://galaxy.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html</a><br><a target="_blank" rel="noopener" href="https://www.wikiwand.com/en/Backpropagation">https://www.wikiwand.com/en/Backpropagation</a>  </p>
+<p>http://galaxy.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html<br />
+https://www.wikiwand.com/en/Backpropagation</p>
 </blockquote>
-<p>简单来说即$a^i_j(1-a^i_j)$后一层中与该神经元相连的神经元的权重和修正的乘积。<br>第$i$层的神经元$j$与第$i-1$层的神经元$k$的权重权值将被修正为：  </p>
-<script type="math/tex; mode=display">Δw^i_{jk}=ηδ_{jk}a^i_j</script><script type="math/tex; mode=display">w^i_{jk}:=w^i_{jk}+Δw_{jk}</script><p>其中，$η$是一个可以调整的参数，称为学习率(learning rate)。通过学习率可以控制权值一次性更新的幅度，换言之，即学习的快慢。学习率越大，权重更新的幅度越大，学习速度越快。如今的很多机器学习平台(比如MATLAB)都支持自适应的学习率调整，无需进行人为设置。<br>上面所示的这个权重修正的方法称为梯度下降算法(gradient desent)。这个过程只是一个简化版本，具体的反向传播的过程参考：<a href="https://l61012345.top/2021/03/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.5.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0.%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/">机器学习-吴恩达 5.5. 神经网络的代价函数·反向传播</a></p>
-<p>如此，神经网络在反复的前向传播和反向传播迭代（每一次迭代称为一轮，epoch）中不断地修正各连接的权重，直到使得真实值$y$与预测值$\hat{y}$之间的差距小到可以接受或者一直不变。这种情况称算法运行达到了收敛(convergence)。<br>通常，真实值$y$与预测值$\hat{y}$之间的差距是通过均方差(MSE,Mean Square Error)进行衡量的:  </p>
-<script type="math/tex; mode=display">MSE=\frac{1}{n}∑_{i=0}^{n-1}(\hat{y}_i-y_i)^2</script><p>整个神经网络的学习过程包括：  </p>
-<ul>
-<li>随机初始化连接权重  </li>
-<li>当均方差非常大，或者数代均方差变化很大时，执行如下的循环： <ul>
-<li>前向传播：带入每一个数据$(x<em>i,y_i)$中的$x_i$到神经网络中，计算神经网络中每一个神经元对每一个数据的输出$a</em>{jk}$和神经网络对每一个数据的预测值$\hat{y}$，并整理为向量。  </li>
-<li>计算真实值$y$与预测值$\hat{y}$之间的差距。  </li>
-<li>使用验证集对神经网络的准确率进行测试。</li>
-<li>反向传播：计算$δ$并更新每一层每一条连接的权重。  </li>
-</ul>
-</li>
-<li>使用测试集对训练好的神经网络的准确率进行测试。  </li>
-</ul>
-<h2 id="实验：神经网络的超参数设置"><a href="#实验：神经网络的超参数设置" class="headerlink" title="实验：神经网络的超参数设置"></a>实验：神经网络的超参数设置</h2><p>根据如上的介绍，可以知道在设计神经网络时，可以调整的参数包括：  </p>
-<ul>
-<li>神经网络的层数</li>
-<li>隐藏层神经元的个数</li>
-<li>神经元使用的激活函数的类型  </li>
-<li>学习率</li>
-</ul>
-<p>其他一些可以调整的参数诸如是否进行归一化/正则化(regulation)，以及使用哪些数据特征等等在此不做讨论。<br>借助谷歌面向神经网络初学者的tensorflow playground平台：<a target="_blank" rel="noopener" href="http://playground.tensorflow.org/">http://playground.tensorflow.org/</a> 可以发现这些设置对于设置不同数据分布类型的神经网络的影响。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915184919.png width=50%>  </p>
+<p>简单来说即<span
+class="math inline">\(a^i_j(1-a^i_j)\)</span>后一层中与该神经元相连的神经元的权重和修正的乘积。<br />
+第<span class="math inline">\(i\)</span>层的神经元<span
+class="math inline">\(j\)</span>与第<span
+class="math inline">\(i-1\)</span>层的神经元<span
+class="math inline">\(k\)</span>的权重权值将被修正为：<br />
+<span class="math display">\[Δw^i_{jk}=ηδ_{jk}a^i_j\]</span> <span
+class="math display">\[w^i_{jk}:=w^i_{jk}+Δw_{jk}\]</span> 其中，<span
+class="math inline">\(η\)</span>是一个可以调整的参数，称为学习率(learning
+rate)。通过学习率可以控制权值一次性更新的幅度，换言之，即学习的快慢。学习率越大，权重更新的幅度越大，学习速度越快。如今的很多机器学习平台(比如MATLAB)都支持自适应的学习率调整，无需进行人为设置。<br />
+上面所示的这个权重修正的方法称为梯度下降算法(gradient
+desent)。这个过程只是一个简化版本，具体的反向传播的过程参考：<a
+href="https://l61012345.top/2021/03/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.5.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0.%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/">机器学习-吴恩达
+5.5. 神经网络的代价函数·反向传播</a></p>
+<p>如此，神经网络在反复的前向传播和反向传播迭代（每一次迭代称为一轮，epoch）中不断地修正各连接的权重，直到使得真实值<span
+class="math inline">\(y\)</span>与预测值<span
+class="math inline">\(\hat{y}\)</span>之间的差距小到可以接受或者一直不变。这种情况称算法运行达到了收敛(convergence)。
+通常，真实值<span class="math inline">\(y\)</span>与预测值<span
+class="math inline">\(\hat{y}\)</span>之间的差距是通过均方差(MSE,Mean
+Square Error)进行衡量的:<br />
+<span
+class="math display">\[MSE=\frac{1}{n}∑_{i=0}^{n-1}(\hat{y}_i-y_i)^2\]</span></p>
+<p>整个神经网络的学习过程包括：<br />
+- 随机初始化连接权重<br />
+- 当均方差非常大，或者数代均方差变化很大时，执行如下的循环： -
+前向传播：带入每一个数据<span
+class="math inline">\((x_i,y_i)\)</span>中的<span
+class="math inline">\(x_i\)</span>到神经网络中，计算神经网络中每一个神经元对每一个数据的输出<span
+class="math inline">\(a_{jk}\)</span>和神经网络对每一个数据的预测值<span
+class="math inline">\(\hat{y}\)</span>，并整理为向量。<br />
+- 计算真实值<span class="math inline">\(y\)</span>与预测值<span
+class="math inline">\(\hat{y}\)</span>之间的差距。<br />
+- 使用验证集对神经网络的准确率进行测试。 - 反向传播：计算<span
+class="math inline">\(δ\)</span>并更新每一层每一条连接的权重。<br />
+- 使用测试集对训练好的神经网络的准确率进行测试。</p>
+<h2 id="实验神经网络的超参数设置">实验：神经网络的超参数设置</h2>
+<p>根据如上的介绍，可以知道在设计神经网络时，可以调整的参数包括：<br />
+- 神经网络的层数 - 隐藏层神经元的个数 - 神经元使用的激活函数的类型<br />
+- 学习率</p>
+<p>其他一些可以调整的参数诸如是否进行归一化/正则化(regulation)，以及使用哪些数据特征等等在此不做讨论。<br />
+借助谷歌面向神经网络初学者的tensorflow
+playground平台：http://playground.tensorflow.org/
+可以发现这些设置对于设置不同数据分布类型的神经网络的影响。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915184919.png width=50%></p>
 <div class="note note-info">
-            <p>注：下面的实验中，以loss=0.08作为是否达到收敛的判断标准。  </p>
-          </div>  
-<h3 id="学习率对训练结果的影响"><a href="#学习率对训练结果的影响" class="headerlink" title="学习率对训练结果的影响"></a>学习率对训练结果的影响</h3><p>下表展示了在使用基础输入特征、2个隐藏层、其中第一个隐藏层含有4个神经元，第二个隐藏层含有4个神经元、激活函数为Tanh、无正规化设置时不同学习率对神经网络训练聚类结果的影响。  </p>
-<div class="table-container">
+            <p>注：下面的实验中，以loss=0.08作为是否达到收敛的判断标准。</p>
+          </div>
+<h3 id="学习率对训练结果的影响">学习率对训练结果的影响</h3>
+<p>下表展示了在使用基础输入特征、2个隐藏层、其中第一个隐藏层含有4个神经元，第二个隐藏层含有4个神经元、激活函数为Tanh、无正规化设置时不同学习率对神经网络训练聚类结果的影响。</p>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:center">学习率</th>
-<th style="text-align:center">聚类结果</th>
-<th style="text-align:center">收敛轮数</th>
-<th style="text-align:center">收敛过程</th>
+<tr class="header">
+<th style="text-align: center;">学习率</th>
+<th style="text-align: center;">聚类结果</th>
+<th style="text-align: center;">收敛轮数</th>
+<th style="text-align: center;">收敛过程</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">0.01</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190652.png width=20%></td>
-<td style="text-align:center">303</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915185806.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">0.01</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190652.png width=20%></td>
+<td style="text-align: center;">303</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915185806.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">0.1</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190048.png width=20%></td>
-<td style="text-align:center">42</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190132.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">0.1</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190048.png width=20%></td>
+<td style="text-align: center;">42</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190132.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190349.png width=20%></td>
-<td style="text-align:center">124<br>不收敛</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190428.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190349.png width=20%></td>
+<td style="text-align: center;">124<br>不收敛</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190428.png width=30%></td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>如果增加实验的次数，可以更加直观地发现：<strong>学习率设置如果过低，达到收敛的速度将会越慢。而学习率如果设置的过高，则会导致训练过程的loss（或者MSE）不断振荡，出现不稳定的情况，并且最终的效果更加粗糙</strong>。  </p>
-<h3 id="隐藏层数量对训练结果的影响"><a href="#隐藏层数量对训练结果的影响" class="headerlink" title="隐藏层数量对训练结果的影响"></a>隐藏层数量对训练结果的影响</h3><p>下表展示了在使用基础输入特征、学习率为0.1、激活函数为Tanh、无正规化设置时不同学习率对神经网络训练聚类结果的影响。  </p>
-<div class="table-container">
+<p>如果增加实验的次数，可以更加直观地发现：<strong>学习率设置如果过低，达到收敛的速度将会越慢。而学习率如果设置的过高，则会导致训练过程的loss（或者MSE）不断振荡，出现不稳定的情况，并且最终的效果更加粗糙</strong>。</p>
+<h3 id="隐藏层数量对训练结果的影响">隐藏层数量对训练结果的影响</h3>
+<p>下表展示了在使用基础输入特征、学习率为0.1、激活函数为Tanh、无正规化设置时不同学习率对神经网络训练聚类结果的影响。</p>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:center">隐藏层数<br>每一层隐藏层的神经元数量为4个</th>
-<th style="text-align:center">聚类结果</th>
-<th style="text-align:center">收敛轮数</th>
-<th style="text-align:center">收敛过程</th>
+<tr class="header">
+<th
+style="text-align: center;">隐藏层数<br>每一层隐藏层的神经元数量为4个</th>
+<th style="text-align: center;">聚类结果</th>
+<th style="text-align: center;">收敛轮数</th>
+<th style="text-align: center;">收敛过程</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915192844.png width=20%></td>
-<td style="text-align:center">391</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915193306.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915192844.png width=20%></td>
+<td style="text-align: center;">391</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915193306.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190048.png width=20%></td>
-<td style="text-align:center">42</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190132.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190048.png width=20%></td>
+<td style="text-align: center;">42</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915190132.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">4</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915192049.png width=20%></td>
-<td style="text-align:center">243</td>
-<td style="text-align:center"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915192250.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915192049.png width=20%></td>
+<td style="text-align: center;">243</td>
+<td
+style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915192250.png width=30%></td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>可以发现，<strong>如果隐藏层的层数过少，那么不仅学习的过程更加缓慢，而且最终的决策边界模糊、并不理想。如果隐藏层的层数过多，决策边界将更加清晰，但是学习的过程更加缓慢</strong>。  </p>
-<h3 id="隐藏层神经元数对训练结果的影响"><a href="#隐藏层神经元数对训练结果的影响" class="headerlink" title="隐藏层神经元数对训练结果的影响"></a>隐藏层神经元数对训练结果的影响</h3><p>下表展示了在使用基础输入特征、2个隐藏层、激活函数为Tanh、学习率为0.1、无正规化设置时不同学习率对神经网络训练聚类结果的影响。  </p>
-<div class="table-container">
+<p>可以发现，<strong>如果隐藏层的层数过少，那么不仅学习的过程更加缓慢，而且最终的决策边界模糊、并不理想。如果隐藏层的层数过多，决策边界将更加清晰，但是学习的过程更加缓慢</strong>。</p>
+<h3
+id="隐藏层神经元数对训练结果的影响">隐藏层神经元数对训练结果的影响</h3>
+<p>下表展示了在使用基础输入特征、2个隐藏层、激活函数为Tanh、学习率为0.1、无正规化设置时不同学习率对神经网络训练聚类结果的影响。</p>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:center">隐藏层神经元数</th>
-<th style="text-align:center">聚类结果</th>
-<th style="text-align:center">收敛轮数</th>
-<th style="text-align:center">收敛过程</th>
+<tr class="header">
+<th style="text-align: center;">隐藏层神经元数</th>
+<th style="text-align: center;">聚类结果</th>
+<th style="text-align: center;">收敛轮数</th>
+<th style="text-align: center;">收敛过程</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">第一层2<br>第二层2</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123003.png width=30%></td>
-<td style="text-align:center">413<br>不收敛</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123103.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">第一层2<br>第二层2</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123003.png width=30%></td>
+<td style="text-align: center;">413<br>不收敛</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123103.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">第一层4<br>第二层2</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123208.png width=30%></td>
-<td style="text-align:center">68</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123239.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">第一层4<br>第二层2</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123208.png width=30%></td>
+<td style="text-align: center;">68</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123239.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">第一层4<br>第二层4</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123332.png width=30%></td>
-<td style="text-align:center">50</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123405.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">第一层4<br>第二层4</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123332.png width=30%></td>
+<td style="text-align: center;">50</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123405.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">第一层8<br>第二层2</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123704.png width=30%></td>
-<td style="text-align:center">38</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123738.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">第一层8<br>第二层2</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123704.png width=30%></td>
+<td style="text-align: center;">38</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123738.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">第一层8<br>第二层4</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123546.png width=30%></td>
-<td style="text-align:center">38</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123628.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">第一层8<br>第二层4</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123546.png width=30%></td>
+<td style="text-align: center;">38</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917123628.png width=30%></td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>通过上面的实验可以发现：<strong>隐藏层的神经元数量越多，决策边界的拟合越好。当隐藏层的神经元数量增加到一定程度后，对决策边界的拟合程度将不变。如果隐藏层的神经元数量过少，那么将无法提取足够多的特征对数据的决策边界进行拟合。</strong>  </p>
+<p>通过上面的实验可以发现：<strong>隐藏层的神经元数量越多，决策边界的拟合越好。当隐藏层的神经元数量增加到一定程度后，对决策边界的拟合程度将不变。如果隐藏层的神经元数量过少，那么将无法提取足够多的特征对数据的决策边界进行拟合。</strong></p>
 <div class="note note-info">
-            <p>事实上，<strong>如果隐藏层的神经元数量过多，将会出现过拟合现象</strong>，该现象造成的影响会在下文进行讨论。  </p>
-          </div>  
-<h3 id="激活函数的选择对训练结果的影响"><a href="#激活函数的选择对训练结果的影响" class="headerlink" title="激活函数的选择对训练结果的影响"></a>激活函数的选择对训练结果的影响</h3><p>下表展示了在使用基础输入特征、2个隐藏层、每个隐藏层有4个神经元、激活函数为Tanh、学习率为0.1、无正规化设置时不同学习率对神经网络训练聚类结果的影响。  </p>
-<div class="table-container">
+            <p>事实上，<strong>如果隐藏层的神经元数量过多，将会出现过拟合现象</strong>，该现象造成的影响会在下文进行讨论。</p>
+          </div>
+<h3
+id="激活函数的选择对训练结果的影响">激活函数的选择对训练结果的影响</h3>
+<p>下表展示了在使用基础输入特征、2个隐藏层、每个隐藏层有4个神经元、激活函数为Tanh、学习率为0.1、无正规化设置时不同学习率对神经网络训练聚类结果的影响。</p>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:center">激活函数</th>
-<th style="text-align:center">聚类结果</th>
-<th style="text-align:center">收敛轮数</th>
-<th style="text-align:center">收敛过程</th>
+<tr class="header">
+<th style="text-align: center;">激活函数</th>
+<th style="text-align: center;">聚类结果</th>
+<th style="text-align: center;">收敛轮数</th>
+<th style="text-align: center;">收敛过程</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">ReLU</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124631.png width=30%></td>
-<td style="text-align:center">21</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124720.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">ReLU</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124631.png width=30%></td>
+<td style="text-align: center;">21</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124720.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">Linear</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125126.png width=30%></td>
-<td style="text-align:center">27</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125133.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">Linear</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125126.png width=30%></td>
+<td style="text-align: center;">27</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125133.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">Sigmoid</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124840.png width=30%></td>
-<td style="text-align:center">320</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124849.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">Sigmoid</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124840.png width=30%></td>
+<td style="text-align: center;">320</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124849.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">tanh</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124949.png width=30%></td>
-<td style="text-align:center">77</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125020.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">tanh</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917124949.png width=30%></td>
+<td style="text-align: center;">77</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125020.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">tanh</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125345.png width=30%></td>
-<td style="text-align:center">130</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125353.png width=30%></td>
+<tr class="odd">
+<td style="text-align: center;">tanh</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125345.png width=30%></td>
+<td style="text-align: center;">130</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125353.png width=30%></td>
 </tr>
-<tr>
-<td style="text-align:center">tanh</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125503.png width=30%></td>
-<td style="text-align:center">15</td>
-<td style="text-align:center"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125525.png width=30%></td>
+<tr class="even">
+<td style="text-align: center;">tanh</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125503.png width=30%></td>
+<td style="text-align: center;">15</td>
+<td
+style="text-align: center;"><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917125525.png width=30%></td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>可以发现，对于图示的数据分布，采用非线性的激活函数分类效果要远好于线性的激活函数。<strong>在选择激活函数时，要根据数据的分布特性来进行选择。</strong><br>合适的激活函数对于决策边界的形状和收敛速度都有明显的改善。  </p>
-<h2 id="诊断"><a href="#诊断" class="headerlink" title="诊断"></a>诊断</h2><h3 id="局部极小值问题"><a href="#局部极小值问题" class="headerlink" title="局部极小值问题"></a>局部极小值问题</h3><p>基于梯度的下降算法在每次迭代中只能在采样空间中找到当前优化结果附近的局部最优解，即算法只能检测到目前$w$值<strong>附近</strong>有无比当前$w$值更优的选择，从而趋势$w$沿着$δ$方向下降。这样的每次迭代只基于局部最优的性质称为贪心(greedy)。梯度下降算法就是一种贪心算法。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822101757.png width=80%>    </p>
-<p>贪心算法的缺点在于：如果优化目标包含多个局部最小值，在这种情况下，贪心算法很容易陷入局部最小值，该算法可能会认为达到了全局最小值，从而导致次优结果。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917133435.png width=100%>  </p>
-<h4 id="动量"><a href="#动量" class="headerlink" title="动量"></a>动量</h4><p>为了避免算法陷入局部最小值，目标函数中使用了动量(momentum)，该动量项$α$是介于0和1之间的值，该值通过尝试从局部最小值跳到最小值而增加了步长。如此，修正后的权重应当为：  </p>
-<script type="math/tex; mode=display">Δw_{ij}:=ηδ_ja^i_j+αΔw_{ij}</script><p>如果动量项较大，则学习率应该保持较小。动量值很大也意味着收敛将很快发生。但是如果将动量和学习率都保持在较高的值，那么算法可能会大步跳过最小值。<br>较小的动量值不能可靠地避免局部最小值，并且还可能减慢系统的训练速度。如果梯度不断改变方向，动量也有助于平滑变化。<br>正确的动量值可以通过命中和试验来学习，也可以通过交叉验证来学习。  </p>
-<h3 id="过拟合和欠拟合"><a href="#过拟合和欠拟合" class="headerlink" title="过拟合和欠拟合"></a>过拟合和欠拟合</h3><p>过拟合(overfitting)指神经网络的模型对数据的拟合的程度过高，过拟合意味着模型泛化能力低。模型能够很好的拟合当前的数据集，但是并不适应新的数据。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917134821.png width=40%>  </p>
-<p>过拟合的模型波动较大、具有高方差的性质。<br>防止过拟合的方法有如下两种：  </p>
-<ul>
-<li>提前设置好终止条件：例如运行的轮数(epoch)或者方差阈值。  </li>
-<li>在训练过程中加入验证集，每训练几轮之后就对当前模型的准确率进行验证，以便及时调整神经网络的参数（比如学习率）和终止算法运行，防止过拟合。  </li>
-</ul>
-<p>与过拟合对应的是欠拟合(underfitting)，指学习不充分而无法反映普遍数据的分布的情况。  </p>
-<h3 id="总结：神经网络超参数对训练结果的影响"><a href="#总结：神经网络超参数对训练结果的影响" class="headerlink" title="总结：神经网络超参数对训练结果的影响"></a>总结：神经网络超参数对训练结果的影响</h3><p>像学习率和动量这样的并非通过反向传播调整、而是在训练的开始就设置好的参数称为超参数(hyper-parameter)。对超参数进行调整的目的是为了改进学习过程的准确率和收敛速度。  </p>
-<div class="table-container">
+<p>可以发现，对于图示的数据分布，采用非线性的激活函数分类效果要远好于线性的激活函数。<strong>在选择激活函数时，要根据数据的分布特性来进行选择。</strong>
+合适的激活函数对于决策边界的形状和收敛速度都有明显的改善。</p>
+<h2 id="诊断">诊断</h2>
+<h3 id="局部极小值问题">局部极小值问题</h3>
+<p>基于梯度的下降算法在每次迭代中只能在采样空间中找到当前优化结果附近的局部最优解，即算法只能检测到目前<span
+class="math inline">\(w\)</span>值<strong>附近</strong>有无比当前<span
+class="math inline">\(w\)</span>值更优的选择，从而趋势<span
+class="math inline">\(w\)</span>沿着<span
+class="math inline">\(δ\)</span>方向下降。这样的每次迭代只基于局部最优的性质称为贪心(greedy)。梯度下降算法就是一种贪心算法。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210822101757.png width=80%></p>
+<p>贪心算法的缺点在于：如果优化目标包含多个局部最小值，在这种情况下，贪心算法很容易陷入局部最小值，该算法可能会认为达到了全局最小值，从而导致次优结果。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917133435.png width=100%></p>
+<h4 id="动量">动量</h4>
+<p>为了避免算法陷入局部最小值，目标函数中使用了动量(momentum)，该动量项<span
+class="math inline">\(α\)</span>是介于0和1之间的值，该值通过尝试从局部最小值跳到最小值而增加了步长。如此，修正后的权重应当为：<br />
+<span class="math display">\[Δw_{ij}:=ηδ_ja^i_j+αΔw_{ij}\]</span>
+如果动量项较大，则学习率应该保持较小。动量值很大也意味着收敛将很快发生。但是如果将动量和学习率都保持在较高的值，那么算法可能会大步跳过最小值。<br />
+较小的动量值不能可靠地避免局部最小值，并且还可能减慢系统的训练速度。如果梯度不断改变方向，动量也有助于平滑变化。<br />
+正确的动量值可以通过命中和试验来学习，也可以通过交叉验证来学习。</p>
+<h3 id="过拟合和欠拟合">过拟合和欠拟合</h3>
+<p>过拟合(overfitting)指神经网络的模型对数据的拟合的程度过高，过拟合意味着模型泛化能力低。模型能够很好的拟合当前的数据集，但是并不适应新的数据。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917134821.png width=40%></p>
+<p>过拟合的模型波动较大、具有高方差的性质。<br />
+防止过拟合的方法有如下两种：<br />
+- 提前设置好终止条件：例如运行的轮数(epoch)或者方差阈值。<br />
+-
+在训练过程中加入验证集，每训练几轮之后就对当前模型的准确率进行验证，以便及时调整神经网络的参数（比如学习率）和终止算法运行，防止过拟合。</p>
+<p>与过拟合对应的是欠拟合(underfitting)，指学习不充分而无法反映普遍数据的分布的情况。</p>
+<h3
+id="总结神经网络超参数对训练结果的影响">总结：神经网络超参数对训练结果的影响</h3>
+<p>像学习率和动量这样的并非通过反向传播调整、而是在训练的开始就设置好的参数称为超参数(hyper-parameter)。对超参数进行调整的目的是为了改进学习过程的准确率和收敛速度。</p>
 <table>
 <thead>
-<tr>
-<th style="text-align:center">参数</th>
-<th style="text-align:center">过大结果</th>
-<th style="text-align:center">过小结果</th>
+<tr class="header">
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">过大结果</th>
+<th style="text-align: center;">过小结果</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">训练轮次</td>
-<td style="text-align:center">过拟合</td>
-<td style="text-align:center">欠拟合</td>
+<tr class="odd">
+<td style="text-align: center;">训练轮次</td>
+<td style="text-align: center;">过拟合</td>
+<td style="text-align: center;">欠拟合</td>
 </tr>
-<tr>
-<td style="text-align:center">学习率</td>
-<td style="text-align:center">学习过程不稳定</td>
-<td style="text-align:center">收敛缓慢</td>
+<tr class="even">
+<td style="text-align: center;">学习率</td>
+<td style="text-align: center;">学习过程不稳定</td>
+<td style="text-align: center;">收敛缓慢</td>
 </tr>
-<tr>
-<td style="text-align:center">动量系数</td>
-<td style="text-align:center">过拟合</td>
-<td style="text-align:center">陷入局部最小值</td>
+<tr class="odd">
+<td style="text-align: center;">动量系数</td>
+<td style="text-align: center;">过拟合</td>
+<td style="text-align: center;">陷入局部最小值</td>
 </tr>
-<tr>
-<td style="text-align:center">神经元数量</td>
-<td style="text-align:center">过拟合</td>
-<td style="text-align:center">无法充分提取特征</td>
+<tr class="even">
+<td style="text-align: center;">神经元数量</td>
+<td style="text-align: center;">过拟合</td>
+<td style="text-align: center;">无法充分提取特征</td>
 </tr>
 </tbody>
 </table>
-</div>
-<h3 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h3><p>迁移学习(transfer learning)是一种学习方式，其使用用某个数据集训练好的权重神经网络，冻结训练好的某些层中的权重，再用这个网络训练另一组全新类型的数据集，这次训练中冻结的权重将不会发生任何改变。<br>某些数据量特别小的数据集（例如癫痫脑电波数据集）训练多次容易发生过拟合，而数据量少本身不足以让神经网络获取到全部特征。迁移学习可以改进数据集数据量小导致的问题。  </p>
-<h2 id="其他类型的神经网络"><a href="#其他类型的神经网络" class="headerlink" title="其他类型的神经网络"></a>其他类型的神经网络</h2><p>除了基于反向传播的神经网络外，神经网络还有其他的几种类型。  </p>
-<h3 id="浅层学习网络"><a href="#浅层学习网络" class="headerlink" title="浅层学习网络"></a>浅层学习网络</h3><h4 id="自组织映射"><a href="#自组织映射" class="headerlink" title="自组织映射"></a>自组织映射</h4><p>自组织映射(SOM,self-organizing map)是一种只有两层的无监督学习神经网络。通过学习输入空间中的数据，生成一个低维、离散的映射(Map)，从某种程度上也可看成一种降维算法。它最重要的应用是用于聚类(clustering)。<br>不同于一般神经网络基于损失函数的反向传播来训练，它运用竞争学习(competitive learning)策略，依靠神经元之间互相竞争逐步优化网络。且使用近邻关系函数(neighborhood function)来维持输入空间的拓扑结构。<br>SOM的结构如下：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812094845.png width=50%>  </p>
-<p>SOM只有两层，第一层为输入层，第二层为输出层，也称为竞争层(computational layer)。<br>输入层神经元的数量是由输入向量的维度决定的，一个神经元对应一个特征。  </p>
-<h5 id="竞争学习策略"><a href="#竞争学习策略" class="headerlink" title="竞争学习策略"></a>竞争学习策略</h5><p>对于SOM而言，神经网络中的权重仍然要进行随机初始化。其后权重的更新仍然基于权重更新算法：  </p>
-<script type="math/tex; mode=display">w:=w+ηδa</script><p>然而，由于其是一个无监督学习算法，无法对网络输入数据集的标签，因此此处的$δ$采用数据点$\boldsymbol{X}$到每一个神经元的权重之间的欧氏距离进行衡量：  </p>
-<script type="math/tex; mode=display">d=||\boldsymbol{X}-\boldsymbol{W}||=\sqrt{∑(x_i-w_i)^2}</script><p>与基于反向传播的神经网络不同的是，此处需要计算数据点到所有神经元的欧氏距离，并且找到到该数据点欧氏距离最短的神经元$\boldsymbol{W_{win}}$。然后使用该输入对该神经元的权重进行更新：  </p>
-<script type="math/tex; mode=display">\boldsymbol{W_{win}}:=\boldsymbol{W}+η(\boldsymbol{X}-\boldsymbol{W_{win}})</script><p>此外，这个神经元的权重$\boldsymbol{W_{win}}$还会对周围的神经元的权重造成影响，影响的大小服从近邻关系函数$θ(N)$，其中$N$表示的是影响范围内某个神经元距离赢家的神经元距离，下图表示了$N=1$和$N=2$时赢家（编号为13的神经元）对周围神经元的影响；<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917143055.png width=50%>  </p>
-<p>$θ(N)∈[0,1]$，表示该距离所对应的对其权重的影响与原来的百分比。赢家周围的神经元的权重更新表示为：  </p>
-<script type="math/tex; mode=display">\boldsymbol{W_{neigh}}:=\boldsymbol{W}+η(\boldsymbol{X}-\boldsymbol{W_{neigh}})θ(N)</script><p>SOM中权重更新的本质是将某些距离数据点近的神经元拉近到这个神经元附近。神经网络的每个神经元都与一个参考向量相关，每个数据点都被映射到具有 “最接近 “参考向量的神经元上。在运行该算法的过程中，每个数据对象作为一个训练样本，引导参考向量向输入向量空间的密集区域移动，从而使这些参考向量被训练成适合输入数据集的分布。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/v2-f52b70ceb4be67a91ebd807236a27fbf_b.gif width=40%>  </p>
-<p>训练完成后，所有的数据点都被映射到竞争层的神经元，在竞争层观察到竞争层的神经元移动到输入层数据密集的区域，从而自发地形成数据簇，完成聚类。  </p>
-<h4 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h4><p>循环神经网络(Recurrent Neural Network, RNN)是一种专用于设计处理时序数据的神经网络，其结构上与普通的多层神经网络不同的是，它的隐含层具有自循环的结构，通过这样的自循环，当前的隐含层神经元的输出与上一个时刻神经元的输出建立联系。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221226154349.png width=50%>  </p>
-<p>循环神经网络的前向传播过程类似于普通的神经网络，它每个神经元的输出可以表示为：  </p>
-<script type="math/tex; mode=display">y(t)=f\left[(∑_{i=0}w_ix_i(t))+b_i+y(t-1)\right]</script><p>反向传播过程和普通的神经网络相同，但是需要更新自循环的权重。  </p>
-<h3 id="深度学习网络"><a href="#深度学习网络" class="headerlink" title="深度学习网络"></a>深度学习网络</h3><p>下面介绍的深度信念网络、卷积神经网络、和去噪自动编码器属于深度学习(deep learning)的范畴，相比于一般的神经网络，它们具有如下特点：  </p>
-<ul>
-<li>通过设置一系列的、更加复杂的级联网络结构可以深度挖掘数据的非线性特征。  </li>
-<li>深度学习网络通常具有分层级的表示和结构。  </li>
-<li>可以是监督学习也可以是非监督学习。  </li>
-</ul>
-<h4 id="深度信念网络"><a href="#深度信念网络" class="headerlink" title="深度信念网络"></a>深度信念网络</h4><p>受限玻尔兹曼机(RBM，Restricted Boltzmann Machines)是一种两层的神经网络，一层由显性神经元构成，用于接受输入，另一层由隐性神经元构成，用于提取特征。所有显性神经元和隐性神经元之间存在双向连接，而隐性神经元两两之间和显性神经元两两之间不存在连接，也就是层间全连接，层内无连接。任意两个相连的神经元之间有一个权值$w$表示其连接强度，每个神经元自身有一个偏置系数$b$（对显层神经元）和$c$（对隐层神经元）来表示其自身权重。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917155847.png width=50%></p>
-<p>深度信念网络 (DBN，Deep Belief Network)是由多层受限玻尔兹曼机组成的一个无监督学习神经网络，它既可以被看作一个生成模型，也可以当作判别模型。通过训练其神经元间的权重，可以让整个神经网络按照最大概率来生成训练数据。<br>在深度信念网络中上一个RBM的隐层即为下一个RBM的显层，上一个RBM的输出即为下一个RBM的输入。训练 DBN 的过程是一层一层地进行的。在每一层中，用数据向量来推断隐层，再把这一隐层当作下一层 (更高一层) 的数据向量。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917160432.png width=50%>  </p>
-<h4 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h4><p>卷积神经网络(Convolutional Neural Network, CNN)是一种最初设计用于处理图像的神经网络。它可以看做是一组自适应图像滤波器，其每一层的神经元是用于处理图像的卷积核，卷积核内的参数通过反向传播进行修正。  </p>
-<h4 id="去噪自动编码器"><a href="#去噪自动编码器" class="headerlink" title="去噪自动编码器"></a>去噪自动编码器</h4><p>去噪自动编码器(de-noising auto encoder)是一种无监督的神经网络模型，它可以学习到输入数据的隐含特征，这称为编码(coding)，同时用学习到的新特征可以重构出原始输入数据，称之为解码(decoding)。从直观上来看，自动编码器可以用于特征降维，类似主成分分析PCA，但是其相比PCA其性能更强，这是由于神经网络模型可以提取更有效的新特征。<br>去噪自动编码器的原理是，首先对原始数据$X$随机地将其某些特征置为0，得到受到随机干扰的数据$\tilde{X}$。然后将使用$\tilde{X}$训练的模型$Y$所生成的数据$z$与原始数据$X$进行比较，观察其误差。如果$X$与$Z$差异不大，那么$X$中那些受到随机干扰的特征是可以被去除的噪声。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917144951.png width=60%>  </p>
-<p>去除掉噪声之后的特征再被送入解码器，重新还原为数据，降噪过程完成。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917145055.png width=60%>  </p>
+<h3 id="迁移学习">迁移学习</h3>
+<p>迁移学习(transfer
+learning)是一种学习方式，其使用用某个数据集训练好的权重神经网络，冻结训练好的某些层中的权重，再用这个网络训练另一组全新类型的数据集，这次训练中冻结的权重将不会发生任何改变。<br />
+某些数据量特别小的数据集（例如癫痫脑电波数据集）训练多次容易发生过拟合，而数据量少本身不足以让神经网络获取到全部特征。迁移学习可以改进数据集数据量小导致的问题。</p>
+<h2 id="其他类型的神经网络">其他类型的神经网络</h2>
+<p>除了基于反向传播的神经网络外，神经网络还有其他的几种类型。<br />
+### 浅层学习网络<br />
+#### 自组织映射 自组织映射(SOM,self-organizing
+map)是一种只有两层的无监督学习神经网络。通过学习输入空间中的数据，生成一个低维、离散的映射(Map)，从某种程度上也可看成一种降维算法。它最重要的应用是用于聚类(clustering)。<br />
+不同于一般神经网络基于损失函数的反向传播来训练，它运用竞争学习(competitive
+learning)策略，依靠神经元之间互相竞争逐步优化网络。且使用近邻关系函数(neighborhood
+function)来维持输入空间的拓扑结构。<br />
+SOM的结构如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812094845.png width=50%></p>
+<p>SOM只有两层，第一层为输入层，第二层为输出层，也称为竞争层(computational
+layer)。<br />
+输入层神经元的数量是由输入向量的维度决定的，一个神经元对应一个特征。</p>
+<h5 id="竞争学习策略">竞争学习策略</h5>
+<p>对于SOM而言，神经网络中的权重仍然要进行随机初始化。其后权重的更新仍然基于权重更新算法：<br />
+<span class="math display">\[w:=w+ηδa\]</span>
+然而，由于其是一个无监督学习算法，无法对网络输入数据集的标签，因此此处的<span
+class="math inline">\(δ\)</span>采用数据点<span
+class="math inline">\(\boldsymbol{X}\)</span>到每一个神经元的权重之间的欧氏距离进行衡量：<br />
+<span
+class="math display">\[d=||\boldsymbol{X}-\boldsymbol{W}||=\sqrt{∑(x_i-w_i)^2}\]</span>
+与基于反向传播的神经网络不同的是，此处需要计算数据点到所有神经元的欧氏距离，并且找到到该数据点欧氏距离最短的神经元<span
+class="math inline">\(\boldsymbol{W_{win}}\)</span>。然后使用该输入对该神经元的权重进行更新：<br />
+<span
+class="math display">\[\boldsymbol{W_{win}}:=\boldsymbol{W}+η(\boldsymbol{X}-\boldsymbol{W_{win}})\]</span>
+此外，这个神经元的权重<span
+class="math inline">\(\boldsymbol{W_{win}}\)</span>还会对周围的神经元的权重造成影响，影响的大小服从近邻关系函数<span
+class="math inline">\(θ(N)\)</span>，其中<span
+class="math inline">\(N\)</span>表示的是影响范围内某个神经元距离赢家的神经元距离，下图表示了<span
+class="math inline">\(N=1\)</span>和<span
+class="math inline">\(N=2\)</span>时赢家（编号为13的神经元）对周围神经元的影响；<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917143055.png width=50%></p>
+<p><span
+class="math inline">\(θ(N)∈[0,1]\)</span>，表示该距离所对应的对其权重的影响与原来的百分比。赢家周围的神经元的权重更新表示为：<br />
+<span
+class="math display">\[\boldsymbol{W_{neigh}}:=\boldsymbol{W}+η(\boldsymbol{X}-\boldsymbol{W_{neigh}})θ(N)\]</span></p>
+<p>SOM中权重更新的本质是将某些距离数据点近的神经元拉近到这个神经元附近。神经网络的每个神经元都与一个参考向量相关，每个数据点都被映射到具有
+"最接近
+"参考向量的神经元上。在运行该算法的过程中，每个数据对象作为一个训练样本，引导参考向量向输入向量空间的密集区域移动，从而使这些参考向量被训练成适合输入数据集的分布。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/v2-f52b70ceb4be67a91ebd807236a27fbf_b.gif width=40%></p>
+<p>训练完成后，所有的数据点都被映射到竞争层的神经元，在竞争层观察到竞争层的神经元移动到输入层数据密集的区域，从而自发地形成数据簇，完成聚类。</p>
+<h4 id="循环神经网络">循环神经网络</h4>
+<p>循环神经网络(Recurrent Neural Network,
+RNN)是一种专用于设计处理时序数据的神经网络，其结构上与普通的多层神经网络不同的是，它的隐含层具有自循环的结构，通过这样的自循环，当前的隐含层神经元的输出与上一个时刻神经元的输出建立联系。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221226154349.png width=50%></p>
+<p>循环神经网络的前向传播过程类似于普通的神经网络，它每个神经元的输出可以表示为：<br />
+<span
+class="math display">\[y(t)=f\left[(∑_{i=0}w_ix_i(t))+b_i+y(t-1)\right]\]</span>
+反向传播过程和普通的神经网络相同，但是需要更新自循环的权重。</p>
+<h3 id="深度学习网络">深度学习网络</h3>
+<p>下面介绍的深度信念网络、卷积神经网络、和去噪自动编码器属于深度学习(deep
+learning)的范畴，相比于一般的神经网络，它们具有如下特点：<br />
+-
+通过设置一系列的、更加复杂的级联网络结构可以深度挖掘数据的非线性特征。<br />
+- 深度学习网络通常具有分层级的表示和结构。<br />
+- 可以是监督学习也可以是非监督学习。</p>
+<h4 id="深度信念网络">深度信念网络</h4>
+<p>受限玻尔兹曼机(RBM，Restricted Boltzmann
+Machines)是一种两层的神经网络，一层由显性神经元构成，用于接受输入，另一层由隐性神经元构成，用于提取特征。所有显性神经元和隐性神经元之间存在双向连接，而隐性神经元两两之间和显性神经元两两之间不存在连接，也就是层间全连接，层内无连接。任意两个相连的神经元之间有一个权值<span
+class="math inline">\(w\)</span>表示其连接强度，每个神经元自身有一个偏置系数<span
+class="math inline">\(b\)</span>（对显层神经元）和<span
+class="math inline">\(c\)</span>（对隐层神经元）来表示其自身权重。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917155847.png width=50%></p>
+<p>深度信念网络 (DBN，Deep Belief
+Network)是由多层受限玻尔兹曼机组成的一个无监督学习神经网络，它既可以被看作一个生成模型，也可以当作判别模型。通过训练其神经元间的权重，可以让整个神经网络按照最大概率来生成训练数据。
+在深度信念网络中上一个RBM的隐层即为下一个RBM的显层，上一个RBM的输出即为下一个RBM的输入。训练
+DBN
+的过程是一层一层地进行的。在每一层中，用数据向量来推断隐层，再把这一隐层当作下一层
+(更高一层) 的数据向量。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917160432.png width=50%></p>
+<h4 id="卷积神经网络">卷积神经网络</h4>
+<p>卷积神经网络(Convolutional Neural Network,
+CNN)是一种最初设计用于处理图像的神经网络。它可以看做是一组自适应图像滤波器，其每一层的神经元是用于处理图像的卷积核，卷积核内的参数通过反向传播进行修正。</p>
+<h4 id="去噪自动编码器">去噪自动编码器</h4>
+<p>去噪自动编码器(de-noising auto
+encoder)是一种无监督的神经网络模型，它可以学习到输入数据的隐含特征，这称为编码(coding)，同时用学习到的新特征可以重构出原始输入数据，称之为解码(decoding)。从直观上来看，自动编码器可以用于特征降维，类似主成分分析PCA，但是其相比PCA其性能更强，这是由于神经网络模型可以提取更有效的新特征。<br />
+去噪自动编码器的原理是，首先对原始数据<span
+class="math inline">\(X\)</span>随机地将其某些特征置为0，得到受到随机干扰的数据<span
+class="math inline">\(\tilde{X}\)</span>。然后将使用<span
+class="math inline">\(\tilde{X}\)</span>训练的模型<span
+class="math inline">\(Y\)</span>所生成的数据<span
+class="math inline">\(z\)</span>与原始数据<span
+class="math inline">\(X\)</span>进行比较，观察其误差。如果<span
+class="math inline">\(X\)</span>与<span
+class="math inline">\(Z\)</span>差异不大，那么<span
+class="math inline">\(X\)</span>中那些受到随机干扰的特征是可以被去除的噪声。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917144951.png width=60%></p>
+<p>去除掉噪声之后的特征再被送入解码器，重新还原为数据，降噪过程完成。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917145055.png width=60%></p>
 
                 
               </div>

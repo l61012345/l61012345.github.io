@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Combinational Logic 2: Implementation using Digital CircuitLogical transformationTo deal with the lack&#x2F;limit of circuit components, the transformation are introduced.In implementation of circuits, an">
+    <meta name="description" content="Combinational Logic 2: Implementation using Digital Circuit Logical transformation To deal with the lack&#x2F;limit of circuit components, the transformation are introduced. In implementation of circu">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5. 组合逻辑2：用数字逻辑电路实现[英]">
 <meta property="og:url" content="https://l61012345.top/2023/03/27/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/5.%20Combinational%20Logic%202%20implementation/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="Combinational Logic 2: Implementation using Digital CircuitLogical transformationTo deal with the lack&#x2F;limit of circuit components, the transformation are introduced.In implementation of circuits, an">
+<meta property="og:description" content="Combinational Logic 2: Implementation using Digital Circuit Logical transformation To deal with the lack&#x2F;limit of circuit components, the transformation are introduced. In implementation of circu">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-03-27T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:18.064Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          260 字
+          272 字
         
       </span>
     
@@ -472,59 +472,129 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="Combinational-Logic-2-Implementation-using-Digital-Circuit"><a href="#Combinational-Logic-2-Implementation-using-Digital-Circuit" class="headerlink" title="Combinational Logic 2: Implementation using Digital Circuit"></a>Combinational Logic 2: Implementation using Digital Circuit</h1><h2 id="Logical-transformation"><a href="#Logical-transformation" class="headerlink" title="Logical transformation"></a>Logical transformation</h2><p>To deal with the lack/limit of circuit components, the transformation are introduced.<br>In implementation of circuits, an implementation of 2-input NAND/NOR gate requires 2 transistors （晶体管）, however, a 2-input AND/OR gate requires 4 transistors. To save the cost, NAND logic and NOR logic are introduced to transform the 1st/2nd canonical form into a NAND/NOR only used circuit.  </p>
-<h3 id="NAND-logic-and-1st-canonical-form"><a href="#NAND-logic-and-1st-canonical-form" class="headerlink" title="NAND logic and 1st canonical form"></a>NAND logic and 1st canonical form</h3><h4 id="AND-to-NAND"><a href="#AND-to-NAND" class="headerlink" title="AND to NAND"></a>AND to NAND</h4><script type="math/tex; mode=display">F=A.B=\overline{\overline{A.B}}</script><h4 id="OR-to-NAND"><a href="#OR-to-NAND" class="headerlink" title="OR to NAND"></a>OR to NAND</h4><script type="math/tex; mode=display">\overline{A.B}=\overline{A}+\overline{B}</script><script type="math/tex; mode=display">A+B=\overline{\overline{A}+\overline{B}}</script><p>The AND and OR gates can be replaced with their NAND equivalents for the 1st canonical form giving.  </p>
-<h3 id="NOR-logic-and-2st-canonical-form"><a href="#NOR-logic-and-2st-canonical-form" class="headerlink" title="NOR logic and 2st canonical form"></a>NOR logic and 2st canonical form</h3><p>The NOR can be obtained from the minimal 2nd canonical by replacing AND and OR gate.</p>
-<h4 id="AND-to-NOR"><a href="#AND-to-NOR" class="headerlink" title="AND to NOR"></a>AND to NOR</h4><script type="math/tex; mode=display">A.B=\overline{\overline{A}+\overline{B}}</script><h4 id="OR-to-NOR"><a href="#OR-to-NOR" class="headerlink" title="OR to NOR"></a>OR to NOR</h4><script type="math/tex; mode=display">A+B=\overline{\overline{A}.\overline{B}}=\overline{\overline{A+B}}</script><h2 id="Don’t-care-condition（无效项）"><a href="#Don’t-care-condition（无效项）" class="headerlink" title="Don’t care condition（无效项）"></a>Don’t care condition（无效项）</h2><p>The binary input combinations may never occur although they exist.<br>For example: in BCD(0-9) coding 1010(10) to 1111(15) are never used.  </p>
-<p>Example: Seven Segment Display<br>To represent numbers, corresponding segments will be lighten.<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403192556.png width=30%><br>Example: </p>
-<ul>
-<li>0-&gt;a b e g c f     </li>
-<li>2-&gt;a c d e g    </li>
-<li>7-&gt;a c f   </li>
-</ul>
-<p>To control segment a, we will design a system.<br>When number=0,2,3,5,7,8,9 $F_a=1$.<br>In binary we need 4 bits to present the numbers 0-9, but 10-15 will be never used.<br>All possibilities are listed using Kmap.  </p>
+                <h1
+id="combinational-logic-2-implementation-using-digital-circuit">Combinational
+Logic 2: Implementation using Digital Circuit</h1>
+<h2 id="logical-transformation">Logical transformation</h2>
+<p>To deal with the lack/limit of circuit components, the transformation
+are introduced.<br />
+In implementation of circuits, an implementation of 2-input NAND/NOR
+gate requires 2 transistors （晶体管）, however, a 2-input AND/OR gate
+requires 4 transistors. To save the cost, NAND logic and NOR logic are
+introduced to transform the 1st/2nd canonical form into a NAND/NOR only
+used circuit.</p>
+<h3 id="nand-logic-and-1st-canonical-form">NAND logic and 1st canonical
+form</h3>
+<h4 id="and-to-nand">AND to NAND</h4>
+<p><span
+class="math display">\[F=A.B=\overline{\overline{A.B}}\]</span></p>
+<h4 id="or-to-nand">OR to NAND</h4>
+<p><span
+class="math display">\[\overline{A.B}=\overline{A}+\overline{B}\]</span>
+<span
+class="math display">\[A+B=\overline{\overline{A}+\overline{B}}\]</span>
+The AND and OR gates can be replaced with their NAND equivalents for the
+1st canonical form giving.</p>
+<h3 id="nor-logic-and-2st-canonical-form">NOR logic and 2st canonical
+form</h3>
+<p>The NOR can be obtained from the minimal 2nd canonical by replacing
+AND and OR gate. #### AND to NOR <span
+class="math display">\[A.B=\overline{\overline{A}+\overline{B}}\]</span></p>
+<h4 id="or-to-nor">OR to NOR</h4>
+<p><span
+class="math display">\[A+B=\overline{\overline{A}.\overline{B}}=\overline{\overline{A+B}}\]</span></p>
+<h2 id="dont-care-condition无效项">Don't care condition（无效项）</h2>
+<p>The binary input combinations may never occur although they exist.
+For example: in BCD(0-9) coding 1010(10) to 1111(15) are never used.</p>
+<p>Example: Seven Segment Display<br />
+To represent numbers, corresponding segments will be lighten.<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403192556.png width=30%><br />
+Example: - 0-&gt;a b e g c f<br />
+- 2-&gt;a c d e g<br />
+- 7-&gt;a c f</p>
+<p>To control segment a, we will design a system. When
+number=0,2,3,5,7,8,9 <span class="math inline">\(F_a=1\)</span>.<br />
+In binary we need 4 bits to present the numbers 0-9, but 10-15 will be
+never used.<br />
+All possibilities are listed using Kmap.</p>
 <div class="note note-info">
-            <p>The circuit adding don’t care condition is not equal to the origin one, but the difference is omitted, so they are still equivalent.   </p>
-          </div>  
-<h2 id="Harzard-and-Risk（竞争冒险）"><a href="#Harzard-and-Risk（竞争冒险）" class="headerlink" title="Harzard and Risk（竞争冒险）"></a>Harzard and Risk（竞争冒险）</h2><p>Practical electronic logic circuits are not ideal devices.<br>They require a finite time to operate and consequently introduce delays into the<br>propagation of information.</p>
+            <p>The circuit adding don't care condition is not equal to the originone, but the difference is omitted, so they are still equivalent.</p>
+          </div>
+<h2 id="harzard-and-risk竞争冒险">Harzard and Risk（竞争冒险）</h2>
+<p>Practical electronic logic circuits are not ideal devices. They
+require a finite time to operate and consequently introduce delays into
+the propagation of information. - no more than a few <span
+class="math inline">\(10^{-6}\)</span>s.<br />
+- for very high speed logic, may be of the order of <span
+class="math inline">\(10^{-9}\)</span>s<br />
+- they may invalidate the laws of Boolean algebra and cause errors or
+hazard the logic state.</p>
+<p>The generation of harzards are caused by when a "1" and a "0"
+inputted into a logical gate within a short time. (i.e., like <span
+class="math inline">\(F=A\overline{A}\)</span> or <span
+class="math inline">\(F=A+\overline{A}\)</span>)</p>
+<h3 id="elimination-of-hazards">Elimination of Hazards</h3>
+<h4 id="solution-1-wait-and-consider-the-valid-output">Solution 1 : Wait
+and consider the valid output</h4>
+<p>If the maximum number of gates in any propagation path is <span
+class="math inline">\(𝑛\)</span> and the delay of each gate is <span
+class="math inline">\(𝑑𝑡\)</span>, the output of a combinational logic
+circuit will always be valid at time <span
+class="math inline">\(T\)</span>, thus:<br />
+<span class="math display">\[ 𝑇 &gt; 𝑛 × 𝑑𝑡\]</span></p>
+<h3 id="solution-2-delaying-gate-arrangements">Solution 2: Delaying gate
+arrangements</h3>
+<p>To replace the gates with long logical equivalent gates
+combinations.<br />
+- have no effect on the value of the data. - will present a delay.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403194600.png width=50%></p>
+<h3 id="solution-3-k-maps">Solution 3: K-maps</h3>
 <ul>
-<li>no more than a few $10^{-6}$s.  </li>
-<li>for very high speed logic, may be of the order of $10^{-9}$s  </li>
-<li>they may invalidate the laws of Boolean algebra and cause errors or hazard the logic state.  </li>
+<li>A hazard will always occur when switching between adjacent cells on
+a K-map that are unlooped.</li>
+<li>The hazard can be removed by looping the adjacent cells even if it
+involves introducing an otherwise redundant term into the function.</li>
+<li>A K-map can be used to detect and eliminate all hazards arising from
+the switching of any one variable.</li>
 </ul>
-<p>The generation of harzards are caused by when a “1” and a “0” inputted into a logical gate within a short time. (i.e., like $F=A\overline{A}$ or $F=A+\overline{A}$)  </p>
-<h3 id="Elimination-of-Hazards"><a href="#Elimination-of-Hazards" class="headerlink" title="Elimination of Hazards"></a>Elimination of Hazards</h3><h4 id="Solution-1-Wait-and-consider-the-valid-output"><a href="#Solution-1-Wait-and-consider-the-valid-output" class="headerlink" title="Solution 1 : Wait and consider the valid output"></a>Solution 1 : Wait and consider the valid output</h4><p>If the maximum number of gates in any propagation path is $𝑛$ and the delay of each gate is $𝑑𝑡$, the output of a combinational logic circuit will always be valid at time $T$, thus:  </p>
-<script type="math/tex; mode=display">𝑇 > 𝑛 × 𝑑𝑡</script><h3 id="Solution-2-Delaying-gate-arrangements"><a href="#Solution-2-Delaying-gate-arrangements" class="headerlink" title="Solution 2: Delaying gate arrangements"></a>Solution 2: Delaying gate arrangements</h3><p>To replace the gates with long logical equivalent gates combinations.  </p>
-<ul>
-<li>have no effect on the value of the data.</li>
-<li>will present a delay.</li>
-</ul>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403194600.png width=50%>  </p>
-<h3 id="Solution-3-K-maps"><a href="#Solution-3-K-maps" class="headerlink" title="Solution 3: K-maps"></a>Solution 3: K-maps</h3><ul>
-<li>A hazard will always occur when switching between adjacent cells on a K-map that are unlooped.</li>
-<li>The hazard can be removed by looping the adjacent cells even if it involves introducing an otherwise redundant term into the function.</li>
-<li>A K-map can be used to detect and eliminate all hazards arising from the switching of any one variable. </li>
-</ul>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403194620.png width=50%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403195724.png width=50%>  </p>
-<h2 id="Cellular-Logic"><a href="#Cellular-Logic" class="headerlink" title="Cellular Logic"></a>Cellular Logic</h2><p>In cellular logic circuit, the logic functions can be transformed into cells with external I/O and internal I/O.  </p>
-<ul>
-<li>$I$ input of a cell   </li>
-<li>$Z$ output of a cell  </li>
-<li>$Q$ internal outputs of a cell and connects other cells.  </li>
-</ul>
-<p>Example: 2bits adder</p>
-<script type="math/tex; mode=display">S_2S_1S_0=A_1A_0+B_1B_0</script><p>By listing the truth table and draw Kmaps, the presentations are:  </p>
-<script type="math/tex; mode=display">S_2=A_1B_1+A_0B_1B_0</script><script type="math/tex; mode=display">S_1=A_1\overline{B_1}\overline{B_0}+A_1\overline{A_0}B_1+\overline{A_1}\overline{A_0}B_1+\overline{A_1}B_1B_0+\overline{A_1}A_0\overline{B_1}B_0+A_1A_0B_1B_0</script><script type="math/tex; mode=display">S_0=A_0\overline{B_0}+\overline{A_0}B_0</script><p>For a two-bit adder, the internal relationship are very complex, in this case, the whole circuit can be regarded as a <strong>black box</strong> when a two-bit adder is used. <strong>Only inputs and outputs are users cares about</strong>.</p>
-<p>But above logical presentations are not so universal when confronting with inputs with more bits. In this way, a one-bit adder can be regarded as a universal cell as:<br>For an adder cell:  </p>
-<ul>
-<li>$A$ $B$ are the external inputs. </li>
-<li>$S$ are the external outputs.</li>
-<li>$C$ for carry-in and carry-out is the increment I/O.</li>
-</ul>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403193606.png width=50%>  </p>
-<p>By adding more the same cells, the adder can support input with more bits:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403193759.png width=50%>  </p>
-<p>Therefore, a logic relationship in this single cellular is:  </p>
-<script type="math/tex; mode=display">C_i=A_iB_i+A_iC_{i-1}+B_iC_{i-1}</script><script type="math/tex; mode=display">S_i=\overline{A_i}\overline{B_i}C_{i-1}+A_i\overline{B_i}\overline{C_{i-1}}+\overline{A_i}B_i\overline{C_{i-1}}</script>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403194620.png width=50%><br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403195724.png width=50%></p>
+<h2 id="cellular-logic">Cellular Logic</h2>
+<p>In cellular logic circuit, the logic functions can be transformed
+into cells with external I/O and internal I/O.<br />
+- <span class="math inline">\(I\)</span> input of a cell<br />
+- <span class="math inline">\(Z\)</span> output of a cell<br />
+- <span class="math inline">\(Q\)</span> internal outputs of a cell and
+connects other cells.</p>
+<p>Example: 2bits adder <span
+class="math display">\[S_2S_1S_0=A_1A_0+B_1B_0\]</span> By listing the
+truth table and draw Kmaps, the presentations are:<br />
+<span class="math display">\[S_2=A_1B_1+A_0B_1B_0\]</span> <span
+class="math display">\[S_1=A_1\overline{B_1}\overline{B_0}+A_1\overline{A_0}B_1+\overline{A_1}\overline{A_0}B_1+\overline{A_1}B_1B_0+\overline{A_1}A_0\overline{B_1}B_0+A_1A_0B_1B_0\]</span>
+<span
+class="math display">\[S_0=A_0\overline{B_0}+\overline{A_0}B_0\]</span></p>
+<p>For a two-bit adder, the internal relationship are very complex, in
+this case, the whole circuit can be regarded as a <strong>black
+box</strong> when a two-bit adder is used. <strong>Only inputs and
+outputs are users cares about</strong>.</p>
+<p>But above logical presentations are not so universal when confronting
+with inputs with more bits. In this way, a one-bit adder can be regarded
+as a universal cell as:<br />
+For an adder cell:<br />
+- <span class="math inline">\(A\)</span> <span
+class="math inline">\(B\)</span> are the external inputs. - <span
+class="math inline">\(S\)</span> are the external outputs. - <span
+class="math inline">\(C\)</span> for carry-in and carry-out is the
+increment I/O.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403193606.png width=50%></p>
+<p>By adding more the same cells, the adder can support input with more
+bits:<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230403193759.png width=50%></p>
+<p>Therefore, a logic relationship in this single cellular is:<br />
+<span class="math display">\[C_i=A_iB_i+A_iC_{i-1}+B_iC_{i-1}\]</span>
+<span
+class="math display">\[S_i=\overline{A_i}\overline{B_i}C_{i-1}+A_i\overline{B_i}\overline{C_{i-1}}+\overline{A_i}B_i\overline{C_{i-1}}\]</span></p>
+
                 
               </div>
             

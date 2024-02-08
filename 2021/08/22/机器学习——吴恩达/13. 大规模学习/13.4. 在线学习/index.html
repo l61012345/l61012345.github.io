@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="在线学习在线学习（Online learning）可以针对于连续的数据流进行学习。 今天，许多大型网站或者许多大型网络公司，使用不同版本的在线学习机制算法，从大批的涌入又离开网站的用户身上进行学习。   梯度下降的在线学习对于数据流，在线学习采用了类似于随机梯度下降&#x2F;小批量梯度下降的方式进行学习。在线学习的更新方程为：    θ_j:&#x3D;θ_j-α(h_θ(x)-y)x和随机梯度下降&#x2F;小批量梯度下降">
+    <meta name="description" content="在线学习 在线学习（Online learning）可以针对于连续的数据流进行学习。 今天，许多大型网站或者许多大型网络公司，使用不同版本的在线学习机制算法，从大批的涌入又离开网站的用户身上进行学习。 ## 梯度下降的在线学习 对于数据流，在线学习采用了类似于随机梯度下降&#x2F;小批量梯度下降的方式进行学习。在线学习的更新方程为： \[θ_j:&#x3D;θ_j-α(h_θ(x)-y)x\] 和随机梯">
 <meta property="og:type" content="article">
 <meta property="og:title" content="13.4. 在线学习">
 <meta property="og:url" content="https://l61012345.top/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.4.%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="在线学习在线学习（Online learning）可以针对于连续的数据流进行学习。 今天，许多大型网站或者许多大型网络公司，使用不同版本的在线学习机制算法，从大批的涌入又离开网站的用户身上进行学习。   梯度下降的在线学习对于数据流，在线学习采用了类似于随机梯度下降&#x2F;小批量梯度下降的方式进行学习。在线学习的更新方程为：    θ_j:&#x3D;θ_j-α(h_θ(x)-y)x和随机梯度下降&#x2F;小批量梯度下降">
+<meta property="og:description" content="在线学习 在线学习（Online learning）可以针对于连续的数据流进行学习。 今天，许多大型网站或者许多大型网络公司，使用不同版本的在线学习机制算法，从大批的涌入又离开网站的用户身上进行学习。 ## 梯度下降的在线学习 对于数据流，在线学习采用了类似于随机梯度下降&#x2F;小批量梯度下降的方式进行学习。在线学习的更新方程为： \[θ_j:&#x3D;θ_j-α(h_θ(x)-y)x\] 和随机梯">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-22T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:19.213Z">
@@ -472,10 +472,28 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="在线学习"><a href="#在线学习" class="headerlink" title="在线学习"></a>在线学习</h1><p>在线学习（Online learning）可以针对于连续的数据流进行学习。 今天，许多大型网站或者许多大型网络公司，使用不同版本的在线学习机制算法，从大批的涌入又离开网站的用户身上进行学习。  </p>
-<h2 id="梯度下降的在线学习"><a href="#梯度下降的在线学习" class="headerlink" title="梯度下降的在线学习"></a>梯度下降的在线学习</h2><p>对于数据流，在线学习采用了类似于随机梯度下降/小批量梯度下降的方式进行学习。在线学习的更新方程为：   </p>
-<script type="math/tex; mode=display">θ_j:=θ_j-α(h_θ(x)-y)x</script><p>和随机梯度下降/小批量梯度下降相同，在线学习的每一次参数迭代只会使用一个或者一小批样本$(x,y)$。<br>与随机梯度下降/小批量梯度下降不同的是，<strong>在线学习舍弃了数据集的概念，样本是一次性的：在线学习机制将数据集转化为数据流——一旦样本被学习，这些样本将被舍弃并且永远都不会使用。新的样本将更新原有的样本$(x,y)$，因此在线学习始终学习的是最新的样本。</strong><br>这样的更新机制在线学习可以变化地适应用户的偏好。算法可以针对用户的当前行为不断地更新模型以适应用户。<br>不过，在线学习要求一个源源不断拥有庞大数据量的数据流，倘若没有这么大的数据流，最好还是应用数据集的概念采用定期学习的模式。  </p>
-<h2 id="案例：点击率预测问题（CTR-problem）"><a href="#案例：点击率预测问题（CTR-problem）" class="headerlink" title="案例：点击率预测问题（CTR problem）"></a>案例：点击率预测问题（CTR problem）</h2><p>假设一个在线商店，用户搜索关键词会自动推荐10件与关键词相关的商品。用户可能点击其中的一个链接查看（视作对这个商品感兴趣），也可能不会查看。<br>设商品的特征向量$x$，它表示这个商品具有的一些关键词在各个维度的匹配程度。<br>设用户的点击为$y$，$y=1$表示用户点击了这件商品的链接，$y=0$表示用户没有点击。<br>当用户访问网站时，会一次性得到10个样本。在线学习可以对用户点击某一个商品的概率$p(y=1|x;θ)$进行实时建模，进行连续的学习，模型会在用户点击时不断地更新以适应用户的取向。  </p>
+                <h1 id="在线学习">在线学习</h1>
+<p>在线学习（Online learning）可以针对于连续的数据流进行学习。
+今天，许多大型网站或者许多大型网络公司，使用不同版本的在线学习机制算法，从大批的涌入又离开网站的用户身上进行学习。<br />
+## 梯度下降的在线学习<br />
+对于数据流，在线学习采用了类似于随机梯度下降/小批量梯度下降的方式进行学习。在线学习的更新方程为：<br />
+<span class="math display">\[θ_j:=θ_j-α(h_θ(x)-y)x\]</span>
+和随机梯度下降/小批量梯度下降相同，在线学习的每一次参数迭代只会使用一个或者一小批样本<span
+class="math inline">\((x,y)\)</span>。<br />
+与随机梯度下降/小批量梯度下降不同的是，<strong>在线学习舍弃了数据集的概念，样本是一次性的：在线学习机制将数据集转化为数据流——一旦样本被学习，这些样本将被舍弃并且永远都不会使用。新的样本将更新原有的样本<span
+class="math inline">\((x,y)\)</span>，因此在线学习始终学习的是最新的样本。</strong><br />
+这样的更新机制在线学习可以变化地适应用户的偏好。算法可以针对用户的当前行为不断地更新模型以适应用户。<br />
+不过，在线学习要求一个源源不断拥有庞大数据量的数据流，倘若没有这么大的数据流，最好还是应用数据集的概念采用定期学习的模式。</p>
+<h2 id="案例点击率预测问题ctr-problem">案例：点击率预测问题（CTR
+problem）</h2>
+<p>假设一个在线商店，用户搜索关键词会自动推荐10件与关键词相关的商品。用户可能点击其中的一个链接查看（视作对这个商品感兴趣），也可能不会查看。<br />
+设商品的特征向量<span
+class="math inline">\(x\)</span>，它表示这个商品具有的一些关键词在各个维度的匹配程度。<br />
+设用户的点击为<span class="math inline">\(y\)</span>，<span
+class="math inline">\(y=1\)</span>表示用户点击了这件商品的链接，<span
+class="math inline">\(y=0\)</span>表示用户没有点击。<br />
+当用户访问网站时，会一次性得到10个样本。在线学习可以对用户点击某一个商品的概率<span
+class="math inline">\(p(y=1|x;θ)\)</span>进行实时建模，进行连续的学习，模型会在用户点击时不断地更新以适应用户的取向。</p>
 
                 
               </div>
@@ -578,9 +596,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.3.%20%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" title="13.3. 小批量梯度下降算法">
+                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.5.%20%E5%87%8F%E5%B0%91%E6%98%A0%E5%B0%84/" title="13.5. 并行计算（减少映射）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">13.3. 小批量梯度下降算法</span>
+                        <span class="hidden-mobile">13.5. 并行计算（减少映射）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -588,8 +606,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.5.%20%E5%87%8F%E5%B0%91%E6%98%A0%E5%B0%84/" title="13.5. 并行计算（减少映射）">
-                        <span class="hidden-mobile">13.5. 并行计算（减少映射）</span>
+                      <a href="/2021/08/21/%E6%97%A5%E8%AF%AD/%E6%A0%87%E8%AE%B0%E8%AF%B4%E6%98%8E/" title="标记说明">
+                        <span class="hidden-mobile">标记说明</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

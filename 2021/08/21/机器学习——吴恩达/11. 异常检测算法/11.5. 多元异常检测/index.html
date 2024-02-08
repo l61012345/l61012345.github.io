@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="多元异常检测算法问题动机实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合两个变量指标">
+    <meta name="description" content="多元异常检测算法 问题动机 实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。 如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合">
 <meta property="og:type" content="article">
 <meta property="og:title" content="11.5. 多元异常检测算法">
 <meta property="og:url" content="https://l61012345.top/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.5.%20%E5%A4%9A%E5%85%83%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="多元异常检测算法问题动机实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合两个变量指标">
+<meta property="og:description" content="多元异常检测算法 问题动机 实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。 如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:18.948Z">
@@ -472,62 +472,119 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="多元异常检测算法"><a href="#多元异常检测算法" class="headerlink" title="多元异常检测算法"></a>多元异常检测算法</h1><h2 id="问题动机"><a href="#问题动机" class="headerlink" title="问题动机"></a>问题动机</h2><p>实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。<br>如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合两个变量指标，观察二维分布，则比较容易发现这个异常的数据。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210812150029.png width=50%>  </p>
-<h2 id="多元高斯分布"><a href="#多元高斯分布" class="headerlink" title="多元高斯分布"></a>多元高斯分布</h2><p>为了进一步改进异常检测算法，需要用到多元高斯分布的相关知识。<br>假设特征变量$x∈R^n$，现在不通过为每一个特征分别建模$p(x_i)$的方法，转而对整体直接建立模型$p(x)$。<br>根据多元高斯分布的公式：  </p>
-<script type="math/tex; mode=display">p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))</script><p>其中$Σ∈R^{n×n}$，是$x$的协方差矩阵。$|Σ|$表示$Σ$的行列式。<br>$μ∈R^n$是一个均值向量。<br>$p(x)$在高维空间中呈现出高斯分布。<br>类比与二维高斯分布，$Σ$内的元素值控制极值点的大小，同时控制从极值点到零点各方向的变化率（同时非对角线上的元素控制着各维度之间的相关性）。$μ$控制极值点的位置。  </p>
-<h3 id="多元高斯分布的参数估计问题"><a href="#多元高斯分布的参数估计问题" class="headerlink" title="多元高斯分布的参数估计问题"></a>多元高斯分布的参数估计问题</h3><p>假设随机变量$x∈R^n$的$m$个样本${x^{(1)},x^{(2)},…,x^{(m)}}$，可以利用如下的公式对$μ$和$Σ$进行参数估计:  </p>
-<script type="math/tex; mode=display">μ=\frac{1}{m}∑_{i=1}^mx^{(i)}</script><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T</script><h2 id="使用多元高斯分布的多元异常检测算法"><a href="#使用多元高斯分布的多元异常检测算法" class="headerlink" title="使用多元高斯分布的多元异常检测算法"></a>使用多元高斯分布的多元异常检测算法</h2><p>假设数据集有$m$个样本${x^{(1)},x^{(2)},…,x^{(m)}}$，首先假设数据集的分布服从多元高斯分布，算法流程如下：  </p>
-<ol>
-<li>使用样本数据建立$p(x)$的模型：  <script type="math/tex; mode=display">μ=\frac{1}{m}∑_{i=1}^mx^{(i)}</script><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T</script></li>
-<li>建立$p(x)$的模型：  <script type="math/tex; mode=display">p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))</script></li>
-<li>对于给定的新样本$x<em>{new}$，带入$p(x)$的模型中进行计算得到$p(x</em>{new})$</li>
-<li>设定阈值$ɛ$,如果$p(x<em>{new})&lt;ɛ$则表明$x</em>{new}$为异常数据。  </li>
-</ol>
-<h2 id="多元异常检测算法与原始异常检测算法的关系"><a href="#多元异常检测算法与原始异常检测算法的关系" class="headerlink" title="多元异常检测算法与原始异常检测算法的关系"></a>多元异常检测算法与原始异常检测算法的关系</h2><p>原始模型：  </p>
-<script type="math/tex; mode=display">p(x)=Π_{i=1}^np(x_i,μ_i,σ^2_i)</script><p>多元高斯模型：  </p>
-<script type="math/tex; mode=display">p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))</script><p><strong>其实原始模型是多元高斯模型的一种特殊情况：所有的特征之间都独立不相关，而多元高斯分布模型考虑到了特征之间的相关性。</strong><br>特征不相关时，协方差矩阵$Σ$是一个对角矩阵：  </p>
-<script type="math/tex; mode=display">Σ=\begin{bmatrix}
-    σ^2_1 & ... &...\\
-    ... & σ^2_2 & ... \\
-    ... & ... & ... \\
-    ... & ... & σ^2_n \\
-\end{bmatrix}</script><p>带入多元高斯模型中即可推导出原始模型。  </p>
-<h3 id="模型对比"><a href="#模型对比" class="headerlink" title="模型对比"></a>模型对比</h3><div class="table-container">
+                <h1 id="多元异常检测算法">多元异常检测算法</h1>
+<h2 id="问题动机">问题动机</h2>
+<p>实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。<br />
+如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合两个变量指标，观察二维分布，则比较容易发现这个异常的数据。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210812150029.png width=50%></p>
+<h2 id="多元高斯分布">多元高斯分布</h2>
+<p>为了进一步改进异常检测算法，需要用到多元高斯分布的相关知识。<br />
+假设特征变量<span
+class="math inline">\(x∈R^n\)</span>，现在不通过为每一个特征分别建模<span
+class="math inline">\(p(x_i)\)</span>的方法，转而对整体直接建立模型<span
+class="math inline">\(p(x)\)</span>。<br />
+根据多元高斯分布的公式：<br />
+<span
+class="math display">\[p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))\]</span>
+其中<span class="math inline">\(Σ∈R^{n×n}\)</span>，是<span
+class="math inline">\(x\)</span>的协方差矩阵。<span
+class="math inline">\(|Σ|\)</span>表示<span
+class="math inline">\(Σ\)</span>的行列式。<br />
+<span class="math inline">\(μ∈R^n\)</span>是一个均值向量。<br />
+<span
+class="math inline">\(p(x)\)</span>在高维空间中呈现出高斯分布。<br />
+类比与二维高斯分布，<span
+class="math inline">\(Σ\)</span>内的元素值控制极值点的大小，同时控制从极值点到零点各方向的变化率（同时非对角线上的元素控制着各维度之间的相关性）。<span
+class="math inline">\(μ\)</span>控制极值点的位置。</p>
+<h3 id="多元高斯分布的参数估计问题">多元高斯分布的参数估计问题</h3>
+<p>假设随机变量<span class="math inline">\(x∈R^n\)</span>的<span
+class="math inline">\(m\)</span>个样本<span
+class="math inline">\(\{x^{(1)},x^{(2)},...,x^{(m)}\}\)</span>，可以利用如下的公式对<span
+class="math inline">\(μ\)</span>和<span
+class="math inline">\(Σ\)</span>进行参数估计:<br />
+<span class="math display">\[μ=\frac{1}{m}∑_{i=1}^mx^{(i)}\]</span>
+<span
+class="math display">\[Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T\]</span></p>
+<h2
+id="使用多元高斯分布的多元异常检测算法">使用多元高斯分布的多元异常检测算法</h2>
+<p>假设数据集有<span class="math inline">\(m\)</span>个样本<span
+class="math inline">\(\{x^{(1)},x^{(2)},...,x^{(m)}\}\)</span>，首先假设数据集的分布服从多元高斯分布，算法流程如下：<br />
+1. 使用样本数据建立<span
+class="math inline">\(p(x)\)</span>的模型：<br />
+<span class="math display">\[μ=\frac{1}{m}∑_{i=1}^mx^{(i)}\]</span>
+<span
+class="math display">\[Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T\]</span>
+2. 建立<span class="math inline">\(p(x)\)</span>的模型：<br />
+<span
+class="math display">\[p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))\]</span>
+3. 对于给定的新样本<span
+class="math inline">\(x_{new}\)</span>，带入<span
+class="math inline">\(p(x)\)</span>的模型中进行计算得到<span
+class="math inline">\(p(x_{new})\)</span> 4. 设定阈值<span
+class="math inline">\(ɛ\)</span>,如果<span
+class="math inline">\(p(x_{new})&lt;ɛ\)</span>则表明<span
+class="math inline">\(x_{new}\)</span>为异常数据。</p>
+<h2
+id="多元异常检测算法与原始异常检测算法的关系">多元异常检测算法与原始异常检测算法的关系</h2>
+<p>原始模型：<br />
+<span
+class="math display">\[p(x)=Π_{i=1}^np(x_i,μ_i,σ^2_i)\]</span><br />
+多元高斯模型：<br />
+<span
+class="math display">\[p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))\]</span>
+<strong>其实原始模型是多元高斯模型的一种特殊情况：所有的特征之间都独立不相关，而多元高斯分布模型考虑到了特征之间的相关性。</strong><br />
+特征不相关时，协方差矩阵<span
+class="math inline">\(Σ\)</span>是一个对角矩阵：<br />
+<span class="math display">\[Σ=\begin{bmatrix}
+    σ^2_1 &amp; ... &amp;...\\
+    ... &amp; σ^2_2 &amp; ... \\
+    ... &amp; ... &amp; ... \\
+    ... &amp; ... &amp; σ^2_n \\
+\end{bmatrix}\]</span> 带入多元高斯模型中即可推导出原始模型。</p>
+<h3 id="模型对比">模型对比</h3>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">原始模型</th>
-<th style="text-align:center">多元高斯模型</th>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">原始模型</th>
+<th style="text-align: center;">多元高斯模型</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center">探测关联特征的方式</td>
-<td style="text-align:center">手动创建一个新特征</td>
-<td style="text-align:center">自动捕捉特征之间的关系</td>
+<tr class="odd">
+<td style="text-align: center;">探测关联特征的方式</td>
+<td style="text-align: center;">手动创建一个新特征</td>
+<td style="text-align: center;">自动捕捉特征之间的关系</td>
 </tr>
-<tr>
-<td style="text-align:center">计算性能</td>
-<td style="text-align:center">计算成本低，能够适应数量巨大的特征</td>
-<td style="text-align:center">由于需要计算协方差矩阵，计算成本高，仅能对特征数少的情况适用</td>
+<tr class="even">
+<td style="text-align: center;">计算性能</td>
+<td style="text-align: center;">计算成本低，能够适应数量巨大的特征</td>
+<td
+style="text-align: center;">由于需要计算协方差矩阵，计算成本高，仅能对特征数少的情况适用</td>
 </tr>
-<tr>
-<td style="text-align:center">数据要求</td>
-<td style="text-align:center">可以适用于数据少，特征多（$m&lt;n$）的情况</td>
-<td style="text-align:center">由于协方差矩阵必须可逆，因此要求$m&gt;n$甚至是$m&gt;&gt;n$</td>
+<tr class="odd">
+<td style="text-align: center;">数据要求</td>
+<td style="text-align: center;">可以适用于数据少，特征多（<span
+class="math inline">\(m&lt;n\)</span>）的情况</td>
+<td style="text-align: center;">由于协方差矩阵必须可逆，因此要求<span
+class="math inline">\(m&gt;n\)</span>甚至是<span
+class="math inline">\(m&gt;&gt;n\)</span></td>
 </tr>
 </tbody>
 </table>
-</div>
 <blockquote>
-<p>手动创建特征的方式见<a href="https://l61012345.top/2021/08/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.3.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7/#%E5%AF%BB%E6%89%BE%E7%89%B9%E5%BE%81">9.9. 异常检测算法的评价·关键变量</a><br>原则上使用多元高斯分布时要求$m≥10n$   </p>
+<p>手动创建特征的方式见<a
+href="https://l61012345.top/2021/08/08/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.3.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7/#%E5%AF%BB%E6%89%BE%E7%89%B9%E5%BE%81">9.9.
+异常检测算法的评价·关键变量</a><br />
+原则上使用多元高斯分布时要求<span
+class="math inline">\(m≥10n\)</span></p>
 </blockquote>
-<h3 id="奇异的协方差矩阵"><a href="#奇异的协方差矩阵" class="headerlink" title="奇异的协方差矩阵"></a>奇异的协方差矩阵</h3><p>如果在实际应用过程中协方差矩阵$Σ$不可逆，有如下两种常见的可能：  </p>
-<ol>
-<li>数据的量小于特征的数量</li>
-<li>冗余的特征：存在相同的特征，或者存在某个特征是其他若干个特征的线性组合（高度线性相关）的情况。  </li>
-</ol>
+<h3 id="奇异的协方差矩阵">奇异的协方差矩阵</h3>
+<p>如果在实际应用过程中协方差矩阵<span
+class="math inline">\(Σ\)</span>不可逆，有如下两种常见的可能：<br />
+1. 数据的量小于特征的数量 2.
+冗余的特征：存在相同的特征，或者存在某个特征是其他若干个特征的线性组合（高度线性相关）的情况。</p>
 
                 
               </div>
@@ -630,9 +687,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.3.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7/" title="11.3. 异常检测算法的评价·关键变量">
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.4.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E4%B8%8E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" title="11.4. 比较异常检测与监督学习算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">11.3. 异常检测算法的评价·关键变量</span>
+                        <span class="hidden-mobile">11.4. 比较异常检测与监督学习算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -640,8 +697,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.1.%20%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86/" title="13.1. 大规模学习的计算问题·预学习">
-                        <span class="hidden-mobile">13.1. 大规模学习的计算问题·预学习</span>
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/10.%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/10.1.%20%E9%99%8D%E7%BB%B4/" title="10.1. 降维的目的">
+                        <span class="hidden-mobile">10.1. 降维的目的</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

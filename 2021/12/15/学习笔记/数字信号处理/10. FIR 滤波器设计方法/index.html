@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="FIR滤波器设计方法在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。   加窗法加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。   实现流程加窗法的实现依赖于理想低通滤波器，理想低通滤波">
+    <meta name="description" content="FIR滤波器设计方法 在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。 加窗法 加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。 实现流程 加窗法的实现依赖于理想低通滤波器，理想">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10. FIR滤波器设计方法">
 <meta property="og:url" content="https://l61012345.top/2021/12/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/10.%20FIR%20%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="FIR滤波器设计方法在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。   加窗法加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。   实现流程加窗法的实现依赖于理想低通滤波器，理想低通滤波">
+<meta property="og:description" content="FIR滤波器设计方法 在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。 加窗法 加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。 实现流程 加窗法的实现依赖于理想低通滤波器，理想">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-15T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:14.853Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          2.7k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          11 分钟
+          23 分钟
         
       </span>
     
@@ -472,83 +472,202 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="FIR滤波器设计方法"><a href="#FIR滤波器设计方法" class="headerlink" title="FIR滤波器设计方法"></a>FIR滤波器设计方法</h1><p>在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。  </p>
-<h2 id="加窗法"><a href="#加窗法" class="headerlink" title="加窗法"></a>加窗法</h2><p>加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。  </p>
-<h3 id="实现流程"><a href="#实现流程" class="headerlink" title="实现流程"></a>实现流程</h3><p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：  </p>
-<script type="math/tex; mode=display">h[n]=\frac{sin(ω_cn)}{πn}</script><p>其中$ω_c$表示其截止频率。  </p>
-<ol>
-<li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为${h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]}$,是一个非因果序列。</li>
-<li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}=N$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：${\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]}$</li>
-<li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window function），赋权的操作为：<script type="math/tex; mode=display">fl[n]=h_d[n]×w[n]</script>其中$h_d[n]$为截取和时移之后的理想低通滤波器序列，$w[n]$由窗函数产生，对于矩形窗：$w[n]=1$，之后会对窗函数做更加详细的介绍。  </li>
-</ol>
+                <h1 id="fir滤波器设计方法">FIR滤波器设计方法</h1>
+<p>在实际的滤波器设计中，需要通过各种各样的方法来近似理想滤波器的幅度值响应，从而近似实现理想滤波器的功能。</p>
+<h2 id="加窗法">加窗法</h2>
+<p>加窗法（Windowing）基于离散时间傅里叶变换（DTFT）进行设计，其基本思想是由于理想滤波器的带宽是无限长的，通过截取理想滤波器系统冲激响应的一段序列，并用窗函数序列加权来替代整个理想滤波器的波形。</p>
+<h3 id="实现流程">实现流程</h3>
+<p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：<br />
+<span class="math display">\[h[n]=\frac{sin(ω_cn)}{πn}\]</span>
+其中<span class="math inline">\(ω_c\)</span>表示其截止频率。<br />
+1. 设置滤波器的长度<span
+class="math inline">\(L=2N+1\)</span>，并在理想低通滤波器冲激响应上截取<span
+class="math inline">\(L\)</span>个采样点。为了满足线性相位滤波器的条件，通常使用以<span
+class="math inline">\(h[0]\)</span>为对称轴的奇数<span
+class="math inline">\(L\)</span>个序列。定义滤波器的阶数<span
+class="math inline">\(M\)</span>为滤波器序列长度减一： <span
+class="math display">\[M=L-1\]</span> 此时的序列为<span
+class="math inline">\(\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}\)</span>,是一个非因果序列。
+2. 对截取的序列做时移以满足系统的因果性，时移量为<span
+class="math inline">\(α=\frac{L-1}{2}=N\)</span>，称为滤波器的<strong>群时延</strong>(Group
+delay)。<br />
+此时的序列为：<span
+class="math inline">\(\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}\)</span>
+3.
+为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window
+function），赋权的操作为： <span
+class="math display">\[fl[n]=h_d[n]×w[n]\]</span> 其中<span
+class="math inline">\(h_d[n]\)</span>为截取和时移之后的理想低通滤波器序列，<span
+class="math inline">\(w[n]\)</span>由窗函数产生，对于矩形窗：<span
+class="math inline">\(w[n]=1\)</span>，之后会对窗函数做更加详细的介绍。</p>
 <div class="note note-warning">
-            <p>需要注意的是，窗函数的阶数比序列阶数高2，再截掉窗函数序列两端的0后，与理想低通滤波器序列相乘。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211230151430.png width=70%>  </p>
+            <p>需要注意的是，窗函数的阶数比序列阶数高2，再截掉窗函数序列两端的0后，与理想低通滤波器序列相乘。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211230151430.png width=70%></p>
           </div>
-<h3 id="加窗法的频谱分析·滤波器波形的影响因素"><a href="#加窗法的频谱分析·滤波器波形的影响因素" class="headerlink" title="加窗法的频谱分析·滤波器波形的影响因素"></a>加窗法的频谱分析·滤波器波形的影响因素</h3><p>在频域中，赋权表示为实际滤波器$h_d[n]$的频率响应与窗函数频率响应的周期卷积：  </p>
-<script type="math/tex; mode=display">fl(e^{jω})=H_d(e^{jω}) \tilde{⊕} W(e^{jω})</script><p>在频域中$H_d(e^{jω})$是一个门函数，对矩形窗，$W(e^{jω})$是采样函数。<br>两者周期卷积的过程如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/image171.gif width=70%><br>两者的卷积结果如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/R-C.2b3573a9858b6fa5a41359616773035c width=70%>  </p>
-<h4 id="波纹"><a href="#波纹" class="headerlink" title="波纹"></a>波纹</h4><p>可以发现，由于窗函数旁瓣在频域上的振荡，使得卷积后的频率响应中在通带和止带都出现了振荡，称为滤波器的波纹(Ripple)。同时可以发现，波纹在周期卷积过程中的形成只和窗函数频谱的主瓣和旁瓣的相对幅值有关，定义峰值旁瓣比(PSLR，peak side lobe ratio) 表示dB化后的主瓣相邻旁瓣幅值和主瓣幅值之比：</p>
-<script type="math/tex; mode=display">r_p|dB=20lg(\frac{A_{sidelope}}{A_{mainlope}})</script><p>可以发现，<strong>窗函数频谱中峰值旁瓣比越小，波纹的振荡就越小。</strong>  </p>
-<h4 id="过渡带带宽"><a href="#过渡带带宽" class="headerlink" title="过渡带带宽"></a>过渡带带宽</h4><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215141238.png width=50%></p>
-<p>由上图可以看出，<strong>采样点的个数和过渡带带宽成反比关系。</strong><br>并且，过渡带带宽为主瓣带宽。<br>增大采样点的个数（实际设计中增大抽头数$N$），其过渡带会减小。  </p>
-<h4 id="吉布斯效应"><a href="#吉布斯效应" class="headerlink" title="吉布斯效应"></a>吉布斯效应</h4><p>同时，<strong>增大抽头数$N$还会改变波纹的密度，抽头数增多，其波纹密度增大</strong><br>，但是每个波纹的幅值并不会改变，这个效应称为吉布斯效应。<br><strong>吉布斯效应可以通过设计窗函数时让窗函数的时域表达平缓的由1减小到0来消除。</strong>  </p>
-<h4 id="宽容度"><a href="#宽容度" class="headerlink" title="宽容度"></a>宽容度</h4><p>上述影响因素都是基于幅度值-频率响应得出的，定义滤波器的幅度-频率响应为：  </p>
-<script type="math/tex; mode=display">A_e(e^{jω})=H_e(e^{jω}) \tilde{⊕} W_e(e^{jω})</script><p>对于第一类FIR滤波器(序列对称，长度为奇数)，有：  </p>
-<script type="math/tex; mode=display">A_e(e^{jω})=H(e^{jω})e^{-jαω}</script><p>$H$和$W$为原始滤波器和窗函数的幅度-频率响应。<br>低通滤波器的幅度响应图如下：  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215145524.png width=50%>  </p>
-<p>定义波纹偏离1或0的最大幅值为滤波器的宽容度(Tolerance)$δ$，上下波纹的宽容度相同。峰值近似误差（Peak approximation error）用dB表示波纹的宽容度：  </p>
-<script type="math/tex; mode=display">e_p=20lgδ</script><h3 id="常见窗函数"><a href="#常见窗函数" class="headerlink" title="常见窗函数"></a>常见窗函数</h3><h4 id="矩形窗"><a href="#矩形窗" class="headerlink" title="矩形窗"></a>矩形窗</h4><p>矩形窗函数：</p>
-<script type="math/tex; mode=display">w[n]=\begin{cases}
+<h3
+id="加窗法的频谱分析滤波器波形的影响因素">加窗法的频谱分析·滤波器波形的影响因素</h3>
+<p>在频域中，赋权表示为实际滤波器<span
+class="math inline">\(h_d[n]\)</span>的频率响应与窗函数频率响应的周期卷积：<br />
+<span class="math display">\[fl(e^{jω})=H_d(e^{jω}) \tilde{⊕}
+W(e^{jω})\]</span> 在频域中<span
+class="math inline">\(H_d(e^{jω})\)</span>是一个门函数，对矩形窗，<span
+class="math inline">\(W(e^{jω})\)</span>是采样函数。<br />
+两者周期卷积的过程如下图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/image171.gif width=70%><br />
+两者的卷积结果如下图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/R-C.2b3573a9858b6fa5a41359616773035c width=70%></p>
+<h4 id="波纹">波纹</h4>
+<p>可以发现，由于窗函数旁瓣在频域上的振荡，使得卷积后的频率响应中在通带和止带都出现了振荡，称为滤波器的波纹(Ripple)。同时可以发现，波纹在周期卷积过程中的形成只和窗函数频谱的主瓣和旁瓣的相对幅值有关，定义峰值旁瓣比(PSLR，peak
+side lobe ratio) 表示dB化后的主瓣相邻旁瓣幅值和主瓣幅值之比： <span
+class="math display">\[r_p|dB=20lg(\frac{A_{sidelope}}{A_{mainlope}})\]</span>
+可以发现，<strong>窗函数频谱中峰值旁瓣比越小，波纹的振荡就越小。</strong></p>
+<h4 id="过渡带带宽">过渡带带宽</h4>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215141238.png width=50%></p>
+<p>由上图可以看出，<strong>采样点的个数和过渡带带宽成反比关系。</strong>
+并且，过渡带带宽为主瓣带宽。<br />
+增大采样点的个数（实际设计中增大抽头数<span
+class="math inline">\(N\)</span>），其过渡带会减小。</p>
+<h4 id="吉布斯效应">吉布斯效应</h4>
+<p>同时，<strong>增大抽头数<span
+class="math inline">\(N\)</span>还会改变波纹的密度，抽头数增多，其波纹密度增大</strong>
+，但是每个波纹的幅值并不会改变，这个效应称为吉布斯效应。
+<strong>吉布斯效应可以通过设计窗函数时让窗函数的时域表达平缓的由1减小到0来消除。</strong></p>
+<h4 id="宽容度">宽容度</h4>
+<p>上述影响因素都是基于幅度值-频率响应得出的，定义滤波器的幅度-频率响应为：<br />
+<span class="math display">\[A_e(e^{jω})=H_e(e^{jω}) \tilde{⊕}
+W_e(e^{jω})\]</span>
+对于第一类FIR滤波器(序列对称，长度为奇数)，有：<br />
+<span class="math display">\[A_e(e^{jω})=H(e^{jω})e^{-jαω}\]</span>
+<span class="math inline">\(H\)</span>和<span
+class="math inline">\(W\)</span>为原始滤波器和窗函数的幅度-频率响应。<br />
+低通滤波器的幅度响应图如下：</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211215145524.png width=50%></p>
+<p>定义波纹偏离1或0的最大幅值为滤波器的宽容度(Tolerance)<span
+class="math inline">\(δ\)</span>，上下波纹的宽容度相同。峰值近似误差（Peak
+approximation error）用dB表示波纹的宽容度：<br />
+<span class="math display">\[e_p=20lgδ\]</span></p>
+<h3 id="常见窗函数">常见窗函数</h3>
+<h4 id="矩形窗">矩形窗</h4>
+<p>矩形窗函数： <span class="math display">\[w[n]=\begin{cases}
     1, 0 ≤n≤N-1\\
     0, otherwise
-\end{cases}</script><p>矩形窗函数的峰值旁瓣比：$r_p=-13dB$<br>主瓣宽度$Δω_m=\frac{4π}{N}$<br>由于矩形窗从1到0的变化过快，因此难以消除吉布斯效应。  </p>
-<h4 id="三角窗"><a href="#三角窗" class="headerlink" title="三角窗"></a>三角窗</h4><p>三角窗函数：  </p>
-<script type="math/tex; mode=display">w[n]=\begin{cases}
-    \frac{2n}{M}, 0≤n<\frac{M}{2}\\
+\end{cases}\]</span> 矩形窗函数的峰值旁瓣比：<span
+class="math inline">\(r_p=-13dB\)</span><br />
+主瓣宽度<span class="math inline">\(Δω_m=\frac{4π}{N}\)</span><br />
+由于矩形窗从1到0的变化过快，因此难以消除吉布斯效应。</p>
+<h4 id="三角窗">三角窗</h4>
+<p>三角窗函数：<br />
+<span class="math display">\[w[n]=\begin{cases}
+    \frac{2n}{M}, 0≤n&lt;\frac{M}{2}\\
     2-\frac{2n}{M}, \frac{M}{2}≤n≤M\\
     0, otherwise
-\end{cases}</script><p>矩形窗函数的峰值旁瓣比：$r_p=-27dB$<br>主瓣宽度$Δω_m=\frac{8π}{N}$  </p>
-<h4 id="汉宁窗（Hanning）"><a href="#汉宁窗（Hanning）" class="headerlink" title="汉宁窗（Hanning）"></a>汉宁窗（Hanning）</h4><p>汉宁窗函数：  </p>
-<script type="math/tex; mode=display">w[n]=0.5-0.5cos(\frac{2πn}{M}),0≤n≤M</script><p>矩形窗函数的峰值旁瓣比：$r_p=-31dB$<br>主瓣宽度$Δω_m=\frac{8π}{N}$  </p>
-<h4 id="汉明窗（Hamming）"><a href="#汉明窗（Hamming）" class="headerlink" title="汉明窗（Hamming）"></a>汉明窗（Hamming）</h4><p>汉宁窗函数：  </p>
-<script type="math/tex; mode=display">w[n]=0.54-0.46cos(\frac{2πn}{M}),0≤n≤M</script><p>矩形窗函数的峰值旁瓣比：$r_p=-41dB$<br>主瓣宽度$Δω_m=\frac{8π}{N}$  </p>
-<h4 id="布莱克曼窗（Blackman）"><a href="#布莱克曼窗（Blackman）" class="headerlink" title="布莱克曼窗（Blackman）"></a>布莱克曼窗（Blackman）</h4><p>布莱克曼窗函数：  </p>
-<script type="math/tex; mode=display">w[n]=0.42-0.5cos(\frac{2πn}{M})+0.08cos(\frac{4πn}{M}),0≤n≤M</script><p>矩形窗函数的峰值旁瓣比：$r_p=-57dB$<br>主瓣宽度$Δω_m=\frac{12π}{N}$  </p>
-<h4 id="凯撒窗"><a href="#凯撒窗" class="headerlink" title="凯撒窗"></a>凯撒窗</h4><p>凯撒窗函数：  </p>
-<script type="math/tex; mode=display">w[n]=\begin{cases}
+\end{cases}\]</span> 矩形窗函数的峰值旁瓣比：<span
+class="math inline">\(r_p=-27dB\)</span><br />
+主瓣宽度<span class="math inline">\(Δω_m=\frac{8π}{N}\)</span></p>
+<h4 id="汉宁窗hanning">汉宁窗（Hanning）</h4>
+<p>汉宁窗函数：<br />
+<span
+class="math display">\[w[n]=0.5-0.5cos(\frac{2πn}{M}),0≤n≤M\]</span>
+矩形窗函数的峰值旁瓣比：<span
+class="math inline">\(r_p=-31dB\)</span><br />
+主瓣宽度<span class="math inline">\(Δω_m=\frac{8π}{N}\)</span></p>
+<h4 id="汉明窗hamming">汉明窗（Hamming）</h4>
+<p>汉宁窗函数：<br />
+<span
+class="math display">\[w[n]=0.54-0.46cos(\frac{2πn}{M}),0≤n≤M\]</span>
+矩形窗函数的峰值旁瓣比：<span
+class="math inline">\(r_p=-41dB\)</span><br />
+主瓣宽度<span class="math inline">\(Δω_m=\frac{8π}{N}\)</span></p>
+<h4 id="布莱克曼窗blackman">布莱克曼窗（Blackman）</h4>
+<p>布莱克曼窗函数：<br />
+<span
+class="math display">\[w[n]=0.42-0.5cos(\frac{2πn}{M})+0.08cos(\frac{4πn}{M}),0≤n≤M\]</span>
+矩形窗函数的峰值旁瓣比：<span
+class="math inline">\(r_p=-57dB\)</span><br />
+主瓣宽度<span class="math inline">\(Δω_m=\frac{12π}{N}\)</span></p>
+<h4 id="凯撒窗">凯撒窗</h4>
+<p>凯撒窗函数：<br />
+<span class="math display">\[w[n]=\begin{cases}
     \frac{I_0[β(1-[\frac{n-α}{α}]^2)^{\frac{1}{2}}]}{I_0(β)},0≤n≤M\\
     0, otherwise
-\end{cases}</script><p>凯撒窗的过渡带带宽由凯撒窗的阶数和宽容度决定：  </p>
-<script type="math/tex; mode=display">M=\frac{-e_p-8}{2.285Δω}</script><p>宽容度由形状参数决定：  </p>
-<script type="math/tex; mode=display">β=\begin{cases}
-    0.1102(-e_p-8.7),-e_p>50\\
+\end{cases}\]</span>
+凯撒窗的过渡带带宽由凯撒窗的阶数和宽容度决定：<br />
+<span class="math display">\[M=\frac{-e_p-8}{2.285Δω}\]</span>
+宽容度由形状参数决定：<br />
+<span class="math display">\[β=\begin{cases}
+    0.1102(-e_p-8.7),-e_p&gt;50\\
     0.5842(-e_p-21)^{0.4}+0.07886(-e_p-21),21≤-e_p≤50\\
-    0, -e_p<21
-\end{cases}</script><p>凯撒窗可以通过控制阶数和形状参数$β$来控制宽容度和过渡带带宽。<br>对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：  </p>
-<ol>
-<li>根据宽容度$δ$计算出$e_p$  </li>
-<li>根据$e_p$计算出$β$。  </li>
-<li>根据$e_p$和过渡带带宽计算出凯撒窗的阶数。  </li>
-</ol>
-<h3 id="高通和带通、带阻滤波器设计"><a href="#高通和带通、带阻滤波器设计" class="headerlink" title="高通和带通、带阻滤波器设计"></a>高通和带通、带阻滤波器设计</h3><p>高通和带通、带阻滤波器的频率响应都可以通过对低通滤波器频率响应加以一定的数学变换得到。  </p>
-<h4 id="高通滤波器"><a href="#高通滤波器" class="headerlink" title="高通滤波器"></a>高通滤波器</h4><p>高通滤波器的频率响应可以表示为1-低通滤波器：  </p>
-<script type="math/tex; mode=display">H_{HP}(e^{jω})=1-H_{LP}(e^{jω})</script><p>对应时域冲激响应表示为：  </p>
-<script type="math/tex; mode=display">h[n]=δ[n]-\frac{sin(ω_cπ(n-α))}{πn}</script><h4 id="带通滤波器"><a href="#带通滤波器" class="headerlink" title="带通滤波器"></a>带通滤波器</h4><p>带通滤波器的频率响应可以表示为两个截止频率不同的低通滤波器频率响应相减：  </p>
-<script type="math/tex; mode=display">H_{BP}(e^{jω})=H_{LP1}(e^{jω})-H_{LP2}(e^{jω})</script><p>对应时域冲激响应表示为：  </p>
-<script type="math/tex; mode=display">h[n]=\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{sin(ω_{cb}π(n-α))}{πn}</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211218185227.png width=50%></p>
-<h4 id="带阻滤波器"><a href="#带阻滤波器" class="headerlink" title="带阻滤波器"></a>带阻滤波器</h4><p>带阻滤波器的频率响应可以表示为1-带通滤波器的频率响应。  </p>
-<script type="math/tex; mode=display">H_{HP}(e^{jω})=1-H_{LP}(e^{jω})</script><p>对应时域冲激响应表示为：  </p>
-<script type="math/tex; mode=display">h[n]=δ[n]-\left(\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{sin(ω_{cb}π(n-α))}{πn}\right)</script><h3 id="使用MATLAB进行滤波器设计"><a href="#使用MATLAB进行滤波器设计" class="headerlink" title="使用MATLAB进行滤波器设计"></a>使用MATLAB进行滤波器设计</h3><p>MATLAB中，可以使用<code>fir1()</code>函数来进行加窗法的程序设计，其具体表达为：<br><code>fir1(order,omega_c,filtertype,windowtype,&quot;noscale/scale&quot;)</code><br>其中<code>order</code>表示滤波器的阶数；<code>omega_c</code>是π归一化后的滤波器截止频率；<code>filtertype</code>表示设计的滤波器类型，缺省值为低通滤波器<code>&quot;low&quot;</code>；<code>windowtype</code>表示使用的窗函数，缺省值为海宁窗；<code>&quot;noscale/scale&quot;</code>表示是否需要归一化。<br>其中常见的窗函数有：  </p>
-<ul>
-<li><code>boxcar(l)</code>：矩形窗  </li>
-<li><code>hann(l)</code>：海宁窗  </li>
-<li><code>kaiser(l,beta)</code>：凯撒窗<br><strong>l 表示的是滤波器的序列长度，注意与滤波器的阶数作区分。</strong>  </li>
-</ul>
-<p><code>fir1()</code>函数会返回滤波器的冲激响应序列，返回的冲激序列使用<code>[H_f,w]=freqz(h)</code>返回其幅度-频率响应<code>H_f</code>和角频率轴<code>w</code>。<br>其幅度值-频率响应可以通过求其绝对值<code>abs(H_f)</code>得到，相频响应可以通过<code>angle(H_f)</code>得到。<br>下面的例程展示了如何用MATLAB绘制一个序列长度为7，截止频率为0.5π的理想低通滤波器：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs M">h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">6</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,boxcar(<span class="hljs-number">7</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <span class="hljs-comment">% generate the filter</span><br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></td></tr></table></figure></p>
-<p>下面例程用于生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗低通滤波器，例程如下：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs M"><span class="hljs-comment">% 生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗滤波器</span><br>h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">130</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,kaiser(<span class="hljs-number">131</span>,<span class="hljs-number">4.966</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 幅度-频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅度值-频率响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></td></tr></table></figure></p>
-<h2 id="频率采样法"><a href="#频率采样法" class="headerlink" title="频率采样法*"></a>频率采样法*</h2><p>频率采样法的核心思想是滤波器的冲激响应$h[n]$的离散傅里叶变换的本质是对其频率响应$H(e^{jω})$进行采样。采样后通过在每个采样点之间插值，来近似拟合滤波器的频率响应。<br>因此，对于给定的理想滤波器频率响应$H(e^{jω})$，其对应的离散傅里叶变换应当为：  </p>
-<script type="math/tex; mode=display">H(e^{jω})|_{ω=\frac{2πk}{N}}=H[k]</script><p>$H(e^{jω})$中$\frac{N-1}{2}$的序列通过采样生成后做对称生成后半部分的序列，以满足滤波器的线性相位特性。<br>最后，对整个序列做群时延$α=\frac{N-1}{2}$以满足因果性。即可生成实际的滤波器序列。  </p>
-<h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法*"></a>优化方法*</h2><p>相当多的通信调制方法中对于滤波器的波纹要求很高，因此需要对滤波器函数做进一步的优化，优化的基本思想是对滤波器的波纹进行赋权，权值函数为$w_{rp}[n]$，使得滤波器在频域上的表现更加接近于理想滤波器。<br>定义滤波器优化方法的损失函数为：  </p>
-<script type="math/tex; mode=display">ϵ^2=\frac{1}{2π}∫_{-π}^π\lVert W_{rp}(e^{jω})\left(H_d(e^{jω})-H(e^{jω})\right)\lVert ^2dω</script><p>其中，$H<em>d(e^{jω})$是实际设计的滤波器的频率响应，$H(e^{jω})$对应理想滤波器的频率响应。<br>基本上所有的优化方法的思路都是寻找损失函数取得最小值时所对应的权重$W</em>{rp}$。<br>常见的优化算法有：帕克斯-麦克莱伦算法（Parks–McClellan algorithm）或者梯度下降算法（Gredient Desent），都是寻找全局最小值问题的常用方法，在此不做过多介绍。  </p>
+    0, -e_p&lt;21
+\end{cases}\]</span> 凯撒窗可以通过控制阶数和形状参数<span
+class="math inline">\(β\)</span>来控制宽容度和过渡带带宽。<br />
+对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：<br />
+1. 根据宽容度<span class="math inline">\(δ\)</span>计算出<span
+class="math inline">\(e_p\)</span><br />
+2. 根据<span class="math inline">\(e_p\)</span>计算出<span
+class="math inline">\(β\)</span>。<br />
+3. 根据<span
+class="math inline">\(e_p\)</span>和过渡带带宽计算出凯撒窗的阶数。</p>
+<h3 id="高通和带通带阻滤波器设计">高通和带通、带阻滤波器设计</h3>
+<p>高通和带通、带阻滤波器的频率响应都可以通过对低通滤波器频率响应加以一定的数学变换得到。<br />
+#### 高通滤波器 高通滤波器的频率响应可以表示为1-低通滤波器：<br />
+<span class="math display">\[H_{HP}(e^{jω})=1-H_{LP}(e^{jω})\]</span>
+对应时域冲激响应表示为：<br />
+<span
+class="math display">\[h[n]=δ[n]-\frac{sin(ω_cπ(n-α))}{πn}\]</span></p>
+<h4 id="带通滤波器">带通滤波器</h4>
+<p>带通滤波器的频率响应可以表示为两个截止频率不同的低通滤波器频率响应相减：<br />
+<span
+class="math display">\[H_{BP}(e^{jω})=H_{LP1}(e^{jω})-H_{LP2}(e^{jω})\]</span>
+对应时域冲激响应表示为：<br />
+<span
+class="math display">\[h[n]=\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{sin(ω_{cb}π(n-α))}{πn}\]</span>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211218185227.png width=50%></p>
+<h4 id="带阻滤波器">带阻滤波器</h4>
+<p>带阻滤波器的频率响应可以表示为1-带通滤波器的频率响应。<br />
+<span class="math display">\[H_{HP}(e^{jω})=1-H_{LP}(e^{jω})\]</span>
+对应时域冲激响应表示为：<br />
+<span
+class="math display">\[h[n]=δ[n]-\left(\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{sin(ω_{cb}π(n-α))}{πn}\right)\]</span></p>
+<h3 id="使用matlab进行滤波器设计">使用MATLAB进行滤波器设计</h3>
+<p>MATLAB中，可以使用<code>fir1()</code>函数来进行加窗法的程序设计，其具体表达为：<br />
+<code>fir1(order,omega_c,filtertype,windowtype,"noscale/scale")</code><br />
+其中<code>order</code>表示滤波器的阶数；<code>omega_c</code>是π归一化后的滤波器截止频率；<code>filtertype</code>表示设计的滤波器类型，缺省值为低通滤波器<code>"low"</code>；<code>windowtype</code>表示使用的窗函数，缺省值为海宁窗；<code>"noscale/scale"</code>表示是否需要归一化。<br />
+其中常见的窗函数有：<br />
+- <code>boxcar(l)</code>：矩形窗<br />
+- <code>hann(l)</code>：海宁窗<br />
+- <code>kaiser(l,beta)</code>：凯撒窗<br />
+<strong>l
+表示的是滤波器的序列长度，注意与滤波器的阶数作区分。</strong></p>
+<p><code>fir1()</code>函数会返回滤波器的冲激响应序列，返回的冲激序列使用<code>[H_f,w]=freqz(h)</code>返回其幅度-频率响应<code>H_f</code>和角频率轴<code>w</code>。<br />
+其幅度值-频率响应可以通过求其绝对值<code>abs(H_f)</code>得到，相频响应可以通过<code>angle(H_f)</code>得到。<br />
+下面的例程展示了如何用MATLAB绘制一个序列长度为7，截止频率为0.5π的理想低通滤波器：<br />
+<figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs M">h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">6</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,boxcar(<span class="hljs-number">7</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <span class="hljs-comment">% generate the filter</span><br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></td></tr></table></figure></p>
+<p>下面例程用于生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗低通滤波器，例程如下：<br />
+<figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs M"><span class="hljs-comment">% 生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗滤波器</span><br>h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">130</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,kaiser(<span class="hljs-number">131</span>,<span class="hljs-number">4.966</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 幅度-频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅度值-频率响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></td></tr></table></figure></p>
+<h2 id="频率采样法">频率采样法*</h2>
+<p>频率采样法的核心思想是滤波器的冲激响应<span
+class="math inline">\(h[n]\)</span>的离散傅里叶变换的本质是对其频率响应<span
+class="math inline">\(H(e^{jω})\)</span>进行采样。采样后通过在每个采样点之间插值，来近似拟合滤波器的频率响应。<br />
+因此，对于给定的理想滤波器频率响应<span
+class="math inline">\(H(e^{jω})\)</span>，其对应的离散傅里叶变换应当为：<br />
+<span class="math display">\[H(e^{jω})|_{ω=\frac{2πk}{N}}=H[k]\]</span>
+<span class="math inline">\(H(e^{jω})\)</span>中<span
+class="math inline">\(\frac{N-1}{2}\)</span>的序列通过采样生成后做对称生成后半部分的序列，以满足滤波器的线性相位特性。<br />
+最后，对整个序列做群时延<span
+class="math inline">\(α=\frac{N-1}{2}\)</span>以满足因果性。即可生成实际的滤波器序列。</p>
+<h2 id="优化方法">优化方法*</h2>
+<p>相当多的通信调制方法中对于滤波器的波纹要求很高，因此需要对滤波器函数做进一步的优化，优化的基本思想是对滤波器的波纹进行赋权，权值函数为<span
+class="math inline">\(w_{rp}[n]\)</span>，使得滤波器在频域上的表现更加接近于理想滤波器。<br />
+定义滤波器优化方法的损失函数为：<br />
+<span class="math display">\[ϵ^2=\frac{1}{2π}∫_{-π}^π\lVert
+W_{rp}(e^{jω})\left(H_d(e^{jω})-H(e^{jω})\right)\lVert ^2dω\]</span>
+其中，<span
+class="math inline">\(H_d(e^{jω})\)</span>是实际设计的滤波器的频率响应，<span
+class="math inline">\(H(e^{jω})\)</span>对应理想滤波器的频率响应。<br />
+基本上所有的优化方法的思路都是寻找损失函数取得最小值时所对应的权重<span
+class="math inline">\(W_{rp}\)</span>。<br />
+常见的优化算法有：帕克斯-麦克莱伦算法（Parks–McClellan
+algorithm）或者梯度下降算法（Gredient
+Desent），都是寻找全局最小值问题的常用方法，在此不做过多介绍。</p>
 
                 
               </div>

@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="滑动窗口分类器上一节中照片OCR系统的流水线：本节课将着重于“Text detection”文字检测的部分，这一部分的功能由一种称为滑动窗口分类器（Sliding window classifier）的算法承担。滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。   案例：行人检测滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标拥有相似的长宽比。">
+    <meta name="description" content="滑动窗口分类器 上一节中照片OCR系统的流水线：  本节课将着重于“Text detection”文字检测的部分，这一部分的功能由一种称为滑动窗口分类器（Sliding window classifier）的算法承担。 滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。 案例：行人检测 滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标">
 <meta property="og:type" content="article">
 <meta property="og:title" content="14.2. 滑动窗口分类器">
 <meta property="og:url" content="https://l61012345.top/2021/08/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.2.%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="滑动窗口分类器上一节中照片OCR系统的流水线：本节课将着重于“Text detection”文字检测的部分，这一部分的功能由一种称为滑动窗口分类器（Sliding window classifier）的算法承担。滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。   案例：行人检测滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标拥有相似的长宽比。">
+<meta property="og:description" content="滑动窗口分类器 上一节中照片OCR系统的流水线：  本节课将着重于“Text detection”文字检测的部分，这一部分的功能由一种称为滑动窗口分类器（Sliding window classifier）的算法承担。 滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。 案例：行人检测 滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-26T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:19.314Z">
@@ -472,13 +472,41 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="滑动窗口分类器"><a href="#滑动窗口分类器" class="headerlink" title="滑动窗口分类器"></a>滑动窗口分类器</h1><p>上一节中照片OCR系统的流水线：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826094605.png width=70%><br>本节课将着重于“Text detection”文字检测的部分，这一部分的功能由一种称为<strong>滑动窗口分类器</strong>（Sliding window classifier）的算法承担。<br>滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。  </p>
-<h2 id="案例：行人检测"><a href="#案例：行人检测" class="headerlink" title="案例：行人检测"></a>案例：行人检测</h2><p>滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标拥有相似的长宽比。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826095820.png width=50%>  </p>
-<h3 id="制作分类器"><a href="#制作分类器" class="headerlink" title="制作分类器"></a>制作分类器</h3><p>为了识别行人，需要制作一个监督学习分类器，分类器需要识别图像是否是行人，具体的做法如下：<br>收集一个行人的数据集，这个数据集由正样本和负样本组成。其中正样本是行人的图片，要求行人需要占到这个图像的相当大的部分。负样本则是一些没有行人的街景图像，大小和行人相同，这些图像要求种类尽量多一些（比如房屋、树木等等）。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826100311.png width=60%>  </p>
-<h3 id="全幅扫描"><a href="#全幅扫描" class="headerlink" title="全幅扫描"></a>全幅扫描</h3><p>现在，给出一个有若干行人的全幅图像，算法需要在图像中选取一个矩阵块（即窗口），将这个矩阵块中的图像部分传入上一布设置好的分类器当中，并对这部分图像进行识别，判断这部分图像中是否有行人。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826100631.png width=50%><br>接着，这个窗口会稍微移动一些，并将窗口内的新内容传递给分类器，再次识别。<br>窗口移动的大小称为<strong>步长</strong>（Stride/Step size），如果步长设置的很小，那么总计需要识别的图块数量就会增多，增加计算量。如果步长设置的很大，那么窗口可能不会覆盖到图像的某些区域。<br>常见的设置是将步长设置在4-8像素。<br>滑动窗口直到图像所有的位置都被这个窗口扫过一遍。<br>接着，设置一个面积更大的图块，再次对图像进行扫描。<br>设置更大图块的目的是为了识别更多尺寸的目标。   </p>
-<h2 id="实例：文字检测"><a href="#实例：文字检测" class="headerlink" title="实例：文字检测"></a>实例：文字检测</h2><p>在文字检测中，同样地思路训练一个分类器。  </p>
-<h3 id="放大算子"><a href="#放大算子" class="headerlink" title="放大算子"></a>放大算子</h3><p>同样地运用滑动窗口识别字符，但是在识别完成之后，需要应用放大算子对监测到文字的区域进行拓展。即将识别到的文字区域稍微向四周扩展一些，以便检测这些文字区域的周围是否还有未识别到的，或者是不完整的文字。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826102506.png width=90%><br>如上图所示，左边的灰度图是一种可视化识别结果的方式：白色表示该区域滑动窗口识别到了文字，而灰色区域的灰度表示可能为文字区域的概率，黑色区域表示这些区域内没有文字。<br>右边的灰度图表示将左图应用放大算子后的结果。  </p>
-<h3 id="检测长宽比"><a href="#检测长宽比" class="headerlink" title="检测长宽比"></a>检测长宽比</h3><p>接下来对识别到的文字区域进行排除，舍弃一些长宽比较为反常的、分类器认为是文字的区域。（比如：英语中很少有竖着写的情况，因此宽度过分大于长度的区域应当被舍弃）<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826103154.png width=50%><br>上图的绿色区域是经过检测长宽比后被认为是文字的区域，而红色的区域是检测长宽比后被舍弃的区域。  </p>
+                <h1 id="滑动窗口分类器">滑动窗口分类器</h1>
+<p>上一节中照片OCR系统的流水线：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826094605.png width=70%><br />
+本节课将着重于“Text
+detection”文字检测的部分，这一部分的功能由一种称为<strong>滑动窗口分类器</strong>（Sliding
+window classifier）的算法承担。<br />
+滑动窗口分类器能够全局扫描整幅图像并检测图像上的有文字的部分。</p>
+<h2 id="案例行人检测">案例：行人检测</h2>
+<p>滑动窗口的最经典应用是行人检测，相比于文字检测要简单的地方在于：行人检测所检测的目标拥有相似的长宽比。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826095820.png width=50%></p>
+<h3 id="制作分类器">制作分类器</h3>
+<p>为了识别行人，需要制作一个监督学习分类器，分类器需要识别图像是否是行人，具体的做法如下：<br />
+收集一个行人的数据集，这个数据集由正样本和负样本组成。其中正样本是行人的图片，要求行人需要占到这个图像的相当大的部分。负样本则是一些没有行人的街景图像，大小和行人相同，这些图像要求种类尽量多一些（比如房屋、树木等等）。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826100311.png width=60%></p>
+<h3 id="全幅扫描">全幅扫描</h3>
+<p>现在，给出一个有若干行人的全幅图像，算法需要在图像中选取一个矩阵块（即窗口），将这个矩阵块中的图像部分传入上一布设置好的分类器当中，并对这部分图像进行识别，判断这部分图像中是否有行人。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826100631.png width=50%><br />
+接着，这个窗口会稍微移动一些，并将窗口内的新内容传递给分类器，再次识别。<br />
+窗口移动的大小称为<strong>步长</strong>（Stride/Step
+size），如果步长设置的很小，那么总计需要识别的图块数量就会增多，增加计算量。如果步长设置的很大，那么窗口可能不会覆盖到图像的某些区域。<br />
+常见的设置是将步长设置在4-8像素。<br />
+滑动窗口直到图像所有的位置都被这个窗口扫过一遍。<br />
+接着，设置一个面积更大的图块，再次对图像进行扫描。<br />
+设置更大图块的目的是为了识别更多尺寸的目标。</p>
+<h2 id="实例文字检测">实例：文字检测</h2>
+<p>在文字检测中，同样地思路训练一个分类器。<br />
+### 放大算子
+同样地运用滑动窗口识别字符，但是在识别完成之后，需要应用放大算子对监测到文字的区域进行拓展。即将识别到的文字区域稍微向四周扩展一些，以便检测这些文字区域的周围是否还有未识别到的，或者是不完整的文字。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826102506.png width=90%><br />
+如上图所示，左边的灰度图是一种可视化识别结果的方式：白色表示该区域滑动窗口识别到了文字，而灰色区域的灰度表示可能为文字区域的概率，黑色区域表示这些区域内没有文字。<br />
+右边的灰度图表示将左图应用放大算子后的结果。</p>
+<h3 id="检测长宽比">检测长宽比</h3>
+<p>接下来对识别到的文字区域进行排除，舍弃一些长宽比较为反常的、分类器认为是文字的区域。（比如：英语中很少有竖着写的情况，因此宽度过分大于长度的区域应当被舍弃）<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210826103154.png width=50%><br />
+上图的绿色区域是经过检测长宽比后被认为是文字的区域，而红色的区域是检测长宽比后被舍弃的区域。</p>
 
                 
               </div>
@@ -581,9 +609,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.3.%20%E6%96%87%E5%AD%97%E5%88%86%E7%A6%BB/" title="14.3. 文字分离·字符识别">
+                      <a href="/2021/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.4.%20%E8%8E%B7%E5%BE%97%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE/" title="14.4. 人工数据合成">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">14.3. 文字分离·字符识别</span>
+                        <span class="hidden-mobile">14.4. 人工数据合成</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -591,8 +619,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.1.%20%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/" title="14.1. 问题背景与框架设计">
-                        <span class="hidden-mobile">14.1. 问题背景与框架设计</span>
+                      <a href="/2021/08/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.3.%20%E6%96%87%E5%AD%97%E5%88%86%E7%A6%BB/" title="14.3. 文字分离·字符识别">
+                        <span class="hidden-mobile">14.3. 文字分离·字符识别</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

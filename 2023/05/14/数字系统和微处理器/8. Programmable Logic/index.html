@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Programmable LogicA dedicated logic circuit will only perform the function it was designed to implement.A combinational circuit behaves according to its truth table, whereas a sequential circuit’s cha">
+    <meta name="description" content="Programmable Logic A dedicated logic circuit will only perform the function it was designed to implement. A combinational circuit behaves according to its truth table, whereas a sequential circuit">
 <meta property="og:type" content="article">
 <meta property="og:title" content="8. 可编程逻辑[英]">
 <meta property="og:url" content="https://l61012345.top/2023/05/14/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/8.%20Programmable%20Logic/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="Programmable LogicA dedicated logic circuit will only perform the function it was designed to implement.A combinational circuit behaves according to its truth table, whereas a sequential circuit’s cha">
+<meta property="og:description" content="Programmable Logic A dedicated logic circuit will only perform the function it was designed to implement. A combinational circuit behaves according to its truth table, whereas a sequential circuit">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-14T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:18.190Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          697 字
+          726 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          6 分钟
+          7 分钟
         
       </span>
     
@@ -472,100 +472,272 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="Programmable-Logic"><a href="#Programmable-Logic" class="headerlink" title="Programmable Logic"></a>Programmable Logic</h1><p>A dedicated logic circuit will only perform the function it was designed to implement.<br>A combinational circuit behaves according to its truth table, whereas a sequential circuit’s characteristics are governed by its state table.<br>In a programmable logic system, a standard hardware structure is electronically reconfigurable so that the different logic operations can be performed, without having to change the circuit physically.  </p>
-<h2 id="Multiplexer"><a href="#Multiplexer" class="headerlink" title="Multiplexer"></a>Multiplexer</h2><p>The multiplexer （多路复用器） is a multi-input, single-output circuit whose prime function is to convert parallel data to serial data.  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514183012.png width=50%>    </p>
-<p>One multiplexer has two input end: the data input and control input.<br>The data input is used to give the data to each channel. Control input is used to determine which channel will be the output. The control input is realized by a decoder.<br>For example: a 4 to 1 Multiplexer uses two input variables to select which channel will be outputed: $D_0=\overline{A}.\overline{B}$,  $D_1=\overline{A}.B$, $D_2=A.\overline{B}$, $D_3=A.B$.<br>For example, if $AB=10$, then $D_2$ is open.  </p>
-<p>It can be identified that, <strong>the variable used to be as control signal must contains all the possiblities: (from 00..0 to 11..1)</strong>.  </p>
-<h3 id="Multiplexer-Used-as-Combinational-Logic-Design"><a href="#Multiplexer-Used-as-Combinational-Logic-Design" class="headerlink" title="Multiplexer Used as Combinational Logic Design"></a>Multiplexer Used as Combinational Logic Design</h3><p>For multiplexers, they can be used to design a combinational logic.<br>For a $N$-variable combinational logic function with $M$ to 1 multi-plexer, the $[log_2M]$ variables will be used as control inputs, the other $N-[log_2M]$ variables will be used as data input.<br>For 1st canonical form, the combinational logic function can be transfered into:  </p>
-<script type="math/tex; mode=display">F=F_1C+F_2\overline{C}</script><p>where $F_1$ and $F_2$ are data inputs, $C$ is the control input.  </p>
-<p>Example: $F(ABC)=∑(1,2,4,6)$:  </p>
-<script type="math/tex; mode=display">F(A,B,C)=\overline{A}\overline{B}C+AB\overline{C}+A\overline{B}\overline{C}+AB\overline{C}</script><p>If 4 to 1 multi-plexer are used, then $log_24=2$ control variables will be used. Here, suppose $B,C$ are control varibles, then:  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    F(A,B,C)&=\overline{B}\overline{C}(F_1)+\overline{B}C(F_2)+B\overline{C}(F_3)+BC(F_4)\\
-    &=\overline{B}\overline{C}(A)+\overline{B}C(\overline{A})+B\overline{C}(1)+BC(0)
-\end{aligned}</script><p>Thus, the implementation diagrams are:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514185405.png width=50%>  </p>
-<p>The rules of extracting control variables are:  </p>
-<ul>
-<li>all terms (from all 0s to all 1s) should be satified.</li>
-<li>if there is not a certain control varible in a term, then the term should be rewriten as: $F_1(C+\overline{C})$.<br>For example: $ABD$,$C$ is control varible, then this term should be rewriten as $ABD(C+\overline{C})$.  </li>
-<li>if there is not a certain data varible in a, then this term should be rewriten as: $C.(1)$ or $\overline{C}.(1)$.  </li>
-</ul>
-<h3 id="Multilayer-Multiplexer-System"><a href="#Multilayer-Multiplexer-System" class="headerlink" title="Multilayer Multiplexer System"></a>Multilayer Multiplexer System</h3><p>In multilayer multiplexer system, there are more than one floor of multiplexers.<br>The logic functions of $n-1$ layer is generated by the $(n-1)$ th layer.  </p>
-<p>The size of the multiplexers and the number of layers will depend on the complexity of the function to be performed.  </p>
-<p>Example: $𝐹 = ∑(1,2,4,5,7,8,12,17,19,21,28)$<br>In this function, 5 variables will be used.<br>$F(V, W, X, Y, Z)=00001+00010+00100+00101+00111+01000+01100+10001+10011+10101+11100$<br>Condense $F$ with $YZ$:  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    &F=(F_1)\overline{YZ}+F_2\overline{Y}Z+F_3Y\overline{Z}+(F_4)YZ\\  
-    &F_1=(\overline{VW}X+\overline{V}W\overline{X}+\overline{V}WX+VWX)\\
-    &F_2=(\overline{VWX}+\overline{VW}X+V\overline{WX}+V\overline{W}X)\\
-    &F_3=(\overline{VWX})\\
-    &F_4=\overline{VW}X+V\overline{WX}
-\end{aligned}</script><p>Then exapanding $F_1,F_2,F_3$ and $F_4$ about $WX$ gives:  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    &F1=(0)\overline{WX}+(\overline{V})\overline{W}X+(\overline{V})W\overline{X}+(1)WX\\
-    &F2=(1)\overline{WX}+(1)\overline{W}X+(0)W\overline{X}+(0)WX\\
-    &F3=(\overline{V})\overline{WX}+(0)\overline{W}X+(0)W\overline{X}+(0)WX\\
-    &F4==(\overline{V})\overline{WX}+(V)\overline{W}X+(0)W\overline{X}+(0)WX
-\end{aligned}</script><p>Thus, the 2-layer diagram is:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514191026.png width=50%>    </p>
-<p>Example: 2 two-layer system of 4 to 1 multiplexers  </p>
-<script type="math/tex; mode=display">F=ABC+\overline{AB}D+D\overline{E}+AE</script><p>There are 5 variables, for one layer, 2 variables will be used as control bits, for the other layer, another 2 bits will be used as control bits.<br>For the 1st layer, DE will be chosen as control bits.  </p>
-<script type="math/tex; mode=display">F=(F_0)\overline{DE}+(F_1)\overline{D}E+(F_2)D\overline{E}+(F_3)DE</script><p>Just adding terms of $DE$:  </p>
-<script type="math/tex; mode=display">F=ABC(\overline{DE}+\overline{D}E+D\overline{E}+DE)+\overline{AB}D(\overline{E}+E)+AE(\overline{D}+D)</script><script type="math/tex; mode=display">\begin{aligned}
-&F_0=ABC=(0)\overline{B}C+(0)B\overline{C}+(A)BC+(0)\overline{BC}\\
-&F_1=ABC+A=ABC+A(BC+\overline{BC})=(A)BC+(A)\overline{BC}+(0)B\overline{C}+(0)\overline{B}C=A(BC+\overline{BC})=A\\
-&F2=1\\
-&F3=ABC+\overline{AB}+A=A(BC+B\overline{C}+\overline{B}C+\overline{BC})+\overline{AB}(C+\overline{C})=(A)BC+(1)\overline{BC}+(1)\overline{B}C+(A)B\overline{C}\\
-\end{aligned}</script><p>The circuit diagram is:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514191639.png width=50%>    </p>
-<h2 id="Memory"><a href="#Memory" class="headerlink" title="Memory"></a>Memory</h2><p>A memory circuit contains several storage elements that can be addressed by a decoder circuit.<br>(Here decoder can be regarded as a multiplexer circuit.)  </p>
-<p>In this kind of circuit, the data will be first inputted into every functional parts of the system, then address will decide which part will be functional.<br>The data is introduced into the functionable part of system, this procedure is called read(读取).<br>The data from the functionable part is outputted to the final function, this procedure is called write（写入）.<br>Read and write are controlled by clock pulse.  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/1684064405414.jpg width=70%>    </p>
-<p>For example, above circuit is a 4-bit random access memeory. $AB$ is used as a control varible to determine which channel will be outputted.  </p>
-<p>The R/D control line controls the read and write of memeory.<br>When $R/D=0$, the decoder cannot output one channel due to the input of AND gates are 0s. And all DFF’s $clk=0$, data can be writen into DFFs and held for a clock pulse, that is a write mode of memeory.<br>When $R/D=1$, the decoder output one channel. And all DFF’s $clk=1$, DFF will output the result to the end, that is a read mode of memeory.  </p>
-<h3 id="Address（地址）"><a href="#Address（地址）" class="headerlink" title="Address（地址）"></a>Address（地址）</h3><p>The code inputted into the decoder to control which part will be functioned is named as address.<br>Address corresponds to a functionality or corresponds to one bit input.<br>The storage of memory is $2^n$, $n$ is the number of addresses bits(input addresses and function addresses).  </p>
-<h3 id="Random-Access-Memory-RAM-随机寄存器-缓存"><a href="#Random-Access-Memory-RAM-随机寄存器-缓存" class="headerlink" title="Random Access Memory (RAM)(随机寄存器/缓存)"></a>Random Access Memory (RAM)(随机寄存器/缓存)</h3><p>The memory locations may be read and written to any Output sequence without having to be scanned.<br>It’s called Random.  </p>
-<h3 id="Combinational-Logic-Using-Memory"><a href="#Combinational-Logic-Using-Memory" class="headerlink" title="Combinational Logic Using Memory"></a>Combinational Logic Using Memory</h3><p>A memory can act as <strong>a logic function simply by storing a truth table</strong>, and as any truth table can be loaded into store, the device is both programmable and universal. A memory is programmed to perform a combinational logic function by first obtaining the complete truth table of the function.   </p>
-<p>Example: Design a combinational logic system based on a memory, which will indicate when a 3-bit binary number $X$ is in the range $3≤X≤5$.<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515125113.png width=50%>  </p>
-<h4 id="Byte-Organized-Memories"><a href="#Byte-Organized-Memories" class="headerlink" title="Byte Organized Memories"></a>Byte Organized Memories</h4><p>Byte-organized memories can be set to implement multi-output functions.<br>The address field can be partitioned into two parts, to enable more than one function to be programmed into a large memory.  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/1684126456486.jpg width=50%>    </p>
-<p>For example, for a 1k ($2^{10}$) bit memory, there are 10 input lines. Four input lines will be used to input the data. The other 6 lines used to access the logic functions.<br>It can store $2^6$ logic functions.  </p>
-<h3 id="Sequential-Logic-using-Memory-elements"><a href="#Sequential-Logic-using-Memory-elements" class="headerlink" title="Sequential Logic using Memory elements"></a>Sequential Logic using Memory elements</h3><p>A memory circuit can be programmed to perform a sequential logic function provided feedback is incorporated into the system.<br>The address field is partitioned into the external data inputs and the internal states which are fed back from the output.  </p>
-<p>Example: 101 sequence detector  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515130230.png width=50%>    </p>
-<p>The address to memory must comprise   </p>
-<ul>
-<li>a 3-bit address field   <ul>
-<li>The present state (2 bits)   </li>
-<li>The external state (1 bit)  </li>
-</ul>
-</li>
-<li>the output from the memory provides <ul>
-<li>The logic system’s output Z (1 bit)  </li>
-<li>The next states A’ and B’(2 bits)  </li>
-</ul>
-</li>
-</ul>
-<p>The memory needs to be organized in 3-bit bytes giving a minimum requirement of 8 x 3 bits.  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515130322.png width=50%>  </p>
-<h2 id="Programmable-Logic-Arrays-and-Programmable-Arrays-of-Logic"><a href="#Programmable-Logic-Arrays-and-Programmable-Arrays-of-Logic" class="headerlink" title="Programmable Logic Arrays and Programmable Arrays of Logic"></a>Programmable Logic Arrays and Programmable Arrays of Logic</h2><h3 id="Programmable-Logic-Arrays"><a href="#Programmable-Logic-Arrays" class="headerlink" title="Programmable Logic Arrays"></a>Programmable Logic Arrays</h3><p>A programmable logic array (PLA) can be regarded as a memory circuit with a programmable decoder.<br>The matrix is divided into 2 parts  </p>
-<ul>
-<li>the AND Array (equivalent to the decoder)</li>
-<li>the OR Array (the store)</li>
-</ul>
-<p>Data is input via the $Y$ wires into the AND array<br>The horizontal $X$ wires in the AND array perform the AND function.<br>The connections to the vertical $Y$ wires in the OR array perform the OR function.  </p>
-<p>Example:<br>Below shows the PLA of three logical functions:  </p>
-<script type="math/tex; mode=display">F_1=ABC+\overline{B}C</script><script type="math/tex; mode=display">F_2=\overline{A}B\overline{C}+\overline{B}C+\overline{A}BC</script><script type="math/tex; mode=display">F_3=ABC+\overline{B}C+\overline{A}B\overline{C}</script><p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515130500.png width=50%>  </p>
-<h4 id="Conversion-to-PLA-form"><a href="#Conversion-to-PLA-form" class="headerlink" title="Conversion to PLA form"></a>Conversion to PLA form</h4><p>A logic system must be minimized so that its set of implicants can be accommodated within the PLA.<br>The system has be sufficiently minimal, so Kmap will be used.<br>The total number of implicants(Functions) does not exceed the number of $X$ lines.  </p>
-<h3 id="Programmable-Arrays-of-Logic-PALs"><a href="#Programmable-Arrays-of-Logic-PALs" class="headerlink" title="Programmable Arrays of Logic(PALs)"></a>Programmable Arrays of Logic(PALs)</h3><p>A PAL has a programmable AND array but a fixed OR array, where each output is a function of a pre-wired number of product terms  </p>
-<ul>
-<li>The AND array is not universal</li>
-<li>The number of product terms that can be set up for an n input PAL is considerably less than $2^𝑛$.  </li>
-</ul>
-<p>Example: 3-bit Gray code converter<br>For input $CBA$:  </p>
-<script type="math/tex; mode=display">X=A</script><script type="math/tex; mode=display">Y=\overline{A}B+A\overline{B}=A  XOR  B</script><script type="math/tex; mode=display">Z=\overline{B}C+B\overline{C}=B XOR C</script><p>The PAL must generate $Y$ and $Z$ (no logic is required for $X$).<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515131011.png width=50%>    </p>
-<p>PALs can be programmed either by the user or during the last stage of manufacture using a metallic layer to form the desired connections.  </p>
-<h3 id="Hard-Arrays-of-Logic"><a href="#Hard-Arrays-of-Logic" class="headerlink" title="Hard Arrays of Logic"></a>Hard Arrays of Logic</h3><p>Non-volatile devices are sometimes called hard arrays of logic or HALs.<br>The relationship between HALs and PALs is the same as that between ROMs and PROMs.<br>HALs are factory programmable and suitable for mass production.  </p>
-<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515131122.png width=50%>    </p>
-<h2 id="Microprocessor"><a href="#Microprocessor" class="headerlink" title="Microprocessor"></a>Microprocessor</h2><p>The microprocessor itself can now be regarded as a component in a digital system.<br>It is extremely flexible and can be programmed to perform complex logical and arithmetical operations.<br>A microprocessor can therefore only be regarded as a viable component of a larger digital system if the desired operations and response  times are relatively slow.  </p>
+                <h1 id="programmable-logic">Programmable Logic</h1>
+<p>A dedicated logic circuit will only perform the function it was
+designed to implement.<br />
+A combinational circuit behaves according to its truth table, whereas a
+sequential circuit's characteristics are governed by its state
+table.<br />
+In a programmable logic system, a standard hardware structure is
+electronically reconfigurable so that the different logic operations can
+be performed, without having to change the circuit physically.</p>
+<h2 id="multiplexer">Multiplexer</h2>
+<p>The multiplexer （多路复用器） is a multi-input, single-output
+circuit whose prime function is to convert parallel data to serial
+data.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514183012.png width=50%></p>
+<p>One multiplexer has two input end: the data input and control
+input.<br />
+The data input is used to give the data to each channel. Control input
+is used to determine which channel will be the output. The control input
+is realized by a decoder.<br />
+For example: a 4 to 1 Multiplexer uses two input variables to select
+which channel will be outputed: <span
+class="math inline">\(D_0=\overline{A}.\overline{B}\)</span>, <span
+class="math inline">\(D_1=\overline{A}.B\)</span>, <span
+class="math inline">\(D_2=A.\overline{B}\)</span>, <span
+class="math inline">\(D_3=A.B\)</span>.<br />
+For example, if <span class="math inline">\(AB=10\)</span>, then <span
+class="math inline">\(D_2\)</span> is open.</p>
+<p>It can be identified that, <strong>the variable used to be as control
+signal must contains all the possiblities: (from 00..0 to
+11..1)</strong>.</p>
+<h3 id="multiplexer-used-as-combinational-logic-design">Multiplexer Used
+as Combinational Logic Design</h3>
+<p>For multiplexers, they can be used to design a combinational
+logic.<br />
+For a <span class="math inline">\(N\)</span>-variable combinational
+logic function with <span class="math inline">\(M\)</span> to 1
+multi-plexer, the <span class="math inline">\([log_2M]\)</span>
+variables will be used as control inputs, the other <span
+class="math inline">\(N-[log_2M]\)</span> variables will be used as data
+input.<br />
+For 1st canonical form, the combinational logic function can be
+transfered into:<br />
+<span class="math display">\[F=F_1C+F_2\overline{C}\]</span> where <span
+class="math inline">\(F_1\)</span> and <span
+class="math inline">\(F_2\)</span> are data inputs, <span
+class="math inline">\(C\)</span> is the control input.</p>
+<p>Example: <span
+class="math inline">\(F(ABC)=∑(1,2,4,6)\)</span>:<br />
+<span
+class="math display">\[F(A,B,C)=\overline{A}\overline{B}C+AB\overline{C}+A\overline{B}\overline{C}+AB\overline{C}\]</span></p>
+<p>If 4 to 1 multi-plexer are used, then <span
+class="math inline">\(log_24=2\)</span> control variables will be used.
+Here, suppose <span class="math inline">\(B,C\)</span> are control
+varibles, then:<br />
+<span class="math display">\[\begin{aligned}
+    F(A,B,C)&amp;=\overline{B}\overline{C}(F_1)+\overline{B}C(F_2)+B\overline{C}(F_3)+BC(F_4)\\
+    &amp;=\overline{B}\overline{C}(A)+\overline{B}C(\overline{A})+B\overline{C}(1)+BC(0)
+\end{aligned}\]</span></p>
+<p>Thus, the implementation diagrams are:<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514185405.png width=50%></p>
+<p>The rules of extracting control variables are:<br />
+- all terms (from all 0s to all 1s) should be satified. - if there is
+not a certain control varible in a term, then the term should be
+rewriten as: <span
+class="math inline">\(F_1(C+\overline{C})\)</span>.<br />
+For example: <span class="math inline">\(ABD\)</span>,<span
+class="math inline">\(C\)</span> is control varible, then this term
+should be rewriten as <span
+class="math inline">\(ABD(C+\overline{C})\)</span>.<br />
+- if there is not a certain data varible in a, then this term should be
+rewriten as: <span class="math inline">\(C.(1)\)</span> or <span
+class="math inline">\(\overline{C}.(1)\)</span>.</p>
+<h3 id="multilayer-multiplexer-system">Multilayer Multiplexer
+System</h3>
+<p>In multilayer multiplexer system, there are more than one floor of
+multiplexers.<br />
+The logic functions of <span class="math inline">\(n-1\)</span> layer is
+generated by the <span class="math inline">\((n-1)\)</span> th
+layer.</p>
+<p>The size of the multiplexers and the number of layers will depend on
+the complexity of the function to be performed.</p>
+<p>Example: <span class="math inline">\(𝐹 =
+∑(1,2,4,5,7,8,12,17,19,21,28)\)</span><br />
+In this function, 5 variables will be used.<br />
+<span class="math inline">\(F(V, W, X, Y,
+Z)=00001+00010+00100+00101+00111+01000+01100+10001+10011+10101+11100\)</span><br />
+Condense <span class="math inline">\(F\)</span> with <span
+class="math inline">\(YZ\)</span>:<br />
+<span class="math display">\[\begin{aligned}
+    &amp;F=(F_1)\overline{YZ}+F_2\overline{Y}Z+F_3Y\overline{Z}+(F_4)YZ\\  
+    &amp;F_1=(\overline{VW}X+\overline{V}W\overline{X}+\overline{V}WX+VWX)\\
+    &amp;F_2=(\overline{VWX}+\overline{VW}X+V\overline{WX}+V\overline{W}X)\\
+    &amp;F_3=(\overline{VWX})\\
+    &amp;F_4=\overline{VW}X+V\overline{WX}
+\end{aligned}\]</span></p>
+<p>Then exapanding <span class="math inline">\(F_1,F_2,F_3\)</span> and
+<span class="math inline">\(F_4\)</span> about <span
+class="math inline">\(WX\)</span> gives:<br />
+<span class="math display">\[\begin{aligned}
+    &amp;F1=(0)\overline{WX}+(\overline{V})\overline{W}X+(\overline{V})W\overline{X}+(1)WX\\
+    &amp;F2=(1)\overline{WX}+(1)\overline{W}X+(0)W\overline{X}+(0)WX\\
+    &amp;F3=(\overline{V})\overline{WX}+(0)\overline{W}X+(0)W\overline{X}+(0)WX\\
+    &amp;F4==(\overline{V})\overline{WX}+(V)\overline{W}X+(0)W\overline{X}+(0)WX
+\end{aligned}\]</span></p>
+<p>Thus, the 2-layer diagram is:<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514191026.png width=50%></p>
+<p>Example: 2 two-layer system of 4 to 1 multiplexers<br />
+<span
+class="math display">\[F=ABC+\overline{AB}D+D\overline{E}+AE\]</span>
+There are 5 variables, for one layer, 2 variables will be used as
+control bits, for the other layer, another 2 bits will be used as
+control bits.<br />
+For the 1st layer, DE will be chosen as control bits.<br />
+<span
+class="math display">\[F=(F_0)\overline{DE}+(F_1)\overline{D}E+(F_2)D\overline{E}+(F_3)DE\]</span>
+Just adding terms of <span class="math inline">\(DE\)</span>:<br />
+<span
+class="math display">\[F=ABC(\overline{DE}+\overline{D}E+D\overline{E}+DE)+\overline{AB}D(\overline{E}+E)+AE(\overline{D}+D)\]</span>
+<span class="math display">\[\begin{aligned}
+&amp;F_0=ABC=(0)\overline{B}C+(0)B\overline{C}+(A)BC+(0)\overline{BC}\\
+&amp;F_1=ABC+A=ABC+A(BC+\overline{BC})=(A)BC+(A)\overline{BC}+(0)B\overline{C}+(0)\overline{B}C=A(BC+\overline{BC})=A\\
+&amp;F2=1\\
+&amp;F3=ABC+\overline{AB}+A=A(BC+B\overline{C}+\overline{B}C+\overline{BC})+\overline{AB}(C+\overline{C})=(A)BC+(1)\overline{BC}+(1)\overline{B}C+(A)B\overline{C}\\
+\end{aligned}\]</span></p>
+<p>The circuit diagram is:<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230514191639.png width=50%></p>
+<h2 id="memory">Memory</h2>
+<p>A memory circuit contains several storage elements that can be
+addressed by a decoder circuit.<br />
+(Here decoder can be regarded as a multiplexer circuit.)</p>
+<p>In this kind of circuit, the data will be first inputted into every
+functional parts of the system, then address will decide which part will
+be functional.<br />
+The data is introduced into the functionable part of system, this
+procedure is called read(读取).<br />
+The data from the functionable part is outputted to the final function,
+this procedure is called write（写入）.<br />
+Read and write are controlled by clock pulse.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/1684064405414.jpg width=70%></p>
+<p>For example, above circuit is a 4-bit random access memeory. <span
+class="math inline">\(AB\)</span> is used as a control varible to
+determine which channel will be outputted.</p>
+<p>The R/D control line controls the read and write of memeory.<br />
+When <span class="math inline">\(R/D=0\)</span>, the decoder cannot
+output one channel due to the input of AND gates are 0s. And all DFF's
+<span class="math inline">\(clk=0\)</span>, data can be writen into DFFs
+and held for a clock pulse, that is a write mode of memeory.<br />
+When <span class="math inline">\(R/D=1\)</span>, the decoder output one
+channel. And all DFF's <span class="math inline">\(clk=1\)</span>, DFF
+will output the result to the end, that is a read mode of memeory.</p>
+<h3 id="address地址">Address（地址）</h3>
+<p>The code inputted into the decoder to control which part will be
+functioned is named as address. Address corresponds to a functionality
+or corresponds to one bit input.<br />
+The storage of memory is <span class="math inline">\(2^n\)</span>, <span
+class="math inline">\(n\)</span> is the number of addresses bits(input
+addresses and function addresses).</p>
+<h3 id="random-access-memory-ram随机寄存器缓存">Random Access Memory
+(RAM)(随机寄存器/缓存)</h3>
+<p>The memory locations may be read and written to any Output sequence
+without having to be scanned.<br />
+It's called Random.</p>
+<h3 id="combinational-logic-using-memory">Combinational Logic Using
+Memory</h3>
+<p>A memory can act as <strong>a logic function simply by storing a
+truth table</strong>, and as any truth table can be loaded into store,
+the device is both programmable and universal. A memory is programmed to
+perform a combinational logic function by first obtaining the complete
+truth table of the function.</p>
+<p>Example: Design a combinational logic system based on a memory, which
+will indicate when a 3-bit binary number <span
+class="math inline">\(X\)</span> is in the range <span
+class="math inline">\(3≤X≤5\)</span>.<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515125113.png width=50%></p>
+<h4 id="byte-organized-memories">Byte Organized Memories</h4>
+<p>Byte-organized memories can be set to implement multi-output
+functions.<br />
+The address field can be partitioned into two parts, to enable more than
+one function to be programmed into a large memory.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/1684126456486.jpg width=50%></p>
+<p>For example, for a 1k (<span class="math inline">\(2^{10}\)</span>)
+bit memory, there are 10 input lines. Four input lines will be used to
+input the data. The other 6 lines used to access the logic
+functions.<br />
+It can store <span class="math inline">\(2^6\)</span> logic
+functions.</p>
+<h3 id="sequential-logic-using-memory-elements">Sequential Logic using
+Memory elements</h3>
+<p>A memory circuit can be programmed to perform a sequential logic
+function provided feedback is incorporated into the system.<br />
+The address field is partitioned into the external data inputs and the
+internal states which are fed back from the output.</p>
+<p>Example: 101 sequence detector</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515130230.png width=50%></p>
+<p>The address to memory must comprise<br />
+- a 3-bit address field<br />
+- The present state (2 bits)<br />
+- The external state (1 bit)<br />
+- the output from the memory provides - The logic system's output Z (1
+bit)<br />
+- The next states A' and B'(2 bits)</p>
+<p>The memory needs to be organized in 3-bit bytes giving a minimum
+requirement of 8 x 3 bits.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515130322.png width=50%></p>
+<h2
+id="programmable-logic-arrays-and-programmable-arrays-of-logic">Programmable
+Logic Arrays and Programmable Arrays of Logic</h2>
+<h3 id="programmable-logic-arrays">Programmable Logic Arrays</h3>
+<p>A programmable logic array (PLA) can be regarded as a memory circuit
+with a programmable decoder. The matrix is divided into 2 parts<br />
+- the AND Array (equivalent to the decoder) - the OR Array (the
+store)</p>
+<p>Data is input via the <span class="math inline">\(Y\)</span> wires
+into the AND array The horizontal <span class="math inline">\(X\)</span>
+wires in the AND array perform the AND function.<br />
+The connections to the vertical <span class="math inline">\(Y\)</span>
+wires in the OR array perform the OR function.</p>
+<p>Example:<br />
+Below shows the PLA of three logical functions:<br />
+<span class="math display">\[F_1=ABC+\overline{B}C\]</span><br />
+<span
+class="math display">\[F_2=\overline{A}B\overline{C}+\overline{B}C+\overline{A}BC\]</span>
+<span
+class="math display">\[F_3=ABC+\overline{B}C+\overline{A}B\overline{C}\]</span></p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515130500.png width=50%></p>
+<h4 id="conversion-to-pla-form">Conversion to PLA form</h4>
+<p>A logic system must be minimized so that its set of implicants can be
+accommodated within the PLA.<br />
+The system has be sufficiently minimal, so Kmap will be used.<br />
+The total number of implicants(Functions) does not exceed the number of
+<span class="math inline">\(X\)</span> lines.</p>
+<h3 id="programmable-arrays-of-logicpals">Programmable Arrays of
+Logic(PALs)</h3>
+<p>A PAL has a programmable AND array but a fixed OR array, where each
+output is a function of a pre-wired number of product terms<br />
+- The AND array is not universal - The number of product terms that can
+be set up for an n input PAL is considerably less than <span
+class="math inline">\(2^𝑛\)</span>.</p>
+<p>Example: 3-bit Gray code converter<br />
+For input <span class="math inline">\(CBA\)</span>:<br />
+<span class="math display">\[X=A\]</span><br />
+<span class="math display">\[Y=\overline{A}B+A\overline{B}=A
+ XOR  B\]</span><br />
+<span
+class="math display">\[Z=\overline{B}C+B\overline{C}=B XOR C\]</span>
+The PAL must generate <span class="math inline">\(Y\)</span> and <span
+class="math inline">\(Z\)</span> (no logic is required for <span
+class="math inline">\(X\)</span>).<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515131011.png width=50%></p>
+<p>PALs can be programmed either by the user or during the last stage of
+manufacture using a metallic layer to form the desired connections.</p>
+<h3 id="hard-arrays-of-logic">Hard Arrays of Logic</h3>
+<p>Non-volatile devices are sometimes called hard arrays of logic or
+HALs.<br />
+The relationship between HALs and PALs is the same as that between ROMs
+and PROMs.<br />
+HALs are factory programmable and suitable for mass production.</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230515131122.png width=50%></p>
+<h2 id="microprocessor">Microprocessor</h2>
+<p>The microprocessor itself can now be regarded as a component in a
+digital system.<br />
+It is extremely flexible and can be programmed to perform complex
+logical and arithmetical operations.<br />
+A microprocessor can therefore only be regarded as a viable component of
+a larger digital system if the desired operations and response times are
+relatively slow.</p>
 
                 
               </div>
