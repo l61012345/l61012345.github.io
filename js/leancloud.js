@@ -1,5 +1,4 @@
 /* global CONFIG */
-// eslint-disable-next-line no-console
 
 (function(window, document) {
   // 查询存储的记录
@@ -23,12 +22,14 @@
                 }
                 resolve(record);
               }).catch(error => {
-                console.error('Failed to create: ', error);
+              // eslint-disable-next-line no-console
+                console.error('Failed to create', error);
                 reject(error);
               });
           }
         }).catch((error) => {
-          console.error('LeanCloud Counter Error: ', error);
+        // eslint-disable-next-line no-console
+          console.error('LeanCloud Counter Error:', error);
           reject(error);
         });
     });
@@ -46,7 +47,8 @@
         }
         resolve(res);
       }).catch((error) => {
-        console.error('Failed to save visitor count: ', error);
+        // eslint-disable-next-line no-console
+        console.error('Failed to save visitor count', error);
         reject(error);
       });
     });
@@ -92,7 +94,7 @@
   }
 
   function addCount(Counter) {
-    var enableIncr = CONFIG.web_analytics.enable && !Fluid.ctx.dnt && validHost();
+    var enableIncr = CONFIG.web_analytics.enable && validHost();
     var getterArr = [];
     var incrArr = [];
 
@@ -176,7 +178,7 @@
     addCount(Counter);
   }
 
-  var apiServer = serverUrl || `https://${appId.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+  var apiServer = appId.slice(-9) !== '-MdYXbMMI' ? serverUrl : `https://${appId.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
 
   if (apiServer) {
     fetchData(apiServer);

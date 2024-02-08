@@ -11,12 +11,6 @@ Fluid.boot.registerEvents = function() {
   Fluid.events.registerImageLoadedEvent();
 };
 
-Fluid.boot.refresh = function() {
-  Fluid.plugins.fancyBox();
-  Fluid.plugins.codeWidget();
-  Fluid.events.refresh();
-};
-
 document.addEventListener('DOMContentLoaded', function() {
   Fluid.boot.registerEvents();
 });
