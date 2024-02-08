@@ -526,9 +526,9 @@ p.spoiler {
           </div>  
 <p>需要再次强调的是，PolyGP中使用的是<a href="#实例化和语境实例化">语境实例化</a>。  </p>
 <h3 id="合一算法"><a href="#合一算法" class="headerlink" title="合一算法"></a>合一算法</h3><p>个体创建的过程中，和STGP一样，要求<strong>个体要求其父函数的参数的类型与子函数的返回的类型相同</strong>。<br><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240130150159.png width=60%><br>这一规则是通过合一算法(unification algorithm)进行检查的。<br>合一是找到使两个给定表达式相等的替换的过程。具体而言，合一算法规定了两个表达式中的变量如果代换为相应的表达式之后是否可以等价。在类型系统中，合一算法可以规定在特定的实例化下两个类型变量是否被视为是合一的(unified)/等价的。<br>在合一算法中，定义替换(substitution)：  </p>
-<script type="math/tex; mode=display">θ=\{(X_i,t_i),...\}</script><p>其中$X_i$是一个类型变量，$t_i$是一个特定的类型，比如$\{(a,int)\}$.<br>对替换应用到一个函数类型(指形如为<code>arg_type → return_type</code>的类型)$A$的结果$Aθ$是这个类或者函数$A$中所有出现$X_i$的地方都被替换为$t_i$，比如：  </p>
+<script type="math/tex; mode=display">θ=\{(X_i,t_i),...\}</script><p>其中$X_i$是一个类型变量，$t_i$是一个特定的类型，比如${(a,int)}$.<br>对替换应用到一个函数类型(指形如为<code>arg_type → return_type</code>的类型)$A$的结果$Aθ$是这个类或者函数$A$中所有出现$X_i$的地方都被替换为$t_i$，比如：  </p>
 <script type="math/tex; mode=display">α→α\{(α,int)\} = int → int</script><p>那么对于两个函数类型$A$、$B$，如果存在一个替换$θ$使得:  </p>
-<script type="math/tex; mode=display">Aθ=Bθ</script><p>那么称两个函数类型$A$和$B$是合一的。<br>比如对于$A:X_1→[string]$和$B:int→X_2$，可以找到一个替换$θ=\{(X_1,int),(X_2,[string])\}$使得$Aθ=Bθ$，那么类型$A$和$B$是合一的。  </p>
+<script type="math/tex; mode=display">Aθ=Bθ</script><p>那么称两个函数类型$A$和$B$是合一的。<br>比如对于$A:X_1→[string]$和$B:int→X_2$，可以找到一个替换$θ={(X_1,int),(X_2,[string])}$使得$Aθ=Bθ$，那么类型$A$和$B$是合一的。  </p>
 <p>有些时候两个类型可能会有不止一个替换可以使其合一，在这种情况下，合一算法会返回更为通用的替换。也就是说，合一算法会更倾向于返回含有类型变量的替换。  </p>
 <p>在个体生成的过程中，合一算法会始终检查每一级的子函数的返回类型是否与上一级的父函数参数的类型对特定的实例化目标合一。<br>在PolyGP中，合一化要求的替换必须要是有意义的，也就是说冗余类型变量和临时类型变量不能够做合一化。  </p>
 <h3 id="种群初始化"><a href="#种群初始化" class="headerlink" title="种群初始化"></a>种群初始化</h3><p>PolyGP的个体生成使用的是Full初始化方法（即深度优先，在未达到深度前只选择函数集中的元素），此外还需要遵循合一算法的类型检查。<br>此外，PolyGP中还设计了一个回溯机制(trackback)：生成过程中无法找到满足特定类型的端点/基函数时，则返回到上一个合法的节点，重新选择该节点上的函数。  </p>
