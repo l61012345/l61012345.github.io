@@ -135,8 +135,6 @@
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
 
-  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
-
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
@@ -576,9 +574,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/11.%20%E5%A4%A9%E6%B3%A2%E4%BC%A0%E6%92%AD/" title="Lecture 11 天波传播">
+                      <a href="/2022/07/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/%E9%99%84%E5%BD%95%EF%BC%9A%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E6%BC%94%E8%BF%9B/" title="附录：蜂窝移动电话网演进">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Lecture 11 天波传播</span>
+                        <span class="hidden-mobile">附录：蜂窝移动电话网演进</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -586,8 +584,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/06/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/%E4%BC%A0%E6%92%AD%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="天线知识点总结-刘旭康版">
-                        <span class="hidden-mobile">天线知识点总结-刘旭康版</span>
+                      <a href="/2022/06/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/11.%20%E5%A4%A9%E6%B3%A2%E4%BC%A0%E6%92%AD/" title="Lecture 11 天波传播">
+                        <span class="hidden-mobile">Lecture 11 天波传播</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -3504,6 +3502,7 @@ p.spoiler {
 
 
 
+
     
 
     
@@ -3712,6 +3711,49 @@ p.spoiler {
   });
 </script>
 
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
