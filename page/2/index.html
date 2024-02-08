@@ -102,10 +102,6 @@
   <link rel="icon" href="/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <!--欢迎弹窗-->
-  <script src="/js/sweetalert.js"></script>
-  <link rel="stylesheet" href="/css/sweetalert.css">
-  <!--以上是欢迎弹窗-->
   
   <meta name="theme-color" content="#2f4154">
   <meta name="author" content="Oreki Kigiha">
@@ -120,9 +116,12 @@
 <meta name="twitter:card" content="summary_large_image">
   
   
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
   <title>Mirror</title>
 
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
 
 
@@ -155,10 +154,45 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
 
   
 <style type="text/css">
@@ -222,9 +256,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/">
+              <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -234,9 +268,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/archives/">
+              <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>时间线</span>
               </a>
             </li>
           
@@ -246,9 +280,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/essay-map/">
+              <a class="nav-link" href="/essay-map/" target="_self">
                 <i class="iconfont icon-books"></i>
-                论文导图
+                <span>论文导图</span>
               </a>
             </li>
           
@@ -258,9 +292,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/categories/">
+              <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -270,9 +304,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/tags/">
+              <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -282,9 +316,9 @@ p.spoiler {
           
           
             <li class="nav-item">
-              <a class="nav-link" href="/about/">
+              <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                关于我
+                <span>关于我</span>
               </a>
             </li>
           
@@ -292,15 +326,16 @@ p.spoiler {
         
           <li class="nav-item" id="search-btn">
             <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
-              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+              <i class="iconfont icon-search"></i>
             </a>
           </li>
           
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -316,9 +351,9 @@ p.spoiler {
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
-          <span id="subtitle" title="各种笔记和随笔。">
-            
-          </span>
+          
+            <span id="subtitle" data-typed-text="记一些有用的东西。"></span>
+          
         </div>
 
         
@@ -353,19 +388,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" target="_blank">
           03. 控制器的自动综合
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" target="_blank">
+        <div>
           控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -428,19 +463,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" target="_blank">
           结构变换操作
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" target="_blank">
+        <div>
           结构变换操作 John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.    在自然界中，基因重复(gene duplication)是一种非法的基因重组行为，它将导致单挑染色体上的一段较长的核
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -496,19 +531,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/3.%20%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F/" target="_blank">
           3. 类的特性和初始化
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/3.%20%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F/" target="_blank">
-          
-          类的特性和初始化             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频07-10部分。
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/3.%20%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F/" target="_blank">
+        <div>
+          类的特性和初始化             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255本节对应视频07-10部分。
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -557,19 +592,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" target="_blank">
           02. 背景·遗传编程基础
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" target="_blank">
+        <div>
           背景·遗传编程基础             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第二章： Chapter 2： Background on Gentic Programming.这一章讲述了遗传编程的运行流程，以及遗传编程的高级功能。  原书的免费公开版本在作者Koza
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -632,19 +667,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" target="_blank">
           遗传编程中的自动定义函数
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" target="_blank">
+        <div>
           遗传编程中的自动定义函数             参考资料：John R Koza et al., Non-linear Genetic Process for Data Encoding and for Solving Problems Using Automatically Defined Functions, 1994.John R Koza, Genetic Programming IV:
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -700,19 +735,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/2.C++%E5%B7%A5%E7%A8%8B/" target="_blank">
           2. 对象工程
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/2.C++%E5%B7%A5%E7%A8%8B/" target="_blank">
-          
-          对象工程             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频04-06部分。
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/2.C++%E5%B7%A5%E7%A8%8B/" target="_blank">
+        <div>
+          对象工程             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255本节对应视频04-06部分。
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -761,19 +796,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" target="_blank">
           01. 绪论
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" target="_blank">
+        <div>
           这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第一章： Chapter 1： Introduction.这一章讲述了对机器学习最根本三个性质的定义以及进化计算在这三个性质上的体现。以及本书其他核心观点的解读。  原书的免费公开版本在作者Koza本人的Re
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -836,19 +871,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/12/01/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E8%B4%9F%E5%8F%8D%E9%A6%88%E6%94%BE%E5%A4%A7%E5%99%A8%E7%9A%84%E5%8F%91%E6%98%8E/" target="_blank">
           负反馈放大器的发明故事
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/12/01/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E8%B4%9F%E5%8F%8D%E9%A6%88%E6%94%BE%E5%A4%A7%E5%99%A8%E7%9A%84%E5%8F%91%E6%98%8E/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/01/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E8%B4%9F%E5%8F%8D%E9%A6%88%E6%94%BE%E5%A4%A7%E5%99%A8%E7%9A%84%E5%8F%91%E6%98%8E/" target="_blank">
+        <div>
           负反馈放大器的发明故事             本文是《Genetic Programming IV： Routine Human-Competitive Machine Intelligence》第一章1.2小节的部分（第15页到第19页）中文翻译，基本上是机器翻译之后的润色修改。                2000 年，美国电话电报公司首席执行官迈克尔-阿姆斯特朗（C. Michael A
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -890,19 +925,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/11/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/1.%E7%AC%AC%E4%B8%80%E4%B8%AAC++%E7%A8%8B%E5%BA%8F/" target="_blank">
           1. 面向对象的基本概念
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/11/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/1.%E7%AC%AC%E4%B8%80%E4%B8%AAC++%E7%A8%8B%E5%BA%8F/" target="_blank">
-          
-          面向对象的基本概念             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1yQ4y1A7ts&#x2F;?spm_id_from&#x3D;333.337.search-card.all.click&amp;vd_source&#x3D;3074f6f6ab43a114c5af8727fa4f7255本节对应视频01-03部分。
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/1.%E7%AC%AC%E4%B8%80%E4%B8%AAC++%E7%A8%8B%E5%BA%8F/" target="_blank">
+        <div>
+          面向对象的基本概念             这是浙江大学翁恺老师的公开课，《面向对象设计C++》视频地址：https://www.bilibili.com/video/BV1yQ4y1A7ts/?spm_id_from=333.337.search-card.all.click&amp;vd_source=3074f6f6ab43a114c5af8727fa4f7255本节对应视频01-03部分。
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -951,19 +986,19 @@ p.spoiler {
     
     
     <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
+      <h2 class="index-header">
         
         <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" target="_blank">
           CNC铣床基本
         </a>
-      </h1>
+      </h2>
 
-      <p class="index-excerpt">
-        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" target="_blank">
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" target="_blank">
+        <div>
           CNC 铣床基本系统组成数控机床(Computer Numerical Control Machine, CNC Machine)是一种材料加工工具。CNC铣床(CNC Milling Machine)的主要功能是将放在机床上的工件材料(workpiece)通过与高速旋转的主轴(spindle)连结的刀片进行切割，使工件成型。主轴的转速和前进方向(XY轴方向)、纵向的伸缩(Z轴方向)都由电脑进行控
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -1067,7 +1102,6 @@ p.spoiler {
 
   <footer>
     <div class="footer-inner">
-  <script src="./node_modules/pjax/pjax.js"></script>
   
     <div class="footer-content">
        如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2024 
@@ -1106,8 +1140,8 @@ p.spoiler {
 
   <!-- Scripts -->
   
-  <script  src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
 
   <script>
     NProgress.configure({"showSpinner":true,"trickleSpeed":100})
@@ -1118,19 +1152,13 @@ p.spoiler {
   </script>
 
 
-<script  src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js" ></script>
-<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
 
-  
-    <script  src="/js/img-lazyload.js" ></script>
-  
-
-
-
-  <script  src="https://cdn.staticfile.org/typed.js/2.0.12/typed.min.js" ></script>
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
   <script>
     (function (window, document) {
       var typing = Fluid.plugins.typing;
@@ -1138,9 +1166,9 @@ p.spoiler {
       if (!subtitle || !typing) {
         return;
       }
-      var title = subtitle.title;
+      var text = subtitle.getAttribute('data-typed-text');
       
-        typing(title);
+        typing(text);
       
     })(window, document);
   </script>
@@ -1149,19 +1177,8 @@ p.spoiler {
 
 
   
-
+    <script  src="/js/img-lazyload.js" ></script>
   
-
-  
-
-  
-
-  
-
-  
-
-  
-
 
 
 
@@ -1189,22 +1206,6 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-  <script>
-    // pjax
-    var pjax = new Pjax({
-    selectors: [
-      "title", //加载标题
-      "main", //加载主体框架部分
-      "header", //加载头部（文章页头图等）
-      "welcome" // 欢迎弹窗
-    ]
-   })
-</script>
-  <!-- start webpushr tracking code --> 
-<script>(function(w,d, s, id) {if(typeof(w.webpushr)!=='undefined') return;w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.async=1;js.src = "https://cdn.webpushr.com/app.min.js";
-  fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));
-  webpushr('setup',{'key':'BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU' });</script>
-  <!-- end webpushr tracking code -->
 <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
         tex2jax: {
