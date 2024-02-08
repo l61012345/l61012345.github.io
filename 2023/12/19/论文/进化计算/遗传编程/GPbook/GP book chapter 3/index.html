@@ -115,7 +115,7 @@
 <meta property="og:description" content="控制器的自动综合             这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。  原书的免费公开版本在作者Koza本人">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-03T14:53:47.830Z">
+<meta property="article:modified_time" content="2024-02-08T10:22:03.956Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -134,6 +134,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -390,7 +392,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          5.1k 字
         
       </span>
     
@@ -401,7 +403,7 @@ p.spoiler {
         
         
         
-          61 分钟
+          43 分钟
         
       </span>
     
@@ -464,7 +466,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年1月3日 下午
+                    本文最后更新于 2024年2月8日 上午
                   
                 
               </p>
@@ -860,7 +862,7 @@ p.spoiler {
 <h5 id="算术子树和可扰数值作为端点"><a href="#算术子树和可扰数值作为端点" class="headerlink" title="算术子树和可扰数值作为端点"></a>算术子树和可扰数值作为端点</h5><p>第三种方法是算术子树中的端点都为可扰数值，这种方法综合了前两种方法，提供了一种“中等等级”的突变造成的影响。在这种情况下，树形结构可以提供一定的突变能力，同时可扰数值限制了交叉时对个体的扰动不会过大。而且第三种方法允许自由变量加入，也因此允许引入自动定义函数机制。  </p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223124901.png width=50%>  </p>
 <div class="note note-info">
-            <p>除了这三种方法外，还有GEP-GA混合架构的应用，参考<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, “A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS),” in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160. ">[1]</span></a></sup>。大致是使用GEP或者GP先找到拓扑结构，然后对每个个体代表的拓扑结构使用GA找到器件的数值，然后再返回到GEP或者GP的个体中统一衡量。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223123903.png width=50%><br>这种方法是目前的一种权宜之计，即先把拓扑结构的空间确定，再确定值的空间。但是GA的应用无法保证每个拓扑结构中器件的值的信息分布是均匀的，因此效果有限。以原教旨主义的观点，仍然是GEP/GP中值随着进化过程一同进行才能得出最佳的搜索结果。  </p>
+            <p>除了这三种方法外，还有GEP-GA混合架构的应用，参考<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span class="hint--top hint--rounded" aria-label="J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, "A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS)," in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160.">[1]</span></a></sup>。大致是使用GEP或者GP先找到拓扑结构，然后对每个个体代表的拓扑结构使用GA找到器件的数值，然后再返回到GEP或者GP的个体中统一衡量。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223123903.png width=50%><br>这种方法是目前的一种权宜之计，即先把拓扑结构的空间确定，再确定值的空间。但是GA的应用无法保证每个拓扑结构中器件的值的信息分布是均匀的，因此效果有限。以原教旨主义的观点，仍然是GEP/GP中值随着进化过程一同进行才能得出最佳的搜索结果。  </p>
           </div>
 <h4 id="控制器的表示方法"><a href="#控制器的表示方法" class="headerlink" title="控制器的表示方法"></a>控制器的表示方法</h4><div class="note note-info">
             <p>这一小节中讲了使用传递函数、LISP语言、程序树、Mathematica语言、连接清单、SPICE 网表表示控制器电路的方法。<br>这里的笔记中只介绍后面会用到的表示方法。  </p>
@@ -1178,7 +1180,7 @@ p.spoiler {
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年1月3日</div>
+          <div>2024年2月8日</div>
         </div>
       
       
@@ -1258,7 +1260,7 @@ p.spoiler {
         aria-expanded="true"
       >
         论文
-        <span class="list-group-count">(29)</span>
+        <span class="list-group-count">(30)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1517,7 +1519,7 @@ p.spoiler {
         aria-expanded="true"
       >
         进化计算
-        <span class="list-group-count">(16)</span>
+        <span class="list-group-count">(17)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1644,7 +1646,7 @@ p.spoiler {
         aria-expanded="true"
       >
         遗传编程
-        <span class="list-group-count">(8)</span>
+        <span class="list-group-count">(9)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1656,6 +1658,15 @@ p.spoiler {
           
   <div class="category-post-list">
     
+    
+      
+      
+        <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
     
       
       
@@ -1806,7 +1817,6 @@ p.spoiler {
 
   
   
-
 
 
 
@@ -2023,49 +2033,6 @@ p.spoiler {
   });
 </script>
 
-
-  
-      <script>
-        if (!window.MathJax) {
-          window.MathJax = {
-            tex    : {
-              inlineMath: { '[+]': [['$', '$']] }
-            },
-            loader : {
-              load: ['ui/lazy']
-            },
-            options: {
-              renderActions: {
-                insertedScript: [200, () => {
-                  document.querySelectorAll('mjx-container').forEach(node => {
-                    let target = node.parentNode;
-                    if (target.nodeName.toLowerCase() === 'li') {
-                      target.parentNode.classList.add('has-jax');
-                    }
-                  });
-                }, '', false]
-              }
-            }
-          };
-        } else {
-          MathJax.startup.document.state(0);
-          MathJax.texReset();
-          MathJax.typeset();
-          MathJax.typesetPromise();
-        }
-
-        Fluid.events.registerRefreshCallback(function() {
-          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
-            MathJax.startup.document.state(0);
-            MathJax.texReset();
-            MathJax.typeset();
-            MathJax.typesetPromise();
-          }
-        });
-      </script>
-    
-
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
