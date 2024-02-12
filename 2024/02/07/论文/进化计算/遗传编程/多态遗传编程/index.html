@@ -115,7 +115,7 @@
 <meta property="og:description" content="PolyGP：一种多态遗传编程 PolyGP是由Tina Yu和Chris Clack[1]共同设计的一种遗传编程算法。PolyGP借用了STGP[2]中的参数多态的思想并进一步延伸，并使用了Robinson的合一算法(Unification Algorithm)[3]改进了STGP中创建个体为了符合类型合法而导致的链表式结构的问题。PolyGP中最大的改动是将Koza的标准遗传算法中的个体">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-02-09T17:15:31.435Z">
+<meta property="article:modified_time" content="2024-02-12T18:45:29.189Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.5k 字
+          5.6k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          46 分钟
+          47 分钟
         
       </span>
     
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年2月9日 下午
+                    本文最后更新于 2024年2月12日 晚上
                   
                 
               </p>
@@ -676,91 +676,91 @@ class="math inline">\(B\)</span>是合一的。</p>
 此外，PolyGP中还设计了一个回溯机制(trackback)：生成过程中无法找到满足特定类型的端点/基函数时，则返回到上一个合法的节点，重新选择该节点上的函数。</p>
 <h4 id="个体生成的例子">个体生成的例子</h4>
 <p>这个例子的要求如下：<br />
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs rust">Output Type: [G2]<br>Terminal Set: &#123;L::[G1],NIL::[α],F::(G1→G2)&#125;<br>Function Set: <br>        &#123; HEAD::[α]<span class="hljs-punctuation">-&gt;</span>α,<br>          IF-ELSE::<span class="hljs-type">bool</span> <span class="hljs-punctuation">-&gt;</span> α <span class="hljs-punctuation">-&gt;</span> α → α,<br>          IF::<span class="hljs-type">bool</span> <span class="hljs-punctuation">-&gt;</span> α <span class="hljs-punctuation">-&gt;</span> α → α,<br>          TAIL::[α]<span class="hljs-punctuation">-&gt;</span>[α],<br>          CONS::α<span class="hljs-punctuation">-&gt;</span>[α]<span class="hljs-punctuation">-&gt;</span>[α],<br>          NULL::[α]<span class="hljs-punctuation">-&gt;</span><span class="hljs-type">bool</span>,<br>          F::G1<span class="hljs-punctuation">-&gt;</span>G2,<br>          MAP::(G1<span class="hljs-punctuation">-&gt;</span>G2)<span class="hljs-punctuation">-&gt;</span>[G1]<span class="hljs-punctuation">-&gt;</span>[G2]&#125;<br>Max Tree Depth: <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs rust">Output Type: [G2]<br>Terminal Set: &#123;L::[G1],NIL::[α],F::(G1→G2)&#125;<br>Function Set: <br>        &#123; HEAD::[α]<span class="hljs-punctuation">-&gt;</span>α,<br>          IF-ELSE::<span class="hljs-type">bool</span> <span class="hljs-punctuation">-&gt;</span> α <span class="hljs-punctuation">-&gt;</span> α → α,<br>          TAIL::[α]<span class="hljs-punctuation">-&gt;</span>[α],<br>          CONS::α<span class="hljs-punctuation">-&gt;</span>[α]<span class="hljs-punctuation">-&gt;</span>[α],<br>          NULL::[α]<span class="hljs-punctuation">-&gt;</span><span class="hljs-type">bool</span>,<br>          F::G1<span class="hljs-punctuation">-&gt;</span>G2,<br>          MAP::(G1<span class="hljs-punctuation">-&gt;</span>G2)<span class="hljs-punctuation">-&gt;</span>[G1]<span class="hljs-punctuation">-&gt;</span>[G2]&#125;<br>Max Tree Depth: <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
 其中<code>α</code>是冗余类型变量；<code>G1</code>和<code>G2</code>是泛化类型变量。</p>
 <ol type="1">
-<li><p>首先选取一个函数<code>IF</code>，其需要三个输入参数类型分别为<code>bool</code>、<code>α</code>、<code>α</code>，由于程序需要返回的类型为<code>[G2]</code>，因此<code>IF</code>的返回类型需要是<code>[G2]</code>，因此<code>α</code>需要被实例化为<code>[G2]</code>:<br />
-<span class="math display">\[(((IF^{bool→[G2]→[G2]→[G2]}
+<li><p>首先选取一个函数<code>IF-ELSE</code>（图中用<code>IF</code>替代，作者此处写明为<code>IF</code>函数，疑似笔误），其需要三个输入参数类型分别为<code>bool</code>、<code>α</code>、<code>α</code>，由于程序需要返回的类型为<code>[G2]</code>，因此<code>IF-ELSE</code>的返回类型需要是<code>[G2]</code>，因此<code>α</code>需要被实例化为<code>[G2]</code>:<br />
+<span class="math display">\[(((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} ARG2^{[G2]})^{[G2]→[G2]}
 ARG3^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173000.png width=30%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184009.png width=50%></p></li>
 <li><p>根据先上后下，先右后左的原则，寻找函数集中合适的<span
 class="math inline">\(ARG3\)</span>（即返回类型为<code>[G2]</code>的函数），此时类型系统随机选择了<code>MAP</code>函数作为<span
 class="math inline">\(ARG3\)</span>，它的返回类型正好是<code>[G2]</code>，它引入了两个新的输入参数<span
 class="math inline">\(ARG4\)</span>和<span
 class="math inline">\(ARG5\)</span>类型要求对应为<code>(G1→G2)</code>和<code>[G1]</code>:<br />
-<span class="math display">\[(((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[(((IF-ELSE-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} ARG2^{[G2]})^{[G2]→[G2]}
 ((MAP^{(G1→G2)→[G1]→[G2]}
 ARG4^{(G1→G2)})^{[G1]→[G2]})ARG5^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173126.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184034.png width=50%></p></li>
 <li><p>由于达到了最大深度，于是开始选择端点，按照MAP函数的参数类型要求，只能用<span
 class="math inline">\(F\)</span>填入<span
 class="math inline">\(ARG4^{(G1→G2)}\)</span>：<br />
-<span class="math display">\[(((IF^{bool→[G2]→[G2]→[G2]} ARG1^{bool})
-ARG2^{[G2]})^{[G2]→[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
+<span class="math display">\[(((IF-ELSE^{bool→[G2]→[G2]→[G2]}
+ARG1^{bool}) ARG2^{[G2]})^{[G2]→[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})ARG5^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173151.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184104.png width=50%></p></li>
 <li><p>同理只能用<span class="math inline">\(L\)</span>填入<span
 class="math inline">\(ARG5^{[G1]}\)</span>: <span
-class="math display">\[(((IF^{bool→[G2]→[G2]→[G2]}
+class="math display">\[(((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} ARG2^{[G2]})^{[G2]→[G2]}
 ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173218.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184134.png width=50%></p></li>
 <li><p>接下来实例化<span
 class="math inline">\(ARG2\)</span>，类型系统随机选择了<code>IF-ELSE</code>作为<span
 class="math inline">\(ARG2\)</span>并引入了新的参数<span
 class="math inline">\(ARG6\)</span>、<span
 class="math inline">\(ARG7\)</span>、<span
 class="math inline">\(ARG8\)</span>，这些参数的类型分别为:<code>bool</code>、<code>[G2]</code>、<code>[G2]</code>.<br />
-<span class="math display">\[(((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[(((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} ((IFELSE^{bool→[G2]→[G2]→[G2]}
 ARG6^{bool})^{[G2]→[G2]→[G2]}
 ARG7^{[G2]})^{[G2]→[G2]}ARG8^{[G2]})^{[G2]})^{[G2]→[G2]}
 (((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173242.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184211.png width=50%></p></li>
 <li><p>达到最大深度，按照和3、4相同的方法，对<span
 class="math inline">\(ARG8\)</span>和<span
 class="math inline">\(ARG7\)</span>，要求类型为<code>[G2]</code>的端点，只能填入<span
 class="math inline">\(NIL\)</span>，同时该函数中的<span
 class="math inline">\(α\)</span>被实例化为<code>G2</code>:<br />
-<span class="math display">\[(((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[(((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} ((IFELSE^{bool→[G2]→[G2]→[G2]}
 ARG6^{bool})^{[G2]→[G2]→[G2]}
 NIL^{[G2]})^{[G2]→[G2]}NIL^{[G2]})^{[G2]})^{[G2]→[G2]}
 (((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173309.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184246.png width=50%></p></li>
 <li><p>对<span
 class="math inline">\(ARG6\)</span>实例化，但是端点集中没有<code>bool</code>类型的端点，生成出错，因此退回到上一级函数生成的节点重新选择其他函数。<br />
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173342.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184320.png width=50%></p></li>
 <li><p>重新选择<span
 class="math inline">\(ARG2\)</span>的实例化，这次选择<code>HEAD</code>函数，该函数中<code>α</code>被实例化为<code>[G2]</code>，并引入新的参数<span
 class="math inline">\(ARG9\)</span>，其类型为列表的列表<code>[[G2]]</code>:<br />
-<span class="math display">\[((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} (HEAD^{[[G2]]→[G2]}
 ARG9^{[[G2]]})^{[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173416.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184346.png width=50%></p></li>
 <li><p>实例化<span class="math inline">\(ARG9\)</span>，只能填入<span
 class="math inline">\(NIL\)</span>，同时该函数中的<span
 class="math inline">\(α\)</span>被实例化为<code>[[G2]]</code>:<br />
-<span class="math display">\[((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 ARG1^{bool})^{[G2]→[G2]→[G2]} (HEAD^{[[G2]]→[G2]}
 NIL^{[[G2]]})^{[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173500.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184412.png width=50%></p></li>
 <li><p>实例化最左边的<span
 class="math inline">\(ARG1\)</span>，由于<span
 class="math inline">\(IF-ELSE\)</span>函数不能在此层出现，函数集中唯一的选择是<span
 class="math inline">\(NULL\)</span>，由于其参数类型为<code>α</code>且并没有任何限制，按照冗余类型变量的机制，新建一个临时类型类型变量<code>T1</code>并将<code>α</code>实例化为这个类型变量。<br />
-<span class="math display">\[((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 (NULL^{bool→[T1]} ARG10^{[T1]})^{T1})^{[G2]→[G2]→[G2]}
 (HEAD^{[[G2]]→[G2]} NIL^{[[G2]]})^{[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173527.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184442.png width=50%></p></li>
 <li><p>实例化<span
 class="math inline">\(ARG10\)</span>，其类型为<code>[T1]</code>应当是一个列表，因此<span
 class="math inline">\(L\)</span>和<span
@@ -768,14 +768,14 @@ class="math inline">\(NIL\)</span>都符合要求，类型系统随机选择了<
 class="math inline">\(NIL\)</span>，由于<span
 class="math inline">\(NIL\)</span>中的冗余类型变量<code>α</code>不能临时类型变量<code>T1</code>和进行合一化操作，此处只能将<code>α</code>实例化为新的临时类型变量<code>T2</code>.<br />
 <code>T2</code>会在遗传操作中被实例化。<br />
-<span class="math display">\[((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 (NULL^{bool→[T1]} NIL^{[T2]})^{T1})^{[G2]→[G2]→[G2]} (HEAD^{[[G2]]→[G2]}
 NIL^{[[G2]]})^{[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173550.png width=40%></p></li>
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240212184511.png width=50%></p></li>
 </ol>
 <p>最终的个体为：<br />
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173622.png width=40%></p>
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240208173622.png width=50%></p>
 <p>整个生成该个体过程的动画：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/PolyGP%E7%9A%84%E4%B8%AA%E4%BD%93%E7%94%9F%E6%88%90%E6%A1%88%E4%BE%8B.gif width=100%></p>
 <h3 id="递归">递归</h3>
@@ -799,22 +799,24 @@ PolyGP的交叉仍然是一种类保护的交叉，其具体做法如下：<br /
 <h4 id="交叉的例子">交叉的例子</h4>
 <p>现在有两个亲本：<br />
 <span class="math inline">\(P1\)</span>为上个例子中的结果：<br />
-<span class="math display">\[((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 【×】\underline{(NULL^{bool→[T1]} NIL^{[T2]})^{T1})^{[G2]→[G2]→[G2]}}
 (HEAD^{[[G2]]→[G2]} NIL^{[[G2]]})^{[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span> <span
 class="math inline">\(P2\)</span>的写法如下：<br />
 <span
-class="math display">\[((IF^{bool→T1→T1→T1}【×】\underline{(NULL^{[G1]→bool}L^{[G1]})^{bool})^{[T1]→[T1]→[T1]}}(HEAD^{[T1]→T1}NIL^{[T1]})^{[T1]→[T1]}(HEAD^{[T1]→T1}NIL^{[T1]})^{T1})^{T1}\]</span>
+class="math display">\[((IF-ELSE^{bool→T1→T1→T1}【×】\underline{(NULL^{[G1]→bool}L^{[G1]})^{bool})^{[T1]→[T1]→[T1]}}(HEAD^{[T1]→T1}NIL^{[T1]})^{[T1]→[T1]}(HEAD^{[T1]→T1}NIL^{[T1]})^{T1})^{T1}\]</span>
 【×】为交叉点，下划线的部分是交叉的部分。<br />
 交叉的结果为：<br />
-<span class="math display">\[((IF^{bool→[G2]→[G2]→[G2]}
+<span class="math display">\[((IF-ELSE^{bool→[G2]→[G2]→[G2]}
 \overline{(NULL^{[G1]→bool} L^{[G1]})^{bool}})^{[G2]→[G2]→[G2]}
 (HEAD^{[[G2]]→[G2]} NIL^{[[G2]]})^{[G2]→[G2]} ((MAP^{(G1→G2)→[G1]→[G2]}
 F^{(G1→G2)})^{[G1]→[G2]})L^{[G2]})^{[G2]}\]</span>
 上划线的位置为交叉的部分。</p>
-下面的动画展示了这一过程：<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.gif width=100%>
+<p>下面的动画展示了这一过程：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/%E6%BC%94%E7%A4%BA%E6%96%87%E7%A8%BF1.gif width=100%></p>
+<h3 id="突变">突变</h3>
+<p>突变使用的是点突变：随机在个体上选择一个结点并返回深度和类型，然后将该点下方的子树替换为一个随机生成的子树。子树的随机生成方式同个体的随机生成方式，并且需要满足要求的深度和返回类型。</p>
 <section class="footnotes">
 <div class="footnote-list">
 <ol>
@@ -929,7 +931,7 @@ Polymorphism in Programming. Journal of Computer and System Sciences,
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年2月9日</div>
+          <div>2024年2月12日</div>
         </div>
       
       
@@ -1844,20 +1846,5 @@ Polymorphism in Programming. Journal of Computer and System Sciences,
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
