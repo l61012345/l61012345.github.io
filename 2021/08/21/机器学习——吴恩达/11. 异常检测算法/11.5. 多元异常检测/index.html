@@ -475,13 +475,13 @@ p.spoiler {
                 <h1 id="多元异常检测算法"><a href="#多元异常检测算法" class="headerlink" title="多元异常检测算法"></a>多元异常检测算法</h1><h2 id="问题动机"><a href="#问题动机" class="headerlink" title="问题动机"></a>问题动机</h2><p>实际问题中的有些异常并不能直接通过一个变量指标观测出来，这时候就需要引入多个变量综合进行分析，比如如下的这个例子。<br>如图所示，在计算机状态监测中，考虑CPU负载和内存使用两个变量，正常数据在这两个变量上的分布记为红色标记，现在引入一个绿色的异常数据：如果观察绿色的异常数据在分别的两个变量指标上的分布（图右部分），发现这个异常数据很难在整个数据集中被发现，而通过综合两个变量指标，观察二维分布，则比较容易发现这个异常的数据。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210812150029.png width=50%>  </p>
 <h2 id="多元高斯分布"><a href="#多元高斯分布" class="headerlink" title="多元高斯分布"></a>多元高斯分布</h2><p>为了进一步改进异常检测算法，需要用到多元高斯分布的相关知识。<br>假设特征变量$x∈R^n$，现在不通过为每一个特征分别建模$p(x_i)$的方法，转而对整体直接建立模型$p(x)$。<br>根据多元高斯分布的公式：  </p>
 <script type="math/tex; mode=display">p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))</script><p>其中$Σ∈R^{n×n}$，是$x$的协方差矩阵。$|Σ|$表示$Σ$的行列式。<br>$μ∈R^n$是一个均值向量。<br>$p(x)$在高维空间中呈现出高斯分布。<br>类比与二维高斯分布，$Σ$内的元素值控制极值点的大小，同时控制从极值点到零点各方向的变化率（同时非对角线上的元素控制着各维度之间的相关性）。$μ$控制极值点的位置。  </p>
-<h3 id="多元高斯分布的参数估计问题"><a href="#多元高斯分布的参数估计问题" class="headerlink" title="多元高斯分布的参数估计问题"></a>多元高斯分布的参数估计问题</h3><p>假设随机变量$x∈R^n$的$m$个样本${x^{(1)},x^{(2)},…,x^{(m)}}$，可以利用如下的公式对$μ$和$Σ$进行参数估计:  </p>
-<script type="math/tex; mode=display">μ=\frac{1}{m}∑_{i=1}^mx^{(i)}</script><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T</script><h2 id="使用多元高斯分布的多元异常检测算法"><a href="#使用多元高斯分布的多元异常检测算法" class="headerlink" title="使用多元高斯分布的多元异常检测算法"></a>使用多元高斯分布的多元异常检测算法</h2><p>假设数据集有$m$个样本${x^{(1)},x^{(2)},…,x^{(m)}}$，首先假设数据集的分布服从多元高斯分布，算法流程如下：  </p>
+<h3 id="多元高斯分布的参数估计问题"><a href="#多元高斯分布的参数估计问题" class="headerlink" title="多元高斯分布的参数估计问题"></a>多元高斯分布的参数估计问题</h3><p>假设随机变量$x∈R^n$的$m$个样本$\{x^{(1)},x^{(2)},…,x^{(m)}\}$，可以利用如下的公式对$μ$和$Σ$进行参数估计:  </p>
+<script type="math/tex; mode=display">μ=\frac{1}{m}∑_{i=1}^mx^{(i)}</script><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T</script><h2 id="使用多元高斯分布的多元异常检测算法"><a href="#使用多元高斯分布的多元异常检测算法" class="headerlink" title="使用多元高斯分布的多元异常检测算法"></a>使用多元高斯分布的多元异常检测算法</h2><p>假设数据集有$m$个样本$\{x^{(1)},x^{(2)},…,x^{(m)}\}$，首先假设数据集的分布服从多元高斯分布，算法流程如下：  </p>
 <ol>
 <li>使用样本数据建立$p(x)$的模型：  <script type="math/tex; mode=display">μ=\frac{1}{m}∑_{i=1}^mx^{(i)}</script><script type="math/tex; mode=display">Σ=\frac{1}{m}∑_{i=1}^m(x^{(i)}-μ)(x^{(i)}-μ)^T</script></li>
 <li>建立$p(x)$的模型：  <script type="math/tex; mode=display">p(x;μ,Σ)=\frac{1}{(2π)^{\frac{n}{2}}|Σ|^{\frac{1}{2}}}exp(-\frac{1}{2}(x-μ)^TΣ^{-1}(x-μ))</script></li>
-<li>对于给定的新样本$x<em>{new}$，带入$p(x)$的模型中进行计算得到$p(x</em>{new})$</li>
-<li>设定阈值$ɛ$,如果$p(x<em>{new})&lt;ɛ$则表明$x</em>{new}$为异常数据。  </li>
+<li>对于给定的新样本$x_{new}$，带入$p(x)$的模型中进行计算得到$p(x_{new})$</li>
+<li>设定阈值$ɛ$,如果$p(x_{new})&lt;ɛ$则表明$x_{new}$为异常数据。  </li>
 </ol>
 <h2 id="多元异常检测算法与原始异常检测算法的关系"><a href="#多元异常检测算法与原始异常检测算法的关系" class="headerlink" title="多元异常检测算法与原始异常检测算法的关系"></a>多元异常检测算法与原始异常检测算法的关系</h2><p>原始模型：  </p>
 <script type="math/tex; mode=display">p(x)=Π_{i=1}^np(x_i,μ_i,σ^2_i)</script><p>多元高斯模型：  </p>
@@ -630,9 +630,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.2.%20%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%E5%92%8C%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/" title="11.2. 异常检测算法的原始模型">
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.4.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E4%B8%8E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" title="11.4. 比较异常检测与监督学习算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">11.2. 异常检测算法的原始模型</span>
+                        <span class="hidden-mobile">11.4. 比较异常检测与监督学习算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -640,8 +640,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.4.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E4%B8%8E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" title="11.4. 比较异常检测与监督学习算法">
-                        <span class="hidden-mobile">11.4. 比较异常检测与监督学习算法</span>
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.1.%20%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86/" title="13.1. 大规模学习的计算问题·预学习">
+                        <span class="hidden-mobile">13.1. 大规模学习的计算问题·预学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
