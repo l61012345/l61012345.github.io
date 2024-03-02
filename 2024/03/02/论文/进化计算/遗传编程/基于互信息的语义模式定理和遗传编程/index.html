@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-02T14:08:43.970Z">
+<meta property="article:modified_time" content="2024-03-02T14:25:57.285Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2.1k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          16 分钟
+          18 分钟
         
       </span>
     
@@ -567,7 +567,33 @@ Y}p(y)log(p(y))\]</span></p>
 <div class="note note-info">
             <p>对两个随机变量<span class="math inline">\(X\)</span>，<spanclass="math inline">\(Y\)</span>，其互信息<spanclass="math inline">\(I(X;Y)\)</span>衡量了两者的相互依赖关系，即在一方部分不确定的情况下，另一方的不确定程度。因此<spanclass="math inline">\(I(X;X)=H(X)\)</span>.其本质上是对联合概率分布定义的拓展，如下图所示：<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240302140346.png width=60%></p><p>其中<span class="math inline">\(H(X,Y)\)</span>为<spanclass="math inline">\(X\)</span>与<spanclass="math inline">\(Y\)</span>的联合熵，有：<br /><span class="math display">\[\begin{aligned}    H(X,Y)&amp;=-\sum_{x\in X}\sum_{y \in Y}log(p(x,y))\\    &amp;=H(X|Y)+H(Y|X)+I(X;Y)\end{aligned}\]</span></p>
           </div>
-互信息最大的特点是
+<p>在<sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span
+class="hint--top hint--rounded"
+aria-label="Zahra et al, Semantic Schema modeling for genetic programming using clustering of building blocks, Apply Intelligence, 2018.">[2]</span></a></sup>中作者使用了直方图抽样（即用抽样频率替代总体概率）来估计<span
+class="math inline">\(\hat{Y}\)</span>和<span
+class="math inline">\(Y\)</span>的互信息，因此上述式子可以改写为：<br />
+<span
+class="math display">\[I(\hat{Y};Y)=\sum_{i=1}^{k_{\hat{y}}}\sum_{j=1}^{k_y}log\left(\frac{L_{ij}N}{L_iL_j}\right)\]</span>
+<span
+class="math display">\[H(Y)=-\sum_{j=1}^{k_y}log\left(\frac{L_j}{N}\right)\]</span>
+其中<span class="math inline">\(k_{\hat{y}}\)</span>和<span
+class="math inline">\(k_y\)</span>分别是<span
+class="math inline">\(\hat{Y}\)</span>和<span
+class="math inline">\(Y\)</span>样本统计直方图中的样条(bins)总数；<span
+class="math inline">\(N\)</span>是样本数；<span
+class="math inline">\(L_i\)</span>是<span
+class="math inline">\(\hat{Y}\)</span>的直方图中第<span
+class="math inline">\(i\)</span>个样条的纵坐标，代表落入该范围的<span
+class="math inline">\(\hat{y}\)</span>的样本的频率；同理<span
+class="math inline">\(L_j\)</span>是<span
+class="math inline">\(Y\)</span>的直方图中第<span
+class="math inline">\(j\)</span>个样条的纵坐标；<span
+class="math inline">\(L_{ij}\)</span>代表样本<span
+class="math inline">\((\hat{y},y)\)</span>同时落入<span
+class="math inline">\(\hat{Y}\)</span>直方图中第<span
+class="math inline">\(i\)</span>个样条和<span
+class="math inline">\(Y\)</span>直方图中落入第<span
+class="math inline">\(j\)</span>个样条的概率。</p>
 <section class="footnotes">
 <div class="footnote-list">
 <ol>
@@ -575,6 +601,13 @@ Y}p(y)log(p(y))\]</span></p>
 <span id="fn:1" class="footnote-text"><span>Zahra et al, Semantic Schema
 theory for genetic programming, Apply Intelligence, 2016.
 <a href="#fnref:1" rev="footnote" class="footnote-backref">
+↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:2" class="footnote-text"><span>Zahra et al, Semantic Schema
+modeling for genetic programming using clustering of building blocks,
+Apply Intelligence, 2018.
+<a href="#fnref:2" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 </ol>
