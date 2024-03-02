@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-02T14:25:57.285Z">
+<meta property="article:modified_time" content="2024-03-02T14:42:22.604Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.2k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          18 分钟
+          19 分钟
         
       </span>
     
@@ -538,8 +538,12 @@ care，也就是一组结构相似的个体的集合展开。<br />
 <h2 id="基于互信息的语义模式">基于互信息的语义模式</h2>
 <p>因此，一部分研究人员认为，相比于归纳个体的结构，更应该归纳个体的表现：<strong>将那些表现相似的个体归纳为一个schema，变异和交叉会有大概率在那些表现好的schema中进行，如此可以加快遗传编程的搜索速度</strong>。这是基于语义的遗传编程的基本思想。</p>
 <h3 id="语义">语义</h3>
-<p>个体的表现称为语义(sematic)。传统的研究认为，适应度可以作为衡量个体语义的标准。但是遗传编程个体结构信息分布的不均匀导致个体或者某些子种群的适应度无法在进化过程中展现连续的变化。<br />
-<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
+<p>个体的表现称为语义(sematic)。传统的研究认为，适应度(fitness)可以作为衡量个体语义的标准。但是遗传编程个体结构信息分布的不均匀导致个体或者某些子种群的适应度无法在进化过程中展现连续的变化。此外，适应度无法正确的识别出具有高贡献的building
+blocks，也就是说具有高贡献的building
+blocks的个体未必具有高适应度。某些适应度高的个体可能会因为在遗传操作中出现微小的变化而导致适应度急剧下降，反之依然。<br />
+因此，除了使用适应度之外，还需要使用别的特征来正确反映种群在进化过程中的进展。</p>
+<h4 id="互信息">互信息</h4>
+<p><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
 class="hint--top hint--rounded"
 aria-label="Zahra et al, Semantic Schema theory for genetic programming, Apply Intelligence, 2016.">[1]</span></a></sup>中使用了个体输出与真实输出之间的互信息(mutual
 information)来衡量个体的语义。一个个体<span
@@ -594,6 +598,13 @@ class="math inline">\(\hat{Y}\)</span>直方图中第<span
 class="math inline">\(i\)</span>个样条和<span
 class="math inline">\(Y\)</span>直方图中落入第<span
 class="math inline">\(j\)</span>个样条的概率。</p>
+<p>同时定义，如果两个树<span
+class="math inline">\(t_1,t_2\)</span>的输出<span
+class="math inline">\(T_1=t_1(X)\)</span>,<span
+class="math inline">\(T_2=t_2(X)\)</span>存在如下关系：<br />
+<span class="math display">\[\frac{I(T_1;T_2)}{H(T_1,T_2)}=1\]</span>
+称<span class="math inline">\(t_1\)</span>和<span
+class="math inline">\(t_2\)</span>在语义上是相等的。</p>
 <section class="footnotes">
 <div class="footnote-list">
 <ol>
