@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-02T14:53:49.979Z">
+<meta property="article:modified_time" content="2024-03-02T15:29:31.570Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.6k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          20 分钟
+          22 分钟
         
       </span>
     
@@ -606,8 +606,26 @@ class="math inline">\(T_2=t_2(X)\)</span>存在如下关系：<br />
 称<span class="math inline">\(t_1\)</span>和<span
 class="math inline">\(t_2\)</span>在语义上是相等的。</p>
 <p>使用互信息最大的特点是：<strong>对随机变量进行可逆的（加和倍数乘积）操作后，互信息保持不变</strong>。</p>
-也就是说，只要个体的结构不发生较大的变化，在进化的早期互信息就可以持续追踪那些高语义值的个体。<br />
-
+<p>也就是说，只要个体的结构不发生较大的变化，在进化的早期互信息就可以持续追踪那些高语义值的个体。</p>
+<h3 id="语义的building-blocks和语义模式">语义的building
+blocks和语义模式</h3>
+<p>由于将结构的空间投射到了新的语义空间，因此作者重新定义了building
+blocks和schema。<br />
+在语义的空间中，结构相似的个体的语义未必相近，反之亦然。无法再像之前的定义通过结构的相似直接提取schema，因此此处作者采用的方法是首先将语义相同的子树归纳为building
+blocks，再从building blocks构建schema。</p>
+<h4 id="语义的building-blocks">语义的building blocks</h4>
+<p>作者认为，语义的building blocks(sematic building
+blocks)是满足下列三个条件的子树：<br />
+- 高语义值 - 该语义值在所有子树的语义值分布中出现频率高 -
+子树的大小不能超过某个阈值</p>
+<h4 id="语义模式">语义模式</h4>
+<p>Schema可以看做是若干building
+blocks按照某种规律进行特定组合构成的building
+blocks的集合。因此，此处作者定义一个语义schema由两部分组成：<br />
+- building blocks的集合<br />
+- 描述building
+blocks在schema内部分布特征的函数，以便判断哪些个体属于这个schema</p>
+<h2 id="sbgp">SBGP</h2>
 <section class="footnotes">
 <div class="footnote-list">
 <ol>
