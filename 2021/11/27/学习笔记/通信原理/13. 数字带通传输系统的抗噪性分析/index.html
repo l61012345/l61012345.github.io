@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数字带通系统的抗噪性分析 ASK的抗噪性分析 在调制端，输入信号可以由ASK信号和窄带高斯白噪声组成： \[y_i(t)&#x3D;u_i(t)+n_i(t)\] 其中:\(u_i(t)&#x3D;\begin{cases}     acosω_ct,表示“1”\\     0, 表示“0” \end{cases}\) 输入噪声可以通过正交分解表示为: \(n_i(t)&#x3D;n_c(t)cosω_ct-n_s">
+    <meta name="description" content="数字带通系统的抗噪性分析ASK的抗噪性分析在调制端，输入信号可以由ASK信号和窄带高斯白噪声组成：   y_i(t)&#x3D;u_i(t)+n_i(t)其中:$u_i(t)&#x3D;\begin{cases}    acosω_ct,表示“1”\    0, 表示“0”\end{cases}$输入噪声可以通过正交分解表示为: $n_i(t)&#x3D;n_c(t)cosω_ct-n_s(t)sinω_ct$。   那么通过">
 <meta property="og:type" content="article">
 <meta property="og:title" content="13. 数字带通系统的抗噪性分析">
 <meta property="og:url" content="https://l61012345.top/2021/11/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/13.%20%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8A%97%E5%99%AA%E6%80%A7%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="数字带通系统的抗噪性分析 ASK的抗噪性分析 在调制端，输入信号可以由ASK信号和窄带高斯白噪声组成： \[y_i(t)&#x3D;u_i(t)+n_i(t)\] 其中:\(u_i(t)&#x3D;\begin{cases}     acosω_ct,表示“1”\\     0, 表示“0” \end{cases}\) 输入噪声可以通过正交分解表示为: \(n_i(t)&#x3D;n_c(t)cosω_ct-n_s">
+<meta property="og:description" content="数字带通系统的抗噪性分析ASK的抗噪性分析在调制端，输入信号可以由ASK信号和窄带高斯白噪声组成：   y_i(t)&#x3D;u_i(t)+n_i(t)其中:$u_i(t)&#x3D;\begin{cases}    acosω_ct,表示“1”\    0, 表示“0”\end{cases}$输入噪声可以通过正交分解表示为: $n_i(t)&#x3D;n_c(t)cosω_ct-n_s(t)sinω_ct$。   那么通过">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-27T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:16.704Z">
@@ -472,168 +472,97 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="数字带通系统的抗噪性分析">数字带通系统的抗噪性分析</h1>
-<h2 id="ask的抗噪性分析">ASK的抗噪性分析</h2>
-<p>在调制端，输入信号可以由ASK信号和窄带高斯白噪声组成：<br />
-<span class="math display">\[y_i(t)=u_i(t)+n_i(t)\]</span> 其中:<span
-class="math inline">\(u_i(t)=\begin{cases}
-    acosω_ct,表示“1”\\
-    0, 表示“0”
-\end{cases}\)</span> 输入噪声可以通过正交分解表示为: <span
-class="math inline">\(n_i(t)=n_c(t)cosω_ct-n_s(t)sinω_ct\)</span>。</p>
-<p>那么通过带通滤波器后的信号：<br />
-<span class="math display">\[y(t)=\begin{cases}
+                <h1 id="数字带通系统的抗噪性分析"><a href="#数字带通系统的抗噪性分析" class="headerlink" title="数字带通系统的抗噪性分析"></a>数字带通系统的抗噪性分析</h1><h2 id="ASK的抗噪性分析"><a href="#ASK的抗噪性分析" class="headerlink" title="ASK的抗噪性分析"></a>ASK的抗噪性分析</h2><p>在调制端，输入信号可以由ASK信号和窄带高斯白噪声组成：  </p>
+<script type="math/tex; mode=display">y_i(t)=u_i(t)+n_i(t)</script><p>其中:$u_i(t)=\begin{cases}<br>    acosω_ct,表示“1”\<br>    0, 表示“0”<br>\end{cases}$<br>输入噪声可以通过正交分解表示为: $n_i(t)=n_c(t)cosω_ct-n_s(t)sinω_ct$。  </p>
+<p>那么通过带通滤波器后的信号：  </p>
+<script type="math/tex; mode=display">y(t)=\begin{cases}
     [a+n_c(t)]cosω_ct-n_ssinω_ct,\text{ 表示“1”}\\
     n_c(t)cosω_ct-n_s(t)sinω_ct,\text{ 表示“0”}
-\end{cases}\]</span></p>
-<h3 id="相干调制的误码率分析">相干调制的误码率分析</h3>
-<p>在相干调制中，信号与载波信号相乘得到：<br />
-<span class="math display">\[z(t)=y(t)cosω_ct=\begin{cases}
+\end{cases}</script><h3 id="相干调制的误码率分析"><a href="#相干调制的误码率分析" class="headerlink" title="相干调制的误码率分析"></a>相干调制的误码率分析</h3><p>在相干调制中，信号与载波信号相乘得到：  </p>
+<script type="math/tex; mode=display">z(t)=y(t)cosω_ct=\begin{cases}
     [a+n_c(t)]cos^2ω_ct-n_ssinω_ctcosω_ct,\text{ 表示“1”}\\
     n_c(t)cos^2ω_ct-n_s(t)sinω_ctcosω_ct,\text{ 表示“0”}
-\end{cases}\]</span>
-其中，由于低通滤波器只允许低频分量和直流分量通过，在无线传输中，一般认为载波频率很高，因此含有<span
-class="math inline">\(t\)</span>的所有项无法通过滤波器，最终得到：<br />
-<span class="math display">\[x(t)=\begin{cases}
+\end{cases}</script><p>其中，由于低通滤波器只允许低频分量和直流分量通过，在无线传输中，一般认为载波频率很高，因此含有$t$的所有项无法通过滤波器，最终得到：  </p>
+<script type="math/tex; mode=display">x(t)=\begin{cases}
     \frac{1}{2}[a+n_c(t)],\text{ 表示“1”}\\
     \frac{1}{2}n_c(t),\text{ 表示“0”}
-\end{cases}\]</span> 其中幅值<span
-class="math inline">\(\frac{1}{2}\)</span>可以通过放大器消除。<br />
-同数字基带系统的抗噪性分析，计算码元为“0”时判别为“1”的概率和码元为“1”时判别为“0”的概率，得到在<span
-class="math inline">\(P(0)=P(1)=0.5\)</span>时的误码率：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}erfc(\frac{\sqrt{SNR}}{2})\]</span></p>
-<h3 id="非相干信号的误码率分析">非相干信号的误码率分析</h3>
-<p>通过带通滤波器的信号进行包络检波：<br />
-<span class="math display">\[V(t)=\begin{cases}
+\end{cases}</script><p>其中幅值$\frac{1}{2}$可以通过放大器消除。<br>同数字基带系统的抗噪性分析，计算码元为“0”时判别为“1”的概率和码元为“1”时判别为“0”的概率，得到在$P(0)=P(1)=0.5$时的误码率：  </p>
+<script type="math/tex; mode=display">P_e=\frac{1}{2}erfc(\frac{\sqrt{SNR}}{2})</script><h3 id="非相干信号的误码率分析"><a href="#非相干信号的误码率分析" class="headerlink" title="非相干信号的误码率分析"></a>非相干信号的误码率分析</h3><p>通过带通滤波器的信号进行包络检波：  </p>
+<script type="math/tex; mode=display">V(t)=\begin{cases}
     \sqrt{([a+n_c(t)]^2+n_s^2(t))},\text{ 表示“1”}\\
     \sqrt{(n_c^2(t)+n_s^2(t))}, \text{ 表示“0”}\\
-\end{cases}\]</span> 通过计算得到：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}e^{-\frac{SNR}{4}}=\frac{1}{2}e^{-\frac{SNR}{4}}\]</span></p>
-<h3 id="ask信号的信噪比">ASK信号的信噪比</h3>
-<p>对于ASK信号，信噪比为：<br />
-<span
-class="math display">\[SNR_{ASK}=\frac{\frac{a^2}{2}}{n_0B_{ASK}}=\frac{\frac{a^2}{2}}{2n_0B_s}\]</span></p>
-<h2 id="fsk的抗噪性分析">FSK的抗噪性分析</h2>
-<h3 id="fsk信号的误码率">FSK信号的误码率</h3>
-<p>FSK信号的误码率可以表示为：<br />
-采用相干解调时：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}erfc(\sqrt{\frac{SNR_{FSK}}{2}})\]</span>
-采用非相干解调时：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}e^{-\frac{SNR_{FSK}}{2}}\]</span></p>
-<h3 id="fsk信号的信噪比">FSK信号的信噪比</h3>
-<p>FSK信号的解调过程实际上是两路信号做ASK解调，因此：<br />
-<span
-class="math display">\[SNR_{FSK}=\frac{\frac{a^2}{2}}{n_0B_{ASK}}=\frac{\frac{a^2}{2}}{2n_0B_{S}}\]</span></p>
-<h2 id="psk信号的抗噪性分析">PSK信号的抗噪性分析</h2>
-<h3 id="psk信号的误码率">PSK信号的误码率</h3>
-<p>PSK信号的误码率可以表示为：<br />
-采用相干解调时：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}erfc(\sqrt{SNR_{PSK}})\]</span>
-采用差分解调时：<br />
-<span class="math display">\[P_e=\frac{1}{2}e^{-SNR_{PSK}}\]</span></p>
-<h3 id="psk信号的信噪比">PSK信号的信噪比</h3>
-<p>PSK信号的信噪比和ASK信号相同：<br />
-<span
-class="math display">\[SNR_{PSK}=\frac{\frac{a^2}{2}}{n_0B_{PSK}}=\frac{\frac{a^2}{2}}{2n_0B_{S}}\]</span></p>
-<h2 id="askfskpsk抗噪性比较">ASK/FSK/PSK抗噪性比较</h2>
-<p>通过公式得出ASK/FSK/PSK抗噪性、采用相干/非相干解调方法时的抗噪性曲线：<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127160641.png width=60%></p>
-<p>可以从上图总结出如下结论：<br />
-1. 抗噪性：<strong>PSK&gt;DPSK&gt;FSK&gt;ASK</strong> 2. 抗噪性：
-<strong>相干解调&gt;非相干解调</strong><br />
-3. 系统的误码率下降时，系统的信噪比上升。</p>
-<p>此外，ASK/PSK和DPSK的带宽相同，FSK的带宽大于前三者，因此FSK的频谱利用效率最低。</p>
-<h3
-id="使用matlab绘制askfskpsk的ber-snr曲线">使用MATLAB©绘制ASK/FSK/PSK的BER-SNR曲线</h3>
-<p>使用<code>linspace()</code>函数创建一个从-10到30的等差数列，公差为10，用于描述分贝表示的SNR：<code>r_dB = linspace(-10,10,30);</code>，然后将SNR转换为数值描述：
-<code>r = 10.^(r_dB/10);</code>。
-在MATLAB中使用<code>erfc()</code>函数即可得到互补误差函数在特定点下的输出。那么ASK/PSK/DPSK/FSK在相干解调/非相干解调下的误码率可以表示为：<br />
-<figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs M">ask_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r)/<span class="hljs-number">2</span>);<br>ask_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">4</span>);<br>fsk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r/<span class="hljs-number">2</span>));<br>fsk_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">2</span>);<br>psk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r));<br>dpsk <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r);<br></code></pre></td></tr></table></figure>
-使用函数<code>semilogy()</code>绘制出y轴以10的次方表示的折线图。<br />
-完整的例程如下：<br />
-<figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs M">r_dB <span class="hljs-built_in">=</span> linspace(-<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">30</span>); <span class="hljs-comment">%创建SNR</span><br>r <span class="hljs-built_in">=</span> <span class="hljs-number">10</span>.^(r_dB/<span class="hljs-number">10</span>); <span class="hljs-comment">%转换为数值描述</span><br><br><span class="hljs-comment">% 表示BER</span><br>ask_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r)/<span class="hljs-number">2</span>);<br>ask_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">4</span>);<br>fsk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r/<span class="hljs-number">2</span>));<br>fsk_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">2</span>);<br>psk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r));<br>dpsk <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r);<br><br><span class="hljs-comment">% 绘图</span><br>semilogy(r_dB,ask_co,<span class="hljs-string">&#x27;r&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;ASK coherent demodulation&#x27;</span>)<br>hold on<br>semilogy(r_dB,ask_no,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;ASK none-coherent demodulation&#x27;</span>)<br>semilogy(r_dB,fsk_no,<span class="hljs-string">&#x27;g&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;FSK none-coherent demodulation&#x27;</span>)<br>semilogy(r_dB,fsk_co,<span class="hljs-string">&#x27;w&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;FSK coherent demodulation&#x27;</span>)<br>semilogy(r_dB,psk_co,<span class="hljs-string">&#x27;k&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;PSK coherent demodulation&#x27;</span>)<br>semilogy(r_dB,dpsk,<span class="hljs-string">&#x27;m&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;DPSK differential demodulation&#x27;</span>)<br>xlabel(<span class="hljs-string">&#x27;SNR(dB)&#x27;</span>)<br>ylabel(<span class="hljs-string">&#x27;BER&#x27;</span>)<br>grid on<br>hold off<br></code></pre></td></tr></table></figure></p>
-<h2 id="总结askfskpsk的参数性能">总结：ASK/FSK/PSK的参数性能</h2>
-<p>ASK是一种应用最早的基本调制方式。其优点是设备简单，频带利用率较高；缺点是抗噪声性能差，并且对信道特性变化敏感，不易是抽样判决器工作在最佳判决门限状态。<br />
-FSK是数字通信中不可或缺的一种调制方式。其优点是抗干扰能力较强，不受信道参数变化的影响，因此FSK特别适合应用于衰落信道；缺点是占用频带较宽，尤其是MFSK，频带利用率较低。目前，调频体制主要应用于中，低速数据传输与接入中。<br />
-PSK和DPSK是一种高传输效率的调制方式，其抗噪声能力比ASK和FSK都强，且不易受信道特性变化的影响，因此在高、中速数据传输中得到了广泛的应用。绝对相移（PSK）在相干解调时存在载波相位模糊的问题，在实际中很少采用于直接传输，MDPSK应用更为广泛。</p>
-<table style="width:100%;">
-
+\end{cases}</script><p>通过计算得到：  </p>
+<script type="math/tex; mode=display">P_e=\frac{1}{2}e^{-\frac{SNR}{4}}=\frac{1}{2}e^{-\frac{SNR}{4}}</script><h3 id="ASK信号的信噪比"><a href="#ASK信号的信噪比" class="headerlink" title="ASK信号的信噪比"></a>ASK信号的信噪比</h3><p>对于ASK信号，信噪比为：  </p>
+<script type="math/tex; mode=display">SNR_{ASK}=\frac{\frac{a^2}{2}}{n_0B_{ASK}}=\frac{\frac{a^2}{2}}{2n_0B_s}</script><h2 id="FSK的抗噪性分析"><a href="#FSK的抗噪性分析" class="headerlink" title="FSK的抗噪性分析"></a>FSK的抗噪性分析</h2><h3 id="FSK信号的误码率"><a href="#FSK信号的误码率" class="headerlink" title="FSK信号的误码率"></a>FSK信号的误码率</h3><p>FSK信号的误码率可以表示为：<br>采用相干解调时：  </p>
+<script type="math/tex; mode=display">P_e=\frac{1}{2}erfc(\sqrt{\frac{SNR_{FSK}}{2}})</script><p>采用非相干解调时：  </p>
+<script type="math/tex; mode=display">P_e=\frac{1}{2}e^{-\frac{SNR_{FSK}}{2}}</script><h3 id="FSK信号的信噪比"><a href="#FSK信号的信噪比" class="headerlink" title="FSK信号的信噪比"></a>FSK信号的信噪比</h3><p>FSK信号的解调过程实际上是两路信号做ASK解调，因此：  </p>
+<script type="math/tex; mode=display">SNR_{FSK}=\frac{\frac{a^2}{2}}{n_0B_{ASK}}=\frac{\frac{a^2}{2}}{2n_0B_{S}}</script><h2 id="PSK信号的抗噪性分析"><a href="#PSK信号的抗噪性分析" class="headerlink" title="PSK信号的抗噪性分析"></a>PSK信号的抗噪性分析</h2><h3 id="PSK信号的误码率"><a href="#PSK信号的误码率" class="headerlink" title="PSK信号的误码率"></a>PSK信号的误码率</h3><p>PSK信号的误码率可以表示为：<br>采用相干解调时：  </p>
+<script type="math/tex; mode=display">P_e=\frac{1}{2}erfc(\sqrt{SNR_{PSK}})</script><p>采用差分解调时：  </p>
+<script type="math/tex; mode=display">P_e=\frac{1}{2}e^{-SNR_{PSK}}</script><h3 id="PSK信号的信噪比"><a href="#PSK信号的信噪比" class="headerlink" title="PSK信号的信噪比"></a>PSK信号的信噪比</h3><p>PSK信号的信噪比和ASK信号相同：  </p>
+<script type="math/tex; mode=display">SNR_{PSK}=\frac{\frac{a^2}{2}}{n_0B_{PSK}}=\frac{\frac{a^2}{2}}{2n_0B_{S}}</script><h2 id="ASK-FSK-PSK抗噪性比较"><a href="#ASK-FSK-PSK抗噪性比较" class="headerlink" title="ASK/FSK/PSK抗噪性比较"></a>ASK/FSK/PSK抗噪性比较</h2><p>通过公式得出ASK/FSK/PSK抗噪性、采用相干/非相干解调方法时的抗噪性曲线：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127160641.png width=60%>  </p>
+<p>可以从上图总结出如下结论：  </p>
+<ol>
+<li>抗噪性：<strong>PSK&gt;DPSK&gt;FSK&gt;ASK</strong></li>
+<li>抗噪性： <strong>相干解调&gt;非相干解调</strong>  </li>
+<li>系统的误码率下降时，系统的信噪比上升。  </li>
+</ol>
+<p>此外，ASK/PSK和DPSK的带宽相同，FSK的带宽大于前三者，因此FSK的频谱利用效率最低。  </p>
+<h3 id="使用MATLAB©绘制ASK-FSK-PSK的BER-SNR曲线"><a href="#使用MATLAB©绘制ASK-FSK-PSK的BER-SNR曲线" class="headerlink" title="使用MATLAB©绘制ASK/FSK/PSK的BER-SNR曲线"></a>使用MATLAB©绘制ASK/FSK/PSK的BER-SNR曲线</h3><p>使用<code>linspace()</code>函数创建一个从-10到30的等差数列，公差为10，用于描述分贝表示的SNR：<code>r_dB = linspace(-10,10,30);</code>，然后将SNR转换为数值描述： <code>r = 10.^(r_dB/10);</code>。<br>在MATLAB中使用<code>erfc()</code>函数即可得到互补误差函数在特定点下的输出。那么ASK/PSK/DPSK/FSK在相干解调/非相干解调下的误码率可以表示为：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs M">ask_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r)/<span class="hljs-number">2</span>);<br>ask_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">4</span>);<br>fsk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r/<span class="hljs-number">2</span>));<br>fsk_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">2</span>);<br>psk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r));<br>dpsk <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r);<br></code></pre></td></tr></table></figure><br>使用函数<code>semilogy()</code>绘制出y轴以10的次方表示的折线图。<br>完整的例程如下：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs M">r_dB <span class="hljs-built_in">=</span> linspace(-<span class="hljs-number">10</span>,<span class="hljs-number">10</span>,<span class="hljs-number">30</span>); <span class="hljs-comment">%创建SNR</span><br>r <span class="hljs-built_in">=</span> <span class="hljs-number">10</span>.^(r_dB/<span class="hljs-number">10</span>); <span class="hljs-comment">%转换为数值描述</span><br><br><span class="hljs-comment">% 表示BER</span><br>ask_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r)/<span class="hljs-number">2</span>);<br>ask_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">4</span>);<br>fsk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r/<span class="hljs-number">2</span>));<br>fsk_no <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r/<span class="hljs-number">2</span>);<br>psk_co <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*erfc(sqrt(r));<br>dpsk <span class="hljs-built_in">=</span> <span class="hljs-number">0.5</span>.*exp(-r);<br><br><span class="hljs-comment">% 绘图</span><br>semilogy(r_dB,ask_co,<span class="hljs-string">&#x27;r&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;ASK coherent demodulation&#x27;</span>)<br>hold on<br>semilogy(r_dB,ask_no,<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;ASK none-coherent demodulation&#x27;</span>)<br>semilogy(r_dB,fsk_no,<span class="hljs-string">&#x27;g&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;FSK none-coherent demodulation&#x27;</span>)<br>semilogy(r_dB,fsk_co,<span class="hljs-string">&#x27;w&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;FSK coherent demodulation&#x27;</span>)<br>semilogy(r_dB,psk_co,<span class="hljs-string">&#x27;k&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;PSK coherent demodulation&#x27;</span>)<br>semilogy(r_dB,dpsk,<span class="hljs-string">&#x27;m&#x27;</span>,<span class="hljs-string">&#x27;DisplayName&#x27;</span>,<span class="hljs-string">&#x27;DPSK differential demodulation&#x27;</span>)<br>xlabel(<span class="hljs-string">&#x27;SNR(dB)&#x27;</span>)<br>ylabel(<span class="hljs-string">&#x27;BER&#x27;</span>)<br>grid on<br>hold off<br></code></pre></td></tr></table></figure></p>
+<h2 id="总结：ASK-FSK-PSK的参数性能"><a href="#总结：ASK-FSK-PSK的参数性能" class="headerlink" title="总结：ASK/FSK/PSK的参数性能"></a>总结：ASK/FSK/PSK的参数性能</h2><p>ASK是一种应用最早的基本调制方式。其优点是设备简单，频带利用率较高；缺点是抗噪声性能差，并且对信道特性变化敏感，不易是抽样判决器工作在最佳判决门限状态。<br>FSK是数字通信中不可或缺的一种调制方式。其优点是抗干扰能力较强，不受信道参数变化的影响，因此FSK特别适合应用于衰落信道；缺点是占用频带较宽，尤其是MFSK，频带利用率较低。目前，调频体制主要应用于中，低速数据传输与接入中。<br>PSK和DPSK是一种高传输效率的调制方式，其抗噪声能力比ASK和FSK都强，且不易受信道特性变化的影响，因此在高、中速数据传输中得到了广泛的应用。绝对相移（PSK）在相干解调时存在载波相位模糊的问题，在实际中很少采用于直接传输，MDPSK应用更为广泛。  </p>
+<div class="table-container">
+<table>
 <thead>
-<tr class="header">
-<th style="text-align: center;">调制方式</th>
-<th style="text-align: center;">受调信号的码型</th>
-<th style="text-align: center;">受调信号的带宽</th>
-<th style="text-align: center;">解调方法</th>
-<th style="text-align: center;">解调的最佳判决门限</th>
-<th style="text-align: center;">最大频谱利用效率</th>
-<th style="text-align: center;">误码率</th>
+<tr>
+<th style="text-align:center">调制方式</th>
+<th style="text-align:center">受调信号的码型</th>
+<th style="text-align:center">受调信号的带宽</th>
+<th style="text-align:center">解调方法</th>
+<th style="text-align:center">解调的最佳判决门限</th>
+<th style="text-align:center">最大频谱利用效率</th>
+<th style="text-align:center">误码率</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: center;">ASK</td>
-<td style="text-align: center;">单极性码</td>
-<td style="text-align: center;"><span
-class="math inline">\(2B_s\)</span></td>
-<td style="text-align: center;">相干解调<br>包络检波法</td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{a}{2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}erfc(\frac{\sqrt{SNR}}{2})\)</span><br>
-<span class="math inline">\(\frac{1}{2}e^{-\frac{SNR}{4}}\)</span></td>
+<tr>
+<td style="text-align:center">ASK</td>
+<td style="text-align:center">单极性码</td>
+<td style="text-align:center">$2B_s$</td>
+<td style="text-align:center">相干解调<br>包络检波法</td>
+<td style="text-align:center">$\frac{a}{2}$</td>
+<td style="text-align:center">$\frac{1}{2}$</td>
+<td style="text-align:center">$\frac{1}{2}erfc(\frac{\sqrt{SNR}}{2})$<br> $\frac{1}{2}e^{-\frac{SNR}{4}}$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">FSK</td>
-<td style="text-align: center;">单极性码</td>
-<td style="text-align: center;"><span class="math inline">\(\lvert
-f_1-f_2\rvert +2B_s\)</span></td>
-<td
-style="text-align: center;">相干解调<br>包络检波法<br>过零检波法<br></td>
-<td style="text-align: center;">无<br>无<br><span
-class="math inline">\(\frac{a}{2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{R_B}{\lvert f_1-f_2\rvert
-+2R_B}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}erfc(\sqrt{\frac{SNR_{FSK}}{2}})\)</span>
-<br> <span
-class="math inline">\(\frac{1}{2}e^{-\frac{SNR_{FSK}}{2}}\)</span></td>
+<tr>
+<td style="text-align:center">FSK</td>
+<td style="text-align:center">单极性码</td>
+<td style="text-align:center">$\lvert f_1-f_2\rvert +2B_s$</td>
+<td style="text-align:center">相干解调<br>包络检波法<br>过零检波法<br></td>
+<td style="text-align:center">无<br>无<br>$\frac{a}{2}$</td>
+<td style="text-align:center">$\frac{R_B}{\lvert f_1-f_2\rvert +2R_B}$</td>
+<td style="text-align:center">$\frac{1}{2}erfc(\sqrt{\frac{SNR<em>{FSK}}{2}})$ <br> $\frac{1}{2}e^{-\frac{SNR</em>{FSK}}{2}}$</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">PSK</td>
-<td style="text-align: center;">双极性码</td>
-<td style="text-align: center;"><span
-class="math inline">\(2B_s\)</span></td>
-<td style="text-align: center;">相干解调</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}erfc(\sqrt{SNR_{PSK}})\)</span></td>
+<tr>
+<td style="text-align:center">PSK</td>
+<td style="text-align:center">双极性码</td>
+<td style="text-align:center">$2B_s$</td>
+<td style="text-align:center">相干解调</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">$\frac{1}{2}$</td>
+<td style="text-align:center">$\frac{1}{2}erfc(\sqrt{SNR_{PSK}})$</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">DPSK</td>
-<td style="text-align: center;">双极性码</td>
-<td style="text-align: center;"><span
-class="math inline">\(2B_s\)</span></td>
-<td style="text-align: center;">相干解调<br>相位比较法</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{2}e^{-SNR_{PSK}}\)</span></td>
+<tr>
+<td style="text-align:center">DPSK</td>
+<td style="text-align:center">双极性码</td>
+<td style="text-align:center">$2B_s$</td>
+<td style="text-align:center">相干解调<br>相位比较法</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">$\frac{1}{2}$</td>
+<td style="text-align:center">$\frac{1}{2}e^{-SNR_{PSK}}$</td>
 </tr>
 </tbody>
 </table>
-<p>所有调制方法的信噪比均为： <span
-class="math inline">\(SNR=\frac{\frac{a^2}{2}}{2n_0B_{S}}\)</span>。</p>
+</div>
+<p>所有调制方法的信噪比均为： $SNR=\frac{\frac{a^2}{2}}{2n<em>0B</em>{S}}$。  </p>
 
                 
               </div>
@@ -3933,5 +3862,20 @@ class="math inline">\(SNR=\frac{\frac{a^2}{2}}{2n_0B_{S}}\)</span>。</p>
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

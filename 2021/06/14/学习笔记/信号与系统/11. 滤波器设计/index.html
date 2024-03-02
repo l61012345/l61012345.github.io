@@ -107,17 +107,19 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="滤波器设计 失真 系统方程\(H(s)\)可以写作： \[H(jω)&#x3D;|H(jω)|e^{jϕ(jω)}\] 即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用\(E(jω)\)进行加权。 如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。 失真分为两种类型： 线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。 非线性失真：">
+    <meta name="description" content="滤波器设计失真系统方程$H(s)$可以写作： H(jω)&#x3D;|H(jω)|e^{jϕ(jω)}即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用$E(jω)$进行加权。如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。失真分为两种类型：线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。非线性失真：引入了新的频率信号。   滤波器波形实际的滤">
 <meta property="og:type" content="article">
 <meta property="og:title" content="11. 滤波器设计">
 <meta property="og:url" content="https://l61012345.top/2021/06/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/11.%20%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="滤波器设计 失真 系统方程\(H(s)\)可以写作： \[H(jω)&#x3D;|H(jω)|e^{jϕ(jω)}\] 即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用\(E(jω)\)进行加权。 如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。 失真分为两种类型： 线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。 非线性失真：">
+<meta property="og:description" content="滤波器设计失真系统方程$H(s)$可以写作： H(jω)&#x3D;|H(jω)|e^{jϕ(jω)}即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用$E(jω)$进行加权。如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。失真分为两种类型：线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。非线性失真：引入了新的频率信号。   滤波器波形实际的滤">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210531161932.png">
 <meta property="article:published_time" content="2021-06-14T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:13.346Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210531161932.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -390,7 +392,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          437 字
+          431 字
         
       </span>
     
@@ -472,62 +474,33 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="滤波器设计">滤波器设计</h1>
-<h2 id="失真">失真</h2>
-<p>系统方程<span class="math inline">\(H(s)\)</span>可以写作： <span
-class="math display">\[H(jω)=|H(jω)|e^{jϕ(jω)}\]</span>
-即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用<span
-class="math inline">\(E(jω)\)</span>进行加权。<br />
-如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。
-失真分为两种类型：<br />
-线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。<br />
-非线性失真：引入了新的频率信号。</p>
-<h2 id="滤波器波形">滤波器波形</h2>
-<p>实际的滤波器波形如图表示：<br />
-<img
-src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210531161932.png" srcset="/img/loading.gif" lazyload /><br />
-滤波器波形的四个参数： 1. 通带边缘（Passband edge,<span
-class="math inline">\(ω_p\)</span>） 2. 最大允许变化（Maximum allowed
-variation,<span class="math inline">\(A_max\)</span>） 3.
-阻带边缘（Stopband edge,<span class="math inline">\(ω_s\)</span>） 4.
-最小阻带衰减要求（Minimum required stopband attenuation,<span
-class="math inline">\(A_min\)</span>）</p>
-<h2 id="滤波器设计-1">滤波器设计</h2>
-<h3 id="低通滤波器类型">(低通)滤波器类型</h3>
-<h4 id="巴特沃斯滤波器"><strong>巴特沃斯滤波器</strong></h4>
-<p>传递函数： <span
-class="math display">\[|T(jω)|=\frac{1}{√(1+ϵ^2(\frac{ω}{ω_p})^(2n))}\]</span>
-其中：<span
-class="math inline">\(n≥\frac{logM}{logΩ}\)</span>为电路阶数，<span
-class="math inline">\(ϵ=√{10^{\frac{A_{max}}{10}}-1}\)</span><br />
-<span class="math inline">\(Ω=\frac{ω_s}{ω_p}\)</span>，<span
-class="math inline">\(M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}\)</span></p>
-<p>滤波器特点：<br />
-1. 没有波纹 2. <span
-class="math inline">\(|ω_s-ω_p|\)</span>较大，无法立刻停止</p>
-<h4 id="切比雪夫滤波器"><strong>切比雪夫滤波器</strong></h4>
-<p>传递函数： <span
-class="math display">\[|T(jω)|=\frac{1}{√1+ϵ^2C^2_n(ω/ω_p)}\]</span>
-其中：<span
-class="math inline">\(n≥\frac{cosh^{-1}M}{cosh^{-1}Ω}\)</span>为电路阶数，<span
-class="math inline">\(ϵ=√{10^{\frac{A_{max}}{10}}-1}\)</span><br />
-<span class="math inline">\(Ω=\frac{ω_s}{ω_p}\)</span>，<span
-class="math inline">\(M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}\)</span></p>
+                <h1 id="滤波器设计"><a href="#滤波器设计" class="headerlink" title="滤波器设计"></a>滤波器设计</h1><h2 id="失真"><a href="#失真" class="headerlink" title="失真"></a>失真</h2><p>系统方程$H(s)$可以写作：</p>
+<script type="math/tex; mode=display">H(jω)=|H(jω)|e^{jϕ(jω)}</script><p>即幅值和相位两部分。系统输出的实质是对系统方程的频率和赋值用$E(jω)$进行加权。<br>如果不同频率信号的幅值加权或相位校正不同，则输出波形将与输入波形形状不同，从而导致失真。<br>失真分为两种类型：<br>线性失真：信号的幅值和相位发生变化，但是没有引入新的频率信号。<br>非线性失真：引入了新的频率信号。  </p>
+<h2 id="滤波器波形"><a href="#滤波器波形" class="headerlink" title="滤波器波形"></a>滤波器波形</h2><p>实际的滤波器波形如图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210531161932.png" srcset="/img/loading.gif" lazyload alt=""><br>滤波器波形的四个参数：</p>
+<ol>
+<li>通带边缘（Passband edge,$ω_p$）</li>
+<li>最大允许变化（Maximum allowed variation,$A_max$）</li>
+<li>阻带边缘（Stopband edge,$ω_s$）</li>
+<li>最小阻带衰减要求（Minimum required stopband attenuation,$A_min$）</li>
+</ol>
+<h2 id="滤波器设计-1"><a href="#滤波器设计-1" class="headerlink" title="滤波器设计"></a>滤波器设计</h2><h3 id="低通-滤波器类型"><a href="#低通-滤波器类型" class="headerlink" title="(低通)滤波器类型"></a>(低通)滤波器类型</h3><h4 id="巴特沃斯滤波器"><a href="#巴特沃斯滤波器" class="headerlink" title="巴特沃斯滤波器"></a><strong>巴特沃斯滤波器</strong></h4><p>传递函数：</p>
+<script type="math/tex; mode=display">|T(jω)|=\frac{1}{√(1+ϵ^2(\frac{ω}{ω_p})^(2n))}</script><p>其中：$n≥\frac{logM}{logΩ}$为电路阶数，$ϵ=√{10^{\frac{A_{max}}{10}}-1}$<br>$Ω=\frac{ω_s}{ω_p}$，$M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}$</p>
+<p>滤波器特点：  </p>
+<ol>
+<li>没有波纹</li>
+<li>$|ω_s-ω_p|$较大，无法立刻停止</li>
+</ol>
+<h4 id="切比雪夫滤波器"><a href="#切比雪夫滤波器" class="headerlink" title="切比雪夫滤波器"></a><strong>切比雪夫滤波器</strong></h4><p>传递函数：</p>
+<script type="math/tex; mode=display">|T(jω)|=\frac{1}{√1+ϵ^2C^2_n(ω/ω_p)}</script><p>其中：$n≥\frac{cosh^{-1}M}{cosh^{-1}Ω}$为电路阶数，$ϵ=√{10^{\frac{A_{max}}{10}}-1}$<br>$Ω=\frac{ω_s}{ω_p}$，$M=√{\frac{\frac{1}{K_A}-1}{\frac{1}{K_r-1}}}$  </p>
 <div class="note note-info">
-            <p>将电感和电容对换就可以得到高通滤波器。</p>
-          </div>
-<h3 id="设计方法">设计方法</h3>
-<ol type="1">
-<li>确定使用的滤波器类型<br />
-</li>
-<li>找到能够拟合要求的传递函数（巴特沃斯/切比雪夫）<br />
-</li>
-<li>根据波形图求出电路的最小阶数<span
-class="math inline">\(n\)</span><br />
-</li>
-<li>查表找到CL的数值，并作反归一化<br />
-</li>
-<li>连接电路</li>
+            <p>将电感和电容对换就可以得到高通滤波器。   </p>
+          </div>  
+<h3 id="设计方法"><a href="#设计方法" class="headerlink" title="设计方法"></a>设计方法</h3><ol>
+<li>确定使用的滤波器类型  </li>
+<li>找到能够拟合要求的传递函数（巴特沃斯/切比雪夫）  </li>
+<li>根据波形图求出电路的最小阶数$n$  </li>
+<li>查表找到CL的数值，并作反归一化  </li>
+<li>连接电路  </li>
 </ol>
 
                 
@@ -3828,5 +3801,20 @@ class="math inline">\(n\)</span><br />
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
