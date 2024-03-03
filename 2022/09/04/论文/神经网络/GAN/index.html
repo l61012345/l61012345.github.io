@@ -527,7 +527,7 @@ p.spoiler {
 <script type="math/tex; mode=display">H(P,Q)=∑P(x_i)log_2\frac{1}{Q(x_i)}</script><p>该式子$H(P,Q)$称为交叉熵。  </p>
 <h4 id="Kullback-Leibler散度-KL散度"><a href="#Kullback-Leibler散度-KL散度" class="headerlink" title="Kullback-Leibler散度/KL散度"></a>Kullback-Leibler散度/KL散度</h4><p>Kullback-Leibler散度用于衡量随机变量$X$在非理想最佳状态下编码信息损失。根据交叉熵（非理想编码）和信息熵（理想编码）的定义，定义Kullback-Leibler散度为随机变量$X$的交叉熵与信息熵的差：  </p>
 <script type="math/tex; mode=display">KL(p||q)=∑p(x)log(p(x))-∑p(x)log(q(x))=∑_{i=1}^np(x_i)log(\frac{p(x_i)}{q(x_i)})</script><p><strong>KL散度在$p(x)$和$q(x)$相同时取到最小值0</strong>，两个概率分布越相似，则KL散度越小。  </p>
-<h4 id="二元分类器、最大似然估计与二元交叉熵"><a href="#二元分类器、最大似然估计与二元交叉熵" class="headerlink" title="二元分类器、最大似然估计与二元交叉熵"></a>二元分类器、最大似然估计与二元交叉熵</h4><p>对于处理数据集$D={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)}$的二元分类器，令其分类结果/观察结果$y∈{0,1}$，即观察结果不是$y=0$就是$y=1$——这符合伯努利分布的性质。那么分类器假设观察结果$y=1$的概率为：  </p>
+<h4 id="二元分类器、最大似然估计与二元交叉熵"><a href="#二元分类器、最大似然估计与二元交叉熵" class="headerlink" title="二元分类器、最大似然估计与二元交叉熵"></a>二元分类器、最大似然估计与二元交叉熵</h4><p>对于处理数据集$D=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\}$的二元分类器，令其分类结果/观察结果$y∈\{0,1\}$，即观察结果不是$y=0$就是$y=1$——这符合伯努利分布的性质。那么分类器假设观察结果$y=1$的概率为：  </p>
 <script type="math/tex; mode=display">P_θ(y=1)=θ,θ∈[0,1]</script><p>那么有$P_θ(y=0)=1-θ$，综合这两个式子，可以得到$y$的（边缘）概率密度函数服从伯努利分布：  </p>
 <script type="math/tex; mode=display">p_θ(y)=θ^y(1-θ)^{1-y}</script><p>此时可以将数据集标签$y_1,y_2,…,y_N$视为总体$Y$中的样本，利用数据集中每一个数据的真实结果$y_i$对分类器参数$θ$进行最大似然估计，那么$y_1,y_2,…,y_N$的联合概率密度函数表示为每一个独立样本$y_i$边缘概率密度函数的乘积：  </p>
 <script type="math/tex; mode=display">\mathcal{L}(θ)=∏_{i=1}^Np_θ(y_i)=∏_{i=1}^Nθ^{y_i}(1-θ)^{1-y_i}</script><p>取对数以便于求得使$\mathcal{L}(θ)$最大时的$θ$：  </p>
@@ -549,7 +549,7 @@ p.spoiler {
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><strong>for</strong> number of training iterations <strong>do</strong><br>&emsp;<strong>for</strong> $k$ steps <strong>do</strong><br>&emsp;&emsp;在噪声分布$p_g(z)$中采样$m$个样本：${z^{(1)},…,z^{(m)}}$ <br>&emsp;&emsp;在真实数据分布$p_{data}(x)$中采样$m$个样本：${x^{(1)},…,x^{(m)}}$<br>&emsp;&emsp;使用<strong>梯度上升</strong>算法更新辨别器梯度：<script type="math/tex">▿_{θ_d}\frac{1}{m}\sum_{i=1}^m[logD(x^{(i)})]+log(1-D(G(z^{(i)})))]</script> <br>&emsp;<strong>end for</strong><br>&emsp;在噪声分布$p_g(z)$中采样$m$个样本：${z^{(1),…,z^{(m)}}}$ <br>&emsp;使用<strong>梯度下降</strong>算法更新生成器梯度：<script type="math/tex">▿_{θ_g}\frac{1}{m}\sum_{i=1}^mlog(1-D(G(z^{(i)})))</script> <br><strong>end for</strong></td>
+<td style="text-align:left"><strong>for</strong> number of training iterations <strong>do</strong><br>&emsp;<strong>for</strong> $k$ steps <strong>do</strong><br>&emsp;&emsp;在噪声分布$p_g(z)$中采样$m$个样本：$\{z^{(1)},…,z^{(m)}\}$ <br>&emsp;&emsp;在真实数据分布$p_{data}(x)$中采样$m$个样本：$\{x^{(1)},…,x^{(m)}\}$<br>&emsp;&emsp;使用<strong>梯度上升</strong>算法更新辨别器梯度：<script type="math/tex">▿_{θ_d}\frac{1}{m}\sum_{i=1}^m[logD(x^{(i)})]+log(1-D(G(z^{(i)})))]</script> <br>&emsp;<strong>end for</strong><br>&emsp;在噪声分布$p_g(z)$中采样$m$个样本：$\{z^{(1),…,z^{(m)}}\}$ <br>&emsp;使用<strong>梯度下降</strong>算法更新生成器梯度：<script type="math/tex">▿_{θ_g}\frac{1}{m}\sum_{i=1}^mlog(1-D(G(z^{(i)})))</script> <br><strong>end for</strong></td>
 </tr>
 </tbody>
 </table>
@@ -642,7 +642,7 @@ p.spoiler {
             <p>随着之后的演化，现在CGAN的鉴别器有两种结构，一种是将数据$x$和条件$y$（图中的$c$）分别经过一个网络处理后再融合为一个网络，对模型进行评价。另一种是使用一个网络评价$x$是来自生成的数据还是数据集，再使用另一个网络评价条件和数据是否吻合。<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204805.png width=60%>  </p>
           </div>  
 <p>下图展示了使用CGAN的生成器生成的一些样本，这些样本指定了标签进行生成：<br><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204352.png width=60%>  </p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -786,7 +786,7 @@ p.spoiler {
         aria-expanded="true"
       >
         论文
-        <span class="list-group-count">(30)</span>
+        <span class="list-group-count">(31)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1045,7 +1045,7 @@ p.spoiler {
         aria-expanded="false"
       >
         进化计算
-        <span class="list-group-count">(17)</span>
+        <span class="list-group-count">(18)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1172,7 +1172,7 @@ p.spoiler {
         aria-expanded="false"
       >
         遗传编程
-        <span class="list-group-count">(9)</span>
+        <span class="list-group-count">(10)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1191,6 +1191,15 @@ p.spoiler {
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
         </a>
       
     
@@ -1602,7 +1611,7 @@ p.spoiler {
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

@@ -115,7 +115,7 @@
 <meta property="og:description" content="计算机结构基础 讲义复习BUL EE2623 Computer Architecture and InterfaceDr. Takebumi Itagaki     冯诺依曼架构组成部分： CPU&#x2F;ALU,I&#x2F;O, Buses, Main Memory特征： 所有的部分都通过总线连接总线的类别： 数据总线，地址总线，控制总线 数制十六进制，十进制，八进制，二进制的相互转化。 二进制整数的表达和运算">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-06-12T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-20T09:23:27.873Z">
+<meta property="article:modified_time" content="2024-03-03T13:11:54.307Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2023年10月20日 上午
+                    本文最后更新于 2024年3月3日 下午
                   
                 
               </p>
@@ -694,8 +694,9 @@ Longword & 16
 <h3 id="I-O的控制方式"><a href="#I-O的控制方式" class="headerlink" title="I/O的控制方式"></a>I/O的控制方式</h3><ol>
 <li>程序I/O<br>在I/O执行命令时，CPU一直等待并检测I/O是否完成任务，直到I/O执行完成。<br>特点：<br>程序I/O损失了CPU大部分的计算力，是一种低下的连接方式。   </li>
 <li>中断I/O<br>CPU发出一个指令到I/O，之后做其他的任务直到I/O完成操作。 I/O完成操作后，会发出中断指令中断CPU当前的任务。 CPU处理完来自I/O的任务后，继续执行之前的任务。   </li>
-<li>DMA<br>由于冯诺依曼架构中内存，I/O，存储都通过总线连接，使得数据在I/O 与内存之间能够直接传输数据成为可能。<br>整块数据在I/O与内存之间的传送在DMA控制器的控制下完成，仅在传输数据块的开始和结束时才需要CPU干预。<br>DMA会在CPU不使用总线时接管总线。    <h3 id="I-O接口的类型"><a href="#I-O接口的类型" class="headerlink" title="I/O接口的类型"></a>I/O接口的类型</h3>PCI，ATA，ISA，USB等等……</li>
+<li>DMA<br>由于冯诺依曼架构中内存，I/O，存储都通过总线连接，使得数据在I/O 与内存之间能够直接传输数据成为可能。<br>整块数据在I/O与内存之间的传送在DMA控制器的控制下完成，仅在传输数据块的开始和结束时才需要CPU干预。<br>DMA会在CPU不使用总线时接管总线。    </li>
 </ol>
+<h3 id="I-O接口的类型"><a href="#I-O接口的类型" class="headerlink" title="I/O接口的类型"></a>I/O接口的类型</h3><p>PCI，ATA，ISA，USB等等……</p>
 <h2 id="串行和并行连接"><a href="#串行和并行连接" class="headerlink" title="串行和并行连接"></a>串行和并行连接</h2><p>串行连接： 一比特一时钟发送数据<br>并行连接： 所有的比特会一起发送   </p>
 <h3 id="串行连接的方式"><a href="#串行连接的方式" class="headerlink" title="串行连接的方式"></a>串行连接的方式</h3><ol>
 <li>串行连接的时分复用<br>CPU在每一个单位时间内都处理不同并行通道内的一个数据包。  每个通道的前几个比特是用来与系统进行时间同步的。<br>例子： GSM（2G），TD-CMDA（3G）</li>
@@ -717,8 +718,9 @@ Longword & 16
 <h3 id="并行计算"><a href="#并行计算" class="headerlink" title="并行计算"></a>并行计算</h3><p>并行计算体现在两点：  </p>
 <ol>
 <li>一个处理器执行时分复用（多线程）       </li>
-<li>拥有不止一个处理器 （多核心）<br>弗莱因分类法将并行计算机按照指令和数据流分为四类：SISD，MISD，SIMD，MIMD。 即单/多指令，单/多数据流。<br>通常n个并行处理器比n倍快的单个处理器效率更慢，但是并行系统更便宜。    <h3 id="基本定律"><a href="#基本定律" class="headerlink" title="基本定律"></a>基本定律</h3>阿姆达尔定律: 理想中对整个系统最大的改进是对系统中的部分进行改进。<br>古斯塔夫森定律*:  $S_{latency}=1-p+sp$<br>$S_{latency}$： 整个任务执行延迟的理论加速。<br>$s$：受益于系统资源改善的部分的加速。<br>$p$：整个任务中，相对于改进前受益于改善后的部分所占的百分比。     </li>
+<li>拥有不止一个处理器 （多核心）<br>弗莱因分类法将并行计算机按照指令和数据流分为四类：SISD，MISD，SIMD，MIMD。 即单/多指令，单/多数据流。<br>通常n个并行处理器比n倍快的单个处理器效率更慢，但是并行系统更便宜。    </li>
 </ol>
+<h3 id="基本定律"><a href="#基本定律" class="headerlink" title="基本定律"></a>基本定律</h3><p>阿姆达尔定律: 理想中对整个系统最大的改进是对系统中的部分进行改进。<br>古斯塔夫森定律*:  $S_{latency}=1-p+sp$<br> $S_{latency}$： 整个任务执行延迟的理论加速。<br>$s$：受益于系统资源改善的部分的加速。<br>$p$：整个任务中，相对于改进前受益于改善后的部分所占的百分比。     </p>
 <h3 id="并行计算的层级"><a href="#并行计算的层级" class="headerlink" title="并行计算的层级"></a>并行计算的层级</h3><ol>
 <li>比特层级<br>加倍字长。 部分需要两个字长才能运行的指令（需要两个时钟）变成一个字，进而在一个时钟内就能运行。     </li>
 <li>指令层级<br>基础的分量级处理器只能在一个时钟内运行不到一个指令。<br>对这些指令重排，并整合成指令群。现代处理器还将pipline分成了多级，因此在一个时钟内可以运行一条指令。<br>超标量处理器有多个处理单元，因此可以在一个时钟内运行多条指令。但是指令来源于同一个指令流。多核处理器也可以在一个时钟内运行多条指令，但指令来源于多个指令流。      </li>
@@ -762,7 +764,7 @@ Longword & 16
 </ol>
 <h3 id="GPU"><a href="#GPU" class="headerlink" title="GPU"></a>GPU</h3><p>GPU是一种用于加速建图和图像处理的专门化处理器。 GPU内部高度并行化。<br>功能： 加速渲染多边形和纹理匹配， 解码高清视频等等。  </p>
 <h3 id="DSP"><a href="#DSP" class="headerlink" title="DSP"></a>DSP</h3><p>专门化的数字信号处理器，用于声音、图像、雷达系统。<br>功能： 数字信号与模拟信号的转换和处理。<br>DSP 的指令集优化用于处理数学运算、特殊的地址模型、特殊化的循环控制。<br>DSP 中的数学计算常常是Fixed-point 计算。<br>DSP 不支持虚拟内存和内存保护。   </p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -826,7 +828,7 @@ Longword & 16
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月20日</div>
+          <div>2024年3月3日</div>
         </div>
       
       
@@ -4036,7 +4038,7 @@ Longword & 16
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

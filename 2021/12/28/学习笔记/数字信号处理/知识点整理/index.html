@@ -712,8 +712,8 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <h3 id="FIR滤波器设计的加窗法"><a href="#FIR滤波器设计的加窗法" class="headerlink" title="FIR滤波器设计的加窗法"></a>FIR滤波器设计的加窗法</h3><p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：  </p>
 <script type="math/tex; mode=display">h[n]=\frac{sin(ω_cn)}{πn}</script><p>其中$ω_c$表示其截止频率。  </p>
 <ol>
-<li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为${h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]}$,是一个非因果序列。</li>
-<li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：${\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]}$</li>
+<li>设置滤波器的长度$L=2N+1$，并在理想低通滤波器冲激响应上截取$L$个采样点。为了满足线性相位滤波器的条件，通常使用以$h[0]$为对称轴的奇数$L$个序列。定义滤波器的阶数$M$为滤波器序列长度减一：<script type="math/tex; mode=display">M=L-1</script>此时的序列为$\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}$,是一个非因果序列。</li>
+<li>对截取的序列做时移以满足系统的因果性，时移量为$α=\frac{L-1}{2}$，称为滤波器的<strong>群时延</strong>(Group delay)。<br>此时的序列为：$\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}$</li>
 <li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window function），赋权的操作为：<script type="math/tex; mode=display">fl[n]=h_d[n]×w[n]</script>其中$h_d[n]$为截取和时移之后的理想低通滤波器序列，$w[n]$由窗函数产生。  </li>
 </ol>
 <div class="note note-warning">
@@ -732,7 +732,7 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 <tbody>
 <tr>
 <td style="text-align:center">三角窗</td>
-<td style="text-align:center">$\begin{cases}\frac{2}{M}n,0≤n≤\frac{M}{2}\ 2-\frac{2}{M}n,\frac{M}{2}≤n≤M \end{cases}$</td>
+<td style="text-align:center">$\begin{cases}\frac{2}{M}n,0≤n≤\frac{M}{2}\\ 2-\frac{2}{M}n,\frac{M}{2}≤n≤M \end{cases}$</td>
 <td style="text-align:center">-25</td>
 <td style="text-align:center">$\frac{2.37π}{M}$</td>
 </tr>
@@ -801,7 +801,7 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
 </ul>
 <p><code>fir1()</code>函数会返回滤波器的冲激响应序列，返回的冲激序列使用<code>[H_f,w]=freqz(h)</code>返回其幅度-频率响应<code>H_f</code>和角频率轴<code>w</code>。<br>其幅度值-频率响应可以通过求其绝对值<code>abs(H_f)</code>得到，相频响应可以通过<code>angle(H_f)</code>得到。<br>下面的例程展示了如何用MATLAB绘制一个序列长度为7，截止频率为0.5π的理想低通滤波器：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs M">h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">6</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,boxcar(<span class="hljs-number">7</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <span class="hljs-comment">% generate the filter</span><br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></td></tr></table></figure></p>
 <p>下面例程用于生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗低通滤波器，例程如下：<br><figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs M"><span class="hljs-comment">% 生成一个序列长度131，截止频率0.5π，β=4.966的凯撒窗滤波器</span><br>h <span class="hljs-built_in">=</span> fir1(<span class="hljs-number">130</span>, <span class="hljs-number">0.5</span>, <span class="hljs-string">&quot;low&quot;</span>,kaiser(<span class="hljs-number">131</span>,<span class="hljs-number">4.966</span>),<span class="hljs-string">&quot;noscale&quot;</span>); <br>[hf,w] <span class="hljs-built_in">=</span> freqz(h); <span class="hljs-comment">% 幅度-频率响应</span><br>figure(<span class="hljs-number">1</span>);<br>plot(w/pi,abs(hf)); <span class="hljs-comment">% 幅度值-频率响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>)<br>title(<span class="hljs-string">&quot;Magnitude response&quot;</span>);<br>figure(<span class="hljs-number">2</span>);<br>plot(w/pi,angle(hf)); <span class="hljs-comment">% 相频响应</span><br>xlabel(<span class="hljs-string">&quot;\omega / \pi&quot;</span>);<br>title(<span class="hljs-string">&quot;Phase response&quot;</span>);<br></code></pre></td></tr></table></figure></p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -4075,7 +4075,7 @@ x[0]+x[N],x[1]+&x[N+1],...,x[N-1]+x[2N-1]
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

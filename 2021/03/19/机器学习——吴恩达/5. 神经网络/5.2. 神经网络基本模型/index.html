@@ -481,7 +481,7 @@ p.spoiler {
 <p>神经网络模拟了大脑中的神经元或者是神经网络。先来看大脑中的神经元构成:  </p>
 <p>如图所示，神经元有很多的输入通道（树突），同时通过轴突给其他的神经元传递信号。大脑中的每一个神经元的树突接收来自多个其他神经元的输入，同时该神经元的轴突向其他神经元输出：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912153424.png width=50%><br>将神经元简单抽象：一个计算单元，它从输入端接收一定数目的信息，并作一些处理，并将结果传递给其他的神经元。<br>在计算机中，我们构建一个逻辑单元，它从输入端接收数据集X，并作处理来生成一个Sigmoid函数$h_θ (x)=\frac{1}{1+e^{-θ^T X}}$：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912132141.png width=50%><br>在这个模型之上，输入端会额外增加一个$x_0=1$，称为偏置单元(bias unit)。<br>在神经网络中，$Θ$称为模型的权重，$g(z)$称为激活函数(activation function)。  </p>
 <div class="note note-info">
-            <p>激活函数有多种选择，常见的激活函数有：  </p><ul><li>Sigmoid函数:$y=\frac{1}{1+e^{-θ^T X}}$</li><li>线性函数:$y=θx$ </li><li>分段线性函数/线性整流单元/ReLU函数：$y=\begin{cases} 0,x&lt;0\x,x≥0\end{cases}$ </li><li>高斯函数：$y=exp(-x^2)$</li><li>双曲正切函数：$y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}$  </li></ul><p>本课程中默认提到激活函数时选择的激活函数为Sigmoid函数。  </p>
+            <p>激活函数有多种选择，常见的激活函数有：  </p><ul><li>Sigmoid函数:$y=\frac{1}{1+e^{-θ^T X}}$</li><li>线性函数:$y=θx$ </li><li>分段线性函数/线性整流单元/ReLU函数：$y=\begin{cases} 0,x&lt;0\\x,x≥0\end{cases}$ </li><li>高斯函数：$y=exp(-x^2)$</li><li>双曲正切函数：$y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}$  </li></ul><p>本课程中默认提到激活函数时选择的激活函数为Sigmoid函数。  </p>
           </div>  
 <h3 id="多层神经网络"><a href="#多层神经网络" class="headerlink" title="多层神经网络"></a>多层神经网络</h3><p>按照生理学，大脑中的每一个神经元的树突接收来自多个其他神经元的输入，同时该神经元的轴突向其他神经元输出。神经网络模仿了这一生理学特性，它是一组神经元连接在一起的集合，如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912132356.png width=50%><br>第一层称为输入层，我们在这一层输入全部的特征，最后一层称为输出层，这一层的神经元输出假设的最终结果，中间的层称为隐含层(hidden layer)，隐含层可能不止有一层。  </p>
 <div class="note note-info">
@@ -492,7 +492,7 @@ p.spoiler {
 <p>如果不考虑偏置，上图的神经网络结构就可以用公式表示为：  </p>
 <script type="math/tex; mode=display">a_1^{(2)}=g(Θ_{10}^{(1)}x_0+Θ_{11}^{(1)}x_1+Θ_{12}^{(1)}x_2+Θ_{13}^{(1)}x_3)</script><script type="math/tex; mode=display">a_2^{(2)}=g(Θ_{20}^{(1)}x_0+Θ_{21}^{(1)}x_1+Θ_{22}^{(1)}x_2+Θ_{23}^{(1)}x_3)</script><script type="math/tex; mode=display">a_3^{(2)}=g(Θ_{30}^{(1)}x_0+Θ_{31}^{(1)}x_1+Θ_{32}^{(1)}x_2+Θ_{33}^{(1)}x_3)</script><script type="math/tex; mode=display">h_{Θ}(x)=g(Θ_{10}^{(2)}a_0^{(2)}+Θ_{11}^{(2)}a_1^{(2)}+Θ_{12}^{(2)}a_2^{(2)}+Θ_{13}^{(2)}a_3^{(2)})</script><p>如果一个网络在第j层有$s_j$个单元，且在第j+1层有$s_j+1$个单元，那么矩阵$Θ^{(j)}$的维度为$s_{j+1} \times (s_j+1)$</p>
 <h2 id="神经网络的向量化"><a href="#神经网络的向量化" class="headerlink" title="神经网络的向量化"></a>神经网络的向量化</h2><p>对如上的等式，现在将$g(·)$中的线性加权组合以$z^{(2)}_1,z^{(2)}_2,z^{(2)}_3$表示，那么就有：</p>
-<script type="math/tex; mode=display">a_1^{(2)}=g(z_1^{(2)})</script><script type="math/tex; mode=display">a_2^{(2)}=g(z_2^{(2)})</script><script type="math/tex; mode=display">a_3^{(2)}=g(z_3^{(2)})</script><p>现在就能够定义三个向量使得上述等式转化为向量乘法：<br>$x= \left[\begin{smallmatrix} x_0 \\ x_1 \\ x_2 \\ x_3 \end{smallmatrix}\right]$, $z^{(2)}=\left[\begin{smallmatrix} z_1^{(2)}\\ z_2^{(2)}\\ z_3^{(2)}\end{smallmatrix}\right]=Θ^{(1)}x$，$a^{(2)}=\left[\begin{smallmatrix} a_1^{(2)}\\ a_2^{(2)}\\ a_3^{(2)}\end{smallmatrix}\right]$  </p>
+<script type="math/tex; mode=display">a_1^{(2)}=g(z_1^{(2)})</script><script type="math/tex; mode=display">a_2^{(2)}=g(z_2^{(2)})</script><script type="math/tex; mode=display">a_3^{(2)}=g(z_3^{(2)})</script><p>现在就能够定义三个向量使得上述等式转化为向量乘法：<br>$x= \left[\begin{smallmatrix} x_0 \\\ x_1 \\\ x_2 \\\ x_3 \end{smallmatrix}\right]$, $z^{(2)}=\left[\begin{smallmatrix} z_1^{(2)}\\\ z_2^{(2)}\\\ z_3^{(2)}\end{smallmatrix}\right]=Θ^{(1)}x$，$a^{(2)}=\left[\begin{smallmatrix} a_1^{(2)}\\\ a_2^{(2)}\\\ a_3^{(2)}\end{smallmatrix}\right]$  </p>
 <p>那么上述等式最终就可以转化成：</p>
 <script type="math/tex; mode=display">z^{(2)}=Θ^{(1)}x</script><script type="math/tex; mode=display">a^{(2)}=g(z^{(2)})</script><p>对于隐含层的偏置单元，增加一项$a_0^{(2)}=1$.<br>最后计算$z^{(3)}=Θ^{(2)}a^{(2)}$,那么最终得到的假设模型将会是：    </p>
 <script type="math/tex; mode=display">h_{Θ}(x)=a^{(3)}=g(z^{(3)})</script><p>单看layer2 和 layer3，事实上，这两层做的就是逻辑回归，但输入进逻辑回归的特征不再是原始的特征$x$，而是通过原始特征生成的特征$a$。<br>而$a$与$x$之间的关系通过$θ$来定义。 因此可以通过改变$θ$来改变输入层和隐含层之间的关系。</p>
@@ -500,7 +500,7 @@ p.spoiler {
 <script type="math/tex; mode=display">h_{Θ}(x)=a^{(N)}=g(z^{(N)})</script><p>$N$表示神经网络最后一层的标识。  </p>
 <div class="note note-info">
             <p>下一章将说明如何调整权重$θ$的值来优化假设函数。  </p>
-          </div>
+          </div><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -3781,7 +3781,7 @@ p.spoiler {
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

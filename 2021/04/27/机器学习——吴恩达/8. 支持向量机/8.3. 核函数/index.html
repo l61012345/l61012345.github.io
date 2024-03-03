@@ -480,7 +480,7 @@ p.spoiler {
                 <h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><h2 id="非线性分类的SVM"><a href="#非线性分类的SVM" class="headerlink" title="非线性分类的SVM"></a>非线性分类的SVM</h2><p>本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png" srcset="/img/loading.gif" lazyload alt=""><br>比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。<br>比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y=1$。<br>就能够得到一个假设函数：  </p>
 <script type="math/tex; mode=display">h_θ(x)=\begin{cases} 1  \text{if} θ_0+θ_1x_1+..≥0 \\
 0  \text{otherwise} \\
-\end{cases}</script><p>这种方法的问题是假设中的某些高阶项可能是冗余的，并且对于计算机视觉而言，用高阶多项式处理矩阵的计算量非常的大。<br>改进方法是用一些新的特征$F={f_i}$来替换原特征$X={x_i}$。<br>具体而言，比如现在只选取三个特征$x_0$（截距项，如下推导中将被忽略）,$x_1$,$x_2$,在这三个维度上手动选取三个点（称为标记（Landmarks））：$l^{(1)}$,$l^{(2)}$,$l^{(3)}$。<br>将新特征i $f_i$表示为训练样本$x$与$l^{(i)}$的相似度，相似度度量可以用如下公式表示：  </p>
+\end{cases}</script><p>这种方法的问题是假设中的某些高阶项可能是冗余的，并且对于计算机视觉而言，用高阶多项式处理矩阵的计算量非常的大。<br>改进方法是用一些新的特征$F=\{f_i\}$来替换原特征$X=\{x_i\}$。<br>具体而言，比如现在只选取三个特征$x_0$（截距项，如下推导中将被忽略）,$x_1$,$x_2$,在这三个维度上手动选取三个点（称为标记（Landmarks））：$l^{(1)}$,$l^{(2)}$,$l^{(3)}$。<br>将新特征i $f_i$表示为训练样本$x$与$l^{(i)}$的相似度，相似度度量可以用如下公式表示：  </p>
 <script type="math/tex; mode=display">Similarity(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}</script><blockquote>
 <p>欧氏距离：空间中两点的连线距离，表示为$d=√{∑x_i^2}$。<br>$||x-l^{(i)}||$表示空间中$x$与$l^{(i)}$的（欧式）距离。  </p>
 </blockquote>
@@ -492,7 +492,7 @@ p.spoiler {
     &=e^{-\frac{∑_{j=1}^n(x_j-l^{(i)}_j)^2}{2σ^2}}
 \end{aligned}</script><p>对于某个特定的$i$:<br>如果$x≈l^{(i)}$（两者的欧氏距离非常近）,$f_i≈e^{-\frac{0}{2σ}}≈1$。<br>如果$x$和$l^{(i)}$的欧氏距离非常远,$f_i≈e^{-\frac{∞}{2σ}}≈0$。<br>对于任何一个样本$x$,都可以计算$f_1$,$f_2$,$f_3$三个特征。<br>在图像上反映相似度与两者距离之间的关系即为高维空间中的高斯分布，且σ越大，图像梯度越小。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png" srcset="/img/loading.gif" lazyload alt=""><br>△当$l^{(1)}=[3,5]^T$时x的坐标$[x_1,x_2]^T$与相似度的关系。  </p>
 <h2 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h2><p>再回到之前样本在特征上的分布：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png" srcset="/img/loading.gif" lazyload alt=""><br>如果样本距离某个$l^{(i)}$非常近（洋红色），那么边界函数输出的结果大于0，预测$y=1$。<br>如果样本距离三个$l^{(i)}$非常远（蓝色），那么边界函数输出的结果小于0，预测$y=0$。<br>当样本足够多的时候，所有$y=1$的点的边界即为决策边界，此时的决策边界是非线性的。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png" srcset="/img/loading.gif" lazyload alt="">  </p>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -594,9 +594,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C/" title="8.1. 激活函数、代价函数和决策边界">
+                      <a href="/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.2.%20%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/" title="8.2. 数学原理">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">8.1. 激活函数、代价函数和决策边界</span>
+                        <span class="hidden-mobile">8.2. 数学原理</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -604,8 +604,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.2.%20%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/" title="8.2. 数学原理">
-                        <span class="hidden-mobile">8.2. 数学原理</span>
+                      <a href="/2021/04/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/5.%20%E6%88%90%E5%83%8F%E7%90%86%E8%AE%BA/" title="Lecture 05 成像理论">
+                        <span class="hidden-mobile">Lecture 05 成像理论</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -910,7 +910,7 @@ p.spoiler {
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

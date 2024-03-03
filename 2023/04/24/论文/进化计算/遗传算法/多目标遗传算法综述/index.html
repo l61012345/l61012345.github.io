@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="多目标优化遗传算法综述 Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, et al.    帕累托最优理论在数学上，多目标优化问题可以被公式化为如下表述：如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}&#x3D;{x_1,x_2,…">
+    <meta name="description" content="多目标优化遗传算法综述 Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, et al.    帕累托最优理论在数学上，多目标优化问题可以被公式化为如下表述：如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}&#x3D;\{x_1,x_2,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="多目标优化遗传算法综述">
 <meta property="og:url" content="https://l61012345.top/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="多目标优化遗传算法综述 Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, et al.    帕累托最优理论在数学上，多目标优化问题可以被公式化为如下表述：如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}&#x3D;{x_1,x_2,…">
+<meta property="og:description" content="多目标优化遗传算法综述 Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, et al.    帕累托最优理论在数学上，多目标优化问题可以被公式化为如下表述：如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}&#x3D;\{x_1,x_2,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-24T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-12T10:17:51.240Z">
@@ -475,7 +475,7 @@ p.spoiler {
                 <h1 id="多目标优化遗传算法综述"><a href="#多目标优化遗传算法综述" class="headerlink" title="多目标优化遗传算法综述"></a>多目标优化遗传算法综述</h1><blockquote>
 <p>Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, <em>et al</em>.  </p>
 </blockquote>
-<h2 id="帕累托最优理论"><a href="#帕累托最优理论" class="headerlink" title="帕累托最优理论"></a>帕累托最优理论</h2><p>在数学上，多目标优化问题可以被公式化为如下表述：<br>如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}={x_1,x_2,…,x_n}$，那么多目标优化就是找到一个解$\boldsymbol{x^*}$使得$K$个目标函数(objective function)$z_i(\boldsymbol{x})$具有最小值:  </p>
+<h2 id="帕累托最优理论"><a href="#帕累托最优理论" class="headerlink" title="帕累托最优理论"></a>帕累托最优理论</h2><p>在数学上，多目标优化问题可以被公式化为如下表述：<br>如果多目标问题的每一种解都可以使用$n$维空间$X$中的一个的向量进行表示：$\boldsymbol{x}=\{x_1,x_2,…,x_n\}$，那么多目标优化就是找到一个解$\boldsymbol{x^*}$使得$K$个目标函数(objective function)$z_i(\boldsymbol{x})$具有最小值:  </p>
 <script type="math/tex; mode=display">z(x^*)=\{z_1(\boldsymbol{x^*}),z_2(\boldsymbol{x^*}),...,z_n(\boldsymbol{x^*})\}</script><p>同时，搜索空间$X$受到一系列的约束条件(constrain)$g$的限制：$g_j(\boldsymbol{x^*})=b_j$，$j=1,…,m$.   </p>
 <p>实际情况是，许多约束的满足条件彼此之间会冲突，因此<strong>实际上想要找到一个多目标解使得所有目标函数同时达到最优解几乎是不可能的</strong>。因此，事实上多目标优化是寻找一组最优化的近似解，这个解在每一个目标函数中的结果都在可以接受的范围内，而且没有其他的解可以比这个解至少在一个目标函数中更好。  </p>
 <h3 id="支配和帕累托最优解"><a href="#支配和帕累托最优解" class="headerlink" title="支配和帕累托最优解"></a>支配和帕累托最优解</h3><p>假设优化问题为最小值优化，<strong>如果一个解$\boldsymbol{x}$至少在一个目标函数中的结果比另一个解$\boldsymbol{y}$好</strong>：$z_i(\boldsymbol{x})&lt;z_i(\boldsymbol{y}), i=1,2,…,K$，<strong>且在其他目标函数中的结果不比$\boldsymbol{y}$差：$z_j(\boldsymbol{x})≤z_j(\boldsymbol{y}),j=1,2,…,K$，那么称解$\boldsymbol{x}$支配(dominate)另一个解$\boldsymbol{y}$</strong>($\boldsymbol{x}≻\boldsymbol{y}$).<br>进一步地，如果一个解$\boldsymbol{x}$在搜索空间中不被其他任何一个解支配，那么这个解被称为帕累托最优解(Pareto optimal，以下简称帕累托解)或者帕累托效率(Pareto efficiency)。  </p>
@@ -499,9 +499,9 @@ p.spoiler {
 </ul>
 <p>综上所述，使用遗传算法对多目标问题进行优化已经成为一种流行的使用方法。第一个多目标遗传算法(Multi-objective GA)是由Schaffer提出的VEGA(Vector Evalutated GA). 之后陆陆续续有更多的遗传算法的改进被应用于多目标优化中，它们的评述在文中总结在本文文末。   </p>
 <h2 id="多目标遗传算法的设计"><a href="#多目标遗传算法的设计" class="headerlink" title="多目标遗传算法的设计"></a>多目标遗传算法的设计</h2><h3 id="适应度函数"><a href="#适应度函数" class="headerlink" title="适应度函数"></a>适应度函数</h3><h4 id="线性组合和赋权"><a href="#线性组合和赋权" class="headerlink" title="线性组合和赋权"></a>线性组合和赋权</h4><p>最经典的一种设计多目标遗传算法适应度函数的方法是将所有的适应度函数进行线性组合，并分别赋予权重$w_i$。如此多目标优化将通过线性组合转化为一种近似于单目标优化问题的求解方式：  </p>
-<script type="math/tex; mode=display">min [z] = w_1z_1(\boldsymbol{x})+w_2z_2(\boldsymbol{x})+...+w_kz_k(\boldsymbol{x})</script><p>通常所有的权重和为1：$∑w_i=1$。这种方法通常需要使用者通过某种方式给出权重$\boldsymbol{w_i}={w_1,w_2,…,w_k}$，常见的赋权方式为按照优先级赋权，因此这种方法被称为优先级方法(priori approach)。<br>在这种方法下，算法需要使用不同的权重多次运行进行测试，如何设置不同的权重是该方法中的一个重要问题。WBGA中使用了一种自动化赋权的方式：WBGA中，权重与个体的染色体绑定，跟随个体一同被选择和进化。<br>另一种基于MOGA的多目标遗传算法RWGA则在选择阶段为每一个个体使用随机生成的不同的权重向量$\boldsymbol{w_i}$。使用随机赋权的目的是通过随机的权重可以在一次算法运行中规定不同的搜索方向而不需要添加和设置其他参数。  </p>
+<script type="math/tex; mode=display">min [z] = w_1z_1(\boldsymbol{x})+w_2z_2(\boldsymbol{x})+...+w_kz_k(\boldsymbol{x})</script><p>通常所有的权重和为1：$∑w_i=1$。这种方法通常需要使用者通过某种方式给出权重$\boldsymbol{w_i}=\{w_1,w_2,…,w_k\}$，常见的赋权方式为按照优先级赋权，因此这种方法被称为优先级方法(priori approach)。<br>在这种方法下，算法需要使用不同的权重多次运行进行测试，如何设置不同的权重是该方法中的一个重要问题。WBGA中使用了一种自动化赋权的方式：WBGA中，权重与个体的染色体绑定，跟随个体一同被选择和进化。<br>另一种基于MOGA的多目标遗传算法RWGA则在选择阶段为每一个个体使用随机生成的不同的权重向量$\boldsymbol{w_i}$。使用随机赋权的目的是通过随机的权重可以在一次算法运行中规定不同的搜索方向而不需要添加和设置其他参数。  </p>
 <div class="note note-info">
-            <p>Procedure RWGA:<br>$E$:  external archive to store non-dominated solutions<br>found during the search so far;<br>$n_E$: number of elitist solutions immigrating from $E$ to $P$<br>in each generation.  </p><ul><li>Step 1: Generate a random population.  </li><li><p>Step 2: Assign a fitness value to each solution $x∈P_t$ by performing the following steps:  </p><ul><li>Step 2.1: Generate a random number uk in $[0,1]$ for each objective $k, k=1,…,K$.  </li><li>Step 2.2: Calculate the random weight of each objective $k$ as $w_k=(1/u_k)\sum_{i=1}^Ku_i$.  </li><li>Step 2.3: Calculate the fitness of the solution as $f(\boldsymbol{x})=\sum_{i=1}^Kw_kz_k(\boldsymbol{x})$.  </li></ul></li><li><p>Step 3: Calculate the selection probability of each solution $x∈P_t$ as follows: $p(\boldsymbol{x})=(f(\boldsymbol{x})-f^{min})^{-1}\sum_{\boldsymbol{y}∈P_t}(f(\boldsymbol{y})-f^{min})$<br>where $f^{min}=min{f(\boldsymbol{x})|\boldsymbol{x}∈P_t}$.  </p></li><li>Step 4: Select parents using the selection probabilities calculated in Step 3. Apply crossover on the selected parent pairs to create $N$ offspring.  Mutate offspring with a predefined mutation rate.<br>Copy all offspring to $P_{t+1}$.<br>Update $E$ if necessary.  </li><li>Step 5: Randomly remove nE solutions from $P_{t+1}$ and add the same number of solutions from $E$ to $P_{t+1}$.  </li><li>Step 6: If the stopping condition is not satisfied, set $t=t+1$ and go to Step 2. Otherwise, return to $E$.  </li></ul>
+            <p>Procedure RWGA:<br>$E$:  external archive to store non-dominated solutions<br>found during the search so far;<br>$n_E$: number of elitist solutions immigrating from $E$ to $P$<br>in each generation.  </p><ul><li>Step 1: Generate a random population.  </li><li><p>Step 2: Assign a fitness value to each solution $x∈P_t$ by performing the following steps:  </p><ul><li>Step 2.1: Generate a random number uk in $[0,1]$ for each objective $k, k=1,…,K$.  </li><li>Step 2.2: Calculate the random weight of each objective $k$ as $w_k=(1/u_k)\sum_{i=1}^Ku_i$.  </li><li>Step 2.3: Calculate the fitness of the solution as $f(\boldsymbol{x})=\sum_{i=1}^Kw_kz_k(\boldsymbol{x})$.  </li></ul></li><li><p>Step 3: Calculate the selection probability of each solution $x∈P_t$ as follows: $p(\boldsymbol{x})=(f(\boldsymbol{x})-f^{min})^{-1}\sum_{\boldsymbol{y}∈P_t}(f(\boldsymbol{y})-f^{min})$<br>where $f^{min}=min\{f(\boldsymbol{x})|\boldsymbol{x}∈P_t\}$.  </p></li><li>Step 4: Select parents using the selection probabilities calculated in Step 3. Apply crossover on the selected parent pairs to create $N$ offspring.  Mutate offspring with a predefined mutation rate.<br>Copy all offspring to $P_{t+1}$.<br>Update $E$ if necessary.  </li><li>Step 5: Randomly remove nE solutions from $P_{t+1}$ and add the same number of solutions from $E$ to $P_{t+1}$.  </li><li>Step 6: If the stopping condition is not satisfied, set $t=t+1$ and go to Step 2. Otherwise, return to $E$.  </li></ul>
           </div>  
 <p>线性组合的主要优点是这种方法非常简单而且易于实现。相对地，线性组合的方式查找对非凸的目标函数性能较差。因此，如果真正的帕累托前沿是非凸函数，按照线性组合并不能完全找到帕累托最优解，而且找到的最优解很难做到均匀分布。  </p>
 <h4 id="改变目标函数"><a href="#改变目标函数" class="headerlink" title="改变目标函数"></a>改变目标函数</h4><p>在最初的多目标遗传算法VEGA中，使用了另一种适应度函数。VEGA根据目标函数的个数将整个种群分成了若干个子种群:$P_1,P_2,…,P_K$。每个子种群$P_i$对应一个特定的目标函数$z_i$，每一代中按照该目标函数赋予适应度、进行选择后再综合进行交叉和变异等遗传操作。  </p>
@@ -572,7 +572,7 @@ p.spoiler {
 <li>哪些个体会被存储在$E$中？<br>大多数的多目标遗传算法中，迄今为止找到的所有的非支配解都会存储在外置列表$E$中。与此同时，$E$这个列表也会进行动态更新，加入新的非支配解；用查找到的更高级的非支配解替代现有$E$中受其支配的“非支配解”。<br>需要注意的是，这样的决策过程需要额外的计算量。  </li>
 <li><p>外置列表$E$的大小<br>随着搜索过程的进行，找到的非支配解会越来越多，因此最后$E$的大小会相当大。有一些修剪(pruning)技术可以控制$E$的大小，比如SPEA中使用了一种平均连接聚类来限制$E$的大小始终在一个上限$N^E_{max}$以内。<br>具体而言，这种平均连接聚类(average linkage clustering)的过程如下：  </p>
 <ol>
-<li>Initially, assign each solution $x∈E$ to a cluster $c_i$, $C = {c_1, c_2, … , c_M}$.  </li>
+<li>Initially, assign each solution $x∈E$ to a cluster $c_i$, $C = \{c_1, c_2, … , c_M\}$.  </li>
 <li>Calculate the distance between all pairs of clusters $c_i$ and $c_j$ as follows:  <script type="math/tex">d(c_i,c_j)=\frac{1}{|c_i||c_j|}∑_{\boldsymbol{x}∈c_i,\boldsymbol{y}∈c_j}d(\boldsymbol{x},\boldsymbol{y})</script><br>其中$d(\boldsymbol{x},\boldsymbol{y})$可以通过之前的$dz(\boldsymbol{x},\boldsymbol{y})$或者$dx(\boldsymbol{x},\boldsymbol{y})$的计算方法得到。  </li>
 <li>Merge the cluster pair $c_i$ and $c_j$ with the<br>minimum distance among all clusters into a new cluster.</li>
 <li>If $| C | ≤N$, go to Step 5, else go to Step 2.  </li>
@@ -774,7 +774,7 @@ p.spoiler {
 <a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:8" class="footnote-text"><span>Ishibuchi H, Yoshida T, Murata T. Balance between genetic search and local search in memetic algorithms for multiobjective permutation flowshop scheduling. IEEE Trans Evol Comput 2003;7(2): 204–23.
 <a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:9" class="footnote-text"><span>Knowles JD, Corne DW. M-PAES: a memetic algorithm for multiobjective optimization. In: Proceedings of the 2000 congress on evolutionary computation, 16–19 July, 2000. La Jolla, CA, USA: IEEE; 2000.
 <a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:10" class="footnote-text"><span>Tan KC, Lee TH, Khor EF. Evolutionary algorithms with dynamic population size and local exploration for multiobjective optimization. IEEE Trans Evol Comput 2001;5(6):565–88.
-<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
+<a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -925,7 +925,7 @@ p.spoiler {
         aria-expanded="true"
       >
         论文
-        <span class="list-group-count">(30)</span>
+        <span class="list-group-count">(31)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1184,7 +1184,7 @@ p.spoiler {
         aria-expanded="true"
       >
         进化计算
-        <span class="list-group-count">(17)</span>
+        <span class="list-group-count">(18)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1311,7 +1311,7 @@ p.spoiler {
         aria-expanded="false"
       >
         遗传编程
-        <span class="list-group-count">(9)</span>
+        <span class="list-group-count">(10)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1330,6 +1330,15 @@ p.spoiler {
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
         </a>
       
     
@@ -1741,7 +1750,7 @@ p.spoiler {
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

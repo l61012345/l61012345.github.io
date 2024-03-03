@@ -475,7 +475,7 @@ p.spoiler {
                 <h1 id="数字带通系统的调制解调方法"><a href="#数字带通系统的调制解调方法" class="headerlink" title="数字带通系统的调制解调方法"></a>数字带通系统的调制解调方法</h1><h2 id="数字带通系统简述"><a href="#数字带通系统简述" class="headerlink" title="数字带通系统简述"></a>数字带通系统简述</h2><p>数字带通传输系统是将数字基带信号通过载波调制，进入信道，最后在发射端解调，然后通过抽样判决器还原数字信号的过程。数字带通系统主要应用于无线传输，其结构如下图所示。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118084917.png width=60%>  </p>
 <p>PCM信号在经过数字基带系统之后生成数字基带系统的输入信号$S(t)$，输入信号与载波$c(t)$相乘进行调制。在信道中，存在加性高斯白噪声$n(t)$。在接收端，经过带通滤波器后，噪声的频谱收到限制，转变为窄带噪声$n_R(t)$。信号进行相干解调或者非相干解调（包络检波法），通过低通滤波器过滤出高频分量，最后在抽样判决器处还原为数字信号$m(t)$。  </p>
 <h2 id="2ASK"><a href="#2ASK" class="headerlink" title="2ASK"></a>2ASK</h2><p>2ASK(Binary amplitude shift keying)是一种针对数字信号的调幅方法。  </p>
-<h3 id="调制方法"><a href="#调制方法" class="headerlink" title="调制方法"></a>调制方法</h3><p>进入调制模块的输入信号由两部分组成：周期方波脉冲信号$g(t-nT_s)$和需要传输的信息$a_n=\begin{cases}<br>    1,以概率P\<br>    0,以概率1-P\<br>\end{cases}$整个信号表达为：$S(t)=∑_na_ng(t-nT_s)$。<br>该信号与载波$cosω_ct$相乘，得到$S_{2ASK}(t)=[∑_na_ng(t-nT_s)]cosω_ct$，其等价表达为：  </p>
+<h3 id="调制方法"><a href="#调制方法" class="headerlink" title="调制方法"></a>调制方法</h3><p>进入调制模块的输入信号由两部分组成：周期方波脉冲信号$g(t-nT_s)$和需要传输的信息$a_n=\begin{cases}<br>    1,以概率P\\<br>    0,以概率1-P\\<br>\end{cases}$整个信号表达为：$S(t)=∑_na_ng(t-nT_s)$。<br>该信号与载波$cosω_ct$相乘，得到$S_{2ASK}(t)=[∑_na_ng(t-nT_s)]cosω_ct$，其等价表达为：  </p>
 <script type="math/tex; mode=display">S_{2ASK}(t)=\begin{cases}
     cosω_ct,以概率P\\
     0,以概率1-P\\
@@ -489,7 +489,7 @@ p.spoiler {
 <script type="math/tex; mode=display">N_c=\frac{T_s}{T_c}=\frac{f_s}{R_B}</script><p>对$S(t)$和载波信号的功率时间表达做傅里叶变换后相乘，得到2ASK信号的频谱表达式：  </p>
 <script type="math/tex; mode=display">P_{2ASK}(f)=\frac{T_S}{16}\{Sa^2[π(f+f_c)T_s]+Sa^2[(f-f_c)T_s]\}+\frac{1}{16}[δ(f+f_c)+δ(f-f_c)]</script><p>其中：  </p>
 <ul>
-<li>$\frac{T_S}{16}{Sa^2[π(f+f_c)T_s]+Sa^2[(f-f_c)T_s]}$:连续信号，根据$cosω_ct$的采样性质，2ASK的频谱实际上是$s(t)$的频谱频域左右侧各复制一次，且幅度减半之后的结果。  </li>
+<li>$\frac{T_S}{16}\{Sa^2[π(f+f_c)T_s]+Sa^2[(f-f_c)T_s]\}$:连续信号，根据$cosω_ct$的采样性质，2ASK的频谱实际上是$s(t)$的频谱频域左右侧各复制一次，且幅度减半之后的结果。  </li>
 <li>$\frac{1}{16}[δ(f+f_c)+δ(f-f_c)]$：离散信号，用于提取定时脉冲。  </li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118100000.png width=60%>  </p>
@@ -554,7 +554,7 @@ p.spoiler {
 \end{cases}=\begin{cases}
    Acosω_Ct \text{ 表示"1"}\\
    -Acos(ω_Ct) \text{ 表示"0"}
-\end{cases}</script><p>从表达式上可以看出，PSK将原信息$a_n$由单极性码转变为双极性码：$a_n=\begin{cases}<br>   +1 \text{ 以概率P表示“1”}\<br>   -1 \text{ 以概率P表示“0”}<br>\end{cases}$，再与载波相乘。因此可以将PSK看做是双极性码的ASK。  </p>
+\end{cases}</script><p>从表达式上可以看出，PSK将原信息$a_n$由单极性码转变为双极性码：$a_n=\begin{cases}<br>   +1 \text{ 以概率P表示“1”}\\<br>   -1 \text{ 以概率P表示“0”}<br>\end{cases}$，再与载波相乘。因此可以将PSK看做是双极性码的ASK。  </p>
 <h3 id="物理实现-2"><a href="#物理实现-2" class="headerlink" title="物理实现"></a>物理实现</h3><p>物理实现的方法有两种：  </p>
 <ol>
 <li>模拟调制：将单极性码通过码型变换模块转为双极性码，再与载波相乘。  </li>
@@ -621,7 +621,7 @@ p.spoiler {
 </tbody>
 </table>
 </div>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -3895,7 +3895,7 @@ p.spoiler {
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 

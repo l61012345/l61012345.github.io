@@ -617,7 +617,7 @@ p.spoiler {
           </div>
 <p>有：  </p>
 <script type="math/tex; mode=display">x_1(k+1)=-a_1x_2(k)+(b_2-a_1b_0)u(k)</script><script type="math/tex; mode=display">x_2(k+1)=x_1(k)-a_2x_2(k)(b_1-a_2b_0)u(k)</script><script type="math/tex; mode=display">y(k)=x_2(k)+b_0u(k)</script><p>综合以上三式，有：  </p>
-<script type="math/tex; mode=display">\begin{bmatrix}x_1(k+1)\\x_2(k+1)\end{bmatrix}=\begin{bmatrix}0&-a_1\\1&-a_2\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+\begin{bmatrix}b_2-a_1b_0\\b_1-a_2b_0\end{bmatrix}u(k)</script><script type="math/tex; mode=display">y(k)=\begin{bmatrix}0&1\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+b_0u(k)</script><h3 id="连续系统状态空间表示的离散化"><a href="#连续系统状态空间表示的离散化" class="headerlink" title="连续系统状态空间表示的离散化"></a>连续系统状态空间表示的离散化</h3><p>对于连续系统：$\begin{cases}\vec{\dot{x}}=A\vec{x}+Bu \ y(t)=C\vec{x}+Du\end{cases}$，根据<br>映射律$z=e^{sT}$，有:  </p>
+<script type="math/tex; mode=display">\begin{bmatrix}x_1(k+1)\\x_2(k+1)\end{bmatrix}=\begin{bmatrix}0&-a_1\\1&-a_2\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+\begin{bmatrix}b_2-a_1b_0\\b_1-a_2b_0\end{bmatrix}u(k)</script><script type="math/tex; mode=display">y(k)=\begin{bmatrix}0&1\end{bmatrix}\begin{bmatrix}x_1(k)\\x_2(k)\end{bmatrix}+b_0u(k)</script><h3 id="连续系统状态空间表示的离散化"><a href="#连续系统状态空间表示的离散化" class="headerlink" title="连续系统状态空间表示的离散化"></a>连续系统状态空间表示的离散化</h3><p>对于连续系统：$\begin{cases}\vec{\dot{x}}=A\vec{x}+Bu \\ y(t)=C\vec{x}+Du\end{cases}$，根据<br>映射律$z=e^{sT}$，有:  </p>
 <script type="math/tex; mode=display">G=e^{AT}=\mathcal{L}^{-1}((sI-A)^{-1})</script><script type="math/tex; mode=display">H=(\int_0^Te^{Aλ}dλ)B=(G-I)A^{-1}B</script><p>即可得到离散化后的系统状态空间表示：  </p>
 <script type="math/tex; mode=display">x(k+1)=Gx(k)+Hu(k)</script><script type="math/tex; mode=display">y(k)=Cx(k)+Du(k)</script><p>需要注意的是，$G$和$H$会随着采样周期$T$的变化而变化。  </p>
 <h2 id="离散系统的能控性和能观性"><a href="#离散系统的能控性和能观性" class="headerlink" title="离散系统的能控性和能观性"></a>离散系统的能控性和能观性</h2><h3 id="能控性判定"><a href="#能控性判定" class="headerlink" title="能控性判定"></a>能控性判定</h3><p>根据系统能控性的定义，如果系统的控制信号与系统的状态变量独立，则系统是能控的。换言之，对于任意$n$，倘若$G^{n-1}$都与$H$独立，则系统是能控的。<br>定义离散系统的能控性矩阵：  </p>
@@ -625,8 +625,8 @@ p.spoiler {
 <h3 id="能观性判定"><a href="#能观性判定" class="headerlink" title="能观性判定"></a>能观性判定</h3><p>根据系统能观性的定义，如果系统任何状态转换都会影响每一个输出变量，那么系统是能观的。<br>定义离散系统的能观性矩阵：  </p>
 <script type="math/tex; mode=display">\begin{bmatrix}
     C\\ - \\ CG \\ - \\ ... \\ - \\ CG^{n-1}
-\end{bmatrix}</script><p>如果离散系统的能观性矩阵满秩，即$|\begin{bmatrix}<br>    C\ - \ CG \ - \ … \ - \ CG^{n-1}<br>\end{bmatrix}|≠0$，则系统是能观的。    </p>
-<h2 id="反馈控制器"><a href="#反馈控制器" class="headerlink" title="反馈控制器"></a>反馈控制器</h2><h3 id="反馈控制系统的特征方程"><a href="#反馈控制系统的特征方程" class="headerlink" title="反馈控制系统的特征方程"></a>反馈控制系统的特征方程</h3><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\ y(k)=C\vec{x}(k) \end{cases}$:<br>添加一个负反馈控制器$K$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611213137.png width=80%>  </p>
+\end{bmatrix}</script><p>如果离散系统的能观性矩阵满秩，即$|\begin{bmatrix}<br>    C\\ - \\ CG \\ - \\ … \\ - \\ CG^{n-1}<br>\end{bmatrix}|≠0$，则系统是能观的。    </p>
+<h2 id="反馈控制器"><a href="#反馈控制器" class="headerlink" title="反馈控制器"></a>反馈控制器</h2><h3 id="反馈控制系统的特征方程"><a href="#反馈控制系统的特征方程" class="headerlink" title="反馈控制系统的特征方程"></a>反馈控制系统的特征方程</h3><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>添加一个负反馈控制器$K$:<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611213137.png width=80%>  </p>
 <p>根据上图，有系统的状态方程：  </p>
 <script type="math/tex; mode=display">x(k+1)=Ax(k)+Bu(k)</script><p>带入$u(k)=-kx(k)+v(k)$，有：  </p>
 <script type="math/tex; mode=display">x(k+1)=(A-BK)x(k)+Bv(k)</script><p>其中，</p>
@@ -637,7 +637,7 @@ p.spoiler {
 <li>设计系统的反馈控制器，并且根据$|zI-(A-BK)|$找到系统含有$k_i$的特征多项式。  </li>
 <li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
 </ul>
-<h2 id="观测器设计"><a href="#观测器设计" class="headerlink" title="观测器设计"></a>观测器设计</h2><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\ y(k)=C\vec{x}(k) \end{cases}$:<br>增加一个观测器：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502180408.png width=50%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611215158.png width=50%>  </p>
+<h2 id="观测器设计"><a href="#观测器设计" class="headerlink" title="观测器设计"></a>观测器设计</h2><p>对于系统$\begin{cases} \vec{x}(k+1)=A\vec{x}(k)+Bu(k)\\ y(k)=C\vec{x}(k) \end{cases}$:<br>增加一个观测器：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220502180408.png width=50%><br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220611215158.png width=50%>  </p>
 <h3 id="观测器的功能"><a href="#观测器的功能" class="headerlink" title="观测器的功能"></a>观测器的功能</h3><p>系统在下一个时刻的状态估计量为$\vec{\hat{x}}(k+1)$，它可以通过观测器得到：  </p>
 <script type="math/tex; mode=display">\vec{\hat{x}}(k+1)=A\vec{\hat{x}}+Bu(k)+L[y(k)-C\vec{\hat{x}}(k)]</script><p>设系统的观测状态误差为观测器估计的系统下一时刻状态的观测值和系统下一时刻状态的实际值之差：  </p>
 <script type="math/tex; mode=display">\vec{x_e}(k+1)=\vec{x}(k+1)-\vec{\hat{x}}(k+1)</script><p>结合$\vec{x}(k+1)=A\vec{x}(k)+Bu(k)$，有：  </p>
@@ -652,7 +652,7 @@ p.spoiler {
 <li>设计系统的反馈控制器，并且根据$|zI-(A-LC)|$找到系统含有$l_i$的特征多项式。  </li>
 <li>通过两种方法得出的特征多项式进行系数匹配，得到$K$。  </li>
 </ul>
-
+<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
                 
               </div>
             
@@ -3926,7 +3926,7 @@ p.spoiler {
       </script>
     
 
-  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
 
   <script  src="/js/local-search.js" ></script>
 
