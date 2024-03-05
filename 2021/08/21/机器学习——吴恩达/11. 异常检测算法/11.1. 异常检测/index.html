@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="异常检测问题异常检测(Anomaly detection)算法是另一种常在非监督学习中使用的算法。这种算法虽然常常用于非监督学习，但与监督学习有许多相似之处。对于一个非监督学习的数据集，假定数据集里的数据都是正常或异常的，此时加入一个新的数据，判断其在空间内的分布是否异常（符合现有数据集的分布规律）的问题称为异常检测问题。   解决这类问题，基本思路是对现有数据集的分布概率进行建模：设数据集$X$">
+    <meta name="description" content="异常检测问题 异常检测(Anomaly detection)算法是另一种常在非监督学习中使用的算法。这种算法虽然常常用于非监督学习，但与监督学习有许多相似之处。 对于一个非监督学习的数据集，假定数据集里的数据都是正常或异常的，此时加入一个新的数据，判断其在空间内的分布是否异常（符合现有数据集的分布规律）的问题称为异常检测问题。  解决这类问题，基本思路是对现有数据集的分布概率进行建模：设">
 <meta property="og:type" content="article">
 <meta property="og:title" content="11.1. 异常检测问题">
 <meta property="og:url" content="https://l61012345.top/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.1.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="异常检测问题异常检测(Anomaly detection)算法是另一种常在非监督学习中使用的算法。这种算法虽然常常用于非监督学习，但与监督学习有许多相似之处。对于一个非监督学习的数据集，假定数据集里的数据都是正常或异常的，此时加入一个新的数据，判断其在空间内的分布是否异常（符合现有数据集的分布规律）的问题称为异常检测问题。   解决这类问题，基本思路是对现有数据集的分布概率进行建模：设数据集$X$">
+<meta property="og:description" content="异常检测问题 异常检测(Anomaly detection)算法是另一种常在非监督学习中使用的算法。这种算法虽然常常用于非监督学习，但与监督学习有许多相似之处。 对于一个非监督学习的数据集，假定数据集里的数据都是正常或异常的，此时加入一个新的数据，判断其在空间内的分布是否异常（符合现有数据集的分布规律）的问题称为异常检测问题。  解决这类问题，基本思路是对现有数据集的分布概率进行建模：设">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:18.816Z">
@@ -472,16 +472,34 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="异常检测问题"><a href="#异常检测问题" class="headerlink" title="异常检测问题"></a>异常检测问题</h1><p>异常检测(Anomaly detection)算法是另一种常在非监督学习中使用的算法。这种算法虽然常常用于非监督学习，但与监督学习有许多相似之处。<br>对于一个非监督学习的数据集，假定数据集里的数据都是正常或异常的，此时加入一个新的数据，判断其在空间内的分布是否异常（符合现有数据集的分布规律）的问题称为异常检测问题。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210804145801.png width=50%>  </p>
-<p>解决这类问题，基本思路是对现有数据集的分布概率进行建模：设数据集$X$的分布概率模型为$p(x)$，然后检测新数据$x_{test}$的分布概率为$p(x_{test})$，通过设定一个阈值$ɛ$来检测$x_{test}$是否异常：如果$p(x_{test})&lt;ɛ$，则判定$x_{test}$的数据出现了异常。  </p>
+                <h1 id="异常检测问题">异常检测问题</h1>
+<p>异常检测(Anomaly
+detection)算法是另一种常在非监督学习中使用的算法。这种算法虽然常常用于非监督学习，但与监督学习有许多相似之处。<br />
+对于一个非监督学习的数据集，假定数据集里的数据都是正常或异常的，此时加入一个新的数据，判断其在空间内的分布是否异常（符合现有数据集的分布规律）的问题称为异常检测问题。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210804145801.png width=50%></p>
+<p>解决这类问题，基本思路是对现有数据集的分布概率进行建模：设数据集<span
+class="math inline">\(X\)</span>的分布概率模型为<span
+class="math inline">\(p(x)\)</span>，然后检测新数据<span
+class="math inline">\(x_{test}\)</span>的分布概率为<span
+class="math inline">\(p(x_{test})\)</span>，通过设定一个阈值<span
+class="math inline">\(ɛ\)</span>来检测<span
+class="math inline">\(x_{test}\)</span>是否异常：如果<span
+class="math inline">\(p(x_{test})&lt;ɛ\)</span>，则判定<span
+class="math inline">\(x_{test}\)</span>的数据出现了异常。</p>
 <blockquote>
-<p>概率分布模型$p(x)$在数据密集的中心区域位置的值很高，越疏离中心，$p(x)$的值越低。  </p>
+<p>概率分布模型<span
+class="math inline">\(p(x)\)</span>在数据密集的中心区域位置的值很高，越疏离中心，<span
+class="math inline">\(p(x)\)</span>的值越低。</p>
 </blockquote>
-<h3 id="应用案例"><a href="#应用案例" class="headerlink" title="应用案例"></a>应用案例</h3><ul>
-<li>用户欺诈行为检测  </li>
-<li>产品质量检测  </li>
-<li>生产监控  </li>
-<li>…  </li>
+<h3 id="应用案例">应用案例</h3>
+<ul>
+<li>用户欺诈行为检测<br />
+</li>
+<li>产品质量检测<br />
+</li>
+<li>生产监控<br />
+</li>
+<li>...</li>
 </ul>
 
                 
@@ -926,5 +944,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

@@ -107,21 +107,17 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="方差和偏差判断方法运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（高偏差（Bias））或者过拟合（高方差（Variance））问题。 那么如何判断算法究竟出现了哪一种问题？上一讲中已经定义过训练，测试和验证误差。 通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：通过上图能够判断模型到底出现了欠拟合还是过拟合：如果训练和测试误差都很高，那么有高概率是">
+    <meta name="description" content="方差和偏差 判断方法 运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（高偏差（Bias））或者过拟合（高方差（Variance））问题。 那么如何判断算法究竟出现了哪一种问题？ 上一讲中已经定义过训练，测试和验证误差。 通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：  通过上图能够判断模型到底出现了欠拟合还是过拟合： 如果训练和测">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6.2. 方差与偏差">
 <meta property="og:url" content="https://l61012345.top/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.2.%20%E6%96%B9%E5%B7%AE%E5%92%8C%E5%81%8F%E5%B7%AE/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="方差和偏差判断方法运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（高偏差（Bias））或者过拟合（高方差（Variance））问题。 那么如何判断算法究竟出现了哪一种问题？上一讲中已经定义过训练，测试和验证误差。 通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：通过上图能够判断模型到底出现了欠拟合还是过拟合：如果训练和测试误差都很高，那么有高概率是">
+<meta property="og:description" content="方差和偏差 判断方法 运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（高偏差（Bias））或者过拟合（高方差（Variance））问题。 那么如何判断算法究竟出现了哪一种问题？ 上一讲中已经定义过训练，测试和验证误差。 通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：  通过上图能够判断模型到底出现了欠拟合还是过拟合： 如果训练和测">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212237.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212259.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212322.png">
 <meta property="article:published_time" content="2021-04-22T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:20.061Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212237.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -476,11 +472,49 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="方差和偏差"><a href="#方差和偏差" class="headerlink" title="方差和偏差"></a>方差和偏差</h1><h2 id="判断方法"><a href="#判断方法" class="headerlink" title="判断方法"></a>判断方法</h2><p>运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（<strong>高偏差（Bias）</strong>）或者过拟合（<strong>高方差（Variance）</strong>）问题。 那么如何判断算法究竟出现了哪一种问题？<br>上一讲中已经定义过训练，测试和验证误差。 通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212237.png" srcset="/img/loading.gif" lazyload alt=""><br>通过上图能够判断模型到底出现了欠拟合还是过拟合：<br><strong>如果训练和测试误差都很高，那么有高概率是发生了欠拟合问题。</strong> <strong>如果训练误差低，测试误差高（远大于训练误差），那么有高概率发生了过拟合问题。</strong>    </p>
-<h2 id="偏差和方差与正则化算法"><a href="#偏差和方差与正则化算法" class="headerlink" title="偏差和方差与正则化算法"></a>偏差和方差与正则化算法</h2><p>假设已经得到了一个$d=4$的多项式模型：</p>
-<script type="math/tex; mode=display">h_θ(x)=θ_0+θ_1x+θ_2x^2+θ_3x^3+θ_4x^4</script><p>对其代价函数增加一个正则化项使得参数尽量缩小:   </p>
-<script type="math/tex; mode=display">J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]</script><p>下图表示了正则化系数$λ$的大小与拟合情况的关系：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212259.png" srcset="/img/loading.gif" lazyload alt=""><br><strong>过大的$λ$容易发生欠拟合问题，而过小的$λ$（近似于$λ=0$）则无法起到规避过拟合的作用。</strong><br>如何设置合适的$λ$呢？<br>通过正则化的代价函数$J(θ)$求出最合适的一组$θ$，此时模型的<strong>训练误差$J_{train}(θ)$应当不包含正则化项</strong>，也就是：</p>
-<script type="math/tex; mode=display">J_{train}(\theta)=\frac{1}{2m}\sum_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2</script><p>在加入正则化算法后，测试一系列的$λ$的值，并得到一系列最优化的代价函数，并求到一系列的$Θ$,再用验证集计算验证集误差$J_{cv}(θ)$,最终选择验证集误差最小的那一组$θ$,使用测试集计算出测试误差$J_{test}$。<br>下图表示了$λ$的大小与训练误差和验证误差的关系：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212322.png" srcset="/img/loading.gif" lazyload alt="">   </p>
+                <h1 id="方差和偏差">方差和偏差</h1>
+<h2 id="判断方法">判断方法</h2>
+<p>运行一个学习算法时，如果模型表现不理想，有高可能性是发生了欠拟合（<strong>高偏差（Bias）</strong>）或者过拟合（<strong>高方差（Variance）</strong>）问题。
+那么如何判断算法究竟出现了哪一种问题？<br />
+上一讲中已经定义过训练，测试和验证误差。
+通常情况下，假设多项式模型中多项式的次数与训练和测试、验证误差的关系如下图所示：<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212237.png" srcset="/img/loading.gif" lazyload /><br />
+通过上图能够判断模型到底出现了欠拟合还是过拟合：
+<strong>如果训练和测试误差都很高，那么有高概率是发生了欠拟合问题。</strong>
+<strong>如果训练误差低，测试误差高（远大于训练误差），那么有高概率发生了过拟合问题。</strong></p>
+<h2 id="偏差和方差与正则化算法">偏差和方差与正则化算法</h2>
+<p>假设已经得到了一个<span
+class="math inline">\(d=4\)</span>的多项式模型： <span
+class="math display">\[h_θ(x)=θ_0+θ_1x+θ_2x^2+θ_3x^3+θ_4x^4\]</span>
+对其代价函数增加一个正则化项使得参数尽量缩小:<br />
+<span class="math display">\[
+J_{\theta}=\frac{1}{2m}[\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2+λ\Sigma_{j=1}^{m}\theta_j^2]\]</span></p>
+<p>下图表示了正则化系数<span
+class="math inline">\(λ\)</span>的大小与拟合情况的关系：<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212259.png" srcset="/img/loading.gif" lazyload /><br />
+<strong>过大的<span
+class="math inline">\(λ\)</span>容易发生欠拟合问题，而过小的<span
+class="math inline">\(λ\)</span>（近似于<span
+class="math inline">\(λ=0\)</span>）则无法起到规避过拟合的作用。</strong><br />
+如何设置合适的<span class="math inline">\(λ\)</span>呢？
+通过正则化的代价函数<span
+class="math inline">\(J(θ)\)</span>求出最合适的一组<span
+class="math inline">\(θ\)</span>，此时模型的<strong>训练误差<span
+class="math inline">\(J_{train}(θ)\)</span>应当不包含正则化项</strong>，也就是：
+<span
+class="math display">\[J_{train}(\theta)=\frac{1}{2m}\sum_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})^2\]</span><br />
+在加入正则化算法后，测试一系列的<span
+class="math inline">\(λ\)</span>的值，并得到一系列最优化的代价函数，并求到一系列的<span
+class="math inline">\(Θ\)</span>,再用验证集计算验证集误差<span
+class="math inline">\(J_{cv}(θ)\)</span>,最终选择验证集误差最小的那一组<span
+class="math inline">\(θ\)</span>,使用测试集计算出测试误差<span
+class="math inline">\(J_{test}\)</span>。<br />
+下图表示了<span
+class="math inline">\(λ\)</span>的大小与训练误差和验证误差的关系：<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212322.png" srcset="/img/loading.gif" lazyload /></p>
 
                 
               </div>
@@ -924,5 +958,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

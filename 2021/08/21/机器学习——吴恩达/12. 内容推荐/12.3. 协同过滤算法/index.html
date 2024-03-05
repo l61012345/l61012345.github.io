@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="协同过滤算法和基于内容的线性回归模型不同，协同过滤算法能够自动学习所要使用的特征，避免了需要先手动评价“爱情度”和“动作度”这样的不可理喻的事情。   整合到一起在上一节中利用线性回归模型作出了两个算法分别用于预测用户的取向和电影的内容特征。两个算法的思路分别是；已知电影的特征$x^{(i)}$，求出用户的取向$θ^{(j)}$；已知用户的取向$θ^{(j)}$，求出电影的特征$x^{(i)}$—">
+    <meta name="description" content="协同过滤算法 和基于内容的线性回归模型不同，协同过滤算法能够自动学习所要使用的特征，避免了需要先手动评价“爱情度”和“动作度”这样的不可理喻的事情。 整合到一起 在上一节中利用线性回归模型作出了两个算法分别用于预测用户的取向和电影的内容特征。两个算法的思路分别是；已知电影的特征\(x^{(i)}\)，求出用户的取向\(θ^{(j)}\)；已知用户的取向\(θ^{(j)}\)，求出电影的特征\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12.3. 协同过滤算法">
 <meta property="og:url" content="https://l61012345.top/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.3.%20%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="协同过滤算法和基于内容的线性回归模型不同，协同过滤算法能够自动学习所要使用的特征，避免了需要先手动评价“爱情度”和“动作度”这样的不可理喻的事情。   整合到一起在上一节中利用线性回归模型作出了两个算法分别用于预测用户的取向和电影的内容特征。两个算法的思路分别是；已知电影的特征$x^{(i)}$，求出用户的取向$θ^{(j)}$；已知用户的取向$θ^{(j)}$，求出电影的特征$x^{(i)}$—">
+<meta property="og:description" content="协同过滤算法 和基于内容的线性回归模型不同，协同过滤算法能够自动学习所要使用的特征，避免了需要先手动评价“爱情度”和“动作度”这样的不可理喻的事情。 整合到一起 在上一节中利用线性回归模型作出了两个算法分别用于预测用户的取向和电影的内容特征。两个算法的思路分别是；已知电影的特征\(x^{(i)}\)，求出用户的取向\(θ^{(j)}\)；已知用户的取向\(θ^{(j)}\)，求出电影的特征\">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:19.048Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          841 字
+          845 字
         
       </span>
     
@@ -472,24 +472,61 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="协同过滤算法"><a href="#协同过滤算法" class="headerlink" title="协同过滤算法"></a>协同过滤算法</h1><p>和基于内容的线性回归模型不同，协同过滤算法能够自动学习所要使用的特征，避免了需要先手动评价“爱情度”和“动作度”这样的不可理喻的事情。  </p>
-<h2 id="整合到一起"><a href="#整合到一起" class="headerlink" title="整合到一起"></a>整合到一起</h2><p>在上一节中利用线性回归模型作出了两个算法分别用于预测用户的取向和电影的内容特征。两个算法的思路分别是；已知电影的特征$x^{(i)}$，求出用户的取向$θ^{(j)}$；已知用户的取向$θ^{(j)}$，求出电影的特征$x^{(i)}$——这看起来是一个先有鸡还是先有蛋的问题，解决办法的构想如下：  </p>
-<ol>
-<li>随机初始化$θ$</li>
-<li>利用随机初始化的$θ$建立线性回归模型，预测出电影的特征向量$x$  </li>
-<li>利用预测出电影的特征向量建立线性回归模型，预测出用户的取向$θ$  </li>
+                <h1 id="协同过滤算法">协同过滤算法</h1>
+<p>和基于内容的线性回归模型不同，协同过滤算法能够自动学习所要使用的特征，避免了需要先手动评价“爱情度”和“动作度”这样的不可理喻的事情。</p>
+<h2 id="整合到一起">整合到一起</h2>
+<p>在上一节中利用线性回归模型作出了两个算法分别用于预测用户的取向和电影的内容特征。两个算法的思路分别是；已知电影的特征<span
+class="math inline">\(x^{(i)}\)</span>，求出用户的取向<span
+class="math inline">\(θ^{(j)}\)</span>；已知用户的取向<span
+class="math inline">\(θ^{(j)}\)</span>，求出电影的特征<span
+class="math inline">\(x^{(i)}\)</span>——这看起来是一个先有鸡还是先有蛋的问题，解决办法的构想如下：<br />
+1. 随机初始化<span class="math inline">\(θ\)</span> 2.
+利用随机初始化的<span
+class="math inline">\(θ\)</span>建立线性回归模型，预测出电影的特征向量<span
+class="math inline">\(x\)</span><br />
+3. 利用预测出电影的特征向量建立线性回归模型，预测出用户的取向<span
+class="math inline">\(θ\)</span></p>
+<p>重复二三两步，<span class="math inline">\(θ\)</span>和<span
+class="math inline">\(x\)</span>在不断线性回归迭代中得到优化，最终算法将收敛并得到到合理的电影特征向量。<br />
+但是这种思路中包含反复建模的过程，这使得算法的计算量倍增。</p>
+<h2 id="应用线性回归的协同过滤算法">应用线性回归的协同过滤算法</h2>
+<h3 id="代价函数">代价函数</h3>
+<p><strong>协同过滤算法</strong>（Collaborative
+filtering）在上述思路的基础上能够同时优化<span
+class="math inline">\(θ\)</span>和<span
+class="math inline">\(x\)</span>，进而减小计算量。<br />
+之前的两个代价函数：<br />
+<span
+class="math display">\[J(θ)=\frac{1}{2}∑_{j=1}^{n_u}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2\]</span><br />
+<span
+class="math display">\[J(x^{(j)})=\frac{1}{2}∑_{j=1}^{n_m}∑_{i:r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2\]</span><br />
+这两个代价函数中<span
+class="math inline">\(\frac{1}{2}∑∑_{i:r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2\)</span>的本质都是对所有用户的所有评分计算后求和，因此可以合并。<br />
+定义协同过滤算法的代价函数：<br />
+<span
+class="math display">\[J(θ^{(i)},x^{(j)})=\frac{1}{2}∑_{(i,j):r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2\]</span>
+找到使得<span
+class="math inline">\(J(θ^{(i)},x^{(j)})\)</span>最小化的<span
+class="math inline">\((θ^{(i)},x^{(j)})\)</span>。</p>
+<p>由于现在是在学习所有的特征，没有必要将一个特征值硬编码为1，因为如果真的有恒为1的特征，算法也能自己学习到。在此可以将<span
+class="math inline">\(x\)</span>中的截距项<span
+class="math inline">\(x_0\)</span>删除以统一维度为<span
+class="math inline">\(n\)</span>。</p>
+<h3 id="算法流程">算法流程</h3>
+<ol type="1">
+<li>随机初始化小的<span
+class="math inline">\((θ^{(i)},x^{(j)})\)</span><br />
+</li>
+<li>使用梯度下降算法或者是其他的算法来最小化<span
+class="math inline">\(J(θ^{(i)},x^{(j)})\)</span><br />
+</li>
+<li>给定一个特定用户的特征向量<span
+class="math inline">\(θ\)</span>和一个特定的电影，利用：<br />
+<span class="math display">\[y_{pre}(i,j)=(θ^{(j)})^Tx^{(i)}\]</span>
+来预测用户对某部电影的评分</li>
 </ol>
-<p>重复二三两步，$θ$和$x$在不断线性回归迭代中得到优化，最终算法将收敛并得到到合理的电影特征向量。<br>但是这种思路中包含反复建模的过程，这使得算法的计算量倍增。   </p>
-<h2 id="应用线性回归的协同过滤算法"><a href="#应用线性回归的协同过滤算法" class="headerlink" title="应用线性回归的协同过滤算法"></a>应用线性回归的协同过滤算法</h2><h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p><strong>协同过滤算法</strong>（Collaborative filtering）在上述思路的基础上能够同时优化$θ$和$x$，进而减小计算量。<br>之前的两个代价函数：  </p>
-<script type="math/tex; mode=display">J(θ)=\frac{1}{2}∑_{j=1}^{n_u}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2</script><script type="math/tex; mode=display">J(x^{(j)})=\frac{1}{2}∑_{j=1}^{n_m}∑_{i:r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2</script><p>这两个代价函数中$\frac{1}{2}∑∑_{i:r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2$的本质都是对所有用户的所有评分计算后求和，因此可以合并。<br>定义协同过滤算法的代价函数：  </p>
-<script type="math/tex; mode=display">J(θ^{(i)},x^{(j)})=\frac{1}{2}∑_{(i,j):r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2</script><p>找到使得$J(θ^{(i)},x^{(j)})$最小化的$(θ^{(i)},x^{(j)})$。  </p>
-<p>由于现在是在学习所有的特征，没有必要将一个特征值硬编码为1，因为如果真的有恒为1的特征，算法也能自己学习到。在此可以将$x$中的截距项$x_0$删除以统一维度为$n$。  </p>
-<h3 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h3><ol>
-<li>随机初始化小的$(θ^{(i)},x^{(j)})$  </li>
-<li>使用梯度下降算法或者是其他的算法来最小化$J(θ^{(i)},x^{(j)})$  </li>
-<li>给定一个特定用户的特征向量$θ$和一个特定的电影，利用：  <script type="math/tex; mode=display">y_{pre}(i,j)=(θ^{(j)})^Tx^{(i)}</script>来预测用户对某部电影的评分</li>
-</ol>
-<h2 id="协同过滤算法的理解"><a href="#协同过滤算法的理解" class="headerlink" title="协同过滤算法的理解"></a>协同过滤算法的理解</h2><p>协同过滤算法的“协同”体现在系统通过观察大量用户的行为同时对内容和用户进行建模，并且每一个用户的行为都在帮助系统建立更好的内容模型。反过来，优秀的内容模型也会帮助建立精准的用户行为模型，实现精准的内容推荐。  </p>
+<h2 id="协同过滤算法的理解">协同过滤算法的理解</h2>
+<p>协同过滤算法的“协同”体现在系统通过观察大量用户的行为同时对内容和用户进行建模，并且每一个用户的行为都在帮助系统建立更好的内容模型。反过来，优秀的内容模型也会帮助建立精准的用户行为模型，实现精准的内容推荐。</p>
 
                 
               </div>
@@ -592,9 +629,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.2.%20%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AE%B9%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" title="12.2. 基于内容的推荐算法·内容的特征">
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.3.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7/" title="11.3. 异常检测算法的评价·关键变量">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">12.2. 基于内容的推荐算法·内容的特征</span>
+                        <span class="hidden-mobile">11.3. 异常检测算法的评价·关键变量</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -933,5 +970,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

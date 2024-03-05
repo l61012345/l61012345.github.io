@@ -107,22 +107,17 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="核函数非线性分类的SVM本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y&#x3D;1$。就能够得到一个假设函数：   h_θ(x)&#x3D;\begin{cases} 1  \t">
+    <meta name="description" content="核函数 非线性分类的SVM 本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。  比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。 比如： 当\(θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0\)时,预测\(y&#x3D;1\)。 就能够得到一个假设函数： \[h_θ(x)&#x3D;\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="8.3. 核函数">
 <meta property="og:url" content="https://l61012345.top/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.3.%20%E6%A0%B8%E5%87%BD%E6%95%B0/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="核函数非线性分类的SVM本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y&#x3D;1$。就能够得到一个假设函数：   h_θ(x)&#x3D;\begin{cases} 1  \t">
+<meta property="og:description" content="核函数 非线性分类的SVM 本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。  比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。 比如： 当\(θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0\)时,预测\(y&#x3D;1\)。 就能够得到一个假设函数： \[h_θ(x)&#x3D;\">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png">
 <meta property="article:published_time" content="2021-04-27T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:20.318Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -395,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          697 字
+          701 字
         
       </span>
     
@@ -477,21 +472,84 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="核函数"><a href="#核函数" class="headerlink" title="核函数"></a>核函数</h1><h2 id="非线性分类的SVM"><a href="#非线性分类的SVM" class="headerlink" title="非线性分类的SVM"></a>非线性分类的SVM</h2><p>本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png" srcset="/img/loading.gif" lazyload alt=""><br>比如对于如上图所示的分类，决策边界是非线性的。 此时一种对其拟合的方法是用多项式对其进行拟合。<br>比如： 当$θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0$时,预测$y=1$。<br>就能够得到一个假设函数：  </p>
-<script type="math/tex; mode=display">h_θ(x)=\begin{cases} 1  \text{if} θ_0+θ_1x_1+..≥0 \\
+                <h1 id="核函数">核函数</h1>
+<h2 id="非线性分类的svm">非线性分类的SVM</h2>
+<p>本节将使用核函数对支持向量机进行改造，使其成为复杂的非线性分类器。<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427144124.png" srcset="/img/loading.gif" lazyload /><br />
+比如对于如上图所示的分类，决策边界是非线性的。
+此时一种对其拟合的方法是用多项式对其进行拟合。<br />
+比如： 当<span
+class="math inline">\(θ_0+θ_1x_1+θ_2x_2+θ_3x_1x_2+θ_4x_1^2+θ_5x_2^2+..≥0\)</span>时,预测<span
+class="math inline">\(y=1\)</span>。<br />
+就能够得到一个假设函数：<br />
+<span class="math display">\[h_θ(x)=\begin{cases} 1
+ \text{if} θ_0+θ_1x_1+..≥0 \\
 0  \text{otherwise} \\
-\end{cases}</script><p>这种方法的问题是假设中的某些高阶项可能是冗余的，并且对于计算机视觉而言，用高阶多项式处理矩阵的计算量非常的大。<br>改进方法是用一些新的特征$F=\{f_i\}$来替换原特征$X=\{x_i\}$。<br>具体而言，比如现在只选取三个特征$x_0$（截距项，如下推导中将被忽略）,$x_1$,$x_2$,在这三个维度上手动选取三个点（称为标记（Landmarks））：$l^{(1)}$,$l^{(2)}$,$l^{(3)}$。<br>将新特征i $f_i$表示为训练样本$x$与$l^{(i)}$的相似度，相似度度量可以用如下公式表示：  </p>
-<script type="math/tex; mode=display">Similarity(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}</script><blockquote>
-<p>欧氏距离：空间中两点的连线距离，表示为$d=√{∑x_i^2}$。<br>$||x-l^{(i)}||$表示空间中$x$与$l^{(i)}$的（欧式）距离。  </p>
-</blockquote>
-<p>这个相似度函数称为<strong>高斯核函数</strong>（Gaussian Kernel Function）。  </p>
-<script type="math/tex; mode=display">k(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}</script><p>此外还有其他用于度量相似度的函数，这些函数统称为<strong>核函数</strong>（Kernel Function）。  </p>
-<h2 id="核函数的意义"><a href="#核函数的意义" class="headerlink" title="核函数的意义"></a>核函数的意义</h2><p>将高斯核函数利用欧氏距离公式展开：  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    k(x,l^{(i)})&=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}\\  
-    &=e^{-\frac{∑_{j=1}^n(x_j-l^{(i)}_j)^2}{2σ^2}}
-\end{aligned}</script><p>对于某个特定的$i$:<br>如果$x≈l^{(i)}$（两者的欧氏距离非常近）,$f_i≈e^{-\frac{0}{2σ}}≈1$。<br>如果$x$和$l^{(i)}$的欧氏距离非常远,$f_i≈e^{-\frac{∞}{2σ}}≈0$。<br>对于任何一个样本$x$,都可以计算$f_1$,$f_2$,$f_3$三个特征。<br>在图像上反映相似度与两者距离之间的关系即为高维空间中的高斯分布，且σ越大，图像梯度越小。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png" srcset="/img/loading.gif" lazyload alt=""><br>△当$l^{(1)}=[3,5]^T$时x的坐标$[x_1,x_2]^T$与相似度的关系。  </p>
-<h2 id="决策边界"><a href="#决策边界" class="headerlink" title="决策边界"></a>决策边界</h2><p>再回到之前样本在特征上的分布：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png" srcset="/img/loading.gif" lazyload alt=""><br>如果样本距离某个$l^{(i)}$非常近（洋红色），那么边界函数输出的结果大于0，预测$y=1$。<br>如果样本距离三个$l^{(i)}$非常远（蓝色），那么边界函数输出的结果小于0，预测$y=0$。<br>当样本足够多的时候，所有$y=1$的点的边界即为决策边界，此时的决策边界是非线性的。<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png" srcset="/img/loading.gif" lazyload alt="">  </p>
+\end{cases}\]</span>
+这种方法的问题是假设中的某些高阶项可能是冗余的，并且对于计算机视觉而言，用高阶多项式处理矩阵的计算量非常的大。<br />
+改进方法是用一些新的特征<span
+class="math inline">\(F=\{f_i\}\)</span>来替换原特征<span
+class="math inline">\(X=\{x_i\}\)</span>。<br />
+具体而言，比如现在只选取三个特征<span
+class="math inline">\(x_0\)</span>（截距项，如下推导中将被忽略）,<span
+class="math inline">\(x_1\)</span>,<span
+class="math inline">\(x_2\)</span>,在这三个维度上手动选取三个点（称为标记（Landmarks））：<span
+class="math inline">\(l^{(1)}\)</span>,<span
+class="math inline">\(l^{(2)}\)</span>,<span
+class="math inline">\(l^{(3)}\)</span>。<br />
+将新特征i <span class="math inline">\(f_i\)</span>表示为训练样本<span
+class="math inline">\(x\)</span>与<span
+class="math inline">\(l^{(i)}\)</span>的相似度，相似度度量可以用如下公式表示：<br />
+<span
+class="math display">\[Similarity(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}\]</span>
+&gt; 欧氏距离：空间中两点的连线距离，表示为<span
+class="math inline">\(d=√{∑x_i^2}\)</span>。<br />
+&gt; <span class="math inline">\(||x-l^{(i)}||\)</span>表示空间中<span
+class="math inline">\(x\)</span>与<span
+class="math inline">\(l^{(i)}\)</span>的（欧式）距离。</p>
+<p>这个相似度函数称为<strong>高斯核函数</strong>（Gaussian Kernel
+Function）。<br />
+<span
+class="math display">\[k(x,l^{(i)})=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}\]</span>
+此外还有其他用于度量相似度的函数，这些函数统称为<strong>核函数</strong>（Kernel
+Function）。</p>
+<h2 id="核函数的意义">核函数的意义</h2>
+<p>将高斯核函数利用欧氏距离公式展开：<br />
+<span class="math display">\[\begin{aligned}
+    k(x,l^{(i)})&amp;=e^{-\frac{||x-l^{(i)}||^2}{2σ^2}}\\  
+    &amp;=e^{-\frac{∑_{j=1}^n(x_j-l^{(i)}_j)^2}{2σ^2}}
+\end{aligned}\]</span> 对于某个特定的<span
+class="math inline">\(i\)</span>:<br />
+如果<span
+class="math inline">\(x≈l^{(i)}\)</span>（两者的欧氏距离非常近）,<span
+class="math inline">\(f_i≈e^{-\frac{0}{2σ}}≈1\)</span>。<br />
+如果<span class="math inline">\(x\)</span>和<span
+class="math inline">\(l^{(i)}\)</span>的欧氏距离非常远,<span
+class="math inline">\(f_i≈e^{-\frac{∞}{2σ}}≈0\)</span>。<br />
+对于任何一个样本<span class="math inline">\(x\)</span>,都可以计算<span
+class="math inline">\(f_1\)</span>,<span
+class="math inline">\(f_2\)</span>,<span
+class="math inline">\(f_3\)</span>三个特征。
+在图像上反映相似度与两者距离之间的关系即为高维空间中的高斯分布，且σ越大，图像梯度越小。<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165149.png" srcset="/img/loading.gif" lazyload /><br />
+△当<span class="math inline">\(l^{(1)}=[3,5]^T\)</span>时x的坐标<span
+class="math inline">\([x_1,x_2]^T\)</span>与相似度的关系。</p>
+<h2 id="决策边界">决策边界</h2>
+<p>再回到之前样本在特征上的分布：<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427165915.png" srcset="/img/loading.gif" lazyload /><br />
+如果样本距离某个<span
+class="math inline">\(l^{(i)}\)</span>非常近（洋红色），那么边界函数输出的结果大于0，预测<span
+class="math inline">\(y=1\)</span>。<br />
+如果样本距离三个<span
+class="math inline">\(l^{(i)}\)</span>非常远（蓝色），那么边界函数输出的结果小于0，预测<span
+class="math inline">\(y=0\)</span>。<br />
+当样本足够多的时候，所有<span
+class="math inline">\(y=1\)</span>的点的边界即为决策边界，此时的决策边界是非线性的。<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210427190114.png" srcset="/img/loading.gif" lazyload /></p>
 
                 
               </div>
@@ -935,5 +993,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

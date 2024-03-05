@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="小批量梯度下降算法小批量梯度下降算法（Mini-batch gradient descent）是另一种改善由大数据造成的计算量问题的梯度下降算法。小批量梯度下降算法的思路介于批量梯度下降算法和随机梯度下降算法之间，在一些情况下的表现比随机梯度下降算法更为出色。   小批量梯度下降算法的思路回顾之前的梯度下降算法：    批量梯度下降算法在一次迭代中使用了数据集中所有的样本   随机梯度下降算法在一">
+    <meta name="description" content="小批量梯度下降算法 小批量梯度下降算法（Mini-batch gradient descent）是另一种改善由大数据造成的计算量问题的梯度下降算法。小批量梯度下降算法的思路介于批量梯度下降算法和随机梯度下降算法之间，在一些情况下的表现比随机梯度下降算法更为出色。 小批量梯度下降算法的思路 回顾之前的梯度下降算法： - 批量梯度下降算法在一次迭代中使用了数据集中所有的样本 - 随机梯度下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="13.3. 小批量梯度下降算法">
 <meta property="og:url" content="https://l61012345.top/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.3.%20%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="小批量梯度下降算法小批量梯度下降算法（Mini-batch gradient descent）是另一种改善由大数据造成的计算量问题的梯度下降算法。小批量梯度下降算法的思路介于批量梯度下降算法和随机梯度下降算法之间，在一些情况下的表现比随机梯度下降算法更为出色。   小批量梯度下降算法的思路回顾之前的梯度下降算法：    批量梯度下降算法在一次迭代中使用了数据集中所有的样本   随机梯度下降算法在一">
+<meta property="og:description" content="小批量梯度下降算法 小批量梯度下降算法（Mini-batch gradient descent）是另一种改善由大数据造成的计算量问题的梯度下降算法。小批量梯度下降算法的思路介于批量梯度下降算法和随机梯度下降算法之间，在一些情况下的表现比随机梯度下降算法更为出色。 小批量梯度下降算法的思路 回顾之前的梯度下降算法： - 批量梯度下降算法在一次迭代中使用了数据集中所有的样本 - 随机梯度下">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-22T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-27T16:50:19.181Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          529 字
+          530 字
         
       </span>
     
@@ -472,16 +472,33 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="小批量梯度下降算法"><a href="#小批量梯度下降算法" class="headerlink" title="小批量梯度下降算法"></a>小批量梯度下降算法</h1><p><strong>小批量梯度下降算法</strong>（Mini-batch gradient descent）是另一种改善由大数据造成的计算量问题的梯度下降算法。小批量梯度下降算法的思路介于批量梯度下降算法和随机梯度下降算法之间，在一些情况下的表现比随机梯度下降算法更为出色。  </p>
-<h2 id="小批量梯度下降算法的思路"><a href="#小批量梯度下降算法的思路" class="headerlink" title="小批量梯度下降算法的思路"></a>小批量梯度下降算法的思路</h2><p>回顾之前的梯度下降算法：  </p>
-<ul>
-<li>批量梯度下降算法在一次迭代中使用了数据集中所有的样本  </li>
-<li>随机梯度下降算法在一次迭代中使用了数据集中的一个样本  </li>
-</ul>
-<p>而小批量梯度下降算法介于这两者之间，在一次迭代中选择使用$b$个样本，称为数据集中的一批(Batch)数据。$b$是每一批数据的批量大小（Batch-size）。通常$b$在2-100之间，常取$b=10$作为一次迭代所使用的数据量。<br>内循环的更新方程：<br>使用一个Batch的数据，求出平均梯度以更新$θ_j$。  </p>
-<script type="math/tex; mode=display">θ_j:=θ_j-α\frac{1}{b}∑_{k=i}^{i+b-1}(h_θ(x^{(k)})-y^{(k)})x_j^{(k)}</script><p>更新指针$i$以切换到下一个batch：  </p>
-<script type="math/tex; mode=display">i:=i+b</script><p>直到所有batch的数据都执行完这一流程，重复遍历直到找到使得$J_{train}(θ)$最小化的$θ_j$。  </p>
-<h2 id="隐式并行性"><a href="#隐式并行性" class="headerlink" title="隐式并行性"></a>隐式并行性</h2><p>如果有合适的向量化工具，小批量梯度下降算法在内循环的部分拥有并行性，意味着能够在一次迭代内能够并行计算多个batch的梯度并更新$θ_j$。虽然随机梯度下降也具有并行性，但是如果将随机梯度下降做并行处理，同时计算每一个样本的梯度，这样消耗的并行计算资源要比小批量梯度下降算法大得多。<br>因此如果将小批量算法利用合适的向量化工具并行化，其计算速度会比批量梯度下降和随机梯度下降要快的多。  </p>
+                <h1 id="小批量梯度下降算法">小批量梯度下降算法</h1>
+<p><strong>小批量梯度下降算法</strong>（Mini-batch gradient
+descent）是另一种改善由大数据造成的计算量问题的梯度下降算法。小批量梯度下降算法的思路介于批量梯度下降算法和随机梯度下降算法之间，在一些情况下的表现比随机梯度下降算法更为出色。</p>
+<h2 id="小批量梯度下降算法的思路">小批量梯度下降算法的思路</h2>
+<p>回顾之前的梯度下降算法：<br />
+- 批量梯度下降算法在一次迭代中使用了数据集中所有的样本<br />
+- 随机梯度下降算法在一次迭代中使用了数据集中的一个样本</p>
+<p>而小批量梯度下降算法介于这两者之间，在一次迭代中选择使用<span
+class="math inline">\(b\)</span>个样本，称为数据集中的一批(Batch)数据。<span
+class="math inline">\(b\)</span>是每一批数据的批量大小（Batch-size）。通常<span
+class="math inline">\(b\)</span>在2-100之间，常取<span
+class="math inline">\(b=10\)</span>作为一次迭代所使用的数据量。<br />
+内循环的更新方程：<br />
+使用一个Batch的数据，求出平均梯度以更新<span
+class="math inline">\(θ_j\)</span>。<br />
+<span
+class="math display">\[θ_j:=θ_j-α\frac{1}{b}∑_{k=i}^{i+b-1}(h_θ(x^{(k)})-y^{(k)})x_j^{(k)}\]</span>
+更新指针<span
+class="math inline">\(i\)</span>以切换到下一个batch：<br />
+<span class="math display">\[i:=i+b\]</span>
+直到所有batch的数据都执行完这一流程，重复遍历直到找到使得<span
+class="math inline">\(J_{train}(θ)\)</span>最小化的<span
+class="math inline">\(θ_j\)</span>。</p>
+<h2 id="隐式并行性">隐式并行性</h2>
+<p>如果有合适的向量化工具，小批量梯度下降算法在内循环的部分拥有并行性，意味着能够在一次迭代内能够并行计算多个batch的梯度并更新<span
+class="math inline">\(θ_j\)</span>。虽然随机梯度下降也具有并行性，但是如果将随机梯度下降做并行处理，同时计算每一个样本的梯度，这样消耗的并行计算资源要比小批量梯度下降算法大得多。<br />
+因此如果将小批量算法利用合适的向量化工具并行化，其计算速度会比批量梯度下降和随机梯度下降要快的多。</p>
 
                 
               </div>
@@ -584,9 +601,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.2.%20%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" title="13.2. 随机梯度下降算法">
+                      <a href="/2021/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.1.%20%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/" title="14.1. 问题背景与框架设计">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">13.2. 随机梯度下降算法</span>
+                        <span class="hidden-mobile">14.1. 问题背景与框架设计</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -594,8 +611,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.4.%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0/" title="13.4. 在线学习">
-                        <span class="hidden-mobile">13.4. 在线学习</span>
+                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.2.%20%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" title="13.2. 随机梯度下降算法">
+                        <span class="hidden-mobile">13.2. 随机梯度下降算法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -925,5 +942,20 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
