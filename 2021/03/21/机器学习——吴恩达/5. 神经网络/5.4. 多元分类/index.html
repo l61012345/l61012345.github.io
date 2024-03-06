@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="多元分类介绍一对多分类的实质是对一对一分类的拓展。基本方法是建立一个多输出的神经网络，因此在多元分类中，最终的输出结果将是一个n维的向量，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：$h_Θ(x)≈\left[\begin{smallmatrix} 1">
+    <meta name="description" content="多元分类 介绍 一对多分类的实质是对一对一分类的拓展。 基本方法是建立一个多输出的神经网络，因此在多元分类中，最终的输出结果将是一个n维的向量，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：\(h_Θ(x)≈\left[\begin{smallmat">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5.4. 多元分类">
 <meta property="og:url" content="https://l61012345.top/2021/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.4.%20%E5%A4%9A%E5%85%83%E5%88%86%E7%B1%BB/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="多元分类介绍一对多分类的实质是对一对一分类的拓展。基本方法是建立一个多输出的神经网络，因此在多元分类中，最终的输出结果将是一个n维的向量，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：$h_Θ(x)≈\left[\begin{smallmatrix} 1">
+<meta property="og:description" content="多元分类 介绍 一对多分类的实质是对一对一分类的拓展。 基本方法是建立一个多输出的神经网络，因此在多元分类中，最终的输出结果将是一个n维的向量，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：\(h_Θ(x)≈\left[\begin{smallmat">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:31:12.719Z">
@@ -472,9 +472,19 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="多元分类"><a href="#多元分类" class="headerlink" title="多元分类"></a>多元分类</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>一对多分类的实质是对一对一分类的拓展。<br>基本方法是建立一个多输出的神经网络，因此<strong>在多元分类中，最终的输出结果将是一个n维的向量</strong>，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：$h_Θ(x)≈\left[\begin{smallmatrix} 1 \\\ 0 \\\ 0 \\\ 0 \end{smallmatrix}\right]$之类的向量。<br>以前我们在训练集中用一个整数$y$来表示分类的标签，在多元分类中，我们使用如上所示的向量来表示分类的标签。<br>现在假设函数的模型应该为：</p>
-<script type="math/tex; mode=display">h_Θ(x^{(i)})≈y^{(i)}</script><p>等式的左右两边输出的结果都是$n$维的向量。</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                <h1 id="多元分类">多元分类</h1>
+<h2 id="介绍">介绍</h2>
+<p>一对多分类的实质是对一对一分类的拓展。<br />
+基本方法是建立一个多输出的神经网络，因此<strong>在多元分类中，最终的输出结果将是一个n维的向量</strong>，输出层的每一个输出单元用于判断是否是某一类（例如：是否是行人，是否是自行车），当判断为结果是某一类时，在理想情况下，这个网络会在这一输出单元输出1，其他的输出单元输出0，最终输出的结果是如：<span
+class="math inline">\(h_Θ(x)≈\left[\begin{smallmatrix} 1 \\\ 0 \\\ 0 \\\
+0 \end{smallmatrix}\right]\)</span>之类的向量。<br />
+以前我们在训练集中用一个整数<span
+class="math inline">\(y\)</span>来表示分类的标签，在多元分类中，我们使用如上所示的向量来表示分类的标签。<br />
+现在假设函数的模型应该为： <span
+class="math display">\[h_Θ(x^{(i)})≈y^{(i)}\]</span><br />
+等式的左右两边输出的结果都是<span
+class="math inline">\(n\)</span>维的向量。</p>
+
                 
               </div>
             
@@ -917,20 +927,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

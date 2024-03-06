@@ -107,20 +107,17 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="代价函数·反向传播回顾接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 神经网络的代价函数形式假设一个神经网络训练集有m个训练样本：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{">
+    <meta name="description" content="代价函数·反向传播 回顾 接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 ## 神经网络的代价函数形式 假设一个神经网络训练集有m个训练样本：\({(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),...,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5.5. 神经网络的代价函数·反向传播">
 <meta property="og:url" content="https://l61012345.top/2021/03/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.5.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0.%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="代价函数·反向传播回顾接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 神经网络的代价函数形式假设一个神经网络训练集有m个训练样本：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{">
+<meta property="og:description" content="代价函数·反向传播 回顾 接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 ## 神经网络的代价函数形式 假设一个神经网络训练集有m个训练样本：\({(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),...,">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png">
 <meta property="article:published_time" content="2021-03-22T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:31:16.064Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -475,36 +472,156 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="代价函数·反向传播"><a href="#代价函数·反向传播" class="headerlink" title="代价函数·反向传播"></a>代价函数·反向传播</h1><h2 id="回顾"><a href="#回顾" class="headerlink" title="回顾"></a>回顾</h2><p>接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。</p>
-<h2 id="神经网络的代价函数形式"><a href="#神经网络的代价函数形式" class="headerlink" title="神经网络的代价函数形式"></a>神经网络的代价函数形式</h2><p>假设一个神经网络训练集有m个训练样本：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})}$<br>$L$表示神经网络的总层数，$s_l$表示$l$层中神经元的数量（不包括偏置神经元）。<br>在神经网络中使用的代价函数是在逻辑回归中使用的正则化代价函数：  </p>
-<script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))]+\frac{λ}{2m}∑_{j=1}^n θ_j^2</script><p>略微不同的是，在神经网络中分类标签和假设函数的输出值都变成了k维的向量，因此神经网络中的代价函数变成了：  </p>
-<script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m ∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ (x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1} (Θ_{ji}^{(l)})_j^2</script><p>解释：  </p>
-<ol>
-<li>用$(h_Θ(x))_i$来表示第i个输出  </li>
-<li>这个代价函数中$∑_{k=1}^K$表示所有的输出单元之和，这里主要是将$y_k$的值与$(h_Θ(x))_k$的大小作比较   </li>
-<li>正则项的作用是去除那些对应于偏置单元的项，具体而言就是不对$i=0$的项进行求和和正则化。  </li>
-</ol>
-<h2 id="代价函数最小化：反向传播算法"><a href="#代价函数最小化：反向传播算法" class="headerlink" title="代价函数最小化：反向传播算法"></a>代价函数最小化：反向传播算法</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><p>同之前的线性回归和逻辑回归一样，接下来要求得代价函数的最小值$J(Θ)min$并求出$Θ$。主要的步骤是写出$J(Θ)$并求关于每一个$Θ_{ij}^{(l)}$的偏导项$\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)$。<br><img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png" srcset="/img/loading.gif" lazyload alt=""><br>现在先来讨论如上图所示的神经网络中，只有一个训练样本$(x,y)$的情况：<br>首先先用前向传播算法（见讲义4.2）验证假设函数是否会真的输出结果:    </p>
-<script type="math/tex; mode=display">a^{(1)}=x</script><script type="math/tex; mode=display">z^{(2)}=Θ^{(1)}a^{(1)},并增加一个偏置单元</script><script type="math/tex; mode=display">a^{(2)}=g(z^{2})</script><script type="math/tex; mode=display">z^{(3)}=Θ^{(2)}a^{(2)},并增加一个偏置单元</script><script type="math/tex; mode=display">a^{(3)}=g(z^{3})</script><script type="math/tex; mode=display">z^{(4)}=Θ^{(3)}a^{(3)}</script><script type="math/tex; mode=display">a^{(4)}=g(z^{4})=h_Θ(x)</script><p>接下来，为了计算关于每一个$Θ_{ij}^{(l)}$的偏导项$\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)$，就要用到<strong>反向传播算法</strong>（Backpropagation）。<br>从直观上说，对于每一个节点，都要计算每个节点的误差：$δ^{(l)}_j$,表示第$l$层第$j$个节点的误差。  </p>
-<script type="math/tex; mode=display">δ^{(l)}_j=a_j^{(l)}-y_j=(h_Θ(x))_j-y_j</script><p>$y_j$表示训练集中$y$向量里的第$j$个元素的值。<br>其向量形式：  </p>
-<script type="math/tex; mode=display">δ^{(l)}=a^{(l)}-y</script><p>这里的$δ^{(l)}$和$a^{(l)}$都是一层每一个误差/输出所构成的向量。<br>具体而言，对于上图所示的4层（$L=4$）神经网络,第四层的误差项：  </p>
-<script type="math/tex; mode=display">δ^{(4)}=a^{(4)}-y</script><p>照例写出前面两层的误差：  </p>
-<script type="math/tex; mode=display">\delta^{(3)}=(Θ^{(3)})^Tδ^{(4)}⋅g'(z^{(3)})</script><script type="math/tex; mode=display">\delta^{(2)}=(Θ^{(2)})^Tδ^{(3)}⋅g'(z^{(2)})</script><p>事实上应用微积分的链式法则，$g’(z^{(3)})=a^{(3)}⋅(1-a^{(3)})$,1是一个每项都为1的向量。<br>反向传播的步骤相当于是从最后一层开始求误差，然后将最后一层的误差传给前一层，反向依次传播。<br>最终将会有： </p>
-<script type="math/tex; mode=display">\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)=a^{(l)}_iδ^{(l+1)}_i</script><p>此处忽略了正则化项：$λ$。<br>现在将反向传播算法从一个训练样本拓展到一个有m个训练样本：${(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),…,(x^{(m)},y^{(m)})}$,$L$层的神经网络训练集：      </p>
-<p>定义$Δ_{ij}^{(l)}=0$用于计算$\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)$,接下来遍历整个训练集：<br>For $i=1$ to $m$:<br>  set $a^{(1)}=x^{(i)}$ #用于将所有的x输入到输入层的激活函数中<br>  用正向传播算法计算$a^{(l)}~for~l=2,3,…,L$<br>  $δ^{(L)}=a^{(L)}-y^{i}$ #计算最后一层的误差<br>  用反向传播算法计算$\delta^{(L-1)}$到$δ^{(2)}$,<br>  $Δ^{(l)}_{ij}:=Δ^{(l)}_{ij}+a_j^{(l)}δ^{(l+1)}_i$<br>  (写成向量的形式：$Δ^{(l)}:=Δ^{(l)}+δ^{(l+1)}(a_j^{(l)})^T$)<br>结束循环后，令  </p>
-<script type="math/tex; mode=display">
+                <h1 id="代价函数反向传播">代价函数·反向传播</h1>
+<h2 id="回顾">回顾</h2>
+<p>接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。
+## 神经网络的代价函数形式 假设一个神经网络训练集有m个训练样本：<span
+class="math inline">\({(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),...,(x^{(m)},y^{(m)})}\)</span><br />
+<span class="math inline">\(L\)</span>表示神经网络的总层数，<span
+class="math inline">\(s_l\)</span>表示<span
+class="math inline">\(l\)</span>层中神经元的数量（不包括偏置神经元）。<br />
+在神经网络中使用的代价函数是在逻辑回归中使用的正则化代价函数：<br />
+<span class="math display">\[J(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)}
+log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ
+(x^{(i)}))]+\frac{λ}{2m}∑_{j=1}^n θ_j^2\]</span>
+略微不同的是，在神经网络中分类标签和假设函数的输出值都变成了k维的向量，因此神经网络中的代价函数变成了：<br />
+<span class="math display">\[J(θ)=-\frac{1}{m}[∑_{i=1}^m
+∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ
+(x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1}
+(Θ_{ji}^{(l)})_j^2\]</span><br />
+解释：<br />
+1. 用<span
+class="math inline">\((h_Θ(x))_i\)</span>来表示第i个输出<br />
+2. 这个代价函数中<span
+class="math inline">\(∑_{k=1}^K\)</span>表示所有的输出单元之和，这里主要是将<span
+class="math inline">\(y_k\)</span>的值与<span
+class="math inline">\((h_Θ(x))_k\)</span>的大小作比较<br />
+3. 正则项的作用是去除那些对应于偏置单元的项，具体而言就是不对<span
+class="math inline">\(i=0\)</span>的项进行求和和正则化。</p>
+<h2 id="代价函数最小化反向传播算法">代价函数最小化：反向传播算法</h2>
+<h3 id="过程">过程</h3>
+<p>同之前的线性回归和逻辑回归一样，接下来要求得代价函数的最小值<span
+class="math inline">\(J(Θ)min\)</span>并求出<span
+class="math inline">\(Θ\)</span>。主要的步骤是写出<span
+class="math inline">\(J(Θ)\)</span>并求关于每一个<span
+class="math inline">\(Θ_{ij}^{(l)}\)</span>的偏导项<span
+class="math inline">\(\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)\)</span>。<br />
+<img
+src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210201185117.png" srcset="/img/loading.gif" lazyload /><br />
+现在先来讨论如上图所示的神经网络中，只有一个训练样本<span
+class="math inline">\((x,y)\)</span>的情况：<br />
+首先先用前向传播算法（见讲义4.2）验证假设函数是否会真的输出结果:<br />
+<span class="math display">\[a^{(1)}=x\]</span><br />
+<span
+class="math display">\[z^{(2)}=Θ^{(1)}a^{(1)},并增加一个偏置单元\]</span><br />
+<span class="math display">\[a^{(2)}=g(z^{2})\]</span> <span
+class="math display">\[z^{(3)}=Θ^{(2)}a^{(2)},并增加一个偏置单元\]</span><br />
+<span class="math display">\[a^{(3)}=g(z^{3})\]</span><br />
+<span class="math display">\[z^{(4)}=Θ^{(3)}a^{(3)}\]</span><br />
+<span class="math display">\[a^{(4)}=g(z^{4})=h_Θ(x)\]</span><br />
+接下来，为了计算关于每一个<span
+class="math inline">\(Θ_{ij}^{(l)}\)</span>的偏导项<span
+class="math inline">\(\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)\)</span>，就要用到<strong>反向传播算法</strong>（Backpropagation）。<br />
+从直观上说，对于每一个节点，都要计算每个节点的误差：<span
+class="math inline">\(δ^{(l)}_j\)</span>,表示第<span
+class="math inline">\(l\)</span>层第<span
+class="math inline">\(j\)</span>个节点的误差。<br />
+<span
+class="math display">\[δ^{(l)}_j=a_j^{(l)}-y_j=(h_Θ(x))_j-y_j\]</span><br />
+<span class="math inline">\(y_j\)</span>表示训练集中<span
+class="math inline">\(y\)</span>向量里的第<span
+class="math inline">\(j\)</span>个元素的值。<br />
+其向量形式：<br />
+<span class="math display">\[δ^{(l)}=a^{(l)}-y\]</span> 这里的<span
+class="math inline">\(δ^{(l)}\)</span>和<span
+class="math inline">\(a^{(l)}\)</span>都是一层每一个误差/输出所构成的向量。<br />
+具体而言，对于上图所示的4层（<span
+class="math inline">\(L=4\)</span>）神经网络,第四层的误差项：<br />
+<span class="math display">\[δ^{(4)}=a^{(4)}-y\]</span>
+照例写出前面两层的误差：<br />
+<span
+class="math display">\[\delta^{(3)}=(Θ^{(3)})^Tδ^{(4)}⋅g&#39;(z^{(3)})\]</span>
+<span
+class="math display">\[\delta^{(2)}=(Θ^{(2)})^Tδ^{(3)}⋅g&#39;(z^{(2)})\]</span>
+事实上应用微积分的链式法则，<span
+class="math inline">\(g&#39;(z^{(3)})=a^{(3)}⋅(1-a^{(3)})\)</span>,1是一个每项都为1的向量。<br />
+反向传播的步骤相当于是从最后一层开始求误差，然后将最后一层的误差传给前一层，反向依次传播。<br />
+最终将会有： <span
+class="math display">\[\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)=a^{(l)}_iδ^{(l+1)}_i\]</span>
+此处忽略了正则化项：<span class="math inline">\(λ\)</span>。<br />
+现在将反向传播算法从一个训练样本拓展到一个有m个训练样本：<span
+class="math inline">\({(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),...,(x^{(m)},y^{(m)})}\)</span>,<span
+class="math inline">\(L\)</span>层的神经网络训练集：</p>
+<p>定义<span class="math inline">\(Δ_{ij}^{(l)}=0\)</span>用于计算<span
+class="math inline">\(\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)\)</span>,接下来遍历整个训练集：<br />
+For <span class="math inline">\(i=1\)</span> to <span
+class="math inline">\(m\)</span>:<br />
+set <span class="math inline">\(a^{(1)}=x^{(i)}\)</span>
+#用于将所有的x输入到输入层的激活函数中<br />
+用正向传播算法计算<span
+class="math inline">\(a^{(l)}~for~l=2,3,...,L\)</span><br />
+<span class="math inline">\(δ^{(L)}=a^{(L)}-y^{i}\)</span>
+#计算最后一层的误差<br />
+用反向传播算法计算<span
+class="math inline">\(\delta^{(L-1)}\)</span>到<span
+class="math inline">\(δ^{(2)}\)</span>,<br />
+<span
+class="math inline">\(Δ^{(l)}_{ij}:=Δ^{(l)}_{ij}+a_j^{(l)}δ^{(l+1)}_i\)</span><br />
+(写成向量的形式：<span
+class="math inline">\(Δ^{(l)}:=Δ^{(l)}+δ^{(l+1)}(a_j^{(l)})^T\)</span>)<br />
+结束循环后，令<br />
+<span class="math display">\[
 D^{(l)}_{ij}:=\begin{cases}
     \frac{1}{m}Δ^{(l)}_{ij},j=0  
-     \frac{1}{m}Δ^{(l)}_{ij}+λΘ^{(l)}_{ij},j \not=0 
-\end{cases}</script><p>那么最终：  </p>
-<script type="math/tex; mode=display">\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)=D^{(l)}_{ij}</script><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><h4 id="回顾：前向传播模型"><a href="#回顾：前向传播模型" class="headerlink" title="回顾：前向传播模型"></a>回顾：前向传播模型</h4><p>前向传播的整个过程可以用下图表示：<br><img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png" srcset="/img/loading.gif" lazyload alt=""><br>比如：如果洋红色的部分其权重为$Θ_{10}^{(2)}$,红色的权重值为$Θ_{11}^{(2)}$，青色的权重值是$Θ_{12}^{(2)}$， 那么$z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} × a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}$。<br>反向传播的过程和前向传播非常类似，只是传播的方向不同。  </p>
-<h4 id="反向传播的理解"><a href="#反向传播的理解" class="headerlink" title="反向传播的理解"></a>反向传播的理解</h4><p>关注反向传播的代价函数：   </p>
-<script type="math/tex; mode=display">J(θ)=-\frac{1}{m}[∑_{i=1}^m ∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ (x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1} (Θ_{ji}^{(l)})_j^2</script><p>对于单个的样本:$(x^{(i)},y^{(i)})$，只有一个输出单元并且忽略正则化，那么这个样本的代价函数：  </p>
-<script type="math/tex; mode=display">Cost(i)=y^{(i)} log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))</script><p>这个代价函数的功能类似于计算方差，可以近似的看做是方差函数：  </p>
-<script type="math/tex; mode=display">Cost(i)≈(h_\Theta(x^{(i)})-y^{(i)})^2</script><p>它反应了样本模型输出值和样本值的接近程度。<br>反向传播中每个节点的误差：$δ^{(l)}_j$,表示第$l$层第$j$个节点的误差。有：   </p>
-<script type="math/tex; mode=display">δ^{(l)}_j=\frac{\partial}{∂z_j^{(l)}}Cost(i)</script><p>$z_j^{(l)}$与$h_\Theta(x^{(i)})$相关。  </p>
-<p>反向传播的整个过程可以用下图表示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912173842.png width=100%><br>例如对$δ^{(2)}_2$，洋红色和红色箭头分别表示两个权重值$Θ_{12}^{(2)}$和$Θ_{22}^{(2)}$，有:  </p>
-<script type="math/tex; mode=display">δ^{(2)}_2=Θ_{12}^{(2)} ×δ^{(3)}_1 +Θ_{22}^{(2)} ×δ^{(3)}_2</script><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+     \frac{1}{m}Δ^{(l)}_{ij}+λΘ^{(l)}_{ij},j \not=0
+\end{cases}
+\]</span><br />
+那么最终：<br />
+<span
+class="math display">\[\frac{∂}{∂Θ_{ij}^{(l)}}J(Θ)=D^{(l)}_{ij}\]</span></p>
+<h3 id="理解">理解</h3>
+<h4 id="回顾前向传播模型">回顾：前向传播模型</h4>
+<p>前向传播的整个过程可以用下图表示：<br />
+<img
+src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210319212706.png" srcset="/img/loading.gif" lazyload /><br />
+比如：如果洋红色的部分其权重为<span
+class="math inline">\(Θ_{10}^{(2)}\)</span>,红色的权重值为<span
+class="math inline">\(Θ_{11}^{(2)}\)</span>，青色的权重值是<span
+class="math inline">\(Θ_{12}^{(2)}\)</span>， 那么<span
+class="math inline">\(z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} ×
+a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}\)</span>。<br />
+反向传播的过程和前向传播非常类似，只是传播的方向不同。<br />
+#### 反向传播的理解<br />
+关注反向传播的代价函数：<br />
+<span class="math display">\[J(θ)=-\frac{1}{m}[∑_{i=1}^m
+∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ
+(x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1}
+(Θ_{ji}^{(l)})_j^2\]</span><br />
+对于单个的样本:<span
+class="math inline">\((x^{(i)},y^{(i)})\)</span>，只有一个输出单元并且忽略正则化，那么这个样本的代价函数：<br />
+<span class="math display">\[Cost(i)=y^{(i)} log⁡(h_θ(x^{(i)}
+))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))\]</span><br />
+这个代价函数的功能类似于计算方差，可以近似的看做是方差函数：<br />
+<span
+class="math display">\[Cost(i)≈(h_\Theta(x^{(i)})-y^{(i)})^2\]</span>
+它反应了样本模型输出值和样本值的接近程度。<br />
+反向传播中每个节点的误差：<span
+class="math inline">\(δ^{(l)}_j\)</span>,表示第<span
+class="math inline">\(l\)</span>层第<span
+class="math inline">\(j\)</span>个节点的误差。有：<br />
+<span
+class="math display">\[δ^{(l)}_j=\frac{\partial}{∂z_j^{(l)}}Cost(i)\]</span>
+<span class="math inline">\(z_j^{(l)}\)</span>与<span
+class="math inline">\(h_\Theta(x^{(i)})\)</span>相关。</p>
+<p>反向传播的整个过程可以用下图表示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912173842.png width=100%><br />
+例如对<span
+class="math inline">\(δ^{(2)}_2\)</span>，洋红色和红色箭头分别表示两个权重值<span
+class="math inline">\(Θ_{12}^{(2)}\)</span>和<span
+class="math inline">\(Θ_{22}^{(2)}\)</span>，有:<br />
+<span class="math display">\[δ^{(2)}_2=Θ_{12}^{(2)} ×δ^{(3)}_1
++Θ_{22}^{(2)} ×δ^{(3)}_2\]</span></p>
+
                 
               </div>
             
@@ -3810,20 +3927,5 @@ D^{(l)}_{ij}:=\begin{cases}
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

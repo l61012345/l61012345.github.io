@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基于内容的推荐算法·内容的特征系统参数沿着电影推荐的例子，在上一节中提到过内容推荐系统的相关参数：    $n_u$:用户的数量。   $n_m$:电影的数量。   $r(i,j)$：标记函数，如果$r(i,j)&#x3D;1$则表示第$j$个用户已经对第$i$部电影进行了评分。   $y^{(i,j)}$:评分，表示用户$i$对电影$j$的评分。当且仅当$r(i,j)&#x3D;1$时$y^{(i,j)}$有值">
+    <meta name="description" content="基于内容的推荐算法·内容的特征 系统参数 沿着电影推荐的例子，在上一节中提到过内容推荐系统的相关参数： - \(n_u\):用户的数量。 - \(n_m\):电影的数量。 - \(r(i,j)\)：标记函数，如果\(r(i,j)&#x3D;1\)则表示第\(j\)个用户已经对第\(i\)部电影进行了评分。 - \(y^{(i,j)}\):评分，表示用户\(i\)对电影\(j\)的评分。当且仅当\">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12.2. 基于内容的推荐算法·内容的特征">
 <meta property="og:url" content="https://l61012345.top/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.2.%20%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AE%B9%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="基于内容的推荐算法·内容的特征系统参数沿着电影推荐的例子，在上一节中提到过内容推荐系统的相关参数：    $n_u$:用户的数量。   $n_m$:电影的数量。   $r(i,j)$：标记函数，如果$r(i,j)&#x3D;1$则表示第$j$个用户已经对第$i$部电影进行了评分。   $y^{(i,j)}$:评分，表示用户$i$对电影$j$的评分。当且仅当$r(i,j)&#x3D;1$时$y^{(i,j)}$有值">
+<meta property="og:description" content="基于内容的推荐算法·内容的特征 系统参数 沿着电影推荐的例子，在上一节中提到过内容推荐系统的相关参数： - \(n_u\):用户的数量。 - \(n_m\):电影的数量。 - \(r(i,j)\)：标记函数，如果\(r(i,j)&#x3D;1\)则表示第\(j\)个用户已经对第\(i\)部电影进行了评分。 - \(y^{(i,j)}\):评分，表示用户\(i\)对电影\(j\)的评分。当且仅当\">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:32:36.185Z">
@@ -472,30 +472,82 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="基于内容的推荐算法·内容的特征"><a href="#基于内容的推荐算法·内容的特征" class="headerlink" title="基于内容的推荐算法·内容的特征"></a>基于内容的推荐算法·内容的特征</h1><h2 id="系统参数"><a href="#系统参数" class="headerlink" title="系统参数"></a>系统参数</h2><p>沿着电影推荐的例子，在上一节中提到过内容推荐系统的相关参数：  </p>
-<ul>
-<li>$n_u$:用户的数量。  </li>
-<li>$n_m$:电影的数量。  </li>
-<li>$r(i,j)$：标记函数，如果$r(i,j)=1$则表示第$j$个用户已经对第$i$部电影进行了评分。  </li>
-<li>$y^{(i,j)}$:评分，表示用户$i$对电影$j$的评分。当且仅当$r(i,j)=1$时$y^{(i,j)}$有值  </li>
-</ul>
-<p>现在设出电影的特征，假设每一部电影都有两个特征：爱情度$x_1$和动作度$x_2$分别表示某一部电影内容包含爱情片和动作片的程度，以0表示最低，1表示最高。（例如《泰坦尼克号》：$x_1=0.9$，$x_2=0.001$），再加入一个截距特征$x_0=1$。那么每一部电影的特征向量$x^{(i)}$都由上述的三个特征值组成。  </p>
-<h2 id="寻找用户的取向"><a href="#寻找用户的取向" class="headerlink" title="寻找用户的取向"></a>寻找用户的取向</h2><p>对于评分的预测，可以看成是一个线性回归问题。规定用户$j$的参数向量$θ^{(j)}∈ R^{n+1}$，$n$表示特征的数量（不包括$x_0$）。对每一个用户都应用线性回归，用户$j$对于电影$i$的评分的预测值可以表示为：  </p>
-<script type="math/tex; mode=display">y^{(i,j)}_{pre}=(θ^{(j)})^Tx^{(j)}</script><h3 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h3><p>如果用$m^{(j)}$表示第$j$个用户评分电影的数量，学习$θ^{(j)}$的过程就是一个基本的线性回归的代价函数：  </p>
-<script type="math/tex; mode=display">J(θ)=\frac{1}{2m^{(j)}}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2m^{(j)}}∑_{k=1}^n(θ_k^{(j)})^2</script><p>由于$m^{(j)}$对于表达式中求最小$J(θ)$时的$θ^{(j)}$无影响，则可以直接去掉：  </p>
-<script type="math/tex; mode=display">J(θ)=\frac{1}{2}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2}∑_{k=1}^n(θ_k^{(j)})^2</script><p>最小化代价函数即可得到最优的$θ^{(j)}$。<br>如果要找到所有用户的参数向量，则根据多元线性回归公式可以得到代价函数：  </p>
-<script type="math/tex; mode=display">J(θ)=\frac{1}{2}∑_{j=1}^{n_u}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2</script><p>同样地，最小化的方式可以采用梯度下降算法来找到$J(θ)$的最小值。<br>这种基于内容的特征来预测用户评分的算法称为基于内容的推荐算法。  </p>
-<h2 id="寻找内容的特征"><a href="#寻找内容的特征" class="headerlink" title="寻找内容的特征"></a>寻找内容的特征</h2><p>还是之前的电影推荐的例子，对于很多电影，很难以特征向量的方式来量化“爱情片”或者是“动作片”的程度，也很难获取全部的特征。  换一种思路，假设模型中每个用户的参数向量$θ^{(i)}$是已知的（可以看做是每个用户对于电影类型的倾向是已知的），那么就能够反推出每一部电影的“动作度”和“爱情度”：比如如果一部电影倾向于爱情片的用户给电影的评分普遍高，那么可以反推出这个电影大概率是一个爱情片。<br>用这种思路进行数学建模：即求得$x^{(i)}$使得方程：  </p>
-<script type="math/tex; mode=display">\begin{cases}
+                <h1 id="基于内容的推荐算法内容的特征">基于内容的推荐算法·内容的特征</h1>
+<h2 id="系统参数">系统参数</h2>
+<p>沿着电影推荐的例子，在上一节中提到过内容推荐系统的相关参数：<br />
+- <span class="math inline">\(n_u\)</span>:用户的数量。<br />
+- <span class="math inline">\(n_m\)</span>:电影的数量。<br />
+- <span class="math inline">\(r(i,j)\)</span>：标记函数，如果<span
+class="math inline">\(r(i,j)=1\)</span>则表示第<span
+class="math inline">\(j\)</span>个用户已经对第<span
+class="math inline">\(i\)</span>部电影进行了评分。<br />
+- <span class="math inline">\(y^{(i,j)}\)</span>:评分，表示用户<span
+class="math inline">\(i\)</span>对电影<span
+class="math inline">\(j\)</span>的评分。当且仅当<span
+class="math inline">\(r(i,j)=1\)</span>时<span
+class="math inline">\(y^{(i,j)}\)</span>有值</p>
+<p>现在设出电影的特征，假设每一部电影都有两个特征：爱情度<span
+class="math inline">\(x_1\)</span>和动作度<span
+class="math inline">\(x_2\)</span>分别表示某一部电影内容包含爱情片和动作片的程度，以0表示最低，1表示最高。（例如《泰坦尼克号》：<span
+class="math inline">\(x_1=0.9\)</span>，<span
+class="math inline">\(x_2=0.001\)</span>），再加入一个截距特征<span
+class="math inline">\(x_0=1\)</span>。那么每一部电影的特征向量<span
+class="math inline">\(x^{(i)}\)</span>都由上述的三个特征值组成。</p>
+<h2 id="寻找用户的取向">寻找用户的取向</h2>
+<p>对于评分的预测，可以看成是一个线性回归问题。规定用户<span
+class="math inline">\(j\)</span>的参数向量<span
+class="math inline">\(θ^{(j)}∈ R^{n+1}\)</span>，<span
+class="math inline">\(n\)</span>表示特征的数量（不包括<span
+class="math inline">\(x_0\)</span>）。对每一个用户都应用线性回归，用户<span
+class="math inline">\(j\)</span>对于电影<span
+class="math inline">\(i\)</span>的评分的预测值可以表示为：<br />
+<span
+class="math display">\[y^{(i,j)}_{pre}=(θ^{(j)})^Tx^{(j)}\]</span></p>
+<h3 id="代价函数">代价函数</h3>
+<p>如果用<span class="math inline">\(m^{(j)}\)</span>表示第<span
+class="math inline">\(j\)</span>个用户评分电影的数量，学习<span
+class="math inline">\(θ^{(j)}\)</span>的过程就是一个基本的线性回归的代价函数：<br />
+<span
+class="math display">\[J(θ)=\frac{1}{2m^{(j)}}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2m^{(j)}}∑_{k=1}^n(θ_k^{(j)})^2\]</span>
+由于<span class="math inline">\(m^{(j)}\)</span>对于表达式中求最小<span
+class="math inline">\(J(θ)\)</span>时的<span
+class="math inline">\(θ^{(j)}\)</span>无影响，则可以直接去掉：<br />
+<span
+class="math display">\[J(θ)=\frac{1}{2}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2}∑_{k=1}^n(θ_k^{(j)})^2\]</span>
+最小化代价函数即可得到最优的<span
+class="math inline">\(θ^{(j)}\)</span>。
+如果要找到所有用户的参数向量，则根据多元线性回归公式可以得到代价函数：<br />
+<span
+class="math display">\[J(θ)=\frac{1}{2}∑_{j=1}^{n_u}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(j)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2\]</span><br />
+同样地，最小化的方式可以采用梯度下降算法来找到<span
+class="math inline">\(J(θ)\)</span>的最小值。<br />
+这种基于内容的特征来预测用户评分的算法称为基于内容的推荐算法。</p>
+<h2 id="寻找内容的特征">寻找内容的特征</h2>
+<p>还是之前的电影推荐的例子，对于很多电影，很难以特征向量的方式来量化“爱情片”或者是“动作片”的程度，也很难获取全部的特征。
+换一种思路，假设模型中每个用户的参数向量<span
+class="math inline">\(θ^{(i)}\)</span>是已知的（可以看做是每个用户对于电影类型的倾向是已知的），那么就能够反推出每一部电影的“动作度”和“爱情度”：比如如果一部电影倾向于爱情片的用户给电影的评分普遍高，那么可以反推出这个电影大概率是一个爱情片。<br />
+用这种思路进行数学建模：即求得<span
+class="math inline">\(x^{(i)}\)</span>使得方程：<br />
+<span class="math display">\[\begin{cases}
     (θ^{(1)})^Tx^{(j)}=r(1,i) \\
     (θ^{(2)})^Tx^{(j)}=r(2,i) \\
     ...\\
     (θ^{(n_u)})^Tx^{(j)}=r(n_u,i) \\
-\end{cases}</script><p>成立。  </p>
-<h3 id="代价函数-1"><a href="#代价函数-1" class="headerlink" title="代价函数"></a>代价函数</h3><p>对于已知的$θ^{(1)}…θ^{(n_u)}$，为了学习电影$i$的特征向量$x^{(i)}$，应用线性回归模型：  </p>
-<script type="math/tex; mode=display">J(x^{()i})=\frac{1}{2}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{k=1}^n(x_k^{(i)})^2</script><p>找到使得代价函数$J(θ)$最小化的$x^{(i)}$。<br>应用多元线性回归模型的代价函数公式：  </p>
-<script type="math/tex; mode=display">J(x^{(j)})=\frac{1}{2}∑_{j=1}^{n_m}∑_{i:r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2</script><p>就能够得到所有电影的特征向量。  </p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+\end{cases}\]</span> 成立。</p>
+<h3 id="代价函数-1">代价函数</h3>
+<p>对于已知的<span
+class="math inline">\(θ^{(1)}...θ^{(n_u)}\)</span>，为了学习电影<span
+class="math inline">\(i\)</span>的特征向量<span
+class="math inline">\(x^{(i)}\)</span>，应用线性回归模型：<br />
+<span
+class="math display">\[J(x^{()i})=\frac{1}{2}∑_{i:r(i,j)=1}((θ^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{k=1}^n(x_k^{(i)})^2\]</span>
+找到使得代价函数<span class="math inline">\(J(θ)\)</span>最小化的<span
+class="math inline">\(x^{(i)}\)</span>。<br />
+应用多元线性回归模型的代价函数公式：<br />
+<span
+class="math display">\[J(x^{(j)})=\frac{1}{2}∑_{j=1}^{n_m}∑_{i:r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2\]</span><br />
+就能够得到所有电影的特征向量。</p>
+
                 
               </div>
             
@@ -597,9 +649,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/10.%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/10.3.%20PCA%E4%BC%98%E5%8C%96/" title="10.3. 主成分分析算法的优化">
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.1.%20%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86/" title="13.1. 大规模学习的计算问题·预学习">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">10.3. 主成分分析算法的优化</span>
+                        <span class="hidden-mobile">13.1. 大规模学习的计算问题·预学习</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -607,8 +659,8 @@ p.spoiler {
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.3.%20%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/" title="12.3. 协同过滤算法">
-                        <span class="hidden-mobile">12.3. 协同过滤算法</span>
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.1.%20%E9%97%AE%E9%A2%98%E8%A7%84%E5%88%92/" title="12.1. 内容推荐问题">
+                        <span class="hidden-mobile">12.1. 内容推荐问题</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -938,20 +990,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

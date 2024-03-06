@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="树莓派4b开启热点功能 基本上是按照 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;dch0&#x2F;p&#x2F;14292702.html 的教程设置的  依赖安装Raspberry Pi OS中已经默认启用了网卡，但是需要安装如下依赖项：network-manager,git,iptable,dnsmasq1234sudo apt-get install network-managersudo apt-ge">
+    <meta name="description" content="树莓派4b开启热点功能  基本上是按照 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;dch0&#x2F;p&#x2F;14292702.html 的教程设置的  依赖安装 Raspberry Pi OS中已经默认启用了网卡，但是需要安装如下依赖项：network-manager,git,iptable,dnsmasq 1234sudo apt-get install network-manager">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树莓派4b开启热点功能">
 <meta property="og:url" content="https://l61012345.top/2023/12/19/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="树莓派4b开启热点功能 基本上是按照 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;dch0&#x2F;p&#x2F;14292702.html 的教程设置的  依赖安装Raspberry Pi OS中已经默认启用了网卡，但是需要安装如下依赖项：network-manager,git,iptable,dnsmasq1234sudo apt-get install network-managersudo apt-ge">
+<meta property="og:description" content="树莓派4b开启热点功能  基本上是按照 https:&#x2F;&#x2F;www.cnblogs.com&#x2F;dch0&#x2F;p&#x2F;14292702.html 的教程设置的  依赖安装 Raspberry Pi OS中已经默认启用了网卡，但是需要安装如下依赖项：network-manager,git,iptable,dnsmasq 1234sudo apt-get install network-manager">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-01-03T14:53:47.830Z">
@@ -472,20 +472,47 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="树莓派4b开启热点功能"><a href="#树莓派4b开启热点功能" class="headerlink" title="树莓派4b开启热点功能"></a>树莓派4b开启热点功能</h1><blockquote>
-<p>基本上是按照 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/dch0/p/14292702.html">https://www.cnblogs.com/dch0/p/14292702.html</a> 的教程设置的</p>
+                <h1 id="树莓派4b开启热点功能">树莓派4b开启热点功能</h1>
+<blockquote>
+<p>基本上是按照 https://www.cnblogs.com/dch0/p/14292702.html
+的教程设置的</p>
 </blockquote>
-<h2 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h2><p>Raspberry Pi OS中已经默认启用了网卡，但是需要安装如下依赖项：<code>network-manager</code>,<code>git</code>,<code>iptable</code>,<code>dnsmasq</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install network-manager<br>sudo apt-get install git<br>sudo apt-get install iptable<br>sudo apt-get install util-linux procps hostapd iproute2 iw haveged dnsmasq<br></code></pre></td></tr></table></figure></p>
-<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="修改-NetworkManager-配置文件"><a href="#修改-NetworkManager-配置文件" class="headerlink" title="修改 NetworkManager 配置文件"></a>修改 NetworkManager 配置文件</h3><p>用nano修改：<code>/etc/NetworkManager/NetworkManager.conf</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/NetworkManager/NetworkManager.conf<br></code></pre></td></tr></table></figure><br>在该文件末尾增加一行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dns=dnsmasq<br></code></pre></td></tr></table></figure><br>对nano编辑器用ctrl+C，选择y后回车保存退出。  </p>
-<h3 id="修改-dnsmasq-配置文件"><a href="#修改-dnsmasq-配置文件" class="headerlink" title="修改 dnsmasq 配置文件"></a>修改 dnsmasq 配置文件</h3><p>用nano修改：<code>/etc/dnsmasq.conf</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/dnsmasq.conf<br></code></pre></td></tr></table></figure></p>
-<p>对nano编辑器用ctrl+W，查找 <code>listen-address</code> 一行内容。<br>取消该行注释，并设置为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">listen-address=127.0.0.1<br></code></pre></td></tr></table></figure><br>然后重启 dnsmasq 服务。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /etc/init.d/dnsmasq restart<br></code></pre></td></tr></table></figure></p>
-<h2 id="启用create-ap"><a href="#启用create-ap" class="headerlink" title="启用create_ap"></a>启用create_ap</h2><h3 id="克隆create-ap项目"><a href="#克隆create-ap项目" class="headerlink" title="克隆create_ap项目"></a>克隆create_ap项目</h3><p>create_ap这个项目在：<a target="_blank" rel="noopener" href="https://github.com/oblique/create_ap">https://github.com/oblique/create_ap</a> 目前已经不再维护。<br>用git克隆该项目后放在本地编译：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo git <span class="hljs-built_in">clone</span> https://github.com/oblique/create_ap<br><span class="hljs-built_in">cd</span> create_ap<br>sudo make install<br></code></pre></td></tr></table></figure></p>
-<h3 id="启用热点"><a href="#启用热点" class="headerlink" title="启用热点"></a>启用热点</h3><p>用<code>--no-virt</code>选项设置热点并启用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo create_ap --no-virt wlan0 eth0 热点名 密码<br></code></pre></td></tr></table></figure></p>
-<h3 id="设置服务开机启动"><a href="#设置服务开机启动" class="headerlink" title="设置服务开机启动"></a>设置服务开机启动</h3><p>修改重启服务的配置，添加<code>--no-virt</code>参数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /usr/lib/systemd/system/create_ap.service<br></code></pre></td></tr></table></figure><br>然后找到<code>ExecStart=</code>开头的一行，把这一行修改为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ExecStart=/usr/bin/create_ap --no-virt --config /etc/create_ap.conf<br></code></pre></td></tr></table></figure><br>修改服务脚本参数：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/create_ap.conf<br></code></pre></td></tr></table></figure></p>
-<p>找到这个文件中的<code>GATEWAY</code>、<code>SSID</code>、<code>PASSPHRASE</code>三行，进行自定义设置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">GATEWAY = 网关地址<br>SSID = 热点名<br>PASSPHRASE = 热点密码<br></code></pre></td></tr></table></figure><br>对nano编辑器用ctrl+C，选择y后回车保存退出。  </p>
-<p>设置开机启动：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> create_ap.service<br></code></pre></td></tr></table></figure></p>
-<p>如此树莓派将会开机的时候就启动热点（但是树莓派自带的无线网卡性能非常有限）  </p>
-<h3 id="服务操作"><a href="#服务操作" class="headerlink" title="服务操作"></a>服务操作</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动服务：</span><br>systemctl start create_ap.service<br><span class="hljs-comment"># 关闭服务：</span><br>systemctl stop create_ap.service<br><span class="hljs-comment"># 重启服务：</span><br>systemctl restart create_ap.service<br><span class="hljs-comment"># 显示服务状态：</span><br>systemctl status create_ap.service<br><span class="hljs-comment"># 禁用服务开机启动：</span><br>systemctl <span class="hljs-built_in">disable</span> create_ap.service<br><br></code></pre></td></tr></table></figure><link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<h2 id="依赖安装">依赖安装</h2>
+<p>Raspberry Pi
+OS中已经默认启用了网卡，但是需要安装如下依赖项：<code>network-manager</code>,<code>git</code>,<code>iptable</code>,<code>dnsmasq</code>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install network-manager<br>sudo apt-get install git<br>sudo apt-get install iptable<br>sudo apt-get install util-linux procps hostapd iproute2 iw haveged dnsmasq<br></code></pre></td></tr></table></figure></p>
+<h2 id="修改配置文件">修改配置文件</h2>
+<h3 id="修改-networkmanager-配置文件">修改 NetworkManager 配置文件</h3>
+<p>用nano修改：<code>/etc/NetworkManager/NetworkManager.conf</code><br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/NetworkManager/NetworkManager.conf<br></code></pre></td></tr></table></figure> 在该文件末尾增加一行：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dns=dnsmasq<br></code></pre></td></tr></table></figure> 对nano编辑器用ctrl+C，选择y后回车保存退出。</p>
+<h3 id="修改-dnsmasq-配置文件">修改 dnsmasq 配置文件</h3>
+<p>用nano修改：<code>/etc/dnsmasq.conf</code>：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/dnsmasq.conf<br></code></pre></td></tr></table></figure></p>
+<p>对nano编辑器用ctrl+W，查找 <code>listen-address</code> 一行内容。
+取消该行注释，并设置为：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">listen-address=127.0.0.1<br></code></pre></td></tr></table></figure> 然后重启 dnsmasq 服务。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo /etc/init.d/dnsmasq restart<br></code></pre></td></tr></table></figure></p>
+<h2 id="启用create_ap">启用create_ap</h2>
+<h3 id="克隆create_ap项目">克隆create_ap项目</h3>
+<p>create_ap这个项目在：https://github.com/oblique/create_ap
+目前已经不再维护。<br />
+用git克隆该项目后放在本地编译：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo git <span class="hljs-built_in">clone</span> https://github.com/oblique/create_ap<br><span class="hljs-built_in">cd</span> create_ap<br>sudo make install<br></code></pre></td></tr></table></figure></p>
+<h3 id="启用热点">启用热点</h3>
+<p>用<code>--no-virt</code>选项设置热点并启用 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo create_ap --no-virt wlan0 eth0 热点名 密码<br></code></pre></td></tr></table></figure></p>
+<h3 id="设置服务开机启动">设置服务开机启动</h3>
+<p>修改重启服务的配置，添加<code>--no-virt</code>参数。 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /usr/lib/systemd/system/create_ap.service<br></code></pre></td></tr></table></figure>
+然后找到<code>ExecStart=</code>开头的一行，把这一行修改为：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ExecStart=/usr/bin/create_ap --no-virt --config /etc/create_ap.conf<br></code></pre></td></tr></table></figure> 修改服务脚本参数：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo nano /etc/create_ap.conf<br></code></pre></td></tr></table></figure></p>
+<p>找到这个文件中的<code>GATEWAY</code>、<code>SSID</code>、<code>PASSPHRASE</code>三行，进行自定义设置：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">GATEWAY = 网关地址<br>SSID = 热点名<br>PASSPHRASE = 热点密码<br></code></pre></td></tr></table></figure> 对nano编辑器用ctrl+C，选择y后回车保存退出。</p>
+<p>设置开机启动：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl <span class="hljs-built_in">enable</span> create_ap.service<br></code></pre></td></tr></table></figure></p>
+<p>如此树莓派将会开机的时候就启动热点（但是树莓派自带的无线网卡性能非常有限）</p>
+<h3 id="服务操作">服务操作</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 启动服务：</span><br>systemctl start create_ap.service<br><span class="hljs-comment"># 关闭服务：</span><br>systemctl stop create_ap.service<br><span class="hljs-comment"># 重启服务：</span><br>systemctl restart create_ap.service<br><span class="hljs-comment"># 显示服务状态：</span><br>systemctl status create_ap.service<br><span class="hljs-comment"># 禁用服务开机启动：</span><br>systemctl <span class="hljs-built_in">disable</span> create_ap.service<br><br></code></pre></td></tr></table></figure>
+
                 
               </div>
             
@@ -1083,20 +1110,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

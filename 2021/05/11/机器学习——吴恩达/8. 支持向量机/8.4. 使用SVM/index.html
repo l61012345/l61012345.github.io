@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="使用支持向量机本节将考虑在实际中应用SVM算法的一些问题。   调用函数库实现求解$θ$的过程很繁琐，因此在实际中通常采用调用现有函数库（比如liblinear,libsvm）的方式实现SVM，但仍然需要给这些函数补充参数：    选择参数C。 选择内核参数。如果不同特征之间的取值差异非常大，需要对特征变量做归一化。    其他的核函数目前学到的两种核函数：线性内核：即不使用内核参数，比如： $y">
+    <meta name="description" content="使用支持向量机 本节将考虑在实际中应用SVM算法的一些问题。 调用函数库实现 求解\(θ\)的过程很繁琐，因此在实际中通常采用调用现有函数库（比如liblinear,libsvm）的方式实现SVM，但仍然需要给这些函数补充参数： 1. 选择参数C。 2. 选择内核参数。 如果不同特征之间的取值差异非常大，需要对特征变量做归一化。 其他的核函数 目前学到的两种核函数： 线性内核：即不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="8.4. 使用支持向量机">
 <meta property="og:url" content="https://l61012345.top/2021/05/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.4.%20%E4%BD%BF%E7%94%A8SVM/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="使用支持向量机本节将考虑在实际中应用SVM算法的一些问题。   调用函数库实现求解$θ$的过程很繁琐，因此在实际中通常采用调用现有函数库（比如liblinear,libsvm）的方式实现SVM，但仍然需要给这些函数补充参数：    选择参数C。 选择内核参数。如果不同特征之间的取值差异非常大，需要对特征变量做归一化。    其他的核函数目前学到的两种核函数：线性内核：即不使用内核参数，比如： $y">
+<meta property="og:description" content="使用支持向量机 本节将考虑在实际中应用SVM算法的一些问题。 调用函数库实现 求解\(θ\)的过程很繁琐，因此在实际中通常采用调用现有函数库（比如liblinear,libsvm）的方式实现SVM，但仍然需要给这些函数补充参数： 1. 选择参数C。 2. 选择内核参数。 如果不同特征之间的取值差异非常大，需要对特征变量做归一化。 其他的核函数 目前学到的两种核函数： 线性内核：即不">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-11T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:32:01.461Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          614 字
+          621 字
         
       </span>
     
@@ -472,27 +472,41 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="使用支持向量机"><a href="#使用支持向量机" class="headerlink" title="使用支持向量机"></a>使用支持向量机</h1><p>本节将考虑在实际中应用SVM算法的一些问题。  </p>
-<h2 id="调用函数库实现"><a href="#调用函数库实现" class="headerlink" title="调用函数库实现"></a>调用函数库实现</h2><p>求解$θ$的过程很繁琐，因此在实际中通常采用调用现有函数库（比如liblinear,libsvm）的方式实现SVM，但仍然需要给这些函数补充参数：  </p>
-<ol>
-<li>选择参数C。</li>
-<li>选择内核参数。<br>如果不同特征之间的取值差异非常大，需要对特征变量做归一化。  </li>
-</ol>
-<h2 id="其他的核函数"><a href="#其他的核函数" class="headerlink" title="其他的核函数"></a>其他的核函数</h2><p>目前学到的两种核函数：<br>线性内核：即不使用内核参数，比如： $y=1,if θ^Tx≥0$。通常在有大量的特征，但是只有少量的训练样本的情况下，为了避免过拟合而采用线性拟合的方式。<br>高斯核： 通常对大样本且决策边界不规则的情况适用。  </p>
-<p>有些函数库需要用户自己写一个核函数。因此事实上除了这两种核函数之外，用户可以创建自己的核函数。但是只有满足默塞尔定理的函数才能被作为核函数。<br>其他的核函数：</p>
-<ol>
-<li>多项式核函数：$k(x,l)=(x^Tl+b)^n$,b和n都是实数参数。    </li>
-<li>字符串核函数</li>
-<li>直方相交核函数</li>
-<li>卡方核函数</li>
-</ol>
-<h2 id="多类别分类"><a href="#多类别分类" class="headerlink" title="多类别分类"></a>多类别分类</h2><p>在$k$分类下，需要构建$k$个SVM函数，每一个函数需要将一个类别从其他的类别中区分开来。<br>在大部分函数库中，多分类函数已经被预置，因此只需要调用即可。  </p>
-<h2 id="逻辑回归与SVM"><a href="#逻辑回归与SVM" class="headerlink" title="逻辑回归与SVM"></a>逻辑回归与SVM</h2><p>已经知道SVM其实是对于逻辑回归的修改，那么在何种情况下使用它们？<br>设$n$为特征数，$m$为训练样本数：<br><strong>如果$n$远大于$m$（比如文本分类），使用逻辑回归或者是线性核的SVM。</strong><br><strong>如果$n$的值相对于$m$较小且$m$的值比较适中，使用高斯核的SVM。</strong><br><strong>如果$n$远小于$m$,应当首先手动增加一些特征，再使用逻辑回归或者是线性核的SVM。</strong>  </p>
-<blockquote>
-<p>线性核的SVM的本质就是线性的逻辑回归，因此两者的预测结果会非常相似，但是在具体的环境中两者的性能会有差异。  </p>
-</blockquote>
-<p>上述的情况都可以使用神经网络进行训练，但是训练的速度可能会非常地慢。  </p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+                <h1 id="使用支持向量机">使用支持向量机</h1>
+<p>本节将考虑在实际中应用SVM算法的一些问题。</p>
+<h2 id="调用函数库实现">调用函数库实现</h2>
+<p>求解<span
+class="math inline">\(θ\)</span>的过程很繁琐，因此在实际中通常采用调用现有函数库（比如liblinear,libsvm）的方式实现SVM，但仍然需要给这些函数补充参数：<br />
+1. 选择参数C。 2. 选择内核参数。
+如果不同特征之间的取值差异非常大，需要对特征变量做归一化。</p>
+<h2 id="其他的核函数">其他的核函数</h2>
+<p>目前学到的两种核函数：<br />
+线性内核：即不使用内核参数，比如： <span class="math inline">\(y=1,if
+θ^Tx≥0\)</span>。通常在有大量的特征，但是只有少量的训练样本的情况下，为了避免过拟合而采用线性拟合的方式。<br />
+高斯核： 通常对大样本且决策边界不规则的情况适用。</p>
+<p>有些函数库需要用户自己写一个核函数。因此事实上除了这两种核函数之外，用户可以创建自己的核函数。但是只有满足默塞尔定理的函数才能被作为核函数。<br />
+其他的核函数： 1. 多项式核函数：<span
+class="math inline">\(k(x,l)=(x^Tl+b)^n\)</span>,b和n都是实数参数。<br />
+2. 字符串核函数 3. 直方相交核函数 4. 卡方核函数</p>
+<h2 id="多类别分类">多类别分类</h2>
+<p>在<span class="math inline">\(k\)</span>分类下，需要构建<span
+class="math inline">\(k\)</span>个SVM函数，每一个函数需要将一个类别从其他的类别中区分开来。<br />
+在大部分函数库中，多分类函数已经被预置，因此只需要调用即可。</p>
+<h2 id="逻辑回归与svm">逻辑回归与SVM</h2>
+<p>已经知道SVM其实是对于逻辑回归的修改，那么在何种情况下使用它们？<br />
+设<span class="math inline">\(n\)</span>为特征数，<span
+class="math inline">\(m\)</span>为训练样本数：<br />
+<strong>如果<span class="math inline">\(n\)</span>远大于<span
+class="math inline">\(m\)</span>（比如文本分类），使用逻辑回归或者是线性核的SVM。</strong><br />
+<strong>如果<span class="math inline">\(n\)</span>的值相对于<span
+class="math inline">\(m\)</span>较小且<span
+class="math inline">\(m\)</span>的值比较适中，使用高斯核的SVM。</strong><br />
+<strong>如果<span class="math inline">\(n\)</span>远小于<span
+class="math inline">\(m\)</span>,应当首先手动增加一些特征，再使用逻辑回归或者是线性核的SVM。</strong><br />
+&gt;
+线性核的SVM的本质就是线性的逻辑回归，因此两者的预测结果会非常相似，但是在具体的环境中两者的性能会有差异。</p>
+<p>上述的情况都可以使用神经网络进行训练，但是训练的速度可能会非常地慢。</p>
+
                 
               </div>
             
@@ -594,9 +608,9 @@ p.spoiler {
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/05/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/8.%20z%E5%8F%98%E6%8D%A2/" title="08. Z变换">
+                      <a href="/2021/05/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/7.%20%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" title="07. 拉普拉斯变换">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">08. Z变换</span>
+                        <span class="hidden-mobile">07. 拉普拉斯变换</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -935,20 +949,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="快速傅里叶变换快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。   离散傅里叶变换的计算量回顾离散傅里叶变换：   X[k]&#x3D;\sum_{n&#x3D;0}^{N-1}x[n]W^{kn}_N可以发现，计算一个离散傅里叶变换需要计算：    N个$x[n]W$，即N次复数乘法 N-1次$x[i]W+x[i">
+    <meta name="description" content="快速傅里叶变换 快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。 离散傅里叶变换的计算量 回顾离散傅里叶变换： \[X[k]&#x3D;\sum_{n&#x3D;0}^{N-1}x[n]W^{kn}_N\] 可以发现，计算一个离散傅里叶变换需要计算： 1. N个\(x[n]W\)，即N次复数乘法 2.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="06. 快速傅里叶变换">
 <meta property="og:url" content="https://l61012345.top/2021/10/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/6.%20%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="快速傅里叶变换快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。   离散傅里叶变换的计算量回顾离散傅里叶变换：   X[k]&#x3D;\sum_{n&#x3D;0}^{N-1}x[n]W^{kn}_N可以发现，计算一个离散傅里叶变换需要计算：    N个$x[n]W$，即N次复数乘法 N-1次$x[i]W+x[i">
+<meta property="og:description" content="快速傅里叶变换 快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。 离散傅里叶变换的计算量 回顾离散傅里叶变换： \[X[k]&#x3D;\sum_{n&#x3D;0}^{N-1}x[n]W^{kn}_N\] 可以发现，计算一个离散傅里叶变换需要计算： 1. N个\(x[n]W\)，即N次复数乘法 2.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-30T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.811Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.2k 字
         
       </span>
     
@@ -472,48 +472,92 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="快速傅里叶变换"><a href="#快速傅里叶变换" class="headerlink" title="快速傅里叶变换"></a>快速傅里叶变换</h1><p>快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。  </p>
-<h2 id="离散傅里叶变换的计算量"><a href="#离散傅里叶变换的计算量" class="headerlink" title="离散傅里叶变换的计算量"></a>离散傅里叶变换的计算量</h2><p>回顾离散傅里叶变换：  </p>
-<script type="math/tex; mode=display">X[k]=\sum_{n=0}^{N-1}x[n]W^{kn}_N</script><p>可以发现，计算一个离散傅里叶变换需要计算：  </p>
-<ol>
-<li>N个$x[n]W$，即N次复数乘法</li>
-<li>N-1次$x[i]W+x[i+1]W$，即(N-1)次复数加法</li>
-</ol>
-<p>根据复数乘法原则$(a+jb)(c+jd)=(ac-bd)+j(ad+bc)$，和复数加法原则$(a+jb)+(c+jd)=(a+c)+j(b+d)$，可以发现：1次复数乘法与4个实数乘法和2个实数加法等价；1次复数加法和2次实数加法等价。<br>因此计算一次离散傅里叶变换需要计算：  </p>
-<ol>
-<li>$4N^2$次实数乘法</li>
-<li>$4N^2-2N$次实数加法  </li>
-</ol>
-<p>其中实数乘法对计算资源的消耗非常的大，因此考虑使用别的算法以简化实数乘法的次数。  </p>
-<h2 id="时域抽取的快速傅里叶变换"><a href="#时域抽取的快速傅里叶变换" class="headerlink" title="时域抽取的快速傅里叶变换"></a>时域抽取的快速傅里叶变换</h2><p>将离散傅里叶变换分为奇数和偶数两个段落：  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    X[k]&=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{(2r+1)k}_N\\
-    &=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+W_N^{k}\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{2rk}_N
-\end{aligned}</script><p>根据复数的共轭对称性质：$W_N^{k(N-n)}=W_N^{kN}W^{-kn}_N=W^{-kn}_N$，前半段（$0-N/2$）的表达式可以写作：  </p>
-<script type="math/tex; mode=display">X[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}+W_N^k\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}</script><p>令$G[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}$，$H[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}$:  </p>
-<script type="math/tex; mode=display">X[k]=G[k]+W^k_NH[k],k=0,1,..,N-1</script><p>将前半段式子的下标加上$N/2$考虑后半段式子的和，由于$W_N^{k+N/2}=-1$，因此：  </p>
-<script type="math/tex; mode=display">X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N-1</script><p>综合两段，得到时域抽取的快速傅里叶变换：  </p>
-<script type="math/tex; mode=display">X[k]=G[k]+W^k_NH[k],k=0,1,..,N/2-1</script><script type="math/tex; mode=display">X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N/2-1</script><p>上述式子称为蝶式结构，用图示可以表示为：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030143805.png width=40%> </p>
-<p>可以将整个序列继续折中细分成多个小部分，每个部分计算蝶形结构。在$N$为2的次方数时，使用折中法正好可以使得最终细分到相邻的奇偶两项做蝶形结构运算：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144247.png width=30%>  </p>
-<p>比如$N=8$时就可以通过折中法多次两两分组，每组内部进行蝶形运算后的结果再进行蝶形运算：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144446.png width=80%><br>其中最低一级的分组通过如下方式进行：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144544.png width=50%>  </p>
-<h3 id="蝶形结构运算"><a href="#蝶形结构运算" class="headerlink" title="蝶形结构运算"></a>蝶形结构运算</h3><p>观察整个快速傅里叶变换的结构：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144723.png width=80%></p>
-<p>可以得出如下结论：  </p>
-<ol>
-<li>对于$N=2^m$，需要$m$级次蝶形结构的运算。  </li>
-<li>对于第$m$级运算，组数为$2^N-m-1$。每一组的$q$总是被赋予$-1$和权重，权重表示为：  <script type="math/tex; mode=display">W_{2^{m+1}}^r,r=0,1,2,..,2^m-1</script>&lt;<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222132037.png width=50%></li>
-</ol>
+                <h1 id="快速傅里叶变换">快速傅里叶变换</h1>
+<p>快速傅里叶变换（FFT）是一种计算离散傅里叶变换的算法，其独有的计算方式能够大幅度减小离散傅里叶变换的计算量，使得离散傅里叶变换在计算机上具有可实现性。</p>
+<h2 id="离散傅里叶变换的计算量">离散傅里叶变换的计算量</h2>
+<p>回顾离散傅里叶变换：<br />
+<span class="math display">\[X[k]=\sum_{n=0}^{N-1}x[n]W^{kn}_N\]</span>
+可以发现，计算一个离散傅里叶变换需要计算：<br />
+1. N个<span class="math inline">\(x[n]W\)</span>，即N次复数乘法 2.
+N-1次<span
+class="math inline">\(x[i]W+x[i+1]W\)</span>，即(N-1)次复数加法</p>
+<p>根据复数乘法原则<span
+class="math inline">\((a+jb)(c+jd)=(ac-bd)+j(ad+bc)\)</span>，和复数加法原则<span
+class="math inline">\((a+jb)+(c+jd)=(a+c)+j(b+d)\)</span>，可以发现：1次复数乘法与4个实数乘法和2个实数加法等价；1次复数加法和2次实数加法等价。<br />
+因此计算一次离散傅里叶变换需要计算：<br />
+1. <span class="math inline">\(4N^2\)</span>次实数乘法 2. <span
+class="math inline">\(4N^2-2N\)</span>次实数加法</p>
+<p>其中实数乘法对计算资源的消耗非常的大，因此考虑使用别的算法以简化实数乘法的次数。</p>
+<h2 id="时域抽取的快速傅里叶变换">时域抽取的快速傅里叶变换</h2>
+<p>将离散傅里叶变换分为奇数和偶数两个段落：<br />
+<span class="math display">\[\begin{aligned}
+    X[k]&amp;=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{(2r+1)k}_N\\
+    &amp;=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{2rk}_N+W_N^{k}\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{2rk}_N
+\end{aligned}\]</span> 根据复数的共轭对称性质：<span
+class="math inline">\(W_N^{k(N-n)}=W_N^{kN}W^{-kn}_N=W^{-kn}_N\)</span>，前半段（<span
+class="math inline">\(0-N/2\)</span>）的表达式可以写作：<br />
+<span
+class="math display">\[X[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}+W_N^k\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}\]</span>
+令<span
+class="math inline">\(G[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r]W^{rk}_{N/2}\)</span>，<span
+class="math inline">\(H[k]=\sum_{r=0}^{\frac{N}{2}-1}x[2r+1]W^{rk}_{N/2}\)</span>:<br />
+<span class="math display">\[X[k]=G[k]+W^k_NH[k],k=0,1,..,N-1\]</span>
+将前半段式子的下标加上<span
+class="math inline">\(N/2\)</span>考虑后半段式子的和，由于<span
+class="math inline">\(W_N^{k+N/2}=-1\)</span>，因此：<br />
+<span
+class="math display">\[X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N-1\]</span>
+综合两段，得到时域抽取的快速傅里叶变换：<br />
+<span class="math display">\[X[k]=G[k]+W^k_NH[k],k=0,1,..,N/2-1\]</span>
+<span
+class="math display">\[X[k+N/2]=G[k]-W^k_NH[k],k=0,1,..,N/2-1\]</span>
+上述式子称为蝶式结构，用图示可以表示为：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030143805.png width=40%></p>
+<p>可以将整个序列继续折中细分成多个小部分，每个部分计算蝶形结构。在<span
+class="math inline">\(N\)</span>为2的次方数时，使用折中法正好可以使得最终细分到相邻的奇偶两项做蝶形结构运算：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144247.png width=30%></p>
+<p>比如<span
+class="math inline">\(N=8\)</span>时就可以通过折中法多次两两分组，每组内部进行蝶形运算后的结果再进行蝶形运算：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144446.png width=80%><br />
+其中最低一级的分组通过如下方式进行：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144544.png width=50%></p>
+<h3 id="蝶形结构运算">蝶形结构运算</h3>
+<p>观察整个快速傅里叶变换的结构：
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030144723.png width=80%></p>
+<p>可以得出如下结论：<br />
+1. 对于<span class="math inline">\(N=2^m\)</span>，需要<span
+class="math inline">\(m\)</span>级次蝶形结构的运算。<br />
+2. 对于第<span class="math inline">\(m\)</span>级运算，组数为<span
+class="math inline">\(2^N-m-1\)</span>。每一组的<span
+class="math inline">\(q\)</span>总是被赋予<span
+class="math inline">\(-1\)</span>和权重，权重表示为：<br />
+<span class="math display">\[W_{2^{m+1}}^r,r=0,1,2,..,2^m-1\]</span>
+&lt;<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222132037.png width=50%></p>
 <blockquote>
-<p>注意计算之前首先得按照比特反转的方法对序列进行重排序。  </p>
+<p>注意计算之前首先得按照比特反转的方法对序列进行重排序。</p>
 </blockquote>
-<h3 id="快速傅里叶变换的计算量"><a href="#快速傅里叶变换的计算量" class="headerlink" title="快速傅里叶变换的计算量"></a>快速傅里叶变换的计算量</h3><p>由于一点蝶形运算中不包含乘法，快速傅里叶变换通过应用这样的蝶形结构来削减乘法计算的次数。当长度$N=2^m$时，简单分析可得快速傅里叶变换的计算量：  </p>
-<script type="math/tex; mode=display">\frac{N^2}{2^m}+m\frac{N}{2}=N+\frac{N}{2}log_2N</script><h2 id="频域抽取的快速傅里叶变换"><a href="#频域抽取的快速傅里叶变换" class="headerlink" title="频域抽取的快速傅里叶变换"></a>频域抽取的快速傅里叶变换</h2><p>在频域内对离散傅里叶变换进行拆分，可以得到：  </p>
-<script type="math/tex; mode=display">\begin{aligned}
-    X[2r]=&∑_{n=0}^{N/2-1}x[n]W_N^{2nr}+∑_{n=0}^{N/2-1}x[n+N/2]W^{2r(n+N/2)}_N\\
-    =&∑_{n=0}^{N/2-1}[x[n]+x[n+N/2]]W^{rn}_{N/2},r=0,1,..,N/2-1
-\end{aligned}</script><p>同理对于频域内的奇数序列有：  </p>
-<script type="math/tex; mode=display">X[2r+1]=[x[n]-x[n+N/2]]W^{rn}_{N/2},r=0,1,..,N/2-1</script><p>令$g[n]=x[n]+x[n+N/2]$,$h[n]=x[n]-x[n+N/2]$，得到频域抽取的快速傅里叶变换：  </p>
-<script type="math/tex; mode=display">X[2r]=∑_{n=0}^{N/2-1}g[n]W_{N/2}^{rn}</script><script type="math/tex; mode=display">X[2r+1]=W_N^n∑_{n=0}^{N/2-1}h[n]W_{N/2}^{rn},r=0,1,..,N/2-1</script><p>同样符合蝶形结构：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030150736.png width=60%>  </p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<h3 id="快速傅里叶变换的计算量">快速傅里叶变换的计算量</h3>
+<p>由于一点蝶形运算中不包含乘法，快速傅里叶变换通过应用这样的蝶形结构来削减乘法计算的次数。当长度<span
+class="math inline">\(N=2^m\)</span>时，简单分析可得快速傅里叶变换的计算量：<br />
+<span
+class="math display">\[\frac{N^2}{2^m}+m\frac{N}{2}=N+\frac{N}{2}log_2N\]</span></p>
+<h2 id="频域抽取的快速傅里叶变换">频域抽取的快速傅里叶变换</h2>
+<p>在频域内对离散傅里叶变换进行拆分，可以得到：<br />
+<span class="math display">\[\begin{aligned}
+    X[2r]=&amp;∑_{n=0}^{N/2-1}x[n]W_N^{2nr}+∑_{n=0}^{N/2-1}x[n+N/2]W^{2r(n+N/2)}_N\\
+    =&amp;∑_{n=0}^{N/2-1}[x[n]+x[n+N/2]]W^{rn}_{N/2},r=0,1,..,N/2-1
+\end{aligned}\]</span> 同理对于频域内的奇数序列有：<br />
+<span
+class="math display">\[X[2r+1]=[x[n]-x[n+N/2]]W^{rn}_{N/2},r=0,1,..,N/2-1\]</span>
+令<span class="math inline">\(g[n]=x[n]+x[n+N/2]\)</span>,<span
+class="math inline">\(h[n]=x[n]-x[n+N/2]\)</span>，得到频域抽取的快速傅里叶变换：<br />
+<span
+class="math display">\[X[2r]=∑_{n=0}^{N/2-1}g[n]W_{N/2}^{rn}\]</span>
+<span
+class="math display">\[X[2r+1]=W_N^n∑_{n=0}^{N/2-1}h[n]W_{N/2}^{rn},r=0,1,..,N/2-1\]</span>
+同样符合蝶形结构：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211030150736.png width=60%></p>
+
                 
               </div>
             
@@ -3812,20 +3856,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

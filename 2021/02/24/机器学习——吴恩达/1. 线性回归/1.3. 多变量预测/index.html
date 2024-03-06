@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="img{    width: 30%;    padding-left: 20%;}  多变量线性回归多元线性回归对于多个特征量(Features)，规定符号表示：$n$ 特征的总数量$x^{(i)}$  第i个训练样本的输入特征向量，$i$表示的是一个索引(Index)$x_j^i$  第i个训练样本中特征向量的第j个值   此时的假设函数不再是单纯的 $h_θ (x)&#x3D;θ_0+θ_1 x$ 的">
+    <meta name="description" content="img{     width: 30%;     padding-left: 20%; }  多变量线性回归 多元线性回归 对于多个特征量(Features)，规定符号表示： \(n\) 特征的总数量 \(x^{(i)}\) 第i个训练样本的输入特征向量，\(i\)表示的是一个索引(Index) \(x_j^i\) 第i个训练样本中特征向量的第j个值 此时的假设函数不">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1.3. 多变量线性回归">
 <meta property="og:url" content="https://l61012345.top/2021/02/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.3.%20%E5%A4%9A%E5%8F%98%E9%87%8F%E9%A2%84%E6%B5%8B/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="img{    width: 30%;    padding-left: 20%;}  多变量线性回归多元线性回归对于多个特征量(Features)，规定符号表示：$n$ 特征的总数量$x^{(i)}$  第i个训练样本的输入特征向量，$i$表示的是一个索引(Index)$x_j^i$  第i个训练样本中特征向量的第j个值   此时的假设函数不再是单纯的 $h_θ (x)&#x3D;θ_0+θ_1 x$ 的">
+<meta property="og:description" content="img{     width: 30%;     padding-left: 20%; }  多变量线性回归 多元线性回归 对于多个特征量(Features)，规定符号表示： \(n\) 特征的总数量 \(x^{(i)}\) 第i个训练样本的输入特征向量，\(i\)表示的是一个索引(Index) \(x_j^i\) 第i个训练样本中特征向量的第j个值 此时的假设函数不">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-24T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:30:23.686Z">
@@ -472,38 +472,72 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <p><style><br>img{<br>    width: 30%;<br>    padding-left: 20%;<br>}
-</style></p>
-<h1 id="多变量线性回归"><a href="#多变量线性回归" class="headerlink" title="多变量线性回归"></a>多变量线性回归</h1><h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><p>对于多个特征量(Features)，规定符号表示：<br>$n$ 特征的总数量<br>$x^{(i)}$  第i个训练样本的输入特征向量，$i$表示的是一个索引(Index)<br>$x_j^i$  第i个训练样本中特征向量的第j个值  </p>
-<p>此时的假设函数不再是单纯的 $h_θ (x)=θ_0+θ_1 x$ 的形式。<br>对于多个特征量，此时的假设函数为：   </p>
-<script type="math/tex; mode=display">
-h_θ (x)=θ^T x=θ_0+θ_1 x^{(1)}+θ_2 x^{(2)}+…+θ_n x^{(n)}</script><p>对这个样本进行简化：<br>定义$x_0^i=1$, 定义参数向量：$x=\left[\begin{smallmatrix} x_0 \\\ x_1 \\\ … \\\ x_n \end{smallmatrix}\right]n$，系数向量：$θ=\left[\begin{smallmatrix}θ_0 \\\ θ_1 \\\ … \\\ θ_n \end{smallmatrix}\right]$<br>有：   </p>
-<script type="math/tex; mode=display">
-h_θ (x)=θ^T x</script><p>这就是假设函数的向量形式。   </p>
-<h2 id="梯度下降算法在多元线性回归中的应用"><a href="#梯度下降算法在多元线性回归中的应用" class="headerlink" title="梯度下降算法在多元线性回归中的应用"></a>梯度下降算法在多元线性回归中的应用</h2><p>对于假设函数：</p>
-<script type="math/tex; mode=display">
+                <style>
+img{
+    width: 30%;
+    padding-left: 20%;
+}
+</style>
+<h1 id="多变量线性回归">多变量线性回归</h1>
+<h2 id="多元线性回归">多元线性回归</h2>
+<p>对于多个特征量(Features)，规定符号表示：<br />
+<span class="math inline">\(n\)</span> 特征的总数量<br />
+<span class="math inline">\(x^{(i)}\)</span>
+第i个训练样本的输入特征向量，<span
+class="math inline">\(i\)</span>表示的是一个索引(Index)<br />
+<span class="math inline">\(x_j^i\)</span>
+第i个训练样本中特征向量的第j个值</p>
+<p>此时的假设函数不再是单纯的 <span class="math inline">\(h_θ
+(x)=θ_0+θ_1 x\)</span> 的形式。<br />
+对于多个特征量，此时的假设函数为：<br />
+<span class="math display">\[
+h_θ (x)=θ^T x=θ_0+θ_1 x^{(1)}+θ_2 x^{(2)}+…+θ_n x^{(n)}
+\]</span><br />
+对这个样本进行简化：<br />
+定义<span class="math inline">\(x_0^i=1\)</span>, 定义参数向量：<span
+class="math inline">\(x=\left[\begin{smallmatrix} x_0 \\\ x_1 \\\ ...
+\\\ x_n \end{smallmatrix}\right]n\)</span>，系数向量：<span
+class="math inline">\(θ=\left[\begin{smallmatrix}θ_0 \\\ θ_1 \\\ … \\\
+θ_n \end{smallmatrix}\right]\)</span><br />
+有：<br />
+<span class="math display">\[
+h_θ (x)=θ^T x
+\]</span> 这就是假设函数的向量形式。<br />
+## 梯度下降算法在多元线性回归中的应用 对于假设函数： <span
+class="math display">\[
 \begin{aligned}
-h_θ(x)  & =  θ^T x \\\  
-& =θ_0+θ_1 x^{(1)}+θ_2 x^{(2)}+…+θ_n x^{(n)} \\\       
-\end{aligned}</script><p>和损失函数：   </p>
-<script type="math/tex; mode=display">
-J(θ_0,θ_1,…,θ_n)=\frac{1}{2m} ∑_{i=1}^m(h_θ (x^{(i)} )−y^{(i)} )^2</script><p>此时的梯度下降算法：  </p>
-<div class="table-container">
+h_θ(x)  &amp; =  θ^T x \\\  
+&amp; =θ_0+θ_1 x^{(1)}+θ_2 x^{(2)}+…+θ_n x^{(n)} \\\       
+\end{aligned}
+\]</span> 和损失函数：<br />
+<span class="math display">\[
+J(θ_0,θ_1,…,θ_n)=\frac{1}{2m} ∑_{i=1}^m(h_θ (x^{(i)} )−y^{(i)} )^2
+\]</span><br />
+此时的梯度下降算法：</p>
 <table>
+
 <thead>
-<tr>
-<th style="text-align:left">Algorithm</th>
+<tr class="header">
+<th style="text-align: left;">Algorithm</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left"></td>
+<tr class="odd">
+<td style="text-align: left;">Repeat:{<br> <span
+class="math inline">\(θ_j≔θ_j−α\frac{∂J(θ)}{∂θ_j}\)</span><br>}<br></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">对<span
+class="math inline">\(\frac{∂J(θ)}{∂θ_j}\)</span>进行等价变形：</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Repeat:{<br> <span
+class="math inline">\(θ_j≔θ_j−α\frac{1}{m}∑_{i=1}^m(h_θ (x^{(i)}
+)−y^{(i)})  x_j^i\)</span><br>}</td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>Repeat:\{<br>&emsp;$θ_j≔θ_j−α\frac{∂J(θ)}{∂θ_j}$<br>\}<br>|<br>|对$\frac{∂J(θ)}{∂θ_j}$进行等价变形：|<br>|Repeat:\{<br>&emsp;$θ_j≔θ_j−α\frac{1}{m}∑_{i=1}^m(h_θ (x^{(i)} )−y^{(i)})  x_j^i$<br>\}|</p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+
                 
               </div>
             
@@ -3809,20 +3843,5 @@ J(θ_0,θ_1,…,θ_n)=\frac{1}{2m} ∑_{i=1}^m(h_θ (x^{(i)} )−y^{(i)} )^2</sc
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>

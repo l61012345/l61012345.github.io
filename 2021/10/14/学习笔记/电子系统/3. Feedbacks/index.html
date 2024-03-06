@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="反馈放大器反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：   反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为开环增益（Open-loop Gain），系统方程（S域）以$A(s)$或者$G(s)$表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以$B(s)$或者$H(s)$表示。开环（电压）增">
+    <meta name="description" content="反馈放大器 反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：  反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为开环增益（Open-loop Gain），系统方程（S域）以\(A(s)\)或者\(G(s)\)表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以\(B(s)\)或者\(H(s)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="03. 反馈放大器">
 <meta property="og:url" content="https://l61012345.top/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/3.%20Feedbacks/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="反馈放大器反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：   反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为开环增益（Open-loop Gain），系统方程（S域）以$A(s)$或者$G(s)$表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以$B(s)$或者$H(s)$表示。开环（电压）增">
+<meta property="og:description" content="反馈放大器 反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：  反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为开环增益（Open-loop Gain），系统方程（S域）以\(A(s)\)或者\(G(s)\)表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以\(B(s)\)或者\(H(s)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-14T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.844Z">
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          1.4k 字
         
       </span>
     
@@ -472,52 +472,83 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="反馈放大器"><a href="#反馈放大器" class="headerlink" title="反馈放大器"></a>反馈放大器</h1><p>反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014132513.png width=50%>  </p>
-<p>反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为<strong>开环增益</strong>（Open-loop Gain），系统方程（S域）以$A(s)$或者$G(s)$表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以$B(s)$或者$H(s)$表示。开环（电压）增益的物理意义是只看放大器的输出端口和输入端口的电压之比。<br>根据加法器的符号正负，可以分为正反馈系统和负反馈系统。<br>整个系统的<strong>闭环增益</strong>（Close-loop Gain）表示为：  </p>
-<script type="math/tex; mode=display">Gain_{cl}=\frac{θ_o}{θ_i}=\frac{G(s)}{1-G(s)H(s)}</script><blockquote>
-<p>“-“表示正反馈电路，”+”表示负反馈电路</p>
-</blockquote>
-<p>其物理意义是整个电路的输出端口与输入端口的电压之比。<br>当反馈因子为0时（物理意义为不连接反馈电路），闭环增益退化为开环增益。  </p>
-<h2 id="反馈放大器类型"><a href="#反馈放大器类型" class="headerlink" title="反馈放大器类型"></a>反馈放大器类型</h2><p>放大器引入反馈电路的目的是为了便于控制放大器的频率响应特性，使其变得稳定或者是不稳定。<br>运算放大器通过反馈电路连接输入端的正相/反相端口分为正反馈和负反馈放大器电路。  </p>
-<h3 id="反馈放大器的稳定性"><a href="#反馈放大器的稳定性" class="headerlink" title="反馈放大器的稳定性"></a>反馈放大器的稳定性</h3><p>对于反馈放大器电路，电路中的反馈部分可以是非线性元件：LC，此时反馈因子的方程$H(ω)$同样与频率有关，那么放大器的闭环增益可以表示为：  </p>
-<script type="math/tex; mode=display">A_{cl}(ω)=\frac{G(ω)}{1-G(ω)H(ω)}</script><p>因此，反馈放大器的增益是随着频率而变化的。<br>当处于低频时，$B$接近于0使得整个式子退化为开环增益，因此上式可以同时描述放大器的开环增益和闭环增益，同称为放大器的电压增益$A_v(ω)=A_{cl}(ω)$。  </p>
-<script type="math/tex; mode=display">A_{v}(ω)=\frac{G(ω)}{1-G(ω)H(ω)}</script><p>运算放大器增益随带宽（频率）的变化如图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/ddfdfsdf.png width=50%>  </p>
-<p>由上图总结出：  </p>
-<ol>
-<li>在低频时，反馈电路上电容由于反馈信号频率太低处于断路状态，$B$接近于0，此时$A_v(ω)=G(ω)$放大器的增益是开环增益。  </li>
-<li>在当频率增加到$ω_H$时，使得$|GH|=1$，在此之后，反馈放大器的增益变成闭环增益。  </li>
-<li>带宽越大，放大器的稳定性能越好，但是同时放大器的增益越小。  </li>
-</ol>
-<p>事实上，反馈放大器的开环带宽和闭环带宽之间存在着如下关系：  </p>
-<script type="math/tex; mode=display">B_{cl}=\frac{B_{ol}}{A_v}</script><p>  其中$A_v$是运算放大器的电压增益。   </p>
-<h3 id="正反馈放大器（振荡器）"><a href="#正反馈放大器（振荡器）" class="headerlink" title="正反馈放大器（振荡器）"></a>正反馈放大器（振荡器）</h3><p>对正反馈放大器电路，其反馈系数为正:$H&gt;0$，其放大器增益（即系统的闭环增益）可以表示为：  </p>
-<script type="math/tex; mode=display">A_{cl}=\frac{G}{1-|GH|}</script><p>正反馈虽然能够提高放大倍数，但会使电路工作变得不稳定。当$|GH|=1$时，系统增益为无穷，此时系统变得不稳定，产生正弦波<strong>振荡</strong>的电压信号。利用同相放大器的这一特性可以制作振荡器电路，将输入的直流信号变为交流信号，当$Gain$非常大时，输出电压会受到放大器工作电压的限制，最终输出的信号接近于方波。<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014141623.png width=50%>  </p>
-<h3 id="负反馈放大器"><a href="#负反馈放大器" class="headerlink" title="负反馈放大器"></a>负反馈放大器</h3><p>对于负反馈放大器电路，其反馈系数为负数:$H&lt;0$，其放大器增益（即系统的闭环增益）可以表示为：  </p>
-<script type="math/tex; mode=display">Gain=\frac{G}{1+|GH|}</script><p>在放大电路中引入负反馈，虽然会导致闭环增益的下降，但能使放大电路的许多性能得到改善。例如，可以提高增益的<strong>稳定性</strong>，扩展通频带，减小非线性失真，改变输入电阻和输出电阻等。</p>
-<blockquote>
-<p>给出了负反馈增益的具体推导，以及频率响应为什么和低通滤波器如此相似的原因：<a target="_blank" rel="noopener" href="https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture29-OP%20Amp%20Frequency%20Response.pdf">https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture29-OP%20Amp%20Frequency%20Response.pdf</a></p>
-</blockquote>
-<h2 id="负反馈放大器的类型"><a href="#负反馈放大器的类型" class="headerlink" title="负反馈放大器的类型"></a>负反馈放大器的类型</h2><p>根据基本放大电路和反馈网络之间的端口连接方式可分为四类负反馈电路：</p>
-<ol>
-<li><p>输入端（Mixer）：</p>
-<ul>
-<li>串联反馈：串联连接（输入电压信号）</li>
-<li>并联反馈：并联连接（输入电流信号）</li>
-</ul>
-</li>
-<li><p>输出端（Sensing）：</p>
+                <h1 id="反馈放大器">反馈放大器</h1>
+<p>反馈电路指将系统输出经过处理后加入输入信号的电路，基本的反馈结构如下图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014132513.png width=50%></p>
+<p>反馈电路由两部分组成：正向系统（输入→输出方向），其增益称为<strong>开环增益</strong>（Open-loop
+Gain），系统方程（S域）以<span
+class="math inline">\(A(s)\)</span>或者<span
+class="math inline">\(G(s)\)</span>表示；反馈系统（输出→输入方向）中的反馈系数可以理解为反馈量和输出量的比值，值越大，反馈越强，系统方程（S域）以<span
+class="math inline">\(B(s)\)</span>或者<span
+class="math inline">\(H(s)\)</span>表示。开环（电压）增益的物理意义是只看放大器的输出端口和输入端口的电压之比。<br />
+根据加法器的符号正负，可以分为正反馈系统和负反馈系统。<br />
+整个系统的<strong>闭环增益</strong>（Close-loop Gain）表示为：<br />
+<span
+class="math display">\[Gain_{cl}=\frac{θ_o}{θ_i}=\frac{G(s)}{1-G(s)H(s)}\]</span>
+&gt; "-"表示正反馈电路，"+"表示负反馈电路</p>
+<p>其物理意义是整个电路的输出端口与输入端口的电压之比。<br />
+当反馈因子为0时（物理意义为不连接反馈电路），闭环增益退化为开环增益。</p>
+<h2 id="反馈放大器类型">反馈放大器类型</h2>
+<p>放大器引入反馈电路的目的是为了便于控制放大器的频率响应特性，使其变得稳定或者是不稳定。<br />
+运算放大器通过反馈电路连接输入端的正相/反相端口分为正反馈和负反馈放大器电路。</p>
+<h3 id="反馈放大器的稳定性">反馈放大器的稳定性</h3>
+<p>对于反馈放大器电路，电路中的反馈部分可以是非线性元件：LC，此时反馈因子的方程<span
+class="math inline">\(H(ω)\)</span>同样与频率有关，那么放大器的闭环增益可以表示为：<br />
+<span class="math display">\[A_{cl}(ω)=\frac{G(ω)}{1-G(ω)H(ω)}\]</span>
+因此，反馈放大器的增益是随着频率而变化的。<br />
+当处于低频时，<span
+class="math inline">\(B\)</span>接近于0使得整个式子退化为开环增益，因此上式可以同时描述放大器的开环增益和闭环增益，同称为放大器的电压增益<span
+class="math inline">\(A_v(ω)=A_{cl}(ω)\)</span>。<br />
+<span
+class="math display">\[A_{v}(ω)=\frac{G(ω)}{1-G(ω)H(ω)}\]</span></p>
+<p>运算放大器增益随带宽（频率）的变化如图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/ddfdfsdf.png width=50%></p>
+<p>由上图总结出：<br />
+1. 在低频时，反馈电路上电容由于反馈信号频率太低处于断路状态，<span
+class="math inline">\(B\)</span>接近于0，此时<span
+class="math inline">\(A_v(ω)=G(ω)\)</span>放大器的增益是开环增益。<br />
+2. 在当频率增加到<span class="math inline">\(ω_H\)</span>时，使得<span
+class="math inline">\(|GH|=1\)</span>，在此之后，反馈放大器的增益变成闭环增益。<br />
+3. 带宽越大，放大器的稳定性能越好，但是同时放大器的增益越小。</p>
+<p>事实上，反馈放大器的开环带宽和闭环带宽之间存在着如下关系：<br />
+<span class="math display">\[B_{cl}=\frac{B_{ol}}{A_v}\]</span>
+其中<span class="math inline">\(A_v\)</span>是运算放大器的电压增益。</p>
+<h3 id="正反馈放大器振荡器">正反馈放大器（振荡器）</h3>
+<p>对正反馈放大器电路，其反馈系数为正:<span
+class="math inline">\(H&gt;0\)</span>，其放大器增益（即系统的闭环增益）可以表示为：<br />
+<span class="math display">\[A_{cl}=\frac{G}{1-|GH|}\]</span>
+正反馈虽然能够提高放大倍数，但会使电路工作变得不稳定。当<span
+class="math inline">\(|GH|=1\)</span>时，系统增益为无穷，此时系统变得不稳定，产生正弦波<strong>振荡</strong>的电压信号。利用同相放大器的这一特性可以制作振荡器电路，将输入的直流信号变为交流信号，当<span
+class="math inline">\(Gain\)</span>非常大时，输出电压会受到放大器工作电压的限制，最终输出的信号接近于方波。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014141623.png width=50%></p>
+<h3 id="负反馈放大器">负反馈放大器</h3>
+<p>对于负反馈放大器电路，其反馈系数为负数:<span
+class="math inline">\(H&lt;0\)</span>，其放大器增益（即系统的闭环增益）可以表示为：<br />
+<span class="math display">\[Gain=\frac{G}{1+|GH|}\]</span>
+在放大电路中引入负反馈，虽然会导致闭环增益的下降，但能使放大电路的许多性能得到改善。例如，可以提高增益的<strong>稳定性</strong>，扩展通频带，减小非线性失真，改变输入电阻和输出电阻等。
+&gt;
+给出了负反馈增益的具体推导，以及频率响应为什么和低通滤波器如此相似的原因：https://alan.ece.gatech.edu/ECE3040/Lectures/Lecture29-OP%20Amp%20Frequency%20Response.pdf</p>
+<h2 id="负反馈放大器的类型">负反馈放大器的类型</h2>
+<p>根据基本放大电路和反馈网络之间的端口连接方式可分为四类负反馈电路： 1.
+输入端（Mixer）： - 串联反馈：串联连接（输入电压信号） -
+并联反馈：并联连接（输入电流信号）</p>
+<ol start="2" type="1">
+<li>输出端（Sensing）：
 <ul>
 <li>电压反馈：采样电压信号</li>
-<li>电流反馈：采样电流信号  </li>
-</ul>
-</li>
+<li>电流反馈：采样电流信号</li>
+</ul></li>
 </ol>
-<p>输出端和输入端组合后有四种负反馈方式：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014152046.png width=60%></p>
+<p>输出端和输入端组合后有四种负反馈方式：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014152046.png width=60%></p>
 <blockquote>
-<p>负反馈放大器【链接已失效】，上海交通大学：<a target="_blank" rel="noopener" href="https://nuedc-sh.sjtu.edu.cn/analog/kejian/chapter-5.pdf">https://nuedc-sh.sjtu.edu.cn/analog/kejian/chapter-5.pdf</a><br>上海交通大学陈建平老师课件：<a target="_blank" rel="noopener" href="https://eelab.sjtu.edu.cn/analog/%E8%80%81%E5%B8%88%E6%95%99%E6%A1%881.aspx">https://eelab.sjtu.edu.cn/analog/%E8%80%81%E5%B8%88%E6%95%99%E6%A1%881.aspx</a><br>放大电路中的反馈，上海交通大学电子信息与电气工程学院模拟电子基础课程：<a target="_blank" rel="noopener" href="https://eelab.sjtu.edu.cn/analog/oldcourse.aspx">https://eelab.sjtu.edu.cn/analog/oldcourse.aspx</a></p>
+<p>负反馈放大器【链接已失效】，上海交通大学：https://nuedc-sh.sjtu.edu.cn/analog/kejian/chapter-5.pdf
+上海交通大学陈建平老师课件：https://eelab.sjtu.edu.cn/analog/%E8%80%81%E5%B8%88%E6%95%99%E6%A1%881.aspx
+放大电路中的反馈，上海交通大学电子信息与电气工程学院模拟电子基础课程：https://eelab.sjtu.edu.cn/analog/oldcourse.aspx</p>
 </blockquote>
-<p>最简单的判断电路属于哪种反馈类型的方式为看电路中反馈部分两端是否存在额外的接地电阻，如下图所示：<br><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014152437.png width=80%>  </p>
-<link rel="stylesheet" href="/css/spoiler.css" type="text/css"><script src="/js/spoiler.js" type="text/javascript" async></script>
+<p>最简单的判断电路属于哪种反馈类型的方式为看电路中反馈部分两端是否存在额外的接地电阻，如下图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211014152437.png width=80%></p>
+
                 
               </div>
             
@@ -3816,20 +3847,5 @@ p.spoiler {
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
