@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-09T11:10:13.603Z">
+<meta property="article:modified_time" content="2024-03-09T11:17:10.730Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -567,7 +567,7 @@ class="math inline">\(\hat{Y}\)</span>的边缘概率分布。</p>
 <p><span
 class="math inline">\(H(Y)\)</span>是目标输出的信息熵，此处用于进行归一化，表示为：<br />
 <span class="math display">\[H(Y)=-\sum_{y\in
-Y}p(y)log(p(y))\]</span></p>
+Y}p(y)log(p(y))=I(Y,Y)\]</span></p>
 <div class="note note-info">
             <p>对两个随机变量<span class="math inline">\(X\)</span>，<spanclass="math inline">\(Y\)</span>，其互信息<spanclass="math inline">\(I(X;Y)\)</span>衡量了两者的相互依赖关系，即在一方部分不确定的情况下，另一方的不确定程度。因此<spanclass="math inline">\(I(X;X)=H(X)\)</span>.其本质上是对联合概率分布定义的拓展，如下图所示：<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240302140346.png width=60%></p><p>其中<span class="math inline">\(H(X,Y)\)</span>为<spanclass="math inline">\(X\)</span>与<spanclass="math inline">\(Y\)</span>的联合熵，有：<br /><span class="math display">\[\begin{aligned}    H(X,Y)&amp;=-\sum_{x\in X}\sum_{y \in Y}log(p(x,y))\\    &amp;=H(X|Y)+H(Y|X)+I(X;Y)\end{aligned}\]</span></p>
           </div>
@@ -620,7 +620,7 @@ class="math inline">\(Y=G(V)\)</span>，它们的雅各比行列式表示为：<
 <span
 class="math display">\[J_X=|\frac{∂X}{∂U}|，J_Y=|\frac{∂Y}{∂V}|\]</span></p>
 <div class="note note-info">
-            <p>雅各比行列式的定义是：<br />如果下面等式成立：<br /><span class="math display">\[\begin{cases}  y_1=f_1(x_1,...,x_n)\\  y_2=f_2(x_1,...,x_n)\\  ⋮  y_m=f_m(x_1,...,x_n)\end{cases}\]</span> <spanclass="math inline">\(f_1,...,f_m\)</span>对<spanclass="math inline">\(x_1,...,x_n\)</span>的偏导组成雅各比矩阵：<br /><span class="math display">\[J=\begin{bmatrix}  \frac{∂f_1}{∂x_1}&amp;⋯&amp;\frac{∂f_1}{∂x_n}\\  ⋮&amp;⋱&amp;⋮\\  \frac{∂f_m}{∂x_1}&amp;⋯&amp;\frac{∂f_m}{∂x_n}\\\end{bmatrix}\]</span></p><p>如果<span class="math inline">\(m=n\)</span>，此时<spanclass="math inline">\(J\)</span>为方阵，且<spanclass="math inline">\(Y\)</span>对<spanclass="math inline">\(X\)</span>为单射且满射，即<spanclass="math inline">\(F=\{f_1,...,f_m\}\)</span>可逆，此时雅各比矩阵存在行列式，即雅各比行列式：<span class="math inline">\(|J|\)</span>.<br />根据行列式的几何意义：行列式表示的是某个维度的空间中张成空间的面积。<br /><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309100739.png width=40%></p><p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309103757.png width=40%><br />推出，雅各比行列式的意义是维度相同的两个空间：<spanclass="math inline">\(Y\)</span>和<spanclass="math inline">\(X\)</span>在<spanclass="math inline">\(n\)</span>维空间的张成空间的体积比，有：<br /><span class="math display">\[\frac{|Y|}{|X|}=|J|\]</span></p><p>下面给出雅各比行列式在二维空间中的几何意义的证明：<br />如果有连续且可逆的变换：<spanclass="math inline">\(x=x(u,v)\)</span>，<spanclass="math inline">\(y=y(u,v)\)</span>，对于<spanclass="math inline">\((u,v)\)</span>中一个非常小的矩形，其长宽可以表示为：<spanclass="math inline">\(du,dv\)</span>，令：<br /><span class="math display">\[\vec{du}=[du,0],\vec{dv}=[0,dv]\]</span>那么有：<br /><span class="math display">\[\vec{dx}=\begin{bmatrix}x_u &amp; x_v \\y_u&amp; y_v \\\end{bmatrix}\begin{bmatrix}  du \\ 0\end{bmatrix}\]</span> <spanclass="math display">\[\vec{dy}=\begin{bmatrix}x_u &amp; x_v \\y_u &amp;y_v \\\end{bmatrix}\begin{bmatrix}  0 \\ dv\end{bmatrix}\]</span> 那么在<spanclass="math inline">\((x,y)\)</span>空间中的张成空间的面积可以表示为：<br /><span class="math display">\[dA=|\vec{dx}×\vec{dy}|=\begin{bmatrix}x_udu \\ y_udu\end{bmatrix}×\begin{bmatrix} x_vdv \\y_vdv\end{bmatrix}=(x_uy_v-x_vy_u)dudv=|J|dudv\]</span></p>
+            <p>雅各比行列式的定义是：<br />如果下面等式成立：<br /><span class="math display">\[\begin{cases}  y_1=f_1(x_1,...,x_n)\\  y_2=f_2(x_1,...,x_n)\\  ⋮  y_m=f_m(x_1,...,x_n)\end{cases}\]</span> <spanclass="math inline">\(f_1,...,f_m\)</span>对<spanclass="math inline">\(x_1,...,x_n\)</span>的偏导组成雅各比矩阵：<br /><span class="math display">\[J=\begin{bmatrix}  \frac{∂f_1}{∂x_1}&amp;⋯&amp;\frac{∂f_1}{∂x_n}\\  ⋮&amp;⋱&amp;⋮\\  \frac{∂f_m}{∂x_1}&amp;⋯&amp;\frac{∂f_m}{∂x_n}\\\end{bmatrix}\]</span></p><p>如果<span class="math inline">\(m=n\)</span>，此时<spanclass="math inline">\(J\)</span>为方阵，且<spanclass="math inline">\(Y\)</span>对<spanclass="math inline">\(X\)</span>为单射且满射，即<spanclass="math inline">\(F=\{f_1,...,f_m\}\)</span>可逆，此时雅各比矩阵存在不为零的行列式，即雅各比行列式：<span class="math inline">\(|J|\)</span>.<br />根据行列式的几何意义：行列式表示的是某个维度的空间中张成空间的面积。<br /><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309100739.png width=40%></p><p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309103757.png width=40%><br />推出，雅各比行列式的意义是维度相同的两个空间：<spanclass="math inline">\(Y\)</span>和<spanclass="math inline">\(X\)</span>在<spanclass="math inline">\(n\)</span>维空间的张成空间的体积比，有：<br /><span class="math display">\[\frac{|Y|}{|X|}=|J|\]</span></p><p>下面给出雅各比行列式在二维空间中的几何意义的证明：<br />如果有连续且可逆的变换：<spanclass="math inline">\(x=x(u,v)\)</span>，<spanclass="math inline">\(y=y(u,v)\)</span>，对于<spanclass="math inline">\((u,v)\)</span>中一个非常小的矩形，其长宽可以表示为：<spanclass="math inline">\(du,dv\)</span>，令：<br /><span class="math display">\[\vec{du}=[du,0],\vec{dv}=[0,dv]\]</span>那么有：<br /><span class="math display">\[\vec{dx}=\begin{bmatrix}x_u &amp; x_v \\y_u&amp; y_v \\\end{bmatrix}\begin{bmatrix}  du \\ 0\end{bmatrix}\]</span> <spanclass="math display">\[\vec{dy}=\begin{bmatrix}x_u &amp; x_v \\y_u &amp;y_v \\\end{bmatrix}\begin{bmatrix}  0 \\ dv\end{bmatrix}\]</span> 那么在<spanclass="math inline">\((x,y)\)</span>空间中的张成空间的面积可以表示为：<br /><span class="math display">\[dA=|\vec{dx}×\vec{dy}|=\begin{bmatrix}x_udu \\ y_udu\end{bmatrix}×\begin{bmatrix} x_vdv \\y_vdv\end{bmatrix}=(x_uy_v-x_vy_u)dudv=|J|dudv\]</span></p>
           </div>
 <p><span class="math inline">\((u,v)\)</span>空间到<span
 class="math inline">\((x,y)\)</span>空间的映射律可以通过对应的雅各比矩阵表示：<br />
@@ -731,18 +731,24 @@ blocks和schema。<br />
 blocks，再从building blocks构建schema。</p>
 <h4 id="语义的building-blocks">语义的building blocks</h4>
 <p>作者认为，语义的building blocks(semantic building
-blocks)是满足下列三个条件的子树：<br />
-- 高语义值 - 该语义值在所有子树的语义值分布中出现频率高 -
-子树的大小不能超过某个阈值</p>
+blocks)是满足下列三个条件的子树：</p>
+<ul>
+<li>高语义值</li>
+<li>该语义值在所有子树的语义值分布中出现频率高</li>
+<li>子树的大小不能超过某个阈值</li>
+</ul>
 <h4 id="语义模式">语义模式</h4>
 <p>Schema可以看做是若干building
 blocks按照某种规律进行特定组合构成的building
-blocks的集合。因此，此处作者定义一个语义schema由两部分组成：<br />
-- building blocks的集合<br />
-- 描述building
+blocks的集合。因此，此处作者定义一个语义schema由两部分组成：</p>
+<ul>
+<li>building blocks的集合<br />
+</li>
+<li>描述building
 blocks在schema内部分布特征的函数，以便判断哪些个体属于这个schema<br />
 如果一个个体的building
-blocks的分布特征符合这个函数，那么这个个体就属于对应的这个schema.</p>
+blocks的分布特征符合这个函数，那么这个个体就属于对应的这个schema.</li>
+</ul>
 <h2 id="sbgp">SBGP</h2>
 <h3 id="概览">概览</h3>
 <p>根据语义building
