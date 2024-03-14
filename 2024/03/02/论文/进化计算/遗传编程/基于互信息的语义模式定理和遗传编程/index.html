@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-09T11:22:12.396Z">
+<meta property="article:modified_time" content="2024-03-14T15:22:19.723Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          64 分钟
+          65 分钟
         
       </span>
     
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年3月9日 上午
+                    本文最后更新于 2024年3月14日 下午
                   
                 
               </p>
@@ -619,9 +619,14 @@ class="math inline">\(X=F(U)\)</span>，<span
 class="math inline">\(Y=G(V)\)</span>，它们的雅各比行列式表示为：<br />
 <span
 class="math display">\[J_X=|\frac{∂X}{∂U}|，J_Y=|\frac{∂Y}{∂V}|\]</span></p>
+<details>
+<summary>
+雅各比行列式的几何意义和推导
+</summary>
 <div class="note note-info">
             <p>雅各比行列式的定义是：<br />如果下面等式成立：<br /><span class="math display">\[\begin{cases}  y_1=f_1(x_1,...,x_n)\\  y_2=f_2(x_1,...,x_n)\\  ⋮  y_m=f_m(x_1,...,x_n)\end{cases}\]</span> <spanclass="math inline">\(f_1,...,f_m\)</span>对<spanclass="math inline">\(x_1,...,x_n\)</span>的偏导组成雅各比矩阵：<br /><span class="math display">\[J=\begin{bmatrix}  \frac{∂f_1}{∂x_1}&amp;⋯&amp;\frac{∂f_1}{∂x_n}\\  ⋮&amp;⋱&amp;⋮\\  \frac{∂f_m}{∂x_1}&amp;⋯&amp;\frac{∂f_m}{∂x_n}\\\end{bmatrix}\]</span></p><p>如果<span class="math inline">\(m=n\)</span>，此时<spanclass="math inline">\(J\)</span>为方阵，且<spanclass="math inline">\(Y\)</span>对<spanclass="math inline">\(X\)</span>为单射且满射，即<spanclass="math inline">\(F=\{f_1,...,f_m\}\)</span>可逆，此时雅各比矩阵存在不为零的行列式，即雅各比行列式：<span class="math inline">\(|J|\)</span>.<br />根据行列式的几何意义：行列式表示的是某个维度的空间中张成空间的面积。<br /><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309100739.png width=40%></p><p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309103757.png width=40%></p><p>推出，雅各比行列式的意义是维度相同的两个空间：<spanclass="math inline">\(Y\)</span>和<spanclass="math inline">\(X\)</span>在<spanclass="math inline">\(n\)</span>维空间的张成空间的体积比，有：<br /><span class="math display">\[\frac{|Y|}{|X|}=|J|\]</span></p><p>下面给出雅各比行列式在二维空间中的几何意义的证明：<br />如果有连续且可逆的变换：<spanclass="math inline">\(x=x(u,v)\)</span>，<spanclass="math inline">\(y=y(u,v)\)</span>，对于<spanclass="math inline">\((u,v)\)</span>中一个非常小的矩形，其长宽可以表示为：<spanclass="math inline">\(du,dv\)</span>，令：<br /><span class="math display">\[\vec{du}=[du,0],\vec{dv}=[0,dv]\]</span>那么有：<br /><span class="math display">\[\vec{dx}=\begin{bmatrix}x_u &amp; x_v \\y_u&amp; y_v \\\end{bmatrix}\begin{bmatrix}  du \\ 0\end{bmatrix}\]</span> <spanclass="math display">\[\vec{dy}=\begin{bmatrix}x_u &amp; x_v \\y_u &amp;y_v \\\end{bmatrix}\begin{bmatrix}  0 \\ dv\end{bmatrix}\]</span> 那么在<spanclass="math inline">\((x,y)\)</span>空间中的张成空间的面积可以表示为：<br /><span class="math display">\[dA=|\vec{dx}×\vec{dy}|=\begin{bmatrix}x_udu \\ y_udu\end{bmatrix}×\begin{bmatrix} x_vdv \\y_vdv\end{bmatrix}=(x_uy_v-x_vy_u)dudv=|J|dudv\]</span></p>
           </div>
+</details>
 <p><span class="math inline">\((u,v)\)</span>空间到<span
 class="math inline">\((x,y)\)</span>空间的映射律可以通过对应的雅各比矩阵表示：<br />
 <span class="math display">\[dx=J_xdu,dy=J_ydv\]</span> <span
@@ -723,7 +728,11 @@ class="math inline">\(y=e^{2x}+x\)</span>，现在检验各种不同的个体结
 </tbody>
 </table>
 </details>
-<p>也就是说，只要个体的结构不发生较大的变化，在进化的早期互信息就可以持续追踪那些高语义值的个体。</p>
+<p>利用互信息的可逆性，<strong>SBGP可以在进化的早期就可以识别到潜在的building
+blocks</strong>.</p>
+<div class="note note-info">
+            <p>在SBGP的一系列论文中，buildingblocks被认为是最终解的某些片段。利用互信息的可逆性，与这些子树语义表现相似的子树可以在进化的早期就被识别到。</p>
+          </div>
 <h3 id="语义的building-blocks和语义模式">语义的building
 blocks和语义模式</h3>
 <p>由于将结构的空间投射到了新的语义空间，因此作者重新定义了building
@@ -943,7 +952,8 @@ class="math display">\[H=[\{B_1,B_2,...,B_k\}∼p(\hat{t}|λ)]\]</span></p>
 <p>当这个树的实例化程度大于设定的阈值<span
 class="math inline">\(η\)</span>时，这个树是schema <span
 class="math inline">\(H\)</span>的实例化：<br />
-<span class="math display">\[μ(β(t))&gt;η→t∈H\]</span> 其中<span
+<span class="math display">\[μ(β(t))&gt;η→t∈H\]</span> 或者：<br />
+<span class="math display">\[p(t|λ)&gt;η\]</span> 其中<span
 class="math inline">\(η\)</span>是最初种群中高于平均语义的个体的实例化程度的平均值:<br />
 <span class="math display">\[η=\frac{\sum^M_{t_i∈\{\text{above average
 ss instances}\}}μ(t_i)}{M}\]</span></p>
@@ -1016,20 +1026,24 @@ class="math inline">\(error(best,V)\)</span>。如果当前这一代的测试集
 其二的操作是使用了精英策略(elitism)。</p>
 <h3 id="sbgp的整体运行流程">SBGP的整体运行流程</h3>
 <p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240309094658.png width=90%></p>
-SBGP整体的运行流程描述如下：<br />
--
-对于种群，首先衡量其中每个个体的适应度，并保留种群中适应度较好的个体进入精英列表。
-- 计算种群中的多样性，如果多样性<span
+<p>SBGP整体的运行流程描述如下：</p>
+<ul>
+<li>对于种群，首先衡量其中每个个体的适应度，并保留种群中适应度较好的个体进入精英列表。<br />
+</li>
+<li>计算种群中的多样性，如果多样性<span
 class="math inline">\(DiversityRation\)</span>低于设定的阈值，则从现有的种群中抽出一个schema，子空间的搜索将转移到这个schema中进行。通过这个schema的实例化函数，可以计算现有种群里所有个体的实例化程度，并判断种群中的哪些个体属于这个schema。<br />
-- 在发生交叉的概率条件下，有<span
+</li>
+<li>在发生交叉的概率条件下，有<span
 class="math inline">\(P_{std}\)</span>的概率发生针对于全局所有个体的标准交叉：如此亲本个体将会通过锦标赛选择的方式选择出，然后进行标准交叉。<br />
 同时，有<span
 class="math inline">\(1-P_{std}\)</span>的概率发生仅针对于schema的实例化个体的局部交叉：所有该schema实例化的个体将会通过锦标赛选择的方式选择出，然后进行间接局部重组。<br />
-- 在发生突变的概率条件下，有<span
+</li>
+<li>在发生突变的概率条件下，有<span
 class="math inline">\(P_{std}\)</span>的概率发生针对于全局所有个体的标准突变：突变的亲本通过锦标赛的方式选择出。有<span
 class="math inline">\(1-P_{std}\)</span>的概率发生间接或者直接的局部突变。<br />
 如果不发生变异，则进行无亲本繁殖。<br />
-- 遗传操作的后代将会和精英一同加入下一代的种群。
+</li>
+<li>遗传操作的后代将会和精英一同加入下一代的种群。
 <section class="footnotes">
 <div class="footnote-list">
 <ol>
@@ -1055,13 +1069,16 @@ Computing, 2022.
 </li>
 <li>
 <span id="fn:4" class="footnote-text"><span>Alexander et al., Estimating
-mutual information, Physical Review, 2004.
-<a href="#fnref:4" rev="footnote" class="footnote-backref">
+mutual information, Physical Review,</li>
+</ul>
+<ol start="2004" type="1">
+<li><a href="#fnref:4" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 </ol>
 </div>
-</section>
+</section></li>
+</ol>
 
                 
               </div>
@@ -1133,7 +1150,7 @@ mutual information, Physical Review, 2004.
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年3月9日</div>
+          <div>2024年3月14日</div>
         </div>
       
       
@@ -2057,20 +2074,5 @@ mutual information, Physical Review, 2004.
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
