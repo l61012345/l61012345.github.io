@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-14T15:22:19.723Z">
+<meta property="article:modified_time" content="2024-03-14T16:24:47.137Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.7k 字
+          7.9k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          65 分钟
+          66 分钟
         
       </span>
     
@@ -728,11 +728,19 @@ class="math inline">\(y=e^{2x}+x\)</span>，现在检验各种不同的个体结
 </tbody>
 </table>
 </details>
-<p>利用互信息的可逆性，<strong>SBGP可以在进化的早期就可以识别到潜在的building
+<p>此处使用互信息的原因有两个：</p>
+<ul>
+<li><p>利用互信息的可逆性，<strong>SBGP可以在进化的早期就可以识别到潜在的building
 blocks</strong>.</p>
 <div class="note note-info">
             <p>在SBGP的一系列论文中，buildingblocks被认为是最终解的某些片段。利用互信息的可逆性，与这些子树语义表现相似的子树可以在进化的早期就被识别到。</p>
           </div>
+<p>需要注意的是，如果两个子树的结构相同，其对目标的语义相似程度（也就是互信息的值）是相等的。但是互信息相等的子树并不意味着子树的结构是相同的。<br />
+</p></li>
+<li><p>基于误差的fitness无法正确奖励对最终解有贡献的building
+blocks。（fitness无法聚焦到一个个体上）相比于fitness，互信息可以相对安全的移除倍数和加法关系对个体或者building
+blocks结构的改变。</p></li>
+</ul>
 <h3 id="语义的building-blocks和语义模式">语义的building
 blocks和语义模式</h3>
 <p>由于将结构的空间投射到了新的语义空间，因此作者重新定义了building
@@ -2074,5 +2082,20 @@ mutual information, Physical Review,</li>
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
