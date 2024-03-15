@@ -115,7 +115,7 @@
 <meta property="og:description" content="基于互信息的语义模式定理和遗传编程 背景 遗传算法中的模式定理 所谓模式(schema)是指在搜索空间中一组具有某些共同特征的点的集合。模式的定义最早在遗传算法领域由Holland提出，他认为遗传算法中的模式是带有Don&#39;t care (*)的位串(string)，Don&#39;t care部分的比特既可以是0也可以是1，因此一个模式实际上代表了若干种不同的个体。进一步地，Holland提出了">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-02T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-14T16:34:40.621Z">
+<meta property="article:modified_time" content="2024-03-15T11:26:04.264Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.9k 字
+          8k 字
         
       </span>
     
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年3月14日 下午
+                    本文最后更新于 2024年3月15日 上午
                   
                 
               </p>
@@ -542,6 +542,9 @@ care，也就是一组结构相似的个体的集合展开。<br />
 blocks。<strong>也就是说具有高贡献的building
 blocks的个体未必具有高适应度</strong>。某些适应度高的个体可能会因为在遗传操作中出现微小的变化而导致适应度急剧下降，反之依然。<br />
 因此，除了使用适应度之外，还需要使用别的特征来正确反映种群在进化过程中的进展。</p>
+<p>语义在SBGP中的作用整理如下：<br />
+- 识别和归纳buidling blocks<br />
+- 计算当前种群的多样性 - 用于提取聚类中心和计算实例化函数</p>
 <h4 id="互信息">互信息</h4>
 <p><sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
 class="hint--top hint--rounded"
@@ -735,13 +738,15 @@ blocks</strong>.</p>
 <div class="note note-info">
             <p>在SBGP的一系列论文中，buildingblocks被认为是最终解的某些片段。利用互信息的可逆性，与这些子树语义表现相似的子树可以在进化的早期就被识别到。</p>
           </div>
-<p>需要注意的是，如果两个子树的结构相同，其对目标的语义相似程度（也就是互信息的值）是相等的。但是互信息相等的子树并不意味着子树的结构是相同的。<br />
-</p></li>
+<p>需要注意的是，如果两个子树的结构相同，其对目标的语义相似程度（也就是互信息的值）是相等的。但是互信息相等的子树并不意味着子树的结构是相同的。</p></li>
 <li><p>基于误差的fitness无法正确奖励对最终解有贡献的building
 blocks。（fitness无法聚焦到一个个体上）相比于fitness，互信息可以相对安全的移除倍数和加法关系对个体或者building
 blocks结构的改变。基于误差的fitness对于公式的细节结构（比如常数项）过于敏感，导致进化的进程不太能关注公式中的基本结构和building
 blocks</p></li>
 </ul>
+<div class="note note-info">
+            <p>但是，互信息所描述的个体与目标之间的关系过于抽象，因此无法作为直接度量个体fitness的标准。</p>
+          </div>
 <h3 id="语义的building-blocks和语义模式">语义的building
 blocks和语义模式</h3>
 <p>由于将结构的空间投射到了新的语义空间，因此作者重新定义了building
@@ -827,22 +832,25 @@ class="hint--top hint--rounded"
 aria-label="Zahra et al, Semantic Schema modeling for genetic programming using clustering of building blocks, Apply Intelligence, 2018.">[2]</span></a></sup>中使用了基于信息的聚类(information
 based clustering)，聚类算法试图将所有的building
 blocks按照相似程度和相关性程度归为几个类，每一个类的聚类中心可以提供关于最终解的足够多的信息。简言之，聚类算法可以进一步的浓缩这些具有高语义值的个体的特征，并将特征用聚类中心表示。<br />
-这种聚类算法需要达成三个要求：<br />
-- 每两个聚类中心<span class="math inline">\(c_i\)</span>与<span
+这种聚类算法需要达成三个要求：</p>
+<ul>
+<li>每两个聚类中心<span class="math inline">\(c_i\)</span>与<span
 class="math inline">\(c_j\)</span>之间的互信息应当是最小的： <span
-class="math display">\[\min_{C=\{c_1,...,c_k\}}I(c_i.c_j),∀i,j∈C,i≠j\]</span>
-- 每个聚类内部的元素与聚类中心的互信息应该是最大的：<br />
+class="math display">\[\min_{C=\{c_1,...,c_k\}}I(c_i.c_j),∀i,j∈C,i≠j\]</span></li>
+<li>每个聚类内部的元素与聚类中心的互信息应该是最大的：<br />
 <span
 class="math display">\[\max_{L=\{l(BB_i)|i=1,2,...,n\}}I(BB_i;c_{l(BB_i)}),∀i=1,2,...,n\]</span>
 其中<span class="math inline">\(l(BB_i)\)</span>指某个building
 block<span class="math inline">\(BB_i\)</span>所属的聚类的编号。<span
 class="math inline">\(L\)</span>是一个含有所有<span
 class="math inline">\(l\)</span>的列表。<br />
-- 所有聚类中心的平均语义信息需要最高：<br />
+</li>
+<li>所有聚类中心的平均语义信息需要最高：<br />
 <span
 class="math display">\[\max_{C=\{c_1,...,c_k\}}\frac{1}{k}\sum_{i=1}^kS(c_i)\]</span>
 这个设计的目的是因为SBGP中感兴趣的是具有高语义值的聚类中心，这些中心可以提供足够多的关于最终解的信息：<span
-class="math inline">\(I(c_1,c_2,...,c_k;Y)\)</span>.</p>
+class="math inline">\(I(c_1,c_2,...,c_k;Y)\)</span>.</li>
+</ul>
 <p>整个聚类的方法分为两步：寻找聚类中心和将其他的building
 blocks依附到聚类上。</p>
 <ul>
@@ -881,8 +889,8 @@ max_{i}(I(BB_i;c_i)),c_i∈C\]</span></li>
 </ul>
 <h5 id="实例化函数">实例化函数</h5>
 <p>实例化函数(instantiation
-function)用于决定给定的种群中哪些个体属于特定的schema。实例化函数的思路是找该个体中所有的active
-building blocks对于所在的聚类的贡献程度，如果贡献程度大于某个阈值<span
+function)用于决定给定的种群中哪些个体属于特定的schema，它的概念近似于隶属度函数。实例化函数的思路是找该个体中所有的active
+building blocks对于所在的聚类的隶属程度，如果隶属度大于某个阈值<span
 class="math inline">\(η\)</span>，那么这个个体是这个聚类对应的schema的一个实例化。<br />
 一个building block <span
 class="math inline">\(BB\)</span>对其聚类中心<span
@@ -966,6 +974,7 @@ class="math inline">\(H\)</span>的实例化：<br />
 class="math inline">\(η\)</span>是最初种群中高于平均语义的个体的实例化程度的平均值:<br />
 <span class="math display">\[η=\frac{\sum^M_{t_i∈\{\text{above average
 ss instances}\}}μ(t_i)}{M}\]</span></p>
+<p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240315112454.png width=70%></p>
 <div class="note note-info">
             <p>需要注意的是，在进化的过程中，自始至终每一代种群都只能提取出一个schema。</p>
           </div>
@@ -1159,7 +1168,7 @@ mutual information, Physical Review,</li>
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年3月14日</div>
+          <div>2024年3月15日</div>
         </div>
       
       
@@ -2083,5 +2092,20 @@ mutual information, Physical Review,</li>
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
