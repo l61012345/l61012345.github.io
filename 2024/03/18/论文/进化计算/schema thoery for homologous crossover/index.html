@@ -115,7 +115,7 @@
 <meta property="og:description" content="同源交叉的模式定理  Riccardo Poli et al,. Exact Schema Thoery and Markov Chain Models for Genetic Programming and Variable-length Genetic Algorithms with Homologous Crossover, Genetic Programming and Evolv">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-19T18:54:08.442Z">
+<meta property="article:modified_time" content="2024-03-19T19:35:29.197Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.6k 字
+          3.4k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          22 分钟
+          29 分钟
         
       </span>
     
@@ -666,7 +666,7 @@ block也是满足这个特征的所有个体的集合。因此，一个个体“
 block可以理解为该个体是这个building block所代表集合的成员：<span
 class="math inline">\(h_1 ∈ Γ(H,i)\)</span></p>
 <div class="note note-info">
-            <p id="理论2">理论2：</p><p><strong>对于一个schema <spanclass="math inline">\(H\)</span>，持有building block<spanclass="math inline">\(Γ(H,i)\)</span>的个体与另一个持有buildingblock<spanclass="math inline">\(Γ(H,\overline{i})\)</span>的个体的交叉的后代一定属于schema<span class="math inline">\(H\)</span>。反之，产生后代属于<spanclass="math inline">\(H\)</span>的两个亲本一定各自持有buildingblock<span class="math inline">\(Γ(H,i)\)</span>和<spanclass="math inline">\(Γ(H,\overline{i})\)</span></strong>。</p><blockquote><p>if one crossover using crossover mask <spanclass="math inline">\(i\)</span> any individual in <spanclass="math inline">\(Γ(H,i)≠∅\)</span> with any individual in <spanclass="math inline">\(Γ(H,\overline{i})≠∅\)</span>, the resultingoffspring is always an instance of <spanclass="math inline">\(H\)</span>. Coversely, if two individuals crossusing mask <span class="math inline">\(i\)</span> to form an element of<span class="math inline">\(H\)</span>, then one of them must have comefrom <span class="math inline">\(Γ(H,\overline{i})\)</span> and theother from <span class="math inline">\(Γ(H,\overline{i})\)</span>.</p></blockquote>
+            <p id="理论2">理论2：</p><p><strong>对于一个schema <spanclass="math inline">\(H\)</span>，持有building block<spanclass="math inline">\(Γ(H,i)\)</span>的个体与另一个持有buildingblock<spanclass="math inline">\(Γ(H,\overline{i})\)</span>的个的交叉的后代一定属于schema<span class="math inline">\(H\)</span>。反之，产生后代属于<spanclass="math inline">\(H\)</span>的两个亲本一定各自持有buildingblock<span class="math inline">\(Γ(H,i)\)</span>和<spanclass="math inline">\(Γ(H,\overline{i})\)</span></strong>。</p><blockquote><p>if one crossover using crossover mask <spanclass="math inline">\(i\)</span> any individual in <spanclass="math inline">\(Γ(H,i)≠∅\)</span> with any individual in <spanclass="math inline">\(Γ(H,\overline{i})≠∅\)</span>, the resultingoffspring is always an instance of <spanclass="math inline">\(H\)</span>. Coversely, if two individuals crossusing mask <span class="math inline">\(i\)</span> to form an element of<span class="math inline">\(H\)</span>, then one of them must have comefrom <span class="math inline">\(Γ(H,\overline{i})\)</span> and theother from <span class="math inline">\(Γ(H,\overline{i})\)</span>.</p></blockquote>
           </div>
 <h4 id="同原交叉下-exact-schema-thoery的完整推导">同原交叉下 Exact
 Schema Thoery的完整推导</h4>
@@ -709,9 +709,83 @@ class="math inline">\(A\)</span>的概率）。交叉模板<span
 class="math inline">\(i\)</span>应当与<span
 class="math inline">\(h_1\)</span>和<span
 class="math inline">\(h_2\)</span>的common
-region的形状相同，被选中需要满足两个条件：<span
-class="math inline">\(i\)</span>在 有<span
-class="math inline">\(p(i|h_1,h_2)=δ(i∈χ(h_1,h_2))p_i^{C(h_1,h_2)}\)</span></p>
+region的形状相同，被选中需要满足两个条件：1. <span
+class="math inline">\(i\)</span>属于<span
+class="math inline">\(h_1\)</span>和<span
+class="math inline">\(h_2\)</span>的common regions的模板 2.
+在这些模板中，<span class="math inline">\(i\)</span>需要被选中。
+因此有：<br />
+<span
+class="math display">\[p(i|h_1,h_2)=δ(i∈χ(h_1,h_2))p_i^{C(h_1,h_2)}\]</span>
+其中<span
+class="math inline">\(δ(.)\)</span>是一个判断函数，当满足其中的条件时其值为1，否则为0。<span
+class="math inline">\(∑δ(.)\)</span>表示在可能的遍历过程中这个条件被满足了多少次。<br />
+那么，<br />
+<span class="math display">\[\begin{aligned}
+    α_c(H,t)=&amp;∑_{h_1}∑_{h_2}∑_ip(h_1,t)p(h_2,t)δ(i∈χ(h_1,h_2))p_i^{C(h_1,h_2)}g(h_1,h_2,H,i)\\
+    =&amp;∑_{h_1}∑_{h_2}∑_{i∈χ(h_1,h_2)}p(h_1,t)p(h_2,t)p_i^{C(h_1,h_2)}g(h_1,h_2,H,i)
+\end{aligned} \tag{1-3}\]</span> 根据乘法分配律，现在将与模板<span
+class="math inline">\(i\)</span>相关的内容归结到一起：<br />
+<span
+class="math display">\[α_c(H,t)=∑_{h_1}∑_{h_2}p(h_1,t)p(h_2,t)∑_{i∈χ(h_1,h_2)}p_i^{C(h_1,h_2)}g(h_1,h_2,H,i)
+\tag{1-4}\]</span> 再来看<span
+class="math inline">\(g(h_1,h_2,H,i)\)</span>，要想<span
+class="math inline">\(h_1\)</span>和<span
+class="math inline">\(h_2\)</span>按照模板<span
+class="math inline">\(i\)</span>交叉后产生属于schema <span
+class="math inline">\(H\)</span>的个体，那么根据<a
+href="#理论2">理论2</a>，当<span
+class="math inline">\(h_1\)</span>和<span
+class="math inline">\(h_2\)</span>各自持有building block<span
+class="math inline">\(Γ(H,i)\)</span>和<span
+class="math inline">\(Γ(H,\overline{i})\)</span>时，此时一定可以产生属于schema
+<span
+class="math inline">\(H\)</span>的个体（概率为1），否则一定不能产生属于schema
+<span class="math inline">\(H\)</span>的个体（概率为0） 有：<br />
+<span
+class="math display">\[g(h_1,h_2,H,i)=δ(h_1∈Γ(H,i))δ(h_2∈Γ(H,\overline{i}))\]</span>
+乘积在此的作用相当于逻辑中的<span
+class="math inline">\(AND\)</span>，表示两种情况同时发生时才可以发生。<br />
+那么：<br />
+<span class="math display">\[\begin{aligned}
+    α_c(H,t)=&amp;∑_{h_1}∑_{h_2}p(h_1,t)p(h_2,t)\\
+    &amp;×∑_{i∈χ(h_1,h_2)}p_i^{C(h_1,h_2)}δ(h_1∈Γ(H,i))δ(h_2∈Γ(H,\overline{i}))
+\end{aligned} \tag{1-5}\]</span> <span
+class="math inline">\(h_1\)</span>和<span
+class="math inline">\(h_2\)</span>一定属于某些shape，有<span
+class="math inline">\(∑_jδ(h_1∈G_j)=1\)</span>，那么向式<span
+class="math inline">\((1-5)\)</span>添加关于shape的信息对式子本身不会有任何影响：<br />
+<span class="math display">\[\begin{aligned}
+    α_c(H,t)=&amp;∑_{h_1}∑_{h_2}∑_j∑_kp(h_1,t)p(h_2,t)\\
+    &amp;×∑_{i∈χ(h_1,h_2)}p_i^{C(h_1,h_2)}δ(h_1∈Γ(H,i))δ(h_1∈G_j)δ(h_2∈Γ(H,\overline{i}))δ(h_2∈G_k)\\
+    =&amp;∑_{h_1∈G_j}∑_{h_2∈G_k}p(h_1,t)p(h_2,t)\\
+    &amp;×∑_{i∈χ(h_1,h_2)}p_i^{C(h_1,h_2)}δ(h_1∈Γ(H,i))δ(h_2∈Γ(H,\overline{i}))
+\end{aligned} \tag{1-6}\]</span> 因为<span
+class="math inline">\(h_1∈G_j\)</span>,<span
+class="math inline">\(h_2∈G_k\)</span>，它们的common
+region应该是一样的：<span
+class="math inline">\(C(h_1,h_2)=h(G_j,G_k)\)</span>，那么：<br />
+<span class="math display">\[\begin{aligned}
+    α_c(H,t)=&amp;∑_j∑_k∑_{h_1∈G_j}∑_{h_2∈G_k}p(h_1,t)p(h_2,t)\\
+    &amp;×∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}δ(h_1∈Γ(H,i))δ(h_2∈Γ(H,\overline{i}))
+\end{aligned} \tag{1-6}\]</span> 将这个式子重新整理，有：<br />
+<span class="math display">\[\begin{aligned}
+    α_c(H,t)=&amp;∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}∑_{h_1∈G_j}p(h_1,t)δ(h_1∈Γ(H,i))\\
+    &amp;×∑_{h_2∈G_k}p(h_2,t)δ(h_2∈Γ(H,\overline{i}))
+\end{aligned} \tag{1-7}\]</span> 其中<span
+class="math inline">\(∑_{h_1∈G_j}p(h_1,t)=p(G_j,t)\)</span>，<span
+class="math inline">\(∑_{h_2∈G_k}p(h_2,t)=p(G_k,t)\)</span>，有<span
+class="math inline">\(∑_{h_1∈G_j}p(h_1,t)δ(h_1∈Γ(H,i))=p(Γ(H,i)∩G_j,t)\)</span>,<span
+class="math inline">\(∑_{h_2∈G_k}p(h_2,t)δ(h_2∈Γ(H,i))=p(Γ(H,\overline{i})∩G_k,t)\)</span><br />
+那么，<br />
+<span
+class="math display">\[α_c(H,t)=∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)
+\tag{1-7}\]</span> 带入式<span
+class="math inline">\((0-2)\)</span>中：<br />
+<span class="math display">\[\begin{aligned}
+    α(H,t) = &amp; (1-p_c)p(H,t)\\
+    &amp;+p_c[∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)]
+\end{aligned}\]</span> 这是最终的Exact Schema Thoery.</p>
 
                 
               </div>
@@ -1709,20 +1783,5 @@ class="math inline">\(p(i|h_1,h_2)=δ(i∈χ(h_1,h_2))p_i^{C(h_1,h_2)}\)</span><
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
