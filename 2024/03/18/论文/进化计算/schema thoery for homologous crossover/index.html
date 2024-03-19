@@ -115,7 +115,7 @@
 <meta property="og:description" content="同源交叉的模式定理  Riccardo Poli et al,. Exact Schema Thoery and Markov Chain Models for Genetic Programming and Variable-length Genetic Algorithms with Homologous Crossover, Genetic Programming and Evolv">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-19T17:08:41.414Z">
+<meta property="article:modified_time" content="2024-03-19T18:23:46.366Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          2.4k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          19 分钟
+          20 分钟
         
       </span>
     
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年3月19日 下午
+                    本文最后更新于 2024年3月19日 晚上
                   
                 
               </p>
@@ -509,11 +509,9 @@ class="math inline">\(α_c(H,t)\)</span>为发生交叉的转换概率。</p>
 <h4 id="最大相似区域">最大相似区域</h4>
 <p>最大相似区域(common parts/common
 regions)是指两个亲本从根节点开始的最大的拓扑结构重叠区域。</p>
-<p><a id="理论1"> 理论1：</a></p>
-<p><strong>如果交叉发生在最大相似区域中，整个schema的多样性将不会发生任何变化</strong>。<br />
-下图展示了最大相似区域的定义以及这个理论在单点交叉上成立的图示：</p>
-<p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240319115753.png width=60%></p>
-<p>因此，<strong>要想保证schema不会受到破坏，两个亲本的交叉应当发生在它们的最大相似区域中</strong>。</p>
+<div class="note note-info">
+            <p id="理论1">理论1：</p><p><strong>如果交叉发生在最大相似区域中，整个schema的多样性将不会发生任何变化</strong>。<br />下图展示了最大相似区域的定义以及这个理论在单点交叉上成立的图示：</p><p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240319115753.png width=60%></p><p>因此，<strong>要想保证schema不会受到破坏，两个亲本的交叉应当发生在它们的最大相似区域中</strong>。</p>
+          </div>
 <h5 id="最大相似区域的数学定义">最大相似区域的数学定义</h5>
 <p>首先定义函数<span
 class="math inline">\(A(d,i,h)\)</span>用于返回树<span
@@ -598,7 +596,7 @@ class="math inline">\(G_j\)</span>需要各自持有schema <span
 class="math inline">\(H\)</span>的upper building blocks<span
 class="math inline">\(U(H,i)\)</span>和lower building blocks<span
 class="math inline">\(L(H,i)\)</span>。并且，根据<a
-href="#定理1">定理1</a>，只有当交叉点在<span
+href="#理论1">理论1</a>，只有当交叉点在<span
 class="math inline">\(G_k\)</span>和<span
 class="math inline">\(G_j\)</span>（或者说<span
 class="math inline">\(h_1,h_2\)</span>）的common
@@ -662,6 +660,9 @@ class="math inline">\(i\)</span>标记为0，那么它将被"#"替代：</p>
 class="math inline">\(Γ(H,\overline{i})\)</span>可以根据模板<span
 class="math inline">\(i\)</span>提取出标记为0的亲本所持有的building
 blocks。</p>
+<div class="note note-info">
+            <p id="理论2">理论2：</p><p><strong>对于一个schema <spanclass="math inline">\(H\)</span>，持有building block<spanclass="math inline">\(Γ(H,i)\)</span>的个体与另一个持有buildingblock<spanclass="math inline">\(Γ(H,\overline{i})\)</span>的个体的交叉的后代一定属于schema<span class="math inline">\(H\)</span>。反之，产生后代属于<spanclass="math inline">\(H\)</span>的两个亲本一定各自持有buildingblock<span class="math inline">\(Γ(H,i)\)</span>和<spanclass="math inline">\(Γ(H,\overline{i})\)</span></strong>。</p><blockquote><p>if one crossover using crossover mask <spanclass="math inline">\(i\)</span> any individual in <spanclass="math inline">\(Γ(H,i)≠∅\)</span> with any individual in <spanclass="math inline">\(Γ(H,\overline{i})≠∅\)</span>, the resultingoffspring is always an instance of <spanclass="math inline">\(H\)</span>. Coversely, if two individuals crossusing mask <span class="math inline">\(i\)</span> to form an element of<span class="math inline">\(H\)</span>, then one of them must have comefrom <span class="math inline">\(Γ(H,\overline{i})\)</span> and theother from <span class="math inline">\(Γ(H,\overline{i})\)</span>.</p></blockquote><p>此处对于“持有”的理解是，buildingblocks本质上也是对个体特征的描述，因此一个buildingblock也是满足这个特征的所有个体的集合。因此，一个个体“持有”某个buildingblock可以理解为该个体是这个building block所代表集合的成员：<spanclass="math inline">\(h_1 ∈ Γ(H,i)\)</span></p>
+          </div>
 <h3 id="exact-schema-thoery的完整推导">Exact Schema
 Thoery的完整推导</h3>
 <p><span class="math display">\[α(H,t) =
