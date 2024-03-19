@@ -103,11 +103,23 @@ $$α_c(H,t)=∑_{k,l}\frac{1}{|C(G_k,G_l)|}×∑_{i∈C(G_k,G_l)}p(U(H,i)∩G_k,
 
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240319144438.png width=40%>  
 
-在本文中，作者借用了遗传算法中使用模板的方法，任何在common region中进行的交叉都可以用模板进行表示。  
-同样地，在common region中的任何部分都可以用0和1来表示后代中每个节点与亲本的来源关系。  
+在本文中，作者借用了遗传算法中使用模板的方法，任何在common region中进行的交叉都可以用模板进行表示。因此，模板的shape应当与common region的shape相同。  
+同样地，结合树的坐标表示，在common region中的任何部分都可以用0和1来表示后代中每个节点与亲本的来源关系。  
 
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240319163507.png width=50%>  
 
+定义如果$i$代表$h_1$和$h_2$的一个模板，$\overline{i}$则表示与$i$中的0/1完全相反的一个模板。  
+并且定义$χ_{C(h_1,h_2)}$表示$h_1$和$h_2$的common region的所有可能的模板的集合，$χ_{C(h_1,h_2)}$中应当有$2^{|C(h_1,h_2)|}$个元素，即$2^{|C(h_1,h_2)|}$种不同的可能模板。  
+进化过程中交叉所使用的模板是有概率进行选择的，记$p_i^C$表示common region $C$中的第$i$个模板被选择用于交叉的概率，那么集合$\{p_i^c|∀c\}$则表示了遗传编程中所使用的交叉算子的特性。不同的交叉算子中$p_i^c$的概率不尽相同。    
 
+#### building block的提取
+和单点交叉一样，接下来当提取出两个亲本应当各自持有的schema的一部分，称为building blocks。但是同源交叉下提取并抽象这两部分要比单点交叉更加复杂。  
+定义building blocks的提取函数$Γ(H,i)$，它可以对schema $H$根据模板$i$提取出标记为1的亲本所持有的building blocks。其提取方法如下：  
+对于如果在$H$上的某个非最底层节点(none-leaf node)被$i$标记为0，那么它将被“=”替代，如果一个底层节点(leaf node)被$i$标记为0，那么它将被"#"替代：  
+
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240319170658.png width=50%> 
+
+那么相应地，$Γ(H,\overline{i})$可以根据模板$i$提取出标记为0的亲本所持有的building blocks。  
 
 ### Exact Schema Thoery的完整推导
 $$α(H,t) = (1-p_c)p(H,t)+p_cα_c(H,t)$$
