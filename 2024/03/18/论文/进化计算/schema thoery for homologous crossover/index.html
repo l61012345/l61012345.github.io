@@ -115,7 +115,7 @@
 <meta property="og:description" content="同源交叉的模式定理  Riccardo Poli et al,. Exact Schema Thoery and Markov Chain Models for Genetic Programming and Variable-length Genetic Algorithms with Homologous Crossover, Genetic Programming and Evolv">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-19T19:35:29.197Z">
+<meta property="article:modified_time" content="2024-03-20T19:17:57.610Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -390,7 +390,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.4k 字
+          4.6k 字
         
       </span>
     
@@ -401,7 +401,7 @@ p.spoiler {
         
         
         
-          29 分钟
+          39 分钟
         
       </span>
     
@@ -464,7 +464,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年3月19日 晚上
+                    本文最后更新于 2024年3月20日 晚上
                   
                 
               </p>
@@ -780,12 +780,128 @@ class="math inline">\(∑_{h_2∈G_k}p(h_2,t)δ(h_2∈Γ(H,i))=p(Γ(H,\overline{
 那么，<br />
 <span
 class="math display">\[α_c(H,t)=∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)
-\tag{1-7}\]</span> 带入式<span
+\tag{1-8}\]</span> 带入式<span
 class="math inline">\((0-2)\)</span>中：<br />
 <span class="math display">\[\begin{aligned}
     α(H,t) = &amp; (1-p_c)p(H,t)\\
     &amp;+p_c[∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)]
 \end{aligned}\]</span> 这是最终的Exact Schema Thoery.</p>
+<h2 id="个体的视角---markov-model">个体的视角 - Markov Model</h2>
+<h3 id="vose在遗传算法中的schema-theory">Vose在遗传算法中的Schema
+Theory</h3>
+<p>Vose通过马尔科夫链中的一步转移概率矩阵对遗传算法的动态性进行了描述，下面将简述Vose的Schema
+Thoery.<br />
+设<span class="math inline">\(Ω\)</span>代表所有长度为<span
+class="math inline">\(l\)</span>的个体组成的集合，<span
+class="math inline">\(r=|Ω|=2^l\)</span>. 设<span
+class="math inline">\(Pop\)</span>为一个种群，其种群大小为<span
+class="math inline">\(n=|Pop|\)</span>.根据重复组合定理，从<span
+class="math inline">\(r\)</span>个个体中可以重复的选择<span
+class="math inline">\(n\)</span>个个体构成种群的所有可能的方式数量记为<span
+class="math inline">\(N\)</span>,<span
+class="math inline">\(N=C_{n+r-1}^r\)</span></p>
+<p>现在定义一个大小为<span
+class="math inline">\(r×N\)</span>的接续矩阵(incidence matrix)<span
+class="math inline">\(Z\)</span>，<span
+class="math inline">\(Z\)</span>的第<span
+class="math inline">\(i\)</span>列代表第<span
+class="math inline">\(i\)</span>个可能的种群<span
+class="math inline">\(Pop_i\)</span>:<span
+class="math inline">\(Φ_i=[z_{0,i},z_{1,i}...,z_{r-1,i}]^T\)</span>，其中的一个元素<span
+class="math inline">\(z_{y,i}\)</span>代表<span
+class="math inline">\(Pop_i\)</span>中的第<span
+class="math inline">\(y\)</span>个个体的出现频数。<br />
+根据上述的定义，为<span
+class="math inline">\(Ω\)</span>中的每一个个体建立马尔科夫链当中的一步概率转移矩阵<span
+class="math inline">\(Q\)</span>，其中每一个元素<span
+class="math inline">\(Q_{ij}\)</span>代表从种群<span
+class="math inline">\(Pop_i\)</span>转移到<span
+class="math inline">\(Pop_j\)</span>的概率。<br />
+如果记<span class="math inline">\(p_i(y)\)</span>表示<span
+class="math inline">\(Pop_i\)</span>中的个体在下一代中变成个体<span
+class="math inline">\(y\)</span>的概率，那么<span
+class="math inline">\(Q_{ij}\)</span>就应当是<span
+class="math inline">\(p_i(y)\)</span>的概率的乘积（因为<span
+class="math inline">\(Pop_i\)</span>中的每一个元素都需要转移到<span
+class="math inline">\(Pop_j\)</span>中，这是且的关系）。<span
+class="math inline">\(Pop_i\)</span>中每一个个体都可以转移成<span
+class="math inline">\(Pop_j\)</span>中的任意一个个体，但是它们之中有一些个体是相同的，因此将每一个个体视为是一个集合，采用多重集合的排列公式计算所有的可能性。所有可能的组合数量为：
+<span
+class="math display">\[\frac{n!}{(z_{0,j}!z_{1,j}!z_{2,j}!…z_{r-1,j}!)}\]</span>
+那么，<br />
+<span
+class="math display">\[Q_{i,j}=\frac{n!}{(z_{0,j}!z_{1,j}!z_{2,j}!…z_{r-1,j}!)}∏_{y=0}^{r-1}(p_i(y))^{z_{y,j}}
+\tag{2-0}\]</span></p>
+<details>
+<summary>
+多重集合排列公式的数学证明
+</summary>
+<div class="note note-info">
+            <p>多重集合排列公式：<br />设<span class="math inline">\(S\)</span>是多重集合，它有<spanclass="math inline">\(k\)</span>种不同类型的对象，每一种类型的有限重复数是<spanclass="math inline">\(n_1,n_2,n_3,…,n_k\)</span>。设<spanclass="math inline">\(S\)</span>的大小为<spanclass="math inline">\(n=n_1+n_2+n_3+…n_k\)</span>。则<spanclass="math inline">\(S\)</span>的<spanclass="math inline">\(n\)</span>排列数目为: <spanclass="math display">\[\frac{n!}{(n_1!n_2!n_3!…n_k!)}\]</span> 证明：先从<span class="math inline">\(S\)</span>中选出<spanclass="math inline">\(n_1\)</span>个位置放<spanclass="math inline">\(a_1\)</span>，有<spanclass="math inline">\(C_n^{n_1}\)</span>种放法，再选出<spanclass="math inline">\(n_2\)</span>个位置放<spanclass="math inline">\(a_2\)</span>，有<spanclass="math inline">\(C_{n-n_1}^{n_2}\)</span>种放法，以此类推：<br />由乘法原理得：<br /><span class="math inline">\(S\)</span>的排列个数为<spanclass="math inline">\(C_n^{n_1}C_{n-n_1}^{n_2}C_{n-n_1-n_2}^{n_3}…C_{n-n_1-n_2-…-n_{k-1}}^{n_k}\)</span>.<br />带入组合计算公式，有：<br /><span class="math display">\[\frac{n}{n!(n-n_1)!}\frac{(n-n_1)!}{n_2!(n-n_1-n_2)!}...\frac{(n-n_1-n_2-...-n_{k-1})!}{n_k!(n-n_1-n_2-...-n_k)!}\]</span>去公因式可得证。</p>
+          </div>
+</details>
+<p>接下来考虑如何求<span
+class="math inline">\(p_i(y)\)</span>，要想产生后代<span
+class="math inline">\(y\)</span>，那么需要选择合适的亲本进行交叉，因此<span
+class="math inline">\(p_i(y)\)</span>由三部分组成：选择亲本个体<span
+class="math inline">\(m\)</span>的概率<span
+class="math inline">\(s_{m,i}\)</span>、选择亲本<span
+class="math inline">\(n\)</span>的概率<span
+class="math inline">\(s_{n,i}\)</span>以及交叉在<span
+class="math inline">\(m,n\)</span>上产生<span
+class="math inline">\(y\)</span>的概率<span
+class="math inline">\(rec_{m,n}(y)\)</span>：<br />
+<span
+class="math display">\[p_i(y)=∑_{m,n}^{r-1}s_{m,i}s_{n,i}rec_{m,n}(y)
+\tag{2-1}\]</span></p>
+<ul>
+<li><p>选择的表示
+亲本个体被选择的概率为该个体在现有种群中出现的频率与其归一化的fitness的乘积：<br />
+<span
+class="math display">\[s_{m,i}=\frac{z_{m,i}f(m)}{∑_{j=0}^{r-1}z_{j,i}f(j)}\tag{2-2}\]</span>
+将式子(2-2)进行矩阵化，令<span
+class="math inline">\(x\)</span>是一个种群的接续向量，其内部的元素为这个种群中的所有个体的出现频数；设<span
+class="math inline">\(f\)</span>是一个含有该种群所有个体对应fitness的向量，对现有种群<span
+class="math inline">\(x\)</span>的适应度比例选择表示为：<br />
+<span class="math display">\[ℱ(x)=\frac{diag(f)x}{f^Tx}
+\tag{2-3}\]</span> 其中<span
+class="math inline">\(diag(f)\)</span>是<span
+class="math inline">\(f\)</span>的对角矩阵。<br />
+</p></li>
+<li><p>交叉的表示<br />
+现在建立一个<span class="math inline">\(r×r\)</span>的矩阵<span
+class="math inline">\(ℳ_y\)</span>用于表示<span
+class="math inline">\(Ω\)</span>空间中的每两个个体交叉产生<span
+class="math inline">\(y\)</span>的概率，矩阵<span
+class="math inline">\(ℳ_y\)</span>称为<span
+class="math inline">\(y\)</span>的混淆矩阵(mixing matrix)，有：<br />
+<span class="math display">\[(ℳ_y)_{m,n}=rec_{m,n}(y)\]</span>
+如果不考虑对<span class="math inline">\(m、n∈i\)</span>的选择，由<span
+class="math inline">\(i\)</span>中的两个亲本<span
+class="math inline">\(m,n\)</span>交叉产生<span
+class="math inline">\(y\)</span>的概率与<span
+class="math inline">\(m、n∈x\)</span>的出现频率有关，表示为：<br />
+<span class="math display">\[p_i(y)=Φ_i^Tℳ_yΦ_i \tag{2-4}\]</span> <span
+class="math inline">\(m\)</span>和<span
+class="math inline">\(n\)</span>的选择不具有先后顺序:<span
+class="math inline">\(rec_{m,n}(y)=(ℳ_y)_{m,n}=rec_{n,m}(y)=(ℳ_y)_{n,m}\)</span>，因此该公式的结构是对称性的：<span
+class="math inline">\(x^T[·]x\)</span><br />
+现在考虑对<span class="math inline">\(m、n\)</span>的选择，有：<br />
+<span class="math display">\[p_i(y)=ℱ(Φ_i)^Tℳ_yℱ(Φ_i)
+\tag{2-4}\]</span></p>
+<details>
+<summary>
+<p>混淆向量ℳ的定义，在本文中跳过了使用这个定义</p>
+</summary>
+<div class="note note-info">
+            <p>定义一个范围更广的混淆向量<spanclass="math inline">\(ℳ\)</span>，其表示了由种群<spanclass="math inline">\(x\)</span>中的个体产生的下一代中每一个个体的存在频率，那么有：<br /><spanclass="math display">\[ℳ(x)=[x^Tℳ_0x,x^Tℳ_1x,x^Tℳ_2x,...,x^Tℳ_{r-1}x]\]</span></p>
+          </div>
+</details>
+<p>将式(2-4)带入(2-0)中，有：<br />
+<span class="math display">\[\begin{aligned}
+      Q_{i,j}&amp;=\frac{n!}{(z_{0,j}!z_{1,j}!z_{2,j}!…z_{r-1,j}!)}∏_{y=0}^{r-1}[ℱ(Φ_i)^Tℳ_yℱ(Φ_i)]^{z_{y,j}}\\
+  \end{aligned} \tag{2-5}\]</span></p></li>
+</ul>
 
                 
               </div>
@@ -850,7 +966,7 @@ class="math inline">\((0-2)\)</span>中：<br />
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年3月19日</div>
+          <div>2024年3月20日</div>
         </div>
       
       
@@ -1783,5 +1899,20 @@ class="math inline">\((0-2)\)</span>中：<br />
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
