@@ -170,20 +170,20 @@ $$\begin{aligned}
 因为$h_1∈G_j$,$h_2∈G_k$，它们的common region应该是一样的：$C(h_1,h_2)=h(G_j,G_k)$，那么：  
 $$\begin{aligned}
     α_c(H,t)=&∑_j∑_k∑_{h_1∈G_j}∑_{h_2∈G_k}p(h_1,t)p(h_2,t)\\
-    &×∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}δ(h_1∈Γ(H,i))δ(h_2∈Γ(H,\overline{i}))
-\end{aligned} \tag{1-6}$$
+    &×∑_{i∈χ(G_j,G_k)}p_i^{C(G_j,G_k)}δ(h_1∈Γ(H,i))δ(h_2∈Γ(H,\overline{i}))
+\end{aligned} \tag{1-7}$$
 将这个式子重新整理，有：  
 $$\begin{aligned}
-    α_c(H,t)=&∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}∑_{h_1∈G_j}p(h_1,t)δ(h_1∈Γ(H,i))\\
+    α_c(H,t)=&∑_j∑_k∑_{i∈χ(G_j,G_k)}p_i^{C(G_j,G_k)}∑_{h_1∈G_j}p(h_1,t)δ(h_1∈Γ(H,i))\\
     &×∑_{h_2∈G_k}p(h_2,t)δ(h_2∈Γ(H,\overline{i}))
-\end{aligned} \tag{1-7}$$
+\end{aligned} \tag{1-8}$$
 其中$∑_{h_1∈G_j}p(h_1,t)=p(G_j,t)$，$∑_{h_2∈G_k}p(h_2,t)=p(G_k,t)$，有$∑_{h_1∈G_j}p(h_1,t)δ(h_1∈Γ(H,i))=p(Γ(H,i)∩G_j,t)$,$∑_{h_2∈G_k}p(h_2,t)δ(h_2∈Γ(H,i))=p(Γ(H,\overline{i})∩G_k,t)$  
 那么，  
-$$α_c(H,t)=∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t) \tag{1-8}$$
+$$α_c(H,t)=∑_j∑_k∑_{i∈χ(G_j,G_k)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t) \tag{1-9}$$
 带入式$(0-2)$中：  
 $$\begin{aligned}
     α(H,t) = & (1-p_c)p(H,t)\\
-    &+p_c[∑_j∑_k∑_{i∈χ(h_1,h_2)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)]
+    &+p_c[∑_j∑_k∑_{i∈χ(G_j,G_k)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)]
 \end{aligned}$$
 这是最终的Exact Schema Thoery.   
 
@@ -248,3 +248,38 @@ $$p_i(y)=∑_{m,n}^{r-1}s_{m,i}s_{n,i}rec_{m,n}(y) \tag{2-1}$$
     $$\begin{aligned}
         Q_{i,j}&=\frac{n!}{(z_{0,j}!z_{1,j}!z_{2,j}!…z_{r-1,j}!)}∏_{y=0}^{r-1}[ℱ(Φ_i)^Tℳ_yℱ(Φ_i)]^{z_{y,j}}\\
     \end{aligned} \tag{2-5}$$
+
+### 遗传编程Homologous的Markov Model
+在遗传算法中$p_i(y)$考虑讨论进行交叉和不进行交叉两部分。  
+
+- 如果不进行交叉，个体$m$转换为$y$的唯一可能是$m$就是$y$，此时$n$可以是任意一个个体：$\sum_{n∈Ω}p(n,t)=1$  
+  $$(1-p_c)\sum_{m∈Ω}δ(m=y)p(m,t)=(1-p_c)\sum_{m∈Ω}δ(m=y)p(m,t)\sum_{n∈Ω}p(n,t)$$
+- 如果进行交叉，那么$m,n$产生$y$的概率将符合式$(1-8)$，那么有：  
+  $$\begin{aligned}
+    α(y,t) = & (1-p_c)p(y,t)\\
+    &+p_c[∑_j∑_k∑_{l∈χ(G_j,G_k)}p_l^{C(G_j,G_k)}p(Γ(y,l)∩G_j,t)p(Γ(y,\overline{l})∩G_k,t)]
+\end{aligned}$$
+
+有：  
+$$\begin{aligned}
+    p_i(y)=& (1-p_c)p(y,t)\\
+    &+p_c[∑_j∑_k∑_{l∈χ(G_j,G_k)}p_l^{C(G_j,G_k)}p(Γ(y,l)∩G_j,t)p(Γ(y,\overline{l})∩G_k,t)]\\
+    =&(1-p_c)\sum_{m∈Ω}δ(m=y)p(m,t)\sum_{n∈Ω}p(n,t)\\
+    &+p_c[∑_j∑_k∑_{l∈χ(G_j,G_k)}p_l^{C(G_j,G_k)}p(Γ(y,l)∩G_j,t)p(Γ(y,\overline{l})∩G_k,t)]\\
+\end{aligned} \tag{3-1}$$
+根据式子$(1-8)$,$(1-6)$:  
+$$\begin{aligned}
+     p_i(y)=&∑_{m∈Ω}∑_{n∈Ω}p(m,t)p(n,t)×[(1-p_c)δ(m=y)\\
+     &+p_c∑_j∑_k∑_{l∈χ(m,n)}p_l^{C(m,n)}δ(m∈Γ(y,l)δ(m∈G_j)δ(n∈Γ(y,\overline{l}))δ(n∈G_k))]\\
+     =&∑_{m∈Ω}∑_{n∈Ω}p(m,t)p(n,t)×[(1-p_c)δ(m=y)\\
+     &+p_c∑_{l∈χ(m,n)}p_l^{C(m,n)}δ(m∈Γ(y,l)δ(n∈Γ(y,\overline{l})))]
+\end{aligned} \tag{3-2}$$
+
+提取公因式$∑_{m∈Ω}∑_{n∈Ω}p(m,t)p(n,t)=\sum_{m,n∈Ω}p(m,t)p(n,t)$得到$(3-1)$的变形:  
+$$p_i(y)=\sum_{m,n∈Ω}p(m,t)p(n,t)×[(1-p_c)δ(m=y)+p_c∑_{l∈χ(m,n)}p_l^{C(m,n)}δ(m∈Γ(y,l)δ(n∈Γ(y,\overline{l})))]$$
+
+
+根据式$(2-1)$，$p_i(y)=∑_{m,n}^{r-1}s_{m,i}s_{n,i}rec_{m,n}(y)$，有$s_{m,i}=p(m,t)$，$s_{n,i}=p(n,t)$，那么：  
+$$rec_{m,n}(y)=∑_{l∈χ(m,n)}p_l^{C(m,n)}δ(m∈Γ(y,l)δ(n∈Γ(y,\overline{l}))) \tag{3-3}$$
+那么schema $H$的转换概率应该是schema $H$中的所有个体在后代中的存活概率之和：  
+$$α(H,t)=∑_{y∈H}p_i(y) \tag{3-3}$$
