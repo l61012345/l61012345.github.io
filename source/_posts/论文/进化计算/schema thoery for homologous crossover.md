@@ -136,7 +136,7 @@ $$α_c(H,t)=∑_{k,l}\frac{1}{|C(G_k,G_l)|}×∑_{i∈C(G_k,G_l)}p(U(H,i)∩G_k,
 {% endnote %}
 
 
-#### 同原交叉下 Exact Schema Thoery的完整推导
+#### 同源交叉下 Exact Schema Thoery的完整推导
 设$p_i(h_1,h_2,i,t)$表示个体$h_1$和$h_2$以及交叉模板$i$在第$t$代被选中的概率；$g(h_1,h_2,H,i)$为$h_1$和$h_2$按照模板$i$交叉后产生属于schema $H$的个体的概率。  
 那么有:  
 $$α_c(H,t)=∑_{h_1}∑_{h_2}∑_ip(h_1,h_2,i,t)g(h_1,h_2,H,i) \tag{1-1}$$
@@ -187,6 +187,14 @@ $$\begin{aligned}
     &+p_c[∑_j∑_k∑_{i∈χ(G_j,G_k)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)]
 \end{aligned}$$
 这是最终的Exact Schema Thoery.   
+
+{% note info %}  
+此处可证：  
+$$p(Γ(H,o)∩G_j,t)p(Γ(H,\overline{o})∩G_k,t)=∑_x∑_y...∑_zp(Γ(H,x)∩G_j,t)p(Γ(H,\overline{x})∩G_k,t)p(Γ(H,y)∩G_j,t)p(Γ(H,\overline{y})∩G_k,t)...p(Γ(H,z)∩G_j,t)p(Γ(H,\overline{z})∩G_k,t)$$
+
+其中$Γ(H,x),Γ(H,y),...,Γ(H,z)∈Γ(H,o)$且模板$x,y,...,z$共同组成模板$o$
+那么某个同源交叉的building block其实可以看做是若干个单点交叉的building block$U(H,i)$和$L(H,i)$的组成，上述公式可证同源交叉实际上是多个单点交叉的合集。  
+{% endnote %}
 
 ## 个体的视角 - Markov Model
 ### Vose在遗传算法中的Schema Theory
