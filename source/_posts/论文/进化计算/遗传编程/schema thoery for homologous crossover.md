@@ -189,12 +189,35 @@ $$\begin{aligned}
 这是最终的Exact Schema Thoery.   
 
 {% note info %}  
-此处可证：  
-$$p(Γ(H,o)∩G_j,t)p(Γ(H,\overline{o})∩G_k,t)=∑_x∑_y...∑_zp(Γ(H,x)∩G_j,t)p(Γ(H,\overline{x})∩G_k,t)p(Γ(H,y)∩G_j,t)p(Γ(H,\overline{y})∩G_k,t)...p(Γ(H,z)∩G_j,t)p(Γ(H,\overline{z})∩G_k,t)$$
+此处如果可以证明：  
+$$p(Γ(H,o)∩G_j,t)p(Γ(H,\overline{o})∩G_k,t)\xlongequal{\ce{?}}∑_x∑_y...∑_zp(Γ(H,x)∩G_j,t)p(Γ(H,\overline{x})∩G_k,t)p(Γ(H,y)∩G_j,t)p(Γ(H,\overline{y})∩G_k,t)...p(Γ(H,z)∩G_j,t)p(Γ(H,\overline{z})∩G_k,t)$$
 
 其中$Γ(H,x),Γ(H,y),...,Γ(H,z)∈Γ(H,o)$且模板$x,y,...,z$共同组成模板$o$
 那么某个同源交叉的building block其实可以看做是若干个单点交叉的building block$U(H,i)$和$L(H,i)$的组成，上述公式可证同源交叉实际上是多个单点交叉的合集。  
+事实上是，这个等式并不成立。下面的一个小实验说明的这一点：  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240409170258.png width=60%>   
+
+如上图所示，mask $i$被拆分成了两个单点交叉的mask $i_1$和$i_2$，分别得到它们以及取反后的building blocks。蓝色的部分为现有种群。  
+然后观察现有种群中的个体分别属于哪些hyper schema（以下图中每个个体下方的色块表示），并统计每一个hyper schema的采样率：  
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240409170535.png width=60%>   
+
+可以发现，$Γ(H,i)$的采样率为1，$Γ(H,\overline{i})$的采样率为2/8;$Γ(H,i_1)$的采样率为3/8，$Γ(H,\overline{i_1})$的采样率为5/8;  
+$Γ(H,i_2)$的采样率为4/8，$Γ(H,\overline{i_2})$的采样率为4/8.  
+上述等式并不成立。  
+因此，**同源交叉并不是多个单点交叉的合集**。  
+也可以见Poli, Riccardo & Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming. 中单点交叉和均匀交叉的信息交换能力是不同的。[交叉算子的建模和比较](https://l61012345.top/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/)
 {% endnote %}
+
+### 收敛性分析
+如果刚开始种群的多样性足够大，那么一开始种群中的conmmon region的面积非常小，此时$i$的大小非常小，$Γ(H,i)$和$Γ(H,\overline{i})$的抽象程度都很高，因此$p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)$比较大。   
+
+{% note info %}  
+关于最大值的推论，最大的情况发生（实际是不可能发生）在：$i$不进行任何抽象(也就是说种群中的每个个体都不相同)，也就是$i$和$\overline{i}$中只含有一个结点。这种情况比较难推理，遂放缩到$i$和$\overline{i}$中不含有任何结点的情况，此时有$p(Γ(H,i)∩G_j,t)=p(G_j)$，$p(Γ(H,\overline{i})∩G_k,t)=p(G_k)$，有$\sum_k\sum_jp(G_j)p(G_k)=1$，带入得到$\hat{α}_c(H,t)=p_c$.  
+也就是说：$α_c<p_c$.  
+{% endnote %}
+
+随着进化的进行，conmmon region的面积增大，此时$Γ(H,i)$和$Γ(H,\overline{i})$的抽象程度降低，$p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)$的概率逐渐减小，最终$\sum_k\sum_jp(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)$收敛到$p(H,t)$.  
+此时有：$α(H,t)=(1-p_c)p(H,t)+p_cp(H,t)=p(H,t)$，交叉对进化不产生任何作用。  
 
 ## 个体的视角 - Markov Model
 ### Vose在遗传算法中的Schema Theory
