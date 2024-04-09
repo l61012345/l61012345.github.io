@@ -115,7 +115,7 @@
 <meta property="og:description" content="同源交叉的模式定理  Riccardo Poli et al,. Exact Schema Thoery and Markov Chain Models for Genetic Programming and Variable-length Genetic Algorithms with Homologous Crossover, Genetic Programming and Evolv">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-09T14:14:11.408Z">
+<meta property="article:modified_time" content="2024-04-09T16:12:16.292Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          7.5k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          61 分钟
+          63 分钟
         
       </span>
     
@@ -799,7 +799,7 @@ class="math inline">\((0-2)\)</span>中：<br />
     &amp;+p_c[∑_j∑_k∑_{i∈χ(G_j,G_k)}p_i^{C(G_j,G_k)}p(Γ(H,i)∩G_j,t)p(Γ(H,\overline{i})∩G_k,t)]
 \end{aligned}\]</span> 这是最终的Exact Schema Thoery.</p>
 <div class="note note-info">
-            <p>此处可证：<br /><spanclass="math display">\[p(Γ(H,o)∩G_j,t)p(Γ(H,\overline{o})∩G_k,t)=∑_x∑_y...∑_zp(Γ(H,x)∩G_j,t)p(Γ(H,\overline{x})∩G_k,t)p(Γ(H,y)∩G_j,t)p(Γ(H,\overline{y})∩G_k,t)...p(Γ(H,z)∩G_j,t)p(Γ(H,\overline{z})∩G_k,t)\]</span></p><p>其中<spanclass="math inline">\(Γ(H,x),Γ(H,y),...,Γ(H,z)∈Γ(H,o)\)</span>且模板<spanclass="math inline">\(x,y,...,z\)</span>共同组成模板<spanclass="math inline">\(o\)</span> 那么某个同源交叉的buildingblock其实可以看做是若干个单点交叉的building block<spanclass="math inline">\(U(H,i)\)</span>和<spanclass="math inline">\(L(H,i)\)</span>的组成，上述公式可证同源交叉实际上是多个单点交叉的合集。<br />此处存疑</p>
+            <p>此处如果可以证明：<br /><spanclass="math display">\[p(Γ(H,o)∩G_j,t)p(Γ(H,\overline{o})∩G_k,t)\xlongequal{\ce{?}}∑_x∑_y...∑_zp(Γ(H,x)∩G_j,t)p(Γ(H,\overline{x})∩G_k,t)p(Γ(H,y)∩G_j,t)p(Γ(H,\overline{y})∩G_k,t)...p(Γ(H,z)∩G_j,t)p(Γ(H,\overline{z})∩G_k,t)\]</span></p><p>其中<spanclass="math inline">\(Γ(H,x),Γ(H,y),...,Γ(H,z)∈Γ(H,o)\)</span>且模板<spanclass="math inline">\(x,y,...,z\)</span>共同组成模板<spanclass="math inline">\(o\)</span> 那么某个同源交叉的buildingblock其实可以看做是若干个单点交叉的building block<spanclass="math inline">\(U(H,i)\)</span>和<spanclass="math inline">\(L(H,i)\)</span>的组成，上述公式可证同源交叉实际上是多个单点交叉的合集。<br />事实上是，这个等式并不成立。下面的一个小实验说明的这一点：<br /><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240409170258.png width=60%></p><p>如上图所示，mask <spanclass="math inline">\(i\)</span>被拆分成了两个单点交叉的mask <spanclass="math inline">\(i_1\)</span>和<spanclass="math inline">\(i_2\)</span>，分别得到它们以及取反后的buildingblocks。蓝色的部分为现有种群。<br />然后观察现有种群中的个体分别属于哪些hyperschema（以下图中每个个体下方的色块表示），并统计每一个hyperschema的采样率：<br /><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240409170535.png width=60%></p><p>可以发现，<spanclass="math inline">\(Γ(H,i)\)</span>的采样率为1，<spanclass="math inline">\(Γ(H,\overline{i})\)</span>的采样率为2/8;<spanclass="math inline">\(Γ(H,i_1)\)</span>的采样率为3/8，<spanclass="math inline">\(Γ(H,\overline{i_1})\)</span>的采样率为5/8;<br /><span class="math inline">\(Γ(H,i_2)\)</span>的采样率为4/8，<spanclass="math inline">\(Γ(H,\overline{i_2})\)</span>的采样率为4/8.<br />上述等式并不成立。<br />因此，<strong>同源交叉并不是多个单点交叉的合集</strong>。<br />也可以见Poli, Riccardo &amp; Langdon, W.. (2001). On the SearchProperties of Different Crossover Operators in Genetic Programming.中单点交叉和均匀交叉的信息交换能力是不同的。<ahref="https://l61012345.top/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/">交叉算子的建模和比较</a></p>
           </div>
 <h3 id="收敛性分析">收敛性分析</h3>
 <p>如果刚开始种群的多样性足够大，那么一开始种群中的conmmon
