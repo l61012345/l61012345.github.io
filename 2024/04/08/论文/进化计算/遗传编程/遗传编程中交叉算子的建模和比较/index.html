@@ -115,7 +115,7 @@
 <meta property="og:description" content="交叉算子的建模和比较  Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming.  背景 回顾遗传算法的schema theory: \[P(H,t+1) \geq P(H,t) \frac{f">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-08T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-08T15:29:43.672Z">
+<meta property="article:modified_time" content="2024-04-09T13:05:48.548Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          3.3k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          17 分钟
+          28 分钟
         
       </span>
     
@@ -476,7 +476,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年4月8日 下午
+                    本文最后更新于 2024年4月9日 下午
                   
                 
               </p>
@@ -637,7 +637,7 @@ class="math display">\[N_b(d_1|h_1,h_2)=B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)-N_i(d_1|h
     =&amp;p_s∑_{h_1,h_2}p(h_1)p(h_2)[S(0,h_1)\\
     &amp;+∑_{d_1=1}N_i(d_1|h_1,h_2)(1-S(d_1,h_1))+B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)S(d_1,h_1)]\\
     =&amp;p_s∑_{h_1,h_2}p(h_1)p(h_2)[S(0,h_1)+∑_{d_1=1}N_i(d_1|h_1,h_2)(1-S(d_1,h_1)+B(d_1|h_1)S(d_1+1,h_1)]
-\end{aligned} (12) \]</span></p>
+\end{aligned} \tag{12} \]</span></p>
 <p>并且，当树是full，且所有的子树大小都相同的前提下存在如下关系：<br />
 <span
 class="math display">\[S(d_1,h_1)=1+B(d_1|h_1)S(d_1+1,h_1)\]</span>
@@ -649,6 +649,51 @@ class="math inline">\(h_1\)</span>在full，每一层级子树大小相同下的
 <p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408162530.png width=40%></p>
 <h2 id="交叉算子的分析和比较">交叉算子的分析和比较</h2>
 <h3 id="标准交叉和单点交叉">标准交叉和单点交叉</h3>
+<p>来看进化过程中标准交叉和单点交叉的公式：<br />
+<span class="math display">\[
+E[S_{std}]=∑_{h_1}p(h_1)∑_{d_1}p(d_1|h_1)S(d_1,h_1) \tag{5}\]</span>
+<span class="math display">\[\begin{aligned}
+E[S_{1pt}]&amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)∑_{h_2}p(h_2)p(d_1|h_1,h_2)
+\\
+&amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)p_{1pt}(d_1|h_1,t)
+\end{aligned} \tag{7}\]</span></p>
+<p>两者的差异在于<span class="math inline">\(p(d_1|h_1)\)</span>和<span
+class="math inline">\(p_{1pt}(d_1|h_1,t)\)</span>：前者不会随着进化的代数发生变化，后者因为和种群有关因此会随着进化的代数发生变化。<br />
+在进化的初期，如果种群中的diversity比较大，也就是说common
+region的区域比较小的话。对于较大的<span
+class="math inline">\(d_1\)</span>来说，有<span
+class="math inline">\(p(d_1|h_1)&gt;&gt;p_{1pt}(d_1|h_1,t)\)</span>，也就是说，此时<strong>标准交叉更倾向于对树更靠近低端的部分进行交叉</strong>，这种操作对拓宽搜索并没有帮助；对较小的<span
+class="math inline">\(d_1\)</span>来说，<span
+class="math inline">\(p_{1pt}(d_1|h_1,t)&gt;&gt;p(d_1|h_1)\)</span>，也就是说，<strong>在进化的初期单点交叉比标准交叉更容易发生在靠近树顶的位置</strong>，更有助于在进化初期拓宽搜索。<br />
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408172055.png width=70%></p>
+<p>从上面的分析可以看出，<strong>单点交叉是通过common
+regions限制可以进行交叉的节点从而在进化的初期增大上层节点被选择的概率</strong>。<br />
+现在来讨论进化初期节点交换的充分程度，作者假设了最大的信息交换发生在树的顶端（这个假设是错误的），此时除了根节点之外的所有的节点都交换到了另一个亲本，有<span
+class="math inline">\(E(S)\)</span>最大。虽然两种交叉都有可能发生类似的情况，但是由于单点交叉限制在了common
+region内，单点交叉进行这种最大情况的可能性要远远高于标准交叉，也就是说，单点交叉的全局性要优于标准交叉。</p>
+<p>在进化的后期，由于种群多样性的减小，种群中个体的拓扑结构逐渐趋同，那么common
+region的面积会增大，当种群中所有个体的拓扑结构都相同时，单点交叉和标准交叉完全相同：<br />
+<span
+class="math display">\[\lim_{t→∞}p_{1pt}(d_1|h,t)=p(d_1|h_1)\]</span>
+也就是说，<strong>随着进化的进行，单点交叉的全局性会逐渐减小，最终趋同于标准交叉</strong>。</p>
+<h3 id="均匀交叉和标准交叉单点交叉">均匀交叉和标准交叉/单点交叉</h3>
+<p>均匀交叉的本质是对一个树的common
+regions中的节点进行概率扫描。在进化初期，如果多样性足够的话（也就是从根节点开始的common
+region面积非常小的话），均匀交叉几乎没有可能会交换靠近低层的节点，从而增加搜索的全局性。<br />
+随着时间的推移，common
+regions的面积会逐渐增大，此时理论上边界节点在common
+regions中的占比会越来越小，因此会有越来越多的节点（*注：？不一定，参考下图）和越来越小的树（*注：也是不一定的，只有在树是full且每一层的所有子树大小相同的前提下这个推论才是一定正确的）被交换，直到运行结束时，每棵树上的所有节点都可以被自由选择进行交换。<br />
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240409132551.png width=60%></p>
+<p>与单点交叉不同的是，均匀交叉的全局性依赖于对<span
+class="math inline">\(p_s\)</span>的选择，<span
+class="math inline">\(p_s\)</span>一旦被选择，均匀交叉的全局性/局部性将不会随着进化过程发生改变。<br />
+<span
+class="math inline">\(p_s=0.5\)</span>是理论上两个亲本的信息交流达到最大值的设定，但是随着进化过程中两个亲本完全相同的结点越来越多，“无效”的交换也会越来越多，如此均匀交叉也会趋于收敛。</p>
+<h2 id="结论">结论</h2>
+<p>在进化的初期，标准交叉相比于其他两个交叉算子更容易将交叉发生在根节点上，标准交叉带来的全局效应非常弱。因此，标准交叉非常依赖于初始种群在搜索空间中的采样范围，如果初始种群的多样性本来就不高，标准交叉比其他两种交叉更难跳出这个采样范围。在进化后期的单点交叉也有这种表现。<br />
+事实上，单点交叉和标准交叉都是将树的某个部分整体进行交换，实际上在搜索空间中的行为是对亲本进行插值采样。因此，这两种交叉都依赖于初始种群对搜索空间的采样范围。<br />
+上述的分析表明，在使用单点交叉和标准交叉时，初始种群的大小设置的尽可能大，并且应该在拓扑结构和语义上具有足够的多样性。<br />
+相比之下，均匀交叉更具有无偏性，因为这是一种点对点的交叉。</p>
 
                 
               </div>
@@ -720,7 +765,7 @@ class="math inline">\(h_1\)</span>在full，每一层级子树大小相同下的
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年4月8日</div>
+          <div>2024年4月9日</div>
         </div>
       
       
