@@ -73,6 +73,10 @@ shape指一个schema中所有的节点都被$=$替代，它代表只关心schema
 超模式(hyper schema)是对某个模式的进一步抽象，和模式不同的是，超模式允许对子树结构进行抽象，即忽略某个节点的子树结构，这个节点下的子树结构用don't care，$\#$替代。$\#$可以是任何的子树结构。  
 从另一个角度理解，超模式是符合某个schema的所有个体的集合。超模式可以用于表达产生一个schema的两个亲本个体所必须具备的属性。  
 
+{% note info %}  
+个人认为，需要Hyper schema的原因是**为了进一步的描述building blocks在个体当中的相对位置关系**。  
+{% endnote %}  
+
 ### Building blocks
 这篇论文中没有对building blocks给出非常详细的定义，但是通过公式可以判断，作者认为building blocks是schema的进一步抽象，并且组成schema。具体的，作者认为schema按照一定的方式划分为两半并且抽象得到的结果称为building blocks。交叉的亲本应该各持有一部分这两部分building blocks。  
 
