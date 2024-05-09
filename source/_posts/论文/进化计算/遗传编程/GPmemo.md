@@ -83,7 +83,7 @@ $$\Delta |h|=Cov(p_s(r_i),member(h,r_i))+E(\omega_i \Delta z_i)$$
 
 ## GP中存在的问题
 ### GP中语构和语义的映射关系
-GP中最大的问题是**语构空间和语义空间的映射并不是一对一的，同一个语义值对应了若干种不同的个体，并且GP的树形结构不能保证结构的变化到语义的变化是连续且同等的**[^3]。这些特性和GA是截然不同的（GA中的二进制位串基本上可以保证语义和语构是一一对应的）。  
+GP中最大的问题是**语构空间和语义空间的映射并不是一对一的，同一个语义值对应了若干种不同的个体，并且GP的树形结构不能保证结构的变化到语义的变化是连续且同等的**[^3] [^31]。这些特性和GA是截然不同的（GA中的二进制位串基本上可以保证语义和语构是一一对应的）。  
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240430180607.png width=70%>    
 
 这些问题具体表现为如下几个方面：  
@@ -156,3 +156,4 @@ ADF并不能真正的解决GP的问题，启发式的ADF通过将某些子空间
 [^28]:J. Koza, M. Keane, M. Streeter, W. Mydlowec, J. Yu, and G. Lanza, Genetic Programming IV: Routine Human-Competitive Machine Intelligence, 2003,  
 [^29]:T. Yu and C. D. Clack, PolyGP: a polymorphic genetic programming system in Haskell, 1997.   
 [^30]:C. D. Clack and T. Yu, "Performance-Enhanced Genetic Programming," in Evolutionary Programming, 1997.  
+[^31]:W.Banzhaf, A. Leier, Evolution on neutral networks in genetic programming in Genetic Programming Theory and Practice III, Chap 14., 2005.  
