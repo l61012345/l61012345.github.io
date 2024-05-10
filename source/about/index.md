@@ -17,8 +17,9 @@ layout: about
 ## 致谢
 由于这个博客中大部分内容都是在当堂下课后下一节课上课之前由当堂上课笔记整理而成，写作时间比较紧凑，难免会出现疏漏和错误，在此感谢为这个博客做出过大量修订和反馈的朋友们。  
 在此列出一部分朋友的名字（化名）：  
+
 - Xindi Huang  
 - 林正/Kobayashi Hikari，他的博客在：https://www.zhenglinblog.top/.  
-- 栞风，他的博客在：https://www.kaysonz.top
+- 栞风，他的博客在：https://www.kaysonz.top  
 - 丹丹老师  
 - 刘旭康，感谢他对许多培养方案上新增课程笔记的更新  

@@ -159,5 +159,5 @@ ADF并不能真正的解决GP的问题，启发式的ADF通过将某些子空间
 [^27]:D. J. Montana, Strongly Typed Genetic Programming, Evolutionary Computation, vol. 3, no. 2, pp. 199-230, 1995,  
 [^28]:J. Koza, M. Keane, M. Streeter, W. Mydlowec, J. Yu, and G. Lanza, Genetic Programming IV: Routine Human-Competitive Machine Intelligence, 2003,  
 [^29]:T. Yu and C. D. Clack, PolyGP: a polymorphic genetic programming system in Haskell, 1997.   
-[^30]:C. D. Clack and T. Yu, "Performance-Enhanced Genetic Programming," in Evolutionary Programming, 1997.  
+[^30]:C. D. Clack and T. Yu, Performance-Enhanced Genetic Programming, in Evolutionary Programming, 1997.  
 [^31]:W.Banzhaf, A. Leier, Evolution on neutral networks in genetic programming in Genetic Programming Theory and Practice III, Chap 14., 2005.  
