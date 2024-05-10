@@ -115,7 +115,7 @@
 <meta property="og:description" content="遗传编程中的自动定义函数              参考资料：John R Koza et al., Non-linear Genetic Process for DataEncoding and for Solving Problems Using Automatically Defined Functions,1994.John R Koza, Genetic Programming">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-12T10:27:43.991Z">
+<meta property="article:modified_time" content="2024-05-10T11:18:52.735Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -476,7 +476,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2023年12月12日 上午
+                    本文最后更新于 2024年5月10日 上午
                   
                 
               </p>
@@ -537,11 +537,15 @@ the PROG feature in Common LISP</a></p>
           </div></p>
 <h3 id="adf的结构">ADF的结构</h3>
 <p>由于ADF具有强类型(constrained
-type)特点，因此不同的ADF可能由不同的函数集和端点集生成。每一个ADF的结构包括三个部分：<br />
-- ADF的函数名 - 形式参数集合<br />
+type)特点，因此不同的ADF可能由不同的函数集和端点集生成。每一个ADF的结构包括三个部分：</p>
+<ul>
+<li>ADF的函数名</li>
+<li>形式参数集合<br />
 这个集合用于替代端点集生成ADF树形结构的端点。形式参数集合中形式参数的个数和具体哪一个形式参数会被用于生成某个特定的ADF都需要在运行前被提前指定。ADF使用形式参数的目的是为了让ADF在不同的环境和上下文中都能够编译运行。<br />
 ADF可以不含有任何形式参数，这种情况有别于直接保存一个基因片段(Building-block)：ADF的树形结构是随着进化一同动态演化的，然而后者只是单纯的保存，无法做到动态演化。<br />
-- ADF具体的内容，表征为树形结构。</p>
+</li>
+<li>ADF具体的内容，表征为树形结构。</li>
+</ul>
 <p>三个部分在LISP语言中通过<code>DEFUN</code>这个函数作为连接函数进行连接。<code>DEFUN</code>在LISP语言中的作用是定义函数。</p>
 <p>下图展示了一个使用ADF函数的个体的树形结构（左）和程序框架（右）的例子。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231207193952.png width=80%></p>
@@ -566,10 +570,12 @@ mutation)的机制，<strong>这种机制使得ADF可以自动进化</strong>，
 <p>在介绍这两种机制之前，首先要明确的概念是“同一类的”交叉/突变。<br />
 Koza等人定义的同一类的定义有两个：<br />
 第一种定义是：<br />
-如果：<br />
-1. 交叉/突变点在结果生成部件中。<br />
-2.
-交叉/突变点在ADF中，两个ADF所使用的形式参数是完全相同的。（这两个ADF被视为同一类）</p>
+如果：</p>
+<ol type="1">
+<li>交叉/突变点在结果生成部件中。<br />
+</li>
+<li>交叉/突变点在ADF中，两个ADF所使用的形式参数是完全相同的。（这两个ADF被视为同一类）</li>
+</ol>
 <p>满足任意一个条件均视为被选择的两个交叉/突变点被视为是同一类的交叉和突变。</p>
 <p>第二种定义是如果交换/突变和被交换/突变插入的部分同属一类，那么被选择的两个交叉/突变点被视为是同一类的交叉和突变。<br />
 在代码实现过程中，第一种定义的实现比较简单，所以通常使用的是第一种定义。</p>
@@ -603,10 +609,13 @@ class="math inline">\(\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}⋃\{ADF_1\}\)</
 <p>对遗传编程中的自动定义函数，Candida
 Ferreira在<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span
 class="hint--top hint--rounded"
-aria-label="Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.">[3]</span></a></sup>中指出具有如下的不足：<br />
-- GP中的ADF彼此之间无法通过遗传操作交换遗传信息。<br />
-- ADF中形式变量的个数需要被提前确定，引入了更多的先验知识。
-而且形式变量的数量限制了ADF对目标的表达。</p>
+aria-label="Cândida Ferreira, Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence, 2006.">[3]</span></a></sup>中指出具有如下的不足：</p>
+<ul>
+<li>GP中的ADF彼此之间无法通过遗传操作交换遗传信息。<br />
+</li>
+<li>ADF中形式变量的个数需要被提前确定，引入了更多的先验知识。
+而且形式变量的数量限制了ADF对目标的表达。</li>
+</ul>
 尽管Koza等人声称ADF可以通过只运行一次重复过程来减少计算量，但是该过程也可以同样通过记录计算结果实现。<br />
 但是事实上ADF的调用只是单纯的把子树打包，无法缩减个体的“实际”大小。
 <section class="footnotes">
@@ -707,7 +716,7 @@ Intelligence, 2006.
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月12日</div>
+          <div>2024年5月10日</div>
         </div>
       
       
