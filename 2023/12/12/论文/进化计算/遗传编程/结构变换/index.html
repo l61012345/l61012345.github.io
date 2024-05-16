@@ -115,7 +115,7 @@
 <meta property="og:description" content="结构变换操作  John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.  在自然界中，基因重复(gene duplication)是一种非法的基因重组行为，它将导致单挑染色体上的一">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-12-12T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-01-27T16:50:21.215Z">
+<meta property="article:modified_time" content="2024-05-16T09:41:14.271Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          31 分钟
+          30 分钟
         
       </span>
     
@@ -476,7 +476,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年1月27日 下午
+                    本文最后更新于 2024年5月16日 上午
                   
                 
               </p>
@@ -503,11 +503,14 @@ Defined Function,
 ADF)之后，用于解决自动定义函数中子树结构改变较为困难，无法进一步推进进化、以及用户需要提前设置树的拓扑的问题。）<br />
 Koza在<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote"><span
 class="hint--top hint--rounded"
-aria-label="John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.">[1]</span></a></sup>中认为结构变换操作具有如下的五个特点：<br />
-- 可以改变整个程序(个体)的结构 - 可以使得某些子程序（ADF）专门化或者泛化
--
-可以自动将目标问题分解为若干个子问题，对这些子问题生成对应的解后重新合并为对于整个目标问题的解<br />
-- 可以发现整个搜索空间中的低维子空间，并且在这个子空间中搜索</p>
+aria-label="John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.">[1]</span></a></sup>中认为结构变换操作具有如下的五个特点：</p>
+<ul>
+<li>可以改变整个程序(个体)的结构</li>
+<li>可以使得某些子程序（ADF）专门化或者泛化</li>
+<li>可以自动将目标问题分解为若干个子问题，对这些子问题生成对应的解后重新合并为对于整个目标问题的解<br />
+</li>
+<li>可以发现整个搜索空间中的低维子空间，并且在这个子空间中搜索</li>
+</ul>
 <p>（*最后两条是指AAO和ADF联用的时候整个遗传编程算法的特点）</p>
 <h2 id="自然界中的基因重复和基因缺失">自然界中的基因重复和基因缺失</h2>
 <h3 id="基因重复">基因重复</h3>
@@ -537,24 +540,30 @@ href="https://l61012345.top/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%
 <h3 id="重复">重复</h3>
 <h4 id="子程序重复">子程序重复</h4>
 <p>子程序重复(branch
-duplication)是复制当前一个ADF定义部分的操作，具体如下：<br />
-1. 选择一个个体参与 2.
-在这个个体上选择一个函数定义部件(function-defining componet) 3.
-复制该部件，并且重新命名复制后的函数。复制品具有与原函数完全相同的结构和声明列表(argument
+duplication)是复制当前一个ADF定义部分的操作，具体如下：</p>
+<ol type="1">
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件(function-defining componet)</li>
+<li>复制该部件，并且重新命名复制后的函数。复制品具有与原函数完全相同的结构和声明列表(argument
 list)<br />
-4.
-在该个体中任何需要调用到原函数的地方，随机地选择这个位置仍然调用原函数，或者改为调用复制品函数</p>
+</li>
+<li>在该个体中任何需要调用到原函数的地方，随机地选择这个位置仍然调用原函数，或者改为调用复制品函数</li>
+</ol>
 <p>下图展示了一个子程序重复的例子：<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212132916.png width=90%></p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/branch-dup2.gif width=40%></p>
 <p>子程序重复可以被解释为一种条件划分。如果把不同的子树分支视作是不同的调用环境的话，子程序重复事实上是把原本不同调用环境的同一处理方式分成了多种处理方式。因此，子程序重复可以看做是一种对某个ADF在不同调用环境下的特化(specialization)。</p>
 <h3 id="声明重复">声明重复</h3>
-<p>声明重复是一种复制某个ADF中形式参数的方法，具体如下：<br />
-1. 选择一个个体参与 2. 在这个个体上选择一个函数定义部件 3.
-选择该部件中的一个声明 4. 复制这个声明，并且重新命名 5.
-在这个被选择的函数定义部件中，找到所有需要这个声明的地方，随机选择仍然使用这个声明或者替换为复制后的声明<br />
-6.
-在该个体中任何需要调用到这个函数的地方，找到这个函数，并且复制该调用下一个合适的实体参数（或者子树）作为新的输入接口的输入</p>
+<p>声明重复是一种复制某个ADF中形式参数的方法，具体如下：</p>
+<ol type="1">
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件</li>
+<li>选择该部件中的一个声明</li>
+<li>复制这个声明，并且重新命名</li>
+<li>在这个被选择的函数定义部件中，找到所有需要这个声明的地方，随机选择仍然使用这个声明或者替换为复制后的声明<br />
+</li>
+<li>在该个体中任何需要调用到这个函数的地方，找到这个函数，并且复制该调用下一个合适的实体参数（或者子树）作为新的输入接口的输入</li>
+</ol>
 <p>下图展示了一个声明重复的例子：<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212135429.png width=80%><br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/arg-dup2.gif width=40%></p>
@@ -562,18 +571,20 @@ list)<br />
 <h2 id="缺失">缺失</h2>
 <p>和重复一样，缺失也分对子程序的缺失或者是对声明的缺失。但是不论是何种缺失都需要考虑到缺失后在主函数中调用该对象的合法性。</p>
 <h3 id="子程序缺失">子程序缺失</h3>
-<p>子程序缺失可以看作是删除了一个ADF，但是由于程序调用的关系，需要考虑更多合法性方面的因素。子程序缺失的具体操作如下：<br />
-1. 选择一个个体参与 2.
-在这个个体上选择一个函数定义部件(function-defining componet) 3.
-删除这个分支 4.
-在所有调用这个分支的地方，进行一些操作使得该删除不会影响主程序的运行</p>
-<p>对于第四个步骤，可以的操作有四种方式：<br />
-- 合并(consolidation)<br />
+<p>子程序缺失可以看作是删除了一个ADF，但是由于程序调用的关系，需要考虑更多合法性方面的因素。子程序缺失的具体操作如下：</p>
+<ol type="1">
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件(function-defining componet)</li>
+<li>删除这个分支</li>
+<li>在所有调用这个分支的地方，进行一些操作使得该删除不会影响主程序的运行</li>
+</ol>
+<p>对于第四个步骤，可以的操作有四种方式：</p>
+<ul>
+<li><p>合并(consolidation)<br />
 直接该个体的在结果生成部件中用合适的（*同一类的）ADF替换所有调用到这个ADF的地方<br />
 这种情况下，与重复正好相反，缺失可以看作是把该情况下特化的ADF被另一个ADF替代，使得用于替代的ADF更加泛化。(原来是不同情况用不同ADF，现在这些情况都是用同一个ADF)<br />
 <img src = http://www.genetic-programming.com/branch-delete.gif width=40%><br />
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212142844.png width=80%></p>
-<ul>
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212142844.png width=80%></p></li>
 <li><p>随机重生(random regeneration)<br />
 用随机生成的子树代替调用的部分。<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212142811.png width=80%><br />
@@ -586,11 +597,15 @@ list)<br />
 </ul>
 <h3 id="声明缺失">声明缺失</h3>
 <p>声明缺失(argument
-deletion)会删除某个ADF中的某个形式参数，具体如下：<br />
-1. 选择一个个体参与 2. 在这个个体上选择一个函数定义部件 3.
-选择该部件中的一个声明 4. 删除这个声明，并且修改声明列表 5.
-在个体任何地方使用到这个调用的地方删除这个声明对应的实际参数或者子树 6.
-在这个函数定义部件中使用到被删除声明的地方使用其他方法保证这个部件的合法性。</p>
+deletion)会删除某个ADF中的某个形式参数，具体如下：</p>
+<ol type="1">
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件</li>
+<li>选择该部件中的一个声明</li>
+<li>删除这个声明，并且修改声明列表</li>
+<li>在个体任何地方使用到这个调用的地方删除这个声明对应的实际参数或者子树</li>
+<li>在这个函数定义部件中使用到被删除声明的地方使用其他方法保证这个部件的合法性。</li>
+</ol>
 <p>第六步和子程序缺失一样，同样有合并、随机重生和宏展开三种方法。对于合并，在这个ADF的定义部分选择类似的形式参数替换这个被删除的参数；随机重生既可以随机生成一个子树，也可以随机生成一个变量；宏展开则是在调用时保持使用这个被删除的参数。<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212151128.png width=80%></p>
 <p>两种缺失的作用（除去宏展开）都是将不同情况使用不同的实体改为不同情况下使用同一个实体，因此，缺失可以被视为是一种泛化。</p>
@@ -601,28 +616,33 @@ class="hint--top hint--rounded"
 aria-label="John R. Koza, Evolving the Architecture of a Multi-Part Program in Genetic Programming Using Architecure-Altering Operations, 1994.">[1]</span></a></sup>中介绍过声明创建的内容。</p>
 <h3 id="子程序创建">子程序创建</h3>
 <p>子程序创建(branch
-creation)是将选定好的一个子树打包为ADF的操作，具体如下：<br />
-1. 选择一个个体参与 2.
-在这个个体上选择一个函数定义部件或者结果生成部件上的子树 3.
-在这个子树上选择一个点，这个点将会是即将生成的ADF的最顶端。<br />
-4. 对这个点下方的子树开始遍历，每遇到一个节点都决定还是否继续向下遍历。
-5.
-遍历结束后，新建一个函数定义部件然后创建一个新的ADF，把这个子树作为一个新的ADF的<code>VALUES</code>的下方，并检查被遍历到的子树的实体参数，将它们替换为形式参数。<br />
-6. 将原来子树的位置用现在新的ADF替换。<br />
-7.
-如果原来的子树下方还有要被打包的点，那么重复原来的步骤，把这个点也替换为另一个新的ADF。但是相同声明的名称沿用上一个ADF中重复的部分。</p>
+creation)是将选定好的一个子树打包为ADF的操作，具体如下：</p>
+<ol type="1">
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件或者结果生成部件上的子树</li>
+<li>在这个子树上选择一个点，这个点将会是即将生成的ADF的最顶端。<br />
+</li>
+<li>对这个点下方的子树开始遍历，每遇到一个节点都决定还是否继续向下遍历。</li>
+<li>遍历结束后，新建一个函数定义部件然后创建一个新的ADF，把这个子树作为一个新的ADF的<code>VALUES</code>的下方，并检查被遍历到的子树的实体参数，将它们替换为形式参数。<br />
+</li>
+<li>将原来子树的位置用现在新的ADF替换。<br />
+</li>
+<li>如果原来的子树下方还有要被打包的点，那么重复原来的步骤，把这个点也替换为另一个新的ADF。但是相同声明的名称沿用上一个ADF中重复的部分。</li>
+</ol>
 <p><img src=https://www.genetic-programming.com/branch-create2.gif width=40%></p>
 <p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212162741.png width=80%></p>
 <p>需要注意的是，另外有一种叫做压缩(compression)的遗传操作，也是打包函数，但是压缩打包后的函数与原来的树无关，不再调用替换。<br />
 在子程序创建中，打包后的子树是可以进化的，并且任何位置的子树都可以作为新的ADF的模板。</p>
 <h3 id="声明创建">声明创建</h3>
 <p>声明创建(argument
-creation)是一种在子树中创建声明的方式，相比于声明复制，这种方式更为通用。声明创建的方式如下：<br />
-1. 选择一个个体参与 2.
-在这个个体上选择一个函数定义部件，并且在其上选择一个点 3.
-增加该部件中的一个声明 4. 把之前选择的这个点以下的部分全部换成这个声明
-5.
-在选择的个体中，每次调用这个ADF的时候增加一个子树，这个子树就是之前被替换的部分。</p>
+creation)是一种在子树中创建声明的方式，相比于声明复制，这种方式更为通用。声明创建的方式如下：</p>
+<ol type="1">
+<li>选择一个个体参与</li>
+<li>在这个个体上选择一个函数定义部件，并且在其上选择一个点</li>
+<li>增加该部件中的一个声明</li>
+<li>把之前选择的这个点以下的部分全部换成这个声明</li>
+<li>在选择的个体中，每次调用这个ADF的时候增加一个子树，这个子树就是之前被替换的部分。</li>
+</ol>
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231212165728.png width=80%>
 <section class="footnotes">
 <div class="footnote-list">
@@ -715,7 +735,7 @@ Heidelberg. https://doi.org/10.1007/978-3-642-86659-3_6
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年1月27日</div>
+          <div>2024年5月16日</div>
         </div>
       
       
@@ -795,7 +815,7 @@ Heidelberg. https://doi.org/10.1007/978-3-642-86659-3_6
         aria-expanded="true"
       >
         论文
-        <span class="list-group-count">(31)</span>
+        <span class="list-group-count">(35)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1054,7 +1074,7 @@ Heidelberg. https://doi.org/10.1007/978-3-642-86659-3_6
         aria-expanded="true"
       >
         进化计算
-        <span class="list-group-count">(18)</span>
+        <span class="list-group-count">(22)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1181,7 +1201,7 @@ Heidelberg. https://doi.org/10.1007/978-3-642-86659-3_6
         aria-expanded="true"
       >
         遗传编程
-        <span class="list-group-count">(10)</span>
+        <span class="list-group-count">(14)</span>
         <i class="iconfont icon-arrowright"></i>
       </a>
       
@@ -1196,10 +1216,37 @@ Heidelberg. https://doi.org/10.1007/978-3-642-86659-3_6
     
       
       
+        <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP Memo</span>
+        </a>
+      
+    
+      
+      
         <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
            class="list-group-item list-group-item-action
            ">
           <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/" title="交叉算子的建模和比较"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">交叉算子的建模和比较</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/schema%20thoery%20for%20homologous%20crossover/" title="同源交叉的模式定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">同源交叉的模式定理</span>
         </a>
       
     
@@ -1227,6 +1274,15 @@ Heidelberg. https://doi.org/10.1007/978-3-642-86659-3_6
            class="list-group-item list-group-item-action
            active">
           <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/28/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E6%A8%A1%E5%9D%97%E5%8C%96GP/" title="遗传编程中的模块化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的模块化</span>
         </a>
       
     
