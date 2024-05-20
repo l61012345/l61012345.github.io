@@ -63,13 +63,13 @@ GP从上到下开始收敛的猜测是，越靠近根节点的结点对个体进
 ### Schema Theory / Markov 模型 / Price Equation
 不管是哪种对schema的定义方式，schema在种群当中的传播理应遵循Schema Theory。它描述了一个特定的schema在下一代当中的采样率是如何变化的。   
 
-最早的Schema Thoery是从扰乱，也就是属于Schema的个体如何通过变异被破坏而导致不再属于Schema的视角进行的描述的[^4]：  
+最早的Schema Theory是从扰乱，也就是属于Schema的个体如何通过变异被破坏而导致不再属于Schema的视角进行的描述的[^4]：  
 $$p(H,t+1)= (1-p_c)p(H,t)+p_c\underline{p(H,t)(1-[P_d(h,H)]_{cap})}$$
 $$P_d(h,H)=\frac{D_{fixed}(H)+D_{var}(h,H)}{Size(h)}$$
 扰乱的视角存在许多问题（在[^4]中作者自己列举出了7条问题）， 根本原因是语义和语构空间的不均匀映射导致distruptive rate实在是太大了，以至于对schema的行为无法精准的预测。  
 在GA中，对GA的搜索景观的要求是信息密度在搜索空间中的分布是均匀的，这个表现为GA的schema theory中，含有定义距$ΔH$的一项与schema的disruption rate成正比关系:  
 $$P_d(H)\propto ΔH$$
-但是在[^4]的定义中，这样的正比关系对个体虽然存在，但是由于树形结构和$D_{var}(h,H)$的加入导致无法判断$D_{var}(h,H)$在每个个体中的变化关系，从而无法判断对于整个schema的子种群，$P_d$与$ΔH$还是否成正比关系，因此schema thoery的作用被减弱。  
+但是在[^4]的定义中，这样的正比关系对个体虽然存在，但是由于树形结构和$D_{var}(h,H)$的加入导致无法判断$D_{var}(h,H)$在每个个体中的变化关系，从而无法判断对于整个schema的子种群，$P_d$与$ΔH$还是否成正比关系，因此schema theory的作用被减弱。  
 
 其后Poli提出的Schema Theory则是从构建，也就是两个亲本交叉如何保留让个体属于Schema的角度进行描述的[^5]：
 $$p(H,t+1)= (1-p_c)p(H,t)+p_c\underline{α_c(H,t)}$$
@@ -77,7 +77,7 @@ $$α_c(H,t)=∑_{k,l}\frac{1}{|C(G_k,G_l)|}×∑_{i∈C(G_k,G_l)}p(U(H,i)∩G_k,
 在构建的叙述中，只有交叉发生在两个亲本的Common Regions当中时，Schema的拓扑结构才可能被保留。在Common Regions当中进行的交叉的另一个作用是可以在进化的初期增大根节点被选择作为交叉的概率，以扩大搜索的范围（增加种群多样性）[^14]。  
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408172055.png width=70%>  
 
-Schema Thoery中的一个问题是，Schema thoery将fitness function视为黑箱看待，并没有清楚的描述fitness function和schema之间的作用关系。 [^32]
+Schema Theory中的一个问题是，Schema theory将fitness function视为黑箱看待，并没有清楚的描述fitness function和schema之间的作用关系。 [^32]
 
 马尔科夫链模型通过建立一步概率转移矩阵来描述种群中的个体的转移变化，[^5]认为马尔科夫模型和schema theory其实是对同一行为的不同角度下的描述。  
 马尔科夫链最大的问题是，一步概率转移矩阵在建立时要求状态必须是完备的（必须考虑所有的状态转移情况），也就是说，GP的一步概率转移矩阵需要针对整个搜索空间才可以完整描绘出GP的动态性。马尔科夫链模型存在“维数灾”问题，所以在进化计算的领域中对马尔科夫链模型的研究转向了对一步概率矩阵的特征分析（比如特征值到底对应了算法的哪些表现）[^32]。
@@ -85,9 +85,9 @@ Schema Thoery中的一个问题是，Schema thoery将fitness function视为黑�
 另一些文献中使用了Price Equation [^15]对Schema的采样率变化进行建模。
 利用Price公式的对GP中schema的采样率变化描述如下[^7]：  
 $$\Delta |h|=Cov(p_s(r_i),member(h,r_i))+E(\omega_i \Delta z_i)$$
-这个公式的第一项协方差项描述了选择作用，第二项期望项则描述了遗传变异的作用。如果不考虑突变，Price Equation也是对Schema Theory的另一种描述方式：方差项对应Schema Thoery的第一项$(1-p_c)p(H,t)$，期望项对应$p_c{α_c(H,t)}$。  
+这个公式的第一项协方差项描述了选择作用，第二项期望项则描述了遗传变异的作用。如果不考虑突变，Price Equation也是对Schema Theory的另一种描述方式：方差项对应Schema Theory的第一项$(1-p_c)p(H,t)$，期望项对应$p_c{α_c(H,t)}$。  
 
-研究Price Equation的原因可能是，在Exact Schema Theory之前，Schema Thoery只能给出概率的下界，然而Price Equation可以给出一个准确的值。  
+研究Price Equation的原因可能是，在Exact Schema Theory之前，Schema Theory只能给出概率的下界，然而Price Equation可以给出一个准确的值。  
 
 
 ## GP中存在的问题
