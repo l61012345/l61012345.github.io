@@ -29,3 +29,4 @@ https://www.findagrave.com/memorial/94661946/george_robert-price#source
 - 栞风，他的博客在：https://www.kaysonz.top  
 - 丹丹老师  
 - 刘旭康，感谢他对许多培养方案上新增课程笔记的更新  
+- 枥木，没有她的建议我也不会开始写这个博客
