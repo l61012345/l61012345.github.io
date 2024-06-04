@@ -27,6 +27,6 @@ https://www.findagrave.com/memorial/94661946/george_robert-price#source
 - Xindi Huang  
 - 林正/Kobayashi Hikari，他的博客在：https://www.zhenglinblog.top/.  
 - 栞风，他的博客在：https://www.kaysonz.top  
-- 丹丹老师  
+- 丹丹老师，感谢她指正了电子系统课程笔记中好多错误的地方  
 - 刘旭康，感谢他对许多培养方案上新增课程笔记的更新  
 - 枥木，没有她的建议我也不会开始写这个博客
