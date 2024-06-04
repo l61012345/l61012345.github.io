@@ -15,7 +15,7 @@ layout: about
 
 In memory of George Robert Price (16th OCT 1922 - 6th JAN 1975)：  
 
-$$ΔQ=\frac{1}{\overline{ω}}Cov(ω_i,z_i)+\frac{1}{\overline{ω}}E(ωΔz)$$
+$$Δz=\frac{1}{\overline{ω}}Cov(ω_i,z_i)+\frac{1}{\overline{ω}}E(ωΔz)$$
 
 https://www.findagrave.com/memorial/94661946/george_robert-price#source
 
