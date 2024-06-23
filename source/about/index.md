@@ -12,14 +12,21 @@ layout: about
 - 原神休闲玩家，大好绫华、甘雨、妮露、芙芙。     
 
 ## 关于这个博客  
-因为要把笔记分享给团队的人看，但是团队里面就我一个人用markdown做笔记。一开始是把笔记上传到github上，但是github对于LaTeX公式的渲染实在是太糟糕，所以想到了用Hexo建个博客来放这些笔记。   
+
+In memory of George Robert Price (16th OCT 1922 - 6th JAN 1975)：  
+
+$$Δz=\frac{1}{\overline{ω}}Cov(ω_i,z_i)+\frac{1}{\overline{ω}}E(ωΔz)$$
+
+https://www.findagrave.com/memorial/94661946/george_robert-price#source
+
 
 ## 致谢
 由于这个博客中大部分内容都是在当堂下课后下一节课上课之前由当堂上课笔记整理而成，写作时间比较紧凑，难免会出现疏漏和错误，在此感谢为这个博客做出过大量修订和反馈的朋友们。  
-在此列出一部分朋友的名字（化名）：  
+在此列出一部分朋友的名字（马甲）：  
 
 - Xindi Huang  
 - 林正/Kobayashi Hikari，他的博客在：https://www.zhenglinblog.top/.  
 - 栞风，他的博客在：https://www.kaysonz.top  
-- 丹丹老师  
+- 丹丹老师，感谢她指正了电子系统课程笔记中好多错误的地方  
 - 刘旭康，感谢他对许多培养方案上新增课程笔记的更新  
+- 枥木，没有她的建议我也不会开始写这个博客
