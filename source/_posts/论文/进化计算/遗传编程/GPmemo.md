@@ -77,6 +77,8 @@ $$α_c(H,t)=∑_{k,l}\frac{1}{|C(G_k,G_l)|}×∑_{i∈C(G_k,G_l)}p(U(H,i)∩G_k,
 在构建的叙述中，只有交叉发生在两个亲本的Common Regions当中时，Schema的拓扑结构才可能被保留。在Common Regions当中进行的交叉的另一个作用是可以在进化的初期增大根节点被选择作为交叉的概率，以扩大搜索的范围（增加种群多样性）[^14]。  
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408172055.png width=70%>  
 
+构建角度叙述的问题在于，构建角度的Schema Thoery无法描述具有什么样子的Schema才能在进化过程中胜出。具体的原因是，构建只描述了构建目标来源所需要具备的特征（各自持有构建目标的一半），缺少了对构建目标本身特征的描述（比如定义距、阶等等）。  
+
 Schema Theory中的一个问题是，Schema theory将fitness function视为黑箱看待，并没有清楚的描述fitness function和schema之间的作用关系。 [^32]
 
 马尔科夫链模型通过建立一步概率转移矩阵来描述种群中的个体的转移变化，[^5]认为马尔科夫模型和schema theory其实是对同一行为的不同角度下的描述。  
