@@ -25,6 +25,17 @@ category_bar: true
 
 [^1]: G.Y.Zhao *et al*., Energy Consumption in Machining: Classification, prediction, and reduction stratage, *Energy*, 2017.  
 
+其中，主轴驱动又包含旋转部分（夹具）和电机。每台机器的主轴确实是其核心，其中包括旋转部件（夹头），能够将刀具夹紧在其上。电机是各种类型的动力传输器，可导致主轴移动。[^4]
+
+[^4]: https://ksp-group.ir/en/post/id/57/-spindle-in-Cnc-machine-and-differentiation-among-them,-built-in,-direct-drive,-gearbox-type,-belt-type.
+<img src=https://ksp-group.ir/media/%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C%20%D8%A7%D8%B3%D9%BE%DB%8C%D9%86%D8%AF%D9%84%20%D9%87%D8%A7%DB%8C%20%D9%85%D8%AE%D8%AA%D9%84%D9%81/3d_section_model_of_a_motor_spindle.png width=40%>
+
+伺服系统则包括包括机械子系统、伺服电机驱动子系统和控制器子系统。[^5]
+
+[^5]: J. Zheng, M. Zhang and Q. Meng, "Modeling and design of servo system of CNC machine tools," 2006 International Conference on Mechatronics and Automation, Luoyang, China, 2006, pp. 1964-1969, doi: 10.1109/ICMA.2006.257555.  
+
+
+
 各部分的能量消耗如下图所示[^1]：  
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231129114751.png width=40%>   
 
