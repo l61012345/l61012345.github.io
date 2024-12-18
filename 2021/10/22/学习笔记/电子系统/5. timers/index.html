@@ -115,7 +115,7 @@
 <meta property="og:description" content="定时器 电容器的充放电特性 在RC电路中，当电容与电压源连通时电容会进行充电，而断开连接后电容器会放电，充电和放电的过程电容器的电压和电流都随着时间的变化而变化。设时间常数\(τ&#x3D;RC\)，分析电容器充放电过程的特性。 电容器的充电特性 充电时电容器上的电压会随着时间增大： \[V&#x3D;V_0(1-e^{-\frac{t}{τ}})\]  经过\(1τ\)，电容器电压达到最大值的62%，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-22T00:00:00.000Z">
-<meta property="article:modified_time" content="2024-12-18T10:39:05.397Z">
+<meta property="article:modified_time" content="2024-12-18T10:41:29.598Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -520,34 +520,42 @@ class="math inline">\(5τ\)</span>时可以认为没有电流通过电容器。<
 需要注意的是，考虑到电容器的完全充放电是需要时间的，输入信号的频率应该比较低，以给予电容器合适的充放电时间。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022195421.png width=50%></p>
 <p>将上述的电路进一步改进，得到如下的电路：<br />
-该电路由两部分组成：<br />
-1.
-由直流电压源、电阻和电容组成的三角波发生器电路，该电路在电容和电压源附近各有一个开关，如图所示：<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022200001.png width=50%><br />
-- 当<span class="math inline">\(S_1\)</span>闭合、<span
+该电路由两部分组成：</p>
+<ol type="1">
+<li><p>由直流电压源、电阻和电容组成的三角波发生器电路，该电路在电容和电压源附近各有一个开关，如图所示：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022200001.png width=50%></p>
+<ul>
+<li>当<span class="math inline">\(S_1\)</span>闭合、<span
 class="math inline">\(S_2\)</span>打开时，电压源会向电容器充电。<br />
-- 当<span class="math inline">\(S_1\)</span>打开、<span
+</li>
+<li>当<span class="math inline">\(S_1\)</span>打开、<span
 class="math inline">\(S_2\)</span>闭合时，电容器会放电到<span
 class="math inline">\(R_2\)</span>。<br />
 因此该电路通过控制<span class="math inline">\(S_1\)</span>、<span
 class="math inline">\(S_2\)</span>的开闭来控制电容器的充放电。<br />
-2. <span class="math inline">\(S_1\)</span>、<span
+</li>
+</ul></li>
+<li><p><span class="math inline">\(S_1\)</span>、<span
 class="math inline">\(S_2\)</span>开关连接至RS触发器电路，RS触发器的R端和S端分别连接两个比较器，如图所示：<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022200338.png width=50%><br />
-- 当输入电压<span
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022200338.png width=50%></p>
+<ul>
+<li>当输入电压<span
 class="math inline">\(V_{in}&gt;V_1\)</span>时，上方的比较器向触发器的S端发送高电平，而下方比较器由于<span
 class="math inline">\(V_2&gt;V_{in}\)</span>则不会向R端发送高电平，此时RS触发器的输入逻辑：<span
 class="math inline">\(S=1,R=0\)</span>，根据RS触发器的真值表可以得到<span
 class="math inline">\(Q=1,\overline{Q}=0\)</span>，<span
 class="math inline">\(S_1\)</span>闭合、<span
 class="math inline">\(S_2\)</span>打开时，电压源会向电容器充电。<br />
-- 当输入电压<span
+</li>
+<li>当输入电压<span
 class="math inline">\(V_{in}&lt;V_1\)</span>时，下方的比较器向触发器的R端发送高电平，而上方比较器由于<span
 class="math inline">\(V_{in}&lt;V_1\)</span>则不会向S端发送高电平，此时RS触发器的输入逻辑：<span
 class="math inline">\(S=0,R=1\)</span>，根据RS触发器的真值表可以得到<span
 class="math inline">\(Q=0,\overline{Q}=1\)</span>，<span
 class="math inline">\(S_1\)</span>打开、<span
-class="math inline">\(S_2\)</span>闭合，使电容器放电。</p>
+class="math inline">\(S_2\)</span>闭合，使电容器放电。</li>
+</ul></li>
+</ol>
 <blockquote>
 <p>RS 触发器真值表：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211022205217.png width=50%></p>
@@ -616,10 +624,10 @@ class="math inline">\(R_2\)</span>的值改变占空比。</strong><br />
 class="math inline">\(R_2\)</span>的存在使得占空比永远大于50%。<br />
 换句话说，该电路不能使输出“ON”时间短于“OFF”时间，因为<span
 class="math inline">\((R_1 + R_2)C\)</span> 总是大于<span
-class="math inline">\(R_1C\)</span>的值。<br />
-&gt; 当<span class="math inline">\(R_2\)</span>远大于<span
-class="math inline">\(R_1\)</span>时，<span class="math inline">\(Duty
-Cyecle=50\%\)</span>。</p>
+class="math inline">\(R_1C\)</span>的值。</p>
+<div class="note note-info">
+            <p>当<span class="math inline">\(R_2\)</span>远大于<spanclass="math inline">\(R_1\)</span>时，<span class="math inline">\(DutyCyecle=50\%\)</span>。</p>
+          </div>
 <p><strong><span
 class="math inline">\(V_{Control}\)</span>对输出波形的影响</strong>：<br />
 充放电时间中的参数<span
