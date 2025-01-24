@@ -115,7 +115,7 @@
 <meta property="og:description" content="振荡器 巴克豪森稳定性准则 反馈放大器在提升增益的同时降低了放大器的稳定性，可以利用反馈放大器在高增益下低稳定性的特点制作振荡器，使得输入的直流信号能够被振荡从而产生交流信号。 振荡器电路的框图如下：  要形成稳定的振荡波形，反馈电路中不能有外源输入存在，或者说外源输入对其无影响，反馈电路中的输入只来源于噪声，根据反馈的\(G&#x3D;\frac{V_{o}}{V_{in}}&#x3D;\frac{A}{">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-17T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-20T09:23:27.845Z">
+<meta property="article:modified_time" content="2024-12-18T10:52:30.108Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -476,7 +476,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2023年10月20日 上午
+                    本文最后更新于 2024年12月18日 上午
                   
                 
               </p>
@@ -496,21 +496,26 @@ class="math inline">\(|AB|=1\)</span>时可以满足这一条件。<br />
             <p>假设放大增益为<spanclass="math inline">\(A(ω_1)=|A|e^{jω_1}\)</span>，反馈增益为<spanclass="math inline">\(B(ω_2)=|B|e^{jω_2}\)</span>，那么整个反馈系统的前馈增益为：<br /><spanclass="math display">\[A(ω_1)B(ω_2)=|A|e^{jω_1}|B|e^{jω_2}=|AB|e^{j(ω_1+ω_2)}\]</span>如果输入一个正弦噪声<spanclass="math inline">\(n(t)\)</span>，那么下一时刻得到的噪声为：<br /><span class="math display">\[n(t+1)=|AB|e^{j(ω_1+ω_2)}n(t)\]</span>要想使正弦噪声的波形稳定，那么需要使得前馈增益为1.</p>
           </div></p>
 <p>此外，反馈信号的相位和输入信号的相位相同，否则在叠加时产生的相移会使振荡不均匀。<br />
-因此，制造稳定振荡的两个条件： 1. 对于反馈：<span
+因此，制造稳定振荡的两个条件：</p>
+<ol type="1">
+<li><p>对于反馈：<span
 class="math inline">\(G=\frac{A_v}{1-A_vB}\)</span>，<span
-class="math inline">\(|AB|=1\)</span>：<br />
-- 当<span
+class="math inline">\(|AB|=1\)</span>：</p>
+<ul>
+<li>当<span
 class="math inline">\(|AB|&gt;1\)</span>时，每一次反馈都会加强信号，无法产生稳定的振荡波形：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211104144246.png width=30%><br />
-- 当<span
+</li>
+<li>当<span
 class="math inline">\(|AB|&lt;1\)</span>时，每一次反馈都会削弱信号，无法产生稳定的振荡波形：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211104144334.png width=30%><br />
-- 当<span
+</li>
+<li>当<span
 class="math inline">\(|AB|=1\)</span>时，每一次的反馈信号和输入信号相同，可以产生稳定的振荡波形：<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211104144501.png width=30%></p>
-<ol start="2" type="1">
-<li><span
-class="math inline">\(ω_1+ω_2=2nπ,n=0,1,2...\)</span>，反馈信号的相位与放大电路输入信号的相位相同。
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211104144501.png width=30%></li>
+</ul></li>
+<li><p><span
+class="math inline">\(ω_1+ω_2=2nπ,n=0,1,2...\)</span>，反馈信号的相位与放大电路输入信号的相位相同。</p>
 <ul>
 <li>对于正反馈放大器，其反馈信号的相位和输入信号的相位相同。</li>
 <li>对于负反馈放大器，反馈信号的相位和输入信号的相位相差180°，因此需要人为添加相移器对相移进行复位。</li>
@@ -534,9 +539,10 @@ class="math inline">\(ω_1+ω_2=2nπ,n=0,1,2...\)</span>，反馈信号的相位
 通过数学计算<span
 class="math inline">\(|AB|=1\)</span>可以发现，这个结果取决于同相放大器的电压增益<span
 class="math inline">\(A_v\)</span>，当电压增益<span
-class="math inline">\(A_v=1+\frac{R_f}{R_g}≥3\)</span>时才能满足这一条件。<br />
-&gt;
-这一部分的数学推导：https://blog.csdn.net/weixin_43996900/article/details/106189102</p>
+class="math inline">\(A_v=1+\frac{R_f}{R_g}≥3\)</span>时才能满足这一条件。</p>
+<blockquote>
+<p>这一部分的数学推导：https://blog.csdn.net/weixin_43996900/article/details/106189102</p>
+</blockquote>
 <p>同时放大器的反相输入端可视为一个反相放大器，以负反馈确保电路输出稳定。</p>
 <h2 id="相移振荡器">相移振荡器</h2>
 <p>由于负反馈放大器本身可以满足<span
@@ -630,7 +636,7 @@ class="math inline">\(f_r\)</span>无限趋近于0，不具有实用性。</p>
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月20日</div>
+          <div>2024年12月18日</div>
         </div>
       
       
