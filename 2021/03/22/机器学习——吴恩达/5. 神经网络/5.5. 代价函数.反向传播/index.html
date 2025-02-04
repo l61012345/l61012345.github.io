@@ -115,7 +115,7 @@
 <meta property="og:description" content="代价函数·反向传播 回顾 接下来的讲义主要考虑两种分类问题：第一种是二元分类，如之前的讲义所述，y的取值只能是0或者1，输出层只有一个输出单元，假设函数的输出值是一个实数；第二种是多元分类，y的取值是一个k维的向量，输出层有k个输出单元。 ## 神经网络的代价函数形式 假设一个神经网络训练集有m个训练样本：\({(x^{(1)},y^{(1)}),(x^{(2)},y^{(2)}),...,">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-22T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-19T11:31:16.064Z">
+<meta property="article:modified_time" content="2025-02-04T15:25:07.995Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -476,7 +476,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2023年12月19日 中午
+                    本文最后更新于 2025年2月4日 下午
                   
                 
               </p>
@@ -501,15 +501,19 @@ log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ
 ∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ
 (x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1}
 (Θ_{ji}^{(l)})_j^2\]</span><br />
-解释：<br />
-1. 用<span
+解释：</p>
+<ol type="1">
+<li>用<span
 class="math inline">\((h_Θ(x))_i\)</span>来表示第i个输出<br />
-2. 这个代价函数中<span
+</li>
+<li>这个代价函数中<span
 class="math inline">\(∑_{k=1}^K\)</span>表示所有的输出单元之和，这里主要是将<span
 class="math inline">\(y_k\)</span>的值与<span
 class="math inline">\((h_Θ(x))_k\)</span>的大小作比较<br />
-3. 正则项的作用是去除那些对应于偏置单元的项，具体而言就是不对<span
-class="math inline">\(i=0\)</span>的项进行求和和正则化。</p>
+</li>
+<li>正则项的作用是去除那些对应于偏置单元的项，具体而言就是不对<span
+class="math inline">\(i=0\)</span>的项进行求和和正则化。</li>
+</ol>
 <h2 id="代价函数最小化反向传播算法">代价函数最小化：反向传播算法</h2>
 <h3 id="过程">过程</h3>
 <p>同之前的线性回归和逻辑回归一样，接下来要求得代价函数的最小值<span
@@ -602,9 +606,9 @@ class="math inline">\(Θ_{11}^{(2)}\)</span>，青色的权重值是<span
 class="math inline">\(Θ_{12}^{(2)}\)</span>， 那么<span
 class="math inline">\(z_1^{(3)}=Θ_{10}^{(2)} \times 1+Θ_{11}^{(2)} ×
 a_1^{(2)}+Θ_{12}^{(2)}×a_1^{(2)}\)</span>。<br />
-反向传播的过程和前向传播非常类似，只是传播的方向不同。<br />
-#### 反向传播的理解<br />
-关注反向传播的代价函数：<br />
+反向传播的过程和前向传播非常类似，只是传播的方向不同。</p>
+<h4 id="反向传播的理解">反向传播的理解</h4>
+<p>关注反向传播的代价函数：<br />
 <span class="math display">\[J(θ)=-\frac{1}{m}[∑_{i=1}^m
 ∑_{k=1}^Ky_k^{(i)} log⁡(h_θ(x^{(i)} )_k)+(1−y_k^{(i)}) log(1−h_θ
 (x^{(i)})_k)]+\frac{λ}{2m}∑_{l=1}^{L-1}∑_{j=1}^{s_l}∑_{j=1}^{s_l+1}
@@ -704,7 +708,7 @@ class="math inline">\(Θ_{22}^{(2)}\)</span>，有:<br />
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月19日</div>
+          <div>2025年2月4日</div>
         </div>
       
       
@@ -3939,5 +3943,20 @@ class="math inline">\(Θ_{22}^{(2)}\)</span>，有:<br />
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
