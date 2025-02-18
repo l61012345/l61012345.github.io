@@ -81,7 +81,7 @@ categories:
 
 | 问题     | 语义突变函数                                                 | 备注                                                         |
 | -------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 逻辑回归 | $Offspring = \begin{cases} T \or M, r\geq 0.5 \\ T \and \overline{M},r<0.5\end{cases}$<br />$r\in[0,1]$为一个随机数 | <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20250218095135.png width=40%> |
+| 逻辑回归 | $Offspring = \begin{cases} T ∨ M, r\geq 0.5 \\ T ∧ \overline{M},r<0.5\end{cases}$<br />$r\in[0,1]$为一个随机数 | <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20250218095135.png width=40%> |
 | 代数回归 | $Offspring = T+ms·(TR1-TR2)$<br />$ms$为步长，$TR1$和$TR2$为两个随机生成的函数（且语义之差小于某个非常小的范围，近似于0） | 这个过程潜在地模拟了bloat的相互抵消的过程                    |
 | 程序设计 | `offspring = IF CONDER THEN outr ELSE t`<br />`outr`是随机生成的一个符号。 |                                                              |
 
