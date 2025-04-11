@@ -16,6 +16,9 @@ Lee Altenberg. 1994. The evolution of evolvability in genetic programming. Advan
 在GA中，Gentic Operator和Representation的选取会对GA的性能产生很大的影响，其原因是因为Genetic Operatior和Representation包含了同一个过程的两个方面：从旧的搜索空间中创造新的elements。这个问题可以通过evolutionary approach创建可以进化的representation和operator来让GA自己演化（多臂赌博机问题的进化采样分配问题）。这一篇论文将介绍Genetic Programming(GP)也具有进化自身的representation的能力，并且介绍representation的进化方向是如何影响整个个体的可进化性的(evolvability)。  
 
 ### 可进化性
+
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20250411220324.png width=40%>   
+
 可进化性(evolvability)指的是Genetic Operator或者是Representation产生的后代优于自身的概率。定量的定义是Genetic Operator或者是Representation所产生的后代的概率分布。对于进化计算而言，具有好的“evolvability”的定义是其产生的后代的fitness分布的上分位点区域应当比随机搜索的fitness分布更宽。但是和随机搜索相比，“产生适应度更高的后代”这种行为不一定会在所有亲本中出现，它只需要发生在高于平均fitness的亲代身上，因为选择的偏置效应会让搜索进程偏置到这些亲本的方向上。综上所述，**更高的evolvability意味着更好的亲本有更高的概率产生更好的后代。即理想的operator要在亲本和后代的fitness表现中产生相关性**。  
 “相关性”的定义可以通过Building Block Hypothesis展示：亲本中隐含的遗传信息通过交叉传入后代，使后代的fitness提升。所以building blocks的定义应当有亲本和后代fitness在交叉下产生的关系而建立起来。  
 Evolvability是一个非常局部，或者说非常细粒度的对GA（或者说进化计算）的性能的测量指标（因为是从某个后代开始推理的测量指标）。由于种群整体的进化方向是全局的没所以只要GA可以保持evolvability，那么最终整个GA的表现将会是全局的。  
