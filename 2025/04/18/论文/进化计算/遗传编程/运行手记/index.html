@@ -115,7 +115,7 @@
 <meta property="og:description" content="遗传编程实际运行Tricks 本篇依据Python中的DEAP库来给出一些在实际运行遗传编程程序中的技巧。 Bloat 和 Bloat Control Bloat会显著降低模型的泛化性能，因此有必要在运行过程中对GP添加上Bloat Control。  Parsimony Pressure Parsimony Pressure指的是在个体的raw fitness后面添加一项罚函数，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-18T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-18T10:08:11.750Z">
+<meta property="article:modified_time" content="2025-04-18T10:14:39.238Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.9k 字
         
       </span>
     
@@ -519,7 +519,7 @@ Operator生效，对产生个体的方法<code>expr</code>无效。<br />
 正确的方法：<br />
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(offspring), <span class="hljs-number">2</span>):<br>   <span class="hljs-keyword">if</span> random.random() &lt; mate_rate:<br>       offspring[i - <span class="hljs-number">1</span>], offspring[i] = toolbox.mate(offspring[i - <span class="hljs-number">1</span>],offspring[i])<br>       <span class="hljs-keyword">del</span> offspring[i - <span class="hljs-number">1</span>].fitness.values, offspring[i].fitness.values<br></code></pre></td></tr></table></figure> 错误的写法：<br />
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">len</span>(offspring), <span class="hljs-number">2</span>):<br>   <span class="hljs-keyword">if</span> random.random() &lt; mate_rate:<br>       toolbox.mate(offspring[i - <span class="hljs-number">1</span>],offspring[i])<br>       <span class="hljs-keyword">del</span> offspring[i - <span class="hljs-number">1</span>].fitness.values, offspring[i].fitness.values<br></code></pre></td></tr></table></figure> 在没有变量接收的情况下genetic
-operator依然对<code>offspring</code>起作用，但是装饰器的工作原理是接收原来函数的结果处理后传出到变量，因此上面错误的写法中装饰器不起作用。</li>
+operator依然对<code>offspring</code>起作用，但是装饰器的工作原理是接收原来函数的结果处理后传出到变量，因此上面错误的写法中装饰器不起作用。但是，实际运行下来发现在第二种写法下装饰器有小概率会正常工作，导致实验结果不准确。</li>
 </ol></li>
 </ul>
 <h2 id="超参数调整">超参数调整</h2>
