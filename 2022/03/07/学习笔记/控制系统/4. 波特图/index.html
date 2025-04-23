@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="波特图·电路实现 波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为\(ω\)，纵轴为\(|H(jω)|_{dB}\)和\(∠H(jω)\)，如下图所示：  使用MATLAB绘制波特图 在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如： 1234num&#x3D;[8,1">
+    <meta name="description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="04. 波特图的绘制和分析·电路实现">
 <meta property="og:url" content="https://l61012345.top/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="波特图·电路实现 波特图(Bode plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为\(ω\)，纵轴为\(|H(jω)|_{dB}\)和\(∠H(jω)\)，如下图所示：  使用MATLAB绘制波特图 在MATLAB中，当系统传递函数已知的情况下，可以使用函数bode()直接生成对应系统的波特图，例如： 1234num&#x3D;[8,1">
+<meta property="og:description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-03-07T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.792Z">
@@ -235,7 +235,7 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
-}</style><meta name="generator" content="Hexo 5.4.2"></head>
+}</style></head>
 
 
 <body>
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k 字
+          4.4k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          25 分钟
+          37 分钟
         
       </span>
     
@@ -484,7 +484,180 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="波特图电路实现">波特图·电路实现</h1>
+                <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="波特图电路实现">波特图·电路实现</h1>
 <p>波特图(Bode
 plot)是一种直接表示系统幅度值和相位随着频率变化的图像，是最简单的对系统频率响应的可视化工具。其横轴为<span
 class="math inline">\(ω\)</span>，纵轴为<span
@@ -497,13 +670,17 @@ class="math inline">\(∠H(jω)\)</span>，如下图所示：<br />
 class="math inline">\(G(s)=\frac{8s^2+18s+32}{s^3+6s^2+14s+24}\)</span>的波特图，如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220317205459.png width=50%></p>
 <h2 id="采样法绘制波特图">采样法绘制波特图</h2>
-<p>使用采样来绘制波特图的方法是：<br />
-- 令传递函数中的<span class="math inline">\(s=jω\)</span>，得到<span
-class="math inline">\(G(jω)\)</span> - <span
+<p>使用采样来绘制波特图的方法是：</p>
+<ul>
+<li>令传递函数中的<span class="math inline">\(s=jω\)</span>，得到<span
+class="math inline">\(G(jω)\)</span></li>
+<li><span
 class="math inline">\(G(jω)\)</span>的分子分母同时乘以分母表达式的共轭形式，以化简得到:<br />
 <span class="math display">\[G(jω)=A(ω)+jB(ω)\]</span> 的形式。<br />
-- 取不同的<span
-class="math inline">\(ω\)</span>值对其幅频响应和相频响应进行采样，利用采样点绘制波特图。</p>
+</li>
+<li>取不同的<span
+class="math inline">\(ω\)</span>值对其幅频响应和相频响应进行采样，利用采样点绘制波特图。</li>
+</ul>
 <p>使用采样绘制波特图的难点是波特图的准确性取决于采样点的数目和采样点的位置。如果传递函数结构复杂，那么计算所有采样点所需要的计算量太大。</p>
 <h2 id="渐近线近似绘制的理论基础">渐近线近似绘制的理论基础</h2>
 <p>渐进线近似法（Asymptotic Bode
@@ -516,11 +693,15 @@ Plot）是一种将传递函数结构分为若干个区间，对每个区间使�
 class="math display">\[H(s)=\frac{K∏z_i(\frac{1}{z_i}s+1)}{∏p_i(\frac{1}{p_i}s+1))}\]</span></p>
 <h3
 id="传递函数的元素及其渐进线近似波特图">传递函数的元素及其渐进线近似波特图</h3>
-<p>对于任意系统的传递函数，其分子分母都由如下几项相乘得到：<br />
-- 常数项<span class="math inline">\(K\)</span>：称为增益 - <span
-class="math inline">\(s\)</span>：称为积分环节（分母）或者微分环节（分子）
-- 一阶项<span class="math inline">\((s+1)\)</span>：称为惯性环节（分母）
-- 二阶项<span class="math inline">\((s^2+2ζs+1)\)</span></p>
+<p>对于任意系统的传递函数，其分子分母都由如下几项相乘得到：</p>
+<ul>
+<li>常数项<span class="math inline">\(K\)</span>：称为增益</li>
+<li><span
+class="math inline">\(s\)</span>：称为积分环节（分母）或者微分环节（分子）</li>
+<li>一阶项<span
+class="math inline">\((s+1)\)</span>：称为惯性环节（分母）</li>
+<li>二阶项<span class="math inline">\((s^2+2ζs+1)\)</span></li>
+</ul>
 <p>通过分别讨论这几个元素的波特图，进而可以推理出任意传递函数的波特图。</p>
 <ul>
 <li><p>常数项<span class="math inline">\(K\)</span><br />
@@ -550,10 +731,10 @@ class="math inline">\(-arctan(\frac{ω}{0})=-90°\)</span>，其相位恒定为-
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307102109.png width=50%></p></li>
 </ul>
 <div class="note note-warning">
-            <p>注意，使用对数方格纸作图时，需要选取起始频率<spanclass="math inline">\(ω_0\)</span>（横轴原点为:0.1rad/s或者0.001rad/s），如果存在<spanclass="math inline">\(s\)</span>项，波特图的起始幅值应当为：<br /><span class="math display">\[±20lg(ω_0)+20lg(K)\]</span> <spanclass="math inline">\(+20lg(ω_0)\)</span>:<spanclass="math inline">\(s\)</span>位于分子；<spanclass="math inline">\(-20lg(ω_0)\)</span>:<spanclass="math inline">\(s\)</span>位于分母。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>注意，使用对数方格纸作图时，需要选取起始频率<spanclass="math inline">\(ω_0\)</span>（横轴原点为:0.1rad/s或者0.001rad/s），如果存在<spanclass="math inline">\(s\)</span>项，波特图的起始幅值应当为：<br /><span class="math display">\[±20lg(ω_0)+20lg(K)\]</span> <spanclass="math inline">\(+20lg(ω_0)\)</span>:<spanclass="math inline">\(s\)</span>位于分子；<spanclass="math inline">\(-20lg(ω_0)\)</span>:<spanclass="math inline">\(s\)</span>位于分母。</p><script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body></html>
           </div>
 <div class="note note-info">
-            <p>对数方格纸的横轴是非均匀的，表示其坐标轴上数值对数分布，横轴是均匀的数值分布。因此，对于坐标轴横轴上的两个点:<spanclass="math inline">\(x_1\)</span>、<spanclass="math inline">\(x_2\)</span>。满足关系：<br /><span class="math display">\[k(x_1-x_2)=y(x_1)-y(x_2)\]</span> 其中<spanclass="math inline">\(k\)</span>称为对数斜率：<br /><span class="math display">\[k=\frac{y(x_1)-y(x_2)}{x_1-x_2}\]</span>单位为<span class="math inline">\(dB/decade\)</span>。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>对数方格纸的横轴是非均匀的，表示其坐标轴上数值对数分布，横轴是均匀的数值分布。因此，对于坐标轴横轴上的两个点:<spanclass="math inline">\(x_1\)</span>、<spanclass="math inline">\(x_2\)</span>。满足关系：<br /><span class="math display">\[k(x_1-x_2)=y(x_1)-y(x_2)\]</span> 其中<spanclass="math inline">\(k\)</span>称为对数斜率：<br /><span class="math display">\[k=\frac{y(x_1)-y(x_2)}{x_1-x_2}\]</span>单位为<span class="math inline">\(dB/decade\)</span>。</p></body></html>
           </div>
 <ul>
 <li><p>一阶项<span class="math inline">\((Ts+1)\)</span><br />
@@ -633,24 +814,27 @@ class="math inline">\(-20lg(2ζ)\)</span>进行修正。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307105436.png width=50%></p></li>
 </ul>
 <h4 id="总结">总结</h4>
-<p>对幅频响应：<br />
-- <strong>对每一个<span
+<p>对幅频响应：</p>
+<ul>
+<li><strong>对每一个<span
 class="math inline">\(n\)</span>阶数项，其极点会给幅频响应带来一个<span
 class="math inline">\(-20×n dB/decade\)</span>频程斜率的变化；其零点会给幅频响应带来一个<span
 class="math inline">\(+20×n
-dB/decade\)</span>频程斜率的变化。</strong></p>
-<p>对相频响应：<br />
-- <strong>对每一个<span
+dB/decade\)</span>频程斜率的变化。</strong></li>
+</ul>
+<p>对相频响应：</p>
+<ul>
+<li><p><strong>对每一个<span
 class="math inline">\(n\)</span>阶数项，其极点会在<span
 class="math inline">\(ω∈(\frac{0.1}{T},\frac{10}{T})\)</span>提供<span
 class="math inline">\(-45°×n /decade\)</span>的斜率变化；其零点会在<span
 class="math inline">\(ω∈(\frac{0.1}{T},\frac{10}{T})\)</span>提供<span
-class="math inline">\(+45°×n /decade\)</span>的斜率变化。</strong></p>
-<ul>
-<li><strong>对每一个<span
+class="math inline">\(+45°×n
+/decade\)</span>的斜率变化。</strong></p></li>
+<li><p><strong>对每一个<span
 class="math inline">\(n\)</span>阶数项，其极点会给相频响应带来一个<span
 class="math inline">\(-90°×n\)</span>的相位变化；其零点会给相频响应带来一个<span
-class="math inline">\(+90°×n\)</span>的相位变化。</strong></li>
+class="math inline">\(+90°×n\)</span>的相位变化。</strong></p></li>
 </ul>
 <h3 id="传递函数的级联">传递函数的级联</h3>
 <p>对级联系统，其每一个子系统的传递函数为<span
@@ -721,7 +905,7 @@ class="math inline">\(ω_{gc}\)</span>。</p>
 如果相位裕量和增益裕量中有一个小于零，则系统不稳定。</strong><br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112342.png width=60%></p>
 <div class="note note-info">
-            <p>系统处于临界稳定时导致系统临界的增益部分<spanclass="math inline">\(K_c\)</span>可以由如下公式给出：<br /><span class="math display">\[GM=20lg\frac{K_c}{K}\]</span> 其中<spanclass="math inline">\(K\)</span>为系统增益。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112654.png width=30%></p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>系统处于临界稳定时导致系统临界的增益部分<spanclass="math inline">\(K_c\)</span>可以由如下公式给出：<br /><span class="math display">\[GM=20lg\frac{K_c}{K}\]</span> 其中<spanclass="math inline">\(K\)</span>为系统增益。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220307112654.png width=30%></p></body></html>
           </div>
 <h2 id="从波特图反推开环传递函数">从波特图反推开环传递函数</h2>
 <h3 id="阻尼和固有频率">阻尼和固有频率</h3>
@@ -753,11 +937,13 @@ class="math inline">\(±20N_0\)</span>，如果初始斜率为正，则代表系
 class="math inline">\(N_0\)</span>个积分环节，如果初始斜率为负，则代表系统存在<span
 class="math inline">\(N_0\)</span>个微分环节。</p>
 <h4 id="一阶和二阶项结构">一阶和二阶项结构</h4>
-<p>根据之前的讨论可以知道：<br />
-- 系统波特图上的转折点对应频率为系统的零点或者极点 -
-波特图上发生斜率变化一定由加入的零点/极点极点造成：一阶项对初始斜率的贡献为<span
+<p>根据之前的讨论可以知道：</p>
+<ul>
+<li>系统波特图上的转折点对应频率为系统的零点或者极点</li>
+<li>波特图上发生斜率变化一定由加入的零点/极点极点造成：一阶项对初始斜率的贡献为<span
 class="math inline">\(20dB\)</span>,二阶项对斜率的贡献为<span
-class="math inline">\(40dB\)</span>。如果元素位于分母（极点），则斜率贡献为负，如果元素位于分子（零点），则斜率贡献为正。</p>
+class="math inline">\(40dB\)</span>。如果元素位于分母（极点），则斜率贡献为负，如果元素位于分子（零点），则斜率贡献为正。</li>
+</ul>
 <p>根据这两条理论则可以判断每一个区间上影响其斜率变化的极点/零点结构类型。</p>
 <p>如果存在修正，可以根据在固有频率处修正前后的幅值差求得<span
 class="math inline">\(ζ\)</span>:<br />
@@ -809,6 +995,8 @@ style="text-align: center;"><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic
 <p>更多有关控制系统电路实现的内容请参考专为本专业、本课程设计的实验用具：THKKL-1
 Control Theory Experimental Box，浙江天煌教仪的实验指导书：<a
 href="/files/THKKL-1_Control_Theory_Experimental_Box.pdf">点此链接下载</a></p>
+</body>
+</html>
 
                 
               </div>
@@ -4123,5 +4311,5 @@ href="/files/THKKL-1_Control_Theory_Experimental_Box.pdf">点此链接下载</a>
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</body>
 </html>

@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="IIR滤波器设计方法 IIR系统的频率响应： \[H(z)&#x3D;\frac{∑_{k&#x3D;0}^Mb_kz^{-k}}{∑_{k&#x3D;0}^Na_kz^{-k}}\] IIR滤波器设计的基本思路是通过对模拟滤波器进行参数调整，再通过数字采样将模拟滤波器转换为数字滤波器。 模拟滤波器原型 IIR滤波器设计的两种基本原型是巴特沃斯低通滤波器和切比雪夫低通滤波器，两种滤波器的幅频特性都不含有相位信息，因此">
+    <meta name="description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="11. IIR滤波器设计方法">
 <meta property="og:url" content="https://l61012345.top/2021/12/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/11.%20IIR%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="IIR滤波器设计方法 IIR系统的频率响应： \[H(z)&#x3D;\frac{∑_{k&#x3D;0}^Mb_kz^{-k}}{∑_{k&#x3D;0}^Na_kz^{-k}}\] IIR滤波器设计的基本思路是通过对模拟滤波器进行参数调整，再通过数字采样将模拟滤波器转换为数字滤波器。 模拟滤波器原型 IIR滤波器设计的两种基本原型是巴特沃斯低通滤波器和切比雪夫低通滤波器，两种滤波器的幅频特性都不含有相位信息，因此">
+<meta property="og:description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-22T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.805Z">
@@ -235,7 +235,7 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
-}</style><meta name="generator" content="Hexo 5.4.2"></head>
+}</style></head>
 
 
 <body>
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          3.3k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          16 分钟
+          28 分钟
         
       </span>
     
@@ -484,7 +484,180 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="iir滤波器设计方法">IIR滤波器设计方法</h1>
+                <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="iir滤波器设计方法">IIR滤波器设计方法</h1>
 <p>IIR系统的频率响应：<br />
 <span
 class="math display">\[H(z)=\frac{∑_{k=0}^Mb_kz^{-k}}{∑_{k=0}^Na_kz^{-k}}\]</span>
@@ -535,12 +708,12 @@ class="math inline">\(Ω=\frac{s}{j}\)</span>，其幅频响应可以写作：</
 class="math display">\[p_k=Ω_ce^{j\frac{kπ}{N}},k=0,1,...,2N-1\]</span>
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222153348.png width=50%></p>
 <div class="note note-info">
-            <p>即在幅频响应中令<spanclass="math inline">\(Ω=\frac{s}{j}\)</span>，带入后得到<spanclass="math inline">\(\lvertH_a(jΩ)\lvert^2=\frac{1}{1+(\frac{s}{jΩ_c})^{2N}}=H(s)H(-s)\)</span>，令下方为0后得到的<spanclass="math inline">\(1+(\frac{s}{jΩ_c})^{2N}=0\)</span>的方程解。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>即在幅频响应中令<spanclass="math inline">\(Ω=\frac{s}{j}\)</span>，带入后得到<spanclass="math inline">\(\lvertH_a(jΩ)\lvert^2=\frac{1}{1+(\frac{s}{jΩ_c})^{2N}}=H(s)H(-s)\)</span>，令下方为0后得到的<spanclass="math inline">\(1+(\frac{s}{jΩ_c})^{2N}=0\)</span>的方程解。</p><script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body></html>
           </div>
 <p>可以发现<strong>2N个极点均匀的分布在半径为<span
 class="math inline">\(Ω_C\)</span>的圆上，由于只有s域左半部分表示稳定一同，因此只选取位于s域左半部分的极点构建滤波器。</strong></p>
 <div class="note note-info">
-            <p>由于其所有的极点在s域以<spanclass="math inline">\(Ω_c\)</span>为半径的圆上均匀分布，因此极点可以根据下图快速求得：<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220102213033.png width=60%></p><p>可以求得：<br /><spanclass="math display">\[s_k=Ω_ccos(\frac{π}{N}k)-jΩ_csin(\frac{π}{N}k)\]</span></p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>由于其所有的极点在s域以<spanclass="math inline">\(Ω_c\)</span>为半径的圆上均匀分布，因此极点可以根据下图快速求得：<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220102213033.png width=60%></p><p>可以求得：<br /><spanclass="math display">\[s_k=Ω_ccos(\frac{π}{N}k)-jΩ_csin(\frac{π}{N}k)\]</span></p></body></html>
           </div>
 <p>巴特沃斯滤波器的幅频响应在s域上表示为：<br />
 <span
@@ -589,7 +762,7 @@ class="math inline">\(a=\frac{1}{2}(\sqrt[n]{α}-\sqrt[n]\frac{1}{α})\)</span>�
 class="math inline">\(b=\frac{1}{2}(\sqrt[n]{α}+\sqrt[n]\frac{1}{α})\)</span>，<span
 class="math inline">\(α=\frac{1}{ϵ}+\sqrt{1+\frac{1}{ϵ^2}}\)</span>.</p>
 <div class="note note-info">
-            <p>即在幅频响应中令<spanclass="math inline">\(Ω=\frac{s}{j}\)</span>，带入后得到<spanclass="math inline">\(\lvertH_a(jΩ)\lvert^2=\frac{1}{1+ϵ^2T_N^2(\frac{s}{jΩ_c})}\)</span>，令下方为0后得到的<spanclass="math inline">\(1+ϵ^2T_N^2(\frac{s}{jΩ_c})=0\)</span>的方程解。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>即在幅频响应中令<spanclass="math inline">\(Ω=\frac{s}{j}\)</span>，带入后得到<spanclass="math inline">\(\lvertH_a(jΩ)\lvert^2=\frac{1}{1+ϵ^2T_N^2(\frac{s}{jΩ_c})}\)</span>，令下方为0后得到的<spanclass="math inline">\(1+ϵ^2T_N^2(\frac{s}{jΩ_c})=0\)</span>的方程解。</p></body></html>
           </div>
 <h4 id="切比雪夫i型滤波器设计">切比雪夫I型滤波器设计</h4>
 <p>根据<span class="math inline">\(R_p\)</span>的定义，有<span
@@ -625,15 +798,18 @@ class="math display">\[H(z)=∑_{k=1}^N\frac{TA_k}{1-e^{s_kT}z^{-1}}\]</span></p
 <p>脉冲响应不变是一种一对多的映射：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211222212251.png width=50%><br />
 在采样的过程中，由于一对多的映射关系，采样信号会在频谱上发生混叠。</p>
-<p>脉冲响应不变法的流程：<br />
-1.
-根据设计要求的通带截止频率和止带截止频率将数字角频率还原为模拟角频率：<span
+<p>脉冲响应不变法的流程：</p>
+<ol type="1">
+<li>根据设计要求的通带截止频率和止带截止频率将数字角频率还原为模拟角频率：<span
 class="math inline">\(Ω_p=\frac{ω_p}{T},Ω_s=\frac{ω_s}{T}\)</span>。<br />
-2. 设计出对应的模拟滤波器。<br />
-3. 求出模拟滤波器的频率响应：<span
-class="math inline">\(H_c(s)=∑_{k=1}^N\frac{A_k}{s-s_k}\)</span>。 4.
-根据映射律：<span
-class="math inline">\(H(z)=∑\frac{A_k}{1-e^{s_kT}z^{-1}}\)</span>，得到数字滤波器的频率响应。</p>
+</li>
+<li>设计出对应的模拟滤波器。<br />
+</li>
+<li>求出模拟滤波器的频率响应：<span
+class="math inline">\(H_c(s)=∑_{k=1}^N\frac{A_k}{s-s_k}\)</span>。</li>
+<li>根据映射律：<span
+class="math inline">\(H(z)=∑\frac{A_k}{1-e^{s_kT}z^{-1}}\)</span>，得到数字滤波器的频率响应。</li>
+</ol>
 <h3 id="双线性法">双线性法</h3>
 <p>双线性法的映射律为：<br />
 <span
@@ -658,6 +834,8 @@ class="math display">\[H(z)=H_{LP}(z)|_{z^{-1}=G(z^{-1})}\]</span>
 class="math inline">\(|z^{-1}|=|G(z^{-1})|=1\)</span>。</p>
 <p>常见的映射律如下表所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211223165920.png width=80%></p>
+</body>
+</html>
 
                 
               </div>
@@ -3972,5 +4150,5 @@ class="math inline">\(|z^{-1}|=|G(z^{-1})|=1\)</span>。</p>
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</body>
 </html>

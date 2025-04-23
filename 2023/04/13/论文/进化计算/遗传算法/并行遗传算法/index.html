@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="并行遗传算法  A Survey of Parallel Genetic Algorithms, Erick Cantu-Paz.  并行化的基本思想是将一个任务分解为彼此独立而且可以同时解决的若干个子任务。遗传算法的执行流程具有潜在的可以将整个任务独立分解为多个独立子任务的特性，这样的性质称为隐式并行性。目前并行的遗传算法可以大致分为三类： 主从遗传算法(master-slave GA">
+    <meta name="description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并行遗传算法">
 <meta property="og:url" content="https://l61012345.top/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="并行遗传算法  A Survey of Parallel Genetic Algorithms, Erick Cantu-Paz.  并行化的基本思想是将一个任务分解为彼此独立而且可以同时解决的若干个子任务。遗传算法的执行流程具有潜在的可以将整个任务独立分解为多个独立子任务的特性，这样的性质称为隐式并行性。目前并行的遗传算法可以大致分为三类： 主从遗传算法(master-slave GA">
+<meta property="og:description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-04-13T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-12T10:17:35.523Z">
@@ -235,7 +235,7 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
-}</style><meta name="generator" content="Hexo 5.4.2"></head>
+}</style></head>
 
 
 <body>
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.6k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          36 分钟
+          39 分钟
         
       </span>
     
@@ -484,7 +484,180 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="并行遗传算法">并行遗传算法</h1>
+                <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="并行遗传算法">并行遗传算法</h1>
 <blockquote>
 <p>A Survey of Parallel Genetic Algorithms, Erick Cantu-Paz.</p>
 </blockquote>
@@ -548,12 +721,14 @@ packing)和时间规划问题(scheduling)。</p>
 GA/multi-deme
 GA)要更为复杂，多种群遗传算法中每一代包含了多个子种群，这些种群彼此之间独立进行遗传和进化操作，但是以某种拓扑结构频繁转移和交换一些个体。这样的交换称为迁移(migration)。</p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230414155025.png  width=50%></p>
-<p>多种群遗传算法是目前最为流行的一种并行化遗传算法的方式，但是其中的一些机制在学界并未能完全理解（比如迁移对进化的作用），相比于单重群遗传算法和经典遗传算法，其机制和行为更加复杂。多种群遗传算法流行的原因可能有如下几点：<br />
--
-多种群遗传算法可以被视作是串行遗传算法的延伸。它可以看做是在并行计算机的每个节点上分别运行经典遗传算法，并且在特定的时机交换一些个体。<br />
--
-对大多数遗传算法程序，只需要很小的改变就可以将串行遗传算法改造为多种群的并行遗传算法。<br />
-- 粗粒度并行的计算机较为常见，且比较容易通过软件进行模拟。</p>
+<p>多种群遗传算法是目前最为流行的一种并行化遗传算法的方式，但是其中的一些机制在学界并未能完全理解（比如迁移对进化的作用），相比于单重群遗传算法和经典遗传算法，其机制和行为更加复杂。多种群遗传算法流行的原因可能有如下几点：</p>
+<ul>
+<li>多种群遗传算法可以被视作是串行遗传算法的延伸。它可以看做是在并行计算机的每个节点上分别运行经典遗传算法，并且在特定的时机交换一些个体。<br />
+</li>
+<li>对大多数遗传算法程序，只需要很小的改变就可以将串行遗传算法改造为多种群的并行遗传算法。<br />
+</li>
+<li>粗粒度并行的计算机较为常见，且比较容易通过软件进行模拟。</li>
+</ul>
 <p>多种群遗传算法也被称为分布式遗传算法(distributed
 GA)，由于这种遗传算法中计算和通信比率很高，多种群遗传算法也被称为粗粒度遗传算法(coarse-grained
 GA)。此外，这种思路模拟了生物学中的岛屿进化模型(island
@@ -583,25 +758,26 @@ Braun设计的多种群遗传算法中就应用了异步迁移，当所有子种
 如果迁移过早的发生，此时适应度较高的模式在种群中的占比较小，并不足以影响各子种群的搜索方向，同时还消耗了大量的通信资源。因此普遍认为迁移应当在进化的后期发生。</p></li>
 </ul>
 <h4 id="拓扑结构-1">拓扑结构</h4>
-<p>传统的对于遗传算法并行化的研究认为：拓扑结构的选择对并行遗传算法的性能可能不是很重要，只需要保证拓扑结构具有高连接性和较小的拓扑直径吗，以保证随着时间的推移子种群间个体可以充分的混合即可。<br />
-- 对传播速度的影响<br />
+<p>传统的对于遗传算法并行化的研究认为：拓扑结构的选择对并行遗传算法的性能可能不是很重要，只需要保证拓扑结构具有高连接性和较小的拓扑直径吗，以保证随着时间的推移子种群间个体可以充分的混合即可。</p>
+<ul>
+<li><p>对传播速度的影响<br />
 然而更新的研究上，拓扑结构对并行遗传算法的性能影响不可忽视。其中的一个原因是拓扑结构决定了适应度较高的模式传播到所有节点的时间和速度：
 如果拓扑结构较为密集，具有较小的传播直径，那么适应度较高的模式将会迅速传播到各个子种群中，并成为优势种群。如果拓扑结构稀疏，具有较大的传播直径，模式的传播速度较慢，各个子种群之间较为孤立并且生成不同的优秀模式，这些模式可能会在更长的时间中融合在一起，整合为更加优秀的个体。<br />
-- 对通信资源的影响<br />
-另一方面，拓扑结构也影响了通信/迁移所消耗的资源，比如密集型的拓扑结构虽然可以很好的传播好的模式，但是消耗的通信资源也更多。</p>
-<ul>
-<li>拓扑结构的选择<br />
+</p></li>
+<li><p>对通信资源的影响<br />
+另一方面，拓扑结构也影响了通信/迁移所消耗的资源，比如密集型的拓扑结构虽然可以很好的传播好的模式，但是消耗的通信资源也更多。</p></li>
+<li><p>拓扑结构的选择<br />
 综合上述两点，通常采用超立方(hypercube)或者是环形(ring)拓扑结构。<br />
-另一种选择是采用动态的拓扑结构，在动态的拓扑结构下，某个子种群并非固定地与特定的几个子种群进行迁移，而是遵循某些动态规则调整迁移的来源和目标。这样的目的是为了找到对迁移更加敏感的子种群。通常情况下，常见的规则包括子种群的多样性，或者两个子种群间的某些距离度量。</li>
+另一种选择是采用动态的拓扑结构，在动态的拓扑结构下，某个子种群并非固定地与特定的几个子种群进行迁移，而是遵循某些动态规则调整迁移的来源和目标。这样的目的是为了找到对迁移更加敏感的子种群。通常情况下，常见的规则包括子种群的多样性，或者两个子种群间的某些距离度量。</p></li>
 </ul>
 <h2 id="层级并行遗传算法">层级并行遗传算法</h2>
 <p>有一些研究人员尝试将两种不同的并行机制进行融合，基本上融合的方法是在不同层级上使用不同的并行机制，这样的并行遗传算法称为层级并行遗传算法(hierarchical
 parallel GA)，也是混合并行遗传算法的一种。</p>
-<p>比较经典的几种混合方式如下：<br />
-- 上层使用多种群遗传算法，下层使用细粒度遗传算法<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230414181438.png  width=50%><br />
-子种群中的个体被重叠划分交付给多个处理器进行，迁移在子种群中进行。</p>
+<p>比较经典的几种混合方式如下：</p>
 <ul>
+<li><p>上层使用多种群遗传算法，下层使用细粒度遗传算法<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230414181438.png  width=50%><br />
+子种群中的个体被重叠划分交付给多个处理器进行，迁移在子种群中进行。</p></li>
 <li><p>上层使用多种群遗传算法，下层使用多种群遗传算法<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230414181515.png  width=50%><br />
 子种群中被划分为多个独立的子种群，内部相互迁徙的同时，外部的多个子种群也在进行迁徙。</p></li>
@@ -611,6 +787,8 @@ parallel GA)，也是混合并行遗传算法的一种。</p>
 </ul>
 <p>这样层级融合的并行遗传算法可以成倍地节省计算时间。一种简单的估计层级融合的遗传算法计算速度是将两个层级的并行遗传算法的运行速度相乘。<br />
 再者，分层并行的遗传算法可以更加有效地使用更多的处理器，比纯粹的增加多个子种群更能减少算法的运行时间。</p>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>
 
                 
               </div>
@@ -1745,5 +1923,5 @@ parallel GA)，也是混合并行遗传算法的一种。</p>
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</body>
 </html>

@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Traffic Sign Recognition Traffic-sign recognition (TSR) is a technology by which a vehicle is able to recognize the traffic signs put on the road e.g. &quot;speed limit&quot; or &quot;children&quot; or &quot;turn ahead&quot;. T">
+    <meta name="description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="6. 大作业-创建一个交通标志分类器">
 <meta property="og:url" content="https://l61012345.top/2021/01/29/Machine%20Learning-NAU/6.%20%E6%9C%80%E5%90%8E%E5%A4%A7%E4%BD%9C%E4%B8%9A/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="Traffic Sign Recognition Traffic-sign recognition (TSR) is a technology by which a vehicle is able to recognize the traffic signs put on the road e.g. &quot;speed limit&quot; or &quot;children&quot; or &quot;turn ahead&quot;. T">
+<meta property="og:description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-29T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.720Z">
@@ -235,7 +235,7 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
-}</style><meta name="generator" content="Hexo 5.4.2"></head>
+}</style></head>
 
 
 <body>
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          936 字
+          1.3k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          8 分钟
+          11 分钟
         
       </span>
     
@@ -484,7 +484,177 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="traffic-sign-recognition">Traffic Sign Recognition</h1>
+                <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<h1 id="traffic-sign-recognition">Traffic Sign Recognition</h1>
 <p>Traffic-sign recognition (TSR) is a technology by which a vehicle is
 able to recognize the traffic signs put on the road e.g. "speed limit"
 or "children" or "turn ahead". This is a very important technology in
@@ -503,43 +673,52 @@ image number within each class. For the beginner level, we make use of
 the “starter.py” code, which you can find in the project directory.
 Follow along with the tasks and fill in the blanks of the given code to
 complete beginner level. Follow the tasks with “starter.py” and fill in
-the missing code for each section. ### T1: Reading images. - Change the
-dataset_path to point to the unzipped Dataset_1/images folder in your
-computer. - The given loop will go through all the files in the folder,
-variable i gives each file name. - Complete the code to read the images
-and append them to list X - The labels for each image has been already
-appended to list y for you At the end of T1, you should have X, y with
-5998 entries on each. ### T2: Pre-processing images. - Given loop will
-go through all images in X and resize them to 48x48 pixels. - Complete
-the code to convert the images to grayscale. (Hint: use the cvtColor
-function in opencv) - Complete the code to append the pre-processed
-images to X_processed list. At the end of T2, you should have
-X_processed with 5998 entires of resized and grayscale images. T3:
-Calculating Features and Splitting train/test sets. - Install skimage
-using anaconda. (you can follow the same instructions given for
-installing sklearn with the package name “scikit-image”) - The given
-code will use skimage and extract hog features for you. - Write code to
-split X_features and y into training and testing sets. Make use of the
-“sklearn.model_selection.train_test_split” to do this. Use a 80-20 split
-and make sure to shuffle the samples. At the end of T3, you should have
-x_train, x_test, y_train and y_test. Training sets should have 4798
-samples and the test sets should have 1200 samples. T4: Training and
-testing the classifier. - Use the sklearn SVM package to train a
-classifier using x_train and y_train. - Use the x_test and y_test to
-evaluate the classifier and print the accuracy value. ## Expert Level:
-We will build upon the beginner level code to try out different
-techniques and improve our model. The same dataset will be used here.
-Complete the following tasks, ### T1: Different pre-processing
-techniques What are other pre-processing steps you can use? Examples:
-Keep 3 channels (RGB), add a gaussian blur to reduce noise, etc. Try few
-other pre-processing techniques and evaluate how they affect accuracy
-### T2: Different features What are other feature extraction methods you
-can use? Explore some other feature extraction methods given in skimage
-(Module: feature — skimage v0.19.0.dev0 docs (scikit-image.org)) Try few
-other feature extraction methods and evaluate how they affect accuracy,
-you can also try different packages here (no need to stick with skimage)
-### T3: Different Classification Models What are other classification
-models you can use? Try other classifiers including but not limited to;
+the missing code for each section. ### T1: Reading images.</p>
+<ul>
+<li>Change the dataset_path to point to the unzipped Dataset_1/images
+folder in your computer.</li>
+<li>The given loop will go through all the files in the folder, variable
+i gives each file name.</li>
+<li>Complete the code to read the images and append them to list X</li>
+<li>The labels for each image has been already appended to list y for
+you At the end of T1, you should have X, y with 5998 entries on each.
+### T2: Pre-processing images.</li>
+<li>Given loop will go through all images in X and resize them to 48x48
+pixels.</li>
+<li>Complete the code to convert the images to grayscale. (Hint: use the
+cvtColor function in opencv)</li>
+<li>Complete the code to append the pre-processed images to X_processed
+list. At the end of T2, you should have X_processed with 5998 entires of
+resized and grayscale images. T3: Calculating Features and Splitting
+train/test sets.</li>
+<li>Install skimage using anaconda. (you can follow the same
+instructions given for installing sklearn with the package name
+“scikit-image”)</li>
+<li>The given code will use skimage and extract hog features for
+you.</li>
+<li>Write code to split X_features and y into training and testing sets.
+Make use of the “sklearn.model_selection.train_test_split” to do this.
+Use a 80-20 split and make sure to shuffle the samples. At the end of
+T3, you should have x_train, x_test, y_train and y_test. Training sets
+should have 4798 samples and the test sets should have 1200 samples. T4:
+Training and testing the classifier.</li>
+<li>Use the sklearn SVM package to train a classifier using x_train and
+y_train.</li>
+<li>Use the x_test and y_test to evaluate the classifier and print the
+accuracy value. ## Expert Level: We will build upon the beginner level
+code to try out different techniques and improve our model. The same
+dataset will be used here. Complete the following tasks, ### T1:
+Different pre-processing techniques What are other pre-processing steps
+you can use? Examples: Keep 3 channels (RGB), add a gaussian blur to
+reduce noise, etc. Try few other pre-processing techniques and evaluate
+how they affect accuracy ### T2: Different features What are other
+feature extraction methods you can use? Explore some other feature
+extraction methods given in skimage (Module: feature — skimage
+v0.19.0.dev0 docs (scikit-image.org)) Try few other feature extraction
+methods and evaluate how they affect accuracy, you can also try
+different packages here (no need to stick with skimage) ### T3:
+Different Classification Models What are other classification models you
+can use? Try other classifiers including but not limited to;
 RandomForrest, kNN and Decision Tree. For each classifier, change
 parameters and evaluate how the parameters affect accuracy. ## Bonus
 Level This level is for you to apply what you learned to a more
@@ -550,8 +729,11 @@ split into training and testing sets for you. ### Task Write a python
 program to load the images from this dataset, into X, y. Then do
 suitable preprocessing, feature extraction and model training to develop
 a Traffic Sign Recognition system. Report on the methods used and the
-results obtained by your Traffic Sign Recognition system.</p>
+results obtained by your Traffic Sign Recognition system.</li>
+</ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> glob<br><span class="hljs-keyword">from</span> cv2 <span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> metrics<br><span class="hljs-keyword">from</span> skimage.feature <span class="hljs-keyword">import</span> hog<br><span class="hljs-keyword">from</span> skimage.feature <span class="hljs-keyword">import</span> canny<br><span class="hljs-keyword">from</span> skimage.feature <span class="hljs-keyword">import</span> local_binary_pattern<br><br><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> svm<br><span class="hljs-keyword">import</span> sklearn.naive_bayes <span class="hljs-keyword">as</span> sk_bayes<br><span class="hljs-keyword">from</span> sklearn.neighbors <span class="hljs-keyword">import</span> KNeighborsClassifier<br><br><span class="hljs-keyword">import</span> datetime<br><br><span class="hljs-comment"># load the dataset</span><br>dataset_path = <span class="hljs-string">&quot;Dataset_1\\images\\&quot;</span><br>X = []  <span class="hljs-comment"># 图像集</span><br>y = []  <span class="hljs-comment"># 标签集</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Loading from the dataset...&quot;</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> glob.glob(dataset_path + <span class="hljs-string">&#x27;*.png&#x27;</span>, recursive=<span class="hljs-literal">True</span>):<br>    label = i.split(<span class="hljs-string">&quot;images&quot;</span>)[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]  <span class="hljs-comment"># 根据文件名开头划分标签</span><br>    y.append(label)<br>    img = cv2.imread(i)<br>    X.append(img)  <span class="hljs-comment"># 加载图像</span><br><br><span class="hljs-comment"># Preprocess</span><br>x_prossessed = []<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Preprocessing the images...&quot;</span>)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> X:<br>    x = cv2.imread(x)<br>    temp_x = cv2.resize(x, (<span class="hljs-number">48</span>, <span class="hljs-number">48</span>))<br>    <span class="hljs-comment"># 图像处理部分，给出了如下三种图像处理的方式，可以组合，也可以单独使用，不需要的直接注释掉然后append（36行）对应的结果就行</span><br>    <span class="hljs-comment"># convert to gray 转换为灰度图</span><br>    x_process_gray = cv2.cvtColor(temp_x, cv2.COLOR_BGR2GRAY)<br>    <span class="hljs-comment"># gave the gaussian blur 高斯滤波</span><br>    x_process_gau = cv2.GaussianBlur(x_process_gray, (<span class="hljs-number">5</span>, <span class="hljs-number">5</span>), <span class="hljs-number">0</span>)<br>    <span class="hljs-comment"># gave the medianBlur 中值滤波</span><br>    x_process_md = cv2.medianBlur(x_process_gau, <span class="hljs-number">3</span>)<br>    x_prossessed.append(x_process_md)<br><br><span class="hljs-comment"># calculate features</span><br><span class="hljs-comment"># 提取特征，给出了下面的三种方法，三选一，选一个取消注释。</span><br>X_features = []<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Calculating features...&quot;</span>)<br><span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> x_prossessed:<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    # Hog features : 提取图像的直方图信息</span><br><span class="hljs-string">    x_feature_hog = hog(x,</span><br><span class="hljs-string">                    orientations=8,</span><br><span class="hljs-string">                    pixels_per_cell=(10, 10),</span><br><span class="hljs-string">                    cells_per_block=(1, 1),</span><br><span class="hljs-string">                    visualize=False,</span><br><span class="hljs-string">                    multichannel=False)</span><br><span class="hljs-string">    X_features.append(x_feature_hog)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    # canny features： 提取图像的边缘特征</span><br><span class="hljs-string">    x_feature_canny = canny(np.array(x), sigma=1.0)</span><br><span class="hljs-string">    X_features.append(x_feature_canny)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>   <br>    <span class="hljs-comment"># LBP features: 对光照有很强的鲁棒性</span><br>    x_feature_lbp = local_binary_pattern(x, <span class="hljs-number">8</span>, <span class="hljs-number">1.0</span>, method=<span class="hljs-string">&#x27;default&#x27;</span>)<br>    X_features.append(x_feature_lbp)<br>    <br><span class="hljs-comment"># 把X_features 转换为长向量</span><br>images = np.array(X_features).reshape((<span class="hljs-built_in">len</span>(np.array(X_features)), -<span class="hljs-number">1</span>))<br><br><span class="hljs-comment"># 划分训练集和测试集</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Trainning the dataset...&quot;</span>)<br>x_train, x_test, y_train, y_test = train_test_split(images,<br>                                                    y,<br>                                                    test_size=<span class="hljs-number">0.2</span>,<br>                                                    shuffle=<span class="hljs-literal">True</span>)<br><br><span class="hljs-comment"># 分类器，下面给出了三种分类器</span><br>acc = []  <span class="hljs-comment"># 创建一个列表用于存放准确率</span><br>timecosts = []  <span class="hljs-comment"># 创建一个列表用于存放耗时</span><br><span class="hljs-comment"># 支持向量机分类器</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Trainning by svm...&quot;</span>)<br>time1 = (datetime.datetime.now())  <span class="hljs-comment"># 第一个时间戳</span><br>clf1 = svm.SVC()<br>clf1.fit(x_train, y_train)  <span class="hljs-comment"># 数据拟合</span><br>time2 = (datetime.datetime.now())  <span class="hljs-comment"># 第二个时间戳</span><br>acc_svm = clf1.score(x_test, y_test)  <span class="hljs-comment"># 计算准确率</span><br>acc.append(acc_svm)<br>timecost = <span class="hljs-built_in">str</span>(time2 - time1)  <span class="hljs-comment"># 计算时间差</span><br>timecosts.append(timecost)<br><br><span class="hljs-comment"># 伯努利分布的朴素贝叶斯分类器</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Trainning by BN...&quot;</span>)<br>time1 = (datetime.datetime.now())  <span class="hljs-comment"># 第一个时间戳</span><br>clf2 = sk_bayes.BernoulliNB(alpha=<span class="hljs-number">1.0</span>,<br>                            binarize=<span class="hljs-number">0.0</span>,<br>                            fit_prior=<span class="hljs-literal">True</span>,<br>                            class_prior=<span class="hljs-literal">None</span>)<br>clf2.fit(x_train, y_train)  <span class="hljs-comment"># 数据拟合</span><br>time2 = (datetime.datetime.now())  <span class="hljs-comment"># 第二个时间戳</span><br>acc_NB = clf2.score(x_test, y_test)  <span class="hljs-comment"># 计算准确率</span><br>acc.append(acc_NB)<br>timecost = <span class="hljs-built_in">str</span>(time2 - time1)  <span class="hljs-comment"># 计算时间差</span><br>timecosts.append(timecost)<br><br><span class="hljs-comment"># KNN分类器 k=1 (对于这个KNN，k越大，越不行)</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Trainning by KNN...&quot;</span>)<br>time1 = (datetime.datetime.now())  <span class="hljs-comment"># 第一个时间戳</span><br>clf3 = KNeighborsClassifier(n_neighbors=<span class="hljs-number">1</span>)<br>clf3.fit(x_train, y_train)  <span class="hljs-comment"># 数据拟合</span><br>time2 = (datetime.datetime.now())  <span class="hljs-comment"># 第二个时间戳</span><br>acc_KNN = clf3.score(x_test, y_test)  <span class="hljs-comment"># 计算准确率</span><br>acc.append(acc_KNN)<br>timecost = <span class="hljs-built_in">str</span>(time2 - time1)  <span class="hljs-comment"># 计算时间差</span><br>timecosts.append(timecost)<br><br>clfname = [<span class="hljs-string">&#x27;SVM&#x27;</span>, <span class="hljs-string">&#x27;NB&#x27;</span>, <span class="hljs-string">&#x27;KNN&#x27;</span>]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;---------result-------------&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;accurancy is:&quot;</span>)<br><span class="hljs-built_in">print</span>(clfname)  <span class="hljs-comment"># 输出分类器的名字</span><br><span class="hljs-built_in">print</span>(acc)  <span class="hljs-comment"># 输出准确率</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;timecost:&quot;</span>)<br><span class="hljs-built_in">print</span>(timecosts)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Displaying the Confusion Matrixes&quot;</span>)<br><span class="hljs-comment"># 显示混淆矩阵</span><br><span class="hljs-comment"># 混淆矩阵显示有点慢 但是三张都可以显示 【要关闭当前之后才能显示下一张】</span><br><span class="hljs-comment"># svm算法的混淆矩阵</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;cm of svm&quot;</span>)<br>cm1 = metrics.plot_confusion_matrix(clf1, x_test, y_test)  <span class="hljs-comment"># 创建混淆矩阵</span><br>plt.get_current_fig_manager().window.state(<span class="hljs-string">&#x27;zoomed&#x27;</span>)<br>plt.show()  <span class="hljs-comment"># 显示混淆矩阵</span><br><br><span class="hljs-comment"># BN算法的混淆矩阵</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;cm of bn&quot;</span>)<br>cm2 = metrics.plot_confusion_matrix(clf2, x_test, y_test)  <span class="hljs-comment"># 创建混淆矩阵</span><br>plt.get_current_fig_manager().window.state(<span class="hljs-string">&#x27;zoomed&#x27;</span>)<br>plt.show()  <span class="hljs-comment"># 显示混淆矩阵</span><br><br><span class="hljs-comment"># KNN的混淆矩阵</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;cm of knn&quot;</span>)<br>cm3 = metrics.plot_confusion_matrix(clf3, x_test, y_test)  <span class="hljs-comment"># 创建混淆矩阵</span><br>plt.get_current_fig_manager().window.state(<span class="hljs-string">&#x27;zoomed&#x27;</span>)<br>plt.show()  <span class="hljs-comment"># 显示混淆矩阵</span><br><br></code></pre></td></tr></table></figure>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>
 
                 
               </div>
@@ -647,9 +829,9 @@ results obtained by your Traffic Sign Recognition system.</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/01/29/Machine%20Learning-NAU/6.%20%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="6. 人脸识别与感知机">
+                      <a href="/2021/01/30/Machine%20Learning-NAU/7.%20%E6%80%BB%E7%BB%93/" title="7. 总结">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">6. 人脸识别与感知机</span>
+                        <span class="hidden-mobile">7. 总结</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -657,8 +839,8 @@ results obtained by your Traffic Sign Recognition system.</p>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/01/28/Machine%20Learning-NAU/5.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0-%E6%89%8B%E5%86%99%E5%AD%97%E7%AC%A6%E8%AF%86%E5%88%AB/" title="5. 课后练习-使用更多的分类器">
-                        <span class="hidden-mobile">5. 课后练习-使用更多的分类器</span>
+                      <a href="/2021/01/29/Machine%20Learning-NAU/6.%20%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="6. 人脸识别与感知机">
+                        <span class="hidden-mobile">6. 人脸识别与感知机</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -1003,5 +1185,5 @@ results obtained by your Traffic Sign Recognition system.</p>
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</body>
 </html>

@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="生成对抗网络  Generative Adversarial Nets, Ian J Goodfellow et al, 2014. Conditional Generative Aversarial Nets, Mehdi Mirza et al, 2014.  简介 问题动机 深度学习的意义是挖掘人工智能应用领域不同种类的数据集的丰富的、层次化的概率统计分布模型。目前，深度学">
+    <meta name="description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="生成对抗网络">
 <meta property="og:url" content="https://l61012345.top/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="生成对抗网络  Generative Adversarial Nets, Ian J Goodfellow et al, 2014. Conditional Generative Aversarial Nets, Mehdi Mirza et al, 2014.  简介 问题动机 深度学习的意义是挖掘人工智能应用领域不同种类的数据集的丰富的、层次化的概率统计分布模型。目前，深度学">
+<meta property="og:description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-04T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-05-10T11:21:12.098Z">
@@ -235,7 +235,7 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
-}</style><meta name="generator" content="Hexo 5.4.2"></head>
+}</style></head>
 
 
 <body>
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6k 字
+          8.4k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          50 分钟
+          70 分钟
         
       </span>
     
@@ -484,7 +484,180 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1 id="生成对抗网络">生成对抗网络</h1>
+                <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>-</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid #1a1a1a;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+</head>
+<body>
+<h1 id="生成对抗网络">生成对抗网络</h1>
 <blockquote>
 <p><em>Generative Adversarial Nets</em>, Ian J Goodfellow et al,
 2014.<br />
@@ -504,7 +677,7 @@ model)在研究领域的影响不大的原因有二：</p>
 </li>
 <li>在生成上下文中难以应用利用分段线性单元的优势<br />
 <div class="note note-info">
-            <p>使用ReLU函数作为激活函数的神经元是一种典型的分段线性单元。ReLU函数可以表示为：<br /><span class="math display">\[f(x)=max(0,x)\]</span>ReLU函数的优点是计算量小，收敛速度快。缺点是当较大梯度通过ReLU神经元，更新参数之后，这个神经元不会对任何数据有激活现象，神经元梯度将永远为0.</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>使用ReLU函数作为激活函数的神经元是一种典型的分段线性单元。ReLU函数可以表示为：<br /><span class="math display">\[f(x)=max(0,x)\]</span>ReLU函数的优点是计算量小，收敛速度快。缺点是当较大梯度通过ReLU神经元，更新参数之后，这个神经元不会对任何数据有激活现象，神经元梯度将永远为0.</p><script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body></html>
           </div></li>
 </ul>
 <h3 id="网络框架">网络框架</h3>
@@ -562,7 +735,7 @@ style="text-align: left;">从所需的分布中抽取样本训练生成器，可
 </table>
 <p>而对抗网络框架不需要马尔科夫链进行采样。由于对抗网络在训练生成器的过程中不需要循环反馈，生成器的训练只是单次的，梯度下降的更新速率较慢，一定程度上避免了分段线性单元出现过早收敛的问题。从而可以更好的利用分段线性单元、提高反向传播的算法性能。<br />
 <div class="note note-info">
-            <p>但是这样的梯度下降方式也会导致GAN的收敛非常不稳定。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style></head><body><p>但是这样的梯度下降方式也会导致GAN的收敛非常不稳定。</p></body></html>
           </div></p>
 <h2 id="训练过程">训练过程</h2>
 <h3 id="交叉熵">交叉熵</h3>
@@ -749,7 +922,7 @@ class="math display">\[V(D,G)=∫_xp_{data}(x)log(D(x))dx+∫_zp_z(z)log(1-D(g(z
 <span
 class="math display">\[V(D,G)=∫_xp_{data}(x)log(D(x))+p_g(x)log(1-D(x))dx\]</span></p>
 <div class="note note-info">
-            <p>LOTUS定理<br />计算一个函数的期望时，可以不知道这个函数的分布。取而代之的是可以知道一个简单的分布，以及从简单分布到当前分布的映射即可。<br />即： <spanclass="math display">\[\mathbb{E}_{p(x;θ)}[f(x)]=\mathbb{E}_{p(ϵ)}[f(g(ϵ;θ))]\]</span>在本文中存在映射<spanclass="math inline">\(z→x\)</span>，对应映射法则为<spanclass="math inline">\(g(z)\)</span>。因此可以做如上的替换。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>LOTUS定理<br />计算一个函数的期望时，可以不知道这个函数的分布。取而代之的是可以知道一个简单的分布，以及从简单分布到当前分布的映射即可。<br />即： <spanclass="math display">\[\mathbb{E}_{p(x;θ)}[f(x)]=\mathbb{E}_{p(ϵ)}[f(g(ϵ;θ))]\]</span>在本文中存在映射<spanclass="math inline">\(z→x\)</span>，对应映射法则为<spanclass="math inline">\(g(z)\)</span>。因此可以做如上的替换。</p></body></html>
           </div>
 <p>对于形如"<span
 class="math inline">\(alog(y)+blog(1-y),y∈[0,1]\)</span>"的函数，其最大值在<span
@@ -781,7 +954,7 @@ class="math inline">\(p_{data}=p_G\)</span>。<br />
 当<span class="math inline">\(p_{data}=p_G\)</span>时，<span
 class="math inline">\(D^*=\frac{1}{2}\)</span>的意义是鉴别器判断一个样本来自数据集本身还是生成器生成的概率都是50%——这个结果等价于鉴别器判断一个样本的来源是完全的随机猜想，即鉴别器无法判断样本的来源。</p>
 <div class="note note-info">
-            <p>一个快速证明最优生成器的方法是对<spanclass="math inline">\(V(D,G)\)</span>去对数化：<br />即将原来的加减回归到乘除运算，有：<br /><span class="math display">\[V_f(D,G)=D(x)[1-D(x)]\]</span>该函数在<spanclass="math inline">\(D(x)=\frac{1}{2}\)</span>时取得最大值。<br />这个快速证明方法并不严谨，但是有助于简单理解上述数学证明的过程。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>一个快速证明最优生成器的方法是对<spanclass="math inline">\(V(D,G)\)</span>去对数化：<br />即将原来的加减回归到乘除运算，有：<br /><span class="math display">\[V_f(D,G)=D(x)[1-D(x)]\]</span>该函数在<spanclass="math inline">\(D(x)=\frac{1}{2}\)</span>时取得最大值。<br />这个快速证明方法并不严谨，但是有助于简单理解上述数学证明的过程。</p></body></html>
           </div>
 <h3 id="算法收敛性">算法收敛性</h3>
 <p>如果G和D具有足够的容量，并且在算法1的每个步骤中，允许鉴别器达到其给定的最佳G，并更新以提高评估标准，使得趋近<span
@@ -852,7 +1025,7 @@ d）CIFAR-10（卷积鉴别器和“反卷积”生成器））</p>
 <li>竞争网络可以生成一个非常尖锐的高方差分布，对于样本分布的拟合更加精确。然而基于马尔科夫链的方法为了混合模式需要一个模糊的分布。</li>
 </ul>
 <div class="note note-info">
-            <p>除此之外，GAN使用了无监督学习，对数据集不需要标注。但是也同时意味着生成的样本类别是不可控制的。</p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style></head><body><p>除此之外，GAN使用了无监督学习，对数据集不需要标注。但是也同时意味着生成的样本类别是不可控制的。</p></body></html>
           </div>
 <h3 id="缺点">缺点</h3>
 <p>在学习过程中必须要保证鉴别器<span
@@ -905,10 +1078,12 @@ class="math inline">\(y\)</span>来让生成器生成对应标签的样本。<br
 CGAN的架构如下图所示：<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910203450.png width=90%></p>
 <div class="note note-info">
-            <p>随着之后的演化，现在CGAN的鉴别器有两种结构，一种是将数据<spanclass="math inline">\(x\)</span>和条件<spanclass="math inline">\(y\)</span>（图中的<spanclass="math inline">\(c\)</span>）分别经过一个网络处理后再融合为一个网络，对模型进行评价。另一种是使用一个网络评价<spanclass="math inline">\(x\)</span>是来自生成的数据还是数据集，再使用另一个网络评价条件和数据是否吻合。<br /><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204805.png width=60%></p>
+            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style>  <script  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"  type="text/javascript"></script></head><body><p>随着之后的演化，现在CGAN的鉴别器有两种结构，一种是将数据<spanclass="math inline">\(x\)</span>和条件<spanclass="math inline">\(y\)</span>（图中的<spanclass="math inline">\(c\)</span>）分别经过一个网络处理后再融合为一个网络，对模型进行评价。另一种是使用一个网络评价<spanclass="math inline">\(x\)</span>是来自生成的数据还是数据集，再使用另一个网络评价条件和数据是否吻合。<br /><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204805.png width=60%></p></body></html>
           </div>
 <p>下图展示了使用CGAN的生成器生成的一些样本，这些样本指定了标签进行生成：<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220910204352.png width=60%></p>
+</body>
+</html>
 
                 
               </div>
@@ -2036,5 +2211,5 @@ CGAN的架构如下图所示：<br />
     });
 </script>
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</body>
 </html>
