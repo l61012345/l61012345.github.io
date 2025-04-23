@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
+    <meta name="description" content="数字系统设计-知识点总结  本文是BUL EE2634 Digital Systems Design and Reliability Engineering 数字系统部分的知识点总结。  逻辑门的晶体管实现 晶体管在数字电路中用做开关，实现数字逻辑。有两种最基本的晶体管：NMOS和PMOS。 对于NMOS，如果栅极处于高电平，那么晶体管导通，如果处于低电平，晶体管关断。 PMOS的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数字系统设计-知识点总结">
 <meta property="og:url" content="https://l61012345.top/2021/12/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="-        html {       color: #1a1a1a;       background-color: #fdfdfd;     }     body {       margin: 0 auto;       max-width: 36em;       padding-left: 50px;       paddi">
+<meta property="og:description" content="数字系统设计-知识点总结  本文是BUL EE2634 Digital Systems Design and Reliability Engineering 数字系统部分的知识点总结。  逻辑门的晶体管实现 晶体管在数字电路中用做开关，实现数字逻辑。有两种最基本的晶体管：NMOS和PMOS。 对于NMOS，如果栅极处于高电平，那么晶体管导通，如果处于低电平，晶体管关断。 PMOS的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-24T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.820Z">
@@ -235,7 +235,7 @@ p.spoiler {
   color: black;
   background-color: black;
   text-shadow: none;
-}</style></head>
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
 
 
 <body>
@@ -402,7 +402,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          3.5k 字
         
       </span>
     
@@ -413,7 +413,7 @@ p.spoiler {
         
         
         
-          36 分钟
+          30 分钟
         
       </span>
     
@@ -484,180 +484,7 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-  <meta charset="utf-8" />
-  <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>-</title>
-  <style>
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    svg {
-      height: auto;
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      border: none;
-      border-top: 1px solid #1a1a1a;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-  </style>
-  <script
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
-  type="text/javascript"></script>
-</head>
-<body>
-<h1 id="数字系统设计-知识点总结">数字系统设计-知识点总结</h1>
+                <h1 id="数字系统设计-知识点总结">数字系统设计-知识点总结</h1>
 <blockquote>
 <p>本文是BUL EE2634 Digital Systems Design and Reliability Engineering
 数字系统部分的知识点总结。</p>
@@ -747,7 +574,7 @@ class="math inline">\(2^n\)</span></li>
 <li>一个电路多个输出时，对多个输出分别画卡诺图，多张卡诺图中圈的位置尽可能相同。</li>
 </ul>
 <div class="note note-info">
-            <!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang=""><head>  <meta charset="utf-8" />  <meta name="generator" content="pandoc" />  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />  <title>-</title>  <style>    html {      color: #1a1a1a;      background-color: #fdfdfd;    }    body {      margin: 0 auto;      max-width: 36em;      padding-left: 50px;      padding-right: 50px;      padding-top: 50px;      padding-bottom: 50px;      hyphens: auto;      overflow-wrap: break-word;      text-rendering: optimizeLegibility;      font-kerning: normal;    }    @media (max-width: 600px) {      body {        font-size: 0.9em;        padding: 12px;      }      h1 {        font-size: 1.8em;      }    }    @media print {      html {        background-color: white;      }      body {        background-color: transparent;        color: black;        font-size: 12pt;      }      p, h2, h3 {        orphans: 3;        widows: 3;      }      h2, h3, h4 {        page-break-after: avoid;      }    }    p {      margin: 1em 0;    }    a {      color: #1a1a1a;    }    a:visited {      color: #1a1a1a;    }    img {      max-width: 100%;    }    svg {      height: auto;      max-width: 100%;    }    h1, h2, h3, h4, h5, h6 {      margin-top: 1.4em;    }    h5, h6 {      font-size: 1em;      font-style: italic;    }    h6 {      font-weight: normal;    }    ol, ul {      padding-left: 1.7em;      margin-top: 1em;    }    li > ol, li > ul {      margin-top: 0;    }    blockquote {      margin: 1em 0 1em 1.7em;      padding-left: 1em;      border-left: 2px solid #e6e6e6;      color: #606060;    }    code {      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;      font-size: 85%;      margin: 0;      hyphens: manual;    }    pre {      margin: 1em 0;      overflow: auto;    }    pre code {      padding: 0;      overflow: visible;      overflow-wrap: normal;    }    .sourceCode {     background-color: transparent;     overflow: visible;    }    hr {      border: none;      border-top: 1px solid #1a1a1a;      height: 1px;      margin: 1em 0;    }    table {      margin: 1em 0;      border-collapse: collapse;      width: 100%;      overflow-x: auto;      display: block;      font-variant-numeric: lining-nums tabular-nums;    }    table caption {      margin-bottom: 0.75em;    }    tbody {      margin-top: 0.5em;      border-top: 1px solid #1a1a1a;      border-bottom: 1px solid #1a1a1a;    }    th {      border-top: 1px solid #1a1a1a;      padding: 0.25em 0.5em 0.25em 0.5em;    }    td {      padding: 0.125em 0.5em 0.25em 0.5em;    }    header {      margin-bottom: 4em;      text-align: center;    }    #TOC li {      list-style: none;    }    #TOC ul {      padding-left: 1.3em;    }    #TOC > ul {      padding-left: 0;    }    #TOC a:not(:hover) {      text-decoration: none;    }    code{white-space: pre-wrap;}    span.smallcaps{font-variant: small-caps;}    div.columns{display: flex; gap: min(4vw, 1.5em);}    div.column{flex: auto; overflow-x: auto;}    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}    /* The extra [class] is a hack that increases specificity enough to       override a similar rule in reveal.js */    ul.task-list[class]{list-style: none;}    ul.task-list li input[type="checkbox"] {      font-size: inherit;      width: 0.8em;      margin: 0 0.8em 0.2em -1.6em;      vertical-align: middle;    }  </style></head><body><p>如果题目中的设计目标是“最小成本”，那么做完卡诺图化简后还需要提取公因项化简。<br />如果题目中的设计目标是“最简SOP/POS”，那么做完卡诺图化简后即可。</p><script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body></html>
+            <p>如果题目中的设计目标是“最小成本”，那么做完卡诺图化简后还需要提取公因项化简。<br />如果题目中的设计目标是“最简SOP/POS”，那么做完卡诺图化简后即可。</p>
           </div>
 <h2 id="逻辑电路元件">逻辑电路元件</h2>
 <h3 id="加法器">加法器</h3>
@@ -943,8 +770,6 @@ class="math inline">\(f=w_2\)</span>。<br />
 到
 n的比特值组成的向量，和降序：<code>STD_logic_vector(n DOWNTO m)</code>两种。字节长度在ACHITECURE中指定。<br />
 比如下面例程所示的2-4解码器： <figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vhdl"><span class="hljs-keyword">LIBRARY</span> ieee;<br><span class="hljs-keyword">USE</span> ieee.std_logic_1164.<span class="hljs-keyword">all</span>;<br><br><span class="hljs-keyword">ENTITY</span> dec2to4 <span class="hljs-keyword">IS</span><br>  <span class="hljs-keyword">PORT</span>(<br>    w : <span class="hljs-keyword">IN</span> <span class="hljs-built_in">STD_logic_vector</span>(<span class="hljs-number">1</span> <span class="hljs-keyword">DOWNTO</span> <span class="hljs-number">0</span>);<br>    En : <span class="hljs-keyword">IN</span> <span class="hljs-built_in">STD_logic</span>;<br>    y : <span class="hljs-keyword">OUT</span> <span class="hljs-built_in">STD_LOGIC_VECTOR</span>(<span class="hljs-number">0</span> <span class="hljs-keyword">TO</span> <span class="hljs-number">3</span>);<br>  )<br><span class="hljs-keyword">END</span> dec2to4;<br><br>ARCHITECUTURE behavior <span class="hljs-keyword">OF</span> dec2t04 <span class="hljs-keyword">IS</span><br> <span class="hljs-keyword">SIGNAL</span> Enw: <span class="hljs-built_in">STD_logic_vector</span>(<span class="hljs-number">2</span> <span class="hljs-keyword">DOWNTO</span> <span class="hljs-number">0</span>);<br> <span class="hljs-keyword">BEGIN</span><br>  Enw &lt;= En <span class="hljs-keyword">AND</span> w;<br>  <span class="hljs-keyword">WITH</span> Enw <span class="hljs-keyword">SELECT</span><br>    y &lt;= <span class="hljs-string">&quot;1000&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&quot;100&quot;</span>,<br>         <span class="hljs-string">&quot;0100&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&quot;101&quot;</span>,<br>         <span class="hljs-string">&quot;0010&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-string">&quot;110&quot;</span>,<br>         <span class="hljs-string">&quot;0000&quot;</span> <span class="hljs-keyword">WHEN</span> <span class="hljs-keyword">OTHERS</span>;<br><span class="hljs-keyword">END</span> behavior;<br></code></pre></td></tr></table></figure></p>
-</body>
-</html>
 
                 
               </div>
@@ -1381,20 +1206,5 @@ n的比特值组成的向量，和降序：<code>STD_logic_vector(n DOWNTO m)</c
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-</body>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
