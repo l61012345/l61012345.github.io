@@ -690,57 +690,57 @@ class="math inline">\(y=e^{2x}+x\)</span>，现在检验各种不同的个体结
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs matlab">x = [<span class="hljs-number">0</span>:<span class="hljs-number">0.01</span>:<span class="hljs-number">1000</span>];x = [<span class="hljs-number">0</span>:<span class="hljs-number">0.01</span>:<span class="hljs-number">1000</span>];<br>y_target = <span class="hljs-built_in">exp</span>(<span class="hljs-number">2</span>*x)+x;<br>y_tree_1 = <span class="hljs-built_in">exp</span>(<span class="hljs-number">2</span>*x);<br>y_tree_2 = <span class="hljs-built_in">exp</span>(<span class="hljs-number">2</span>*x)+<span class="hljs-number">1</span>;<br>y_tree_3 = <span class="hljs-built_in">exp</span>(x);<br>y_tree_4 = x;<br>y_tree_5 = <span class="hljs-number">2</span>*x+<span class="hljs-number">1</span>;<br>y_tree_6 = <span class="hljs-number">2</span>*<span class="hljs-built_in">exp</span>(x);<br>y_tree_7 = power(<span class="hljs-built_in">exp</span>(x),<span class="hljs-number">2</span>);<br>y_tree_8 = power(<span class="hljs-built_in">exp</span>(x)+x,<span class="hljs-number">100</span>);<br>y_tree_9 = <span class="hljs-built_in">sin</span>(x);<br>y_tree_90 = power(x,<span class="hljs-number">2</span>);<br>y_tree_rand = randi(<span class="hljs-number">12308</span>,<span class="hljs-number">1</span>,<span class="hljs-number">100001</span>);<br>y_tree_de = <span class="hljs-number">2</span>*<span class="hljs-built_in">exp</span>(<span class="hljs-number">2</span>*x)+<span class="hljs-number">1</span>;<br><br>mi_tree_target = mutual_information(y_target,y_target); <span class="hljs-comment">% 输出的信息熵</span><br>mi_tree_rand = mutual_information(y_tree_rand,y_target)/mi_tree_target;<br>mi_tree_1 = mutual_information(y_tree_1,y_target)/mi_tree_target;<br>mi_tree_2 = mutual_information(y_tree_2,y_target)/mi_tree_target;<br>mi_tree_3 = mutual_information(y_tree_3,y_target)/mi_tree_target;<br>mi_tree_4 = mutual_information(y_tree_4,y_target)/mi_tree_target;<br>mi_tree_5 = mutual_information(y_tree_5,y_target)/mi_tree_target;<br>mi_tree_6 = mutual_information(y_tree_6,y_target)/mi_tree_target;<br>mi_tree_7 = mutual_information(y_tree_7,y_target)/mi_tree_target;<br>mi_tree_8 = mutual_information(y_tree_8,y_target)/mi_tree_target;<br>mi_tree_9 = mutual_information(y_tree_9,y_target)/mi_tree_target;<br>mi_tree_90 = mutual_information(y_tree_90,y_target)/mi_tree_target;<br>mi_tree_de = mutual_information(y_tree_de,y_target)/mi_tree_target;<br></code></pre></td></tr></table></figure> 结果如下：</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;">编号</th>
 <th style="text-align: center;">归一化互信息的值</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">1</td>
 <td style="text-align: center;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">2</td>
 <td style="text-align: center;">0.2674</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">3</td>
 <td style="text-align: center;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">4</td>
 <td style="text-align: center;">0.2832</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">5</td>
 <td style="text-align: center;">0.2409</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">6</td>
 <td style="text-align: center;">1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">7</td>
 <td style="text-align: center;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">8</td>
 <td style="text-align: center;">0.017</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">9</td>
 <td style="text-align: center;">0.3223</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">90</td>
 <td style="text-align: center;">0.2674</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">de</td>
 <td style="text-align: center;">1</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">rand</td>
 <td style="text-align: center;">0.2674</td>
 </tr>
