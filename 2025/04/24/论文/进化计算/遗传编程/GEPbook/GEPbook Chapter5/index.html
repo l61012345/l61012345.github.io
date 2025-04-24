@@ -1,0 +1,1699 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="05. 随机常数              这是对《Gene Expression Programming: Mathematical Modeling by anArtificial Intelligence》的笔记，本页对应第一章： Chapter 5： NumericalConstants and the GEP-RNC Algorithm本书可以在斯普林格购买纸质版或者电子版：ht">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05. 随机常数">
+<meta property="og:url" content="https://l61012345.top/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="05. 随机常数              这是对《Gene Expression Programming: Mathematical Modeling by anArtificial Intelligence》的笔记，本页对应第一章： Chapter 5： NumericalConstants and the GEP-RNC Algorithm本书可以在斯普林格购买纸质版或者电子版：ht">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-04-24T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-04-24T13:23:18.398Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>05. 随机常数 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>时间线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://unsplash.com/@l61012345" target="_self">
+                <i class="iconfont icon-image"></i>
+                <span>图库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/urasekai/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>里世界</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="05. 随机常数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-04-24 00:00" pubdate>
+          2025年4月24日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          13 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">05. 随机常数</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年4月24日 下午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="随机常数">05. 随机常数</h1>
+<div class="note note-info">
+            <p>这是对《Gene Expression Programming: Mathematical Modeling by anArtificial Intelligence》的笔记，本页对应第一章： Chapter 5： NumericalConstants and the GEP-RNC Algorithm本书可以在斯普林格购买纸质版或者电子版：https://link.springer.com/book/10.1007/3-540-32849-1</p>
+          </div>
+<p>在GP中引入常数是一种增大信息密度的方式：因为使用非常数的function来拼凑出一个常数（尤其是非整数）非常困难，且在结构上非常长，按照交叉的偏向性，常数节点很容易代替他们，从而减少个体的大小。<br />
+在GP中最早引入常数的方法是在端点集中加入固定常数，随后Koza提出了Ephemeral
+Random
+Constant，这种常数会在每个个体第一次调用它时在某个范围内随机生成一个常数，然后保持不变。<br />
+GEP的做法是将随机常数视为是一种特殊的单节点ADF：随机常数在基因型中以“？”表示，不进行实例化。同时基因引入一个新的域：DC
+domain，其中存储了随机常数的映射符号。当个体被评估时，ORF按照顺序将DC
+domain中的映射符号填入“？”中，编译时这些映射符号会被替换为一个随机生成的常数序列中的常数。这个引入的新的DC域也同样支持遗传操作。<br />
+接下来，这一章举了两个例子来说明GEP在有常数和没有常数时的性能表现。<br />
+在第一个例子中，GEP需要拟合多项式<span
+class="math inline">\(y=\frac{a^2}{2}+3a\)</span>，这个多项式中的系数都是不大的正整数，在这个任务中，没有常数的GEP的表现要好于terminal
+set中有常数的GEP。可能的原因有两点：</p>
+<ul>
+<li>GEP在没有常数的情况下也可以通过简单拼凑制造出常数，相比于常数节点，这些表示常数的符号子树拥有更多的被进化调整的可能性。<br />
+</li>
+<li>引入常数增加了搜索（表示）空间的维度。<br />
+在第二个例子中，GEP需要拟合多项式<span
+class="math inline">\(y=2.718x^2+3.141636x\)</span>，这个多项式的系数都是小数。在这种情况下，随机在端点集中加入几个小数常数的GEP的性能明显高于没有常数的GEP。<br />
+真实的问题更接近于第二个例子。但是在真实的问题中，人类无法事先得知常数是否是小数和常数的范围。这两个参数对GEP的常数设置而言很重要，因此需要设计出一种自动尝试常数的方法。</li>
+</ul>
+<h2 id="dc域的结构">Dc域的结构</h2>
+<p>GEP中处理常数的方法是在每个基因的尾部后面加入一个新的域：Dc
+domain用于进化寻找常数。这样每个基因就有头部、尾部、Dc
+domain三个域。每个Dc域同时对应了一个固定长度的随机数列表，列表中的元素是随机生成的，但是生成后被确定下来。Dc域中的元素是随机数在列表中的编号。在编译的时候，当编译器会将“？”的部分按照从上到下从左到右，广度优先的方式将Dc域中的元素填入，再根据这些元素代表的随机数在随机数列表中的位置将对应随机数列表的数填入。<br />
+在多基因GEP中，有多少个基因就有多少个Dc域以及和它对应的随机数列表。<br />
+Dc域和随机数序列会跟着基因一同传播和扩散。</p>
+<h2 id="dc域的进化">Dc域的进化</h2>
+<p>GEP中，Dc域通过一组特殊的遗传操作进行进化。Dc域也可以有none-coding
+part来维持合法性。这些遗传操作可以在尝试旧的常数组合的同时激活新的none-coding常数。</p>
+<h3 id="突变">突变</h3>
+<p>虽然突变的操作和之前相同，但是为了调整DC域使用的突变率，这里作者将其设定为一个单独的operator。<br />
+Dc域中的突变有两种：</p>
+<ul>
+<li><p>Dc-specific Mutation<br />
+这种突变会随机选择DC域上的一个随机数编号，将这个随机数编号改为其他随机数编号。</p></li>
+<li><p>Direct RNC Mutation
+并不改变随机数编号，而是将随机数序列中的其中一个随机数用另一个随机数替代。这是唯一一种向种群中引入新的随机数的方式。<br />
+实验中发现这种突变方式对个体的提升优先，甚至关闭之后还可以得到更好的结果。
+发生在Dc域上的突变不会改变语法树的拓扑。</p></li>
+</ul>
+<h3 id="倒位">倒位</h3>
+<p>Dc
+domain的倒位和普通的倒位相似，差别是Dc域的倒位被限制在了Dc域当中。</p>
+<h3 id="易位">易位</h3>
+<p>Dc域对IS Transpose和RIS
+Transpose依然适用，限制保持不变。但是增加一个只在Dc域发生的Transpose：这种Transpose类似于IS
+Transpose，但是目标位置被限定在Dc域中。</p>
+<h2 id="常数的生成方式">常数的生成方式</h2>
+<p>接着，本章节对比了没有常数的GEP，将固定常数加入端点集的GEP，随机常数的GEP（GEP-B，GEP-NC,GEP-RNC）在四个问题上的表现，有如下观察和结论：</p>
+<ul>
+<li>GEP-RNC的表现总是要比GEP-NC的表现更好，证明了提出的自适应寻找随机常数的方式是有效的。<br />
+</li>
+<li>GEP在添加常数之后的表现取决于问题本身：如果问题本身就不倾向于使用常数（比如特征组合问题），那么GEP-B的性能要好于加入常数的GEP；反之如果问题本身的最终解倾向于带常数，那么情况则完全相反。<br />
+因此，在使用常数之前应当先用经验知识判断是否需要常数，如果目标解不需要，那么用简单的GEP即可，否则则使用RNC-GEP。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%BA%E6%96%87/" class="category-chain-item">论文</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" class="category-chain-item">遗传编程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%BC%96%E7%A8%8B%EF%BC%9A%E9%80%9A%E8%BF%87%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%9A%84%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1/" class="category-chain-item">基因表达式编程：通过人工智能的数学建模</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>05. 随机常数</div>
+      <div>https://l61012345.top/2025/04/24/论文/进化计算/遗传编程/GEPbook/GEPbook Chapter5/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年4月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年4月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter3/" title="03. 基因表达式算法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">03. 基因表达式算法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景">
+                        <span class="hidden-mobile">01. 简介：生物遗传学背景</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="论文"
+        id="heading-0b7dcde9565d642e74382fc9cbae0ad5" role="tab" data-toggle="collapse" href="#collapse-0b7dcde9565d642e74382fc9cbae0ad5"
+        aria-expanded="true"
+      >
+        论文
+        <span class="list-group-count">(44)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0b7dcde9565d642e74382fc9cbae0ad5"
+           role="tabpanel" aria-labelledby="heading-0b7dcde9565d642e74382fc9cbae0ad5">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="神经网络"
+        id="heading-40850ccab8cdabc6868888fd85808d0e" role="tab" data-toggle="collapse" href="#collapse-40850ccab8cdabc6868888fd85808d0e"
+        aria-expanded="false"
+      >
+        神经网络
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-40850ccab8cdabc6868888fd85808d0e"
+           role="tabpanel" aria-labelledby="heading-40850ccab8cdabc6868888fd85808d0e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" title="TensorFlow 入门项目：训练一个VGG模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">TensorFlow 入门项目：训练一个VGG模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" title="卷积神经网络简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">卷积神经网络简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" title="深度卷积生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">深度卷积生成对抗网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" title="生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">生成对抗网络</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统工程"
+        id="heading-20662cd9022948e3fc8b6c3a81b6107e" role="tab" data-toggle="collapse" href="#collapse-20662cd9022948e3fc8b6c3a81b6107e"
+        aria-expanded="false"
+      >
+        系统工程
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-20662cd9022948e3fc8b6c3a81b6107e"
+           role="tabpanel" aria-labelledby="heading-20662cd9022948e3fc8b6c3a81b6107e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="各类系统"
+        id="heading-588aa3ee8bda6c2f94ead12b3332d921" role="tab" data-toggle="collapse" href="#collapse-588aa3ee8bda6c2f94ead12b3332d921"
+        aria-expanded="false"
+      >
+        各类系统
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-588aa3ee8bda6c2f94ead12b3332d921"
+           role="tabpanel" aria-labelledby="heading-588aa3ee8bda6c2f94ead12b3332d921">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" title="CNC铣床基本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CNC铣床基本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电力线缆的寿命预测模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">钢铁淬火的简单仿真</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统分析理论"
+        id="heading-5d5b60b74e73d4405eebcb4bb7170ee0" role="tab" data-toggle="collapse" href="#collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+        aria-expanded="false"
+      >
+        系统分析理论
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+           role="tabpanel" aria-labelledby="heading-5d5b60b74e73d4405eebcb4bb7170ee0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/07/10/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/EventiC/" title="EventiC——一种无偏的复杂系统实时事件建模器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">EventiC——一种无偏的复杂系统实时事件建模器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/01/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/ROC/" title="ROC聚类算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROC聚类算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/19/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E4%B8%80%E7%A7%8D%E5%BA%94%E7%94%A8%E4%BA%8E%E7%BB%86%E8%83%9E%E5%BC%8F%E7%94%9F%E4%BA%A7%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="一种应用于细胞式生产的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种应用于细胞式生产的聚类方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/" title="无序变量的基本相关性分析方法和Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无序变量的基本相关性分析方法和Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/16/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%81%B5%E6%95%8F%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="灵敏度分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">灵敏度分析方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/11/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E9%92%88%E5%AF%B9%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="针对基因表达数据的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">针对基因表达数据的聚类方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="进化计算"
+        id="heading-393d3b280ef394972e740c7191996f04" role="tab" data-toggle="collapse" href="#collapse-393d3b280ef394972e740c7191996f04"
+        aria-expanded="true"
+      >
+        进化计算
+        <span class="list-group-count">(31)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-393d3b280ef394972e740c7191996f04"
+           role="tabpanel" aria-labelledby="heading-393d3b280ef394972e740c7191996f04">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/20/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/evolution%20everthing/" title="从进化计算到万物进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从进化计算到万物进化</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="false"
+      >
+        遗传算法
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="true"
+      >
+        遗传编程
+        <span class="list-group-count">(23)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/building%20blocks%EF%BC%9A%E6%8F%90%E5%8F%96%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%BA%94%E7%94%A8/" title="GP模块化的再讨论——Building Blocks：探测、提取、应用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP模块化的再讨论——Building Blocks：探测、提取、应用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/02/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/Geometric%20Semantic%20Genetic%20Programming%20-%20%E5%87%A0%E4%BD%95%E8%AF%AD%E4%B9%89GP/" title="Geometric Semantic Genetic Programming：基于几何信息的GP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Geometric Semantic Genetic Programming：基于几何信息的GP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/" title="交叉算子的建模和比较"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">交叉算子的建模和比较</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/What%20we%20can%20get%20in%20schema%20thoeries/" title="可以从既有的schema theory中得到什么"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可以从既有的schema theory中得到什么</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/schema%20thoery%20for%20homologous%20crossover/" title="同源交叉的模式定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">同源交叉的模式定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%BC%BA%E7%B1%BB%E5%9E%8BGP/" title="强类型遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">强类型遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/11/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/The%20Evolution%20of%20Evolvability%20in%20Genetic%20Programming/" title="遗传编程中Evolvability的进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中Evolvability的进化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/28/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E6%A8%A1%E5%9D%97%E5%8C%96GP/" title="遗传编程中的模块化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的模块化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%BF%90%E8%A1%8C%E6%89%8B%E8%AE%B0/" title="遗传编程运行Tricks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程运行Tricks</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基因表达式编程：通过人工智能的数学建模"
+        id="heading-c320aec9ed76d69f5bcc1ca10786135e" role="tab" data-toggle="collapse" href="#collapse-c320aec9ed76d69f5bcc1ca10786135e"
+        aria-expanded="true"
+      >
+        基因表达式编程：通过人工智能的数学建模
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-c320aec9ed76d69f5bcc1ca10786135e"
+           role="tabpanel" aria-labelledby="heading-c320aec9ed76d69f5bcc1ca10786135e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 简介：生物遗传学背景</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20%20Chapter2/" title="02. GEP的实体"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. GEP的实体</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter3/" title="03. 基因表达式算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 基因表达式算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">05. 随机常数</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程 IV： 例程化的可比拟人类的机器智能"
+        id="heading-cdf5b5baa87b8f9df335b10065b8eadb" role="tab" data-toggle="collapse" href="#collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+        aria-expanded="false"
+      >
+        遗传编程 IV： 例程化的可比拟人类的机器智能
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+           role="tabpanel" aria-labelledby="heading-cdf5b5baa87b8f9df335b10065b8eadb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 绪论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 背景·遗传编程基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" title="03. 控制器的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 控制器的自动综合</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/" title="04. 电路的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 电路的自动综合</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2024 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>
