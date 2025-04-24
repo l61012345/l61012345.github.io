@@ -19,7 +19,7 @@ categories:
 1. 随机生成初始化种群
 2. 初次评估
 3. 个体选择
-4. 个体繁殖
+4. 个体繁殖与变异
 本书认为，进化计算的关键是要有足够多的不同种类的解来让进化选择，因此多样性是进化的重要指示。遗传操作是产生种群多样性的手段，因此本章的重点在于各种各样的遗传操作。  
 
 ## 种群
@@ -45,13 +45,18 @@ GP中个体的初始化需要考虑结构的合法性，尤其是比如STGP。�
 
 | Fitness Function | 解释 | 数学描述 | 备注|
 |:-|:-|:-|:-|
-|Number of hits| 在合理误差范围内模型符合fitness cases的数量|$\text{If } E_{ij}≤p,\text{then } f_{ij}=1,\text{else }f_{ij}=0$ <br> $E_{ij}=\|P_{ij}-T_j\|$||
-|Number of hits<br>(penalty)|如果个体在fitness上并非真阳性和真阴性，则fitness为0|$\text{IF }(TP_i=0 \text{ OR } TN_i=0),\text{then } f_{i}=0,\text{else }f_{i}=h$<br>$h=TP_i+TN_i$|如此可以减少过拟合|
+|Number of hits| 在合理误差范围内模型符合fitness cases的数量|$\text{If } E_{ij}≤p,$<br>$\text{then } f_{ij}=1,\text{else }f_{ij}=0$ <br> $E_{ij}=\|P_{ij}-T_j\|$||
+|Number of hits<br>(penalty)|如果个体在fitness上并非真阳性和真阴性，则fitness为0|$\text{IF }(TP_i=0 \text{ OR } TN_i=0),$<br>$\text{then } f_{i}=0,\text{else }f_{i}=h$<br>$h=TP_i+TN_i$|如此可以减少过拟合|
 |Precision and Selection| 给个体设置一个在fitness cases上的表现上限$R$，<br>超过$R$的表现对fitness没有贡献| $f_i=∑_j(R-f_{raw,i})$||
 |均方差||$E_i=\frac{1}{n}∑_j(P_{ij}-T_j)^2$ <br> $E_i=\frac{1}{n}∑_j(\frac{P_{ij}-T_j}{T_j})^2$|这种方法对离群值敏感|
-|$R^2$||$R_i=\frac{n\sum_j(T_jP_{ij})-(\sum_jT_j)(\sum_jP_{ij})}{\sqrt{[n∑_jT_j^2-(∑_jT_j)^2][n∑_jP_{ij}^2-(∑_jP_{ij})^2]}}$|
+|$R^2$||$R_i=$<br>$\frac{n\sum_j(T_jP_{ij})-(\sum_jT_j)(\sum_jP_{ij})}{\sqrt{[n∑_jT_j^2-(∑_jT_j)^2][n∑_jP_{ij}^2-(∑_jP_{ij})^2]}}$|
 | Positive/Negative Predictive Value | | $PPV_i=\frac{TN_i}{TN_i+FP_i}$<br>$NPV_i=\frac{TN_i}{TN_i+FN_i}$| 在数据集正负样本严重不平衡时可以有很大用 |
 
 ## 选择
 GEP中默认设置是使用的轮盘赌，但是不管使用哪一种选择方法，核心思路是表现越好的个体越有可能被选中。在选择中，好的个体和差的个体都是概率性选择，差的个体上的优良基因也可能被传递。通过好的个体的复制实现对这一代最优性状的保护。  
 在应用精英机制的前提下，几种选择方法的表现并没有明显的差异，只要保证选择方法中个体按照其fitness成倍扩散就行了。  
+
+## 繁殖与变异
+在介绍之前，首先需要明晰GEP的变异和自然界的变异之间的不同。  
+首先自然界的变异概率比GEP中的变异概率要低得多，GEP设置相比于自然界更高的变异概率是因为GEP进化的时间和速度要比自然进化更快。其次，自然界不太可能知道变异在何时何地发生。GEP中所有的修改都是可知的：一方面他们都发生在基因组复制之后，而基因组的复制本身不会像自然界一样出错；另一方面，operator以有序的方式执行，首先是复制，然后是剩下的opeartor，除了复制之外，其他的operator的运行顺序对最终结果影响不大。  
+另外，除了突变之外的其他operator一次只允许对同一个个体做一次修改，每个个体在同一代中可能会经历来自不同operator的修改。  
