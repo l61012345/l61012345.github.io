@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="img{     width: 60%;     padding-left: 30%; }  特征 特征的选择 曾在第四讲中提到过特征的选择，特征的选取可以从颜色、形状、直方图等等来提取。 好的特征应该具有如下的性质：  计算简便 鲁棒性 储存小 好的区分度 更优的距离度量 ### NP hard！ 尝试试所有的特征组合是一种在直觉上认为的简便方案，它是一种非确">
+    <meta name="description" content="img{     width: 60%;     padding-left: 30%; }  特征 特征的选择 曾在第四讲中提到过特征的选择，特征的选取可以从颜色、形状、直方图等等来提取。 好的特征应该具有如下的性质： - 计算简便 - 鲁棒性 - 储存小 - 好的区分度 - 更优的距离度量 ### NP hard！ 尝试试所有的特征组合是一种在直觉上认为的简便方案，它是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5. 特征">
 <meta property="og:url" content="https://l61012345.top/2021/01/28/Machine%20Learning-NAU/5.%20%E7%89%B9%E5%BE%81/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="img{     width: 60%;     padding-left: 30%; }  特征 特征的选择 曾在第四讲中提到过特征的选择，特征的选取可以从颜色、形状、直方图等等来提取。 好的特征应该具有如下的性质：  计算简便 鲁棒性 储存小 好的区分度 更优的距离度量 ### NP hard！ 尝试试所有的特征组合是一种在直觉上认为的简便方案，它是一种非确">
+<meta property="og:description" content="img{     width: 60%;     padding-left: 30%; }  特征 特征的选择 曾在第四讲中提到过特征的选择，特征的选取可以从颜色、形状、直方图等等来提取。 好的特征应该具有如下的性质： - 计算简便 - 鲁棒性 - 储存小 - 好的区分度 - 更优的距离度量 ### NP hard！ 尝试试所有的特征组合是一种在直觉上认为的简便方案，它是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-28T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:27.717Z">
@@ -405,7 +405,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          839 字
+          827 字
         
       </span>
     
@@ -496,83 +496,81 @@ img{
 <h1 id="特征">特征</h1>
 <h2 id="特征的选择">特征的选择</h2>
 <p>曾在第四讲中提到过特征的选择，特征的选取可以从颜色、形状、直方图等等来提取。<br />
-好的特征应该具有如下的性质：</p>
-<ul>
-<li>计算简便</li>
-<li>鲁棒性</li>
-<li>储存小</li>
-<li>好的区分度</li>
-<li>更优的距离度量<br />
+好的特征应该具有如下的性质：<br />
+- 计算简便 - 鲁棒性 - 储存小 - 好的区分度 - 更优的距离度量<br />
 ### NP hard！
 尝试试所有的特征组合是一种在直觉上认为的简便方案，它是一种非确定性多项式(Non-Deterministic
 polynomial Hard，NP
 hard)问题，该问题在理论上能够用一种称为贪心算法(Greedy
-approach)的方法尝试解决：
-<ul>
-<li>对于F 个可能的特征，选择其中能给出最高准确率的一个特征X</li>
-<li>对于剩下的
-F-1个可能的特征，选择与特征X组合能够给出最高准确率的一个特征。</li>
-<li>重复上述过程，直到选择出所有的特征。</li>
-</ul></li>
-</ul>
+approach)的方法尝试解决：<br />
+- 对于F 个可能的特征，选择其中能给出最高准确率的一个特征X - 对于剩下的
+F-1个可能的特征，选择与特征X组合能够给出最高准确率的一个特征。 -
+重复上述过程，直到选择出所有的特征。</p>
 <h3 id="pca">PCA</h3>
 <p>主成分分析（Principal Component
 Analysis，PCA）是另一种选择出更好的一组特征的方法。<br />
-设<span class="math inline">\(y ∈
-R^k\)</span>是图像(或者上一级的特征向量)<span class="math inline">\(x ∈
-R^d\)</span>的特征向量，<span
-class="math inline">\(k&lt;&lt;d\)</span>，有：<br />
-<span class="math display">\[y=W^Tx\]</span></p>
+设<span
+class="math inline"><em>y</em> ∈ <em>R</em><sup><em>k</em></sup></span>是图像(或者上一级的特征向量)<span
+class="math inline"><em>x</em> ∈ <em>R</em><sup><em>d</em></sup></span>的特征向量，<span
+class="math inline"><em>k</em> &lt;  &lt; <em>d</em></span>，有：<br />
+<span
+class="math display"><em>y</em> = <em>W</em><sup><em>T</em></sup><em>x</em></span></p>
 <ul>
-<li><p><span class="math inline">\(W\)</span><br />
-<span class="math inline">\(W\)</span>是一个<span
-class="math inline">\(d × k\)</span>的正交矩阵，由x计算得到。<br />
-设均值矩阵<span class="math inline">\(E[x]=0\)</span>,协方差矩阵<span
-class="math inline">\(E[xx^T]=C_x\)</span>,如下是计算<span
-class="math inline">\(W\)</span>的方法：<br />
+<li><p><span class="math inline"><em>W</em></span><br />
+<span class="math inline"><em>W</em></span>是一个<span
+class="math inline"><em>d</em> × <em>k</em></span>的正交矩阵，由x计算得到。<br />
+设均值矩阵<span
+class="math inline"><em>E</em>[<em>x</em>] = 0</span>,协方差矩阵<span
+class="math inline"><em>E</em>[<em>x</em><em>x</em><sup><em>T</em></sup>] = <em>C</em><sub><em>x</em></sub></span>,如下是计算<span
+class="math inline"><em>W</em></span>的方法：<br />
 设回复向量（recovered vector）<span
-class="math inline">\(x_r=Wy\)</span>,误差<span class="math inline">\(ε
-=x-x_r=x-WW^Tx\)</span>, <span class="math display">\[\begin{aligned}
+class="math inline"><em>x</em><sub><em>r</em></sub> = <em>W</em><em>y</em></span>,误差<span
+class="math inline"><em>ε</em> = <em>x</em> − <em>x</em><sub><em>r</em></sub> = <em>x</em> − <em>W</em><em>W</em><sup><em>T</em></sup><em>x</em></span>,
+<span class="math display">$$\begin{aligned}
     |ϵ|^2 &amp; = ϵ^Tϵ \\  
     &amp; =(x-WW^TX)^T(X-WW^Tx) \\
     &amp; =x^Tx-x^TWW^Tx-x^TWW^Tx+x^TWW^TWW^Tx \\
     &amp; =x^Tx-x^TWW^Tx
-\end{aligned}\]</span> 令<span
-class="math inline">\(k=1\)</span>,此时<span
-class="math inline">\(W\)</span>是一个向量: <span
-class="math display">\[\begin{aligned}
+\end{aligned}$$</span> 令<span
+class="math inline"><em>k</em> = 1</span>,此时<span
+class="math inline"><em>W</em></span>是一个向量: <span
+class="math display">$$\begin{aligned}
   E[ ϵ^Tϵ] &amp; =E[x^Tx-x^Tww^Tx]\\
   &amp; =E[x^Tx]-W^TC_xW
-\end{aligned}\]</span> 那么需要找到使得<span class="math inline">\(E[
-ϵ^Tϵ]\)</span>最小的<span
-class="math inline">\(w\)</span>，这一步与求<span
-class="math inline">\(max_w w^TC_xw\)</span>等价。<br />
+\end{aligned}$$</span> 那么需要找到使得<span
+class="math inline"><em>E</em>[<em>ϵ</em><sup><em>T</em></sup><em>ϵ</em>]</span>最小的<span
+class="math inline"><em>w</em></span>，这一步与求<span
+class="math inline"><em>m</em><em>a</em><em>x</em><sub><em>w</em></sub><em>w</em><sup><em>T</em></sup><em>C</em><sub><em>x</em></sub><em>w</em></span>等价。<br />
 设<span
-class="math inline">\(J=\frac{w^TC_xw}{W^TW}\)</span>以正规化W：<br />
-令<span class="math inline">\(\frac{dJ}{dw}=0\)</span>，得到： <span
-class="math display">\[\frac{2C_xw}{w^Tw}-[\frac{w^TC_xw}{w^Tw}]·\frac{2w}{w^Tw}=0\]</span>
-<span class="math display">\[C_xw=Jw\]</span>
+class="math inline">$J=\frac{w^TC_xw}{W^TW}$</span>以正规化W：<br />
+令<span class="math inline">$\frac{dJ}{dw}=0$</span>，得到： <span
+class="math display">$$\frac{2C_xw}{w^Tw}-[\frac{w^TC_xw}{w^Tw}]·\frac{2w}{w^Tw}=0$$</span>
+<span
+class="math display"><em>C</em><sub><em>x</em></sub><em>w</em> = <em>J</em><em>w</em></span>
 这个公式正好是协方差矩阵<span
-class="math inline">\(C_x\)</span>的特征值方程公式，即:<span
-class="math inline">\(w\)</span>为协方差矩阵<span
-class="math inline">\(C_x\)</span>的特征向量，<span
-class="math inline">\(J\)</span>是它的特征值。</p>
-<p>如果对<span class="math inline">\(C_x\)</span>进行特征分解(Eigen
+class="math inline"><em>C</em><sub><em>x</em></sub></span>的特征值方程公式，即:<span
+class="math inline"><em>w</em></span>为协方差矩阵<span
+class="math inline"><em>C</em><sub><em>x</em></sub></span>的特征向量，<span
+class="math inline"><em>J</em></span>是它的特征值。</p>
+<p>如果对<span
+class="math inline"><em>C</em><sub><em>x</em></sub></span>进行特征分解(Eigen
 composition),得到一组特征值，将特征值从大到小排序，从中选取k个最大的特征值所对应的特征向量，组成矩阵<span
-class="math inline">\(W\)</span>。<br />
-<span class="math display">\[W=[w_1 |w_2 |...|w_k]\]</span><br />
+class="math inline"><em>W</em></span>。<br />
+<span
+class="math display"><em>W</em> = [<em>w</em><sub>1</sub>|<em>w</em><sub>2</sub>|...|<em>w</em><sub><em>k</em></sub>]</span><br />
 w称为主成分，所有的主成分两两正交。<br />
 最终得到的PCA是：<br />
-<span class="math display">\[y=W^T(x-E[x])\]</span>
+<span
+class="math display"><em>y</em> = <em>W</em><sup><em>T</em></sup>(<em>x</em> − <em>E</em>[<em>x</em>])</span>
 PCA将依据数据的分布，改变样本空间的坐标原点和坐标轴（表示原来的特征），并将所有的坐标轴变更为主成分，如图所示：<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210222144956.png" srcset="/img/loading.gif" lazyload /><br />
 y事实上是x的压缩集，改变后的y中的元素都是不相关的。</p></li>
 </ul>
 <p>整个PCA过程中，k的选取十分的重要，通常k的选取遵循如下的规则：<br />
-记 <span class="math inline">\(λ\)</span>是<span
-class="math inline">\(C_x\)</span>特征分解后得到的从大到小特征值，有:<br />
-<span class="math display">\[\frac{∑^kλ_i}{∑^dλ_i}≈90\%\]</span>
+记 <span class="math inline"><em>λ</em></span>是<span
+class="math inline"><em>C</em><sub><em>x</em></sub></span>特征分解后得到的从大到小特征值，有:<br />
+<span class="math display">$$\frac{∑^kλ_i}{∑^dλ_i}≈90\%$$</span>
 即前k个特征值的和大约是总的特征值和的0.9左右。</p>
 <ul>
 <li>案例<br />

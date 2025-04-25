@@ -513,31 +513,29 @@ for something other than a Jekyll theme, we recommend you rename this
 variable throughout your site. For more information, see
 https://help.github.com/en/articles/adding-a-jekyll-theme-to-your-github-pages-site.</p>
 <p>这个问题是由更换主题时直接clone的主题，导致项目下面有两个repo造成的。<br />
-解决方法有两个：</p>
-<ol type="1">
-<li>直接在主题的release页面中下载发布的压缩包，解压之后放theme里【推荐】</li>
-<li>在git中使用submodule：<code>git submodule add url</code></li>
-</ol>
+解决方法有两个： 1.
+直接在主题的release页面中下载发布的压缩包，解压之后放theme里【推荐】 2.
+在git中使用submodule：<code>git submodule add url</code></p>
 <h3
 id="github-pages-显示-404-there-isnt-a-github-pages-site-here.">Github
-Pages 显示 404 “There isn't a GitHub Pages site here.”</h3>
+Pages 显示 404 “There isn’t a GitHub Pages site here.”</h3>
 <p>这个问题是由Github
 里博客对应的项目名称不是username.github.io造成的，解决方法是把项目的名字命名为username.github.io</p>
 <h3
 id="github-pages-显示the-custom-domain-for-your-github-pages-site-is-pointed-at-an-outdated-ip-address.-you-must-update-your-sites-dns-records-if-youd-like-it-to-be-available-via-your-custom-domain.">Github
 Pages 显示“The custom domain for your GitHub Pages site is pointed at an
-outdated IP address. You must update your site's DNS records if you'd
+outdated IP address. You must update your site’s DNS records if you’d
 like it to be available via your custom domain.”</h3>
 <p>原因是因为在云解析DNS控制台中没有加入github给的DNS或DNS已经失效。<br />
 解决方法是在[https://docs.github.com/en/github/working-with-github-pages/managing-a-custom-domain-for-your-github-pages-site]页面的
-"6 To confirm that your DNS record configured correctly, use the dig
+“6 To confirm that your DNS record configured correctly, use the dig
 command, replacing EXAMPLE.COM with your apex domain. Confirm that the
-results match the IP addresses for GitHub Pages above.
-"中找到github提供的DNS，然后加入到云解析DNS控制台的解析记录中。<br />
+results match the IP addresses for GitHub Pages
+above.”中找到github提供的DNS，然后加入到云解析DNS控制台的解析记录中。<br />
 同时还要删除很多教程中提到的用<code>ping username.github.io</code>ping出来的ip地址。</p>
 <h3
 id="github-pages-显示domains-dns-record-could-not-be-retrieved.">Github
-Pages 显示“Domain's DNS record could not be retrieved.”</h3>
+Pages 显示“Domain’s DNS record could not be retrieved.”</h3>
 <p>原因是网站的解析设置有问题造成的，在解析控制台中的解析记录要注意解析类型和主机记录的对应关系：
 A类对应@，CNAME对应www或者别的。<br />
 还有可能是项目中的CNAME文件和github settings中custom
@@ -561,15 +559,13 @@ repo:中设置的是https网址导致的<br />
 正确的填写方法是用SSH链接：<br />
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs JAVA">deploy:<br>type: <span class="hljs-string">&#x27;git&#x27;</span><br>repo: git<span class="hljs-meta">@github</span>.com:username/username.github.io.git<br>branch: master<br></code></pre></td></tr></table></figure> ### 博客中的LaTeX/MathJaX公式显示混乱
 这个是由于renderer-marked的转义与markdown本身出现了冲突所造成的。<br />
-解决方法：</p>
-<ol type="1">
-<li>卸载原来的公式渲染引擎改用kramed <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm uninstall hexo-renderer-marked --save<br>npm install hexo-renderer-kramed --save<br></code></pre></td></tr></table></figure></li>
-<li>然后在node_modules.js目录下把第11行的escape变量的值做相应的修改：
+解决方法：<br />
+1. 卸载原来的公式渲染引擎改用kramed <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm uninstall hexo-renderer-marked --save<br>npm install hexo-renderer-kramed --save<br></code></pre></td></tr></table></figure> 2.
+然后在node_modules.js目录下把第11行的escape变量的值做相应的修改：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br>escape: /^\\([`*\[\]()#$+\-.!_&gt;])/<br></code></pre></td></tr></table></figure> 这一步是在原基础上取消了对,{,}的转义(escape)。<br />
 同时把第20行的em变量也要做相应的修改。<br />
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/<br></code></pre></td></tr></table></figure></li>
-<li>执行<code>hexo clean</code>再用<code>hexo g</code>重新生成</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/<br></code></pre></td></tr></table></figure> 3.
+执行<code>hexo clean</code>再用<code>hexo g</code>重新生成</p>
 <h3
 id="页面中的latexmathjax矩阵无法换行只有一列">页面中的LaTeX/MathJaX矩阵无法换行，只有一列</h3>
 <ol type="1">

@@ -405,7 +405,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.7k 字
+          7.6k 字
         
       </span>
     
@@ -510,7 +510,8 @@ trees）来编码可能的系统解决方法。</p>
           </div>
 <p>这样编码方式使得对个体的描述能够更加准确，同时进行遗传操作时对个体的变化也更大。<br />
 比如：<br />
-<span class="math display">\[max(x*x,x+3*y)\]</span>
+<span
+class="math display"><em>m</em><em>a</em><em>x</em>(<em>x</em> * <em>x</em>, <em>x</em> + 3 * <em>y</em>)</span>
 可以被树形化为：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220113114716.png width=80%></p>
 <p>如上图所示，语法树由众多的节点（nodes）和节点之间的连接（links）组成，一个程序可以由语法树来描述其成分和执行流程，一个节点表示一个操作，在数学中可以理解为运算符，而连接可以表示某个节点与操作对象的对应关系，在数学中可以理解为运算数（Operand）。一个基本的语法树包括如下的成分：</p>
@@ -527,8 +528,9 @@ trees）来编码可能的系统解决方法。</p>
 <p>每一个语法树分支的类型和分支的数量称为语法树/程序的结构（architecture）。</p>
 <p>在遗传编程中更习惯用前缀表示法（profix-notation
 expression）来表达一个数学运算，前缀表示法中所有的运算符都前置以强调运算符，这样的表示也更接近语法树结构。比如<span
-class="math inline">\(max(x*x,x+3*y)\)</span>可以表示为：<br />
-<span class="math display">\[max(*xx)(+*3y)\]</span></p>
+class="math inline"><em>m</em><em>a</em><em>x</em>(<em>x</em> * <em>x</em>, <em>x</em> + 3 * <em>y</em>)</span>可以表示为：<br />
+<span
+class="math display"><em>m</em><em>a</em><em>x</em>(*<em>x</em><em>x</em>)(+ * 3<em>y</em>)</span></p>
 <h2 id="运行前的准备">运行前的准备</h2>
 <p>在运行遗传编程之前，程序的设计者应当准备如下步骤：</p>
 <ol type="1">
@@ -591,7 +593,7 @@ function）也与目标问题有关，适应度函数的主要功能是评估和
 <h4 id="个体的编译">个体的编译</h4>
 <p>当随机种群生成后，遗传编程进行迭代，并基于前一代个体筛选和变异生成下一代个体。每一次迭代的第一步是用适应度函数评估每一个个体，得到每个个体的适应度。评估过程需要多次运行当前种群中的每一个个体。常见的程序运行策略包括离线编译、在线编译、链接、虚拟机编译、解释等等。具体而言，需要将每个个体的树形结构转义为运算式后，在运算其结果，带入适应度函数中得到对应的个体适应度。<br />
 对树形结构的解释（interpretation）是一种一边编译一边运行的策略，解释遵循当且仅当这个函数下面的所有量都是已知的情况下，这个函数才会被运行。下图所示了一棵语法树在<span
-class="math inline">\(x=-1\)</span>时的解释流程。<br />
+class="math inline"><em>x</em> = −1</span>时的解释流程。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115101701.png width=50%><br />
 这种运行策略可以节省每一个个体的运行时间，加快评估速度。</p>
 <h4 id="适应度评估">适应度评估</h4>
@@ -612,41 +614,42 @@ space）内从这些初始个体周围开始寻找新的适应度更高的个体
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130723.png width=50%></p>
 <p>交叉的步骤是：<br />
 基于概率<span
-class="math inline">\(p_c\)</span>和适应度从当前种群中选择两个个体，随机的选择两个个体某一位置上的一个连接或者结点作为交叉点，然后交换两个体交叉点以下的子树。<br />
+class="math inline"><em>p</em><sub><em>c</em></sub></span>和适应度从当前种群中选择两个个体，随机的选择两个个体某一位置上的一个连接或者结点作为交叉点，然后交换两个体交叉点以下的子树。<br />
 通常选择函数作为交叉点的概率要远高于端点作为交叉点的概率（比如90%的概率选择一个函数，10%的概率选择端点。），这是因为选择函数作为交叉点时，交叉对个体的影响更大，遗传编程在搜索空间中单次搜索的范围更广。</p>
 <h4 id="突变">突变</h4>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115130749.png width=50%></p>
 <p>突变的步骤是：<br />
 基于概率<span
-class="math inline">\(p_m\)</span>和适应度从当前种群中选择一个个体，并随机在这个个体内选择一个突变点，突变点下的子树被一个随机生成的子树替代（相当于与这个随机生成的子树发生交叉）。</p>
+class="math inline"><em>p</em><sub><em>m</em></sub></span>和适应度从当前种群中选择一个个体，并随机在这个个体内选择一个突变点，突变点下的子树被一个随机生成的子树替代（相当于与这个随机生成的子树发生交叉）。</p>
 <h4 id="复制">复制</h4>
 <p>基于概率<span
-class="math inline">\(p_r\)</span>和适应度从当前种群中选择一个个体，并复制到下一代种群中。</p>
+class="math inline"><em>p</em><sub><em>r</em></sub></span>和适应度从当前种群中选择一个个体，并复制到下一代种群中。</p>
 <h4 id="结构变换">结构变换</h4>
 <p>结构变换会在之后的节中详述，在此不做叙述。</p>
 <p>遗传操作执行结束后，后代组成的下一代种群会替代当前的种群，并再次进行“评估-选择-遗传操作”这样的迭代流程。直到遗传编程的运行达到一开始设定的终止条件。<br />
 由于初始种群中的每个程序是可运行的有效程序，遗传操作不会改变其有效性，因此后代也是有效的，可以说明通过遗传编程生成的最终程序是有效的。</p>
 <h2 id="遗传编程的运行案例">遗传编程的运行案例</h2>
 <p>这一节将举例说明遗传编程是如何通过遗传操作解决目标问题的。目标问题为自动的生成一个程序使得其在<span
-class="math inline">\(x ∈ [-1,1]\)</span>区间内生成的值满足函数<span
-class="math inline">\(x^2+x+1\)</span>。这种试图发现某种隐藏的数学公式，以此利用特征变量预测目标变量的问题称之为符号回归（symbolic
+class="math inline"><em>x</em> ∈ [−1, 1]</span>区间内生成的值满足函数<span
+class="math inline"><em>x</em><sup>2</sup> + <em>x</em> + 1</span>。这种试图发现某种隐藏的数学公式，以此利用特征变量预测目标变量的问题称之为符号回归（symbolic
 regression）类问题。</p>
 <h3 id="搜索空间确定和参数设置">搜索空间确定和参数设置</h3>
 <p>对于这个问题，在遗传编程的准备阶段，端点集由随机常数和变量<span
-class="math inline">\(x\)</span>构成：<br />
-<span class="math display">\[T=\{X,ℜ\}\]</span> 其中的<span
-class="math inline">\(ℜ\)</span>表示一个随机数，人为地设置其范围为<span
-class="math inline">\(ℜ∈[-5.0,5.0]\)</span>。<br />
+class="math inline"><em>x</em></span>构成：<br />
+<span class="math display"><em>T</em> = {<em>X</em>, <em>ℜ</em>}</span>
+其中的<span
+class="math inline"><em>ℜ</em></span>表示一个随机数，人为地设置其范围为<span
+class="math inline"><em>ℜ</em> ∈ [−5.0, 5.0]</span>。<br />
 接下来指定遗传编程的函数集，可以将函数集设置为四则运算即可：<br />
-<span class="math display">\[F=\{+,-,×,\%\}\]</span> <div class="note note-info">
-            <p>为了避免运行错误，指定了<spanclass="math inline">\(ℜ÷0=1\)</span>。</p>
+<span class="math display"><em>F</em> = {+, −, ×, %}</span>
+<div class="note note-info">
+            <p>为了避免运行错误，指定了<spanclass="math inline"><em>ℜ</em> ÷ 0 = 1</span>。</p>
           </div></p>
 <p>初始种群中的每一个个体都将从端点集和函数集中生成。生成之后的个体需要用适应度函数对其评估，在这个问题中，适应度函数可以通过当前个体<span
-class="math inline">\(\hat{y}\)</span>与目标函数<span
-class="math inline">\(y_e=x^2+x+1\)</span>在<span
-class="math inline">\(x ∈
-[-1,1]\)</span>上的值的差距来衡量。定义这个问题中的适应度函数为：<br />
-<span class="math display">\[f(i)=∫_{-1}^1|\hat{y_i}-y_e|dx\]</span>
+class="math inline"><em>ŷ</em></span>与目标函数<span
+class="math inline"><em>y</em><sub><em>e</em></sub> = <em>x</em><sup>2</sup> + <em>x</em> + 1</span>在<span
+class="math inline"><em>x</em> ∈ [−1, 1]</span>上的值的差距来衡量。定义这个问题中的适应度函数为：<br />
+<span class="math display">$$f(i)=∫_{-1}^1|\hat{y_i}-y_e|dx$$</span>
 对于这个适应度函数而言，个体的适应度越小代表与目标函数的差距越小，个体表现更加“优秀”。
 接下来应当决定运行参数，为了简化解释，此处设定每一代中仅存在四个个体（但是实际上每一代的个体数量往往是成千或者百万级别的）并设置各遗传操作发生的概率，通常情况下设置<strong>交叉的概率为90%，繁殖的概率为8%，突变的概率为1%，结构变换的概率为1%。</strong><br />
 <div class="note note-info">
@@ -657,12 +660,12 @@ class="math inline">\(x ∈
 <p>初始种群从搜索空间中随机挑选得到，这个例子中随机生成的初始种群中的四个个体如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115142521.png width=60%></p>
 <p>通过解释，这四个个体表示为：<span
-class="math inline">\(x+1\)</span>、<span
-class="math inline">\(x^2+1\)</span>、<span
-class="math inline">\(2\)</span>和<span
-class="math inline">\(x\)</span>。<br />
+class="math inline"><em>x</em> + 1</span>、<span
+class="math inline"><em>x</em><sup>2</sup> + 1</span>、<span
+class="math inline">2</span>和<span
+class="math inline"><em>x</em></span>。<br />
 将这四个个体<span
-class="math inline">\(\hat{y}\)</span>分别带入适应度函数中，可以计算得出四个个体的适应度为0.67、1.0、1.67和2.67，可视化表示如下图所示：<br />
+class="math inline"><em>ŷ</em></span>分别带入适应度函数中，可以计算得出四个个体的适应度为0.67、1.0、1.67和2.67，可视化表示如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220115143355.png width=70%><br />
 可以发现前两个个体(a)、(b)的适应度更低（或者说更“好”），在这个例子中意味着这两个个体更接近与目标，它们有更高的概率被选择做遗传操作。</p>
 <h3 id="遗传操作-1">遗传操作</h3>
@@ -774,104 +777,116 @@ style="text-align: center;"><img src=http://www.genetic-programming.com/arg-dele
 <p>不过在高维和复杂的搜索空间中去可视化这样的过程从而探究遗传编程的运行机理不太可行，另外一种探究遗传编程的运行机理的方式是在相同条件下运行数次遗传算法，观察运行结果，通过经验和分析运行过程中的一些参数变化得出结论。这种方法很容易出错，因为遗传编程系统是一个复杂的自适应系统，有无数个自由度。因此，任何少量的统计描述符都可能只能捕捉到这样一个系统复杂性的一小部分。<br />
 由Holland提出的模式理论（schema
 theory）是另一种可行的解决方法，模式理论可以基于上一代种群的信息，推演出现有种群中某个特定个体的进化性质。<br />
-在遗传编程中，模式是一种含有通配符（don't
+在遗传编程中，模式是一种含有通配符（don’t
 care）的树，通配符可以是一些函数或者端点。一个特定的模式可以代表所有的与这个模式形状结构相同、大小相同、非通配符节点也相同的一类个体，一个模式代表了一个子种群（sub-population）。<br />
-比如模式<span
-class="math inline">\(H=(\*x(+y\*))\)</span>可以表示：<span
-class="math inline">\((+x(+yx))\)</span>,<span
-class="math inline">\((+x(+yy)),(\%x(+yx))\)</span>等等个体。<br />
-令<span class="math inline">\(α(H,t)\)</span>表示模式<span
-class="math inline">\(H\)</span>在<span
-class="math inline">\(t\)</span>代的进化采样率，即在<span
-class="math inline">\(t\)</span>代中模式<span
-class="math inline">\(H\)</span>中的个体得到进化的概率，即<span
-class="math inline">\(t+1\)</span>代种群中有模式<span
-class="math inline">\(H\)</span>中的个体数目与<span
-class="math inline">\(t+1\)</span>代种群中的总个体数目之比,<span
-class="math inline">\(α(H,t)=p(H,t+1)\)</span>。假设进化过程中只有复制和单点交叉发生，那么<span
-class="math inline">\(t\)</span>代个体中含有<span
-class="math inline">\(H\)</span>的概率分为两部分：<span
-class="math inline">\(H\)</span>中的个体被复制到下一代的概率和现有种中交叉产生的后代在<span
-class="math inline">\(H\)</span>中的概率：<br />
-<span class="math display">\[α(H,t)=P_r[\text{via
-repoduction}]+P_r[\text{via crossover}]\]</span>
+比如模式<span class="math inline">$H=(\*x(+y\*))$</span>可以表示：<span
+class="math inline">(+<em>x</em>(+<em>y</em><em>x</em>))</span>,<span
+class="math inline">(+<em>x</em>(+<em>y</em><em>y</em>)), (%<em>x</em>(+<em>y</em><em>x</em>))</span>等等个体。<br />
+令<span
+class="math inline"><em>α</em>(<em>H</em>, <em>t</em>)</span>表示模式<span
+class="math inline"><em>H</em></span>在<span
+class="math inline"><em>t</em></span>代的进化采样率，即在<span
+class="math inline"><em>t</em></span>代中模式<span
+class="math inline"><em>H</em></span>中的个体得到进化的概率，即<span
+class="math inline"><em>t</em> + 1</span>代种群中有模式<span
+class="math inline"><em>H</em></span>中的个体数目与<span
+class="math inline"><em>t</em> + 1</span>代种群中的总个体数目之比,<span
+class="math inline"><em>α</em>(<em>H</em>, <em>t</em>) = <em>p</em>(<em>H</em>, <em>t</em> + 1)</span>。假设进化过程中只有复制和单点交叉发生，那么<span
+class="math inline"><em>t</em></span>代个体中含有<span
+class="math inline"><em>H</em></span>的概率分为两部分：<span
+class="math inline"><em>H</em></span>中的个体被复制到下一代的概率和现有种中交叉产生的后代在<span
+class="math inline"><em>H</em></span>中的概率：<br />
+<span
+class="math display"><em>α</em>(<em>H</em>, <em>t</em>) = <em>P</em><sub><em>r</em></sub>[via
+repoduction] + <em>P</em><sub><em>r</em></sub>[via crossover]</span>
 设每个个体发生复制的概率为<span
-class="math inline">\(p_r\)</span>，发生交叉的概率为<span
-class="math inline">\(p_c\)</span>，<span
-class="math inline">\(p_c+p_r=1\)</span>:<br />
-<span class="math display">\[α(H,t)=p_rP_r[\text{via
-repoduction}]+p_cP_r[\text{via crossover}]\]</span> 对于前项，选择<span
-class="math inline">\(H\)</span>中的个体发生复制的概率为：<br />
-<span class="math display">\[P_r[\text{via
-repoduction}]=p(H,t)=P(H,t)\frac{f(H,t)}{\overline{f}}\]</span>
-其中<span class="math inline">\(P(H,t)\)</span>表示从第<span
-class="math inline">\(t\)</span>种选择一个来自<span
-class="math inline">\(H\)</span>的个体的概率，<span
-class="math inline">\(\frac{f(H,t)}{\overline{f}}\)</span>表示均值归一化后的<span
-class="math inline">\(H\)</span>的平均适应度。<br />
+class="math inline"><em>p</em><sub><em>r</em></sub></span>，发生交叉的概率为<span
+class="math inline"><em>p</em><sub><em>c</em></sub></span>，<span
+class="math inline"><em>p</em><sub><em>c</em></sub> + <em>p</em><sub><em>r</em></sub> = 1</span>:<br />
+<span
+class="math display"><em>α</em>(<em>H</em>, <em>t</em>) = <em>p</em><sub><em>r</em></sub><em>P</em><sub><em>r</em></sub>[via
+repoduction] + <em>p</em><sub><em>c</em></sub><em>P</em><sub><em>r</em></sub>[via
+crossover]</span> 对于前项，选择<span
+class="math inline"><em>H</em></span>中的个体发生复制的概率为：<br />
+<span class="math display">$$P_r[\text{via
+repoduction}]=p(H,t)=P(H,t)\frac{f(H,t)}{\overline{f}}$$</span>
+其中<span
+class="math inline"><em>P</em>(<em>H</em>, <em>t</em>)</span>表示从第<span
+class="math inline"><em>t</em></span>种选择一个来自<span
+class="math inline"><em>H</em></span>的个体的概率，<span
+class="math inline">$\frac{f(H,t)}{\overline{f}}$</span>表示均值归一化后的<span
+class="math inline"><em>H</em></span>的平均适应度。<br />
 对于第二项，选择两个个体，它们的形状为<span
-class="math inline">\(k\)</span>,<span
-class="math inline">\(l\)</span>，已知形状<span
-class="math inline">\(k\)</span>和<span
-class="math inline">\(l\)</span>在交叉点<span
-class="math inline">\(i\)</span>和<span
-class="math inline">\(j\)</span>被选择时，发生交叉后的个体会落入模式<span
-class="math inline">\(H\)</span>，那么通过交叉产生个体落入<span
-class="math inline">\(H\)</span>的概率分解为两步：</p>
+class="math inline"><em>k</em></span>,<span
+class="math inline"><em>l</em></span>，已知形状<span
+class="math inline"><em>k</em></span>和<span
+class="math inline"><em>l</em></span>在交叉点<span
+class="math inline"><em>i</em></span>和<span
+class="math inline"><em>j</em></span>被选择时，发生交叉后的个体会落入模式<span
+class="math inline"><em>H</em></span>，那么通过交叉产生个体落入<span
+class="math inline"><em>H</em></span>的概率分解为两步：</p>
 <ul>
 <li>从所有配对的亲本中选择出形状<span
-class="math inline">\(k\)</span>和形状<span
-class="math inline">\(l\)</span>，这个概率记为<span
-class="math inline">\(P_r[k,l]\)</span>。<br />
+class="math inline"><em>k</em></span>和形状<span
+class="math inline"><em>l</em></span>，这个概率记为<span
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>k</em>, <em>l</em>]</span>。<br />
 </li>
-<li>在形状<span class="math inline">\(k\)</span>中选择出交叉点<span
-class="math inline">\(i\)</span>，在形状<span
-class="math inline">\(l\)</span>中选择出交叉点<span
-class="math inline">\(j\)</span>，这个概率记为<span
-class="math inline">\(P_r[i,j|k,l]\)</span>。<br />
-根据条件概率公式，有选择形状<span class="math inline">\(k\)</span>,<span
-class="math inline">\(l\)</span>且选择出交叉点<span
-class="math inline">\(i\)</span>，<span
-class="math inline">\(j\)</span>的概率为：<br />
-<span class="math display">\[P_r[i,j,k,l]=P_r[i,j|k,l]×P_r[k,l]\]</span>
-<span class="math display">\[P_r[\text{via
-crossover}]=∑_{k,l}∑_{i,j}P_r[i,j,k,l]\]</span>
-假设形状相同的个体中的每个交叉点被选到的概率是相同的，在形状<span
-class="math inline">\(k\)</span>中选择出交叉点<span
-class="math inline">\(i\)</span>，在形状<span
-class="math inline">\(l\)</span>中选择出交叉点<span
-class="math inline">\(j\)</span>均为其形状中含有的节点数分之一：<br />
+<li>在形状<span class="math inline"><em>k</em></span>中选择出交叉点<span
+class="math inline"><em>i</em></span>，在形状<span
+class="math inline"><em>l</em></span>中选择出交叉点<span
+class="math inline"><em>j</em></span>，这个概率记为<span
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>i</em>, <em>j</em>|<em>k</em>, <em>l</em>]</span>。<br />
+根据条件概率公式，有选择形状<span
+class="math inline"><em>k</em></span>,<span
+class="math inline"><em>l</em></span>且选择出交叉点<span
+class="math inline"><em>i</em></span>，<span
+class="math inline"><em>j</em></span>的概率为：<br />
 <span
-class="math display">\[P_r[i,j|k,l]=\frac{1}{nodes_k}×\frac{1}{nodes_l}\]</span>
+class="math display"><em>P</em><sub><em>r</em></sub>[<em>i</em>, <em>j</em>, <em>k</em>, <em>l</em>] = <em>P</em><sub><em>r</em></sub>[<em>i</em>, <em>j</em>|<em>k</em>, <em>l</em>] × <em>P</em><sub><em>r</em></sub>[<em>k</em>, <em>l</em>]</span>
+<span class="math display"><em>P</em><sub><em>r</em></sub>[via
+crossover] = ∑<sub><em>k</em>, <em>l</em></sub>∑<sub><em>i</em>, <em>j</em></sub><em>P</em><sub><em>r</em></sub>[<em>i</em>, <em>j</em>, <em>k</em>, <em>l</em>]</span>
+假设形状相同的个体中的每个交叉点被选到的概率是相同的，在形状<span
+class="math inline"><em>k</em></span>中选择出交叉点<span
+class="math inline"><em>i</em></span>，在形状<span
+class="math inline"><em>l</em></span>中选择出交叉点<span
+class="math inline"><em>j</em></span>均为其形状中含有的节点数分之一：<br />
+<span
+class="math display">$$P_r[i,j|k,l]=\frac{1}{nodes_k}×\frac{1}{nodes_l}$$</span>
 对于<span
-class="math inline">\(P_r[k,l]\)</span>，为了简化计算，假设两个树中一个树的某个节点上方满足在<span
-class="math inline">\(H\)</span>内的个体的结构，另一个树的下方满足在<span
-class="math inline">\(H\)</span>内的个体的结构，那么：<br />
-<span class="math display">\[P_r[k,l]=P_r[k]×P_r[l]\]</span> <span
-class="math inline">\(P_r[k]\)</span>和<span
-class="math inline">\(P_r[l]\)</span>分别表示从<span
-class="math inline">\(t\)</span>代中选择这两种形状的个体的概率： <span
-class="math inline">\(P_r[k]=p(k,t)\)</span>,<span
-class="math inline">\(P_r[l]=p(l,t)\)</span>。<br />
-<span class="math display">\[P_r[k,l]=p(k,t)×p(l,t)\]</span></li>
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>k</em>, <em>l</em>]</span>，为了简化计算，假设两个树中一个树的某个节点上方满足在<span
+class="math inline"><em>H</em></span>内的个体的结构，另一个树的下方满足在<span
+class="math inline"><em>H</em></span>内的个体的结构，那么：<br />
+<span
+class="math display"><em>P</em><sub><em>r</em></sub>[<em>k</em>, <em>l</em>] = <em>P</em><sub><em>r</em></sub>[<em>k</em>] × <em>P</em><sub><em>r</em></sub>[<em>l</em>]</span>
+<span
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>k</em>]</span>和<span
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>l</em>]</span>分别表示从<span
+class="math inline"><em>t</em></span>代中选择这两种形状的个体的概率：
+<span
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>k</em>] = <em>p</em>(<em>k</em>, <em>t</em>)</span>,<span
+class="math inline"><em>P</em><sub><em>r</em></sub>[<em>l</em>] = <em>p</em>(<em>l</em>, <em>t</em>)</span>。<br />
+<span
+class="math display"><em>P</em><sub><em>r</em></sub>[<em>k</em>, <em>l</em>] = <em>p</em>(<em>k</em>, <em>t</em>) × <em>p</em>(<em>l</em>, <em>t</em>)</span></li>
 </ul>
 <p>进而可以给出理论上<span
-class="math inline">\(H\)</span>的采样率下界：<br />
+class="math inline"><em>H</em></span>的采样率下界：<br />
 <span
-class="math display">\[α(H,t)=p(H,t)+∑_{k,l}∑_{i,j}\left[\frac{1}{nodes_k}×\frac{1}{nodes_l}×p(k,t)×p(l,t)\right]\]</span>
+class="math display">$$α(H,t)=p(H,t)+∑_{k,l}∑_{i,j}\left[\frac{1}{nodes_k}×\frac{1}{nodes_l}×p(k,t)×p(l,t)\right]$$</span>
 通过采样率下界，可以估计子种群<span
-class="math inline">\(H\)</span>经过遗传操作，下一代中个体在子种群<span
-class="math inline">\(H\)</span>中的数目的期望为：<br />
-<span class="math display">\[E[M(H,t+1)]=M(H,t)α(H,t)\]</span> 由于<span
-class="math inline">\(p()=P()\frac{f()}{\overline{f}}\)</span>，可以发现整个采样率<span
-class="math inline">\(α\)</span>的表达式与子种群<span
-class="math inline">\(H,k,l\)</span>的采样率及其适应度有关：子种群<span
-class="math inline">\(H,k,l\)</span>的适应度<span
-class="math inline">\(\frac{f(H,t)}{\overline{f}}\)</span>，<span
-class="math inline">\(\frac{f(k,t)}{\overline{f}}\)</span>，<span
-class="math inline">\(\frac{f(l,t)}{\overline{f}}\)</span>的适应度越高，<span
-class="math inline">\(H\)</span>的采样率<span
-class="math inline">\(α\)</span>就越高，进而可以推出：<strong>随着遗传编程的运行，每一代种群中适应度高的子种群越倾向于被保留，采样率逐步升高。</strong>
+class="math inline"><em>H</em></span>经过遗传操作，下一代中个体在子种群<span
+class="math inline"><em>H</em></span>中的数目的期望为：<br />
+<span
+class="math display"><em>E</em>[<em>M</em>(<em>H</em>, <em>t</em> + 1)] = <em>M</em>(<em>H</em>, <em>t</em>)<em>α</em>(<em>H</em>, <em>t</em>)</span>
+由于<span
+class="math inline">$p()=P()\frac{f()}{\overline{f}}$</span>，可以发现整个采样率<span
+class="math inline"><em>α</em></span>的表达式与子种群<span
+class="math inline"><em>H</em>, <em>k</em>, <em>l</em></span>的采样率及其适应度有关：子种群<span
+class="math inline"><em>H</em>, <em>k</em>, <em>l</em></span>的适应度<span
+class="math inline">$\frac{f(H,t)}{\overline{f}}$</span>，<span
+class="math inline">$\frac{f(k,t)}{\overline{f}}$</span>，<span
+class="math inline">$\frac{f(l,t)}{\overline{f}}$</span>的适应度越高，<span
+class="math inline"><em>H</em></span>的采样率<span
+class="math inline"><em>α</em></span>就越高，进而可以推出：<strong>随着遗传编程的运行，每一代种群中适应度高的子种群越倾向于被保留，采样率逐步升高。</strong>
 理论上，在经过若干次进化后，种群中的所有个体都将是搜索空间中适应度较高的个体。</p>
 
                 

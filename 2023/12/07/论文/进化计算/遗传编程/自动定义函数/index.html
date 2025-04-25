@@ -584,8 +584,8 @@ Koza等人定义的同一类的定义有两个：<br />
 在代码实现过程中，第一种定义的实现比较简单，所以通常使用的是第一种定义。</p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208114053.png width=70%></p>
 <p>比如，对如上的两个个体2420和2470，如果两个交叉点分别选择在图示红线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2420的交叉点位于ADF1，其形式参数集合为<span
-class="math inline">\(\{ARG0,ARG1,ARG2\}\)</span>，与个体2470交叉点属于的ADF0的形式参数集合<span
-class="math inline">\(\{ARG0,ARG1\}\)</span>并不相同，于是类保护交叉不会发生。</p>
+class="math inline">{<em>A</em><em>R</em><em>G</em>0, <em>A</em><em>R</em><em>G</em>1, <em>A</em><em>R</em><em>G</em>2}</span>，与个体2470交叉点属于的ADF0的形式参数集合<span
+class="math inline">{<em>A</em><em>R</em><em>G</em>0, <em>A</em><em>R</em><em>G</em>1}</span>并不相同，于是类保护交叉不会发生。</p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231208115119.png width=70%></p>
 <p>再比如，对如上的两个个体2520和2570，如果两个交叉点都发生在图示虚线处，那么类保护交叉程序会检查的交叉对象主干的形式参数集合是否是同一个。此处个体2520和2570的交叉点都位于结果生成部件当中，因此两个交叉点属于同一类。类保护交叉将会发生。</p>
 <h4 id="类保护的">类保护的</h4>
@@ -601,9 +601,9 @@ aria-label="Ferreira, C., 2001. Gene Expression Programming: A New Adaptive Algo
 <p>最后一点需要说明的是，虽然允许ADF调用其他ADF是可以将问题分层分解为一个个层级性的函数结构，但是在最一般的形式中，允许自动定义的函数调用其他同一类类函数将导致重复引用。为便于解释，在所示示例中不允许自动定义函数之间的递归引用。由于基因生成的实体经常是问题的错误解决方案，如果允许任何自动定义的函数引用自身，就必须预见无限递归的可能性。<br />
 因此需要设计机制避免出现无限递归。<br />
 第一种方法是按照ADF的生成顺序，有序地加入其他ADF的函数集。比如在生成第一个ADF，ADF0时，ADF0所使用的函数集就是基函数集合<span
-class="math inline">\(\mathcal{F}_{ADF0}=\mathcal{F}\)</span>。然后第二个生成的ADF，ADF1使用的函数集是：<span
-class="math inline">\(\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}\)</span>，然后第三个生成的ADF2使用的函数集是：<span
-class="math inline">\(\mathcal{F}_{ADF1}=\mathcal{F}⋃\{ADF_0\}⋃\{ADF_1\}\)</span>，以此类推。</p>
+class="math inline">ℱ<sub><em>A</em><em>D</em><em>F</em>0</sub> = ℱ</span>。然后第二个生成的ADF，ADF1使用的函数集是：<span
+class="math inline">ℱ<sub><em>A</em><em>D</em><em>F</em>1</sub> = ℱ⋃{<em>A</em><em>D</em><em>F</em><sub>0</sub>}</span>，然后第三个生成的ADF2使用的函数集是：<span
+class="math inline">ℱ<sub><em>A</em><em>D</em><em>F</em>1</sub> = ℱ⋃{<em>A</em><em>D</em><em>F</em><sub>0</sub>}⋃{<em>A</em><em>D</em><em>F</em><sub>1</sub>}</span>，以此类推。</p>
 <p>第二种方法比较复杂，是使用程序检查非环引用：也就是从函数定义到函数调用的路线中过程不允许循环引用。</p>
 <div class="note note-info">
             <p>有观点认为不应该避免递归调用，但是递归调用的好处仍然需要调查。</p>
@@ -625,11 +625,10 @@ aria-label="Cândida Ferreira, Gene Expression Programming: Mathematical Modelin
 <div class="footnote-list">
 <ol>
 <li>
-<p><span id="fn:1" class="footnote-text"><span>John R Koza <em>et
-al</em>., Non-linear Genetic Process for Data Encoding and for Solving
-Problems Using Automatically Defined Functions,</p>
-<ol start="1994" type="1">
-<li><a href="#fnref:1" rev="footnote" class="footnote-backref">
+<span id="fn:1" class="footnote-text"><span>John R Koza <em>et al</em>.,
+Non-linear Genetic Process for Data Encoding and for Solving Problems
+Using Automatically Defined Functions, 1994.
+<a href="#fnref:1" rev="footnote" class="footnote-backref">
 ↩︎</a></span></span>
 </li>
 <li>
@@ -648,9 +647,7 @@ Intelligence, 2006.
 </li>
 </ol>
 </div>
-</section></li>
-</ol>
-</div>
+</section>
 
                 
               </div>

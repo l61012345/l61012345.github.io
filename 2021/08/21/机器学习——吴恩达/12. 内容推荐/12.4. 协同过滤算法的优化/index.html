@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="协同过滤算法的优化 向量化 设计一个大小为\(n_m × n_u\)的矩阵\(Y\)，其每一个元素表示用户\(j\)对电影\(i\)的评分\(y(i,j)\)。 由于预测的评分由\(θ^Tx\)给出，因此预测评分的矩阵能够表示为： \[Y_{pre}&#x3D;Θ^TX\] 其中\(X\)是所有电影的特征向量组成\(x\)的电影的特征矩阵，其每一行都是一部电影的特征向量。 \(Θ\)是所有用户倾向">
+    <meta name="description" content="协同过滤算法的优化 向量化 设计一个大小为nm × nu的矩阵Y，其每一个元素表示用户j对电影i的评分y(i, j)。 由于预测的评分由θTx给出，因此预测评分的矩阵能够表示为： Ypre &#x3D; ΘTX 其中X是所有电影的特征向量组成x的电影的特征矩阵，其每一行都是一部电影的特征向量。 Θ是所有用户倾向的特征向量θ组成的用户的特征矩阵，其每一行都是一个用户的特征向量。 协同过滤算法的向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12.4. 协同过滤算法的优化">
 <meta property="og:url" content="https://l61012345.top/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.4.%20%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="协同过滤算法的优化 向量化 设计一个大小为\(n_m × n_u\)的矩阵\(Y\)，其每一个元素表示用户\(j\)对电影\(i\)的评分\(y(i,j)\)。 由于预测的评分由\(θ^Tx\)给出，因此预测评分的矩阵能够表示为： \[Y_{pre}&#x3D;Θ^TX\] 其中\(X\)是所有电影的特征向量组成\(x\)的电影的特征矩阵，其每一行都是一部电影的特征向量。 \(Θ\)是所有用户倾向">
+<meta property="og:description" content="协同过滤算法的优化 向量化 设计一个大小为nm × nu的矩阵Y，其每一个元素表示用户j对电影i的评分y(i, j)。 由于预测的评分由θTx给出，因此预测评分的矩阵能够表示为： Ypre &#x3D; ΘTX 其中X是所有电影的特征向量组成x的电影的特征矩阵，其每一行都是一部电影的特征向量。 Θ是所有用户倾向的特征向量θ组成的用户的特征矩阵，其每一行都是一个用户的特征向量。 协同过滤算法的向">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2025-02-04T15:23:49.944Z">
@@ -405,7 +405,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          814 字
+          798 字
         
       </span>
     
@@ -489,55 +489,59 @@ p.spoiler {
                 
                 <h1 id="协同过滤算法的优化">协同过滤算法的优化</h1>
 <h2 id="向量化">向量化</h2>
-<p>设计一个大小为<span class="math inline">\(n_m ×
-n_u\)</span>的矩阵<span
-class="math inline">\(Y\)</span>，其每一个元素表示用户<span
-class="math inline">\(j\)</span>对电影<span
-class="math inline">\(i\)</span>的评分<span
-class="math inline">\(y(i,j)\)</span>。 由于预测的评分由<span
-class="math inline">\(θ^Tx\)</span>给出，因此预测评分的矩阵能够表示为：<br />
-<span class="math display">\[Y_{pre}=Θ^TX\]</span> 其中<span
-class="math inline">\(X\)</span>是所有电影的特征向量组成<span
-class="math inline">\(x\)</span>的电影的特征矩阵，其每一行都是一部电影的特征向量。
-<span class="math inline">\(Θ\)</span>是所有用户倾向的特征向量<span
-class="math inline">\(θ\)</span>组成的用户的特征矩阵，其每一行都是一个用户的特征向量。<br />
+<p>设计一个大小为<span
+class="math inline"><em>n</em><sub><em>m</em></sub> × <em>n</em><sub><em>u</em></sub></span>的矩阵<span
+class="math inline"><em>Y</em></span>，其每一个元素表示用户<span
+class="math inline"><em>j</em></span>对电影<span
+class="math inline"><em>i</em></span>的评分<span
+class="math inline"><em>y</em>(<em>i</em>, <em>j</em>)</span>。
+由于预测的评分由<span
+class="math inline"><em>θ</em><sup><em>T</em></sup><em>x</em></span>给出，因此预测评分的矩阵能够表示为：<br />
+<span
+class="math display"><em>Y</em><sub><em>p</em><em>r</em><em>e</em></sub> = <em>Θ</em><sup><em>T</em></sup><em>X</em></span>
+其中<span
+class="math inline"><em>X</em></span>是所有电影的特征向量组成<span
+class="math inline"><em>x</em></span>的电影的特征矩阵，其每一行都是一部电影的特征向量。
+<span class="math inline"><em>Θ</em></span>是所有用户倾向的特征向量<span
+class="math inline"><em>θ</em></span>组成的用户的特征矩阵，其每一行都是一个用户的特征向量。<br />
 协同过滤算法的向量化后的算法又称为低秩矩阵分解。</p>
 <h3 id="寻找相关内容">寻找相关内容</h3>
 <p>协同过滤算法能对每一个目标（比如电影、商品等等）都生成一个特征向量<span
-class="math inline">\(x^{(i)}∈R^n\)</span>，两个目标<span
-class="math inline">\(i\)</span>和<span
-class="math inline">\(j\)</span>的类型相似在线性代数上的直观反映是两个目标的特征向量的欧氏距离很小：
-<span class="math display">\[||x^{(i)}-x^{(j)}||\]</span><br />
+class="math inline"><em>x</em><sup>(<em>i</em>)</sup> ∈ <em>R</em><sup><em>n</em></sup></span>，两个目标<span
+class="math inline"><em>i</em></span>和<span
+class="math inline"><em>j</em></span>的类型相似在线性代数上的直观反映是两个目标的特征向量的欧氏距离很小：
+<span
+class="math display">||<em>x</em><sup>(<em>i</em>)</sup> − <em>x</em><sup>(<em>j</em>)</sup>||</span><br />
 因此找到和目标<span
-class="math inline">\(i\)</span>比较近的其他目标就能实现推荐与<span
-class="math inline">\(i\)</span>内容相近的内容。</p>
+class="math inline"><em>i</em></span>比较近的其他目标就能实现推荐与<span
+class="math inline"><em>i</em></span>内容相近的内容。</p>
 <h2 id="均值归一化">均值归一化</h2>
 <p>假设现在有一个用户没有对任何的电影评分，观察代价函数对其的影响：<br />
 <span
-class="math display">\[J(θ^{(i)},x^{(j)})=\frac{1}{2}∑_{(i,j):r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2\]</span><br />
+class="math display">$$J(θ^{(i)},x^{(j)})=\frac{1}{2}∑_{(i,j):r(i,j)=1}((θ^{(i)})^Tx^{(i)}-y^{(i,j)})^2+\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2+\frac{λ}{2}∑_{j=1}^{n_m}∑_{k=1}^n(x_k^{(i)})^2$$</span><br />
 可以发现，由于<span
-class="math inline">\(x\)</span>是一个零向量，代价函数中只有<span
-class="math inline">\(θ\)</span>:的正则化项<span
-class="math inline">\(\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2\)</span>对其有影响。<br />
+class="math inline"><em>x</em></span>是一个零向量，代价函数中只有<span
+class="math inline"><em>θ</em></span>:的正则化项<span
+class="math inline">$\frac{λ}{2}∑_{j=1}^{n_u}∑_{k=1}^n(θ_k^{(j)})^2$</span>对其有影响。<br />
 最小化这个代价函数，最终会得到这个用户的特征向量也是一个零向量，故预测对所有电影评分的结果全是0。或者如果一个用户给所有的电影评分都为0，推荐算法将不会很好地推荐内容。<br />
 均值归一化能够解决上述问题，<br />
 现在除了生成评分矩阵<span
-class="math inline">\(Y\)</span>之外，另外设计一个均值向量<span
-class="math inline">\(μ\)</span>用于储存每一部电影的平均得分。<br />
+class="math inline"><em>Y</em></span>之外，另外设计一个均值向量<span
+class="math inline"><em>μ</em></span>用于储存每一部电影的平均得分。<br />
 现在将评分矩阵<span
-class="math inline">\(Y\)</span>的每一行（也就是每个用户对同一部电影的评分）都减去平均得分。未评分的项（以<span
-class="math inline">\(?\)</span>记）不做处理。</p>
+class="math inline"><em>Y</em></span>的每一行（也就是每个用户对同一部电影的评分）都减去平均得分。未评分的项（以<span
+class="math inline">?</span>记）不做处理。</p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210820104239.png width=50%></p>
 <p>对新的评分矩阵<span
-class="math inline">\(Y_{norm}\)</span>使用协同过滤算法：<br />
-现在用户<span class="math inline">\(j\)</span>对电影<span
-class="math inline">\(i\)</span>的评分需要补上之前减去的均值：<br />
+class="math inline"><em>Y</em><sub><em>n</em><em>o</em><em>r</em><em>m</em></sub></span>使用协同过滤算法：<br />
+现在用户<span class="math inline"><em>j</em></span>对电影<span
+class="math inline"><em>i</em></span>的评分需要补上之前减去的均值：<br />
 <span
-class="math display">\[y_{pre}^{(i,j)}=(θ^{(j)})^T(x^{(i)})+μ_i\]</span><br />
+class="math display"><em>y</em><sub><em>p</em><em>r</em><em>e</em></sub><sup>(<em>i</em>, <em>j</em>)</sup> = (<em>θ</em><sup>(<em>j</em>)</sup>)<sup><em>T</em></sup>(<em>x</em><sup>(<em>i</em>)</sup>) + <em>μ</em><sub><em>i</em></sub></span><br />
 那么没有对任何电影评分的用户得到的预测评分将不再为0，而是反映所有人打分均值的<span
-class="math inline">\(μ_i\)</span>。</p>
+class="math inline"><em>μ</em><sub><em>i</em></sub></span>。</p>
 <p>同样的思路，假设有一部新上映的电影没有被任何人评价过，则可以采用列向量均值归一的方法：生成列向量的均值（同一个用户对所有电影的平均得分），用评分矩阵<span
-class="math inline">\(Y\)</span>的每一列减去这个均值进行处理。<br />
+class="math inline"><em>Y</em></span>的每一列减去这个均值进行处理。<br />
 不过关心没有评分的用户比关心没有评分的电影要更为重要。因此列向量的均值归一化并不是必须的。</p>
 
                 
@@ -641,9 +645,9 @@ class="math inline">\(Y\)</span>的每一列减去这个均值进行处理。<br
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/10.%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/10.3.%20PCA%E4%BC%98%E5%8C%96/" title="10.3. 主成分分析算法的优化">
+                      <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.3.%20%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/" title="12.3. 协同过滤算法">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">10.3. 主成分分析算法的优化</span>
+                        <span class="hidden-mobile">12.3. 协同过滤算法</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

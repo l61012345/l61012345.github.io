@@ -405,7 +405,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.4k 字
+          2.3k 字
         
       </span>
     
@@ -518,20 +518,21 @@ src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210207144301.p
 </ol>
 现在，一幅黑白的图像中的每一个单位像素点都用一个整数来表示其黑白的程度，那么整张图片就可以用一个只有整数的矩阵来表示（单通道）。<br />
 对于彩色的图像，通常以RGB（红色、绿色、蓝色）的三种程度（三通道）来进行量化，因此彩色图片的一个单位像素点以一个三维的向量，通常是<span
-class="math inline">\([R,G,B]\)</span>来表示。最终三个矩阵表示一幅彩色图像，这个过程叫做张量（Tensor）。<br />
+class="math inline">[<em>R</em>, <em>G</em>, <em>B</em>]</span>来表示。最终三个矩阵表示一幅彩色图像，这个过程叫做张量（Tensor）。<br />
 ## 点处理(Point Processing) 图像的点处理是： 设定图像上一个像素值<span
-class="math inline">\(r(x,y)\)</span>,经过处理<span
-class="math inline">\(s(x,y)=T(r(x,y))\)</span>后，得到同一位置的像素<span
-class="math inline">\(s(x,y)\)</span>。<br />
+class="math inline"><em>r</em>(<em>x</em>, <em>y</em>)</span>,经过处理<span
+class="math inline"><em>s</em>(<em>x</em>, <em>y</em>) = <em>T</em>(<em>r</em>(<em>x</em>, <em>y</em>))</span>后，得到同一位置的像素<span
+class="math inline"><em>s</em>(<em>x</em>, <em>y</em>)</span>。<br />
 注意：</li>
 </ul>
 <ol type="1">
-<li><span class="math inline">\((x,y)\)</span>表示坐标。</li>
+<li><span
+class="math inline">(<em>x</em>, <em>y</em>)</span>表示坐标。</li>
 <li>不同的图像处理库其坐标系统的原点设置不同，y的取值设定也不同。<br />
 </li>
 <li><span
-class="math inline">\(T\)</span>只能是单调（通常是单调递增）的函数。 ###
-常见的点处理变换</li>
+class="math inline"><em>T</em></span>只能是单调（通常是单调递增）的函数。
+### 常见的点处理变换</li>
 </ol>
 <ul>
 <li><p>阈值变换(Thresholding)<br />
@@ -540,21 +541,25 @@ class="math inline">\(T\)</span>只能是单调（通常是单调递增）的函
 阈值函数可分为两种：软阈值函数（左）和硬阈值函数/二值化函数(Hard
 thresholding/Binarization，右),它们的作用都是将像素转换成黑白像素。<br />
 图像中的<span
-class="math inline">\(m\)</span>点称为阈值，高于阈值的像素将会被强化为近黑色/黑色的像素值，低于阈值的像素值将被弱化为近白色/白色的像素值。</p></li>
-<li><p>像素反转 <span class="math display">\[s=L-1-r\]</span> <span
-class="math inline">\(L\)</span>表示最大的像素值。<br />
+class="math inline"><em>m</em></span>点称为阈值，高于阈值的像素将会被强化为近黑色/黑色的像素值，低于阈值的像素值将被弱化为近白色/白色的像素值。</p></li>
+<li><p>像素反转 <span
+class="math display"><em>s</em> = <em>L</em> − 1 − <em>r</em></span>
+<span class="math inline"><em>L</em></span>表示最大的像素值。<br />
 作用是将像素值进行翻转，白色变为黑色，黑色变为白色。<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220144228.png width=50%></p></li>
 <li><p>对数变换<br />
 对数变换的表达式为：<br />
-<span class="math display">\[s=clog(1+r)\]</span>
+<span
+class="math display"><em>s</em> = <em>c</em><em>l</em><em>o</em><em>g</em>(1 + <em>r</em>)</span>
 对数变换能够扩展低灰度值（突出过暗区域的细节）而压缩高灰度值（突出过曝区域的细节），从而增强图像的清晰度。<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220144427.png width=50%></p></li>
-<li><p>幂变换 <span class="math display">\[s=cr^γ\]</span> <span
-class="math inline">\(γ\)</span>是幂指数，显示器中的伽玛校正(Gamma
+<li><p>幂变换 <span
+class="math display"><em>s</em> = <em>c</em><em>r</em><sup><em>γ</em></sup></span>
+<span
+class="math inline"><em>γ</em></span>是幂指数，显示器中的伽玛校正(Gamma
 Correction)即调整该值使得显示器整体偏亮或偏暗。 当<span
-class="math inline">\(0&lt;γ&lt;1\)</span>时，显示器偏暗，<span
-class="math inline">\(γ&lt;1\)</span>时，显示器偏亮。<br />
+class="math inline">0 &lt; <em>γ</em> &lt; 1</span>时，显示器偏暗，<span
+class="math inline"><em>γ</em> &lt; 1</span>时，显示器偏亮。<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220144825.png width=50%><br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220145050.png width=50%></p></li>
 <li><p>线性分段处理(linear piecewise)<br />
@@ -576,24 +581,25 @@ src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210207160857.p
 <li>直方图均衡(Historgram equalization)<br />
 直方图均衡是一种用于增强图像对比度的同时均衡图像亮度的方法（即拉宽和拖平直方图）。<br />
 直方图可以视为反映了每一个像素值在整个图像的占比关系（<span
-class="math inline">\(\frac{n_w}{n}\)</span>，n表示图像像素点总数，<span
-class="math inline">\(n_w\)</span>表示像素值为w的像素点数量），因此整个直方图可以被概率分布函数化：<br />
+class="math inline">$\frac{n_w}{n}$</span>，n表示图像像素点总数，<span
+class="math inline"><em>n</em><sub><em>w</em></sub></span>表示像素值为w的像素点数量），因此整个直方图可以被概率分布函数化：<br />
 <span
-class="math display">\[p_r(w)=p(r=w)=\frac{n_w}{n},w=0,1,...,255\]</span><br />
+class="math display">$$p_r(w)=p(r=w)=\frac{n_w}{n},w=0,1,...,255$$</span><br />
 应用变换：<br />
-<span class="math display">\[s=T(r)=(L-1)\int_0^rp_r(w)dw\]</span>
+<span
+class="math display"><em>s</em> = <em>T</em>(<em>r</em>) = (<em>L</em> − 1)∫<sub>0</sub><sup><em>r</em></sup><em>p</em><sub><em>r</em></sub>(<em>w</em>)<em>d</em><em>w</em></span>
 使得:<br />
 <span
-class="math display">\[P_s(s)=P_r(r)|\frac{dr}{ds}|=\frac{1}{L-1}\]</span>
+class="math display">$$P_s(s)=P_r(r)|\frac{dr}{ds}|=\frac{1}{L-1}$$</span>
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210207162034.png" srcset="/img/loading.gif" lazyload /><br />
 由于w并不是连续的，因此最终的直方图并非是完全扁平的矩形。<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210207164743.png" srcset="/img/loading.gif" lazyload /></li>
 <li>局部增强(Local enhancement)<br />
-对局部的一些像素群（例如以某个像素为中心<span class="math inline">\(9 ×
-9\)</span>或<span class="math inline">\(3 ×
-3\)</span>的像素）应用直方图均衡的方法称为局部增强。<br />
+对局部的一些像素群（例如以某个像素为中心<span
+class="math inline">9 × 9</span>或<span
+class="math inline">3 × 3</span>的像素）应用直方图均衡的方法称为局部增强。<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210207163241.png" srcset="/img/loading.gif" lazyload /></li>
 </ul>
@@ -601,40 +607,37 @@ src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210207163241.p
 Processing）</h2>
 <p>与点处理比较，虽然相邻处理的输入值仍然是一个像素值，但是输出值确实一个围绕输入像素值的像素集。（如下图所示）<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220151132.png width=30%><br />
-常见的一些相邻处理的方法：</p>
-<ul>
-<li>均值滤波<br />
-</li>
-<li>最值滤波<br />
-</li>
-<li>中值滤波（像素值按大小排列，取排序位于中间位置的像素值作为中值滤波后的像素值）<br />
+常见的一些相邻处理的方法：<br />
+- 均值滤波<br />
+- 最值滤波<br />
+-
+中值滤波（像素值按大小排列，取排序位于中间位置的像素值作为中值滤波后的像素值）<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208124649.png" srcset="/img/loading.gif" lazyload /><br />
-▲上面的三张图依次是：原图（有一些细小噪点）、求平均、求中位数后的输出。</li>
-</ul>
+▲上面的三张图依次是：原图（有一些细小噪点）、求平均、求中位数后的输出。</p>
 <h3 id="滤波filtering">滤波（Filtering）</h3>
 <p>滤波是一种应用于相邻处理的常见方法。<br />
 设以某个像素为中心的像素方阵称为<strong>核矩阵</strong>(Kernel/Mask
 matrix),以<span
-class="math inline">\(W\)</span>记，核矩阵中的每一个像素值以<span
-class="math inline">\(w(u,v)\)</span>表示。
+class="math inline"><em>W</em></span>记，核矩阵中的每一个像素值以<span
+class="math inline"><em>w</em>(<em>u</em>, <em>v</em>)</span>表示。
 将核矩阵照射至图像的某一区域<span
-class="math inline">\(r\)</span>，使被照射区域中的像素值与对应的核矩阵中同位置的像素值一一相乘后全部相加，最后用一常数<span
-class="math inline">\(C\)</span>调整，该过程被称为滤波。<br />
+class="math inline"><em>r</em></span>，使被照射区域中的像素值与对应的核矩阵中同位置的像素值一一相乘后全部相加，最后用一常数<span
+class="math inline"><em>C</em></span>调整，该过程被称为滤波。<br />
 <span
-class="math display">\[s(x,y)=C∑_{(u,v)∈W}w(u,v)r(x+u,y+v)\]</span><br />
+class="math display"><em>s</em>(<em>x</em>, <em>y</em>) = <em>C</em>∑<sub>(<em>u</em>, <em>v</em>) ∈ <em>W</em></sub><em>w</em>(<em>u</em>, <em>v</em>)<em>r</em>(<em>x</em> + <em>u</em>, <em>y</em> + <em>v</em>)</span><br />
 整个过程可以用下图来表示：<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208130628.png" srcset="/img/loading.gif" lazyload /><br />
 一次滤波结束后，核矩阵平移<span
-class="math inline">\(α\)</span>个像素单位（称为<strong>步长</strong>(Padding)），照射图像的另一个区域，重复上述过程。</p>
+class="math inline"><em>α</em></span>个像素单位（称为<strong>步长</strong>(Padding)），照射图像的另一个区域，重复上述过程。</p>
 <ul>
 <li><p>均值滤波<br />
 其核矩阵如下：<br />
-<span class="math display">\[\frac{1}{n}×\begin{bmatrix}
+<span class="math display">$$\frac{1}{n}×\begin{bmatrix}
 1&amp;1&amp;...&amp;1\\...&amp;...&amp;...&amp;...\\
 1&amp;1&amp;...&amp;1 \\
-1&amp;1&amp;...&amp;1\end{bmatrix}\]</span><br />
+1&amp;1&amp;...&amp;1\end{bmatrix}$$</span><br />
 n表示方阵元素的数量。<br />
 这样最终的输出结果是取像素点周围领域的平均值作为响应输出，最终的图像会被模糊化。</p></li>
 <li><p>高斯滤波(Gaussian Filtering)<br />
@@ -643,11 +646,11 @@ n表示方阵元素的数量。<br />
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208131837.png" srcset="/img/loading.gif" lazyload /><br />
 其具体的计算公式为：<br />
 <span
-class="math display">\[G(x,y)=\frac{1}{2πσ^2}e^{-\frac{x^2+y^2}{2σ^2}}\]</span><br />
-<span class="math inline">\(σ\)</span>是标准高斯分布中的方差，<span
-class="math inline">\(σ\)</span>较小时，图像的峰值窄且高。<br />
+class="math display">$$G(x,y)=\frac{1}{2πσ^2}e^{-\frac{x^2+y^2}{2σ^2}}$$</span><br />
+<span class="math inline"><em>σ</em></span>是标准高斯分布中的方差，<span
+class="math inline"><em>σ</em></span>较小时，图像的峰值窄且高。<br />
 例如当<span
-class="math inline">\(σ=1.4\)</span>时，其核矩阵可以取：<br />
+class="math inline"><em>σ</em> = 1.4</span>时，其核矩阵可以取：<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208132110.png" srcset="/img/loading.gif" lazyload /><br />
 高斯滤波的作用是<strong>将图像模糊化</strong>，使图像呈现一种毛玻璃的质感。运用高斯滤波处理图像的方法又被称为<strong>高斯模糊</strong>(Gaussian
@@ -659,9 +662,9 @@ src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208132748.p
 <h2 id="卷积">卷积</h2>
 <p><strong>卷积</strong>(Convolution)是一种常用于图像处理的方法。
 设核矩阵(又被称为卷积核)的像素分布可以表示为<span
-class="math inline">\(h\)</span>,原图的像素分布表示为<span
-class="math inline">\(f\)</span>，卷积有如下公式： <span
-class="math display">\[g(x)=\int_{-∞}^∞f(τ)h(x-τ)dτ\]</span></p>
+class="math inline"><em>h</em></span>,原图的像素分布表示为<span
+class="math inline"><em>f</em></span>，卷积有如下公式： <span
+class="math display"><em>g</em>(<em>x</em>) = ∫<sub>−∞</sub><sup>∞</sup><em>f</em>(<em>τ</em>)<em>h</em>(<em>x</em> − <em>τ</em>)<em>d</em><em>τ</em></span></p>
 <ul>
 <li>卷积核的正则化<br />
 如果要使得图像的整体亮度在卷积前后不发生改变，卷积核必须被正则化，即卷积核内所有元素的和必须是1。</li>
@@ -671,50 +674,50 @@ class="math display">\[g(x)=\int_{-∞}^∞f(τ)h(x-τ)dτ\]</span></p>
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208134126.png" srcset="/img/loading.gif" lazyload /><br />
 边缘检测是以特殊的卷积核（称为算子（Operator））对图像进行处理。<br />
-常见的算子有如下几种：</p>
-<ul>
-<li><p>Roberts算子<br />
+常见的算子有如下几种：<br />
+- Roberts算子<br />
 Roberts算子是两个能够强化图像的边缘部分的核矩阵： <span
-class="math display">\[G_x=\begin{bmatrix}
-  +1&amp;0\\0&amp;-1
-   \end{bmatrix}\]</span> <span
-class="math display">\[G_y=\begin{bmatrix}
-  0&amp;+1\\-1&amp;0
-   \end{bmatrix}\]</span><br />
+class="math display">$$G_x=\begin{bmatrix}
+    +1&amp;0\\0&amp;-1
+     \end{bmatrix}$$</span> <span
+class="math display">$$G_y=\begin{bmatrix}
+    0&amp;+1\\-1&amp;0
+     \end{bmatrix}$$</span><br />
 <img
-src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208133900.png" srcset="/img/loading.gif" lazyload /></p></li>
-<li><p>索伯算子(Sobel's Operator)<br />
+src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208133900.png" srcset="/img/loading.gif" lazyload /></p>
+<ul>
+<li><p>索伯算子(Sobel’s Operator)<br />
 Sobel算子的两个卷积核形式：<br />
-<span class="math display">\[\begin{bmatrix}
--1&amp;0&amp;+1\\-2&amp;0&amp;+2\\-1&amp;0&amp;+1 \end{bmatrix}\]</span>
+<span class="math display">$$\begin{bmatrix}
+-1&amp;0&amp;+1\\-2&amp;0&amp;+2\\-1&amp;0&amp;+1 \end{bmatrix}$$</span>
 <span
-class="math display">\[\begin{bmatrix}+1&amp;+2&amp;+1\\0&amp;0&amp;0\\-1&amp;-2&amp;-1\end{bmatrix}\]</span>
+class="math display">$$\begin{bmatrix}+1&amp;+2&amp;+1\\0&amp;0&amp;0\\-1&amp;-2&amp;-1\end{bmatrix}$$</span>
 两个卷积核的特征是卷积核正中的纵列或行列为0，用于检测图像的纵向/横向边缘。<br />
 PIL或者是OpenCV中有对应的库可以执行Sobel边缘检测。<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208140605.png" srcset="/img/loading.gif" lazyload /></p></li>
 <li><p>拉普拉斯算子(Laplacian operator)<br />
 函数<span
-class="math inline">\(F(x,y)\)</span>的梯度可由梯度公式得到：<br />
+class="math inline"><em>F</em>(<em>x</em>, <em>y</em>)</span>的梯度可由梯度公式得到：<br />
 <span
-class="math display">\[G(x,y)=\frac{∂F(x,y)}{∂x}cos(σ)+\frac{∂F(x,y)}{∂y}sin(σ)\]</span><br />
+class="math display">$$G(x,y)=\frac{∂F(x,y)}{∂x}cos(σ)+\frac{∂F(x,y)}{∂y}sin(σ)$$</span><br />
 定义拉普拉斯算子（一阶）<span
-class="math inline">\(▿f|(x_0,y_0)=(f_x(x_0,y_0),f_y(x_0,y_0))\)</span>，其二阶形式：
+class="math inline">▿<em>f</em>|(<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>) = (<em>f</em><sub><em>x</em></sub>(<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>), <em>f</em><sub><em>y</em></sub>(<em>x</em><sub>0</sub>, <em>y</em><sub>0</sub>))</span>，其二阶形式：
 <span
-class="math display">\[▿^2f(x,y)=\frac{∂^2f(x,y)}{∂x^2}+\frac{∂^2f(x,y)}{∂y^2}\]</span><br />
+class="math display">$$▿^2f(x,y)=\frac{∂^2f(x,y)}{∂x^2}+\frac{∂^2f(x,y)}{∂y^2}$$</span><br />
 在x方向上可以近似由差分表示：<br />
 <span
-class="math display">\[\frac{∂^2f(x,y)}{∂x^2}=f(x+1,y)+f(x-1,y)-2f(x,y)\]</span>
+class="math display">$$\frac{∂^2f(x,y)}{∂x^2}=f(x+1,y)+f(x-1,y)-2f(x,y)$$</span>
 在y方向上同理，最终得到二阶拉普拉斯算子的表达式： <span
-class="math display">\[▿^2f(x,y)=f(x+1,y)+f(x-1,y)+f(x,y+1)+f(x,y-1)-4f(x,y)\]</span>
+class="math display">▿<sup>2</sup><em>f</em>(<em>x</em>, <em>y</em>) = <em>f</em>(<em>x</em> + 1, <em>y</em>) + <em>f</em>(<em>x</em> − 1, <em>y</em>) + <em>f</em>(<em>x</em>, <em>y</em> + 1) + <em>f</em>(<em>x</em>, <em>y</em> − 1) − 4<em>f</em>(<em>x</em>, <em>y</em>)</span>
 得到拉普拉斯算子的卷积核形式：<br />
-<span class="math display">\[\begin{bmatrix}
+<span class="math display">$$\begin{bmatrix}
   0&amp;1&amp;0\\1&amp;-4&amp;1\\0&amp;1&amp;0
-\end{bmatrix}\]</span></p></li>
+\end{bmatrix}$$</span></p></li>
 <li><p>拉普拉斯-高斯算子（LoG operator）<br />
 由表达式：<br />
 <span
-class="math display">\[▽^2g(x,y)=-\frac{1}{2πσ^4}(2-\frac{x^2+y^2}{σ^2})e^{-\frac{x^2+y^2}{2σ^2}}\]</span>
+class="math display">$$▽^2g(x,y)=-\frac{1}{2πσ^4}(2-\frac{x^2+y^2}{σ^2})e^{-\frac{x^2+y^2}{2σ^2}}$$</span>
 所得到的算子的卷积核形式：<br />
 <img
 src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210208141000.png" srcset="/img/loading.gif" lazyload /></p></li>

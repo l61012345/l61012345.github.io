@@ -493,19 +493,19 @@ p.spoiler {
 <h2 id="梯度下降算法的并行化">梯度下降算法的并行化</h2>
 <p>减少映射的思想基础来源于批量梯度下降算法。根据批量梯度下降的更新公式：<br />
 <span
-class="math display">\[θ_j:=θ_j-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}\]</span><br />
+class="math display">$$θ_j:=θ_j-α\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}$$</span><br />
 此时如果用多台计算机平均负担求和项（或者说是代价函数的偏导项）<span
-class="math inline">\(∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}\)</span>。比如如果有4台计算机，这四台计算机分别计算数据集中<span
-class="math inline">\(\frac{m}{4}\)</span>份数据的求和项，最后再将这些计算结果放入一个中心计算机进行更新公式的计算。<br />
+class="math inline">$∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}$</span>。比如如果有4台计算机，这四台计算机分别计算数据集中<span
+class="math inline">$\frac{m}{4}$</span>份数据的求和项，最后再将这些计算结果放入一个中心计算机进行更新公式的计算。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210824142914.png width=50%></p>
 <h2 id="逻辑回归的并行化">逻辑回归的并行化</h2>
 <p>逻辑回归的代价函数公式：<br />
-<span class="math display">\[J_{train}(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)}
-log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))]\]</span>
+<span class="math display">$$J_{train}(θ)=-\frac{1}{m}[∑_{i=1}^m y^{(i)}
+log⁡(h_θ(x^{(i)} ))+(1−y^{(i)}) log(1−h_θ (x^{(i)}))]$$</span>
 同样地，逻辑回归的代价函数中求和项也可以分配给多台计算机承担。<br />
 而且逻辑回归的代价函数的偏导项和线性回归一样：<br />
 <span
-class="math display">\[\frac{∂}{∂θ_j}J_{train}(θ)=\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}\]</span>
+class="math display">$$\frac{∂}{∂θ_j}J_{train}(θ)=\frac{1}{m}∑_{i=1}^m(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}$$</span>
 其中的求和项也可以被并行化处理，最终以便于使用梯度下降算法。<br />
 这些求和项在不同的计算机上被计算出来后，传入中央计算机，并执行求和和求和之外的其他计算。</p>
 <h2 id="多核计算">多核计算</h2>
@@ -614,9 +614,9 @@ class="math display">\[\frac{∂}{∂θ_j}J_{train}(θ)=\frac{1}{m}∑_{i=1}^m(h
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.3.%20%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" title="13.3. 小批量梯度下降算法">
+                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.4.%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0/" title="13.4. 在线学习">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">13.3. 小批量梯度下降算法</span>
+                        <span class="hidden-mobile">13.4. 在线学习</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -624,8 +624,8 @@ class="math display">\[\frac{∂}{∂θ_j}J_{train}(θ)=\frac{1}{m}∑_{i=1}^m(h
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.4.%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0/" title="13.4. 在线学习">
-                        <span class="hidden-mobile">13.4. 在线学习</span>
+                      <a href="/2021/08/21/%E6%97%A5%E8%AF%AD/%E6%A0%87%E8%AE%B0%E8%AF%B4%E6%98%8E/" title="标记说明">
+                        <span class="hidden-mobile">标记说明</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

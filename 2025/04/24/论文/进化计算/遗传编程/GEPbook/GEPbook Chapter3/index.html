@@ -491,26 +491,16 @@ p.spoiler {
 <div class="note note-info">
             <p>这是对《Gene Expression Programming: Mathematical Modeling by anArtificial Intelligence》的笔记，本页对应第一章： Chapter 3： The BasicGene Expression Algorithm</p><p>本书可以在斯普林格购买纸质版或者电子版：https://link.springer.com/book/10.1007/3-540-32849-1</p>
           </div>
-<p>基本的基因表达式算法(Gene Expression Algorithm)的运行流程包括：</p>
-<ol type="1">
-<li>随机生成初始化种群</li>
-<li>初次评估</li>
-<li>个体选择</li>
-<li>个体繁殖与变异
-本书认为，进化计算的关键是要有足够多的不同种类的解来让进化选择，因此多样性是进化的重要指示。遗传操作是产生种群多样性的手段，因此本章的重点在于各种各样的遗传操作。</li>
-</ol>
+<p>基本的基因表达式算法(Gene Expression Algorithm)的运行流程包括：<br />
+1. 随机生成初始化种群 2. 初次评估 3. 个体选择 4. 个体繁殖与变异
+本书认为，进化计算的关键是要有足够多的不同种类的解来让进化选择，因此多样性是进化的重要指示。遗传操作是产生种群多样性的手段，因此本章的重点在于各种各样的遗传操作。</p>
 <h2 id="种群">种群</h2>
 <p>在GEP中，初始化的要求是随机初始化序列。另外，对于单基因的GEA，所有创建的个体在0位置上必须是一个function（因为如果是结点的话该个体则是一个单节点个体，这样的个体的fitness过低也没有任何结构上可以修改的空间），这个要求在多基因GEA中并不是必要的。如果种群过小，或者是fitness
 cases小而分布几种，那么有可能初始种群中所有个体的fitness都是0（尤其是对逻辑符号回归问题），这种情况下需要重启初始化，直到初始种群中出现一个fitness不为0的个体。<br />
 和GP不同的是，此处并未要求或者是设计初始化个体的拓扑结构需要是什么样子的，GP中的generation-method有可能在无意之间限制了结构的多样性。<br />
-GEP中的超参数包括：</p>
-<ul>
-<li>Primitive Set</li>
-<li>基因的长度</li>
-<li>chromosome的数量</li>
-<li>chromosome之间的关系</li>
-<li>fitness function</li>
-</ul>
+GEP中的超参数包括：<br />
+- Primitive Set - 基因的长度 - chromosome的数量 - chromosome之间的关系 -
+fitness function</p>
 <p>GP中个体的初始化需要考虑结构的合法性，尤其是比如STGP。但是GEP并不需要考虑这些，因为tails的设计可以保证树的结构永远是合法的。产生的线性chromosome只会在评估过程中展开为树，进行fitness的衡量。然后选择过程根据个体的fitness对个体进行选择，选择需要保持固定的种群大小，如此来维护选择压力。<br />
 另外需要注意Primitive
 function中有可能会产生不合法的运算，比如除以0等等，GEP在这里采用的和GP相同的处理方式，即采用保护性运算函数。</p>
@@ -528,7 +518,7 @@ function，这就是为什么可以使用不止一个拟合函数，以便在一
 function）。<br />
 下面给出了几种常见的fitness function，哪一种fitness
 function更适合描述问题取决于问题本身的特性，但是MSE和<span
-class="math inline">\(R^2\)</span>是一种通用设置。</p>
+class="math inline"><em>R</em><sup>2</sup></span>是一种通用设置。</p>
 <table>
 
 <thead>
@@ -544,56 +534,59 @@ class="math inline">\(R^2\)</span>是一种通用设置。</p>
 <td style="text-align: left;">Number of hits</td>
 <td style="text-align: left;">在合理误差范围内模型符合fitness
 cases的数量</td>
-<td style="text-align: left;"><span class="math inline">\(\text{If }
-E_{ij}≤p,\)</span><br><span class="math inline">\(\text{then }
-f_{ij}=1,\text{else }f_{ij}=0\)</span> <br> <span
-class="math inline">\(E_{ij}=\|P_{ij}-T_j\|\)</span></td>
+<td style="text-align: left;"><span class="math inline">If
+<em>E</em><sub><em>i</em><em>j</em></sub> ≤ <em>p</em>,</span><br><span
+class="math inline">then
+<em>f</em><sub><em>i</em><em>j</em></sub> = 1, else
+<em>f</em><sub><em>i</em><em>j</em></sub> = 0</span> <br> <span
+class="math inline"><em>E</em><sub><em>i</em><em>j</em></sub> = ∥<em>P</em><sub><em>i</em><em>j</em></sub> − <em>T</em><sub><em>j</em></sub>∥</span></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">Number of hits<br>(penalty)</td>
 <td
 style="text-align: left;">如果个体在fitness上并非真阳性和真阴性，则fitness为0</td>
-<td style="text-align: left;"><span class="math inline">\(\text{IF
-}(TP_i=0 \text{ OR } TN_i=0),\)</span><br><span
-class="math inline">\(\text{then } f_{i}=0,\text{else
-}f_{i}=h\)</span><br><span
-class="math inline">\(h=TP_i+TN_i\)</span></td>
+<td style="text-align: left;"><span class="math inline">IF
+(<em>T</em><em>P</em><sub><em>i</em></sub> = 0 OR
+<em>T</em><em>N</em><sub><em>i</em></sub> = 0),</span><br><span
+class="math inline">then <em>f</em><sub><em>i</em></sub> = 0, else
+<em>f</em><sub><em>i</em></sub> = <em>h</em></span><br><span
+class="math inline"><em>h</em> = <em>T</em><em>P</em><sub><em>i</em></sub> + <em>T</em><em>N</em><sub><em>i</em></sub></span></td>
 <td style="text-align: left;">如此可以减少过拟合</td>
 </tr>
 <tr>
 <td style="text-align: left;">Precision and Selection</td>
 <td style="text-align: left;">给个体设置一个在fitness
-cases上的表现上限<span class="math inline">\(R\)</span>，<br>超过<span
-class="math inline">\(R\)</span>的表现对fitness没有贡献</td>
+cases上的表现上限<span
+class="math inline"><em>R</em></span>，<br>超过<span
+class="math inline"><em>R</em></span>的表现对fitness没有贡献</td>
 <td style="text-align: left;"><span
-class="math inline">\(f_i=∑_j(R-f_{raw,i})\)</span></td>
+class="math inline"><em>f</em><sub><em>i</em></sub> = ∑<sub><em>j</em></sub>(<em>R</em> − <em>f</em><sub><em>r</em><em>a</em><em>w</em>, <em>i</em></sub>)</span></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">均方差</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><span
-class="math inline">\(E_i=\frac{1}{n}∑_j(P_{ij}-T_j)^2\)</span> <br>
-<span
-class="math inline">\(E_i=\frac{1}{n}∑_j(\frac{P_{ij}-T_j}{T_j})^2\)</span></td>
+class="math inline">$E_i=\frac{1}{n}∑_j(P_{ij}-T_j)^2$</span> <br> <span
+class="math inline">$E_i=\frac{1}{n}∑_j(\frac{P_{ij}-T_j}{T_j})^2$</span></td>
 <td style="text-align: left;">这种方法对离群值敏感</td>
 </tr>
 <tr>
 <td style="text-align: left;"><span
-class="math inline">\(R^2\)</span></td>
+class="math inline"><em>R</em><sup>2</sup></span></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><span
-class="math inline">\(R_i=\)</span><br><span
-class="math inline">\(\frac{n\sum_j(T_jP_{ij})-(\sum_jT_j)(\sum_jP_{ij})}{\sqrt{[n∑_jT_j^2-(∑_jT_j)^2][n∑_jP_{ij}^2-(∑_jP_{ij})^2]}}\)</span></td>
+class="math inline"><em>R</em><sub><em>i</em></sub>=</span><br><span
+class="math inline">$\frac{n\sum_j(T_jP_{ij})-(\sum_jT_j)(\sum_jP_{ij})}{\sqrt{[n∑_jT_j^2-(∑_jT_j)^2][n∑_jP_{ij}^2-(∑_jP_{ij})^2]}}$</span></td>
 <td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">Positive/Negative Predictive Value</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"><span
-class="math inline">\(PPV_i=\frac{TN_i}{TN_i+FP_i}\)</span><br><span
-class="math inline">\(NPV_i=\frac{TN_i}{TN_i+FN_i}\)</span></td>
+class="math inline">$PPV_i=\frac{TN_i}{TN_i+FP_i}$</span><br><span
+class="math inline">$NPV_i=\frac{TN_i}{TN_i+FN_i}$</span></td>
 <td
 style="text-align: left;">在数据集正负样本严重不平衡时可以有很大用</td>
 </tr>
@@ -612,7 +605,7 @@ blocks</strong>。</p>
 <p>复制和选择一般是联合使用的，适应度更好的个体有更高的概率被选中进行复制。复制不会产生新的基因。</p>
 <h3 id="突变">突变</h3>
 <p>突变是最有效的Genetic operator。在GEP中，<span
-class="math inline">\(p_m\)</span>代表对一个chromosome做两次随机单点突变的概率。当个体很短的时候，GEP的突变概率比自然界更大。Mutation可以发生在任何地点，但是需要遵守结点的类型：在head区段一个元素可以突变为function或者是terminal，但是在tail区段结点只能突变为terminal。<br />
+class="math inline"><em>p</em><sub><em>m</em></sub></span>代表对一个chromosome做两次随机单点突变的概率。当个体很短的时候，GEP的突变概率比自然界更大。Mutation可以发生在任何地点，但是需要遵守结点的类型：在head区段一个元素可以突变为function或者是terminal，但是在tail区段结点只能突变为terminal。<br />
 另外，如果突变发生在非编码区段的部分，那么这部分的突变效果可能会延后若干代才会表现出来，或者永远也不会表现。<br />
 和GP不同的是，GP中的单点突变会导致该突变点以下的所有遗传信息在该个体上丢失（在突变前后需要的arity数不相同时），对于GEP，虽然单点突变会导致在表现型上发生和GP相同的效果，但是GEPtails的设计保证了在基因型上该点以下的遗传信息不会被丢失。因此GEP的突变（或者是其他的genetic
 opeartion可以保证基因型上遗传信息无损的替换）。</p>
@@ -665,36 +658,28 @@ Gene Transpose无法产生新的基因。</p>
 <p>这一章中，GEA使用了相当多的Genetic
 Operator（事实上如果算上复制，GEA所使用的Genetic
 Operator的数量达到了9个，远远超出了标准GA和标准GP所使用的Genetic
-Operator数量）。事实上，GEA所使用的这一套框架即使并非在GEP框架下使用也应该会得到不错的效果。我们来看看这一个框架：</p>
-<ol type="1">
-<li>大面积的种群大小+短代数或者是小的种群大小+非常长的代数<br />
-</li>
-<li>成比例的选择和复制，复制过程一定要遵循个体的表现与其出现在intermediate
+Operator数量）。事实上，GEA所使用的这一套框架即使并非在GEP框架下使用也应该会得到不错的效果。我们来看看这一个框架：<br />
+1. 大面积的种群大小+短代数或者是小的种群大小+非常长的代数<br />
+2.
+成比例的选择和复制，复制过程一定要遵循个体的表现与其出现在intermediate
 population中的个数呈比例(最好是指数型)<br />
-</li>
-<li>大规模的变异，包括两种类型：
-<ul>
-<li>块交换，以随机挑选的块为单位移动并且复制块的位置，目的地可以不限</li>
-<li>点修改，以某个单独的遗传单元作为对象，对其进行随机的修改</li>
-</ul></li>
-<li>精英，非常小的精英池，保证每一代或者每隔很短的几代就要植入到种群一次。</li>
-</ol>
-<p>以下是对这个框架的解读（三国杀中一般称这种优秀武将具有高过牌率）：</p>
-<ol type="1">
-<li>不管是大面积的种群大小还是非常长的代数，总体上都是为了保证在整个进化算法的运行过程中所遍历的个体数量非常多。<br />
-</li>
-<li>成比例的复制保证了只要有一个个体略微好于现有个体，该个体会迅速的覆盖和刷新当前种群，保证优秀个体不会被丢失，并且让Genetic
+3. 大规模的变异，包括两种类型：<br />
+- 块交换，以随机挑选的块为单位移动并且复制块的位置，目的地可以不限 -
+点修改，以某个单独的遗传单元作为对象，对其进行随机的修改 4.
+精英，非常小的精英池，保证每一代或者每隔很短的几代就要植入到种群一次。</p>
+<p>以下是对这个框架的解读（三国杀中一般称这种优秀武将具有高过牌率）：<br />
+1.
+不管是大面积的种群大小还是非常长的代数，总体上都是为了保证在整个进化算法的运行过程中所遍历的个体数量非常多。<br />
+2.
+成比例的复制保证了只要有一个个体略微好于现有个体，该个体会迅速的覆盖和刷新当前种群，保证优秀个体不会被丢失，并且让Genetic
 Operator基于这些优秀个体的结构进行查找。<br />
-</li>
-<li>大规模的变异对象则是这些表现好的个体：
-<ul>
-<li>块交换的目的是为了将种群中的所有个体随机打碎为碎块，在这个过程中，如果打碎的是关键碎块，那么这种打碎的方式会被选择淘汰；如果打碎的是非关键碎块，那么这种打碎的方式产生的后代还可以继续存活，因此在第二轮选择后剩下的个体都是前一代关键信息没有被打碎的后代。碎块的大小决定了这一步的效率，过细的碎块（即碎片，比如百点交叉产生的结果）会导致进化效率不高。<br />
-</li>
-<li>点修改则是为了在现有基础上引入从来没找过的新的内容，点突变相比于块交换不能太大，否则整个算法会越来越倾向于随机搜索。<br />
-</li>
-</ul></li>
-<li>精英，最后一道保险，确保找到的优秀的遗传信息不会丢失。精英池的数量非常小，否则会破坏种群多样性，即第三步找到的新东西数量陡然下降，算法陷入局部最优。精英与第二步连用可以实现如果这一代的后代没有产生比精英更好的个体，那么精英会将搜索结果还原到上一代。</li>
-</ol>
+3. 大规模的变异对象则是这些表现好的个体：<br />
+-
+块交换的目的是为了将种群中的所有个体随机打碎为碎块，在这个过程中，如果打碎的是关键碎块，那么这种打碎的方式会被选择淘汰；如果打碎的是非关键碎块，那么这种打碎的方式产生的后代还可以继续存活，因此在第二轮选择后剩下的个体都是前一代关键信息没有被打碎的后代。碎块的大小决定了这一步的效率，过细的碎块（即碎片，比如百点交叉产生的结果）会导致进化效率不高。<br />
+-
+点修改则是为了在现有基础上引入从来没找过的新的内容，点突变相比于块交换不能太大，否则整个算法会越来越倾向于随机搜索。<br />
+4.
+精英，最后一道保险，确保找到的优秀的遗传信息不会丢失。精英池的数量非常小，否则会破坏种群多样性，即第三步找到的新东西数量陡然下降，算法陷入局部最优。精英与第二步连用可以实现如果这一代的后代没有产生比精英更好的个体，那么精英会将搜索结果还原到上一代。</p>
 
                 
               </div>
@@ -804,18 +789,12 @@ Operator基于这些优秀个体的结构进行查找。<br />
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">05. 随机常数</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景">
-                        <span class="hidden-mobile">01. 简介：生物遗传学背景</span>
+                      <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数">
+                        <span class="hidden-mobile">05. 随机常数</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

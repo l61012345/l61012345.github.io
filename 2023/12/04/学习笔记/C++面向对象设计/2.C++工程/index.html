@@ -405,7 +405,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          2k 字
         
       </span>
     
@@ -493,13 +493,9 @@ p.spoiler {
           </div>
 <h2
 id="第一个c工程自动售票机模拟程序">第一个C++工程：自动售票机模拟程序</h2>
-<p>对自动售票机而言，如果是面向过程的描述，那么应当是：</p>
-<ul>
-<li>Step to the machine</li>
-<li>Insert money into the machine</li>
-<li>The machine prints a ticket</li>
-<li>Take the ticket and leave</li>
-</ul>
+<p>对自动售票机而言，如果是面向过程的描述，那么应当是：<br />
+- Step to the machine - Insert money into the machine - The machine
+prints a ticket - Take the ticket and leave</p>
 <p>如果是面向对象的描述，那么：<br />
 自动售票机具有价格、余额、收入总额这三个数据。<br />
 自动售票机会显示提示信息、打印余额、打印车票、接收纸币。<br />
@@ -532,24 +528,17 @@ processor)进行编译，可以观察到编译的中间过程：<br />
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs sh">~ cpp a.cpp<br><span class="hljs-comment"># 1 &quot;a.cpp&quot;</span><br><span class="hljs-comment"># 1 &quot;&lt;built-in&gt;&quot;</span><br><span class="hljs-comment"># 1 &quot;&lt;command-line&gt;&quot;</span><br><span class="hljs-comment"># 1 &quot;a.cpp&quot;</span><br><span class="hljs-comment"># 1 &quot;a.h&quot; 1</span><br>void f(); <span class="hljs-comment">#declaration</span><br>int global; <span class="hljs-comment">#definetion，这是错误的，如果需要连结两个引用a.h的.cpp文件，此时两个cpp文件中因为都包含global这个变量而导致冲突</span><br>extern int global <span class="hljs-comment"># 改为declaration的写法</span><br><span class="hljs-comment"># 2 &quot;a.cpp&quot; 2</span><br>int global //有decleration的变量，在使用它的时候就需要定义它<br> <br>int main<br>&#123;<br>    global ++;<br>    <span class="hljs-built_in">return</span> 0;<br>&#125;<br></code></pre></td></tr></table></figure>
 也就是说编译预处理程序会直接将<code>.h</code>文件中的内容抄送合并<code>.cpp</code>文件的内容，然后送给编译器编译为二进制文件。所以<code>#include</code>实际上做的是文本的插入。<br />
 如果有别的程序引用了这个类，那么也需要<code>#include</code>这个<code>.h</code>文件。<br />
-<code>#include</code>进行引用有两种方式：</p>
-<ul>
-<li><code>#include "xx.h"</code>:
+<code>#include</code>进行引用有两种方式：<br />
+- <code>#include "xx.h"</code>:
 会从写了这个<code>include</code>的程序目录下寻找<code>xx.h</code>文件。<br />
-</li>
-<li><code>#include &lt;xx.h&gt;</code>:
+- <code>#include &lt;xx.h&gt;</code>:
 会从系统目录，也就是编译器所认定的头文件所在的目录（对于Lin
 ux，系统头文件在<code>/usr/include/</code>目录后），寻找<code>xx.h</code>文件。<br />
-</li>
-<li><code>#include &lt;xx&gt;</code>：类似于<code>#include &lt;xx.h&gt;</code>，但是引用范围不限于<code>.h</code>文件。</li>
-</ul>
+-
+<code>#include &lt;xx&gt;</code>：类似于<code>#include &lt;xx.h&gt;</code>，但是引用范围不限于<code>.h</code>文件。</p>
 <h3 id="声明和定义">声明和定义</h3>
-<p>声明包括：</p>
-<ul>
-<li>外部变量</li>
-<li>类和结构体的声明</li>
-<li>函数原型</li>
-</ul>
+<p>声明包括：<br />
+- 外部变量 - 类和结构体的声明 - 函数原型</p>
 <p>注意，类和结构体并没有定义，只有声明。<br />
 一个.cpp文件是一个编译单元，对于头文件来说，头文件中只允许声明，而不允许定义。因为在头文件中定义变量，当出现多个.cpp文件<code>#include</code>同一个文件的时候，编译完成后的linker<code>ld</code>会将这些.cpp文件连结，此时就会出现变量名重复的问题。</p>
 <h3 id="条件编译和标准头文件结构">条件编译和标准头文件结构</h3>
