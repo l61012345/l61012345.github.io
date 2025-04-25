@@ -3,7 +3,7 @@ title: 生成对抗网络
 date: 2022/09/04
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 神经网络
 ---
 

@@ -3,7 +3,7 @@ title: 04. 电路的自动综合
 date: 2024/1/10
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 - 遗传编程 IV： 例程化的可比拟人类的机器智能

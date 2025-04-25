@@ -3,7 +3,7 @@ title: Geometric Semantic Genetic Programming：基于几何信息的GP
 date: 2025/02/18
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 ---

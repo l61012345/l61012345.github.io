@@ -3,7 +3,7 @@ title: 自适应遗传算法的Python实现
 date: 2023/1/21
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传算法
 ---

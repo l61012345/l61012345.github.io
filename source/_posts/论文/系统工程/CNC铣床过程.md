@@ -2,7 +2,7 @@
 title: CNC铣床基本
 date: 2023/11/29
 categories: 
-- 论文
+- 研究
 - 系统工程
 - 各类系统
 category_bar: true

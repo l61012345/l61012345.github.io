@@ -3,7 +3,7 @@ title: 多目标遗传算法：NSGA和NSGA-II
 date: 2023/5/16
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传算法
 ---

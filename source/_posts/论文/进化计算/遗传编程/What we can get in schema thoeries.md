@@ -3,7 +3,7 @@ title: 可以从既有的schema theory中得到什么
 date: 2025/01/25
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 ---

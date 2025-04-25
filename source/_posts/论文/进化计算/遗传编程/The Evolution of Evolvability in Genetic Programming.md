@@ -3,7 +3,7 @@ title: 遗传编程中Evolvability的进化
 date: 2025/04/11
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 ---

@@ -3,7 +3,7 @@ title: 同源交叉的模式定理
 date: 2024/03/18
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 ---

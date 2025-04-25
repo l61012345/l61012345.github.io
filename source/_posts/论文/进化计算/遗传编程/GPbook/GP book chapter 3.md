@@ -3,7 +3,7 @@ title: 03. 控制器的自动综合
 date: 2023/12/19
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 - 遗传编程 IV： 例程化的可比拟人类的机器智能

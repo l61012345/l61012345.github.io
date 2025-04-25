@@ -3,7 +3,7 @@ title: 02. GEP的实体
 date: 2025/4/23
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 - 基因表达式编程：通过人工智能的数学建模

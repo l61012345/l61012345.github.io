@@ -1,7 +1,7 @@
 ---
 title: EventiC——一种无偏的复杂系统实时事件建模器
 categories: 
-- 论文
+- 研究
 - 系统工程
 - 系统分析理论
 category_bar: true

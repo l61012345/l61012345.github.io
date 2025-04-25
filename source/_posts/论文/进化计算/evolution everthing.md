@@ -3,7 +3,7 @@ title: 从进化计算到万物进化
 date: 2023/10/20
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 ---
 

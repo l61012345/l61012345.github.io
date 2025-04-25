@@ -3,7 +3,7 @@ title: 05. 随机常数
 date: 2025/4/24
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 - 基因表达式编程：通过人工智能的数学建模

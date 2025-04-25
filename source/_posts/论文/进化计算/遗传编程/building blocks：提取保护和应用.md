@@ -3,7 +3,7 @@ title: GP模块化的再讨论——Building Blocks：探测、提取、应用
 date: 2024/12/18
 category_bar: true
 categories: 
-- 论文
+- 研究
 - 进化计算
 - 遗传编程
 ---
