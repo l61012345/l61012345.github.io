@@ -115,7 +115,7 @@
 <meta property="og:description" content="GP Memo 基础定义 语构和语义 语构（Syntax） 指一个个体树的拓扑结构，具体包括树整体的形状大小，每个节点上的值和连接。Standard GP中的交叉和突变是一种完全忽略个体语义的语构操作。 语义（Semantic） 指个体作为模型看待时的行为表现，这个表现通常是和数据集相关的：比如均方差&#x2F;信息熵&#x2F;几何信息&#x2F;布尔值等等。Fitness Function也 是一种语义，但">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-07T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-25T14:22:21.023Z">
+<meta property="article:modified_time" content="2025-04-25T15:53:48.596Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -870,7 +870,7 @@ ADF并不能真正的解决GP的问题，启发式的ADF通过将某些子空间
 <p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240503131815.png width=50%></p>
 <p>引入ADF机制之后带来了新的问题，在此总结为四点：</p>
 <ul>
-<li><p>封装有用的函数<br />
+<li>封装有用的函数<br />
 关于如何找到有益的子树，一些工作如 AAO
 中的子程序创建和模块获取（MA）中的压缩操作<sup id="fnref:19" class="footnote-ref"><a href="#fn:19" rel="footnote"><span
 class="hint--top hint--rounded"
@@ -894,8 +894,9 @@ aria-label="M. Ahluwalia and L. Bull, Coevolving functions in genetic programmin
 MaxFit<sup id="fnref:24" class="footnote-ref"><a href="#fn:24" rel="footnote"><span
 class="hint--top hint--rounded"
 aria-label="A. Dessi, A. Giani, and A. Starita, An Analysis of Automatic Subroutine Discovery in Genetic Programming, in Annual Conference on Genetic and Evolutionary Computation, 1999.">[24]</span></a></sup>
-尝试应用相关性和灵敏度等统计特征来表示段的贡献。但事实证明，这两种特征并不有效。</p></li>
-<li><p>防止低多样性<br />
+尝试应用相关性和灵敏度等统计特征来表示段的贡献。但事实证明，这两种特征并不有效。<br />
+</li>
+<li>防止低多样性<br />
 群体多样性是 GP
 模块化研究的另一个研究课题，它指的是搜索空间中被搜索个体的分布程度。多样性越高，说明搜索范围越广，搜索到全局最优的几率越大。问题是，多样性和模块化之间需要权衡：多样性能使
 GP 避免过早收敛和局部最优，但会增加 GP
@@ -910,8 +911,9 @@ class="hint--top hint--rounded"
 aria-label="A. Dessi, A. Giani, and A. Starita, An Analysis of Automatic Subroutine Discovery in Genetic Programming, in Annual Conference on Genetic and Evolutionary Computation, 1999.">[24]</span></a></sup>：如果个体的最大适应度在几代内没有变化，则引入一个新模块。EDF
 <sup id="fnref:23" class="footnote-ref"><a href="#fn:23" rel="footnote"><span
 class="hint--top hint--rounded"
-aria-label="M. Ahluwalia and L. Bull, Coevolving functions in genetic programming, Journal of Systems Architecture, vol. 47, no. 7, pp. 573-585, 2001,">[23]</span></a></sup>中也采用了类似的机制：当所有EDF的唤醒次数较低时，就会引入一个新模块。</p></li>
-<li><p>类型冲突<br />
+aria-label="M. Ahluwalia and L. Bull, Coevolving functions in genetic programming, Journal of Systems Architecture, vol. 47, no. 7, pp. 573-585, 2001,">[23]</span></a></sup>中也采用了类似的机制：当所有EDF的唤醒次数较低时，就会引入一个新模块。<br />
+</li>
+<li>类型冲突<br />
 类型冲突通常发生在将封装的子树作为类型化系统中的函数插入到个体中时，即上层函数请求的类型与下层终端或函数的返回类型不匹配。在
 <sup id="fnref:26" class="footnote-ref"><a href="#fn:26" rel="footnote"><span
 class="hint--top hint--rounded"
@@ -945,11 +947,12 @@ Unification Algorithm）改善了 STGP
 最大的变化是将 Koza 标准遗传算法中的个体表示法从 LISP 语言的 S
 表达式迁移到 Lambda 微积分，并根据新表示法中 Currying
 个体的结构将交叉迁移到新表示法中。这些改变使 GP
-能够学习程序的结构，而不受变量和变量类型的限制。</p></li>
-<li><p>ADF内部进化和外部进化的协同作用<br />
+能够学习程序的结构，而不受变量和变量类型的限制。<br />
+</li>
+<li>ADF内部进化和外部进化的协同作用<br />
 另外，考虑到多样性和搜索的进展，如果ADF自身的内部空间也需要不断进化，比如Co-ADF中每个ADF有自己的独立子种群和子fitness
 function，那就需要考虑ADF的进化过程和整体进化过程之间的关系。在使用协同进化时，可能需要考虑在主程序进化的过程中，其function
-set或者是terminal set的变化对搜索过程造成的影响。</p></li>
+set或者是terminal set的变化对搜索过程造成的影响。</li>
 </ul>
 <section class="footnotes">
 <div class="footnote-list">
