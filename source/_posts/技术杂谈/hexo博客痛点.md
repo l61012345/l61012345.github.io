@@ -55,6 +55,7 @@ A类对应@，CNAME对应www或者别的。
   repo: git@github.com:username/username.github.io.git
   branch: master
   ```
+
 ### 博客中的LaTeX/MathJaX公式显示混乱
 这个是由于renderer-marked的转义与markdown本身出现了冲突所造成的。    
 解决方法：  
@@ -93,14 +94,13 @@ const defaultArgs = ['-M', 'pagetitle=dummy'];
 const defaultArgs = ['-M', 'pagetitle=dummy',"--mathjax"];
 ```
 此时还有一个问题是当markdown文件的列表的上一行不是回车符时，在pandoc渲染时不会将其识别为列表。  
-这个时候打开`_config.yml`
-在最后加上：  
-```yml
-pandoc:
-  extensions:
-    - +lists_without_preceding_blankline
+这个时候继续修改这个文件，加上更多的常数：  
+```java
+const defaultArgs = ['-M', 'pagetitle=dummy',"--mathjax","--from=markdown+lists_without_preceding_blankline+footnotes+smart","--wrap=none"];
 ```
+添加其他的参数是为了保证不冲突。
 执行`hexo clean`再用`hexo g`重新生成即可。
+
 
 ### 页面中的LaTeX/MathJaX矩阵无法换行，只有一列
 1. 行内矩阵不能用`\begin{matrix}`，要用`\begin{smallmatrix}`，括号用`\left[`和`\right]`表示
