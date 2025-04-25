@@ -495,27 +495,28 @@ p.spoiler {
 <h3 id="实现流程">实现流程</h3>
 <p>加窗法的实现依赖于理想低通滤波器，理想低通滤波器的冲激响应为：<br />
 <span class="math display">\[h[n]=\frac{sin(ω_cn)}{πn}\]</span>
-其中<span class="math inline">\(ω_c\)</span>表示其截止频率。<br />
-1. 设置滤波器的长度<span
+其中<span class="math inline">\(ω_c\)</span>表示其截止频率。</p>
+<ol type="1">
+<li>设置滤波器的长度<span
 class="math inline">\(L=2N+1\)</span>，并在理想低通滤波器冲激响应上截取<span
 class="math inline">\(L\)</span>个采样点。为了满足线性相位滤波器的条件，通常使用以<span
 class="math inline">\(h[0]\)</span>为对称轴的奇数<span
 class="math inline">\(L\)</span>个序列。定义滤波器的阶数<span
 class="math inline">\(M\)</span>为滤波器序列长度减一： <span
 class="math display">\[M=L-1\]</span> 此时的序列为<span
-class="math inline">\(\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}\)</span>,是一个非因果序列。
-2. 对截取的序列做时移以满足系统的因果性，时移量为<span
+class="math inline">\(\{h[-N],h[-N+1],..,\underset{n=0}{h[0]},..,h[N-1],h[N]\}\)</span>,是一个非因果序列。</li>
+<li>对截取的序列做时移以满足系统的因果性，时移量为<span
 class="math inline">\(α=\frac{L-1}{2}=N\)</span>，称为滤波器的<strong>群时延</strong>(Group
 delay)。<br />
 此时的序列为：<span
-class="math inline">\(\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}\)</span>
-3.
-为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window
+class="math inline">\(\{\underset{n=0}{h[-N]},h[-N+1],..,h[0],..,h[N-1],h[N]\}\)</span></li>
+<li>为了使得滤波器性能更好，还需要对产生的序列进行赋权，产生赋权序列的函数称为窗函数（Window
 function），赋权的操作为： <span
 class="math display">\[fl[n]=h_d[n]×w[n]\]</span> 其中<span
 class="math inline">\(h_d[n]\)</span>为截取和时移之后的理想低通滤波器序列，<span
 class="math inline">\(w[n]\)</span>由窗函数产生，对于矩形窗：<span
-class="math inline">\(w[n]=1\)</span>，之后会对窗函数做更加详细的介绍。</p>
+class="math inline">\(w[n]=1\)</span>，之后会对窗函数做更加详细的介绍。</li>
+</ol>
 <div class="note note-warning">
             <p>需要注意的是，窗函数的阶数比序列阶数高2，再截掉窗函数序列两端的0后，与理想低通滤波器序列相乘。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211230151430.png width=70%></p>
           </div>
@@ -615,13 +616,17 @@ class="math inline">\(r_p=-57dB\)</span><br />
     0, -e_p&lt;21
 \end{cases}\]</span> 凯撒窗可以通过控制阶数和形状参数<span
 class="math inline">\(β\)</span>来控制宽容度和过渡带带宽。<br />
-对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：<br />
-1. 根据宽容度<span class="math inline">\(δ\)</span>计算出<span
+对于给定宽容度和过渡带带宽的设计要求，应用凯撒窗函数设计滤波器的步骤：</p>
+<ol type="1">
+<li>根据宽容度<span class="math inline">\(δ\)</span>计算出<span
 class="math inline">\(e_p\)</span><br />
-2. 根据<span class="math inline">\(e_p\)</span>计算出<span
+</li>
+<li>根据<span class="math inline">\(e_p\)</span>计算出<span
 class="math inline">\(β\)</span>。<br />
-3. 根据<span
-class="math inline">\(e_p\)</span>和过渡带带宽计算出凯撒窗的阶数。</p>
+</li>
+<li>根据<span
+class="math inline">\(e_p\)</span>和过渡带带宽计算出凯撒窗的阶数。</li>
+</ol>
 <h3 id="高通和带通带阻滤波器设计">高通和带通、带阻滤波器设计</h3>
 <p>高通和带通、带阻滤波器的频率响应都可以通过对低通滤波器频率响应加以一定的数学变换得到。<br />
 #### 高通滤波器 高通滤波器的频率响应可以表示为1-低通滤波器：<br />
@@ -647,12 +652,16 @@ class="math display">\[h[n]=δ[n]-\left(\frac{sin(ω_{ca}π(n-α))}{πn}-\frac{s
 <p>MATLAB中，可以使用<code>fir1()</code>函数来进行加窗法的程序设计，其具体表达为：<br />
 <code>fir1(order,omega_c,filtertype,windowtype,"noscale/scale")</code><br />
 其中<code>order</code>表示滤波器的阶数；<code>omega_c</code>是π归一化后的滤波器截止频率；<code>filtertype</code>表示设计的滤波器类型，缺省值为低通滤波器<code>"low"</code>；<code>windowtype</code>表示使用的窗函数，缺省值为海宁窗；<code>"noscale/scale"</code>表示是否需要归一化。<br />
-其中常见的窗函数有：<br />
-- <code>boxcar(l)</code>：矩形窗<br />
-- <code>hann(l)</code>：海宁窗<br />
-- <code>kaiser(l,beta)</code>：凯撒窗<br />
+其中常见的窗函数有：</p>
+<ul>
+<li><code>boxcar(l)</code>：矩形窗<br />
+</li>
+<li><code>hann(l)</code>：海宁窗<br />
+</li>
+<li><code>kaiser(l,beta)</code>：凯撒窗<br />
 <strong>l
-表示的是滤波器的序列长度，注意与滤波器的阶数作区分。</strong></p>
+表示的是滤波器的序列长度，注意与滤波器的阶数作区分。</strong></li>
+</ul>
 <p><code>fir1()</code>函数会返回滤波器的冲激响应序列，返回的冲激序列使用<code>[H_f,w]=freqz(h)</code>返回其幅度-频率响应<code>H_f</code>和角频率轴<code>w</code>。<br />
 其幅度值-频率响应可以通过求其绝对值<code>abs(H_f)</code>得到，相频响应可以通过<code>angle(H_f)</code>得到。<br />
 下面的例程展示了如何用MATLAB绘制一个序列长度为7，截止频率为0.5π的理想低通滤波器：<br />

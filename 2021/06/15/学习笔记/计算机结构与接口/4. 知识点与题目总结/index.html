@@ -504,18 +504,29 @@ Meng（孟鸿鹰）<br />
 <h3 id="浮点数的表达方式">浮点数的表达方式</h3>
 <p>浮点数有两种表达规定：IEEE754和IBM。<br />
 <strong>同一精度下，IBM能够表达的范围更大，最小值也更小，精度更高。</strong><br />
-#### <strong>IEEE754的例外</strong> - NaN：Not a
-Number，是运算错误的表示，通常有如下几种情况运算结果是NaN：<br />
-1. <span class="math inline">\(⨦0 ÷ ⨦0\)</span><br />
-2. <span class="math inline">\(∞-∞\)</span><br />
-3. <span class="math inline">\(⨦∞÷⨦∞\)</span><br />
-4. <span class="math inline">\(⨦∞ × 0\)</span><br />
--
-无穷:当指数部分全为1，小数部分不为0时，运算接过是无穷。规定如下的情况结果会是无穷：
-1. <span class="math inline">\(∞ × ∞\)</span><br />
-2. <span class="math inline">\(∞ + ∞\)</span><br />
-3. <span class="math inline">\(nonezero ÷ 0\)</span> -
-0：IEEE754中有正零和负零之分：两者的符号位不同，其余比特位全都是0，规定<span
+#### <strong>IEEE754的例外</strong></p>
+<ul>
+<li>NaN：Not a
+Number，是运算错误的表示，通常有如下几种情况运算结果是NaN：
+<ol type="1">
+<li><span class="math inline">\(⨦0 ÷ ⨦0\)</span><br />
+</li>
+<li><span class="math inline">\(∞-∞\)</span><br />
+</li>
+<li><span class="math inline">\(⨦∞÷⨦∞\)</span><br />
+</li>
+<li><span class="math inline">\(⨦∞ × 0\)</span><br />
+</li>
+</ol></li>
+<li>无穷:当指数部分全为1，小数部分不为0时，运算接过是无穷。规定如下的情况结果会是无穷：
+<ol type="1">
+<li><span class="math inline">\(∞ × ∞\)</span><br />
+</li>
+<li><span class="math inline">\(∞ + ∞\)</span><br />
+</li>
+<li><span class="math inline">\(nonezero ÷ 0\)</span></li>
+</ol></li>
+<li>0：IEEE754中有正零和负零之分：两者的符号位不同，其余比特位全都是0，规定<span
 class="math inline">\(n ÷ ∞=0\)</span>。<br />
 #### <strong>最大值和最小值/表示范围/精度</strong>
 其最大值和最小值的求法是相同的。 最小数：<br />
@@ -526,11 +537,15 @@ class="math display">\[(base-base^{-fraction})×base^{(2^{exponent}-bias)}\]</sp
 fraction： 小数部分的总位数，bias：偏置，base：基数
 exponent：指数部分的总位数<br />
 注：IEEE754中由于非正规数的要求，应当写作：<span
-class="math inline">\((base-base^{-fraction})×base^{(2^{exponent}-bias-1)}\)</span></p>
+class="math inline">\((base-base^{-fraction})×base^{(2^{exponent}-bias-1)}\)</span></li>
+</ul>
 <h4 id="通信"><strong>通信</strong></h4>
-<p>两者之间的通信数据需要经过转换，转换步骤为：<br />
-1. 改变指数部分和小数部分的基底<br />
-2. 指数部分转化为不同的偏置下的新指数部分</p>
+<p>两者之间的通信数据需要经过转换，转换步骤为：</p>
+<ol type="1">
+<li>改变指数部分和小数部分的基底<br />
+</li>
+<li>指数部分转化为不同的偏置下的新指数部分</li>
+</ol>
 <p>由于IBM规定的精度大于IEEE754，因此从IBM转到IEEE754时数据的精度会有所损失。</p>
 <h2 id="内存">内存</h2>
 <h3 id="分级存储">分级存储</h3>
@@ -654,12 +669,18 @@ class="math inline">\(2^n\)</span>位，重复直到检测最后一位。<br />
 缺点：
 当只有一个校验码出错时，有50%的概率是数据出错，有50%的概率是校验码自己出错，无法确定。
 有两个比特出错时可以检验，但无法校正。</p>
-<p>题目类型：<br />
-1. 编码 2. 解码 3. 求未知数的值（注意可能性有很多种）</p>
-<p>汉明码的局限性：<br />
-1. 当同时出现两个以上的比特位错误时，可能无法被检测到。<br />
-2.
-出现一位比特错误时，在某些情况下无法判断是校验码还是数据发生了错误。</p>
+<p>题目类型：</p>
+<ol type="1">
+<li>编码</li>
+<li>解码</li>
+<li>求未知数的值（注意可能性有很多种）</li>
+</ol>
+<p>汉明码的局限性：</p>
+<ol type="1">
+<li>当同时出现两个以上的比特位错误时，可能无法被检测到。<br />
+</li>
+<li>出现一位比特错误时，在某些情况下无法判断是校验码还是数据发生了错误。</li>
+</ol>
 <h3 id="其他的校验方式">其他的校验方式</h3>
 <p><strong>循环冗余校验（CRC,Cyclic Redundancy Checks）</strong><br />
 通过生成独特的哈希函数来检测比特位的改变，但不能检测出恶意引入的错误。</p>

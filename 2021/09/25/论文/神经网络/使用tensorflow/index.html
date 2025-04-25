@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="TensorFlow 入门项目：训练一个VGG模型  代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为： 1. 读取数据集，加载数据集中的图像和标签 2. 划分训练集和测试集 3. 定义分类器，此处需要定义使用的Google的VGG模型 4. 将训练集放入分类">
+    <meta name="description" content="TensorFlow 入门项目：训练一个VGG模型  代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：  读取数据集，加载数据集中的图像和标签 划分训练集和测试集 定义分类器，此处需要定义使用的Google的VGG模型 将训练集放入分类器训练，并用测试集">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TensorFlow 入门项目：训练一个VGG模型">
 <meta property="og:url" content="https://l61012345.top/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="TensorFlow 入门项目：训练一个VGG模型  代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为： 1. 读取数据集，加载数据集中的图像和标签 2. 划分训练集和测试集 3. 定义分类器，此处需要定义使用的Google的VGG模型 4. 将训练集放入分类">
+<meta property="og:description" content="TensorFlow 入门项目：训练一个VGG模型  代码环境建议为：Python37&#x2F;38&#x2F;39 Tensorflow 2.3.0&#x2F;2.6.0  同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：  读取数据集，加载数据集中的图像和标签 划分训练集和测试集 定义分类器，此处需要定义使用的Google的VGG模型 将训练集放入分类器训练，并用测试集">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-09-25T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-20T09:23:28.093Z">
@@ -494,11 +494,15 @@ p.spoiler {
 <blockquote>
 <p>代码环境建议为：Python37/38/39 Tensorflow 2.3.0/2.6.0</p>
 </blockquote>
-<p>同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：
-1. 读取数据集，加载数据集中的图像和标签 2. 划分训练集和测试集 3.
-定义分类器，此处需要定义使用的Google的VGG模型 4.
-将训练集放入分类器训练，并用测试集输出评价 5. 输出设定的评价标准 6.
-保存模型</p>
+<p>同NUS的交通标志分类器项目一样，搭建一个训练器的算法思路基本相同。基本步骤为：</p>
+<ol type="1">
+<li>读取数据集，加载数据集中的图像和标签</li>
+<li>划分训练集和测试集</li>
+<li>定义分类器，此处需要定义使用的Google的VGG模型</li>
+<li>将训练集放入分类器训练，并用测试集输出评价</li>
+<li>输出设定的评价标准</li>
+<li>保存模型</li>
+</ol>
 <p>整个过程需要的函数库如下所示： <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-keyword">import</span> glob<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br><span class="hljs-keyword">import</span> tensorflow <span class="hljs-keyword">as</span> tf<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">from</span> cv2 <span class="hljs-keyword">import</span> cv2<br><span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split<br><span class="hljs-keyword">from</span> tensorflow.keras <span class="hljs-keyword">import</span> Model, Sequential, layers, models<br><span class="hljs-keyword">from</span> tensorflow.keras.callbacks <span class="hljs-keyword">import</span> EarlyStopping, ReduceLROnPlateau<br><span class="hljs-keyword">from</span> tensorflow.keras.preprocessing.image <span class="hljs-keyword">import</span> ImageDataGenerator<br></code></pre></td></tr></table></figure></p>
 <p>在正式进行训练之前，可以利用tf中的<code>tf.config.experimental.list_physical_devices('GPU')</code>查找并选择使用GPU，写法是固定的。<br />
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Python"><span class="hljs-comment">#调用GPU</span><br>gpus = tf.config.experimental.list_physical_devices(<span class="hljs-string">&#x27;GPU&#x27;</span>)<br><span class="hljs-keyword">if</span> gpus:<br>    <span class="hljs-keyword">for</span> gpu <span class="hljs-keyword">in</span> gpus:<br>        tf.config.experimental.set_memory_growth(gpu, <span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure></p>
@@ -535,9 +539,12 @@ class="math inline">\(log(p/(1-p))\)</span>。
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 开始训练</span><br>history = model.fit(<br>    x_train,<br>    y_train,<br>    batch_size=<span class="hljs-number">128</span>,<br>    epochs=<span class="hljs-number">15</span>,<br>    validation_data=(x_test, y_test),<br>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;train complieted&quot;</span>)<br></code></pre></td></tr></table></figure> ## 读取训练参数并保存模型
 将记录到的loss、准确率进行读取，并使用pyPlot函数库对训练结果进行可视化处理。<br />
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 记录准确率和损失值</span><br>history_dict = history.history<br>train_loss = history_dict[<span class="hljs-string">&quot;loss&quot;</span>]<br>train_accuracy = history_dict[<span class="hljs-string">&quot;accuracy&quot;</span>]<br>val_loss = history_dict[<span class="hljs-string">&quot;val_loss&quot;</span>]<br>val_accuracy = history_dict[<span class="hljs-string">&quot;val_accuracy&quot;</span>]<br><br><span class="hljs-comment"># Generate predictions (probabilities -- the output of the last layer)</span><br><span class="hljs-comment"># on new data using `predict`</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Generate predictions for 3 samples&quot;</span>)<br>predictions = model.predict(x_test[:<span class="hljs-number">3</span>])<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;predictions shape:&quot;</span>, predictions.shape)<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;ploting..&quot;</span>)<br><span class="hljs-comment"># 绘制损失值</span><br>plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), train_loss, label=<span class="hljs-string">&#x27;train_loss&#x27;</span>)<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), val_loss, label=<span class="hljs-string">&#x27;val_loss&#x27;</span>)<br>plt.legend()<br>plt.xlabel(<span class="hljs-string">&#x27;epochs&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;loss&#x27;</span>)<br><br><span class="hljs-comment"># 绘制准确率</span><br>plt.figure()<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), train_accuracy, label=<span class="hljs-string">&#x27;train_accuracy&#x27;</span>)<br>plt.plot(<span class="hljs-built_in">range</span>(epochs), val_accuracy, label=<span class="hljs-string">&#x27;val_accuracy&#x27;</span>)<br>plt.legend()<br>plt.xlabel(<span class="hljs-string">&#x27;epochs&#x27;</span>)<br>plt.ylabel(<span class="hljs-string">&#x27;accuracy&#x27;</span>)<br>plt.show()<br></code></pre></td></tr></table></figure>
-使用<code>model.save()</code>函数保存训练模型，训练模型的格式有两种：<br />
-1. h5，生成的是一个*.h5文件，需要使用<code>keras</code>进行读取。<br />
-2. tf，生成的是一个模型文件夹，比较容易读取。</p>
+使用<code>model.save()</code>函数保存训练模型，训练模型的格式有两种：</p>
+<ol type="1">
+<li>h5，生成的是一个*.h5文件，需要使用<code>keras</code>进行读取。<br />
+</li>
+<li>tf，生成的是一个模型文件夹，比较容易读取。</li>
+</ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;saving the model...&quot;</span>)<br><span class="hljs-comment"># 模型保存，注意：仅仅是多了一个save_format的参数而已</span><br><span class="hljs-comment"># 注意：这里的&#x27;path_to_saved_model&#x27;不再是模型名称，仅仅是一个文件夹，模型会保存在这个文件夹之下</span><br>model.save(<span class="hljs-string">&#x27;model/&#x27;</span>, save_format=<span class="hljs-string">&#x27;tf&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;completed&quot;</span>)<br></code></pre></td></tr></table></figure>
 
                 

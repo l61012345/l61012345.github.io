@@ -512,13 +512,16 @@ class="math display">\[∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k],a_0≠0,b_0≠0
 对上式做Z变换，两边相比，得到系统的传递函数：<br />
 <span
 class="math display">\[H(z)=\frac{Y(z)}{X(z)}=\frac{∑_{k=0}^Mb_kz^{-k}}{∑_{k=0}^Na_kz^{-k}}\]</span>
-但是由于z变换成立的条件是要给出收敛域RoC，因此在未给出传递函数的前提下，其对应的差分方程可能有两个：
-- 右边序列： <span
+但是由于z变换成立的条件是要给出收敛域RoC，因此在未给出传递函数的前提下，其对应的差分方程可能有两个：</p>
+<ul>
+<li>右边序列： <span
 class="math display">\[∑_{k=0}^Na_ky[n-k]=∑_{k=0}^Mb_kx[n-k]\]</span>
 此时数字系统是因果系统。<br />
-- 左边序列: <span
+</li>
+<li>左边序列: <span
 class="math display">\[∑_{k=0}^Na_ky[n-k]=-∑_{k=-M}^{-1}b_kx[n+k]\]</span>
-此时数字系统是非因果系统。</p>
+此时数字系统是非因果系统。</li>
+</ul>
 <h2 id="传递函数的特征">传递函数的特征</h2>
 <h3 id="与冲激响应">与冲激响应</h3>
 <p>系统传递函数可以写作两个多项式的比：<br />
@@ -597,18 +600,20 @@ class="math display">\[H(e^{jω})=\frac{b_0}{a_0}\frac{Π_{k=1}^M(1-c_ke^{-jω})
 class="math inline">\([0,2\pi]\)</span>上生成若干个采样点，作为作图的<span
 class="math inline">\(x\)</span>轴。<br />
 使用函数<code>fft()</code>可以生成指定序列的离散傅里叶变换结果。<code>abs()</code>函数能够给出指定序列在每个采样点上的绝对值，即幅度。<code>angle()</code>函数可以生成指定序列在每个采样点上的相位。<br />
-绘制其频率响应需要注意的是：<br />
-- 需要对<span
+绘制其频率响应需要注意的是：</p>
+<ul>
+<li>需要对<span
 class="math inline">\(h[n]\)</span>进行周期延拓，方法是使用<code>zeros(1,L)</code>创建一个长度为L的全0向量用<code>x=[x,zeros(1,L)]</code>对其填充。<br />
--
-使用<code>fft()</code>函数求其FFT结果。<code>abs()</code>求结果的绝对值得到幅频响应，<code>angle()</code>求FFT结果的相频响应。<br />
--
-横轴应当为<code>[0:(N+L)]*2*pi/(N+L+1)</code>使得0-2π内每一格的长度为<span
+</li>
+<li>使用<code>fft()</code>函数求其FFT结果。<code>abs()</code>求结果的绝对值得到幅频响应，<code>angle()</code>求FFT结果的相频响应。<br />
+</li>
+<li>横轴应当为<code>[0:(N+L)]*2*pi/(N+L+1)</code>使得0-2π内每一格的长度为<span
 class="math inline">\(\frac{2π}{N+L+1}\)</span>
 （因为<code>0:(N+L)</code>有N+L+1个数）<br />
 下面的示例程序展示了如何绘制<span
 class="math inline">\(h[n]=Sa(0.1(n-50)),0≤n≤100\)</span>的幅频和相频响应曲线：<br />
-<figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>; <span class="hljs-comment">%100点FFT</span><br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)]; <span class="hljs-comment">%对x周期延拓到长度为1000</span><br>X<span class="hljs-built_in">=</span>fft(x); <span class="hljs-comment">%求其FFT/DFS结果（Amplitude Response）</span><br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<span class="hljs-comment">%横轴，每一格表示2π/(N+1001)</span><br>plot(w./pi,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）并作π归一化</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></td></tr></table></figure></p>
+<figure class="highlight m"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs M">N<span class="hljs-built_in">=</span><span class="hljs-number">100</span>; <span class="hljs-comment">%100点FFT</span><br>n<span class="hljs-built_in">=</span><span class="hljs-number">0</span>:N;<br>x<span class="hljs-built_in">=</span>sinc(<span class="hljs-number">0.1</span>*(n-<span class="hljs-number">50</span>));<br>x<span class="hljs-built_in">=</span>[x,zeros(<span class="hljs-number">1</span>,<span class="hljs-number">1000</span>)]; <span class="hljs-comment">%对x周期延拓到长度为1000</span><br>X<span class="hljs-built_in">=</span>fft(x); <span class="hljs-comment">%求其FFT/DFS结果（Amplitude Response）</span><br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>);<br>w<span class="hljs-built_in">=</span>[<span class="hljs-number">0</span>:(N+<span class="hljs-number">1000</span>)]*<span class="hljs-number">2</span>*pi/(N+<span class="hljs-number">1001</span>);<span class="hljs-comment">%横轴，每一格表示2π/(N+1001)</span><br>plot(w./pi,abs(X));  <span class="hljs-comment">%取绝对值求幅频响应（Magnitude Response）并作π归一化</span><br>title(<span class="hljs-string">&#x27;Magnitude Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> <span class="hljs-number">0</span> <span class="hljs-number">12</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br>subplot(<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>plot(w./pi,angle(X)); <span class="hljs-comment">% angle(X)表示求其相频响应</span><br>title(<span class="hljs-string">&#x27;Phase Response&#x27;</span>);<br>axis ([<span class="hljs-number">0</span> <span class="hljs-number">2</span> -<span class="hljs-number">4</span> <span class="hljs-number">4</span>]);<br>xlabel(<span class="hljs-string">&#x27;\omega/\pi&#x27;</span>);<br></code></pre></td></tr></table></figure></li>
+</ul>
 <p>给定系统Z域下的传递函数<span
 class="math inline">\(H(z)=\frac{∑b_kz^{-k}}{∑a_kz^{-k}}\)</span>时，可以使用<code>[H,w]=freqz(b,a,n)</code>返回其频率响应<code>H</code>和对应的π归一化的角频率横轴<code>w</code>，其中<code>a</code>是<span
 class="math inline">\(∑a_kz^{-k}\)</span>由高次幂到低次幂排列时的系数向量，其中<code>b</code>是<span

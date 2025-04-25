@@ -115,7 +115,7 @@
 <meta property="og:description" content="Hexo搭建博客记录 搭建这个博客前前后后花了大概一周左右的时间，基本上把能踩的雷全都踩过了，现在记录一下搭建过程中的问题和解决办法。 Github Pages 相关问题 Github Pages 无法创建页面 显示“Pages build faild” 但是没有任何报错信息 第一个遇到的问题是Github Pages 始终反馈无法创建（build）页面，反馈邮件当中没有任何关于错误的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-20T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-25T15:04:05.120Z">
+<meta property="article:modified_time" content="2025-04-25T15:44:31.386Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -514,9 +514,11 @@ for something other than a Jekyll theme, we recommend you rename this
 variable throughout your site. For more information, see
 https://help.github.com/en/articles/adding-a-jekyll-theme-to-your-github-pages-site.</p>
 <p>这个问题是由更换主题时直接clone的主题，导致项目下面有两个repo造成的。<br />
-解决方法有两个： 1.
-直接在主题的release页面中下载发布的压缩包，解压之后放theme里【推荐】 2.
-在git中使用submodule：<code>git submodule add url</code></p>
+解决方法有两个：</p>
+<ol type="1">
+<li>直接在主题的release页面中下载发布的压缩包，解压之后放theme里【推荐】</li>
+<li>在git中使用submodule：<code>git submodule add url</code></li>
+</ol>
 <h3
 id="github-pages-显示-404-there-isnt-a-github-pages-site-here.">Github
 Pages 显示 404 “There isn’t a GitHub Pages site here.”</h3>
@@ -558,15 +560,19 @@ pages的报错信息，具体问题具体分析。</p>
 <p>这个问题是由于_config.yml末尾的deploy:
 repo:中设置的是https网址导致的<br />
 正确的填写方法是用SSH链接：<br />
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs JAVA">deploy:<br>type: <span class="hljs-string">&#x27;git&#x27;</span><br>repo: git<span class="hljs-meta">@github</span>.com:username/username.github.io.git<br>branch: master<br></code></pre></td></tr></table></figure> ### 博客中的LaTeX/MathJaX公式显示混乱
-这个是由于renderer-marked的转义与markdown本身出现了冲突所造成的。<br />
-解决方法：<br />
-1. 卸载原来的公式渲染引擎改用kramed <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm uninstall hexo-renderer-marked --save<br>npm install hexo-renderer-kramed --save<br></code></pre></td></tr></table></figure> 2.
-然后在node_modules.js目录下把第11行的escape变量的值做相应的修改：
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs JAVA">deploy:<br>type: <span class="hljs-string">&#x27;git&#x27;</span><br>repo: git<span class="hljs-meta">@github</span>.com:username/username.github.io.git<br>branch: master<br></code></pre></td></tr></table></figure></p>
+<h3
+id="博客中的latexmathjax公式显示混乱">博客中的LaTeX/MathJaX公式显示混乱</h3>
+<p>这个是由于renderer-marked的转义与markdown本身出现了冲突所造成的。<br />
+解决方法：</p>
+<ol type="1">
+<li>卸载原来的公式渲染引擎改用kramed <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm uninstall hexo-renderer-marked --save<br>npm install hexo-renderer-kramed --save<br></code></pre></td></tr></table></figure></li>
+<li>然后在node_modules.js目录下把第11行的escape变量的值做相应的修改：
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  escape: /^\\([\\`*&#123;&#125;\[\]()#$+\-.!_&gt;])/,</span><br>escape: /^\\([`*\[\]()#$+\-.!_&gt;])/<br></code></pre></td></tr></table></figure> 这一步是在原基础上取消了对,{,}的转义(escape)。<br />
 同时把第20行的em变量也要做相应的修改。<br />
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/<br></code></pre></td></tr></table></figure> 3.
-执行<code>hexo clean</code>再用<code>hexo g</code>重新生成</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/<br></code></pre></td></tr></table></figure></li>
+<li>执行<code>hexo clean</code>再用<code>hexo g</code>重新生成</li>
+</ol>
 <p>另一个办法是改用pandoc作为renderer，但是同样有踩坑点。
 首先在电脑上安装最新版的pandoc，然后在hexo目录下执行：<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-renderer-pandoc --save<br>npm install hexo-renderer-mathjax --save<br>npm install hexo-filter-mathjax --save<br></code></pre></td></tr></table></figure>

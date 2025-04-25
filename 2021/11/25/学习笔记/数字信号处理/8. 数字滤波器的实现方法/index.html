@@ -534,9 +534,12 @@ class="math display">\[y[n]=h[1]x[n-1]+h[x][n-2]+..+h[M]x[n-M]\]</span></p>
 class="math inline">\(x[n]\)</span>分别做<span
 class="math inline">\(M\)</span>次时延，每一次时延后的信号与对应系数相乘后，与前面的序列相加。</p>
 <h4 id="硬件消耗">硬件消耗</h4>
-<p>因此，直接型需要：<br />
-- M个时延单元(也称为存储单元，用于存放之前的输入) - M+1个乘法单元 -
-M个加法单元</p>
+<p>因此，直接型需要：</p>
+<ul>
+<li>M个时延单元(也称为存储单元，用于存放之前的输入)</li>
+<li>M+1个乘法单元</li>
+<li>M个加法单元</li>
+</ul>
 <p>直接型虽然容易搭建，但是消耗器件较多。此外，由于加法器和延迟器都处于系统干路上，如果任何一个延迟器或者加法器出现故障，则整个滤波器系统将无法正常工作。</p>
 <h3 id="级联型">级联型</h3>
 <p>系统方程（z域）和系统的冲激响应之间存在如下关系：<br />
@@ -567,9 +570,12 @@ class="math display">\[w_3=b_{03}w_2[n]+b_{13}w_2[n-1]+b_{23}w_2[n-2]\]</span>
 级联型结构如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125170748.png width=80%></p>
 <h4 id="硬件消耗-1">硬件消耗</h4>
-<p>在这个模块中，需要：<br />
-- M个时延单元 - <span
-class="math inline">\(\frac{3}{2}M\)</span>个乘法单元 - M个加法单元</p>
+<p>在这个模块中，需要：</p>
+<ul>
+<li>M个时延单元</li>
+<li><span class="math inline">\(\frac{3}{2}M\)</span>个乘法单元</li>
+<li>M个加法单元</li>
+</ul>
 <p>如果将<span
 class="math inline">\(b_0k\)</span>做归一化处理，此时系统方程为：<br />
 <span
@@ -610,8 +616,12 @@ class="math inline">\(y[n]\)</span>的反馈信号通过若干个延迟器后的
 class="math inline">\(y[n]\)</span>的结果。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127131242.png width=50%></p>
 <h4 id="硬件消耗-2">硬件消耗</h4>
-<p>直接型I需要：<br />
-- M+N个加法单元 - M+N+1个乘法单元 - M+N+1个时延单元</p>
+<p>直接型I需要：</p>
+<ul>
+<li>M+N个加法单元</li>
+<li>M+N+1个乘法单元</li>
+<li>M+N+1个时延单元</li>
+</ul>
 <p>直接型I的优点是搭建简单，整个信号流图基本按照公式原本的样子即可搭建。缺点是所需要的硬件消耗较大。</p>
 <h3 id="标准型直接型ii">标准型/直接型II</h3>
 <p>由， <span
@@ -636,8 +646,12 @@ class="math inline">\(M=N\)</span>时标准型II的结构：<br />
 class="math inline">\(w[n-k]\)</span>，因此两路信号可以共用一组延迟器，进而大幅度减小延迟器的消耗：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127135151.png width=70%></p>
 <h4 id="硬件消耗-3">硬件消耗</h4>
-<p>直接型II需要： - M+N个加法单元 - M+N+1个乘法单元 -
-max(M,N)个时延单元</p>
+<p>直接型II需要：</p>
+<ul>
+<li>M+N个加法单元</li>
+<li>M+N+1个乘法单元</li>
+<li>max(M,N)个时延单元</li>
+</ul>
 <p>相比于直接型I，直接型II大幅度减少了时延单元的消耗。</p>
 <h3 id="级联型-1">级联型</h3>
 <p>IIR系统的级联型原理与FIR系统的级联型原理相同，都是在Z域内把一个多项式分解为多个多项式的乘积。
@@ -649,10 +663,13 @@ class="math inline">\(\frac{1+b&#39;_{1k}z^{-1}+b&#39;_{2k}z^{-2}}{1-a&#39;_{1k}
 <p>级联型的结构图如下所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127141419.png width=70%></p>
 <h4 id="硬件消耗-4">硬件消耗</h4>
-<p>当<span class="math inline">\(M=N\)</span>时，级联型需要：<br />
-- <span class="math inline">\(4\frac{(N+1)}{2}\)</span>个加法单元 -
-<span class="math inline">\(4\frac{(N+1)}{2}+1\)</span>个乘法单元 -
-<span class="math inline">\(2N_s\)</span>个时延单元</p>
+<p>当<span class="math inline">\(M=N\)</span>时，级联型需要：</p>
+<ul>
+<li><span class="math inline">\(4\frac{(N+1)}{2}\)</span>个加法单元</li>
+<li><span
+class="math inline">\(4\frac{(N+1)}{2}+1\)</span>个乘法单元</li>
+<li><span class="math inline">\(2N_s\)</span>个时延单元</li>
+</ul>
 <p>相比于直接型，级联型结构中每一个子系统单元都是独立运行的，因此系统鲁棒性优于普通型。</p>
 <h3 id="并联型">并联型</h3>
 <p>由z域下系统频率响应可以通过提取常数改写为：<br />
@@ -666,10 +683,13 @@ class="math inline">\(N_S=\frac{N+1}{2}\)</span>。<br />
 由于其后的求和符号，每一个二级多项式分式都可以独立计算，从而实现并行化。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211127143607.png width=60%></p>
 <h4 id="硬件消耗-5">硬件消耗</h4>
-<p>当<span class="math inline">\(M=N\)</span>时，级联型需要：<br />
-- <span class="math inline">\(4\frac{(N+1)}{2}\)</span>个加法单元 -
-<span class="math inline">\(3\frac{(N+1)}{2}+1\)</span>个乘法单元 -
-<span class="math inline">\(2N_s\)</span>个时延单元</p>
+<p>当<span class="math inline">\(M=N\)</span>时，级联型需要：</p>
+<ul>
+<li><span class="math inline">\(4\frac{(N+1)}{2}\)</span>个加法单元</li>
+<li><span
+class="math inline">\(3\frac{(N+1)}{2}+1\)</span>个乘法单元</li>
+<li><span class="math inline">\(2N_s\)</span>个时延单元</li>
+</ul>
 <h2 id="fir和iir的物理结构类型的特点">FIR和IIR的物理结构类型的特点</h2>
 <ul>
 <li>当<span

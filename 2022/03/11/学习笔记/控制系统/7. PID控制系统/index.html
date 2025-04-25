@@ -558,8 +558,11 @@ class="math inline">\(T_i=4T_d\)</span>：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/PID_Compensation_Animated.gif width=50%></p>
 <h2 id="pid控制器的调节方法">PID控制器的调节方法</h2>
 <p>通过实验对PID控制器进行调整的方法称为齐格勒－尼科尔斯方法(Ziegler-Nichols
-method)，其方法包括两种调节方式：<br />
-- 阶跃响应法 - 频率响应法</p>
+method)，其方法包括两种调节方式：</p>
+<ul>
+<li>阶跃响应法</li>
+<li>频率响应法</li>
+</ul>
 <h3 id="阶跃响应法">阶跃响应法</h3>
 <p>阶跃响应法（Step response
 method）适用对象是系统的阶跃响应呈现“s”形状的曲线，如下图所示：<br />
@@ -585,23 +588,26 @@ class="math inline">\(T\)</span>三个常数，并依据如下的表格进行PID
 <h3 id="频率响应法">频率响应法</h3>
 <p>频率响应法（Frequncy response
 method）适用于需要改进的系统（plant）在s域原点存在零点。<br />
-频率响应法的步骤是： -
-首先应用P控制器改进开环传递函数，改进后系统的闭环传递函数为：<br />
+频率响应法的步骤是：</p>
+<ul>
+<li>首先应用P控制器改进开环传递函数，改进后系统的闭环传递函数为：<br />
 <span
-class="math display">\[\frac{C(s)}{R(s)}=\frac{K_P+∏(s+z_i)}{K_P+∏(s+p_i)}\]</span>
-- 将<span
+class="math display">\[\frac{C(s)}{R(s)}=\frac{K_P+∏(s+z_i)}{K_P+∏(s+p_i)}\]</span></li>
+<li>将<span
 class="math inline">\(K_P\)</span>的值增加，直到系统达到临界稳定条件，得到此时的<span
 class="math inline">\(K_P=K_{cr}\)</span>。<br />
 或者应用劳斯判据求出劳斯表第一列每一项等于0时最小的<span
 class="math inline">\(K_P\)</span>得到此时的<span
-class="math inline">\(K_P=K_{cr}\)</span>。 -
-根据系统闭环传递函数的特征方程，求得方程<span
+class="math inline">\(K_P=K_{cr}\)</span>。</li>
+<li>根据系统闭环传递函数的特征方程，求得方程<span
 class="math inline">\(K=K_{cr}\)</span>时的解，对应角频率<span
 class="math inline">\(ω_{cr}\)</span>，根据<span
 class="math inline">\(P_{cr}=\frac{2π}{ω_{cr}}\)</span>找到系统临界稳定时系统阶跃响应的振荡周期<span
 class="math inline">\(P_{cr}\)</span>。<br />
-- 根据下表得到PID控制器的参数并设计。<br />
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311130506.png width=50%></p>
+</li>
+<li>根据下表得到PID控制器的参数并设计。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311130506.png width=50%></li>
+</ul>
 <p>在MATLAB中可以使用PID Tuner应用，选择“import new
 plant”导入使用<code>tf()</code>命令生成的系统传递函数，选择“show
 parameter”展示当前PID控制器的参数，并对其进行调制，直到满足设计要求。</p>
@@ -674,10 +680,14 @@ class="math display">\[G_{yn}=\frac{Y(s)}{N(s)}=-\frac{(G_{c1}+G_{c2})G_p}{1+(G_
 class="math display">\[G_{yn}=\frac{G_{yd}-G_p}{G_p}\]</span></p>
 <h4 id="双自由度系统的优点">双自由度系统的优点</h4>
 <p>双自由度PID控制器可以解决常规PID控制器在实际应用中不兼容的问题。<br />
-双自由度系统有：<br />
-- 非常低的过冲<br />
-- 不容易受干扰影响<br />
-- 调节时间很短</p>
+双自由度系统有：</p>
+<ul>
+<li>非常低的过冲<br />
+</li>
+<li>不容易受干扰影响<br />
+</li>
+<li>调节时间很短</li>
+</ul>
 
                 
               </div>

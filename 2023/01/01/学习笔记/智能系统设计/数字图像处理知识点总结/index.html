@@ -580,12 +580,15 @@ class="math display">\[r(x,y,u,v)=α(u)α(v)cos\left[\frac{(2x+1)uπ}{2n}\right]
   \sqrt{\frac{1}{n}},u=0\\
   \sqrt{\frac{2}{n}},u≠0\\
 \end{cases}\]</span></p>
-<p>使用离散余弦变换的原因：<br />
-- 当信号具有接近马尔科夫过程(Markov
+<p>使用离散余弦变换的原因：</p>
+<ul>
+<li>当信号具有接近马尔科夫过程(Markov
 processes)的统计特性时（这样的条件又被称为马尔科夫条件），离散余弦变换的去相关性接近于K-L变换。<strong>此时离散余项变换的作用相当于K-L变换。</strong><br />
-- 相比于快速傅里叶变换(fast fourier transformation,
+</li>
+<li>相比于快速傅里叶变换(fast fourier transformation,
 FFT)，离散余弦变换可以通过反转信号达到变换后信号是原信号周期的两倍，如此避免了快速傅里叶变换中可能出现的间断点。离散余弦变换后子图之间的间隔更加平滑。<br />
-<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221219202507.png width=50%></p>
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221219202507.png width=50%></li>
+</ul>
 <h4 id="量化">量化</h4>
 <p><strong>量化过程是JPEG标准中信息损失最大的部分</strong>。JPEG中量化的目的是为了大幅度的压缩图像大小，同时保证图像的质量，即重建后的图像仍然保留了原图中的大部分信息。<br />
 <strong>量化过程中对于不同位置的像素使用了不同的量化级和量化阈值</strong>。</p>
@@ -626,25 +629,35 @@ class="math inline">\(n&#39;\)</span>为下一个频率对应的像素值个数)
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220122837.png width=50%></p>
 <p>下图展示了使用霍夫曼编码的一个例子：<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221220130020.png width=50%></p>
-<p>霍夫曼编码的特点是：<br />
-- 非对称编码 (asymetric)<br />
+<p>霍夫曼编码的特点是：</p>
+<ul>
+<li>非对称编码 (asymetric)<br />
 不同值对应的编码和解码所占用的资源大小不同。<br />
-- 前缀无关编码 (prefix-free)
-任何一个码字都不是其它码字的前缀的编码。</p>
+</li>
+<li>前缀无关编码 (prefix-free)
+任何一个码字都不是其它码字的前缀的编码。</li>
+</ul>
 <h2 id="图像增强">图像增强</h2>
 <h3 id="点处理">点处理</h3>
 <p>点处理是像素点到点的变换，其影响仅限于单个的像素。图像上一个像素值<span
 class="math inline">\(r(x,y)\)</span>,经过处理<span
 class="math inline">\(s(x,y)=T(r(x,y))\)</span>后，得到同一位置的像素<span
 class="math inline">\(s(x,y)\)</span>。<br />
-注意： 1. <span class="math inline">\((x,y)\)</span>表示坐标。 2.
-不同的图像处理库坐标系统的原点设置不同，<span
+注意：</p>
+<ol type="1">
+<li><span class="math inline">\((x,y)\)</span>表示坐标。</li>
+<li>不同的图像处理库坐标系统的原点设置不同，<span
 class="math inline">\(y\)</span>的取值设定也不同。<br />
-3. <span
-class="math inline">\(T\)</span>通常只能是单调（通常是单调递增）的函数。</p>
-<p>点处理的几个特性：<br />
-- 点处理的影响仅限于单个的像素点。<br />
-- 点处理不会改变像素的位置。</p>
+</li>
+<li><span
+class="math inline">\(T\)</span>通常只能是单调（通常是单调递增）的函数。</li>
+</ol>
+<p>点处理的几个特性：</p>
+<ul>
+<li>点处理的影响仅限于单个的像素点。<br />
+</li>
+<li>点处理不会改变像素的位置。</li>
+</ul>
 <p>对于图像的点处理：<span
 class="math inline">\(s=T(r)\)</span>，<strong>当且仅当<span
 class="math inline">\(T(·)\)</span>是一个严格单调的函数时，原图像中的像素可以和处理后的图像中的像素一一对应，如此只需要使用<span
@@ -917,14 +930,21 @@ style="text-align: left;">影像讯号受到突如其来的强烈干扰而产生
 因此，<strong>通过观察图像对应直方图上像素值的包络可以判断出图像噪声的类型</strong>。</p>
 <h4 id="噪声去除">噪声去除</h4>
 <p>噪声估计的目的是为了根据图像的噪声类型选择合适的滤波器以及滤波器合适的参数去除噪声（比如：高斯噪声-高斯滤波器，椒盐噪声-中值滤波器）。<br />
-因此整个噪声去除的流程为：<br />
-1. 估计噪声<br />
-2. 根据噪声选择合适的滤波器和滤波器类型<br />
-3. 噪声过滤</p>
+因此整个噪声去除的流程为：</p>
+<ol type="1">
+<li>估计噪声<br />
+</li>
+<li>根据噪声选择合适的滤波器和滤波器类型<br />
+</li>
+<li>噪声过滤</li>
+</ol>
 <p>如果去除噪声后的照片<span
-class="math inline">\(\hat{f}(x,y)\)</span>和原图（原图只添加了噪声）的差距仍然很大，那么可能的原因有两点：<br />
-- 噪声估计过程中错误地估计的噪声的类型和噪声参数。<br />
-- 使用了错误的滤波方法。</p>
+class="math inline">\(\hat{f}(x,y)\)</span>和原图（原图只添加了噪声）的差距仍然很大，那么可能的原因有两点：</p>
+<ul>
+<li>噪声估计过程中错误地估计的噪声的类型和噪声参数。<br />
+</li>
+<li>使用了错误的滤波方法。</li>
+</ul>
 <h3 id="退化">退化</h3>
 <h4 id="退化方式">退化方式*</h4>
 <ul>

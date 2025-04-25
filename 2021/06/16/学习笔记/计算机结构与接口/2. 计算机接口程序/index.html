@@ -622,12 +622,15 @@ class="math inline">\(x\)</span>位上的值传出到port即可。<br />
 <h3 id="结构与原理">结构与原理</h3>
 <h4 id="针脚pin"><strong>针脚（Pin）</strong></h4>
 <p>液晶显示面板共有11个pin，其中8个用于传输8
-bit数据，3个用于控制，这三个pin为:<br />
-- RS: Register select，选择寄存器为指令寄存器还是d数据寄存器。<br />
-- R/W：Read/Write，
+bit数据，3个用于控制，这三个pin为:</p>
+<ul>
+<li>RS: Register select，选择寄存器为指令寄存器还是d数据寄存器。<br />
+</li>
+<li>R/W：Read/Write，
 控制数据流的方向是从单片机到LED（通常）还是从LED到单片机。<br />
--
-E：Enable，控制数据发送的速度：E对应的值每发生一次变化（10），就会发生1bit的数据传输。</p>
+</li>
+<li>E：Enable，控制数据发送的速度：E对应的值每发生一次变化（10），就会发生1bit的数据传输。</li>
+</ul>
 <h4 id="显示面板"><strong>显示面板</strong></h4>
 <p>显示面板被划分为8x2个区域，每个区域可以显示一个字符。
 每个区域所对应了一个地址，<strong>第一排显示区域的地址是00到07，第二排显示区域的地址是从40到47</strong>。<br />
@@ -643,14 +646,23 @@ E：Enable，控制数据发送的速度：E对应的值每发生一次变化（
 <strong>发送LSB： 0010 |LSB</strong></p>
 <h3 id="程序思路-3">程序思路</h3>
 <p>LCD在使用前需要对其进行唤醒（初始化显示），唤醒方法为不断的向portb发送两个不同的任意非零比特值。</p>
-<p>整个LCD的初始化流程为：<br />
-1. 设置adcon1接收来自portA的所有pins的数字信号。<br />
-2. 设置portA的PA0,PA1,PA2为输出。<br />
-3. 设置portB为输出。<br />
-4. 清除显示。<br />
-5. 唤醒LED。 6. 设置显示模式：显示n行，8bit数据接口，5x7或0.5x7点阵 7.
-开启显示，并设置显示/不显示指针 8. 设置字符的显示模式:从左到右/从右到左
-9. 设置指针的起始位置。 10. 清除显示。 固定代码为: <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">adcon1 = <span class="hljs-number">0x06</span>; <span class="hljs-comment">//设置adcon1接收来自portA的所有pins的数字信号</span><br>trisa = <span class="hljs-number">0xf8</span>; <span class="hljs-comment">//设置portA的PA0,PA1,PA2为输出</span><br>trisb = <span class="hljs-number">0x00</span>; <span class="hljs-comment">//设置PortB为输出</span><br>lcd_cmd(<span class="hljs-number">1</span>); <span class="hljs-comment">//清除显示</span><br>lcd_init(); <span class="hljs-comment">//初始化LCD</span><br>lcd_cmd(<span class="hljs-number">0x38</span>); <span class="hljs-comment">//设置两行，8比特，5x7点阵</span><br>lcd_cmd(<span class="hljs-number">0x0c</span>); <span class="hljs-comment">//设置打开显示，不显示光标</span><br>lcd_cmd(<span class="hljs-number">0x06</span>); <span class="hljs-comment">//设置光标右移</span><br>lcd_cmd(<span class="hljs-number">1</span>); <span class="hljs-comment">//清除显示</span><br></code></pre></td></tr></table></figure></p>
+<p>整个LCD的初始化流程为：</p>
+<ol type="1">
+<li>设置adcon1接收来自portA的所有pins的数字信号。<br />
+</li>
+<li>设置portA的PA0,PA1,PA2为输出。<br />
+</li>
+<li>设置portB为输出。<br />
+</li>
+<li>清除显示。<br />
+</li>
+<li>唤醒LED。</li>
+<li>设置显示模式：显示n行，8bit数据接口，5x7或0.5x7点阵</li>
+<li>开启显示，并设置显示/不显示指针</li>
+<li>设置字符的显示模式:从左到右/从右到左</li>
+<li>设置指针的起始位置。</li>
+<li>清除显示。 固定代码为: <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">adcon1 = <span class="hljs-number">0x06</span>; <span class="hljs-comment">//设置adcon1接收来自portA的所有pins的数字信号</span><br>trisa = <span class="hljs-number">0xf8</span>; <span class="hljs-comment">//设置portA的PA0,PA1,PA2为输出</span><br>trisb = <span class="hljs-number">0x00</span>; <span class="hljs-comment">//设置PortB为输出</span><br>lcd_cmd(<span class="hljs-number">1</span>); <span class="hljs-comment">//清除显示</span><br>lcd_init(); <span class="hljs-comment">//初始化LCD</span><br>lcd_cmd(<span class="hljs-number">0x38</span>); <span class="hljs-comment">//设置两行，8比特，5x7点阵</span><br>lcd_cmd(<span class="hljs-number">0x0c</span>); <span class="hljs-comment">//设置打开显示，不显示光标</span><br>lcd_cmd(<span class="hljs-number">0x06</span>); <span class="hljs-comment">//设置光标右移</span><br>lcd_cmd(<span class="hljs-number">1</span>); <span class="hljs-comment">//清除显示</span><br></code></pre></td></tr></table></figure></li>
+</ol>
 <p>将发送的字符串视为一个数组，每一个字符都要进行：“清零，MSB移位，清除头四位，发送MSB，清除头四位，发送LSB”的操作。</p>
 <h2 id="adc模数转换器">ADC/模数转换器</h2>
 <h3 id="测量原理">测量原理</h3>
@@ -710,12 +722,15 @@ src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529143926.png" srcset="/
 </tr>
 </tbody>
 </table>
-<p>bit7：ADFM，选择寄存模式：<br />
-- 为1时10bit转换结果的bit10和bit9放入ADRESH，剩下比特放入ADRESL。<br />
-- 为0时10bit转换结果的bit0和bit1放入ADRESL，剩下比特放入ADRSH。<br />
+<p>bit7：ADFM，选择寄存模式：</p>
+<ul>
+<li>为1时10bit转换结果的bit10和bit9放入ADRESH，剩下比特放入ADRESL。<br />
+</li>
+<li>为0时10bit转换结果的bit0和bit1放入ADRESL，剩下比特放入ADRSH。<br />
 bit6-bit4：Don’t Care<br />
 bit3-bit0:
-PCFG3-PCFG0，选择ADC的4个pins哪些接收模拟信号（0），哪些接收数字信号（1）。</p>
+PCFG3-PCFG0，选择ADC的4个pins哪些接收模拟信号（0），哪些接收数字信号（1）。</li>
+</ul>
 <h4 id="adcon0"><strong>ADCON0</strong></h4>
 <table>
 <thead>
