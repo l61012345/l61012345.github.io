@@ -23,16 +23,18 @@ category_bar: true
 | 辅助系统 <br> Auxiliary System | 提供照明、风冷和显示等等功能 | 
 | 外围系统 <br> Perphery System | 负责更换刀头等等 |
 
-[^1]: G.Y.Zhao *et al*., Energy Consumption in Machining: Classification, prediction, and reduction stratage, *Energy*, 2017.  
 
-其中，主轴驱动又包含旋转部分（夹具）和电机。每台机器的主轴确实是其核心，其中包括旋转部件（夹头），能够将刀具夹紧在其上。电机是各种类型的动力传输器，可导致主轴移动。[^4]
 
-[^4]: https://ksp-group.ir/en/post/id/57/-spindle-in-Cnc-machine-and-differentiation-among-them,-built-in,-direct-drive,-gearbox-type,-belt-type.
+其中，主轴驱动又包含旋转部分（夹具）和电机。每台机器的主轴确实是其核心，其中包括旋转部件（夹头），能够将刀具夹紧在其上。电机是各种类型的动力传输器，可导致主轴移动。[^2]
+
+[^1]: G.Y.Zhao et al., Energy Consumption in Machining: Classification, prediction, and reduction stratage, Energy, 2017.  
+[^2]: 链接： https://ksp-group.ir/en/post/id/57/-spindle-in-Cnc-machine-and-differentiation-among-them,-built-in,-direct-drive,-gearbox-type,-belt-type.  
+
 <img src=https://ksp-group.ir/media/%D8%A8%D8%B1%D8%B1%D8%B3%DB%8C%20%D8%A7%D8%B3%D9%BE%DB%8C%D9%86%D8%AF%D9%84%20%D9%87%D8%A7%DB%8C%20%D9%85%D8%AE%D8%AA%D9%84%D9%81/3d_section_model_of_a_motor_spindle.png width=40%>
 
-伺服系统则包括包括机械子系统、伺服电机驱动子系统和控制器子系统。[^5]
+伺服系统则包括包括机械子系统、伺服电机驱动子系统和控制器子系统。[^3]
 
-[^5]: J. Zheng, M. Zhang and Q. Meng, "Modeling and design of servo system of CNC machine tools," 2006 International Conference on Mechatronics and Automation, Luoyang, China, 2006, pp. 1964-1969, doi: 10.1109/ICMA.2006.257555.  
+[^3]: J. Zheng, M. Zhang and Q. Meng, "Modeling and design of servo system of CNC machine tools," 2006 International Conference on Mechatronics and Automation, Luoyang, China, 2006, pp. 1964-1969, doi: 10.1109/ICMA.2006.257555.  
 
 
 
@@ -44,17 +46,17 @@ category_bar: true
 此后，主轴开始旋转，但是刀头(cutting tool)并未接触到工件，此时的铣床工作状态称为空切(air-cutting). 空切的能量消耗是无意义的。需要注意的是，倘若工件本身表面不均匀，也有可能在主轴刀头接触到工件后发生空切现象。  
 然后主轴逐渐下降，刀头接触到工件并开始进行铣削操作。此时主轴和辅助外围系统均会产生能耗。对于主轴系统，其能量消耗分为两部分：由主轴旋转引起的角速度（通常描述为主轴转速, spindle speed）的能量消耗和由刀头在工件表面发生相对移动并且切割工件造成的线速度（通常描述为切削速度, cutting speed）的能量消耗。总而言之，这个阶段中的有效能量来源于移除不需要的工件部分所消耗的能量，因此材料去除能(material removal energy)是衡量铣削过程中有效能量的标志。  
 此后主轴抬起，机床再次进入空切状态。  
-在主轴停转后（即下图中的Off阶段），电流会先经过一定的不稳定状态，此时虽然铣床中没有任何子系统工作，但是依旧有能量消耗，这个能量消耗在[^2]中定义为基本能量消耗(basic energy consumption). 这个能量消耗不和任何子系统相关，且不稳定[^2]。  
-整个机床在一次铣削过程的总能量消耗大致如下图所示[^2]：  
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231129144206.png width=60%> 
+在主轴停转后（即下图中的Off阶段），电流会先经过一定的不稳定状态，此时虽然铣床中没有任何子系统工作，但是依旧有能量消耗，这个能量消耗在[^4]中定义为基本能量消耗(basic energy consumption). 这个能量消耗不和任何子系统相关，且不稳定[^4]。  
+整个机床在一次铣削过程的总能量消耗大致如下图所示[^4]。  
+![能量消耗图](https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231129144206.png)
 
-[^2]: Energy consumption modeling and prediction of the milling process: A multistage perspective, *Proceedings of Institution of Mechanical Engineers*, 2018.  
+[^4]: Energy consumption modeling and prediction of the milling process: A multistage perspective, *Proceedings of Institution of Mechanical Engineers*, 2018.  
 
 ## 主要参数
-### 进给率和给进速度
-用于描述整个机床工作过程的最重要的参数是**进给率**（feed rate），给进率描述了切削刀具，也就是刀头相对于工件移动的速度，常用单位为英寸每分钟(inch per minute，IPM)。进给速度是切削刀具在单主轴旋转中在材料上移动的速度。它以每转距离 (DPR) 单位表示。它由刀具的转速、切屑负荷和切削刀具的排屑槽数决定。一般来说，低进给速度和高主轴速度会产生更干净和更平滑的切削，而高进给速度可能会导致更粗糙的切削和更低的表面光洁度。 [^3]。  
+### 进给率和给进速度  
+用于描述整个机床工作过程的最重要的参数是**进给率**（feed rate），给进率描述了切削刀具，也就是刀头相对于工件移动的速度，常用单位为英寸每分钟(inch per minute，IPM)。进给速度是切削刀具在单主轴旋转中在材料上移动的速度。它以每转距离 (DPR) 单位表示。它由刀具的转速、切屑负荷和切削刀具的排屑槽数决定。一般来说，低进给速度和高主轴速度会产生更干净和更平滑的切削，而高进给速度可能会导致更粗糙的切削和更低的表面光洁度。 [^5]。  
 
-[^3]: CNC 加工进给和速度：你应该知道什么 https://www.runsom.com/zh-cn/blog/cnc-machining-feeds-and-speeds/#calculations-for-milling-operations   
+[^5]: CNC 加工进给和速度：你应该知道什么 https://www.runsom.com/zh-cn/blog/cnc-machining-feeds-and-speeds/#calculations-for-milling-operations   
 
 ### 材料去除率
 削切加工的本质就是将工件材料中多余的材料通过铣削的方式去除。材料去除率（material removal rate， MRR）是一个衡量材料加工精度的指标，它反映了在一次加工过程中材料中被取走或去除的部分所占的比例。材料去除率越高，说明材料加工过程中，更多的材料被去除，加工精度越高。
