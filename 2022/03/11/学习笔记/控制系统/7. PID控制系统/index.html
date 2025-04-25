@@ -492,32 +492,21 @@ p.spoiler {
 <h2 id="基本pid控制元件">基本PID控制元件</h2>
 <p>控制器是在控制系统中用于控制系统误差的一种元件，其输入信号为系统误差。PID控制器是控制系统中最常用的控制器类型，基本的控制器有P控制器、I控制器、D控制器三种。这个控制器把收集到的数据和一个参考值进行比较，然后把这个差别用于计算新的输入值，这个新的输入值的目的是可以让系统的数据达到或者保持在参考值。PID控制器可以根据历史数据和差别的出现率来调整输入值，使系统更加准确而稳定。PID控制器的比例单元（P）、积分单元（I）和微分单元（D）分别对应目前误差、过去累计误差及未来误差。若是不知道受控系统的特性，一般认为PID控制器是最适用的控制器。藉由调整PID控制器的三个参数，可以调整控制系统，设法满足设计需求。控制器的响应可以用控制器对误差的反应快慢、控制器过冲的程度及系统震荡的程度来表示。</p>
 <h3 id="p-控制器比例控制器">P 控制器/比例控制器</h3>
-<p>P控制器，又称比例控制器（Proportional
-controller），其传输函数为：<br />
-<span class="math display">\[D_c(s)=K_P\]</span> <span
-class="math inline">\(K_p\)</span>称为比例增益。<br />
-P控制器的系统输出与输入的系统误差<span
-class="math inline">\(e\)</span>成比例：<br />
-<span class="math display">\[y(t)=K_Pe\]</span>
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311105001.png width=50%></p>
-<p>P控制器可以降低上升时间<span
-class="math inline">\(t_r\)</span>，但是无法消去稳态误差。</p>
+<p>P控制器，又称比例控制器（Proportional controller），其传输函数为：<br />
+<span class="math display">\[D_c(s)=K_P\]</span> <span class="math inline">\(K_p\)</span>称为比例增益。<br />
+P控制器的系统输出与输入的系统误差<span class="math inline">\(e\)</span>成比例：<br />
+<span class="math display">\[y(t)=K_Pe\]</span> <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311105001.png width=50%></p>
+<p>P控制器可以降低上升时间<span class="math inline">\(t_r\)</span>，但是无法消去稳态误差。</p>
 <h3 id="i-控制器积分控制器">I 控制器/积分控制器</h3>
 <p>I控制器，又称积分控制器(Intergral controller)，传输函数为：<br />
-<span class="math display">\[D_c(s)=\frac{K_I}{s}\]</span> <span
-class="math inline">\(K_I\)</span>称为积分增益。<br />
-P控制器的系统输出与输入的系统误差<span
-class="math inline">\(e\)</span>的积分成比例：<br />
-<span class="math display">\[y(t)=K_I∫edt\]</span>
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311104927.png width=50%></p>
-<p>I控制器可以通过增加一个极点<span
-class="math inline">\(s=0\)</span>来消去稳态误差，但是会增加系统的类型，使得系统的稳定性降低、瞬态响应变化更加剧烈。</p>
+<span class="math display">\[D_c(s)=\frac{K_I}{s}\]</span> <span class="math inline">\(K_I\)</span>称为积分增益。<br />
+P控制器的系统输出与输入的系统误差<span class="math inline">\(e\)</span>的积分成比例：<br />
+<span class="math display">\[y(t)=K_I∫edt\]</span> <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311104927.png width=50%></p>
+<p>I控制器可以通过增加一个极点<span class="math inline">\(s=0\)</span>来消去稳态误差，但是会增加系统的类型，使得系统的稳定性降低、瞬态响应变化更加剧烈。</p>
 <h3 id="d-控制器微分控制器">D 控制器/微分控制器</h3>
 <p>D控制器，又称微分控制器(Derivative controller)，传输函数为：<br />
-<span class="math display">\[D_c(s)=K_Ds\]</span> <span
-class="math inline">\(K_I\)</span>称为积分增益。<br />
-P控制器的系统输出与输入的系统误差<span
-class="math inline">\(e\)</span>的微分成比例：<br />
+<span class="math display">\[D_c(s)=K_Ds\]</span> <span class="math inline">\(K_I\)</span>称为积分增益。<br />
+P控制器的系统输出与输入的系统误差<span class="math inline">\(e\)</span>的微分成比例：<br />
 <span class="math display">\[y(t)=K_D \frac{d}{dt}e\]</span></p>
 <p>D控制器通过增加一个零点来改进系统稳定性、并使得瞬态响应变化更平稳、过冲率降低，但是会放大高频噪声。由于稳态误差信号为常数信号，斜率为0，因此D控制器对稳态误差信号没有响应。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311104849.png width=50%></p>
@@ -527,12 +516,10 @@ class="math inline">\(e\)</span>的微分成比例：<br />
 <h3 id="pi-控制器">PI 控制器</h3>
 <p>PI控制器相比于I控制器能够在零频上对增益进行补偿，因此可以减小稳态误差。<br />
 PI控制器的传递函数为：<br />
-<span
-class="math display">\[D_c(s)=\frac{K}{s}(s+\frac{1}{T_1})=K+\frac{K}{T_1s}\]</span><br />
+<span class="math display">\[D_c(s)=\frac{K}{s}(s+\frac{1}{T_1})=K+\frac{K}{T_1s}\]</span><br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311104256.png width=50%></p>
 <p>通过其波特图可以发现：PI控制器通过减少系统在高频部分的增益来减少相位裕量，同时系统的高频分量常常是噪声，因此PI控制器也可以起到限制噪声的作用。<br />
-同时，由于<span
-class="math inline">\(\lim_{s→∞}D_c(s)=K\)</span>,PI控制器没有稳态误差(Offset)。</p>
+同时，由于<span class="math inline">\(\lim_{s→∞}D_c(s)=K\)</span>,PI控制器没有稳态误差(Offset)。</p>
 <h3 id="pd-控制器">PD 控制器</h3>
 <p>由于D控制器对稳态误差没有响应，因此在使用时常常与P控制器连用以改进这一特性。<br />
 PD控制器的传递函数为：<br />
@@ -543,84 +530,43 @@ PD控制器的传递函数为：<br />
 <h3 id="pid-控制器">PID 控制器</h3>
 <p>PID控制器能够减小系统响应的振荡，同时PID控制器自身不会有稳态误差。<br />
 PID控制器的传输函数为：<br />
-<span
-class="math display">\[D_c(s)=K_P+\frac{K_I}{s}+K_Ds···\text{并联形式}\]</span>
-<span
-class="math display">\[D_c(s)=K_P(1+\frac{1}{T_is}+T_ds)···\text{标准形式}\]</span>
-其中，<span class="math inline">\(T_i=\frac{K_P}{K_I}\)</span>，<span
-class="math inline">\(T_d=\frac{K_D}{K_P}\)</span></p>
-<p>PID控制器的波特图形状取决于<span
-class="math inline">\(T_i\)</span>和<span
-class="math inline">\(T_d\)</span>的值，通常取<span
-class="math inline">\(T_i=4T_d\)</span>：<br />
+<span class="math display">\[D_c(s)=K_P+\frac{K_I}{s}+K_Ds···\text{并联形式}\]</span> <span class="math display">\[D_c(s)=K_P(1+\frac{1}{T_is}+T_ds)···\text{标准形式}\]</span> 其中，<span class="math inline">\(T_i=\frac{K_P}{K_I}\)</span>，<span class="math inline">\(T_d=\frac{K_D}{K_P}\)</span></p>
+<p>PID控制器的波特图形状取决于<span class="math inline">\(T_i\)</span>和<span class="math inline">\(T_d\)</span>的值，通常取<span class="math inline">\(T_i=4T_d\)</span>：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311111843.png width=50%></p>
 <p>下图展示了PID控制器中参数调节对其阶跃响应的影响。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/PID_Compensation_Animated.gif width=50%></p>
 <h2 id="pid控制器的调节方法">PID控制器的调节方法</h2>
-<p>通过实验对PID控制器进行调整的方法称为齐格勒－尼科尔斯方法(Ziegler-Nichols
-method)，其方法包括两种调节方式：</p>
+<p>通过实验对PID控制器进行调整的方法称为齐格勒－尼科尔斯方法(Ziegler-Nichols method)，其方法包括两种调节方式：</p>
 <ul>
 <li>阶跃响应法</li>
 <li>频率响应法</li>
 </ul>
 <h3 id="阶跃响应法">阶跃响应法</h3>
-<p>阶跃响应法（Step response
-method）适用对象是系统的阶跃响应呈现“s”形状的曲线，如下图所示：<br />
+<p>阶跃响应法（Step response method）适用对象是系统的阶跃响应呈现“s”形状的曲线，如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311112830.png width=50%></p>
 <p>这个曲线可以描述为：<br />
-<span
-class="math display">\[\frac{C(s)}{U(s)}=\frac{Ke^{-Ls}}{Ts+1}\]</span>
-其中曲线拐点（曲线二阶导为0的点）对应的切线与<span
-class="math inline">\(x\)</span>轴的交点将<span
-class="math inline">\(x\)</span>轴分为两部分：<span
-class="math inline">\(L\)</span>和<span
-class="math inline">\(T\)</span>，其中<span
-class="math inline">\(T\)</span>是拐点处的切线与<span
-class="math inline">\(c(t)=K\)</span>（即渐近线/最大值）的交点所对应的<span
-class="math inline">\(x\)</span>轴坐标到切线与<span
-class="math inline">\(x\)</span>轴的交点的距离；<span
-class="math inline">\(L\)</span>是切线与<span
-class="math inline">\(x\)</span>轴的交点到坐标原点的距离。<br />
-根据曲线可以得到<span class="math inline">\(K\)</span>、<span
-class="math inline">\(L\)</span>、<span
-class="math inline">\(T\)</span>三个常数，并依据如下的表格进行PID控制器的设计：<br />
+<span class="math display">\[\frac{C(s)}{U(s)}=\frac{Ke^{-Ls}}{Ts+1}\]</span> 其中曲线拐点（曲线二阶导为0的点）对应的切线与<span class="math inline">\(x\)</span>轴的交点将<span class="math inline">\(x\)</span>轴分为两部分：<span class="math inline">\(L\)</span>和<span class="math inline">\(T\)</span>，其中<span class="math inline">\(T\)</span>是拐点处的切线与<span class="math inline">\(c(t)=K\)</span>（即渐近线/最大值）的交点所对应的<span class="math inline">\(x\)</span>轴坐标到切线与<span class="math inline">\(x\)</span>轴的交点的距离；<span class="math inline">\(L\)</span>是切线与<span class="math inline">\(x\)</span>轴的交点到坐标原点的距离。<br />
+根据曲线可以得到<span class="math inline">\(K\)</span>、<span class="math inline">\(L\)</span>、<span class="math inline">\(T\)</span>三个常数，并依据如下的表格进行PID控制器的设计：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311113843.png width=50%></p>
 <h3 id="频率响应法">频率响应法</h3>
-<p>频率响应法（Frequncy response
-method）适用于需要改进的系统（plant）在s域原点存在零点。<br />
+<p>频率响应法（Frequncy response method）适用于需要改进的系统（plant）在s域原点存在零点。<br />
 频率响应法的步骤是：</p>
 <ul>
 <li>首先应用P控制器改进开环传递函数，改进后系统的闭环传递函数为：<br />
-<span
-class="math display">\[\frac{C(s)}{R(s)}=\frac{K_P+∏(s+z_i)}{K_P+∏(s+p_i)}\]</span></li>
-<li>将<span
-class="math inline">\(K_P\)</span>的值增加，直到系统达到临界稳定条件，得到此时的<span
-class="math inline">\(K_P=K_{cr}\)</span>。<br />
-或者应用劳斯判据求出劳斯表第一列每一项等于0时最小的<span
-class="math inline">\(K_P\)</span>得到此时的<span
-class="math inline">\(K_P=K_{cr}\)</span>。</li>
-<li>根据系统闭环传递函数的特征方程，求得方程<span
-class="math inline">\(K=K_{cr}\)</span>时的解，对应角频率<span
-class="math inline">\(ω_{cr}\)</span>，根据<span
-class="math inline">\(P_{cr}=\frac{2π}{ω_{cr}}\)</span>找到系统临界稳定时系统阶跃响应的振荡周期<span
-class="math inline">\(P_{cr}\)</span>。<br />
+<span class="math display">\[\frac{C(s)}{R(s)}=\frac{K_P+∏(s+z_i)}{K_P+∏(s+p_i)}\]</span></li>
+<li>将<span class="math inline">\(K_P\)</span>的值增加，直到系统达到临界稳定条件，得到此时的<span class="math inline">\(K_P=K_{cr}\)</span>。<br />
+或者应用劳斯判据求出劳斯表第一列每一项等于0时最小的<span class="math inline">\(K_P\)</span>得到此时的<span class="math inline">\(K_P=K_{cr}\)</span>。</li>
+<li>根据系统闭环传递函数的特征方程，求得方程<span class="math inline">\(K=K_{cr}\)</span>时的解，对应角频率<span class="math inline">\(ω_{cr}\)</span>，根据<span class="math inline">\(P_{cr}=\frac{2π}{ω_{cr}}\)</span>找到系统临界稳定时系统阶跃响应的振荡周期<span class="math inline">\(P_{cr}\)</span>。<br />
 </li>
 <li>根据下表得到PID控制器的参数并设计。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311130506.png width=50%></li>
 </ul>
-<p>在MATLAB中可以使用PID Tuner应用，选择“import new
-plant”导入使用<code>tf()</code>命令生成的系统传递函数，选择“show
-parameter”展示当前PID控制器的参数，并对其进行调制，直到满足设计要求。</p>
+<p>在MATLAB中可以使用PID Tuner应用，选择“import new plant”导入使用<code>tf()</code>命令生成的系统传递函数，选择“show parameter”展示当前PID控制器的参数，并对其进行调制，直到满足设计要求。</p>
 <h2 id="pid控制器的改进">PID控制器的改进</h2>
-<p>对于常规的PID系统（如下图所示），如果输入信号<span
-class="math inline">\(R(s)\)</span>为阶跃函数时，由于控制中出现的微分项<span
-class="math inline">\(T_ds\)</span>，控制模块的输出：操纵变量中会含有冲激函数（<span
-class="math inline">\(\frac{d}{dt}u(t)=δ(t)\)</span>）。<br />
+<p>对于常规的PID系统（如下图所示），如果输入信号<span class="math inline">\(R(s)\)</span>为阶跃函数时，由于控制中出现的微分项<span class="math inline">\(T_ds\)</span>，控制模块的输出：操纵变量中会含有冲激函数（<span class="math inline">\(\frac{d}{dt}u(t)=δ(t)\)</span>）。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311131541.png width=50%></p>
 <p>为了解决这一办法，通常应用常规PID系统时，会对微分项进行修正：<br />
-<span class="math display">\[T_ds⇒\frac{T_ds}{1+γT_ds},γ≈0.1\]</span>
-这样的修正虽然可以保证操纵变量中没有冲激函数，但是操纵变量中仍然会存在一个多余的脉冲函数（这种现象称为set-point
-kick）。</p>
+<span class="math display">\[T_ds⇒\frac{T_ds}{1+γT_ds},γ≈0.1\]</span> 这样的修正虽然可以保证操纵变量中没有冲激函数，但是操纵变量中仍然会存在一个多余的脉冲函数（这种现象称为set-point kick）。</p>
 <h3 id="pi-d控制器和i-pd控制器">PI-D控制器和I-PD控制器</h3>
 <p>一种改进的方法是将微分模块放置在系统的反馈部分，这样使得前馈信号不会受到影响。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311132246.png width=50%></p>
@@ -628,56 +574,25 @@ kick）。</p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311143740.png width=50%></p>
 <h2 id="系统自由度">系统自由度</h2>
 <h3 id="单自由度系统及设计">单自由度系统及设计</h3>
-<p>标准的PID系统中，其三个输入：系统输入<span
-class="math inline">\(R(s)\)</span>、反馈噪声<span
-class="math inline">\(N(s)\)</span>和干扰<span
-class="math inline">\(D(s)\)</span>的闭环传递函数可以知一推三，称为单自由度PID控制系统。<br />
+<p>标准的PID系统中，其三个输入：系统输入<span class="math inline">\(R(s)\)</span>、反馈噪声<span class="math inline">\(N(s)\)</span>和干扰<span class="math inline">\(D(s)\)</span>的闭环传递函数可以知一推三，称为单自由度PID控制系统。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311133804.png width=50%></p>
 <p>从上图中可以得出：<br />
-<span
-class="math display">\[G_{yr}=\frac{Y(s)}{R(s)}=\frac{G_cG_p}{1+G_cG_p}\]</span>
-<span
-class="math display">\[G_{yd}=\frac{Y(s)}{D(s)}=\frac{G_p}{1+G_cG_p}\]</span>
-<span
-class="math display">\[G_{yn}=\frac{Y(s)}{N(s)}=-\frac{G_cG_p}{1+G_cG_p}\]</span></p>
+<span class="math display">\[G_{yr}=\frac{Y(s)}{R(s)}=\frac{G_cG_p}{1+G_cG_p}\]</span> <span class="math display">\[G_{yd}=\frac{Y(s)}{D(s)}=\frac{G_p}{1+G_cG_p}\]</span> <span class="math display">\[G_{yn}=\frac{Y(s)}{N(s)}=-\frac{G_cG_p}{1+G_cG_p}\]</span></p>
 <p>可以得到：<br />
-<span class="math display">\[G_{yr}=\frac{G_p-G_{yd}}{G_p}\]</span>
-<span class="math display">\[G_{yn}=\frac{G_{yd}-G_p}{G_p}\]</span>
-PID控制系统的传递函数又可以写作如下形式：<br />
+<span class="math display">\[G_{yr}=\frac{G_p-G_{yd}}{G_p}\]</span> <span class="math display">\[G_{yn}=\frac{G_{yd}-G_p}{G_p}\]</span> PID控制系统的传递函数又可以写作如下形式：<br />
 <span class="math display">\[G_c(s)=\frac{K(as+1)(bs+1)}{s}\]</span></p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311133804.png width=50%></p>
-<p>对如图所示的系统，如果<span
-class="math inline">\(G(s)\)</span>为二阶，且假设整个系统的闭环传递函数的极点多项式为<span
-class="math inline">\((s+p_0)(s^2+2ζω_ns+ω_n)\)</span>，可以发现极点为三部分组成：其中两个极点共轭:<span
-class="math inline">\(s=a±jb\)</span>，另一个极点为实数，且通常取<span
-class="math inline">\(p_0=5ζω_n\)</span>使得实极点对系统响应的影响较小。<br />
-可以根据系统设计的要求得到<span class="math inline">\(ζ\)</span>和<span
-class="math inline">\(ω_n\)</span>，并得到<span
-class="math inline">\((s+p_0)(s^2+2ζω_ns+ω_n)\)</span>。通过展开这个多项式，应用待定系数法可以得到<span
-class="math inline">\(a,b,K\)</span>的值。</p>
+<p>对如图所示的系统，如果<span class="math inline">\(G(s)\)</span>为二阶，且假设整个系统的闭环传递函数的极点多项式为<span class="math inline">\((s+p_0)(s^2+2ζω_ns+ω_n)\)</span>，可以发现极点为三部分组成：其中两个极点共轭:<span class="math inline">\(s=a±jb\)</span>，另一个极点为实数，且通常取<span class="math inline">\(p_0=5ζω_n\)</span>使得实极点对系统响应的影响较小。<br />
+可以根据系统设计的要求得到<span class="math inline">\(ζ\)</span>和<span class="math inline">\(ω_n\)</span>，并得到<span class="math inline">\((s+p_0)(s^2+2ζω_ns+ω_n)\)</span>。通过展开这个多项式，应用待定系数法可以得到<span class="math inline">\(a,b,K\)</span>的值。</p>
 <h4 id="去零法">去零法</h4>
 <p>对系统：<br />
-<span
-class="math display">\[\frac{Y(s)}{R(s)}=\frac{p(s)}{s^{n+1}+a_ns^n+...+a_2s^2+a_1s+a_0}\]</span>
-如果将极点多项式<span
-class="math inline">\(p(s)\)</span>设置为零点多项式的低次项，比如：<br />
-<span class="math display">\[p(s)=a_2s^2+a_1s+a_0\]</span>
-如此，系统的阶跃、一阶(<span
-class="math inline">\(R(s)=s\)</span>)、二阶响应(<span
-class="math inline">\(R(s)=\frac{1}{2}s^2\)</span>)将会没有稳态误差，这种方法称为去零法（zero-placement
-approach）。</p>
+<span class="math display">\[\frac{Y(s)}{R(s)}=\frac{p(s)}{s^{n+1}+a_ns^n+...+a_2s^2+a_1s+a_0}\]</span> 如果将极点多项式<span class="math inline">\(p(s)\)</span>设置为零点多项式的低次项，比如：<br />
+<span class="math display">\[p(s)=a_2s^2+a_1s+a_0\]</span> 如此，系统的阶跃、一阶(<span class="math inline">\(R(s)=s\)</span>)、二阶响应(<span class="math inline">\(R(s)=\frac{1}{2}s^2\)</span>)将会没有稳态误差，这种方法称为去零法（zero-placement approach）。</p>
 <h3 id="双自由度系统">双自由度系统</h3>
 <p>整个系统的闭环传输函数中如果三个开环增益中的一个已知，则另外两个中一个已知，另一个未知，这样的系统称为双自由度系统，如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220311144957.png width=50%><br />
-<span
-class="math display">\[G_{yr}=\frac{Y(s)}{R(s)}=\frac{G_{c1}G_p}{1+(G_{c1}+G_{c2})G_p}\]</span>
-<span
-class="math display">\[G_{yd}=\frac{Y(s)}{D(s)}=\frac{G_p}{1+(G_{c1}+G_{c2})G_p}\]</span>
-<span
-class="math display">\[G_{yn}=\frac{Y(s)}{N(s)}=-\frac{(G_{c1}+G_{c2})G_p}{1+(G_{c1}+G_{c2})G_p}\]</span>
-可以推出：<br />
-<span class="math display">\[G_{yr}=G_{c1}G_{yd}\]</span> <span
-class="math display">\[G_{yn}=\frac{G_{yd}-G_p}{G_p}\]</span></p>
+<span class="math display">\[G_{yr}=\frac{Y(s)}{R(s)}=\frac{G_{c1}G_p}{1+(G_{c1}+G_{c2})G_p}\]</span> <span class="math display">\[G_{yd}=\frac{Y(s)}{D(s)}=\frac{G_p}{1+(G_{c1}+G_{c2})G_p}\]</span> <span class="math display">\[G_{yn}=\frac{Y(s)}{N(s)}=-\frac{(G_{c1}+G_{c2})G_p}{1+(G_{c1}+G_{c2})G_p}\]</span> 可以推出：<br />
+<span class="math display">\[G_{yr}=G_{c1}G_{yd}\]</span> <span class="math display">\[G_{yn}=\frac{G_{yd}-G_p}{G_p}\]</span></p>
 <h4 id="双自由度系统的优点">双自由度系统的优点</h4>
 <p>双自由度PID控制器可以解决常规PID控制器在实际应用中不兼容的问题。<br />
 双自由度系统有：</p>

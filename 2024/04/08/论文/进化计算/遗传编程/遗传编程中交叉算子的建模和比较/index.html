@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="交叉算子的建模和比较  Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming.  背景 回顾遗传算法的schema theory: \[P(H,t+1) \geq P(H,t) \frac{f">
+    <meta name="description" content="交叉算子的建模和比较  Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming.  背景 回顾遗传算法的schema theory: \[P(H,t+1) \geq P(H,t) \frac{f(H">
 <meta property="og:type" content="article">
 <meta property="og:title" content="交叉算子的建模和比较">
 <meta property="og:url" content="https://l61012345.top/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="交叉算子的建模和比较  Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming.  背景 回顾遗传算法的schema theory: \[P(H,t+1) \geq P(H,t) \frac{f">
+<meta property="og:description" content="交叉算子的建模和比较  Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming.  背景 回顾遗传算法的schema theory: \[P(H,t+1) \geq P(H,t) \frac{f(H">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-08T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-05-02T13:36:58.779Z">
@@ -490,209 +490,99 @@ p.spoiler {
                 
                 <h1 id="交叉算子的建模和比较">交叉算子的建模和比较</h1>
 <blockquote>
-<p>Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of
-Different Crossover Operators in Genetic Programming.</p>
+<p>Poli, Riccardo &amp; Langdon, W.. (2001). On the Search Properties of Different Crossover Operators in Genetic Programming.</p>
 </blockquote>
 <h2 id="背景">背景</h2>
 <p>回顾遗传算法的schema theory:<br />
-<span class="math display">\[P(H,t+1) \geq P(H,t)
-\frac{f(H,t)}{\overline{f}} [1-p_c
-\frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})]
-(1-p_m)^{o(H)}\]</span> 对遗传算法建立的schema theory中Don’t
-care在不同的位置上对于个体的印象体现在定义距上<span
-class="math inline">\(Δ(H)\)</span>。通过上式可以发现，定义距的改变对整个式子的影响是线性关系。(相当于<span
-class="math inline">\((a-ax)c=a-bx\)</span>,<span
-class="math inline">\(x\)</span>发生变化的影响是线性的)<br />
-然而在遗传编程中，Don’t
-care在不同的层级上对搜索的影响并不是线性的，因此交叉造成的破坏效应(disruption)也是不同的。</p>
-<p>这篇论文中作者对三种不同的交叉算子:
-标准交叉、单点交叉、均匀交叉在进化过程中所做的信息交叉的作用进行了数学建模，然后进行了分析对比。</p>
+<span class="math display">\[P(H,t+1) \geq P(H,t) \frac{f(H,t)}{\overline{f}} [1-p_c \frac{\Delta(H)}{L-1}(1-P(H,t)\frac{f(H,t)}{\overline{f}})] (1-p_m)^{o(H)}\]</span> 对遗传算法建立的schema theory中Don’t care在不同的位置上对于个体的印象体现在定义距上<span class="math inline">\(Δ(H)\)</span>。通过上式可以发现，定义距的改变对整个式子的影响是线性关系。(相当于<span class="math inline">\((a-ax)c=a-bx\)</span>,<span class="math inline">\(x\)</span>发生变化的影响是线性的)<br />
+然而在遗传编程中，Don’t care在不同的层级上对搜索的影响并不是线性的，因此交叉造成的破坏效应(disruption)也是不同的。</p>
+<p>这篇论文中作者对三种不同的交叉算子: 标准交叉、单点交叉、均匀交叉在进化过程中所做的信息交叉的作用进行了数学建模，然后进行了分析对比。</p>
 <div class="note note-info">
             <p>结果是否可靠？</p>
           </div>
 <h2 id="衡量动态性的指标">衡量动态性的指标</h2>
-<p>在这篇文章中，作者亲本中的一个在交叉过程中移走的节点个数代表亲本之间的交换的遗传信息的信息量<span
-class="math inline">\(E[S]\)</span>。为了更好的定义和描述交叉过程中亲本之间遗传信息的交换过程，作者还定义了如下的指标。</p>
+<p>在这篇文章中，作者亲本中的一个在交叉过程中移走的节点个数代表亲本之间的交换的遗传信息的信息量<span class="math inline">\(E[S]\)</span>。为了更好的定义和描述交叉过程中亲本之间遗传信息的交换过程，作者还定义了如下的指标。</p>
 <ul>
 <li>节点密度函数(node density function)<br />
-是树<span class="math inline">\(h\)</span>在深度<span
-class="math inline">\(d\)</span>下的节点数量与整个树的节点数量的比值。如果在交叉过程中每个节点被选中成为交叉点的概率是相同的，那么其同等于在选择树<span
-class="math inline">\(h\)</span>的前提下，选择深度为<span
-class="math inline">\(d\)</span>的节点作为交叉点的条件概率，记为<span
-class="math inline">\(p(d|h)\)</span>。</li>
+是树<span class="math inline">\(h\)</span>在深度<span class="math inline">\(d\)</span>下的节点数量与整个树的节点数量的比值。如果在交叉过程中每个节点被选中成为交叉点的概率是相同的，那么其同等于在选择树<span class="math inline">\(h\)</span>的前提下，选择深度为<span class="math inline">\(d\)</span>的节点作为交叉点的条件概率，记为<span class="math inline">\(p(d|h)\)</span>。</li>
 </ul>
-<p>那么，如果记<span
-class="math inline">\(S(d,h)\)</span>表示的是树<span
-class="math inline">\(h\)</span>在深度<span
-class="math inline">\(d\)</span>以下的期望的单个子树大小（“期望”表示树是full树且<span
-class="math inline">\(d\)</span>的每个节点都有大小相同的子树），那么<span
-class="math inline">\(p(d|h)S(0,h)\)</span>表示树<span
-class="math inline">\(h\)</span>上深度为<span
-class="math inline">\(d\)</span>的结点个数。其中<span
-class="math inline">\(S(0,h)\)</span>表示树<span
-class="math inline">\(h\)</span>所有节点的个数。<br />
-<span class="math inline">\(p(d|h)\)</span>和<span
-class="math inline">\(S(d,h)\)</span>之间有如下的关系：<br />
+<p>那么，如果记<span class="math inline">\(S(d,h)\)</span>表示的是树<span class="math inline">\(h\)</span>在深度<span class="math inline">\(d\)</span>以下的期望的单个子树大小（“期望”表示树是full树且<span class="math inline">\(d\)</span>的每个节点都有大小相同的子树），那么<span class="math inline">\(p(d|h)S(0,h)\)</span>表示树<span class="math inline">\(h\)</span>上深度为<span class="math inline">\(d\)</span>的结点个数。其中<span class="math inline">\(S(0,h)\)</span>表示树<span class="math inline">\(h\)</span>所有节点的个数。<br />
+<span class="math inline">\(p(d|h)\)</span>和<span class="math inline">\(S(d,h)\)</span>之间有如下的关系：<br />
 <span class="math display">\[\begin{aligned}
-    S(d,h)&amp;=\frac{\text{nodes at depth }≥ d}{\text{nodes at depth
-}d}\\
+    S(d,h)&amp;=\frac{\text{nodes at depth }≥ d}{\text{nodes at depth }d}\\
     &amp;=\frac{\sum_{x=d}p(x|h)S(0,h)}{p(d|h)S(0,h)}\\
     &amp;=\frac{\sum_{x=d}p(x|h)}{p(d|h)}
 \end{aligned}\]</span></p>
-<p>那么深度为<span
-class="math inline">\(d\)</span>的节点的平均连接数可以定义为：<br />
-<span class="math display">\[\frac{1}{B(d|h)}=\frac{\text{nodes at depth
-}d}{\text{nodes at depth
-}d+1}=\frac{S(d,h)p(d|h)}{S(d+1,h)p(d+1|h)}\]</span> <span
-class="math display">\[B(d|h)=\frac{S(d+1,h)p(d+1|h)}{S(d,h)p(d|h)}\]</span></p>
+<p>那么深度为<span class="math inline">\(d\)</span>的节点的平均连接数可以定义为：<br />
+<span class="math display">\[\frac{1}{B(d|h)}=\frac{\text{nodes at depth }d}{\text{nodes at depth }d+1}=\frac{S(d,h)p(d|h)}{S(d+1,h)p(d+1|h)}\]</span> <span class="math display">\[B(d|h)=\frac{S(d+1,h)p(d+1|h)}{S(d,h)p(d|h)}\]</span></p>
 <h2 id="交叉算子">交叉算子</h2>
 <h3 id="标准交叉">标准交叉</h3>
-<p>原始的遗传编程中所定义的交叉算子称为标准交叉(standard
-crossover)，其操作是随机选取两
-个树上任何一个节点，然后节点下方的子树发生交换。</p>
+<p>原始的遗传编程中所定义的交叉算子称为标准交叉(standard crossover)，其操作是随机选取两 个树上任何一个节点，然后节点下方的子树发生交换。</p>
 <h3 id="单点交叉">单点交叉</h3>
-<p>单点交叉(one-point
-crossover)是作者在之前的论文中定义的一种交叉方式，其操作是随机选取两个亲本拓扑结构相同的区域(又称common
-region，发生在common
-region中的交叉不会改变种群中schema的拓扑结构)中的节点，然后节点下方的子树发生交换。<br />
+<p>单点交叉(one-point crossover)是作者在之前的论文中定义的一种交叉方式，其操作是随机选取两个亲本拓扑结构相同的区域(又称common region，发生在common region中的交叉不会改变种群中schema的拓扑结构)中的节点，然后节点下方的子树发生交换。<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408114702.png width=40%></p>
 <h3 id="均匀交叉">均匀交叉</h3>
-<p>均匀交叉(uniform
-distribution)是作者在这篇论文中提出的一种新的交叉算子。其操作是：对于common
-region中的节点，他们都有<span
-class="math inline">\(p_s\)</span>的概率发生点对点的交换。如果这个交换发生在common
-regions最下层的节点(称为边界节点)，那么节点下方的子树也一同进行交换。<br />
+<p>均匀交叉(uniform distribution)是作者在这篇论文中提出的一种新的交叉算子。其操作是：对于common region中的节点，他们都有<span class="math inline">\(p_s\)</span>的概率发生点对点的交换。如果这个交换发生在common regions最下层的节点(称为边界节点)，那么节点下方的子树也一同进行交换。<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408114736.png width=40%></p>
 <h2 id="对交叉算子的动态性建模">对交叉算子的动态性建模</h2>
-<p>如果设计交叉发生树<span class="math inline">\(h_1\)</span>的深度<span
-class="math inline">\(d_1\)</span>和树<span
-class="math inline">\(h_2\)</span>的深度<span
-class="math inline">\(d_2\)</span>下，那么整个种群中所有被交换的节点的数量可以用如下的式子表示：<br />
-<span
-class="math display">\[E[S_r]=∑_{d_1,d_2}∑_{h_1,h_2}p(h_1)p(h_2)p(d_1,d_2|h_1,h_2)S(d_1,h_1)\tag{2}\]</span>
-式(2)的前半部分表示的是选择<span
-class="math inline">\(h_1,h_2\)</span>后选择<span
-class="math inline">\(d_1,d_2\)</span>的全概率。<span
-class="math inline">\(S(d_1,h_1)\)</span>表示的是<span
-class="math inline">\(h_1\)</span>的深度<span
-class="math inline">\(d_1\)</span>上的一个子树被交换给了<span
-class="math inline">\(h_2\)</span>的节点数量，这也是<span
-class="math inline">\(h_2\)</span>得到的节点的数量。</p>
+<p>如果设计交叉发生树<span class="math inline">\(h_1\)</span>的深度<span class="math inline">\(d_1\)</span>和树<span class="math inline">\(h_2\)</span>的深度<span class="math inline">\(d_2\)</span>下，那么整个种群中所有被交换的节点的数量可以用如下的式子表示：<br />
+<span class="math display">\[E[S_r]=∑_{d_1,d_2}∑_{h_1,h_2}p(h_1)p(h_2)p(d_1,d_2|h_1,h_2)S(d_1,h_1)\tag{2}\]</span> 式(2)的前半部分表示的是选择<span class="math inline">\(h_1,h_2\)</span>后选择<span class="math inline">\(d_1,d_2\)</span>的全概率。<span class="math inline">\(S(d_1,h_1)\)</span>表示的是<span class="math inline">\(h_1\)</span>的深度<span class="math inline">\(d_1\)</span>上的一个子树被交换给了<span class="math inline">\(h_2\)</span>的节点数量，这也是<span class="math inline">\(h_2\)</span>得到的节点的数量。</p>
 <h3 id="标准交叉-1">标准交叉</h3>
 <p>对于标准交叉，种群中两个亲本的交叉点的选择是完全独立的，因此有：<br />
-<span
-class="math display">\[p(d_1,d_2|h_1,h_2)=p(d_1|h_1)p(d_2|h_2)\tag{3}\]</span></p>
+<span class="math display">\[p(d_1,d_2|h_1,h_2)=p(d_1|h_1)p(d_2|h_2)\tag{3}\]</span></p>
 <p>那么信息交换的部分可以表示为:<br />
 <span class="math display">\[\begin{aligned}
     E[S_{std}]&amp;=∑_{d_1,d_2}∑_{h_1,h_2}p(h_1)p(h_2)p(d_1|h_1)p(d_2|h_2)S(d_1,h_1)\\
-    &amp;=∑_{h_1}∑_{d_1}p(h_1)p(d_1|h_1)∑_{h_2}p(h_2)∑_{d_2}p(d_2|h_2)S(d_1,h_1)\\
-\end{aligned} \tag{4}\]</span> 由于<span
-class="math inline">\(∑_{h_2}p(h_2)∑_{d_2}p(d_2|h_2)=1\)</span>，即选择种群中另一个个体的某个深度下的节点作为交叉节点的概率，所有的概率之和应当为1，那么有：<br />
-<span class="math display">\[
-E[S_{std}]=∑_{h_1}p(h_1)∑_{d_1}p(d_1|h_1)S(d_1,h_1) \tag{5}\]</span></p>
+    &amp;=∑_{h_1}∑_{d_1}p(h_1)p(d_1|h_1)∑_{h_2}p(h_2)∑_{d_2}p(d_2|h_2)S(d_1,h_1)\\ 
+\end{aligned} \tag{4}\]</span> 由于<span class="math inline">\(∑_{h_2}p(h_2)∑_{d_2}p(d_2|h_2)=1\)</span>，即选择种群中另一个个体的某个深度下的节点作为交叉节点的概率，所有的概率之和应当为1，那么有：<br />
+<span class="math display">\[ E[S_{std}]=∑_{h_1}p(h_1)∑_{d_1}p(d_1|h_1)S(d_1,h_1) \tag{5}\]</span></p>
 <h3 id="单点交叉-1">单点交叉</h3>
-<p>对单点交叉而言，两个亲本的交叉点选择到的深度应当是相同的，也就是说当<span
-class="math inline">\(d_1≠d_2\)</span>时，<span
-class="math inline">\(p(d_1,d_2|h_1,h_2)=0\)</span>，那么有：<br />
-<span
-class="math display">\[∑_{d_2}p(d_1,d_2|h_1,h_2)=∑_{d_1}p(d_1,d_1|h_1,h_2)=∑_{d_1}p(d_1|h_1,h_2)
-\tag{6}\]</span></p>
+<p>对单点交叉而言，两个亲本的交叉点选择到的深度应当是相同的，也就是说当<span class="math inline">\(d_1≠d_2\)</span>时，<span class="math inline">\(p(d_1,d_2|h_1,h_2)=0\)</span>，那么有：<br />
+<span class="math display">\[∑_{d_2}p(d_1,d_2|h_1,h_2)=∑_{d_1}p(d_1,d_1|h_1,h_2)=∑_{d_1}p(d_1|h_1,h_2) \tag{6}\]</span></p>
 <p><span class="math display">\[\begin{aligned}
 E[S_{1pt}]&amp;=∑_{d_1,d_2}∑_{h_1,h_2}p(h_1)p(h_2)p(d_1,d_2|h_1,h_2)S(d_1,h_1)\\
-&amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)∑_{h_2}p(h_2)p(d_1|h_1,h_2)
+&amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)∑_{h_2}p(h_2)p(d_1|h_1,h_2) 
 \end{aligned} \tag{7}\]</span></p>
-<p>式<span class="math inline">\((7)\)</span>当中的<span
-class="math inline">\(∑_{h_2}p(h_2)p(d_1|h_1,h_2)\)</span>可以看做是对<span
-class="math inline">\(h_1\)</span>而言，在其他任意一个树上选择交叉点在<span
-class="math inline">\(d_1\)</span>上后，<span
-class="math inline">\(h_1\)</span>的<span
-class="math inline">\(d_1\)</span>上选择交叉点的概率。模仿贝叶斯公式，可以将上述式子定义为：<br />
-<span
-class="math display">\[p_{1pt}(d_1|h_1)=∑_{h_2}p(h_2)p(d_1|h_1,h_2)=p(d_1
-| \text{other trees in gen }t)p(d_1|h_1)=p_{1pt}(d_1|h_1,t)
-\tag{8}\]</span> 根据式子(8)的理解，<span
-class="math inline">\(p_{1pt}\)</span>中“选择另一个树中<span
-class="math inline">\(d_1\)</span>上的节点”的概率与进化代数<span
-class="math inline">\(t\)</span>应当是有关的。</p>
+<p>式<span class="math inline">\((7)\)</span>当中的<span class="math inline">\(∑_{h_2}p(h_2)p(d_1|h_1,h_2)\)</span>可以看做是对<span class="math inline">\(h_1\)</span>而言，在其他任意一个树上选择交叉点在<span class="math inline">\(d_1\)</span>上后，<span class="math inline">\(h_1\)</span>的<span class="math inline">\(d_1\)</span>上选择交叉点的概率。模仿贝叶斯公式，可以将上述式子定义为：<br />
+<span class="math display">\[p_{1pt}(d_1|h_1)=∑_{h_2}p(h_2)p(d_1|h_1,h_2)=p(d_1 | \text{other trees in gen }t)p(d_1|h_1)=p_{1pt}(d_1|h_1,t) \tag{8}\]</span> 根据式子(8)的理解，<span class="math inline">\(p_{1pt}\)</span>中“选择另一个树中<span class="math inline">\(d_1\)</span>上的节点”的概率与进化代数<span class="math inline">\(t\)</span>应当是有关的。</p>
 <h3 id="均匀交叉-1">均匀交叉</h3>
-<p>均匀交叉是一种点对点的交叉，因此交换的节点数量应该为可以交换的节点数量与每个节点交换的概率的乘积。可以交换的节点的数量需要分两种情况讨论：第一种情况是发生交换的节点在common
-region的内部；第二种情况是发生交换的节点在common
-region的边界上，此时需要将这个节点以下的子树也进行交换。如果设<span
-class="math inline">\(N_i(d_1|h_1,h_2)\)</span>表示深度为<span
-class="math inline">\(d_1\)</span>上的，非边界的节点，<span
-class="math inline">\(N_b(d_1|h_1,h_2)\)</span>表示深度为<span
-class="math inline">\(d_1\)</span>的边界节点。那么有：<br />
-<span class="math display">\[E[S_{uni}]=p_s
-∑_{h_1,h_2}p(h_1)p(h_2)∑_{d_1}[N_i(d_1|h_1,h_2)+N_b(d_1|h_1,h_2)S(d_1,h_1)]
-\tag{9}\]</span> <span class="math inline">\(h_1\)</span>的<span
-class="math inline">\(d_1\)</span>层的所有的节点数量应当是上一层(如果交叉还可以发生在<span
-class="math inline">\(d_1\)</span>，那证明上一层是没有边界节点的)的所有的节点数量与每个节点拥有的连接的数量的乘积：<br />
-<span class="math display">\[\text{\# nodes in }
-d=B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)\tag{10}\]</span> 那么有：<br />
-<span
-class="math display">\[N_b(d_1|h_1,h_2)=B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)-N_i(d_1|h_1,h_2)
-\tag{11}\]</span></p>
+<p>均匀交叉是一种点对点的交叉，因此交换的节点数量应该为可以交换的节点数量与每个节点交换的概率的乘积。可以交换的节点的数量需要分两种情况讨论：第一种情况是发生交换的节点在common region的内部；第二种情况是发生交换的节点在common region的边界上，此时需要将这个节点以下的子树也进行交换。如果设<span class="math inline">\(N_i(d_1|h_1,h_2)\)</span>表示深度为<span class="math inline">\(d_1\)</span>上的，非边界的节点，<span class="math inline">\(N_b(d_1|h_1,h_2)\)</span>表示深度为<span class="math inline">\(d_1\)</span>的边界节点。那么有：<br />
+<span class="math display">\[E[S_{uni}]=p_s ∑_{h_1,h_2}p(h_1)p(h_2)∑_{d_1}[N_i(d_1|h_1,h_2)+N_b(d_1|h_1,h_2)S(d_1,h_1)] \tag{9}\]</span> <span class="math inline">\(h_1\)</span>的<span class="math inline">\(d_1\)</span>层的所有的节点数量应当是上一层(如果交叉还可以发生在<span class="math inline">\(d_1\)</span>，那证明上一层是没有边界节点的)的所有的节点数量与每个节点拥有的连接的数量的乘积：<br />
+<span class="math display">\[\text{\# nodes in } d=B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)\tag{10}\]</span> 那么有：<br />
+<span class="math display">\[N_b(d_1|h_1,h_2)=B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)-N_i(d_1|h_1,h_2) \tag{11}\]</span></p>
 <p>将(11)带入(9)，得到：<br />
 <span class="math display">\[\begin{aligned}
-    E[S_{uni}]=&amp;p_s
-∑_{h_1,h_2}p(h_1)p(h_2)∑_{d_1}[N_i(d_1|h_1,h_2)+N_b(d_1|h_1,h_2)S(d_1,h_1)]\\
+    E[S_{uni}]=&amp;p_s ∑_{h_1,h_2}p(h_1)p(h_2)∑_{d_1}[N_i(d_1|h_1,h_2)+N_b(d_1|h_1,h_2)S(d_1,h_1)]\\
     =&amp;p_s ∑_{h_1,h_2}p(h_1)p(h_2)∑_{d_1}[N_i(d_1|h_1,h_2)\\
     &amp;+[B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)-N_i(d_1|h_1,h_2)]S(d_1,h_1)]\\
     =&amp;p_s∑_{h_1,h_2}p(h_1)p(h_2)[S(0,h_1)\\
     &amp;+∑_{d_1=1}N_i(d_1|h_1,h_2)(1-S(d_1,h_1))+B(d_1-1|h_1)N_i(d_1-1|h_1,h_2)S(d_1,h_1)]\\
     =&amp;p_s∑_{h_1,h_2}p(h_1)p(h_2)[S(0,h_1)+∑_{d_1=1}N_i(d_1|h_1,h_2)(1-S(d_1,h_1)+B(d_1|h_1)S(d_1+1,h_1)]
-\end{aligned} \tag{12} \]</span></p>
+ \end{aligned} \tag{12} \]</span></p>
 <p>并且，当树是full，且所有的子树大小都相同的前提下存在如下关系：<br />
-<span
-class="math display">\[S(d_1,h_1)=1+B(d_1|h_1)S(d_1+1,h_1)\]</span>
-那么(12)可以简化为：<br />
-<span class="math display">\[E[S_{uni}]=p_s
-∑_{h_1,h_2}p(h_1)p(h_2)S(0,h_1)=p_sE(S(h_1)) \tag{13}\]</span> 其中<span
-class="math inline">\(E(S(h_1))\)</span>表示<span
-class="math inline">\(h_1\)</span>在full，每一层级子树大小相同下的节点的数量。</p>
+<span class="math display">\[S(d_1,h_1)=1+B(d_1|h_1)S(d_1+1,h_1)\]</span> 那么(12)可以简化为：<br />
+<span class="math display">\[E[S_{uni}]=p_s ∑_{h_1,h_2}p(h_1)p(h_2)S(0,h_1)=p_sE(S(h_1)) \tag{13}\]</span> 其中<span class="math inline">\(E(S(h_1))\)</span>表示<span class="math inline">\(h_1\)</span>在full，每一层级子树大小相同下的节点的数量。</p>
 <p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408162530.png width=40%></p>
 <h2 id="交叉算子的分析和比较">交叉算子的分析和比较</h2>
 <h3 id="标准交叉和单点交叉">标准交叉和单点交叉</h3>
 <p>来看进化过程中标准交叉和单点交叉的公式：<br />
-<span class="math display">\[
-E[S_{std}]=∑_{h_1}p(h_1)∑_{d_1}p(d_1|h_1)S(d_1,h_1) \tag{5}\]</span>
-<span class="math display">\[\begin{aligned}
-E[S_{1pt}]&amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)∑_{h_2}p(h_2)p(d_1|h_1,h_2)
-\\
+<span class="math display">\[ E[S_{std}]=∑_{h_1}p(h_1)∑_{d_1}p(d_1|h_1)S(d_1,h_1) \tag{5}\]</span> <span class="math display">\[\begin{aligned}
+E[S_{1pt}]&amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)∑_{h_2}p(h_2)p(d_1|h_1,h_2) \\
 &amp;=∑_{h_1}p(h_1)∑_{d_1}S(d_1,h_1)p_{1pt}(d_1|h_1,t)
 \end{aligned} \tag{7}\]</span></p>
-<p>两者的差异在于<span class="math inline">\(p(d_1|h_1)\)</span>和<span
-class="math inline">\(p_{1pt}(d_1|h_1,t)\)</span>：前者不会随着进化的代数发生变化，后者因为和种群有关因此会随着进化的代数发生变化。<br />
-在进化的初期，如果种群中的diversity比较大，也就是说common
-region的区域比较小的话。对于较大的<span
-class="math inline">\(d_1\)</span>来说，有<span
-class="math inline">\(p(d_1|h_1)&gt;&gt;p_{1pt}(d_1|h_1,t)\)</span>，也就是说，此时<strong>标准交叉更倾向于对树更靠近低端的部分进行交叉</strong>，这种操作对拓宽搜索并没有帮助；对较小的<span
-class="math inline">\(d_1\)</span>来说，<span
-class="math inline">\(p_{1pt}(d_1|h_1,t)&gt;&gt;p(d_1|h_1)\)</span>，也就是说，<strong>在进化的初期单点交叉比标准交叉更容易发生在靠近树顶的位置</strong>，更有助于在进化初期拓宽搜索。<br />
+<p>两者的差异在于<span class="math inline">\(p(d_1|h_1)\)</span>和<span class="math inline">\(p_{1pt}(d_1|h_1,t)\)</span>：前者不会随着进化的代数发生变化，后者因为和种群有关因此会随着进化的代数发生变化。<br />
+在进化的初期，如果种群中的diversity比较大，也就是说common region的区域比较小的话。对于较大的<span class="math inline">\(d_1\)</span>来说，有<span class="math inline">\(p(d_1|h_1)&gt;&gt;p_{1pt}(d_1|h_1,t)\)</span>，也就是说，此时<strong>标准交叉更倾向于对树更靠近低端的部分进行交叉</strong>，这种操作对拓宽搜索并没有帮助；对较小的<span class="math inline">\(d_1\)</span>来说，<span class="math inline">\(p_{1pt}(d_1|h_1,t)&gt;&gt;p(d_1|h_1)\)</span>，也就是说，<strong>在进化的初期单点交叉比标准交叉更容易发生在靠近树顶的位置</strong>，更有助于在进化初期拓宽搜索。<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240408172055.png width=70%></p>
-<p>从上面的分析可以看出，<strong>单点交叉是通过common
-regions限制可以进行交叉的节点从而在进化的初期增大上层节点被选择的概率</strong>。<br />
-现在来讨论进化初期节点交换的充分程度，作者假设了最大的信息交换发生在树的顶端（这个假设是错误的），此时除了根节点之外的所有的节点都交换到了另一个亲本，有<span
-class="math inline">\(E(S)\)</span>最大。虽然两种交叉都有可能发生类似的情况，但是由于单点交叉限制在了common
-region内，单点交叉进行这种最大情况的可能性要远远高于标准交叉，也就是说，单点交叉的全局性要优于标准交叉。</p>
-<p>在进化的后期，由于种群多样性的减小，种群中个体的拓扑结构逐渐趋同，那么common
-region的面积会增大，当种群中所有个体的拓扑结构都相同时，单点交叉和标准交叉完全相同：<br />
-<span
-class="math display">\[\lim_{t→∞}p_{1pt}(d_1|h,t)=p(d_1|h_1)\]</span>
-也就是说，<strong>随着进化的进行，单点交叉的全局性会逐渐减小，最终趋同于标准交叉</strong>。</p>
+<p>从上面的分析可以看出，<strong>单点交叉是通过common regions限制可以进行交叉的节点从而在进化的初期增大上层节点被选择的概率</strong>。<br />
+现在来讨论进化初期节点交换的充分程度，作者假设了最大的信息交换发生在树的顶端（这个假设是错误的），此时除了根节点之外的所有的节点都交换到了另一个亲本，有<span class="math inline">\(E(S)\)</span>最大。虽然两种交叉都有可能发生类似的情况，但是由于单点交叉限制在了common region内，单点交叉进行这种最大情况的可能性要远远高于标准交叉，也就是说，单点交叉的全局性要优于标准交叉。</p>
+<p>在进化的后期，由于种群多样性的减小，种群中个体的拓扑结构逐渐趋同，那么common region的面积会增大，当种群中所有个体的拓扑结构都相同时，单点交叉和标准交叉完全相同：<br />
+<span class="math display">\[\lim_{t→∞}p_{1pt}(d_1|h,t)=p(d_1|h_1)\]</span> 也就是说，<strong>随着进化的进行，单点交叉的全局性会逐渐减小，最终趋同于标准交叉</strong>。</p>
 <h3 id="均匀交叉和标准交叉单点交叉">均匀交叉和标准交叉/单点交叉</h3>
-<p>均匀交叉的本质是对一个树的common
-regions中的节点进行概率扫描。在进化初期，如果多样性足够的话（也就是从根节点开始的common
-region面积非常小的话），均匀交叉几乎没有可能会交换靠近低层的节点，从而增加搜索的全局性。<br />
-随着时间的推移，common
-regions的面积会逐渐增大，此时理论上边界节点在common
-regions中的占比会越来越小，因此会有越来越多的节点（*注：？不一定，参考下图）和越来越小的树（*注：也是不一定的，只有在树是full且每一层的所有子树大小相同的前提下这个推论才是一定正确的）被交换，直到运行结束时，每棵树上的所有节点都可以被自由选择进行交换。<br />
+<p>均匀交叉的本质是对一个树的common regions中的节点进行概率扫描。在进化初期，如果多样性足够的话（也就是从根节点开始的common region面积非常小的话），均匀交叉几乎没有可能会交换靠近低层的节点，从而增加搜索的全局性。<br />
+随着时间的推移，common regions的面积会逐渐增大，此时理论上边界节点在common regions中的占比会越来越小，因此会有越来越多的节点（*注：？不一定，参考下图）和越来越小的树（*注：也是不一定的，只有在树是full且每一层的所有子树大小相同的前提下这个推论才是一定正确的）被交换，直到运行结束时，每棵树上的所有节点都可以被自由选择进行交换。<br />
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240409132551.png width=60%></p>
-<p>与单点交叉不同的是，均匀交叉的全局性依赖于对<span
-class="math inline">\(p_s\)</span>的选择，<span
-class="math inline">\(p_s\)</span>一旦被选择，均匀交叉的全局性/局部性将不会随着进化过程发生改变。<br />
-<span
-class="math inline">\(p_s=0.5\)</span>是理论上两个亲本的信息交流达到最大值的设定，但是随着进化过程中两个亲本完全相同的结点越来越多，“无效”的交换也会越来越多，如此均匀交叉也会趋于收敛。</p>
+<p>与单点交叉不同的是，均匀交叉的全局性依赖于对<span class="math inline">\(p_s\)</span>的选择，<span class="math inline">\(p_s\)</span>一旦被选择，均匀交叉的全局性/局部性将不会随着进化过程发生改变。<br />
+<span class="math inline">\(p_s=0.5\)</span>是理论上两个亲本的信息交流达到最大值的设定，但是随着进化过程中两个亲本完全相同的结点越来越多，“无效”的交换也会越来越多，如此均匀交叉也会趋于收敛。</p>
 <h2 id="结论">结论</h2>
 <p>在进化的初期，标准交叉相比于其他两个交叉算子更容易将交叉发生在根节点上，标准交叉带来的全局效应非常弱。因此，标准交叉非常依赖于初始种群在搜索空间中的采样范围，如果初始种群的多样性本来就不高，标准交叉比其他两种交叉更难跳出这个采样范围。在进化后期的单点交叉也有这种表现。<br />
 事实上，单点交叉和标准交叉都是将树的某个部分整体进行交换，实际上在搜索空间中的行为是对亲本进行插值采样。因此，这两种交叉都依赖于初始种群对搜索空间的采样范围。<br />

@@ -529,25 +529,20 @@ p.spoiler {
 混叠的解决方法有两种：</p>
 <ul>
 <li>设置采样频率大于<span class="math inline">\(2f_H\)</span></li>
-<li>使用低通滤波器称为抗混叠滤波器(anti-aliasing
-filter)添加在模数转换器之前。</li>
+<li>使用低通滤波器称为抗混叠滤波器(anti-aliasing filter)添加在模数转换器之前。</li>
 </ul>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412165908.png width=50%></p></li>
 </ul>
 <h4 id="量化">量化</h4>
 <p>量化是用一段特定数值对采样结果进行近似的过程。<br />
-对于均匀量化，对于如果使用<span
-class="math inline">\(n\)</span>个0/1比特对结果进行量化，那么量化级的大小为：<br />
-<span class="math display">\[\frac{FSR}{2^n}\]</span> <span
-class="math inline">\(FSR\)</span>表示采样值范围的最大值。</p>
+对于均匀量化，对于如果使用<span class="math inline">\(n\)</span>个0/1比特对结果进行量化，那么量化级的大小为：<br />
+<span class="math display">\[\frac{FSR}{2^n}\]</span> <span class="math inline">\(FSR\)</span>表示采样值范围的最大值。</p>
 <h4 id="逐次逼近式adc">逐次逼近式ADC</h4>
-<p>下图中8bit
-Register的值的从MSB开始进行比特反转0-&gt;1，每一个比特位0-&gt;1的变化都会由DAC转换为电压与输入电压进行对比，比较器将两个电压进行对比，判断DAC的电压是否高于输入电压：如果输入电压高于DAC的电压，那么Register中这一比特位的值为1，如果低于DAC的电压，那么Register中这一位比特位的值恢复为0。<br />
+<p>下图中8bit Register的值的从MSB开始进行比特反转0-&gt;1，每一个比特位0-&gt;1的变化都会由DAC转换为电压与输入电压进行对比，比较器将两个电压进行对比，判断DAC的电压是否高于输入电压：如果输入电压高于DAC的电压，那么Register中这一比特位的值为1，如果低于DAC的电压，那么Register中这一位比特位的值恢复为0。<br />
 调整8bit Register的每一个比特位，直到LSB调整完毕，ADC的转换结束。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412165306.png width=50%></p>
 <h3 id="数模转换器">数模转换器</h3>
-<p>数模转换器是一种将数字信号转换为模拟信号的转置。数模转换的过程可以分为“解码-零阶保持（zero-order
-hold）”两个步骤。<br />
+<p>数模转换器是一种将数字信号转换为模拟信号的转置。数模转换的过程可以分为“解码-零阶保持（zero-order hold）”两个步骤。<br />
 数字信息通过解码转换为数字信号，离散的数字信号通过零阶保持器将每个时间点的电平值保持一段时间，进而形成时间和幅值连续的数字信号。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412162854.png width=50%></p>
 <h4 id="数模转换器电路">数模转换器电路</h4>
@@ -555,132 +550,86 @@ hold）”两个步骤。<br />
 <ul>
 <li><p>T型电阻DAC(R-2R ladder network DAC)<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412163205.png width=50%></p>
-<p>对于使用<span
-class="math inline">\(n\)</span>个比特的量化，电路中存在<span
-class="math inline">\(n-1\)</span>个“<span
-class="math inline">\(R-2R\)</span>”的电阻电路。<span
-class="math inline">\(b_0\)</span>为最低位，<span
-class="math inline">\(b_{n-1}\)</span>为最高位。当<span
-class="math inline">\(b_i=0\)</span>时，对应“<span
-class="math inline">\(R-2R\)</span>”电路接地，当<span
-class="math inline">\(b_i=0\)</span>时，对应“<span
-class="math inline">\(R-2R\)</span>”电路与<span
-class="math inline">\(-V_{ref}\)</span>连接。<span
-class="math inline">\(V_{ref}\)</span>是采样电平的最大值，即<span
-class="math inline">\(FSR\)</span>。<br />
+<p>对于使用<span class="math inline">\(n\)</span>个比特的量化，电路中存在<span class="math inline">\(n-1\)</span>个“<span class="math inline">\(R-2R\)</span>”的电阻电路。<span class="math inline">\(b_0\)</span>为最低位，<span class="math inline">\(b_{n-1}\)</span>为最高位。当<span class="math inline">\(b_i=0\)</span>时，对应“<span class="math inline">\(R-2R\)</span>”电路接地，当<span class="math inline">\(b_i=0\)</span>时，对应“<span class="math inline">\(R-2R\)</span>”电路与<span class="math inline">\(-V_{ref}\)</span>连接。<span class="math inline">\(V_{ref}\)</span>是采样电平的最大值，即<span class="math inline">\(FSR\)</span>。<br />
 通过对电路的分析，有：<br />
-<span class="math display">\[V_o=\frac{I_{bin}}{2^n}V_{ref}\]</span>
-其中<span
-class="math inline">\(I_{bin}=[b_{n-1}b_{n-2}...b_1b_0]\)</span></p></li>
+<span class="math display">\[V_o=\frac{I_{bin}}{2^n}V_{ref}\]</span> 其中<span class="math inline">\(I_{bin}=[b_{n-1}b_{n-2}...b_1b_0]\)</span></p></li>
 <li><p>权电阻型DAC(weighted resistors DAC)<br />
 权电阻型数模转换器要使用权电阻网络，其中电阻值为2的0次幂、1次幂、2次幂、3次幂等。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412164317.png width=50%></p>
-<p>权电阻型DAC在实现过程上很简单，但是由于使用了更多和更大的电阻值，难以获得足够精度的<span
-class="math inline">\(2^n\)</span>电阻值，所以权电阻网络实际中比较难以使用。<br />
-T型电阻DAC在实现过程中更为复杂，但是由于只需要<span
-class="math inline">\(R\)</span>和<span
-class="math inline">\(2R\)</span>两种电阻值，可以保证其精度。</p></li>
+<p>权电阻型DAC在实现过程上很简单，但是由于使用了更多和更大的电阻值，难以获得足够精度的<span class="math inline">\(2^n\)</span>电阻值，所以权电阻网络实际中比较难以使用。<br />
+T型电阻DAC在实现过程中更为复杂，但是由于只需要<span class="math inline">\(R\)</span>和<span class="math inline">\(2R\)</span>两种电阻值，可以保证其精度。</p></li>
 </ul>
 <h4 id="零阶保持器">零阶保持器</h4>
 <p>零阶保持器可以将给定信号保持一段时间，零阶保持器的时域表达式为：<br />
-<span class="math display">\[u(t)-u(t-T)\]</span>
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412171533.png width=50%></p>
+<span class="math display">\[u(t)-u(t-T)\]</span> <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220412171533.png width=50%></p>
 <p>对其进行拉普拉斯变换：<br />
 <span class="math display">\[ZOH(s)=\frac{1-e^{-Ts}}{s}\]</span></p>
-<p>在数字控制系统中，零阶保持器可以将数字信号在每个抽样时刻保持这个抽样值并持续抽样周期<span
-class="math inline">\(T\)</span>时长来实现数字信号到模拟信号的转换。<br />
+<p>在数字控制系统中，零阶保持器可以将数字信号在每个抽样时刻保持这个抽样值并持续抽样周期<span class="math inline">\(T\)</span>时长来实现数字信号到模拟信号的转换。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220419141742.png width=50%></p>
 <p>则整个系统的传输方程：<br />
 <span class="math display">\[G_{ZA}(s)=ZOH(s)G(s)\]</span></p>
 <p>如果零阶保持器和被控对象看做一个整体，对其进行z变换（即将整个系统放在z域中查看），得到：<br />
-<span
-class="math display">\[G_{ZA}(z)=\frac{z-1}{z}𝒵[\frac{G(s)}{s}]\]</span>
-<span class="math inline">\(𝒵[⋅]\)</span>表示z变换。<br />
+<span class="math display">\[G_{ZA}(z)=\frac{z-1}{z}𝒵[\frac{G(s)}{s}]\]</span> <span class="math inline">\(𝒵[⋅]\)</span>表示z变换。<br />
 上述公式称为零阶保持器的离散化公式。</p>
 <h3 id="级联系统分析">级联系统分析</h3>
 <p>如果每个子系统分别采样(模数转换)后级联，那么系统的传递函数可以表示为：<br />
-<span
-class="math display">\[G(z)=𝒵[G_1(s)]𝒵[G_2(s)]=G_1(z)G_2(z)\]</span><br />
+<span class="math display">\[G(z)=𝒵[G_1(s)]𝒵[G_2(s)]=G_1(z)G_2(z)\]</span><br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220420155645.png width=50%></p>
 <p>如果每个子系统先级联，最后整个做采样（模数转换），那么系统的传递函数可以表示为：<br />
-<span class="math display">\[G(z)=𝒵[G_1(s)G_2(s)]\]</span>
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220420155847.png width=50%></p>
+<span class="math display">\[G(z)=𝒵[G_1(s)G_2(s)]\]</span> <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220420155847.png width=50%></p>
 <h2 id="数字控制系统的分析">数字控制系统的分析</h2>
 <h3 id="差分方程">差分方程</h3>
 <p>数字控制系统中可以使用差分方程描述系统的特性：<br />
 <span class="math display">\[∑b_ky(n+k)=∑a_kx(n+k)\]</span></p>
 <div class="note note-warning">
-            <p>需要注意系统的初始条件，如果规定了系统的初始条件：<spanclass="math inline">\(y(0)≠0\)</span>、<spanclass="math inline">\(y(1)≠0\)</span>，则应当利用z变换的时移性质：<br /><span class="math display">\[Z[f(k+1)]=zF(z)-zf(0)\]</span> <spanclass="math display">\[Z[f(k+n)]=zF(z)-z^nf(0)-∑_{k=1}z^{n-k}f(k)\]</span></p>
+            <p>需要注意系统的初始条件，如果规定了系统的初始条件：<span class="math inline">\(y(0)≠0\)</span>、<span class="math inline">\(y(1)≠0\)</span>，则应当利用z变换的时移性质：<br /><span class="math display">\[Z[f(k+1)]=zF(z)-zf(0)\]</span> <span class="math display">\[Z[f(k+n)]=zF(z)-z^nf(0)-∑_{k=1}z^{n-k}f(k)\]</span></p>
           </div>
 <p>对差分方程两边做z变换，整理可以得到系统的闭环传递函数：<br />
 <span class="math display">\[TF_{cl}(z)=\frac{Y(z)}{X(z)}\]</span></p>
 <h3 id="系统类型">系统类型</h3>
 <p>对于数字控制系统，其开环传递函数可以表示为：<br />
-<span class="math display">\[\frac{1}{(z-1)^N}\frac{B(z)}{A(z)}\]</span>
-以<span class="math inline">\((z-1)^N\)</span>中<span
-class="math inline">\(N\)</span>对其进行分类：<span
-class="math inline">\(N=0、1、2\)</span>时，称系统分别为0/1/2型系统。<br />
+<span class="math display">\[\frac{1}{(z-1)^N}\frac{B(z)}{A(z)}\]</span> 以<span class="math inline">\((z-1)^N\)</span>中<span class="math inline">\(N\)</span>对其进行分类：<span class="math inline">\(N=0、1、2\)</span>时，称系统分别为0/1/2型系统。<br />
 不同类型的系统在不同输入时，其瞬态响应的表现是不同的。</p>
 <h3 id="系统的瞬态分析">系统的瞬态分析</h3>
 <p>数字控制系统的瞬态中同样有设置时间、峰值时间、上升时间、滞后时间、过冲率等指标，其定义与模拟控制系统的瞬态分析相同。</p>
 <h3 id="稳态误差">稳态误差</h3>
 <p>和模拟控制系统一样，定义数字系统的稳态误差为：<br />
-<span
-class="math display">\[e_{ss}=1-\lim_{z→1}(z-1)Y(z)=1-\lim_{z→1}(z-1)TF_{cl}(z)U(z)\]</span>
-<span
-class="math inline">\(TF_{cl}(z)\)</span>是系统的闭环传递函数。</p>
+<span class="math display">\[e_{ss}=1-\lim_{z→1}(z-1)Y(z)=1-\lim_{z→1}(z-1)TF_{cl}(z)U(z)\]</span> <span class="math inline">\(TF_{cl}(z)\)</span>是系统的闭环传递函数。</p>
 <p>同样地，可以根据系统输入为阶跃序列、斜坡序列、圆锥序列时，其稳态误差是：</p>
 <table>
 
 <thead>
 <tr>
 <th style="text-align: center;">系统类型</th>
-<th style="text-align: center;">位置误差 <br> <span
-class="math inline">\(r(n)=1\)</span> <br></th>
-<th style="text-align: center;">速度误差 <br> <span
-class="math inline">\(r(n)=n\)</span> <br></th>
-<th style="text-align: center;">加速度误差 <br> <span
-class="math inline">\(r(n)=\frac{1}{2}n^2\)</span></th>
+<th style="text-align: center;">位置误差 <br> <span class="math inline">\(r(n)=1\)</span> <br></th>
+<th style="text-align: center;">速度误差 <br> <span class="math inline">\(r(n)=n\)</span> <br></th>
+<th style="text-align: center;">加速度误差 <br> <span class="math inline">\(r(n)=\frac{1}{2}n^2\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: center;">0型</td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{1+K_p}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(∞\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(∞\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{1+K_p}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(∞\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(∞\)</span></td>
 </tr>
 <tr>
 <td style="text-align: center;">I型</td>
-<td style="text-align: center;"><span
-class="math inline">\(0\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{K_v}\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(∞\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{K_v}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(∞\)</span></td>
 </tr>
 <tr>
 <td style="text-align: center;">II型</td>
-<td style="text-align: center;"><span
-class="math inline">\(0\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(0\)</span></td>
-<td style="text-align: center;"><span
-class="math inline">\(\frac{1}{K_a}\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{K_a}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>其中的静态位置误差常数<span class="math inline">\(K_p\)</span>：
-<span class="math display">\[K_p=\lim_{z→1}G(z)H(z)\]</span>
-静态速度误差常数：<br />
-<span
-class="math display">\[K_v=\lim_{z→1}\frac{(1-z^{-1})G(z)H(z)}{T}\]</span>
-静态加速度误差常数：<br />
-<span
-class="math display">\[K_a=\lim_{z→1}\frac{(1-z^{-1})^2G(z)H(z)}{T^2}\]</span></p>
+<p>其中的静态位置误差常数<span class="math inline">\(K_p\)</span>： <span class="math display">\[K_p=\lim_{z→1}G(z)H(z)\]</span> 静态速度误差常数：<br />
+<span class="math display">\[K_v=\lim_{z→1}\frac{(1-z^{-1})G(z)H(z)}{T}\]</span> 静态加速度误差常数：<br />
+<span class="math display">\[K_a=\lim_{z→1}\frac{(1-z^{-1})^2G(z)H(z)}{T^2}\]</span></p>
 
                 
               </div>

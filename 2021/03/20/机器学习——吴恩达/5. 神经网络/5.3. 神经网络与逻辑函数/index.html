@@ -114,10 +114,15 @@
 <meta property="og:site_name" content="Mirror">
 <meta property="og:description" content="img{     width: 50%;     padding-left: 20%; }  感知机 神经网络中，单层神经元（无中间层）的计算可用来表示逻辑运算，比如逻辑与(AND)、逻辑或(OR)。这样的单层神经网络被称为感知机(perceptron)。感知机的输入和输出都是二进制数。 线性逻辑函数的实现——AND,OR,NOT 为了解释感知机如何实现逻辑函数的功能，以AND">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101154246.png">
 <meta property="article:published_time" content="2021-03-20T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:31:05.973Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -499,23 +504,12 @@ img{
 <h2 id="线性逻辑函数的实现andornot">线性逻辑函数的实现——AND,OR,NOT</h2>
 <p>为了解释感知机如何实现逻辑函数的功能，以AND函数为例：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912151455.png width=50%><br />
-上图表示一个只有两个输入的感知机，输入层有两个特征<span
-class="math inline">\(x_1\)</span>和<span
-class="math inline">\(x_2\)</span>，它们都应该是二进制数。<br />
-目标函数为<span class="math inline">\(y=x_1 AND
-x_2\)</span>.其激活函数<span
-class="math inline">\(g(x)\)</span>设置为sigmod函数。</p>
-<p><strong>观察sigmoid激活函数<span
-class="math inline">\(y=g(x)=\frac{1}{1-e^{-x}}\)</span>,可以发现当<span
-class="math inline">\(x=4\)</span>时，<span
-class="math inline">\(y=0.99\)</span>,当<span
-class="math inline">\(x=-4\)</span>时，<span
-class="math inline">\(y=0.01\)</span></strong><br />
+上图表示一个只有两个输入的感知机，输入层有两个特征<span class="math inline">\(x_1\)</span>和<span class="math inline">\(x_2\)</span>，它们都应该是二进制数。<br />
+目标函数为<span class="math inline">\(y=x_1 AND x_2\)</span>.其激活函数<span class="math inline">\(g(x)\)</span>设置为sigmod函数。</p>
+<p><strong>观察sigmoid激活函数<span class="math inline">\(y=g(x)=\frac{1}{1-e^{-x}}\)</span>,可以发现当<span class="math inline">\(x=4\)</span>时，<span class="math inline">\(y=0.99\)</span>,当<span class="math inline">\(x=-4\)</span>时，<span class="math inline">\(y=0.01\)</span></strong><br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912152200.png width=50%><br />
-由上述激活函数的性质，为了计算这样的神经网络，首先先增加一个偏置单元
-【+1】，对每个单元赋予权重：-30，20,20：<br />
-<img
-src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png" srcset="/img/loading.gif" lazyload /><br />
+由上述激活函数的性质，为了计算这样的神经网络，首先先增加一个偏置单元 【+1】，对每个单元赋予权重：-30，20,20：<br />
+<img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152043.png" srcset="/img/loading.gif" lazyload /><br />
 列出真值表：<br />
 <span class="math display">\[
 \begin{array}{lcr}
@@ -526,44 +520,26 @@ x_1 &amp; x_2 &amp; h_θ(x) \\\
 1 &amp; 1 &amp; g(10)≈1 \\\  
 \end{array}
 \]</span></p>
-<p>观察最后一列，最后一列的输出事实上很接近与AND函数的结果，那么可以认为<span
-class="math inline">\(h_θ(x) ≈ x_1 AND x_2\)</span></p>
+<p>观察最后一列，最后一列的输出事实上很接近与AND函数的结果，那么可以认为<span class="math inline">\(h_θ(x) ≈ x_1 AND x_2\)</span></p>
 <p>那么同理，下图的神经网络最终可以生成一个类似于OR函数的假设函数。<br />
-<img
-src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png" srcset="/img/loading.gif" lazyload /></p>
+<img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101152850.png" srcset="/img/loading.gif" lazyload /></p>
 <p>下图的神经网络最终可以生成一个类似于NOT函数的假设函数。<br />
-<img
-src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png" srcset="/img/loading.gif" lazyload /><br />
+<img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101153145.png" srcset="/img/loading.gif" lazyload /><br />
 可以发现NOT是通过给对应的单元施加一个较大的负数来实现的。</p>
 <h2 id="非线性逻辑函数的实现">非线性逻辑函数的实现</h2>
 <p>下面尝试生成如下的函数：<br />
-<span class="math display">\[h_θ(x)=(NOT x_1)AND(NOT x_2)\]</span>
-分析：<br />
-要想使<span class="math inline">\(h_θ(x)=1\)</span>,那么当且仅当<span
-class="math inline">\(x_1=x_2=0\)</span>时成立，最终的神经网络如下图所示：<br />
-<img
-src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101154246.png" srcset="/img/loading.gif" lazyload /></p>
-<p>思考下面一个例子： 假设函数可以写成： <span
-class="math display">\[y=x_1 XNOR x_2\]</span>
-那么神经网络是否可以生成这样的函数呢？
-XNOR的四个样本分布在样本空间内的表示如下：<br />
+<span class="math display">\[h_θ(x)=(NOT x_1)AND(NOT x_2)\]</span> 分析：<br />
+要想使<span class="math inline">\(h_θ(x)=1\)</span>,那么当且仅当<span class="math inline">\(x_1=x_2=0\)</span>时成立，最终的神经网络如下图所示：<br />
+<img src="https://raw.githubusercontent.com/l61012345/Pic/master/img/20210101154246.png" srcset="/img/loading.gif" lazyload /></p>
+<p>思考下面一个例子： 假设函数可以写成： <span class="math display">\[y=x_1 XNOR x_2\]</span> 那么神经网络是否可以生成这样的函数呢？ XNOR的四个样本分布在样本空间内的表示如下：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912172757.png width=40%></p>
 <p>如果将之前的AND和OR也在样本空间中表示出来：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912172724.png width=60%><br />
-与之前不同的是，可以发现AND和OR在样本空间中的表示都可以用一条直线对其进行划分，而对XNOR无法找到一条直线将其进行区分。<strong>对于感知机而言，由于其输出表示为多个神经元的线性组合通过Sigmoid函数，只能找到数据的线性边界。</strong>
-对于这样的非线性逻辑函数，需要添加多层神经元场才能完成逻辑函数的功能。具体理由如下：</p>
-<p>分析： <span class="math display">\[x_1XNORx_2=NOT(X_1 XOR X_2)=(x_1
-AND x_2)OR((NOT x_1) AND (NOT x_2))\]</span> 以逻辑表达式形式书写：
-<span
-class="math display">\[h_θ(x)=(x_1.x_2)+\overline{x_1}.\overline{x_2}\]</span>
-将它分层：<br />
-第一层： 获取<span class="math inline">\(x_1\)</span>和<span
-class="math inline">\(x_2\)</span><br />
-第二层：计算 <span class="math inline">\(a_1^{(2)}=x_1.x_2\)</span> 和
-<span
-class="math inline">\(a_2^{(2)}=\overline{x_1}.\overline{x_2}\)</span>.<br />
-第三层：计算 <span
-class="math inline">\(a_1^{(2)}+a_2^{(2)}\)</span>.<br />
+与之前不同的是，可以发现AND和OR在样本空间中的表示都可以用一条直线对其进行划分，而对XNOR无法找到一条直线将其进行区分。<strong>对于感知机而言，由于其输出表示为多个神经元的线性组合通过Sigmoid函数，只能找到数据的线性边界。</strong> 对于这样的非线性逻辑函数，需要添加多层神经元场才能完成逻辑函数的功能。具体理由如下：</p>
+<p>分析： <span class="math display">\[x_1XNORx_2=NOT(X_1 XOR X_2)=(x_1 AND x_2)OR((NOT x_1) AND (NOT x_2))\]</span> 以逻辑表达式形式书写： <span class="math display">\[h_θ(x)=(x_1.x_2)+\overline{x_1}.\overline{x_2}\]</span> 将它分层：<br />
+第一层： 获取<span class="math inline">\(x_1\)</span>和<span class="math inline">\(x_2\)</span><br />
+第二层：计算 <span class="math inline">\(a_1^{(2)}=x_1.x_2\)</span> 和 <span class="math inline">\(a_2^{(2)}=\overline{x_1}.\overline{x_2}\)</span>.<br />
+第三层：计算 <span class="math inline">\(a_1^{(2)}+a_2^{(2)}\)</span>.<br />
 通过这一节的前半部分，我们已经知道了每一层所需要的函数的神经网络构建方法，最终的神经网络将是：</p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912172025.png width=100%></p>
 <p><strong>按这种方法，可以通过增加神经网络的层数和神经元的个数逐渐构造出越来越复杂的函数，也能就可以提取到更加多样化的特征，处理决策边界更复杂、非线性的数据集。</strong><br />

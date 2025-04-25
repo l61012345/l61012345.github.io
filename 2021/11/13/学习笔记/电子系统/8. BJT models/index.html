@@ -492,12 +492,9 @@ p.spoiler {
 <h2 id="交流工作下的基极偏置">交流工作下的基极偏置</h2>
 <h3 id="耦合电容">耦合电容</h3>
 <p>在交流状态下工作的电容器称为耦合电容，耦合电容的特性可以用一句话总结：耦合电容会阻碍直流分量并允许交流分量通过，即“隔直流，通交流”。<br />
-根据电容的容抗计算公式：<span
-class="math inline">\(X_c=\frac{1}{2πfc}\)</span><br />
+根据电容的容抗计算公式：<span class="math inline">\(X_c=\frac{1}{2πfc}\)</span><br />
 当直流分量通过电容时，电容的容抗会非常的大，电容视为断路。<br />
-当交流分量通过电容时，如果频率非常的高，则电容视为短路。一般认为<span
-class="math inline">\(X_c&lt;0.1R\)</span>（<span
-class="math inline">\(R\)</span>为电路中的总电阻值）时，电容就视为短路。<br />
+当交流分量通过电容时，如果频率非常的高，则电容视为短路。一般认为<span class="math inline">\(X_c&lt;0.1R\)</span>（<span class="math inline">\(R\)</span>为电路中的总电阻值）时，电容就视为短路。<br />
 在晶体管电路中，耦合电容的作用是阻止交流源电压源和输出电阻改变晶体管的静态工作点。</p>
 <h3 id="基极偏置电路分析">基极偏置电路分析</h3>
 <p>交流下的基极偏置电路如下图所示：<br />
@@ -506,177 +503,101 @@ class="math inline">\(R\)</span>为电路中的总电阻值）时，电容就视
 <ul>
 <li>在输入端（基极）和输出端（集电极）各有一个耦合电容。<br />
 </li>
-<li>输入电压（即基极处的电源）<span
-class="math inline">\(v_{bb}\)</span>是一个交流信号，不含有直流分量。<br />
+<li>输入电压（即基极处的电源）<span class="math inline">\(v_{bb}\)</span>是一个交流信号，不含有直流分量。<br />
 </li>
-<li>供电电压<span
-class="math inline">\(V_{CC}\)</span>是一个直流信号，不含有交流分量。</li>
+<li>供电电压<span class="math inline">\(V_{CC}\)</span>是一个直流信号，不含有交流分量。</li>
 </ul>
 <p>当晶体管的基极和集电极存在耦合电容时，基极端的交流电源和输出端的输出电阻对晶体管的工作状态不会有任何的影响。<br />
 电路中所有的电流都可以分解为直流分量和交流分量两部分：<br />
-<span class="math display">\[i_B=I_B+i_b\]</span>
-<strong>晶体管只会改变电路中电流的直流分量，交流分量保持不变。</strong><br />
+<span class="math display">\[i_B=I_B+i_b\]</span> <strong>晶体管只会改变电路中电流的直流分量，交流分量保持不变。</strong><br />
 因此，交流状态下的基极偏置<strong>只需要按照对应静态工作点计算出直流分量的值，在加上或减去交流分量即可。</strong></p>
 <div class="note note-info">
-            <p>需要注意的是由于<spanclass="math inline">\(v_C=V_{CC}-i_CR_c\)</span>，因此<spanclass="math inline">\(v_C\)</span>的波形与<spanclass="math inline">\(i_C\)</span>应当是<strong>反相</strong>的。由于<spanclass="math inline">\(i_C=βi_B\)</span>，因此<spanclass="math inline">\(i_B\)</span>的波形与<spanclass="math inline">\(i_C\)</span><strong>同相</strong>。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113162613.png width=50%></p>
+            <p>需要注意的是由于<span class="math inline">\(v_C=V_{CC}-i_CR_c\)</span>，因此<span class="math inline">\(v_C\)</span>的波形与<span class="math inline">\(i_C\)</span>应当是<strong>反相</strong>的。由于<span class="math inline">\(i_C=βi_B\)</span>，因此<span class="math inline">\(i_B\)</span>的波形与<span class="math inline">\(i_C\)</span><strong>同相</strong>。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113162613.png width=50%></p>
           </div>
-<p>同时，由于耦合电容的特性，输出端的耦合电容会将直流分量完全去除，<strong>最终在输出电阻<span
-class="math inline">\(R_L\)</span>上的电压/电流没有直流分量</strong>。<br />
+<p>同时，由于耦合电容的特性，输出端的耦合电容会将直流分量完全去除，<strong>最终在输出电阻<span class="math inline">\(R_L\)</span>上的电压/电流没有直流分量</strong>。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113162834.png width=60%></p>
 <h2 id="大信号模型">大信号模型</h2>
 <p>晶体管的大小信号模型针对基极的输入电压含有直流分量和交流分量时的电路进行分析。基极输入电压信号幅值较大时的电路分析模型称为大信号模型。<br />
-在大信号模型下，<span class="math inline">\(v_{BE}\)</span>与<span
-class="math inline">\(i_C\)</span>是非线性关系，两者之间满足：<br />
-<span class="math display">\[i_C=I_Se^{\frac{v_{BE}}{V_T}}\]</span>
-其中<span class="math inline">\(I_S\)</span>是<span
-class="math inline">\(I_C\)</span>的饱和电流，<span
-class="math inline">\(V_T\)</span>是晶体管在CB两点间存在温差而出现的电位差（热电压），在室温下约为25.9mV。<br />
+在大信号模型下，<span class="math inline">\(v_{BE}\)</span>与<span class="math inline">\(i_C\)</span>是非线性关系，两者之间满足：<br />
+<span class="math display">\[i_C=I_Se^{\frac{v_{BE}}{V_T}}\]</span> 其中<span class="math inline">\(I_S\)</span>是<span class="math inline">\(I_C\)</span>的饱和电流，<span class="math inline">\(V_T\)</span>是晶体管在CB两点间存在温差而出现的电位差（热电压），在室温下约为25.9mV。<br />
 根据上述关系，可以将集电极的等效二极管近似看做是一个电压控制电流源，发射极的等效二极管保持不变：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113164129.png width=30%></p>
-<p>同时，希望在CE出导出输出电压，得到一个电压放大器（小的输出电压<span
-class="math inline">\(v_{BE}\)</span>放大为<span
-class="math inline">\(v_{CE}\)</span>），因此在集电极处加入一个电阻<span
-class="math inline">\(R_C\)</span>。<br />
+<p>同时，希望在CE出导出输出电压，得到一个电压放大器（小的输出电压<span class="math inline">\(v_{BE}\)</span>放大为<span class="math inline">\(v_{CE}\)</span>），因此在集电极处加入一个电阻<span class="math inline">\(R_C\)</span>。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113164622.png width=30%></p>
-<p>那么，在大信号模型电路中输出电压<span
-class="math inline">\(v_{CE}\)</span>与输入电压<span
-class="math inline">\(v_{BE}\)</span>的关系如下图所示：<br />
+<p>那么，在大信号模型电路中输出电压<span class="math inline">\(v_{CE}\)</span>与输入电压<span class="math inline">\(v_{BE}\)</span>的关系如下图所示：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113164828.png width=50%></p>
-<p>在大信号模型下，<span
-class="math inline">\(v_{BE}\)</span>很容易超出放大模式区域，进入饱和工作状态，导致电路出现非线性失真。</p>
+<p>在大信号模型下，<span class="math inline">\(v_{BE}\)</span>很容易超出放大模式区域，进入饱和工作状态，导致电路出现非线性失真。</p>
 <h2 id="小信号模型">小信号模型</h2>
-<p>基极输入电压的<span
-class="math inline">\(v_{BE}\)</span>比较小，正好处于放大模式下时电路分析模型称为小信号模型。在小信号模型中，可以近似将<span
-class="math inline">\(v_{BE}\)</span>与<span
-class="math inline">\(v_{CE}\)</span>的关系视为线性，即将整个晶体管的工作状态视作直流工作状态。<br />
+<p>基极输入电压的<span class="math inline">\(v_{BE}\)</span>比较小，正好处于放大模式下时电路分析模型称为小信号模型。在小信号模型中，可以近似将<span class="math inline">\(v_{BE}\)</span>与<span class="math inline">\(v_{CE}\)</span>的关系视为线性，即将整个晶体管的工作状态视作直流工作状态。<br />
 小信号模型可以看做是大信号模型在放大模式下的表现。</p>
 <h3 id="电压变换特性">电压变换特性</h3>
-<p>输入电压<span
-class="math inline">\(v_{BE}\)</span>必须控制在一个小电压范围内，才能使晶体管的工作状态处于放大模式。在放大模式下：
-<span class="math display">\[\begin{aligned}v_{CE}=&amp;V_{CC}-R_Ci_C\\
+<p>输入电压<span class="math inline">\(v_{BE}\)</span>必须控制在一个小电压范围内，才能使晶体管的工作状态处于放大模式。在放大模式下： <span class="math display">\[\begin{aligned}v_{CE}=&amp;V_{CC}-R_Ci_C\\
     =&amp;V_{CC}-R_CI_Se^{\frac{v_{BE}}{V_T}}
-\end{aligned}\]</span> 通过上述公式可知，<span
-class="math inline">\(v_{CE}\)</span>的波形与<span
-class="math inline">\(v_{BE}\)</span><strong>反相</strong>。<br />
+\end{aligned}\]</span> 通过上述公式可知，<span class="math inline">\(v_{CE}\)</span>的波形与<span class="math inline">\(v_{BE}\)</span><strong>反相</strong>。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113165310.png width=50%></p>
-<p>当<span
-class="math inline">\(v_{BE}=V_{BE}\)</span>时，说明输入电压仅含直流分量，此时晶体管处于静态工作点。在该点对其求斜率得到（等效电压放大器的）直流电压增益：<br />
-<span
-class="math display">\[A_v=\frac{dv_{CE}}{dv_{BE}}|_{v_{BE}=V_{BE}}\]</span>
-带入<span class="math inline">\(i_C\)</span>的表达式，有：<br />
-<span
-class="math display">\[A_v=-\frac{I_C}{V_T}R_C=-\frac{V_{CC}-V_{CE}}{V_T}\]</span>
-可以发现，在放大模式下，<span
-class="math inline">\(V_{CE}\)</span>越低，直流电压增益越大。</p>
+<p>当<span class="math inline">\(v_{BE}=V_{BE}\)</span>时，说明输入电压仅含直流分量，此时晶体管处于静态工作点。在该点对其求斜率得到（等效电压放大器的）直流电压增益：<br />
+<span class="math display">\[A_v=\frac{dv_{CE}}{dv_{BE}}|_{v_{BE}=V_{BE}}\]</span> 带入<span class="math inline">\(i_C\)</span>的表达式，有：<br />
+<span class="math display">\[A_v=-\frac{I_C}{V_T}R_C=-\frac{V_{CC}-V_{CE}}{V_T}\]</span> 可以发现，在放大模式下，<span class="math inline">\(V_{CE}\)</span>越低，直流电压增益越大。</p>
 <h3 id="小信号模型的电流分析">小信号模型的电流分析</h3>
-<p>在小信号模型下，如果将<span
-class="math inline">\(v_{BE}\)</span>视为输入信号、<span
-class="math inline">\(i_C\)</span>视为输出信号，那么放大的结果是将小电压放大为大电流，这样的放大器称为跨导放大器。<br />
-那么对输出<span class="math inline">\(i_C\)</span>引入输入<span
-class="math inline">\(v_{BE}\)</span>进行分析：<br />
-由于小信号模型是大信号模型的一部分，因此<span
-class="math inline">\(i_C\)</span>的导出式不变：<br />
-<span class="math display">\[i_c=I_Se^{\frac{v_{BE}}{V_T}}\]</span>
-带入<span class="math inline">\(v_{BE}=V_{BE}+v_{be}\)</span> <span
-class="math display">\[\begin{aligned}
+<p>在小信号模型下，如果将<span class="math inline">\(v_{BE}\)</span>视为输入信号、<span class="math inline">\(i_C\)</span>视为输出信号，那么放大的结果是将小电压放大为大电流，这样的放大器称为跨导放大器。<br />
+那么对输出<span class="math inline">\(i_C\)</span>引入输入<span class="math inline">\(v_{BE}\)</span>进行分析：<br />
+由于小信号模型是大信号模型的一部分，因此<span class="math inline">\(i_C\)</span>的导出式不变：<br />
+<span class="math display">\[i_c=I_Se^{\frac{v_{BE}}{V_T}}\]</span> 带入<span class="math inline">\(v_{BE}=V_{BE}+v_{be}\)</span> <span class="math display">\[\begin{aligned}
     i_c&amp;=I_Se^{\frac{V_{BE}+v_{be}}{V_T}}\\
     &amp;=I_Se^{\frac{V_{BE}}{V_T}}e^{\frac{v_{be}}{V_T}}
-\end{aligned}\]</span> 根据<span
-class="math inline">\(I_C=I_Se^{\frac{V_{BE}}{V_T}}\)</span>，有：<br />
-<span class="math display">\[i_c=I_Ce^{\frac{v_{be}}{V_T}}\]</span>
-根据泰勒展开式，有：<br />
-<span
-class="math display">\[i_c=I_C(1+∑_k(\frac{v_{be}}{V_T})^k\frac{1}{k!})\]</span>
-根据小信号模型的条件，<span
-class="math inline">\(v_{be}\)</span>应当很小，<span
-class="math inline">\(b_{be}&lt;&lt;V_T\)</span>，此时泰勒展开式的高阶项可以全部被忽略，有：<br />
-<span class="math display">\[i_C≈I_C(1+\frac{v_{be}}{V_T})\]</span>
-带入<span class="math inline">\(i_C=I_C+i_c\)</span>:<br />
+\end{aligned}\]</span> 根据<span class="math inline">\(I_C=I_Se^{\frac{V_{BE}}{V_T}}\)</span>，有：<br />
+<span class="math display">\[i_c=I_Ce^{\frac{v_{be}}{V_T}}\]</span> 根据泰勒展开式，有：<br />
+<span class="math display">\[i_c=I_C(1+∑_k(\frac{v_{be}}{V_T})^k\frac{1}{k!})\]</span> 根据小信号模型的条件，<span class="math inline">\(v_{be}\)</span>应当很小，<span class="math inline">\(b_{be}&lt;&lt;V_T\)</span>，此时泰勒展开式的高阶项可以全部被忽略，有：<br />
+<span class="math display">\[i_C≈I_C(1+\frac{v_{be}}{V_T})\]</span> 带入<span class="math inline">\(i_C=I_C+i_c\)</span>:<br />
 <span class="math display">\[i_C=\frac{I_C}{V_T}v_{be}\]</span></p>
 <h4 id="跨导">跨导</h4>
-<p>定义<span
-class="math inline">\(g_m\)</span>为跨导（Transconductance）：<br />
+<p>定义<span class="math inline">\(g_m\)</span>为跨导（Transconductance）：<br />
 <span class="math display">\[g_m=\frac{I_C}{V_T}\]</span></p>
 <div class="note note-info">
-            <p><spanclass="math inline">\(g_m\)</span>是电流和电压之比，本质上是电导。</p>
+            <p><span class="math inline">\(g_m\)</span>是电流和电压之比，本质上是电导。</p>
           </div>
 <p>有：<br />
-<span class="math display">\[i_C=g_mv_{be}\]</span> 跨导也是<span
-class="math inline">\(i_C-v_{BE}\)</span>图中当<span
-class="math inline">\(i_C=I_C\)</span>时的斜率：<br />
-<span
-class="math display">\[g_m=\frac{di_C}{dv_{BE}}|_{i_C=I_C}\]</span>
-带回<span class="math inline">\(A_v\)</span>，可以得到 <span
-class="math display">\[A_V=\frac{v_{CE}}{v_{BE}}=-g_mR_e\]</span></p>
+<span class="math display">\[i_C=g_mv_{be}\]</span> 跨导也是<span class="math inline">\(i_C-v_{BE}\)</span>图中当<span class="math inline">\(i_C=I_C\)</span>时的斜率：<br />
+<span class="math display">\[g_m=\frac{di_C}{dv_{BE}}|_{i_C=I_C}\]</span> 带回<span class="math inline">\(A_v\)</span>，可以得到 <span class="math display">\[A_V=\frac{v_{CE}}{v_{BE}}=-g_mR_e\]</span></p>
 <p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211114115547.png width=40%></p>
-<h3
-id="小信号模型中的直流分量和交流分量">小信号模型中的直流分量和交流分量</h3>
+<h3 id="小信号模型中的直流分量和交流分量">小信号模型中的直流分量和交流分量</h3>
 <p>由于小信号模型满足线性条件，因此电路中的直流分量和交流分量可以完全独立分别计算，然后将计算直流分量的结果与计算交流分量的结果相加。<br />
 小信号模型中，<strong>直流分量的作用是确定晶体管所处的静态工作点。</strong><br />
 交流分量的作用是携带信息，因此在小信号模型中更关注交流分量的变化。</p>
 <h3 id="小信号模型的交流参数">小信号模型的交流参数</h3>
-<p>小信号模型中直流分量的来源为集电极供电<span
-class="math inline">\(V_{CC}\)</span>和基极供电<span
-class="math inline">\(V_{BE}\)</span>，令它们为0（接地）后进行交流分量的等效模型分析。</p>
+<p>小信号模型中直流分量的来源为集电极供电<span class="math inline">\(V_{CC}\)</span>和基极供电<span class="math inline">\(V_{BE}\)</span>，令它们为0（接地）后进行交流分量的等效模型分析。</p>
 <h4 id="基极电流">基极电流</h4>
-<p>由<span
-class="math inline">\(i_B=\frac{1}{β}i_C,i_C=g_mv_{be}\)</span>:<br />
-<span
-class="math display">\[i_B=\frac{I_C}{β}+\frac{g_m}{β}v_{be}\]</span>
-<span class="math display">\[i_b=\frac{g_m}{β}v_{be}\]</span></p>
+<p>由<span class="math inline">\(i_B=\frac{1}{β}i_C,i_C=g_mv_{be}\)</span>:<br />
+<span class="math display">\[i_B=\frac{I_C}{β}+\frac{g_m}{β}v_{be}\]</span> <span class="math display">\[i_b=\frac{g_m}{β}v_{be}\]</span></p>
 <h4 id="输入阻抗">输入阻抗</h4>
 <p>定义输入阻抗为输入端电压与电流之比。<br />
-当发射极接地，信号从基极输入时： <span
-class="math display">\[r_π=\frac{v_{be}}{i_b}\]</span> 带入<span
-class="math inline">\(v_{be}\)</span>和<span
-class="math inline">\(i_b\)</span>，得到：<br />
-<span class="math display">\[r_π=\frac{V_T}{I_B}=\frac{β}{g_m}\]</span>
-当基极接地，信号从发射极输入时：<br />
-<span class="math display">\[r_e=\frac{v_{be}}{i_e}\]</span> 带入<span
-class="math inline">\(v_{be}\)</span>和<span
-class="math inline">\(αi_e=i_c\)</span>，得到：<br />
-<span class="math display">\[r_e=\frac{V_T}{I_E}=\frac{α}{g_m}\]</span>
-可以发现输入阻抗<span class="math inline">\(r_π\)</span>或<span
-class="math inline">\(r_e\)</span>都不含有交流分量，是一个等效电阻。</p>
+当发射极接地，信号从基极输入时： <span class="math display">\[r_π=\frac{v_{be}}{i_b}\]</span> 带入<span class="math inline">\(v_{be}\)</span>和<span class="math inline">\(i_b\)</span>，得到：<br />
+<span class="math display">\[r_π=\frac{V_T}{I_B}=\frac{β}{g_m}\]</span> 当基极接地，信号从发射极输入时：<br />
+<span class="math display">\[r_e=\frac{v_{be}}{i_e}\]</span> 带入<span class="math inline">\(v_{be}\)</span>和<span class="math inline">\(αi_e=i_c\)</span>，得到：<br />
+<span class="math display">\[r_e=\frac{V_T}{I_E}=\frac{α}{g_m}\]</span> 可以发现输入阻抗<span class="math inline">\(r_π\)</span>或<span class="math inline">\(r_e\)</span>都不含有交流分量，是一个等效电阻。</p>
 <h4 id="厄利效应">厄利效应</h4>
-<p>厄利效应/基区宽度调制效应(Early Effect)，是指晶体管的<span
-class="math inline">\(V_{CE}\)</span>改变，基极－集电极耗尽层宽度也会跟着改变。集电极电压升高，会使基极层变窄，使集电区或晶体管的输出电流增大。特性曲线中电压较大时的切线进行反向外推，其延长线与电压轴相交，在电压轴上截得的负截距称为厄利电压。<br />
+<p>厄利效应/基区宽度调制效应(Early Effect)，是指晶体管的<span class="math inline">\(V_{CE}\)</span>改变，基极－集电极耗尽层宽度也会跟着改变。集电极电压升高，会使基极层变窄，使集电区或晶体管的输出电流增大。特性曲线中电压较大时的切线进行反向外推，其延长线与电压轴相交，在电压轴上截得的负截距称为厄利电压。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211114123021.png width=50%></p>
-<p><strong>厄利效应可以等效为一个横跨在<span
-class="math inline">\(CE\)</span>两极、与输出电阻<span
-class="math inline">\(R_C\)</span>并联的电阻。</strong><br />
+<p><strong>厄利效应可以等效为一个横跨在<span class="math inline">\(CE\)</span>两极、与输出电阻<span class="math inline">\(R_C\)</span>并联的电阻。</strong><br />
 <span class="math display">\[r_o=\frac{V_A}{I_C}\]</span></p>
 <h3 id="等效小信号模型">等效小信号模型</h3>
 <h4 id="π模型">π模型</h4>
-<p><strong>当发射极接地时，信号从基极输入。</strong>
-通过对交流参数的分析，由<span
-class="math inline">\(r_π=\frac{v_{be}}{i_b}\)</span>，可以将基极等效为一个阻值为<span
-class="math inline">\(r_π\)</span>的电阻。而由：<span
-class="math inline">\(i_C=g_mv_{be}=βi_b\)</span>发射极等效为一个电流控制电压源或者<span
-class="math inline">\(i_b\)</span>的电流控制电流源，得到π模型。<br />
+<p><strong>当发射极接地时，信号从基极输入。</strong> 通过对交流参数的分析，由<span class="math inline">\(r_π=\frac{v_{be}}{i_b}\)</span>，可以将基极等效为一个阻值为<span class="math inline">\(r_π\)</span>的电阻。而由：<span class="math inline">\(i_C=g_mv_{be}=βi_b\)</span>发射极等效为一个电流控制电压源或者<span class="math inline">\(i_b\)</span>的电流控制电流源，得到π模型。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211114121839.png width=70%><br />
 考虑厄利效应，有：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211114123326.png width=70%></p>
 <h4 id="t模型">T模型</h4>
-<p><strong>当基极接地时，信号从发射极输入。</strong> 由<span
-class="math inline">\(r_e=\frac{v_{be}}{i_e}\)</span>，可以将发射极等效为一个阻值为<span
-class="math inline">\(r_e\)</span>的电阻。<br />
-由<span
-class="math inline">\(i_C=g_mv_{be}=αi_e\)</span>可以将发射极等效为一个电流控制电压源或者<span
-class="math inline">\(i_e\)</span>的电流控制电流源，得到T模型。<br />
+<p><strong>当基极接地时，信号从发射极输入。</strong> 由<span class="math inline">\(r_e=\frac{v_{be}}{i_e}\)</span>，可以将发射极等效为一个阻值为<span class="math inline">\(r_e\)</span>的电阻。<br />
+由<span class="math inline">\(i_C=g_mv_{be}=αi_e\)</span>可以将发射极等效为一个电流控制电压源或者<span class="math inline">\(i_e\)</span>的电流控制电流源，得到T模型。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211114124640.png width=50%><br />
 考虑厄利效应：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211114124920.png width=50%></p>
 <p><strong>当E极在等效后没有电阻时，使用π模型进行分析。在等效后有电阻时，使用T模型进行分析。</strong></p>
-<h4 id="电阻反射定律resistance-reflection-rule">电阻反射定律(Resistance
-Reflection Rule)</h4>
+<h4 id="电阻反射定律resistance-reflection-rule">电阻反射定律(Resistance Reflection Rule)</h4>
 <p>T模型中发射极的电阻可以通过投射定理与π模型中基极的电阻相互转换。<br />
-由于： <span class="math display">\[r_π=r_e(β+1)\]</span>
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211128160204.png width=50%></p>
-<p>因此，发射极的所有电阻值可以乘上<span
-class="math inline">\(β+1\)</span>转为基极的输入电阻的阻值。<br />
-<span class="math display">\[R_B=(β+1)R_E\]</span>
-应用该定理可以更加灵活地判断电路中放大电路部分输入电阻的阻值。</p>
+由于： <span class="math display">\[r_π=r_e(β+1)\]</span> <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211128160204.png width=50%></p>
+<p>因此，发射极的所有电阻值可以乘上<span class="math inline">\(β+1\)</span>转为基极的输入电阻的阻值。<br />
+<span class="math display">\[R_B=(β+1)R_E\]</span> 应用该定理可以更加灵活地判断电路中放大电路部分输入电阻的阻值。</p>
 
                 
               </div>

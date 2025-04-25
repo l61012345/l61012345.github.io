@@ -488,15 +488,13 @@ p.spoiler {
             
               <div class="markdown-body">
                 
-                <h1
-id="腾讯云服务器linux机器学习初学环境配置指南">腾讯云服务器Linux机器学习初学环境配置指南</h1>
+                <h1 id="腾讯云服务器linux机器学习初学环境配置指南">腾讯云服务器Linux机器学习初学环境配置指南</h1>
 <h2 id="服务器选购">服务器选购</h2>
 <p>腾讯云服务器对学生有首次购买优惠，对比华为云和阿里云，性价比相对更高。矩池云的学生优惠力度也比较大，但是学生优惠只能按照运行时间（卡时）计费，包月价格仍然较贵。<br />
 在如下页面：https://cloud.tencent.com/act/campus</p>
 <p>购买学生服务器，购买之前需要在腾讯云个人账户信息页面完成实名认证。需要注意的是，每个学生账号对每类商品只能享受一次优惠，因此推荐购买时长较长（三个月或者包年）的配置。<br />
 <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221101101944.png width=80%></p>
-<p>点击购买后会弹出窗口选择配置，此处选择的操作系统为Ubuntu Server
-18.04，配置如下图所示：</p>
+<p>点击购买后会弹出窗口选择配置，此处选择的操作系统为Ubuntu Server 18.04，配置如下图所示：</p>
 <p><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221101102846.png width=50%></p>
 <p>完成购买后，页面会自动跳转到控制台，选择刚才购买的服务器实例，对其开机后，点击右侧登陆即可进入该服务器内部。</p>
 <p><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221101103630.png width=50%><br />
@@ -509,40 +507,31 @@ id="腾讯云服务器linux机器学习初学环境配置指南">腾讯云服务
 <p><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221101104253.png width=50%></p>
 <h2 id="ubuntu-环境配置">Ubuntu 环境配置</h2>
 <h3 id="apt">apt</h3>
-<p>首次使用<code>apt-get</code>时可能会出现如下报错： <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">&gt;&gt; Could not get lock <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists/lock - open (<span class="hljs-number">11</span>: Resource temporarily unavailable)  <br></code></pre></td></tr></table></figure>
-需要通过如下命令解锁apt占用的资源：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">rm</span> /var/cache/apt/archives/lock<br>sudo <span class="hljs-built_in">rm</span> /var/lib/dpkg/lock<br></code></pre></td></tr></table></figure>
-之后就可以正常使用<code>sudo apt-get upgrade</code>命令更新apt源了，腾讯云服务器的Linux实例默认使用的apt源为腾讯云Linux镜像，因此无需进行换源操作。<br />
+<p>首次使用<code>apt-get</code>时可能会出现如下报错： <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">&gt;&gt; Could not get lock <span class="hljs-regexp">/var/</span>lib<span class="hljs-regexp">/apt/</span>lists/lock - open (<span class="hljs-number">11</span>: Resource temporarily unavailable)  <br></code></pre></td></tr></table></figure> 需要通过如下命令解锁apt占用的资源：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">rm</span> /var/cache/apt/archives/lock<br>sudo <span class="hljs-built_in">rm</span> /var/lib/dpkg/lock<br></code></pre></td></tr></table></figure> 之后就可以正常使用<code>sudo apt-get upgrade</code>命令更新apt源了，腾讯云服务器的Linux实例默认使用的apt源为腾讯云Linux镜像，因此无需进行换源操作。<br />
 在Linux中可以使用apt安装包管理程序安装应用，比如下载firfox浏览器：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install firfox<br></code></pre></td></tr></table></figure>
-一些apt源中未含有的软件就需要自己手动添加源进行安装，比如安装VScode正式版：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install firfox<br></code></pre></td></tr></table></figure> 一些apt源中未含有的软件就需要自己手动添加源进行安装，比如安装VScode正式版：<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install wget gpg<br>wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor &gt; packages.microsoft.gpg<br>sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg<br>sudo sh -c <span class="hljs-string">&#x27;echo &quot;deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main&quot; &gt; /etc/apt/sources.list.d/vscode.list&#x27;</span><br><span class="hljs-built_in">rm</span> -f packages.microsoft.gpg<br>sudo apt install apt-transport-https<br>sudo apt update<br>sudo apt install code<br></code></pre></td></tr></table></figure></p>
 <h3 id="gnome图形界面配置">gnome图形界面配置</h3>
 <div class="note note-warning">
-            <p>虽然腾讯云支持直接使用VNC登陆，但是如此gnome可能会与NvidiaGPU驱动中自带的OpenGL冲突导致无法启动，推荐使用VNC软件连接。</p>
+            <p>虽然腾讯云支持直接使用VNC登陆，但是如此gnome可能会与Nvidia GPU驱动中自带的OpenGL冲突导致无法启动，推荐使用VNC软件连接。</p>
           </div>
 <h4 id="安装gnome依赖库">安装gnome依赖库</h4>
 <p>初学者可能对Linux无图形界面的bash命令行感到陌生，可以安装gnome实现图形界面进行人机界面交互，基础版的gnome桌面需要使用apt下载如下两个包：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install ubuntu-desktop<br>sudo apt-get install gnome<br></code></pre></td></tr></table></figure>
-执行如下命令，完成系统面板、终端、文件浏览器等应用程序的安装：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install ubuntu-desktop<br>sudo apt-get install gnome<br></code></pre></td></tr></table></figure> 执行如下命令，完成系统面板、终端、文件浏览器等应用程序的安装：<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install gnome-panel gnome-settings-daemon metacity nautilus gnome-terminal ubuntu-desktop  <br></code></pre></td></tr></table></figure></p>
 <h4 id="配置vnc">配置VNC</h4>
 <p>在Ubuntu实例的bash中下载VNC：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install vnc4server  <br></code></pre></td></tr></table></figure>
-安装完成后启动VNC服务。初次启动VNC会按要求设置VNC密码：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install vnc4server  <br></code></pre></td></tr></table></figure> 安装完成后启动VNC服务。初次启动VNC会按要求设置VNC密码：<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install vnc4server<br></code></pre></td></tr></table></figure> 设置完成后出现如下界面表示VNC启动成功。</p>
 <p><img src=https://main.qcloudimg.com/raw/adad6ffbb0b1b722d1e429133060134b.png width=50%></p>
 <p>使用VIM编辑VNC的配置文件：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi ~/.vnc/**xstartup**<br></code></pre></td></tr></table></figure>
-在VIM编辑器中按i键进入编辑模式，并用如下内容覆盖配置文件：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span><br><span class="hljs-built_in">export</span> XKL_XMODMAP_DISABLE=1<br><span class="hljs-built_in">export</span> XDG_CURRENT_DESKTOP=<span class="hljs-string">&quot;GNOME-Flashback:GNOME&quot;</span><br><span class="hljs-built_in">export</span> XDG_MENU_PREFIX=<span class="hljs-string">&quot;gnome-flashback-&quot;</span><br>gnome-session --session=gnome-flashback-metacity --disable-acceleration-check &amp;<br></code></pre></td></tr></table></figure>
-然后按Esc键退出VIM的编辑模式，输入:wq保存文件并返回。<br />
-保存之后结束掉当前的VNC服务进程，然后重启桌面进程，
-<code>geometry</code>之后的参数为屏幕分辨率。<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vi ~/.vnc/**xstartup**<br></code></pre></td></tr></table></figure> 在VIM编辑器中按i键进入编辑模式，并用如下内容覆盖配置文件：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/sh</span><br><span class="hljs-built_in">export</span> XKL_XMODMAP_DISABLE=1<br><span class="hljs-built_in">export</span> XDG_CURRENT_DESKTOP=<span class="hljs-string">&quot;GNOME-Flashback:GNOME&quot;</span><br><span class="hljs-built_in">export</span> XDG_MENU_PREFIX=<span class="hljs-string">&quot;gnome-flashback-&quot;</span><br>gnome-session --session=gnome-flashback-metacity --disable-acceleration-check &amp;<br></code></pre></td></tr></table></figure> 然后按Esc键退出VIM的编辑模式，输入:wq保存文件并返回。<br />
+保存之后结束掉当前的VNC服务进程，然后重启桌面进程， <code>geometry</code>之后的参数为屏幕分辨率。<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">vncserver -<span class="hljs-built_in">kill</span> :1<br>vncserver -geometry 1920x1080<br></code></pre></td></tr></table></figure></p>
 <h4 id="本机vnc软件设置">本机VNC软件设置</h4>
-<p>在本机上访问网站：https://www.realvnc.com/en/connect/download/viewer/，选择合适的操作系统下载VNC
-Viewer安装包并在本机上安装。<br />
+<p>在本机上访问网站：https://www.realvnc.com/en/connect/download/viewer/，选择合适的操作系统下载VNC Viewer安装包并在本机上安装。<br />
 在 VNC Viewer 软件中，输入 云服务器的公网IP地址:1，按 Enter。</p>
 <p><img src=https://main.qcloudimg.com/raw/df25e2085e9d27d53b1827ccf98a3618.png width=50%></p>
 <p>在弹出的提示框中点Continue后输入之前设置的VNC的密码，单击OK后就可以使用图形化界面了。<br />
@@ -550,65 +539,43 @@ Viewer安装包并在本机上安装。<br />
 <h4 id="设置本地账户">设置本地账户</h4>
 <p>在gnome桌面的开箱设置中可以注册一个本地账户。<br />
 或者在bash终端中使用如下命令创建一个用户：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo useradd -r -m -s /bin/bash userName  <span class="hljs-comment">#-r：建立系统账号；-m：自动建立用户的登入目录；-s：指定用户的默认使用shell</span><br>sudo passwd userName         <span class="hljs-comment">#根据提示输入新用户的密码即可</span><br><span class="hljs-built_in">ls</span> /home <span class="hljs-comment">#出现新用户的目录说明创建成功</span><br></code></pre></td></tr></table></figure>
-使用<code>su xxx</code>(<code>xxx</code>是用户名)切换到该本地用户，此后的操作都在该本地账户上进行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo useradd -r -m -s /bin/bash userName  <span class="hljs-comment">#-r：建立系统账号；-m：自动建立用户的登入目录；-s：指定用户的默认使用shell</span><br>sudo passwd userName         <span class="hljs-comment">#根据提示输入新用户的密码即可</span><br><span class="hljs-built_in">ls</span> /home <span class="hljs-comment">#出现新用户的目录说明创建成功</span><br></code></pre></td></tr></table></figure> 使用<code>su xxx</code>(<code>xxx</code>是用户名)切换到该本地用户，此后的操作都在该本地账户上进行。</p>
 <h3 id="安装英伟达gpu驱动">安装英伟达GPU驱动</h3>
 <h4 id="检查依赖和环境">检查依赖和环境</h4>
-<p>执行如下命令检查系统中是否已经安装dkms： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -l | grep -i dkms<br></code></pre></td></tr></table></figure>
-如果出现<code>&gt;&gt; ii dkms... Dynamic Kernel Module Support Framework</code>消息则表示安装成功，否则需要使用<code>sudo apt-get install dkms</code>安装dkms。<br />
-执行如下命令检查系统中是否已经安装gcc和linux-kernel-headers：
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -l | grep -i gcc<br>dpkg -l | grep -i linux-headers<br></code></pre></td></tr></table></figure>
-如果可以弹出linux下gcc和linux-kernel-headers相关文件列表，则表明系统中已经安装了这两个依赖包。如果返回为空则需要使用<code>sudo apt-get install gcc linux-kernel-headers</code>安装这两个包。</p>
+<p>执行如下命令检查系统中是否已经安装dkms： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -l | grep -i dkms<br></code></pre></td></tr></table></figure> 如果出现<code>&gt;&gt; ii dkms... Dynamic Kernel Module Support Framework</code>消息则表示安装成功，否则需要使用<code>sudo apt-get install dkms</code>安装dkms。<br />
+执行如下命令检查系统中是否已经安装gcc和linux-kernel-headers： <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">dpkg -l | grep -i gcc<br>dpkg -l | grep -i linux-headers<br></code></pre></td></tr></table></figure> 如果可以弹出linux下gcc和linux-kernel-headers相关文件列表，则表明系统中已经安装了这两个依赖包。如果返回为空则需要使用<code>sudo apt-get install gcc linux-kernel-headers</code>安装这两个包。</p>
 <h4 id="下载并安装驱动">下载并安装驱动</h4>
-<p>在自己的电脑上前往英伟达官方驱动下载页面：<a
-target="_blank" rel="noopener" href="https://www.nvidia.com/Download/index.aspx?lang=en-us">Download
-Drivers</a> 选择对应的产品和驱动。</p>
+<p>在自己的电脑上前往英伟达官方驱动下载页面：<a target="_blank" rel="noopener" href="https://www.nvidia.com/Download/index.aspx?lang=en-us">Download Drivers</a> 选择对应的产品和驱动。</p>
 <p><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221101161638.png width=50%></p>
-<p>当出现以下页面时，右键单击 AGREE&amp;DOWNLOAD
-并选择菜单中的复制链接地址。如下图所示：</p>
+<p>当出现以下页面时，右键单击 AGREE&amp;DOWNLOAD 并选择菜单中的复制链接地址。如下图所示：</p>
 <p><img src= https://main.qcloudimg.com/raw/e0412e1a06eb06ad9f98e7f6a2d5a026.png width=50%></p>
 <p>使用<code>wget</code>下载这个驱动（需要把链接最后的<code>&amp;lang=us&amp;type=Tesla</code>删除，<code>xxx</code>是下载的驱动的版本号）：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://www.nvidia.com/content/DriverDownload-March2009/confirmation.php?url=/tesla/xxx.xxx/NVIDIA-Linux-x86_64-xxx.xxx-diagnostic.run<br></code></pre></td></tr></table></figure>
-下载好后修改安装包权限（<code>xxx</code>是下载的驱动的版本号）：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x NVIDIA-Linux-x86_64-xxxx.run<br></code></pre></td></tr></table></figure>
-使用bash对其进行安装，需要注意的是安装的时候要使用自定义设置<code>--disable-nouveau --no-install-libglvnd</code>关闭veau验证等等：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sh NVIDIA-Linux-x86_64-xxxx.run --ui=none --disable-nouveau --no-install-libglvnd --dkms -s  <br></code></pre></td></tr></table></figure>
-安装结束后使用：<code>nvidia-smi</code>验证结果，出现下图则表示安装成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://www.nvidia.com/content/DriverDownload-March2009/confirmation.php?url=/tesla/xxx.xxx/NVIDIA-Linux-x86_64-xxx.xxx-diagnostic.run<br></code></pre></td></tr></table></figure> 下载好后修改安装包权限（<code>xxx</code>是下载的驱动的版本号）：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> +x NVIDIA-Linux-x86_64-xxxx.run<br></code></pre></td></tr></table></figure> 使用bash对其进行安装，需要注意的是安装的时候要使用自定义设置<code>--disable-nouveau --no-install-libglvnd</code>关闭veau验证等等：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo sh NVIDIA-Linux-x86_64-xxxx.run --ui=none --disable-nouveau --no-install-libglvnd --dkms -s  <br></code></pre></td></tr></table></figure> 安装结束后使用：<code>nvidia-smi</code>验证结果，出现下图则表示安装成功。</p>
 <p><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221101162358.png width=50%></p>
 <h4 id="cudnn安装">cudnn安装</h4>
 <p>英伟达在Linux版本的驱动内自带了CUDA，理论上是不需要自己安装CUDA的，因此直接开始安装cudnn。<br />
-需要注意的是，CUDA有两个API版本，一个是用<code>nvidia-smi</code>查询到的驱动API(driver
-API)，另一个是可以用<code>nvcc -V</code>查询到的运行API(runtime
-API)。CUDA，cudnn，tensorflow-gpu的版本对应是针对于运行API而言的。<br />
-在Ubuntu实例中打开firfox浏览器（可以通过Ubuntu
-gnome的应用商店或者<code>apt-get install firfox</code>下载安装），并下载cudnn。<br />
-CUDA版本对应的cudnn可以在英伟达官网：https://developer.nvidia.com/rdp/cudnn-archive
-上查询并且下载，但是需要注册英伟达开发者账号。<br />
-清华大学开源软件镜像站的Anaconda镜像中也包含了CUDA对应版本的cudnn，无需注册英伟达开发者账号即可下载<code>.bz2</code>格式的压缩包：<a
-target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/linux-64/">清华大学开源软件镜像站-Anaconda-Linux-64</a>
-。<br />
+需要注意的是，CUDA有两个API版本，一个是用<code>nvidia-smi</code>查询到的驱动API(driver API)，另一个是可以用<code>nvcc -V</code>查询到的运行API(runtime API)。CUDA，cudnn，tensorflow-gpu的版本对应是针对于运行API而言的。<br />
+在Ubuntu实例中打开firfox浏览器（可以通过Ubuntu gnome的应用商店或者<code>apt-get install firfox</code>下载安装），并下载cudnn。<br />
+CUDA版本对应的cudnn可以在英伟达官网：https://developer.nvidia.com/rdp/cudnn-archive 上查询并且下载，但是需要注册英伟达开发者账号。<br />
+清华大学开源软件镜像站的Anaconda镜像中也包含了CUDA对应版本的cudnn，无需注册英伟达开发者账号即可下载<code>.bz2</code>格式的压缩包：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/linux-64/">清华大学开源软件镜像站-Anaconda-Linux-64</a> 。<br />
 通过firfox浏览器下载好的cudnn会储存在<code>/home/username/Downloads/</code>文件夹下。打开文件浏览器访问这个目录，找到该压缩包并且解压。<br />
 然后将cudnn文件夹中的<code>cudnn.h</code>文件复制到<code>/usr/local/cuda/include/</code>文件夹下，并修改权限：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">cp</span> /usr/include/cudnn.h /usr/local/cuda/include<br>sudo <span class="hljs-built_in">chmod</span> a+x /usr/local/cuda/include/cudnn.h<br></code></pre></td></tr></table></figure> 终端中输入: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br></code></pre></td></tr></table></figure>
-出现下图类似的提示则表明cudnn安装成功。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">cp</span> /usr/include/cudnn.h /usr/local/cuda/include<br>sudo <span class="hljs-built_in">chmod</span> a+x /usr/local/cuda/include/cudnn.h<br></code></pre></td></tr></table></figure> 终端中输入: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2<br></code></pre></td></tr></table></figure> 出现下图类似的提示则表明cudnn安装成功。</p>
 <p><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221102201456.png width=50%></p>
 <h3 id="tensorflow-安装">Tensorflow 安装</h3>
 <h4 id="安装git">安装Git</h4>
 <p>使用<code>apt-get</code>命令安装Git:<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install git<br></code></pre></td></tr></table></figure> #### 安装Bazel 首先安装依赖库：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3<br></code></pre></td></tr></table></figure> 由于大陆无法直接通过Bazel官网下载，因此下载Bazel在Github
-上的release：https://github.com/bazelbuild/bazel/releases<br />
-在Github上找到对应的Bazel版本后，在Bash中使用wget下载
-(<code>&lt;version&gt;</code>是版本号)，并执行如下命令：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://github.com/bazelbuild/bazel/releases/download/&lt;version&gt;/bazel-&lt;version&gt;-installer-linux-x86_64.sh <span class="hljs-comment">#从Github上下载对应安装包</span><br><span class="hljs-built_in">ls</span> -l ./bazel-x.x.x-installer-linux-x86_64.sh<br><span class="hljs-built_in">chmod</span> a+x ./bazel-&lt;version&gt;-installer-linux-x86_64.sh<br><span class="hljs-built_in">ls</span> -l ./bazel-&lt;version&gt;-installer-linux-x86_64.sh <br><span class="hljs-comment"># 上述操作会将Bazel安装包解压到$HOME/bin处</span><br><span class="hljs-comment"># 运行安装程序</span><br><span class="hljs-built_in">chmod</span> +x bazel-&lt;version&gt;-installer-linux-x86_64.sh<br>./bazel-&lt;version&gt;-installer-linux-x86_64.sh --user<br></code></pre></td></tr></table></figure>
-出现<code>Bazel is now installed!</code>表明Bazel安装成功。<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt-get install pkg-config zip g++ zlib1g-dev unzip python3<br></code></pre></td></tr></table></figure> 由于大陆无法直接通过Bazel官网下载，因此下载Bazel在Github 上的release：https://github.com/bazelbuild/bazel/releases<br />
+在Github上找到对应的Bazel版本后，在Bash中使用wget下载 (<code>&lt;version&gt;</code>是版本号)，并执行如下命令：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://github.com/bazelbuild/bazel/releases/download/&lt;version&gt;/bazel-&lt;version&gt;-installer-linux-x86_64.sh <span class="hljs-comment">#从Github上下载对应安装包</span><br><span class="hljs-built_in">ls</span> -l ./bazel-x.x.x-installer-linux-x86_64.sh<br><span class="hljs-built_in">chmod</span> a+x ./bazel-&lt;version&gt;-installer-linux-x86_64.sh<br><span class="hljs-built_in">ls</span> -l ./bazel-&lt;version&gt;-installer-linux-x86_64.sh <br><span class="hljs-comment"># 上述操作会将Bazel安装包解压到$HOME/bin处</span><br><span class="hljs-comment"># 运行安装程序</span><br><span class="hljs-built_in">chmod</span> +x bazel-&lt;version&gt;-installer-linux-x86_64.sh<br>./bazel-&lt;version&gt;-installer-linux-x86_64.sh --user<br></code></pre></td></tr></table></figure> 出现<code>Bazel is now installed!</code>表明Bazel安装成功。<br />
 然后将Bazel添加到环境变量中，用VIM打开bashrc：<br />
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim ~/.bashrc<br></code></pre></td></tr></table></figure> 按i进入VIM的编辑模式，在.bashrc最后添加一行：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;/home/yourname/.bazel/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br></code></pre></td></tr></table></figure>
-按Esc退出编辑模式，并且输入<code>:wq</code>保存退出。<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> PATH=<span class="hljs-string">&quot;/home/yourname/.bazel/bin:<span class="hljs-variable">$PATH</span>&quot;</span><br></code></pre></td></tr></table></figure> 按Esc退出编辑模式，并且输入<code>:wq</code>保存退出。<br />
 执行如下命令让.bashrc生效：<br />
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
-此时Bazel已经成功加入环境变量中，输入<code>bazel version</code>即可查看bazel版本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure> 此时Bazel已经成功加入环境变量中，输入<code>bazel version</code>即可查看bazel版本。</p>
 <h4 id="使用pip安装">使用PiP安装</h4>
 <h5 id="检查python开发环境">检查Python开发环境</h5>
 <p>在Bash中使用如下指令检验Python和PiP的版本：<br />

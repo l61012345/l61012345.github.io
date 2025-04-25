@@ -107,12 +107,12 @@
   <meta name="author" content="Oreki Kigiha">
   <meta name="keywords" content="">
   
-    <meta name="description" content="线性回归的正则化 正则化的梯度下降算法 在线性回归中，我们使用修改后的梯度下降算法： Repeat { \[θ_0:&#x3D;θ_0-\alpha\frac{1}{m}\Sigma_{i&#x3D;1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}\] &gt; \(θ_0\) 不需要正则化 \[θ_j:&#x3D;θ_j-\alpha[\frac{1}{m}\Sigma">
+    <meta name="description" content="线性回归的正则化 正则化的梯度下降算法 在线性回归中，我们使用修改后的梯度下降算法： Repeat { \[θ_0:&#x3D;θ_0-\alpha\frac{1}{m}\Sigma_{i&#x3D;1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}\] &gt; \(θ_0\) 不需要正则化 \[θ_j:&#x3D;θ_j-\alpha[\frac{1}{m}\Sigma_{">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4.3. 线性回归的正则化">
 <meta property="og:url" content="https://l61012345.top/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.3.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%9A%84%E6%AD%A3%E5%88%99%E5%8C%96/index.html">
 <meta property="og:site_name" content="Mirror">
-<meta property="og:description" content="线性回归的正则化 正则化的梯度下降算法 在线性回归中，我们使用修改后的梯度下降算法： Repeat { \[θ_0:&#x3D;θ_0-\alpha\frac{1}{m}\Sigma_{i&#x3D;1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}\] &gt; \(θ_0\) 不需要正则化 \[θ_j:&#x3D;θ_j-\alpha[\frac{1}{m}\Sigma">
+<meta property="og:description" content="线性回归的正则化 正则化的梯度下降算法 在线性回归中，我们使用修改后的梯度下降算法： Repeat { \[θ_0:&#x3D;θ_0-\alpha\frac{1}{m}\Sigma_{i&#x3D;1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}\] &gt; \(θ_0\) 不需要正则化 \[θ_j:&#x3D;θ_j-\alpha[\frac{1}{m}\Sigma_{">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-08-21T00:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-19T11:30:58.488Z">
@@ -492,55 +492,28 @@ p.spoiler {
 <h2 id="正则化的梯度下降算法">正则化的梯度下降算法</h2>
 <p>在线性回归中，我们使用修改后的梯度下降算法：<br />
 Repeat {<br />
-<span
-class="math display">\[θ_0:=θ_0-\alpha\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)}
-\tag{1}\]</span> &gt; <span class="math inline">\(θ_0\)</span>
-不需要正则化</p>
-<p><span
-class="math display">\[θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j]
-\tag{2}\]</span> <span class="math display">\[j=1,2,3,...,n\]</span>
-}<br />
-事实上： <span
-class="math inline">\(\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}\)</span><br />
-<span
-class="math inline">\(\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}\)</span></p>
-<p>如果将（2）中的<span
-class="math inline">\(\theta_j\)</span>统一，那么就可以得到（3）：<br />
-<span
-class="math display">\[θ_j:=θ_j（1-α\frac{λ}{m}）-\frac{α}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}
-\tag{3}\]</span></p>
-<p>由于<span
-class="math inline">\(1-α\frac{λ}{m}&lt;1\)</span>,且只比1小一点点，也就是说，梯度下降算法每次更新的时候<span
-class="math inline">\(θ_j\)</span>在一开始都会比原来小一点点，再进行原来的梯度下降更新</p>
+<span class="math display">\[θ_0:=θ_0-\alpha\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(j)} \tag{1}\]</span> &gt; <span class="math inline">\(θ_0\)</span> 不需要正则化</p>
+<p><span class="math display">\[θ_j:=θ_j-\alpha[\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)}+\frac{λ}{m}θ_j] \tag{2}\]</span> <span class="math display">\[j=1,2,3,...,n\]</span> }<br />
+事实上： <span class="math inline">\(\frac{1}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(j)}+\frac{λ}{m}θ_j=\frac{∂J(θ)}{∂θ_j}\)</span><br />
+<span class="math inline">\(\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_0^{(i)}=\frac{∂J(θ)}{∂θ_0}\)</span></p>
+<p>如果将（2）中的<span class="math inline">\(\theta_j\)</span>统一，那么就可以得到（3）：<br />
+<span class="math display">\[θ_j:=θ_j（1-α\frac{λ}{m}）-\frac{α}{m}\Sigma_{i=1}^{m}(h_θ(x^{(i)})-y^{(i)})x_j^{(i)} \tag{3}\]</span></p>
+<p>由于<span class="math inline">\(1-α\frac{λ}{m}&lt;1\)</span>,且只比1小一点点，也就是说，梯度下降算法每次更新的时候<span class="math inline">\(θ_j\)</span>在一开始都会比原来小一点点，再进行原来的梯度下降更新</p>
 <h2 id="正规方程">正规方程</h2>
 <p>在之前的讲义中，探讨过设计两个矩阵：<br />
-<span class="math inline">\(X=\begin{bmatrix} (x^{(1)})^T \\ ...\\
-(x^{(m)})^T \end{bmatrix}\)</span> 代表有m个数据的数据集 和 <span
-class="math inline">\(y=\begin{bmatrix} y^{(1)} \\ ...\\ y^{(m)}
-\end{bmatrix}\)</span> 代表训练集当中的所有的标签<br />
-通过： <span class="math display">\[θ=(X^TX)^{-1}X^Ty\]</span>
-（相当于对<span
-class="math inline">\(J(θ)\)</span>中的每一个θ求偏导数，并且使其等于0）<br />
+<span class="math inline">\(X=\begin{bmatrix} (x^{(1)})^T \\ ...\\ (x^{(m)})^T \end{bmatrix}\)</span> 代表有m个数据的数据集 和 <span class="math inline">\(y=\begin{bmatrix} y^{(1)} \\ ...\\ y^{(m)} \end{bmatrix}\)</span> 代表训练集当中的所有的标签<br />
+通过： <span class="math display">\[θ=(X^TX)^{-1}X^Ty\]</span> （相当于对<span class="math inline">\(J(θ)\)</span>中的每一个θ求偏导数，并且使其等于0）<br />
 可以求出最适合的θ<br />
 现在改变在正规方程中加入一项： <span class="math display">\[θ=(X^TX+λ
 \begin{bmatrix}
-0 &amp; 0 &amp; 0 &amp; ...&amp;0 \\   0 &amp; 1 &amp; 0&amp; ...&amp;0
-\\ 0 &amp; 0 &amp; 1&amp; ...&amp;0 \\ ... &amp; ... &amp; ...&amp;
-...&amp;... \\ 0 &amp; 0 &amp; 0&amp; ...&amp;1
+0 &amp; 0 &amp; 0 &amp; ...&amp;0 \\   0 &amp; 1 &amp; 0&amp; ...&amp;0 \\ 0 &amp; 0 &amp; 1&amp; ...&amp;0 \\ ... &amp; ... &amp; ...&amp; ...&amp;... \\ 0 &amp; 0 &amp; 0&amp; ...&amp;1
 \end{bmatrix})^{-1}X^Ty\]</span> 来达到同样的效果<br />
 &gt;<span class="math inline">\(\begin{bmatrix}
-0 &amp; 0 &amp; 0 &amp; ...&amp;0 \\   0 &amp; 1 &amp; 0&amp; ...&amp;0
-\\ 0 &amp; 0 &amp; 1&amp; ...&amp;0 \\ ... &amp; ... &amp; ...&amp;
-...&amp;... \\ 0 &amp; 0 &amp; 0&amp; ...&amp;1
+0 &amp; 0 &amp; 0 &amp; ...&amp;0 \\   0 &amp; 1 &amp; 0&amp; ...&amp;0 \\ 0 &amp; 0 &amp; 1&amp; ...&amp;0 \\ ... &amp; ... &amp; ...&amp; ...&amp;... \\ 0 &amp; 0 &amp; 0&amp; ...&amp;1
 \end{bmatrix}\)</span>是一个(n+1)的方阵</p>
-<p>如果矩阵X不可逆<span
-class="math inline">\(（m&lt;=n）\)</span>,那么<span
-class="math inline">\((X^TX)^{-1}\)</span>也同样不可逆,但是经过数学证明，无论如何<span
-class="math inline">\((X^TX+λ
+<p>如果矩阵X不可逆<span class="math inline">\(（m&lt;=n）\)</span>,那么<span class="math inline">\((X^TX)^{-1}\)</span>也同样不可逆,但是经过数学证明，无论如何<span class="math inline">\((X^TX+λ
 \begin{bmatrix}
-0 &amp; 0 &amp; 0 &amp; ...&amp;0 \\   0 &amp; 1 &amp; 0&amp; ...&amp;0
-\\ 0 &amp; 0 &amp; 1&amp; ...&amp;0 \\ ... &amp; ... &amp; ...&amp;
-...&amp;...\\ 0 &amp; 0 &amp; 0&amp; ...&amp;1
+0 &amp; 0 &amp; 0 &amp; ...&amp;0 \\   0 &amp; 1 &amp; 0&amp; ...&amp;0 \\ 0 &amp; 0 &amp; 1&amp; ...&amp;0 \\ ... &amp; ... &amp; ...&amp; ...&amp;...\\ 0 &amp; 0 &amp; 0&amp; ...&amp;1
 \end{bmatrix})^{-1}\)</span> 都是可逆的。</p>
 
                 

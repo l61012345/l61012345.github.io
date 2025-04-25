@@ -114,10 +114,16 @@
 <meta property="og:site_name" content="Mirror">
 <meta property="og:description" content="计算机接口程序（C语言）  讲义复习 BUL EE2623 Computer Architecture and Interface Dr. Hongying Meng  单片机程序概要 程序的主要结构 单片机程序的主要结构： 对于任何的单片机程序，其算法结构由三部分组成：  重置（Reset）：清空单片机现有的内容并重置单片机设置。  初始化（Initialise）：声明">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529140131.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529143926.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529144418.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529152258.png">
+<meta property="og:image" content="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210610144853.png">
 <meta property="article:published_time" content="2021-06-16T00:00:00.000Z">
 <meta property="article:modified_time" content="2024-03-06T09:22:08.639Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529140131.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -507,10 +513,7 @@ Dr. Hongying Meng</p>
 <strong>单片机的主程序必须写在一个死循环内（<code>while(1) &#123;&#125;</code>）</strong></li>
 </ol>
 <h3 id="数据类型">数据类型</h3>
-<p>编译器只支持三种数据类型： Unsigned integers, char, int &gt;
-单片机不支持float 和 double 两种数据类型, PIC系列也不支持Signed
-integers. &gt; int 和
-char的区别在于：编译器只支持两个int变量做数学/逻辑运算，而支持多个char变量做数学/逻辑运算。</p>
+<p>编译器只支持三种数据类型： Unsigned integers, char, int &gt; 单片机不支持float 和 double 两种数据类型, PIC系列也不支持Signed integers. &gt; int 和 char的区别在于：编译器只支持两个int变量做数学/逻辑运算，而支持多个char变量做数学/逻辑运算。</p>
 <h3 id="单片机语法">单片机语法</h3>
 <p>除了C语言常见的语法之外，单片机还支持如下的特殊表达：</p>
 <table>
@@ -535,22 +538,18 @@ char的区别在于：编译器只支持两个int变量做数学/逻辑运算，
 </tr>
 <tr>
 <td style="text-align: center;"><code>set_bit(file,bit)</code></td>
-<td
-style="text-align: left;">将制定寄存器（File）的制定比特位（bit）设置为1</td>
+<td style="text-align: left;">将制定寄存器（File）的制定比特位（bit）设置为1</td>
 <td style="text-align: center;"><code>set_bit(porta,0)</code></td>
 </tr>
 <tr>
 <td style="text-align: center;"><code>clear_bit(file,bit)</code></td>
-<td
-style="text-align: left;">将制定寄存器（File）的制定比特位（bit）设置为0</td>
+<td style="text-align: left;">将制定寄存器（File）的制定比特位（bit）设置为0</td>
 <td style="text-align: center;"><code>clear_bit(porta,4)</code></td>
 </tr>
 <tr>
 <td style="text-align: center;"><code>for(init;cond;mod)&#123;&#125;</code></td>
-<td
-style="text-align: left;">循环，内部依次是循环变量的初始值、执行循环的条件、对循环变量的操作</td>
-<td
-style="text-align: center;"><code>for(int i=0; i&lt;10 ; i++)&#123;&#125;</code></td>
+<td style="text-align: left;">循环，内部依次是循环变量的初始值、执行循环的条件、对循环变量的操作</td>
+<td style="text-align: center;"><code>for(int i=0; i&lt;10 ; i++)&#123;&#125;</code></td>
 </tr>
 <tr>
 <td style="text-align: center;"><code>asm&#123;&#125;</code></td>
@@ -560,22 +559,18 @@ style="text-align: center;"><code>for(int i=0; i&lt;10 ; i++)&#123;&#125;</code>
 <tr>
 <td style="text-align: center;"><code>void interrupt()&#123;&#125;</code></td>
 <td style="text-align: left;">中断程序</td>
-<td
-style="text-align: center;"><code>void interrupt()&#123;if(portb==0)&#123;set_bit&#123;porta,3&#125;&#125;&#125;</code></td>
+<td style="text-align: center;"><code>void interrupt()&#123;if(portb==0)&#123;set_bit&#123;porta,3&#125;&#125;&#125;</code></td>
 </tr>
 </tbody>
 </table>
 <h3 id="时间控制">时间控制</h3>
-<p>对Boost
-C编译器，执行一次循环（不含循环内的操作）大约需要12条汇编指令，<strong>执行一次循环大约需要12us</strong>.</p>
+<p>对Boost C编译器，执行一次循环（不含循环内的操作）大约需要12条汇编指令，<strong>执行一次循环大约需要12us</strong>.</p>
 <h2 id="开关">开关</h2>
 <p>开关的种类和连接方式有非常多种：<br />
 对于简单电路连接的开关，需要对其进行电路分析以判断输入进单片机（pin）的电压是5v（1）还是0v（0）。<br />
 对于旋钮式开关，每一个档位对应了一种比特的情况。比如假设有0-F共16个档位，开关需要连接一个port的4个pin（即需要用4个比特位来反馈），每一个档位都对应了0000到1111的一种情况。</p>
 <h3 id="switch-bounce">Switch Bounce</h3>
-<p>开关被按下后弹起的瞬间，其开关的值处于不确定状态，这种情况称为Switch
-Bounce，通常是<span class="math inline">\(10^{-3}s\)</span> 到 <span
-class="math inline">\(2 × 10^{-3}s\)</span>左右。<br />
+<p>开关被按下后弹起的瞬间，其开关的值处于不确定状态，这种情况称为Switch Bounce，通常是<span class="math inline">\(10^{-3}s\)</span> 到 <span class="math inline">\(2 × 10^{-3}s\)</span>左右。<br />
 避免Switch Bounce的方法：</p>
 <ol type="1">
 <li>在pin前加入一个由RC组成的低通滤波器。<br />
@@ -591,8 +586,7 @@ class="math inline">\(2 × 10^{-3}s\)</span>左右。<br />
 <ol type="1">
 <li>将行作为port的输入/输出，列作为port的输出/输入（用tris进行控制）</li>
 <li><strong>初始化port内所有比特位的值为1，当按键被按下，该按键所对应的两个比特位的值被清零。</strong></li>
-<li>先检查每一行/列是否有按键被按下（if
-&amp;），如果该行/列有按键被按下，转而检测该行/列的每一列/行。</li>
+<li>先检查每一行/列是否有按键被按下（if &amp;），如果该行/列有按键被按下，转而检测该行/列的每一列/行。</li>
 </ol>
 <h2 id="led灯发光二极管">LED灯/发光二极管</h2>
 <h3 id="物理原理-1">物理原理</h3>
@@ -607,9 +601,7 @@ class="math inline">\(2 × 10^{-3}s\)</span>左右。<br />
 <h3 id="物理原理-2">物理原理</h3>
 <p>八位数码管的每一个显示笔划（Segment）（7位数码管不包括小数点显示）对应了一个比特位，<strong>当该比特位的值为0时，该笔画亮起</strong>。</p>
 <h3 id="程序思路-2">程序思路</h3>
-<p>创建一个数组其对应位置上的值为该数字应当亮起的显示笔画的比特值，检测输入的值<span
-class="math inline">\(x\)</span>，然后将数组第<span
-class="math inline">\(x\)</span>位上的值传出到port即可。<br />
+<p>创建一个数组其对应位置上的值为该数字应当亮起的显示笔画的比特值，检测输入的值<span class="math inline">\(x\)</span>，然后将数组第<span class="math inline">\(x\)</span>位上的值传出到port即可。<br />
 对于多个数码管组成的阵列：</p>
 <ol type="1">
 <li>用另一个port来控制使用哪些数码管，当比特位为1时，对应的八位数码管亮起。<br />
@@ -621,19 +613,16 @@ class="math inline">\(x\)</span>位上的值传出到port即可。<br />
 <h2 id="lcd液晶显示面板">LCD/液晶显示面板</h2>
 <h3 id="结构与原理">结构与原理</h3>
 <h4 id="针脚pin"><strong>针脚（Pin）</strong></h4>
-<p>液晶显示面板共有11个pin，其中8个用于传输8
-bit数据，3个用于控制，这三个pin为:</p>
+<p>液晶显示面板共有11个pin，其中8个用于传输8 bit数据，3个用于控制，这三个pin为:</p>
 <ul>
 <li>RS: Register select，选择寄存器为指令寄存器还是d数据寄存器。<br />
 </li>
-<li>R/W：Read/Write，
-控制数据流的方向是从单片机到LED（通常）还是从LED到单片机。<br />
+<li>R/W：Read/Write， 控制数据流的方向是从单片机到LED（通常）还是从LED到单片机。<br />
 </li>
 <li>E：Enable，控制数据发送的速度：E对应的值每发生一次变化（10），就会发生1bit的数据传输。</li>
 </ul>
 <h4 id="显示面板"><strong>显示面板</strong></h4>
-<p>显示面板被划分为8x2个区域，每个区域可以显示一个字符。
-每个区域所对应了一个地址，<strong>第一排显示区域的地址是00到07，第二排显示区域的地址是从40到47</strong>。<br />
+<p>显示面板被划分为8x2个区域，每个区域可以显示一个字符。 每个区域所对应了一个地址，<strong>第一排显示区域的地址是00到07，第二排显示区域的地址是从40到47</strong>。<br />
 在显示时需要指定显示的起始位置。<br />
 由于DDRAM，因此bit7始终为1，<strong>操作码为0xC0+起始区域的地址。</strong></p>
 <h4 id="显示与控制"><strong>显示与控制</strong></h4>
@@ -666,32 +655,22 @@ bit数据，3个用于控制，这三个pin为:</p>
 <p>将发送的字符串视为一个数组，每一个字符都要进行：“清零，MSB移位，清除头四位，发送MSB，清除头四位，发送LSB”的操作。</p>
 <h2 id="adc模数转换器">ADC/模数转换器</h2>
 <h3 id="测量原理">测量原理</h3>
-<p>ADC的基本原理为其测量范围内的每一个可测的电压值都对应了一个二进制数。
-例如8bit ADC量程为0-5V时，0-5V对应了0000 0000到1111
-1111的8bit二进制数。<br />
-ADC的精度表示为：<span
-class="math inline">\(\frac{测量范围}{2^n}\)</span>。<br />
-&gt;
-注意电压转换为二进制数时，不能整除的情况下，应当只保留整数部分。</p>
+<p>ADC的基本原理为其测量范围内的每一个可测的电压值都对应了一个二进制数。 例如8bit ADC量程为0-5V时，0-5V对应了0000 0000到1111 1111的8bit二进制数。<br />
+ADC的精度表示为：<span class="math inline">\(\frac{测量范围}{2^n}\)</span>。<br />
+&gt; 注意电压转换为二进制数时，不能整除的情况下，应当只保留整数部分。</p>
 <h4 id="类型"><strong>类型</strong></h4>
 <p>ADC根据实现原理分类为三种类型：</p>
 <ol type="1">
-<li>Flash
-ADC：每一个可以测量的电压值对应了一个比较器连接，是一种非常低下的ADC。</li>
-<li>逐次逼近式ADC： 下图中8bit
-Register的值的从MSB开始0-&gt;1，每一个比特位0-&gt;1的变化都会由DAC转换为电压与输入电压进行对比，比较器将两个电压进行对比，判断DAC的电压是否高于输入电压：如果输入电压高于DAC的电压，那么Register中这一比特位的值为1，如果低于DAC的电压，那么Register中这一位比特位的值恢复为0。
-调整8bit Register的每一个比特位，直到LSB调整完毕，ADC的转换结束。<br />
-<img
-src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529140131.png" srcset="/img/loading.gif" lazyload /><br />
+<li>Flash ADC：每一个可以测量的电压值对应了一个比较器连接，是一种非常低下的ADC。</li>
+<li>逐次逼近式ADC： 下图中8bit Register的值的从MSB开始0-&gt;1，每一个比特位0-&gt;1的变化都会由DAC转换为电压与输入电压进行对比，比较器将两个电压进行对比，判断DAC的电压是否高于输入电压：如果输入电压高于DAC的电压，那么Register中这一比特位的值为1，如果低于DAC的电压，那么Register中这一位比特位的值恢复为0。 调整8bit Register的每一个比特位，直到LSB调整完毕，ADC的转换结束。<br />
+<img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529140131.png" srcset="/img/loading.gif" lazyload /><br />
 </li>
-<li>Dual slope
-ADC：由于不同电压下在固定充电时间内充入的电子数不同，通过测量电容放电的时间即可测量不同的电压。这种ADC测量速度慢，但是相比于上面两者价格相对便宜。</li>
+<li>Dual slope ADC：由于不同电压下在固定充电时间内充入的电子数不同，通过测量电容放电的时间即可测量不同的电压。这种ADC测量速度慢，但是相比于上面两者价格相对便宜。</li>
 </ol>
 <h3 id="寄存器结构">寄存器结构</h3>
 <h4 id="adreshadresl"><strong>ADRESH/ADRESL</strong></h4>
 <p>两个8bit寄存器用于存放10bit的转换结果，又两种存放方式：<br />
-<img
-src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529143926.png" srcset="/img/loading.gif" lazyload /><br />
+<img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529143926.png" srcset="/img/loading.gif" lazyload /><br />
 这两种方式由ADCON1中的bit7：ADFM进行控制。</p>
 <h4 id="adcon1"><strong>ADCON1</strong></h4>
 <table>
@@ -728,8 +707,7 @@ src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529143926.png" srcset="/
 </li>
 <li>为0时10bit转换结果的bit0和bit1放入ADRESL，剩下比特放入ADRSH。<br />
 bit6-bit4：Don’t Care<br />
-bit3-bit0:
-PCFG3-PCFG0，选择ADC的4个pins哪些接收模拟信号（0），哪些接收数字信号（1）。</li>
+bit3-bit0: PCFG3-PCFG0，选择ADC的4个pins哪些接收模拟信号（0），哪些接收数字信号（1）。</li>
 </ul>
 <h4 id="adcon0"><strong>ADCON0</strong></h4>
 <table>
@@ -761,8 +739,7 @@ PCFG3-PCFG0，选择ADC的4个pins哪些接收模拟信号（0），哪些接收
 </tbody>
 </table>
 <p>bit7-bit6： ADCS1-ADCS0，选择转换速度<br />
-bit5-bit3: CHS2-CHS0，选择当前接受portA的哪一个pin的信号进行转换 bit2：
-GO/DONE，转换开始和结束的flag，设定其为1使ADC转换开始，转换结束后会自动复位为0.<br />
+bit5-bit3: CHS2-CHS0，选择当前接受portA的哪一个pin的信号进行转换 bit2： GO/DONE，转换开始和结束的flag，设定其为1使ADC转换开始，转换结束后会自动复位为0.<br />
 bit1: Don’t care<br />
 bit0: ADON，ADC的总开关，1表示开，0表示关。</p>
 <h2 id="代码实现">代码实现</h2>
@@ -771,20 +748,17 @@ bit0: ADON，ADC的总开关，1表示开，0表示关。</p>
 <h2 id="计时器">计时器</h2>
 <h3 id="结构">结构</h3>
 <p>计时器的结构如下图所示：<br />
-<img
-src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529144418.png" srcset="/img/loading.gif" lazyload /><br />
+<img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529144418.png" srcset="/img/loading.gif" lazyload /><br />
 RA4/T0CK1: PortA的pin4，用于接收输入信号<br />
 T0SE：选择下降沿还是上升沿触发计数器计数<br />
-Fosc: 单片机内部的时钟信号频率 （Fosc/4表示<span
-class="math inline">\(\frac{1}{4}\)</span>时钟信号频率）<br />
+Fosc: 单片机内部的时钟信号频率 （Fosc/4表示<span class="math inline">\(\frac{1}{4}\)</span>时钟信号频率）<br />
 T0CS： 复用器，选择用RA4还是时钟信号作为输入<br />
 PS2-PS0: Pre-scaler（相当于另一个计数器），用于倍数放大。<br />
 PSA： 复用器，选择是否使用Pre-scaler。<br />
 TMR0: 计数器。</p>
 <h3 id="寄存器结构-1">寄存器结构</h3>
 <h4 id="tmr0"><strong>TMR0</strong></h4>
-<p>8bit
-计数器，每一个计数信号（1us）会计数一次，8bit计数器每256次计数（也就是每个256us）会发生一次溢出。</p>
+<p>8bit 计数器，每一个计数信号（1us）会计数一次，8bit计数器每256次计数（也就是每个256us）会发生一次溢出。</p>
 <h4 id="intcon"><strong>INTCON</strong></h4>
 <p>计数器的状态寄存器。</p>
 <table>
@@ -852,38 +826,24 @@ bit4: T0SE，选择下降沿还是上升沿触发计数器计数<br />
 bit3: PSA， 选择是否开启pre-scaler<br />
 bit2-bit0： 选择pre-scaler的倍率</p>
 <h3 id="理论">理论</h3>
-<p>TMR0发生一次overflow的时间： <span class="math display">\[时钟周期 ×
-放大倍率 × (256 × 单次计数所需要的时间 - \text{TMR0}初始值)\]</span></p>
+<p>TMR0发生一次overflow的时间： <span class="math display">\[时钟周期 × 放大倍率 × (256 × 单次计数所需要的时间 - \text{TMR0}初始值)\]</span></p>
 <h3 id="代码思路">代码思路</h3>
 <p>可通过给定tmr0的初始值和重置T0IF为0来实现一个精准的delay。</p>
 <h2 id="中断">中断</h2>
 <h3 id="原理">原理</h3>
-<p>通常，Programm
-Counter（PC）负责指向下一条运行指令的地址，IR执行这个地址对应的指令，PC移动到下一条指令。<br />
-如果中断程序存在，当前的PC，W register 和 STATUS
-register中的内容会被保存到内存中，然后PC跳转到中断程序所处的位置（固定为<code>PC=4</code>），执行完中断程序后内存中PC，W
-register 和 STATUS register的内容被复原。</p>
+<p>通常，Programm Counter（PC）负责指向下一条运行指令的地址，IR执行这个地址对应的指令，PC移动到下一条指令。<br />
+如果中断程序存在，当前的PC，W register 和 STATUS register中的内容会被保存到内存中，然后PC跳转到中断程序所处的位置（固定为<code>PC=4</code>），执行完中断程序后内存中PC，W register 和 STATUS register的内容被复原。</p>
 <p><strong>每运行一行主循环中的代码，<code>void interrupt&#123;&#125;</code>中的程序就会被执行一次。</strong></p>
 <p>程序框图如下图所示：<br />
-<img
-src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529152258.png" srcset="/img/loading.gif" lazyload /></p>
+<img src="https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210529152258.png" srcset="/img/loading.gif" lazyload /></p>
 <h3 id="应用-pwm-控制马达">应用： PWM 控制马达</h3>
 <h4 id="原理-1"><strong>原理</strong></h4>
-<p>马达转速的调节是由输入马达的电压来进行控制的，电压越高，马达转速越快。然而单片机只能输出5v或者0v两种电压，PWM提供了一种解决思路，即在如图所示的一个周期<span
-class="math inline">\(T\)</span>内，有一部分时间输入马达的电压为0，另一部分时间输出马达的电压为1，当<span
-class="math inline">\(T\)</span>非常小时，输入到马达的电压近似为一个周期内电压的平均值：<br />
-<span
-class="math display">\[V_{out}=\frac{1}{T}∫_0^TV_{in}dt=\frac{t}{T}V\]</span>
-<span class="math inline">\(t\)</span>为一个周期内电压为<span
-class="math inline">\(V\)</span>时的时间。<br />
-<img
-src="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210610144853.png" srcset="/img/loading.gif" lazyload /></p>
+<p>马达转速的调节是由输入马达的电压来进行控制的，电压越高，马达转速越快。然而单片机只能输出5v或者0v两种电压，PWM提供了一种解决思路，即在如图所示的一个周期<span class="math inline">\(T\)</span>内，有一部分时间输入马达的电压为0，另一部分时间输出马达的电压为1，当<span class="math inline">\(T\)</span>非常小时，输入到马达的电压近似为一个周期内电压的平均值：<br />
+<span class="math display">\[V_{out}=\frac{1}{T}∫_0^TV_{in}dt=\frac{t}{T}V\]</span> <span class="math inline">\(t\)</span>为一个周期内电压为<span class="math inline">\(V\)</span>时的时间。<br />
+<img src="https://gitee.com/l61012345/Pic/raw/master/%5Cimage/20210610144853.png" srcset="/img/loading.gif" lazyload /></p>
 <h4 id="代码实现-1"><strong>代码实现</strong></h4>
-<p>在中断程序中需要有两个计数器cycle（周期计时器） 和
-pulse（马达开启状态的计时器）用于控制时间，他们每运行一次中断都会自动-1，当计数器为0时表明对应的阶段已经结束。<br />
-在程序实现上 cycle自减1后，首先需要判断cycle的值是否为0：
-如果为0，表明当前的周期已经结束，应当为cycle赋值以初始化下一个周期。
-同时为pulse赋值，并使马达处于工作状态以进入下一个周期的开始（马达工作）。<br />
+<p>在中断程序中需要有两个计数器cycle（周期计时器） 和 pulse（马达开启状态的计时器）用于控制时间，他们每运行一次中断都会自动-1，当计数器为0时表明对应的阶段已经结束。<br />
+在程序实现上 cycle自减1后，首先需要判断cycle的值是否为0： 如果为0，表明当前的周期已经结束，应当为cycle赋值以初始化下一个周期。 同时为pulse赋值，并使马达处于工作状态以进入下一个周期的开始（马达工作）。<br />
 当cycle不为0时，需要判断pulse是否为0：如果pulse的值为0，表明应当进入该周期内马达关闭的阶段，因此关闭马达。如果pulse的值不为0，那么pulse自减1。</p>
 
                 

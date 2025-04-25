@@ -490,83 +490,35 @@ p.spoiler {
                 
                 <h1 id="数字基带系统的抗噪性分析">数字基带系统的抗噪性分析</h1>
 <h2 id="抽样判决器">抽样判决器</h2>
-<p>在接收端，设通过接收端滤波器的信号为<span
-class="math inline">\(x(t)\)</span>，它由传输信息<span
-class="math inline">\(s(t)\)</span>和窄带高斯白噪声<span
-class="math inline">\(n_R(t)\)</span>两部分构成。接下来，信号<span
-class="math inline">\(x(t)\)</span>将通过抽样判决器，抽样判决器以<span
-class="math inline">\(f_s\)</span>的抽样频率对其进行抽样，并对每一个抽样结果进行判断，决定抽样结果为数字逻辑“1”还是逻辑“0”。抽样判决器的工作原理可以表示为：<br />
+<p>在接收端，设通过接收端滤波器的信号为<span class="math inline">\(x(t)\)</span>，它由传输信息<span class="math inline">\(s(t)\)</span>和窄带高斯白噪声<span class="math inline">\(n_R(t)\)</span>两部分构成。接下来，信号<span class="math inline">\(x(t)\)</span>将通过抽样判决器，抽样判决器以<span class="math inline">\(f_s\)</span>的抽样频率对其进行抽样，并对每一个抽样结果进行判断，决定抽样结果为数字逻辑“1”还是逻辑“0”。抽样判决器的工作原理可以表示为：<br />
 <span class="math display">\[m&#39;(kT_s)=\begin{cases}
    1, x(kT_s)&gt;V_d\\
    0,x(kT_s)&lt;V_d
-\end{cases}\]</span> <span
-class="math inline">\(V_d\)</span>称为判决阈值。<br />
-## 误码率
-数字基带系统在抽样判决器处的判决错误是产生误码率的重要原因，误码率<span
-class="math inline">\(P_e\)</span>可以表示为两个条件概率之和：<br />
-<span
-class="math display">\[P_e=P(0)P(\frac{1}{0})+P(1)P(\frac{0}{1})\]</span>
-<span
-class="math inline">\(P(0)P(\frac{1}{0})\)</span>:原本的电平为0，误判为1的概率。<br />
-<span
-class="math inline">\(P(1)P(\frac{0}{1})\)</span>：原本的电平为1，误判为0的概率。</p>
-<p>抽样判决器判决错误的主要原因是<span
-class="math inline">\(x(t)\)</span>中包含的窄带高斯白噪声<span
-class="math inline">\(n_R(t)\)</span>对判决结果产生了影响。<br />
-设<span class="math inline">\(n_R(t)\)</span>的方差为<span
-class="math inline">\(σ_n^2\)</span>、均值为0，则其概率密度函数为：<br />
-<span
-class="math display">\[f(n)=\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}\]</span>
-并假设<span
-class="math inline">\(s(t)\)</span>在为逻辑“0”的时刻电平为0，在为逻辑“1”的时刻电平对应其幅值<span
-class="math inline">\(A\)</span>，那么<span
-class="math inline">\(x(kT_s)\)</span>可以表示为：<br />
+\end{cases}\]</span> <span class="math inline">\(V_d\)</span>称为判决阈值。<br />
+## 误码率 数字基带系统在抽样判决器处的判决错误是产生误码率的重要原因，误码率<span class="math inline">\(P_e\)</span>可以表示为两个条件概率之和：<br />
+<span class="math display">\[P_e=P(0)P(\frac{1}{0})+P(1)P(\frac{0}{1})\]</span> <span class="math inline">\(P(0)P(\frac{1}{0})\)</span>:原本的电平为0，误判为1的概率。<br />
+<span class="math inline">\(P(1)P(\frac{0}{1})\)</span>：原本的电平为1，误判为0的概率。</p>
+<p>抽样判决器判决错误的主要原因是<span class="math inline">\(x(t)\)</span>中包含的窄带高斯白噪声<span class="math inline">\(n_R(t)\)</span>对判决结果产生了影响。<br />
+设<span class="math inline">\(n_R(t)\)</span>的方差为<span class="math inline">\(σ_n^2\)</span>、均值为0，则其概率密度函数为：<br />
+<span class="math display">\[f(n)=\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}\]</span> 并假设<span class="math inline">\(s(t)\)</span>在为逻辑“0”的时刻电平为0，在为逻辑“1”的时刻电平对应其幅值<span class="math inline">\(A\)</span>，那么<span class="math inline">\(x(kT_s)\)</span>可以表示为：<br />
 <span class="math display">\[x(kT_s)=\begin{cases}
     A+n_R(kT_s),logic-1\\
     n_R(kT_s),logic-0
-\end{cases}\]</span> 那么，在发送逻辑“0”的时刻，<span
-class="math inline">\(x(kT_s)\)</span>只包含<span
-class="math inline">\(n_R(t)\)</span>，发送“0”的概率密度函数为：<br />
-<span
-class="math display">\[f_0(x)=\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}\]</span>
-当<span class="math inline">\(x(kT_s)\)</span>的值大于<span
-class="math inline">\(V_d\)</span>时，抽样判决器将原本为0的电平<span
-class="math inline">\(x(kT_s)\)</span>误判为1，该概率可以表示为：<br />
-<span
-class="math display">\[P_{e0}=∫_{V_d}^∞f_0(x)dx=∫_{V_d}^∞\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}dx\]</span>
-同理可以得到，当<span
-class="math inline">\(x(kT_s)\)</span>的值小于<span
-class="math inline">\(V_d\)</span>时原本抽样判决器原本为1的电平<span
-class="math inline">\(x(kT_s)\)</span>误判为0，该概率可以表示为：<br />
-<span
-class="math display">\[P_{e1}=∫_∞^{V_d}f_0(x)dx=∫_∞^{V_d}\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}dx\]</span>
-那么总的误码率就可以表示为：<br />
-<span class="math display">\[P_e=P(0)P_{e0}+P(1)P_{e1}\]</span>
-<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211112191352.png width=70%></p>
-<p>图示中的涂色部分表示误码率的两个条件概率，可以发现，只有当<span
-class="math inline">\(V_d=\frac{A}{2}\)</span>时，“额外的概率”（图中红色部分所示）才能被抵消为0，此时误码率最小，<span
-class="math inline">\(V_d=\frac{A}{2}\)</span>称为优化阈值。<br />
+\end{cases}\]</span> 那么，在发送逻辑“0”的时刻，<span class="math inline">\(x(kT_s)\)</span>只包含<span class="math inline">\(n_R(t)\)</span>，发送“0”的概率密度函数为：<br />
+<span class="math display">\[f_0(x)=\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}\]</span> 当<span class="math inline">\(x(kT_s)\)</span>的值大于<span class="math inline">\(V_d\)</span>时，抽样判决器将原本为0的电平<span class="math inline">\(x(kT_s)\)</span>误判为1，该概率可以表示为：<br />
+<span class="math display">\[P_{e0}=∫_{V_d}^∞f_0(x)dx=∫_{V_d}^∞\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}dx\]</span> 同理可以得到，当<span class="math inline">\(x(kT_s)\)</span>的值小于<span class="math inline">\(V_d\)</span>时原本抽样判决器原本为1的电平<span class="math inline">\(x(kT_s)\)</span>误判为0，该概率可以表示为：<br />
+<span class="math display">\[P_{e1}=∫_∞^{V_d}f_0(x)dx=∫_∞^{V_d}\frac{1}{√(2π)σ_n}e^{-\frac{n^2}{2σ_n^2}}dx\]</span> 那么总的误码率就可以表示为：<br />
+<span class="math display">\[P_e=P(0)P_{e0}+P(1)P_{e1}\]</span> <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211112191352.png width=70%></p>
+<p>图示中的涂色部分表示误码率的两个条件概率，可以发现，只有当<span class="math inline">\(V_d=\frac{A}{2}\)</span>时，“额外的概率”（图中红色部分所示）才能被抵消为0，此时误码率最小，<span class="math inline">\(V_d=\frac{A}{2}\)</span>称为优化阈值。<br />
 在优化阈值下重新计算误码率，可以得到：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}erfc(\frac{A}{2√2σ_n})\]</span>
-<span class="math inline">\(A\)</span>与信号的功率有关，<span
-class="math inline">\(σ_n\)</span>与噪声的功率有关。可以发现，在优化阈值下，<strong>影响误码率的唯一因素为信噪比。</strong><br />
-对于单极性信号，其平均功率为<span
-class="math inline">\(S=\frac{A^2}{2}\)</span>，因此单极性信号的信噪比为：<br />
-<span class="math display">\[SNR_u=\frac{A^2}{2σ^2}\]</span>
-此时误码率为：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}erfc(\frac{√SNR_u}{2})\]</span>
-对于双极性信号，其平均功率为<span
-class="math inline">\(S={A^2}\)</span>，因此双极性信号的信噪比为：<br />
-<span class="math display">\[SNR_b=\frac{A^2}{σ^2}\]</span>
-此时误码率为：<br />
-<span
-class="math display">\[P_e=\frac{1}{2}erfc(√{\frac{SNR_b}{2}})\]</span>
-比较两者的误码率，可以发现双极性信号的误码率总是优于单极性信号的误码率。</p>
+<span class="math display">\[P_e=\frac{1}{2}erfc(\frac{A}{2√2σ_n})\]</span> <span class="math inline">\(A\)</span>与信号的功率有关，<span class="math inline">\(σ_n\)</span>与噪声的功率有关。可以发现，在优化阈值下，<strong>影响误码率的唯一因素为信噪比。</strong><br />
+对于单极性信号，其平均功率为<span class="math inline">\(S=\frac{A^2}{2}\)</span>，因此单极性信号的信噪比为：<br />
+<span class="math display">\[SNR_u=\frac{A^2}{2σ^2}\]</span> 此时误码率为：<br />
+<span class="math display">\[P_e=\frac{1}{2}erfc(\frac{√SNR_u}{2})\]</span> 对于双极性信号，其平均功率为<span class="math inline">\(S={A^2}\)</span>，因此双极性信号的信噪比为：<br />
+<span class="math display">\[SNR_b=\frac{A^2}{σ^2}\]</span> 此时误码率为：<br />
+<span class="math display">\[P_e=\frac{1}{2}erfc(√{\frac{SNR_b}{2}})\]</span> 比较两者的误码率，可以发现双极性信号的误码率总是优于单极性信号的误码率。</p>
 <h2 id="眼图">眼图</h2>
-<p>眼图是一种能够表现数字基带系统噪声和码间串扰的图像，它由示波器的余晖效应使得若干个<span
-class="math inline">\(T_s\)</span>内的波形在示波器屏幕上叠加得到。<br />
+<p>眼图是一种能够表现数字基带系统噪声和码间串扰的图像，它由示波器的余晖效应使得若干个<span class="math inline">\(T_s\)</span>内的波形在示波器屏幕上叠加得到。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211113102645.png width=30%><br />
 直观通过眼图判断系统抗噪性的指标为：</p>
 <ol type="1">
