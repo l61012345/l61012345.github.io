@@ -499,9 +499,7 @@ Network).</p>
 <li><p>全球连接和无缝漫游<br />
 GSM系统最大的特点是全球覆盖：2G时代全世界范围内大约82%的移动电话使用的系统为GSM系统。由于GSM技术标准中规定了全球统一的用于识别用户的移动台综合业务数据网号码(MSISDN)，GSM用户只需要一个用户识别码可以在全世界实现无缝漫游。<br />
 MSISDN的编号规则如下：<br />
-<span
-class="math display"><em>C</em><em>C</em> + <em>N</em><em>D</em><em>C</em> + <em>S</em><em>N</em></span>
-其中：</p>
+<span class="math display">\[CC+NDC+SN\]</span> 其中：</p>
 <ul>
 <li>CC/Country
 code：国家码，用于识别用户所在的国家，中国的国家码为86。<br />
@@ -549,7 +547,7 @@ Identity Register）。<br />
 <li><p>子系统接口<br />
 移动台和基站子系统之间的接口是无线的，称为空中接口(Air
 Interface)，在GSM中称为<span
-class="math inline"><em>U</em><sub><em>m</em></sub></span>接口，其使用了一种基于OSI协议的三层的协议模型。<br />
+class="math inline">\(U_m\)</span>接口，其使用了一种基于OSI协议的三层的协议模型。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220409133719.png width=40%><br />
 基站控制器和收发信机之间的接口是有线的，称为Abis接口，可以提供16kbps的速率。<br />
 基站子系统与MSC之间的接口也是有线接口，称为A接口，可以提供64kbps的速率。<br />
@@ -635,11 +633,11 @@ GSN，网关GSN），SGSN是负责移动性、会话管理和计费的实体，G
 <ul>
 <li>子系统接口<br />
 移动台和基站之间的接口空中接口称为<span
-class="math inline"><em>U</em><sub><em>u</em></sub></span>接口。<br />
+class="math inline">\(U_u\)</span>接口。<br />
 基站和RNC之间的接口称为<span
-class="math inline"><em>I</em><sub><em>u</em><em>b</em></sub></span>接口。<br />
+class="math inline">\(I_{ub}\)</span>接口。<br />
 RNC与核心网的接口称为<span
-class="math inline"><em>I</em><sub><em>u</em></sub></span>接口。<br />
+class="math inline">\(I_u\)</span>接口。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220612164752.png width=50%></li>
 </ul>
 <h3 id="关键技术-1">关键技术</h3>
@@ -732,30 +730,30 @@ checking):提供方法让用户确定导航方案的准确性。<br />
 - 为安全导航提供足够的精度(sufficient accuracy for safe
 navigation)。</p>
 <p>在任意时刻，在地面上的任意一点都可以同时观测到4颗以上的卫星。用户的位置坐标可以假设为<span
-class="math inline">(<em>x</em><sub><em>u</em></sub>, <em>y</em><sub><em>u</em></sub>, <em>z</em><sub><em>u</em></sub>)</span>.
+class="math inline">\((x_u,y_u,z_u)\)</span>.
 在GPS观测中，每一个卫星可以通过向接收机发信测量回传时间得到其与接收机之间的大致距离，称为拟极差（pseudorange）<span
-class="math inline"><em>ρ</em><sub><em>i</em></sub></span>。利用三维坐标中的距离公式，利用3颗卫星就可以组成3个方程式：
-<span class="math display">$$\begin{cases}
+class="math inline">\(ρ_i\)</span>。利用三维坐标中的距离公式，利用3颗卫星就可以组成3个方程式：
+<span class="math display">\[\begin{cases}
   \rho_1=\sqrt{(x_1-x_u)^2+(y_1-y_u)^2+(z_1-z_u)^2}\\
   \rho_2=\sqrt{(x_2-x_u)^2+(y_2-y_u)^2+(z_2-z_u)^2}\\
   \rho_3=\sqrt{(x_3-x_u)^2+(y_3-y_u)^2+(z_3-z_u)^2}\\
-\end{cases}$$</span> 其中第<span
-class="math inline"><em>i</em></span>颗卫星的坐标为<span
-class="math inline">(<em>x</em><sub><em>i</em></sub>, <em>y</em><sub><em>i</em></sub>, <em>z</em><sub><em>i</em></sub>)</span>。<br />
+\end{cases}\]</span> 其中第<span
+class="math inline">\(i\)</span>颗卫星的坐标为<span
+class="math inline">\((x_i,y_i,z_i)\)</span>。<br />
 这个方程组的解即为用户在地球上的位置<span
-class="math inline">(<em>x</em><sub><em>u</em></sub>, <em>y</em><sub><em>u</em></sub>, <em>z</em><sub><em>u</em></sub>)</span>。<br />
+class="math inline">\((x_u,y_u,z_u)\)</span>。<br />
 因此<strong>至少需要3颗卫星就能知道地球上用户的位置，实现定位</strong>。<br />
 事实上，如果考虑到卫星的时钟与接收机时钟之间的误差<span
-class="math inline"><em>Δ</em><em>t</em></span>，那么方程将会有4个未知数：
-<span class="math display">$$\begin{cases}
+class="math inline">\(Δt\)</span>，那么方程将会有4个未知数： <span
+class="math display">\[\begin{cases}
   \rho_1=\sqrt{(x_1-x_u)^2+(y_1-y_u)^2+(z_1-z_u)^2}+cΔt\\
   \rho_2=\sqrt{(x_2-x_u)^2+(y_2-y_u)^2+(z_2-z_u)^2}+cΔt\\
   \rho_3=\sqrt{(x_3-x_u)^2+(y_3-y_u)^2+(z_3-z_u)^2}+cΔt\\
-\end{cases}$$</span> 其中<span
-class="math inline"><em>c</em></span>为光速。<br />
+\end{cases}\]</span> 其中<span
+class="math inline">\(c\)</span>为光速。<br />
 因而需要引入第4颗卫星，形成4个方程式进行求解，从而得到钟差<span
-class="math inline"><em>Δ</em><em>t</em></span>和用户坐标<span
-class="math inline">(<em>x</em><sub><em>u</em></sub>, <em>y</em><sub><em>u</em></sub>, <em>z</em><sub><em>u</em></sub>)</span>。</p>
+class="math inline">\(Δt\)</span>和用户坐标<span
+class="math inline">\((x_u,y_u,z_u)\)</span>。</p>
 <blockquote>
 <p>卫星的定位原理-北斗卫星定位系统：http://www.beidou.gov.cn/zy/kpyd/201710/t20171021_4626.html</p>
 </blockquote>

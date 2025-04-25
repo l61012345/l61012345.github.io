@@ -505,30 +505,27 @@ Meng（孟鸿鹰）<br />
 <strong>同一精度下，IBM能够表达的范围更大，最小值也更小，精度更高。</strong><br />
 #### <strong>IEEE754的例外</strong> - NaN：Not a
 Number，是运算错误的表示，通常有如下几种情况运算结果是NaN：<br />
-1. <span class="math inline">⨦0 ÷ ⨦0</span><br />
-2. <span class="math inline">∞ − ∞</span><br />
-3. <span class="math inline">⨦∞ ÷ ⨦∞</span><br />
-4. <span class="math inline">⨦∞ × 0</span><br />
+1. <span class="math inline">\(⨦0 ÷ ⨦0\)</span><br />
+2. <span class="math inline">\(∞-∞\)</span><br />
+3. <span class="math inline">\(⨦∞÷⨦∞\)</span><br />
+4. <span class="math inline">\(⨦∞ × 0\)</span><br />
 -
 无穷:当指数部分全为1，小数部分不为0时，运算接过是无穷。规定如下的情况结果会是无穷：
-1. <span class="math inline">∞ × ∞</span><br />
-2. <span class="math inline">∞ + ∞</span><br />
-3. <span
-class="math inline"><em>n</em><em>o</em><em>n</em><em>e</em><em>z</em><em>e</em><em>r</em><em>o</em> ÷ 0</span>
--
+1. <span class="math inline">\(∞ × ∞\)</span><br />
+2. <span class="math inline">\(∞ + ∞\)</span><br />
+3. <span class="math inline">\(nonezero ÷ 0\)</span> -
 0：IEEE754中有正零和负零之分：两者的符号位不同，其余比特位全都是0，规定<span
-class="math inline"><em>n</em> ÷ ∞ = 0</span>。<br />
+class="math inline">\(n ÷ ∞=0\)</span>。<br />
 #### <strong>最大值和最小值/表示范围/精度</strong>
 其最大值和最小值的求法是相同的。 最小数：<br />
-<span
-class="math display"><em>b</em><em>a</em><em>s</em><em>e</em><sup>−<em>b</em><em>i</em><em>a</em><em>s</em></sup> × <em>b</em><em>a</em><em>s</em><em>e</em><sup>−<em>f</em><em>r</em><em>a</em><em>c</em><em>t</em><em>i</em><em>o</em><em>n</em></sup></span>
+<span class="math display">\[base^{-bias} × base^{-fraction}\]</span>
 最大数：<br />
 <span
-class="math display">(<em>b</em><em>a</em><em>s</em><em>e</em> − <em>b</em><em>a</em><em>s</em><em>e</em><sup>−<em>f</em><em>r</em><em>a</em><em>c</em><em>t</em><em>i</em><em>o</em><em>n</em></sup>) × <em>b</em><em>a</em><em>s</em><em>e</em><sup>(2<sup><em>e</em><em>x</em><em>p</em><em>o</em><em>n</em><em>e</em><em>n</em><em>t</em></sup> − <em>b</em><em>i</em><em>a</em><em>s</em>)</sup></span>
+class="math display">\[(base-base^{-fraction})×base^{(2^{exponent}-bias)}\]</span>
 fraction： 小数部分的总位数，bias：偏置，base：基数
 exponent：指数部分的总位数<br />
 注：IEEE754中由于非正规数的要求，应当写作：<span
-class="math inline">(<em>b</em><em>a</em><em>s</em><em>e</em> − <em>b</em><em>a</em><em>s</em><em>e</em><sup>−<em>f</em><em>r</em><em>a</em><em>c</em><em>t</em><em>i</em><em>o</em><em>n</em></sup>) × <em>b</em><em>a</em><em>s</em><em>e</em><sup>(2<sup><em>e</em><em>x</em><em>p</em><em>o</em><em>n</em><em>e</em><em>n</em><em>t</em></sup> − <em>b</em><em>i</em><em>a</em><em>s</em> − 1)</sup></span></p>
+class="math inline">\((base-base^{-fraction})×base^{(2^{exponent}-bias-1)}\)</span></p>
 <h4 id="通信"><strong>通信</strong></h4>
 <p>两者之间的通信数据需要经过转换，转换步骤为：<br />
 1. 改变指数部分和小数部分的基底<br />
@@ -643,16 +640,15 @@ Skew（时钟信号在不同组件中到达的时间有差异）。<br />
 <p>阿姆达尔定律：理想中对整个系统最大的改进是对系统中的部分进行改进。因此来自部分升级的影响总是有限的。</p>
 <h2 id="校验码">校验码</h2>
 <h3 id="汉明码">汉明码</h3>
-<p>在一串<span class="math inline"><em>d</em></span>位数据的<span
-class="math inline">2<sup><em>n</em> − 1</sup></span>位上加入校验位，校验位的数量<span
-class="math inline"><em>c</em></span>满足：<span
-class="math inline">2<sup><em>c</em></sup> − 1 &gt;  = <em>d</em></span>。<br />
-第<span class="math inline"><em>n</em></span>个校验码的校验条件满足：
-从第<span
-class="math inline">2<sup><em>n</em></sup></span>位开始，使用偶校验检测<span
-class="math inline">2<sup><em>n</em></sup></span>位，再跳过<span
-class="math inline">2<sup><em>n</em></sup></span>位，再检测<span
-class="math inline">2<sup><em>n</em></sup></span>位，重复直到检测最后一位。<br />
+<p>在一串<span class="math inline">\(d\)</span>位数据的<span
+class="math inline">\(2^{n-1}\)</span>位上加入校验位，校验位的数量<span
+class="math inline">\(c\)</span>满足：<span
+class="math inline">\(2^c-1&gt;=d\)</span>。<br />
+第<span class="math inline">\(n\)</span>个校验码的校验条件满足：
+从第<span class="math inline">\(2^n\)</span>位开始，使用偶校验检测<span
+class="math inline">\(2^n\)</span>位，再跳过<span
+class="math inline">\(2^n\)</span>位，再检测<span
+class="math inline">\(2^n\)</span>位，重复直到检测最后一位。<br />
 <strong>数据和校验码的位置序号是相反的</strong>,数据的比特位编号是从右到左依次减小，校验码的比特位是从右到左依次增大
 缺点：
 当只有一个校验码出错时，有50%的概率是数据出错，有50%的概率是校验码自己出错，无法确定。

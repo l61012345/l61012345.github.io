@@ -506,17 +506,16 @@ img{
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912153424.png width=50%><br />
 将神经元简单抽象：一个计算单元，它从输入端接收一定数目的信息，并作一些处理，并将结果传递给其他的神经元。<br />
 在计算机中，我们构建一个逻辑单元，它从输入端接收数据集X，并作处理来生成一个Sigmoid函数<span
-class="math inline">$h_θ (x)=\frac{1}{1+e^{-θ^T X}}$</span>：<br />
+class="math inline">\(h_θ (x)=\frac{1}{1+e^{-θ^T X}}\)</span>：<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912132141.png width=50%><br />
 在这个模型之上，输入端会额外增加一个<span
-class="math inline"><em>x</em><sub>0</sub> = 1</span>，称为偏置单元(bias
-unit)。<br />
+class="math inline">\(x_0=1\)</span>，称为偏置单元(bias unit)。<br />
 在神经网络中，<span
-class="math inline"><em>Θ</em></span>称为模型的权重，<span
-class="math inline"><em>g</em>(<em>z</em>)</span>称为激活函数(activation
+class="math inline">\(Θ\)</span>称为模型的权重，<span
+class="math inline">\(g(z)\)</span>称为激活函数(activation
 function)。</p>
 <div class="note note-info">
-            <p>激活函数有多种选择，常见的激活函数有：</p><ul><li>Sigmoid函数:<span class="math inline">$y=\frac{1}{1+e^{-θ^TX}}$</span></li><li>线性函数:<spanclass="math inline"><em>y</em> = <em>θ</em><em>x</em></span></li><li>分段线性函数/线性整流单元/ReLU函数：<spanclass="math inline">$y=\begin{cases}0,x&lt;0\\x,x≥0\end{cases}$</span></li><li>高斯函数：<spanclass="math inline"><em>y</em> = <em>e</em><em>x</em><em>p</em>(−<em>x</em><sup>2</sup>)</span></li><li>双曲正切函数：<spanclass="math inline">$y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}$</span></li></ul><p>本课程中默认提到激活函数时选择的激活函数为Sigmoid函数。</p>
+            <p>激活函数有多种选择，常见的激活函数有：</p><ul><li>Sigmoid函数:<span class="math inline">\(y=\frac{1}{1+e^{-θ^TX}}\)</span></li><li>线性函数:<span class="math inline">\(y=θx\)</span></li><li>分段线性函数/线性整流单元/ReLU函数：<spanclass="math inline">\(y=\begin{cases}0,x&lt;0\\x,x≥0\end{cases}\)</span></li><li>高斯函数：<span class="math inline">\(y=exp(-x^2)\)</span></li><li>双曲正切函数：<spanclass="math inline">\(y=tanh(x)=\frac{e^x-e^{-x}}{e^x+e^{-x}}\)</span></li></ul><p>本课程中默认提到激活函数时选择的激活函数为Sigmoid函数。</p>
           </div>
 <h3 id="多层神经网络">多层神经网络</h3>
 <p>按照生理学，大脑中的每一个神经元的树突接收来自多个其他神经元的输入，同时该神经元的轴突向其他神经元输出。神经网络模仿了这一生理学特性，它是一组神经元连接在一起的集合，如图所示：<br />
@@ -526,84 +525,75 @@ layer)，隐含层可能不止有一层。</p>
 <div class="note note-info">
             <p>每一层神经元所使用的激活函数必须是相同的。</p>
           </div>
-<p>统一地，将<span
-class="math inline"><em>a</em><sub><em>i</em></sub><sup>(<em>j</em>)</sup></span>表示第<span
-class="math inline"><em>j</em></span>层的第<span
-class="math inline"><em>i</em></span>个激活项（激活指计算并输出结果），同时，第<span
-class="math inline"><em>j</em></span>层到第<span
-class="math inline"><em>j</em> + 1</span>层之间的映射由参数矩阵<span
-class="math inline"><em>Θ</em><sup>(<em>j</em>)</sup></span>确定。<br />
+<p>统一地，将<span class="math inline">\(a_i^{(j)}\)</span>表示第<span
+class="math inline">\(j\)</span>层的第<span
+class="math inline">\(i\)</span>个激活项（激活指计算并输出结果），同时，第<span
+class="math inline">\(j\)</span>层到第<span
+class="math inline">\(j+1\)</span>层之间的映射由参数矩阵<span
+class="math inline">\(Θ^{(j)}\)</span>确定。<br />
 对于神经网络中第<span
-class="math inline"><em>j</em></span>层的每一个神经元，其输出可以表示为：<br />
+class="math inline">\(j\)</span>层的每一个神经元，其输出可以表示为：<br />
 <span
-class="math display"><em>a</em><sub><em>i</em></sub><sup>(<em>j</em>)</sup> = <em>g</em>[(∑<sub><em>k</em></sub><em>Θ</em><sub><em>j</em><em>k</em></sub><sup>(<em>j</em> − 1)</sup><em>x</em><sub><em>k</em></sub>) + <em>b</em><sub><em>i</em></sub>]</span>
-其中<span class="math inline"><em>g</em>[·]</span>是第<span
-class="math inline"><em>j</em></span>层的激活函数，<span
-class="math inline"><em>b</em><sub><em>i</em></sub></span>是该神经元的偏置。</p>
+class="math display">\[a_i^{(j)}=g\left[(∑_{k}Θ_{jk}^{(j-1)}x_k)+b_i\right]\]</span>
+其中<span class="math inline">\(g[·]\)</span>是第<span
+class="math inline">\(j\)</span>层的激活函数，<span
+class="math inline">\(b_i\)</span>是该神经元的偏置。</p>
 <p>如果不考虑偏置，上图的神经网络结构就可以用公式表示为：<br />
 <span
-class="math display"><em>a</em><sub>1</sub><sup>(2)</sup> = <em>g</em>(<em>Θ</em><sub>10</sub><sup>(1)</sup><em>x</em><sub>0</sub> + <em>Θ</em><sub>11</sub><sup>(1)</sup><em>x</em><sub>1</sub> + <em>Θ</em><sub>12</sub><sup>(1)</sup><em>x</em><sub>2</sub> + <em>Θ</em><sub>13</sub><sup>(1)</sup><em>x</em><sub>3</sub>)</span><br />
+class="math display">\[a_1^{(2)}=g(Θ_{10}^{(1)}x_0+Θ_{11}^{(1)}x_1+Θ_{12}^{(1)}x_2+Θ_{13}^{(1)}x_3)\]</span><br />
 <span
-class="math display"><em>a</em><sub>2</sub><sup>(2)</sup> = <em>g</em>(<em>Θ</em><sub>20</sub><sup>(1)</sup><em>x</em><sub>0</sub> + <em>Θ</em><sub>21</sub><sup>(1)</sup><em>x</em><sub>1</sub> + <em>Θ</em><sub>22</sub><sup>(1)</sup><em>x</em><sub>2</sub> + <em>Θ</em><sub>23</sub><sup>(1)</sup><em>x</em><sub>3</sub>)</span><br />
+class="math display">\[a_2^{(2)}=g(Θ_{20}^{(1)}x_0+Θ_{21}^{(1)}x_1+Θ_{22}^{(1)}x_2+Θ_{23}^{(1)}x_3)\]</span><br />
 <span
-class="math display"><em>a</em><sub>3</sub><sup>(2)</sup> = <em>g</em>(<em>Θ</em><sub>30</sub><sup>(1)</sup><em>x</em><sub>0</sub> + <em>Θ</em><sub>31</sub><sup>(1)</sup><em>x</em><sub>1</sub> + <em>Θ</em><sub>32</sub><sup>(1)</sup><em>x</em><sub>2</sub> + <em>Θ</em><sub>33</sub><sup>(1)</sup><em>x</em><sub>3</sub>)</span><br />
+class="math display">\[a_3^{(2)}=g(Θ_{30}^{(1)}x_0+Θ_{31}^{(1)}x_1+Θ_{32}^{(1)}x_2+Θ_{33}^{(1)}x_3)\]</span><br />
 <span
-class="math display"><em>h</em><sub><em>Θ</em></sub>(<em>x</em>) = <em>g</em>(<em>Θ</em><sub>10</sub><sup>(2)</sup><em>a</em><sub>0</sub><sup>(2)</sup> + <em>Θ</em><sub>11</sub><sup>(2)</sup><em>a</em><sub>1</sub><sup>(2)</sup> + <em>Θ</em><sub>12</sub><sup>(2)</sup><em>a</em><sub>2</sub><sup>(2)</sup> + <em>Θ</em><sub>13</sub><sup>(2)</sup><em>a</em><sub>3</sub><sup>(2)</sup>)</span><br />
+class="math display">\[h_{Θ}(x)=g(Θ_{10}^{(2)}a_0^{(2)}+Θ_{11}^{(2)}a_1^{(2)}+Θ_{12}^{(2)}a_2^{(2)}+Θ_{13}^{(2)}a_3^{(2)})\]</span><br />
 如果一个网络在第j层有<span
-class="math inline"><em>s</em><sub><em>j</em></sub></span>个单元，且在第j+1层有<span
-class="math inline"><em>s</em><sub><em>j</em></sub> + 1</span>个单元，那么矩阵<span
-class="math inline"><em>Θ</em><sup>(<em>j</em>)</sup></span>的维度为<span
-class="math inline"><em>s</em><sub><em>j</em> + 1</sub> × (<em>s</em><sub><em>j</em></sub> + 1)</span></p>
+class="math inline">\(s_j\)</span>个单元，且在第j+1层有<span
+class="math inline">\(s_j+1\)</span>个单元，那么矩阵<span
+class="math inline">\(Θ^{(j)}\)</span>的维度为<span
+class="math inline">\(s_{j+1} \times (s_j+1)\)</span></p>
 <h2 id="神经网络的向量化">神经网络的向量化</h2>
 <p>对如上的等式，现在将<span
-class="math inline"><em>g</em>(·)</span>中的线性加权组合以<span
-class="math inline"><em>z</em><sub>1</sub><sup>(2)</sup>, <em>z</em><sub>2</sub><sup>(2)</sup>, <em>z</em><sub>3</sub><sup>(2)</sup></span>表示，那么就有：
-<span
-class="math display"><em>a</em><sub>1</sub><sup>(2)</sup> = <em>g</em>(<em>z</em><sub>1</sub><sup>(2)</sup>)</span><br />
-<span
-class="math display"><em>a</em><sub>2</sub><sup>(2)</sup> = <em>g</em>(<em>z</em><sub>2</sub><sup>(2)</sup>)</span><br />
-<span
-class="math display"><em>a</em><sub>3</sub><sup>(2)</sup> = <em>g</em>(<em>z</em><sub>3</sub><sup>(2)</sup>)</span><br />
+class="math inline">\(g(·)\)</span>中的线性加权组合以<span
+class="math inline">\(z^{(2)}_1,z^{(2)}_2,z^{(2)}_3\)</span>表示，那么就有：
+<span class="math display">\[a_1^{(2)}=g(z_1^{(2)})\]</span><br />
+<span class="math display">\[a_2^{(2)}=g(z_2^{(2)})\]</span><br />
+<span class="math display">\[a_3^{(2)}=g(z_3^{(2)})\]</span><br />
 现在就能够定义三个向量使得上述等式转化为向量乘法：<br />
-<span class="math inline">$x= \left[\begin{smallmatrix} x_0 \\\ x_1 \\\
-x_2 \\\ x_3 \end{smallmatrix}\right]$</span>, <span
-class="math inline">$z^{(2)}=\left[\begin{smallmatrix} z_1^{(2)}\\\
-z_2^{(2)}\\\ z_3^{(2)}\end{smallmatrix}\right]=Θ^{(1)}x$</span>，<span
-class="math inline">$a^{(2)}=\left[\begin{smallmatrix} a_1^{(2)}\\\
-a_2^{(2)}\\\ a_3^{(2)}\end{smallmatrix}\right]$</span></p>
+<span class="math inline">\(x= \left[\begin{smallmatrix} x_0 \\\ x_1 \\\
+x_2 \\\ x_3 \end{smallmatrix}\right]\)</span>, <span
+class="math inline">\(z^{(2)}=\left[\begin{smallmatrix} z_1^{(2)}\\\
+z_2^{(2)}\\\ z_3^{(2)}\end{smallmatrix}\right]=Θ^{(1)}x\)</span>，<span
+class="math inline">\(a^{(2)}=\left[\begin{smallmatrix} a_1^{(2)}\\\
+a_2^{(2)}\\\ a_3^{(2)}\end{smallmatrix}\right]\)</span></p>
 <p>那么上述等式最终就可以转化成： <span
-class="math display"><em>z</em><sup>(2)</sup> = <em>Θ</em><sup>(1)</sup><em>x</em></span><br />
-<span
-class="math display"><em>a</em><sup>(2)</sup> = <em>g</em>(<em>z</em><sup>(2)</sup>)</span><br />
+class="math display">\[z^{(2)}=Θ^{(1)}x\]</span><br />
+<span class="math display">\[a^{(2)}=g(z^{(2)})\]</span><br />
 对于隐含层的偏置单元，增加一项<span
-class="math inline"><em>a</em><sub>0</sub><sup>(2)</sup> = 1</span>.
-最后计算<span
-class="math inline"><em>z</em><sup>(3)</sup> = <em>Θ</em><sup>(2)</sup><em>a</em><sup>(2)</sup></span>,那么最终得到的假设模型将会是：</p>
-<p><span
-class="math display"><em>h</em><sub><em>Θ</em></sub>(<em>x</em>) = <em>a</em><sup>(3)</sup> = <em>g</em>(<em>z</em><sup>(3)</sup>)</span></p>
+class="math inline">\(a_0^{(2)}=1\)</span>. 最后计算<span
+class="math inline">\(z^{(3)}=Θ^{(2)}a^{(2)}\)</span>,那么最终得到的假设模型将会是：</p>
+<p><span class="math display">\[h_{Θ}(x)=a^{(3)}=g(z^{(3)})\]</span></p>
 <p>单看layer2 和
 layer3，事实上，这两层做的就是逻辑回归，但输入进逻辑回归的特征不再是原始的特征<span
-class="math inline"><em>x</em></span>，而是通过原始特征生成的特征<span
-class="math inline"><em>a</em></span>。 而<span
-class="math inline"><em>a</em></span>与<span
-class="math inline"><em>x</em></span>之间的关系通过<span
-class="math inline"><em>θ</em></span>来定义。 因此可以通过改变<span
-class="math inline"><em>θ</em></span>来改变输入层和隐含层之间的关系。</p>
+class="math inline">\(x\)</span>，而是通过原始特征生成的特征<span
+class="math inline">\(a\)</span>。 而<span
+class="math inline">\(a\)</span>与<span
+class="math inline">\(x\)</span>之间的关系通过<span
+class="math inline">\(θ\)</span>来定义。 因此可以通过改变<span
+class="math inline">\(θ\)</span>来改变输入层和隐含层之间的关系。</p>
 <h2 id="前向传播过程">前向传播过程</h2>
 <p>对于神经网络的训练过程，在每次迭代中，首先需要得到数据集的特征<span
-class="math inline"><em>x</em></span>输入到神经网络模型后的输出结果，即模型的预测值<span
-class="math inline"><em>ŷ</em></span>，然后根据其真实标签<span
-class="math inline"><em>y</em></span>返回来调整神经网络中各神经元连接的权重。因此将神经网络的每一次迭代分为前向传播(Forward
+class="math inline">\(x\)</span>输入到神经网络模型后的输出结果，即模型的预测值<span
+class="math inline">\(\hat{y}\)</span>，然后根据其真实标签<span
+class="math inline">\(y\)</span>返回来调整神经网络中各神经元连接的权重。因此将神经网络的每一次迭代分为前向传播(Forward
 Propagation/Feedforward
 Propagation)和反向传播两个过程：前向传播是将数据输入神经网络，然后得到预测值的过程。反向传播则是根据真实值和预测值之间的差距，来调整各连接权重的过程。<br />
 简单来说，前向传播的过程即将<span
-class="math inline"><em>x</em></span>带入到神经网络的表示中，得到输出的过程：<br />
-<span
-class="math display"><em>h</em><sub><em>Θ</em></sub>(<em>x</em>) = <em>a</em><sup>(<em>N</em>)</sup> = <em>g</em>(<em>z</em><sup>(<em>N</em>)</sup>)</span><br />
-<span
-class="math inline"><em>N</em></span>表示神经网络最后一层的标识。</p>
+class="math inline">\(x\)</span>带入到神经网络的表示中，得到输出的过程：<br />
+<span class="math display">\[h_{Θ}(x)=a^{(N)}=g(z^{(N)})\]</span><br />
+<span class="math inline">\(N\)</span>表示神经网络最后一层的标识。</p>
 <div class="note note-info">
-            <p>下一章将说明如何调整权重<spanclass="math inline"><em>θ</em></span>的值来优化假设函数。</p>
+            <p>下一章将说明如何调整权重<spanclass="math inline">\(θ\)</span>的值来优化假设函数。</p>
           </div>
 
                 

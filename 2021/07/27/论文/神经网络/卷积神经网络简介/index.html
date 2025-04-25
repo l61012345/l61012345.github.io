@@ -505,7 +505,7 @@ p.spoiler {
 卷积核的大小通常是奇数，主要原因是根据卷积公式，最终得到的图像长宽均与卷积核的基数倍有关，如果设置卷积核大小为偶数维度则最终得到的图像长宽可能不是一个整数。此外还有便于强调中心，奇数卷积核对边沿、对线条更加敏感，可以更有效的提取边沿信息等优点。</p></li>
 <li><p>步长（Step）<br />
 指一次照射结束后，卷积核移动的像素单位数，通常以<span
-class="math inline"><em>α</em></span>表示。
+class="math inline">\(\alpha\)</span>表示。
 步长过大可能导致图像的某些位置未被处理，步长过小则被重叠滤波的像素面积增多。</p></li>
 <li><p>填充(Padding)<br />
 由于卷积过程是一个降维过程（直观来看图像会被缩小），有时为了保证卷积输出的图像不被降维，需要在图像外围添加像素值为0的像素点，填充反映了像素点添加的多少。
@@ -517,12 +517,11 @@ class="math inline"><em>α</em></span>表示。
 <h5 id="常见的激活函数">常见的激活函数</h5>
 <ul>
 <li><p>Sigmoid 函数<br />
-<span class="math display">$$f(x)=\frac{1}{1+e^{-x}}$$</span>
+<span class="math display">\[f(x)=\frac{1}{1+e^{-x}}\]</span>
 Sigmoid函数是最简单的非线形二分类函数，能够把连续实数进行放缩，使得函数输出值在0-1的范围内。
 缺点是当输入非常大或者非常小的时候梯度容易消失。</p></li>
 <li><p>ReLU 函数<br />
-<span
-class="math display"><em>f</em>(<em>x</em>) = <em>m</em><em>a</em><em>x</em>(0, <em>x</em>)</span>
+<span class="math display">\[f(x)=max(0,x)\]</span>
 输入信号&lt;0时，输出都是0，输入&gt;0 的情况下，输出等于输入。
 好处是过滤了负值像素的同时提供了一种极其简便的计算方式，使得计算量小，收敛速度比较快。
 并且由于其一阶导是一个常数，因此不容易发生梯度消失。<br />
@@ -538,105 +537,102 @@ class="math display"><em>f</em>(<em>x</em>) = <em>m</em><em>a</em><em>x</em>
 这个特征向量会被投入到激活函数当中，最终输出为一个位置表示tag，值表示评分的标签向量。
 最终这个标签向量被投入到softmax函数中，求出目标属于每一类的概率，并返回最大的概率值和类别。</p>
 <h4 id="softmax-函数">softmax 函数</h4>
-<p><span class="math display">$$p(y|x)=\frac{e^{X_i}}{\sum_{i=1}
-e^{X_i}}$$</span>
+<p><span class="math display">\[p(y|x)=\frac{e^{X_i}}{\sum_{i=1}
+e^{X_i}}\]</span>
 通过softmax函数的归一化作用，将输出映射成为(0,1)的值，而这些值的累和为1，满足概率的性质。最后选取输出时，选取概率最大的结果，输出为预测目标。softmax函数使用指数作为表达的原因是一是归一化操作满足概率性质，二是可以将负值输出正值化。</p>
 <h2 id="神经网络的训练">神经网络的训练</h2>
 <h3 id="前向传播">前向传播</h3>
 <p>对于一组数据和其标签<span
-class="math inline">(<em>x</em>, <em>y</em>)</span>，去掉标签后投入到神经网络中，得到每一个神经单元的输出和最终的预测结果<span
-class="math inline">(<em>x</em>, <em>a</em>)</span>的过程叫做前向传播。</p>
+class="math inline">\((x,y)\)</span>，去掉标签后投入到神经网络中，得到每一个神经单元的输出和最终的预测结果<span
+class="math inline">\((x,a)\)</span>的过程叫做前向传播。</p>
 <h3 id="反向传播">反向传播</h3>
 <p>执行反向传播的目的是为了求出每一个神经单元的误差<span
-class="math inline"><em>δ</em> = <em>y</em> − <em>a</em></span>进而求出<span
-class="math inline">$\frac{\partial J}{\partial
-\Theta}$</span> 的值，以此来带入到梯度下降算法当中求得梯度并更新参数。</p>
+class="math inline">\(\delta=y-a\)</span>进而求出<span
+class="math inline">\(\frac{\partial J}{\partial
+\Theta}\)</span> 的值，以此来带入到梯度下降算法当中求得梯度并更新参数。</p>
 <h4
 id="从池化层的误差推导卷积层的误差">从池化层的误差推导卷积层的误差</h4>
 <p>以最大值池化为例，对于池化前特征图中每一个被池化卷积核照射到的区域，由于只有最大值所处的位置才会有误差，其余区域由于最大池化过滤而不会对误差有任何影响，因此原特征图被照射区域中只有最大值对应的位置（需要在前向传播时记录下来）有误差<span
-class="math inline"><em>δ</em></span>，其余位置的误差为0.<br />
+class="math inline">\(\delta\)</span>，其余位置的误差为0.<br />
 对均值池化，原特征图被照射区域的所有位置上对误差均等的贡献造成了整体误差<span
-class="math inline"><em>δ</em></span>，因此每个位置上的误差都是<span
-class="math inline">$\frac{\delta}{N}$</span>. 通用的解决办法为：<br />
-当第<span class="math inline"><em>l</em></span>层为卷积层，第<span
-class="math inline"><em>l</em> + 1</span>层为池化层时，第<span
-class="math inline"><em>l</em></span>层某一个像素（神经元）的误差为第<span
-class="math inline"><em>l</em> + 1</span>层与其相关的所有像素（神经元）的误差与权重的乘积之和。由于激活函数的影响，当前层激活之前的特征图矩阵<span
-class="math inline"><em>X</em></span>每一个位置通过激活函数的导数处理，再将处理后的矩阵与第<span
-class="math inline"><em>l</em> + 1</span>层的神经元误差矩阵对应位置相乘。此处神经元误差矩阵需要做上采样处理以统一维度进行运算，该过程表示为：<br />
-<span
-class="math display"><em>δ</em><sub><em>j</em></sub><sup><em>l</em></sup> = <em>w</em><sub><em>j</em></sub><sup><em>l</em> + 1</sup>(<em>f</em>’(<em>x</em><sub><em>j</em></sub><sup><em>l</em></sup>) ⊙ <em>u</em><em>p</em>(<em>δ</em><sub><em>j</em></sub><sup><em>l</em> + 1</sup>))</span><br />
-<span
-class="math inline"><em>w</em><sub><em>j</em></sub><sup><em>l</em> + 1</sup></span>:<span
-class="math inline"><em>l</em> + 1</span>层第<span
-class="math inline"><em>j</em></span>神经元的权重，<span
-class="math inline"><em>u</em><em>p</em></span>：上采样，<span
-class="math inline">⊙</span>：对应位置相乘。<br />
-记激活函数<span
-class="math inline"><em>f</em>(<em>x</em>) = <em>z</em></span>,矩阵化后有第<span
-class="math inline"><em>l</em></span>层的误差向量<span
-class="math inline"><em>δ</em><sup><em>l</em></sup></span>：</p>
-<p><span
-class="math display"><em>δ</em><sup><em>l</em></sup> = <em>w</em><sub><em>j</em></sub><sup><em>l</em> + 1</sup>（<em>z</em>’<sup><em>l</em></sup> ⊙ <em>u</em><em>p</em>(<em>δ</em><sup><em>l</em> + 1</sup>))</span></p>
+class="math inline">\(\delta\)</span>，因此每个位置上的误差都是<span
+class="math inline">\(\frac{\delta}{N}\)</span>.
+通用的解决办法为：<br />
+当第<span class="math inline">\(l\)</span>层为卷积层，第<span
+class="math inline">\(l+1\)</span>层为池化层时，第<span
+class="math inline">\(l\)</span>层某一个像素（神经元）的误差为第<span
+class="math inline">\(l+1\)</span>层与其相关的所有像素（神经元）的误差与权重的乘积之和。由于激活函数的影响，当前层激活之前的特征图矩阵<span
+class="math inline">\(X\)</span>每一个位置通过激活函数的导数处理，再将处理后的矩阵与第<span
+class="math inline">\(l+1\)</span>层的神经元误差矩阵对应位置相乘。此处神经元误差矩阵需要做上采样处理以统一维度进行运算，该过程表示为：<br />
+<span class="math display">\[\delta_j^l=w_j^{l+1}(f’(x_j^l) \odot
+up(\delta_j^{l+1}))\]</span><br />
+<span class="math inline">\(w_j^{l+1}\)</span>:<span
+class="math inline">\(l+1\)</span>层第<span
+class="math inline">\(j\)</span>神经元的权重，<span
+class="math inline">\(up\)</span>：上采样，<span
+class="math inline">\(\odot\)</span>：对应位置相乘。<br />
+记激活函数<span class="math inline">\(f(x)=z\)</span>,矩阵化后有第<span
+class="math inline">\(l\)</span>层的误差向量<span
+class="math inline">\(\delta^l\)</span>：</p>
+<p><span class="math display">\[\delta^l=w_j^{l+1}（ z’^{l} \odot
+up(\delta^{l+1}))\]</span></p>
 <h4 id="卷积层的反向传播">卷积层的反向传播</h4>
 <p>从卷积层推导池化层，<span
-class="math inline"><em>l</em></span>层的误差<span
-class="math inline"><em>δ</em><sup><em>l</em> − 1</sup></span>，等于卷积后结果的<span
-class="math inline"><em>δ</em><sup><em>l</em></sup></span>误差经过零填充后，与卷积核旋转180度后的卷积。如图所示：<br />
+class="math inline">\(l\)</span>层的误差<span
+class="math inline">\(δ^{l-1}\)</span>，等于卷积后结果的<span
+class="math inline">\(δ^{l}\)</span>误差经过零填充后，与卷积核旋转180度后的卷积。如图所示：<br />
 <img
 src="https://grzegorzgwardys.files.wordpress.com/2016/01/screenshot-from-2016-04-17-212043.png" srcset="/img/loading.gif" lazyload />
-<span class="math display">$$\delta^{l-1} =  (\frac{\partial
+<span class="math display">\[\delta^{l-1} =  (\frac{\partial
 z^{l}}{\partial z^{l-1}})^T\delta^{l} = \delta^{l}*rot180(W^{l})
-\odot  \sigma^{'}(z^{l-1})$$</span></p>
-<p>已知<span
-class="math inline"><em>δ</em><sup><em>l</em> − 1</sup></span>，求损失函数<span
-class="math inline"><em>C</em></span>对该层参数的导数<span
-class="math inline">$\frac{∂C}{∂w^l}$</span>:<br />
-<span class="math display">$$\frac{∂C}{∂w^l}=δ^l*σ(z^{l-1})$$</span></p>
+\odot  \sigma^{&#39;}(z^{l-1})\]</span></p>
+<p>已知<span class="math inline">\(δ^{l-1}\)</span>，求损失函数<span
+class="math inline">\(C\)</span>对该层参数的导数<span
+class="math inline">\(\frac{∂C}{∂w^l}\)</span>:<br />
+<span class="math display">\[\frac{∂C}{∂w^l}=δ^l*σ(z^{l-1})\]</span></p>
 <h3 id="卷积神经网络的训练过程">卷积神经网络的训练过程</h3>
 <ol type="1">
 <li>对神经网络进行初始化，定义好网络结构，设定好激活函数，对卷积层的卷积核<span
-class="math inline"><em>W</em></span>、偏置<span
-class="math inline"><em>b</em></span>进行随机初试化，对全连接层的权重矩阵<span
-class="math inline"><em>W</em></span>和偏置<span
-class="math inline"><em>b</em></span>进行随机初始化。<br />
+class="math inline">\(W\)</span>、偏置<span
+class="math inline">\(b\)</span>进行随机初试化，对全连接层的权重矩阵<span
+class="math inline">\(W\)</span>和偏置<span
+class="math inline">\(b\)</span>进行随机初始化。<br />
 设置好训练的最大迭代次数，每个训练batch的大小，学习率<span
-class="math inline"><em>η</em></span>。<br />
+class="math inline">\(η\)</span>。<br />
 </li>
 <li>从训练数据中取出一个batch的数据</li>
 <li>从该batch数据中取出一个数据，包括输入<span
-class="math inline"><em>x</em></span>以及对应的正确标签<span
-class="math inline"><em>y</em></span></li>
+class="math inline">\(x\)</span>以及对应的正确标签<span
+class="math inline">\(y\)</span></li>
 <li>将<span
-class="math inline"><em>x</em></span>放入CNN的输入端利用前向传播得到<span
-class="math inline"><em>z</em><sup><em>l</em></sup></span>，<span
-class="math inline"><em>a</em><sup><em>l</em></sup></span></li>
-<li>结合<span
-class="math inline"><em>z</em><sup><em>l</em></sup></span>，<span
-class="math inline"><em>a</em><sup><em>l</em></sup></span>和<span
-class="math inline"><em>y</em></span>，算出神经网络的损失函数</li>
+class="math inline">\(x\)</span>放入CNN的输入端利用前向传播得到<span
+class="math inline">\(z^l\)</span>，<span
+class="math inline">\(a^l\)</span></li>
+<li>结合<span class="math inline">\(z^l\)</span>，<span
+class="math inline">\(a^l\)</span>和<span
+class="math inline">\(y\)</span>，算出神经网络的损失函数</li>
 <li>计算损失函数对输出层的误差<span
-class="math inline"><em>δ</em><sup><em>L</em></sup></span></li>
+class="math inline">\(δ^L\)</span></li>
 <li>利用反向传播，计算前一层的误差<span
-class="math inline"><em>δ</em><sup><em>l</em></sup> − 1</span>：
+class="math inline">\(δ^l-1\)</span>：
 <ul>
-<li>全连接层：<span
-class="math inline"><em>δ</em><sup><em>l</em></sup> = (<em>W</em><sup><em>l</em> + 1</sup>)<sup><em>T</em></sup><em>δ</em><sup><em>l</em> + 1</sup> ⊙ <em>σ</em><sup>′</sup>(<em>z</em><sup><em>l</em></sup>)</span></li>
-<li>卷积层：<span class="math inline">$\delta^{l-1} =  (\frac{\partial
+<li>全连接层：<span class="math inline">\(δ^l=(W^{l+1})^Tδ^{l+1}⊙
+\sigma^{&#39;}(z^{l})\)</span></li>
+<li>卷积层：<span class="math inline">\(\delta^{l-1} =  (\frac{\partial
 z^{l}}{\partial z^{l-1}})^T\delta^{l} = \delta^{l}*rot180(W^{l})
-\odot  \sigma^{'}(z^{l-1})$</span><br />
+\odot  \sigma^{&#39;}(z^{l-1})\)</span><br />
 </li>
-<li>池化层：<span
-class="math inline"><em>δ</em><sup><em>l</em></sup> = <em>w</em><sub><em>j</em></sub><sup><em>l</em> + 1</sup>（<em>z</em>’<sup><em>l</em></sup> ⊙ <em>u</em><em>p</em>(<em>δ</em><sup><em>l</em> + 1</sup>))</span><br />
+<li>池化层：<span class="math inline">\(\delta^l=w_j^{l+1}（ z’^{l}
+\odot up(\delta^{l+1}))\)</span><br />
 </li>
 </ul></li>
 <li>利用误差求出损失函数对该层参数的导数：
 <ul>
 <li>全连接层：<span
-class="math inline">$\frac{∂C}{∂W^l}=δ^l(a^{l-1})^T$</span><br />
+class="math inline">\(\frac{∂C}{∂W^l}=δ^l(a^{l-1})^T\)</span><br />
 </li>
 <li>卷积层：<span
-class="math inline">$\frac{∂C}{∂w^l}=δ^l*σ(z^{l-1})$</span></li>
+class="math inline">\(\frac{∂C}{∂w^l}=δ^l*σ(z^{l-1})\)</span></li>
 </ul></li>
 <li>将求得的导数加到该batch数据求得的导数之和上(初始化为0)，跳转到步骤3，直到该batch数据都训练完毕</li>
 <li>利用一个batch数据求得的导数之和，根据梯度下降法对参数进行更新</li>
