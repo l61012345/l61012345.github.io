@@ -115,7 +115,7 @@
 <meta property="og:description" content="Hexo搭建博客记录 搭建这个博客前前后后花了大概一周左右的时间，基本上把能踩的雷全都踩过了，现在记录一下搭建过程中的问题和解决办法。 Github Pages 相关问题 Github Pages 无法创建页面 显示“Pages build faild” 但是没有任何报错信息 第一个遇到的问题是Github Pages 始终反馈无法创建（build）页面，反馈邮件当中没有任何关于错误的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-20T00:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-20T09:23:27.912Z">
+<meta property="article:modified_time" content="2025-04-25T15:04:05.120Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -405,7 +405,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.1k 字
+          1.3k 字
         
       </span>
     
@@ -416,7 +416,7 @@ p.spoiler {
         
         
         
-          10 分钟
+          12 分钟
         
       </span>
     
@@ -479,7 +479,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2023年10月20日 上午
+                    本文最后更新于 2025年4月25日 下午
                   
                 
               </p>
@@ -566,6 +566,17 @@ repo:中设置的是https网址导致的<br />
 同时把第20行的em变量也要做相应的修改。<br />
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//  em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span><br>em: /^\*((?:\*\*|[\s\S])+?)\*(?!\*)/<br></code></pre></td></tr></table></figure> 3.
 执行<code>hexo clean</code>再用<code>hexo g</code>重新生成</p>
+<p>另一个办法是改用pandoc作为renderer，但是同样有踩坑点。
+首先在电脑上安装最新版的pandoc，然后在hexo目录下执行：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install hexo-renderer-pandoc --save<br>npm install hexo-renderer-mathjax --save<br>npm install hexo-filter-mathjax --save<br></code></pre></td></tr></table></figure>
+这个时候渲染pandoc可能无法识别<code>\frac&#123;&#125;&#123;&#125;</code>和<code>\begin&#123;&#125;</code>这种高级语法，需要更改pandoc的渲染设置。<br />
+打开node_modules-renderer-pandoc.js，找到：<br />
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">const</span> <span class="hljs-variable">defaultArgs</span> <span class="hljs-operator">=</span> [<span class="hljs-string">&#x27;-M&#x27;</span>, <span class="hljs-string">&#x27;pagetitle=dummy&#x27;</span>];<br></code></pre></td></tr></table></figure> 把这一行改成：<br />
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">const</span> <span class="hljs-variable">defaultArgs</span> <span class="hljs-operator">=</span> [<span class="hljs-string">&#x27;-M&#x27;</span>, <span class="hljs-string">&#x27;pagetitle=dummy&#x27;</span>,<span class="hljs-string">&quot;--mathjax&quot;</span>];<br></code></pre></td></tr></table></figure>
+此时还有一个问题是当markdown文件的列表的上一行不是回车符时，在pandoc渲染时不会将其识别为列表。<br />
+这个时候打开<code>_config.yml</code> 在最后加上：<br />
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">pandoc:</span><br>  <span class="hljs-attr">extensions:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">+lists_without_preceding_blankline</span><br></code></pre></td></tr></table></figure>
+执行<code>hexo clean</code>再用<code>hexo g</code>重新生成即可。</p>
 <h3
 id="页面中的latexmathjax矩阵无法换行只有一列">页面中的LaTeX/MathJaX矩阵无法换行，只有一列</h3>
 <ol type="1">
@@ -633,7 +644,7 @@ id="页面中的latexmathjax矩阵无法换行只有一列">页面中的LaTeX/Ma
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月20日</div>
+          <div>2025年4月25日</div>
         </div>
       
       
