@@ -164,20 +164,24 @@ $$E(\mu(t+1)-\mu(t))=\sum_ll\times(p(l,t)-\Phi(l,t))$$
 之后的多数ADF的变体对于ADF的理解都将其与Building Block Hypothesis结合，认为由于GP根本性问题的存在，导致Building Blocks极度依赖上下文，从而有可能使得Building blocks由于在表现较差的个体中而在进化过程中消散，因此ADF的主要功能是保护有用的遗传片段，并且通过重复使用代码片段来减少冗余的搜索。  
 ADF并不能真正的解决GP的问题，启发式的ADF通过将某些子空间打包从而引导搜索向包含这个子空间的更高阶的子空间进行搜索，从而增加GP的运行效率。 类保护的交叉和突变也是一种限定搜索在某些子空间之内的操作。
 因为在一定程度上限制了语构，进而减少了搜索过程中涉及到的语义到语构的映射数，这样的机制在一定程度上可以缓解语义和语构的映射问题。但是ADF无法从根本上厘清语义到语构的映射问题，所以也只是缓解，并没有彻底解决。  
-<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240503131815.png width=50%> 
+
+
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240503131815.png width=50%>  
+
 
 引入ADF机制之后带来了新的问题，在此总结为四点：  
 
 - 封装有用的函数  
-  关于如何找到有益的子树，一些工作如 AAO 中的子程序创建和模块获取（MA）中的压缩操作[^19]。 [^19]使用随机封装，并将识别任务交给演化过程。要封装的子树是随机选择的。例如，在 Koza 的 ADF 改进版中，进化过程中的类型保护遗传操作与选择相结合，用于搜索函数中更有用的部分。 另一方面，其他关于模块化的研究都认为，需要封装对解决方案贡献最大的有益子实体，以保护这些部分免受遗传操作的破坏性影响，同时通过重复使用它们来降低复杂性。例如，GLiB [^20]使用子程序在群体/个体中被调用的次数/频率来评估子树的贡献；Co-ADF [^21]和 EDF [^22] [^23]提出了根据每个函数可能解决的适应度案例数来包含局部适应度的方法，以直接评估子树。 [^24]在统计特征方面，[^24] 尝试应用相关性和灵敏度等统计特征来表示段的贡献。但事实证明，这两种特征并不有效。 
+  关于如何找到有益的子树，一些工作如 AAO 中的子程序创建和模块获取（MA）中的压缩操作[^19]。[^19]使用随机封装，并将识别任务交给演化过程。要封装的子树是随机选择的。例如，在 Koza 的 ADF 改进版中，进化过程中的类型保护遗传操作与选择相结合，用于搜索函数中更有用的部分。 另一方面，其他关于模块化的研究都认为，需要封装对解决方案贡献最大的有益子实体，以保护这些部分免受遗传操作的破坏性影响，同时通过重复使用它们来降低复杂性。例如，GLiB [^20]使用子程序在群体/个体中被调用的次数/频率来评估子树的贡献。Co-ADF[^21]和 EDF [^22]和[^23]提出了根据每个函数可能解决的适应度案例数来包含局部适应度的方法，以直接评估子树。在统计特征方面， MaxFit[^24] 尝试应用相关性和灵敏度等统计特征来表示段的贡献。但事实证明，这两种特征并不有效。  
+
 - 防止低多样性  
   群体多样性是 GP 模块化研究的另一个研究课题，它指的是搜索空间中被搜索个体的分布程度。多样性越高，说明搜索范围越广，搜索到全局最优的几率越大。问题是，多样性和模块化之间需要权衡：多样性能使 GP 避免过早收敛和局部最优，但会增加 GP 的复杂性；模块化用于降低问题的复杂性和保护有用的片段，但过强的保护效果会导致 GP 多样性降低和陷入局部最优。有几种方法认为，只有当群体缺乏多样性时，才需要对子树进行封装。基于这一观点，有几项研究集中于种群多样性的监控技术。首先，它是通过监测种群本身的特征来实现的：例如，在最初的自适应表征学习（ARL）中使用的种群熵[^25]。 该方法使用信息熵来表示种群的多样性。其次，可以通过进化过程中的一些指标来监控多样性，如 MaxFit[^24]：如果个体的最大适应度在几代内没有变化，则引入一个新模块。EDF [^23]中也采用了类似的机制：当所有EDF的唤醒次数较低时，就会引入一个新模块。   
 
 - 类型冲突   
-  类型冲突通常发生在将封装的子树作为类型化系统中的函数插入到个体中时：即上层函数请求的类型与下层终端或函数的返回类型不匹配。在 [^26]中，Koza 将约束类型作为 GP 的高级函数引入了演化过程。在这里，函数集中的所有主函数和 ADF 都有分离的终端集，其中包含类型正确的终端。虽然这种方法解决了类型冲突问题，但一些文献批评说，约束类型不仅增加了处理不同数据类型的难度，而且还增加了计算的难度， [^27]而且还引入了更多的先验知识来为不同的函数设计不同的终端集，这与 Koza 自己的想法相矛盾 [^28].因此，Montana 设计了强类型遗传编程（STGP）。 [^27]其中所有元素（终端和函数）都有各自的类型。在演化过程中，将执行通过查找链接表实现的类型检查程序。此外，STGP 还引入了通用函数和通用类型。遗传函数可以对多种类型而不是特定类型进行操作。泛型类型不是数据类型，而是泛型函数支持的可能数据类型的集合。在树生成过程中，泛型被视为数据类型，但在评估过程中，由于实例化的原因，泛型被视为具体值。使用泛型的目的是消除基因运算中可能存在的非法性，同时减少对先验知识的依赖和可能存在的先验偏差（避免因指定数据类型而产生偏差）。PolyGP [^29] [^30]借鉴了 STGP 中参数多态性的思想，对其进行了进一步扩展，并使用罗宾逊统一算法（Robinson's Unification Algorithm）改善了 STGP 中创建个体时造成的链表结构问题，使其符合类型合法性。PolyGP 最大的变化是将 Koza 标准遗传算法中的个体表示法从 LISP 语言的 S 表达式迁移到 Lambda 微积分，并根据新表示法中 Currying 个体的结构将交叉迁移到新表示法中。这些改变使 GP 能够学习程序的结构，而不受变量和变量类型的限制。  
+  类型冲突通常发生在将封装的子树作为类型化系统中的函数插入到个体中时，即上层函数请求的类型与下层终端或函数的返回类型不匹配。在 [^26]中，Koza 将约束类型作为 GP 的高级函数引入了演化过程。在这里，函数集中的所有主函数和 ADF 都有分离的终端集，其中包含类型正确的终端。虽然这种方法解决了类型冲突问题，但一些文献批评说，约束类型不仅增加了处理不同数据类型的难度，而且还增加了计算的难度， [^27] 而且还引入了更多的先验知识来为不同的函数设计不同的终端集，这与 Koza 自己的想法相矛盾 [^28].因此，Montana 设计了强类型遗传编程（STGP）。 [^27] 其中所有元素（终端和函数）都有各自的类型。在演化过程中，将执行通过查找链接表实现的类型检查程序。此外，STGP 还引入了通用函数和通用类型。遗传函数可以对多种类型而不是特定类型进行操作。泛型类型不是数据类型，而是泛型函数支持的可能数据类型的集合。在树生成过程中，泛型被视为数据类型，但在评估过程中，由于实例化的原因，泛型被视为具体值。使用泛型的目的是消除基因运算中可能存在的非法性，同时减少对先验知识的依赖和可能存在的先验偏差（避免因指定数据类型而产生偏差）。PolyGP [^29]，[^30] 借鉴了 STGP 中参数多态性的思想，对其进行了进一步扩展，并使用罗宾逊统一算法（Robinson's Unification Algorithm）改善了 STGP 中创建个体时造成的链表结构问题，使其符合类型合法性。PolyGP 最大的变化是将 Koza 标准遗传算法中的个体表示法从 LISP 语言的 S 表达式迁移到 Lambda 微积分，并根据新表示法中 Currying 个体的结构将交叉迁移到新表示法中。这些改变使 GP 能够学习程序的结构，而不受变量和变量类型的限制。  
 
 - ADF内部进化和外部进化的协同作用  
-  另外，考虑到多样性和搜索的进展，如果ADF自身的内部空间也需要不断进化，比如[^21]中每个ADF有自己的独立子种群和子fitness function，那就需要考虑ADF的进化过程和整体进化过程之间的关系。在使用协同进化时，可能需要考虑在主程序进化的过程中，其function set或者是terminal set的变化对搜索过程造成的影响。  
+  另外，考虑到多样性和搜索的进展，如果ADF自身的内部空间也需要不断进化，比如Co-ADF中每个ADF有自己的独立子种群和子fitness function，那就需要考虑ADF的进化过程和整体进化过程之间的关系。在使用协同进化时，可能需要考虑在主程序进化的过程中，其function set或者是terminal set的变化对搜索过程造成的影响。  
 
 
 [^1]: Z. Zojaji et al, Semantic Schema based genentic programming for symbolic regression, 2022.  
@@ -191,17 +195,21 @@ ADF并不能真正的解决GP的问题，启发式的ADF通过将某些子空间
 [^9]:Muller, Brandon et al., Transfer Learning: A Building Block Selection Mechanism in Genetic Programming for Symbolic Regression, 2019.  
 [^10]: O'Reilly, Una-May and Franz Oppacher, Using Building Block Functions to Investigate a Building Block Hypothesis for Genetic.  
 [^11]: Goldberg,Genetic Algorithms in Search Optimization and Machine Learning, Page 41, 1989.  
-[^12]: Johnson Colin G., Genetic Programming Crossover: Dose It Cross over?, 2009.  
+[^12]: Johnson Colin G., Genetic Programming Crossover,Dose It Cross over,2009.  
 [^13]: D. White, Simon M. Poulding, A Rigorous Evaluation of Crossover and Mutation in Genetic Programming, 2009.  
 [^14]: Poli, Riccardo and William B. Landon, On the Search Properties of Different Crossover Operators in Genetic Programming, 2001.  
 [^15]: George R. Price, Selection and Covariance, 1969.  
 [^16]: L.Beadle and C.G. Johnson, Semantically driven crossover in genetic programming, 2008.  
 [^17]: B.Burlacu et al, Methods for Genealogy and Building Block Analysis in Genetic Programming, 2015.  
-[^18]: John R. Koza, Hierarchical Automatic Function Definition in Genetic Programming, 1993.  
+[^18]: John R. Koza, Hierarchical Automatic Function Definition in Genetic Programming, 1993. 
+
 [^19]: J. R. Koza, Evolving the Architecture of a Multi-part Program in Genetic Programming Using Architecture-Altering Operations, in Evolutionary Programming, 1995.  
 [^20]:P. J. Angeline and J. B. Pollack, The Evolutionary Induction of Subroutines, 1997.  
+
 [^21]:M. Ahluwalia and T. C. Fogarty, Co-evolving hierarchical programs using genetic programming, presented at the Proceedings of the 1st annual conference on genetic programming, Stanford, California, 1996.  
+
 [^22]:M. Ahluwalia and L. Bull, Co-evolving Functions in Genetic Programming: Dynamic ADF Creation Using GLiB, in Evolutionary Programming, 1998.  
+
 [^23]:M. Ahluwalia and L. Bull, Coevolving functions in genetic programming, Journal of Systems Architecture, vol. 47, no. 7, pp. 573-585, 2001,    
 [^24]:A. Dessi, A. Giani, and A. Starita, An Analysis of Automatic Subroutine Discovery in Genetic Programming, in Annual Conference on Genetic and Evolutionary Computation, 1999.  
 [^25]:J. Rosca, Hierarchical Learning with Procedural Abstraction Mechanisms,1997.  

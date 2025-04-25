@@ -76,6 +76,32 @@ A类对应@，CNAME对应www或者别的。
     ```
 3. 执行`hexo clean`再用`hexo g`重新生成
 
+另一个办法是改用pandoc作为renderer，但是同样有踩坑点。
+首先在电脑上安装最新版的pandoc，然后在hexo目录下执行：  
+```bash
+npm install hexo-renderer-pandoc --save
+npm install hexo-renderer-mathjax --save
+npm install hexo-filter-mathjax --save
+```
+这个时候渲染pandoc可能无法识别`\frac{}{}`和`\begin{}`这种高级语法，需要更改pandoc的渲染设置。  
+打开node_modules\hexo-renderer-pandoc\lib\parseArgs.js，找到：  
+```java
+const defaultArgs = ['-M', 'pagetitle=dummy'];
+```
+把这一行改成：  
+```java
+const defaultArgs = ['-M', 'pagetitle=dummy',"--mathjax"];
+```
+此时还有一个问题是当markdown文件的列表的上一行不是回车符时，在pandoc渲染时不会将其识别为列表。  
+这个时候打开`_config.yml`
+在最后加上：  
+```yml
+pandoc:
+  extensions:
+    - +lists_without_preceding_blankline
+```
+执行`hexo clean`再用`hexo g`重新生成即可。
+
 ### 页面中的LaTeX/MathJaX矩阵无法换行，只有一列
 1. 行内矩阵不能用`\begin{matrix}`，要用`\begin{smallmatrix}`，括号用`\left[`和`\right]`表示
 2. 由于渲染问题，换行符`\\`要改为`\\\` 同时注意前后都要空格
