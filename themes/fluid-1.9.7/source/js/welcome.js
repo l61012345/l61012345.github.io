@@ -11,7 +11,7 @@ function welcome(){
         }
         swal({
             title: "嗨,",
-            text: welcome_text+'\n图片加载不出来记得挂梯子！！\n  ◆◆◆◆◆◆ \n '+'本网站中所有的内容（中/英）均接入wiseflow \n 如果要引用内容，请注意使用正确的引用格式\n (如果一直弹出这条消息，那么需要在浏览器设置中允许本站的保存cookie权限)',//欢迎文本，可自行修改
+            text: welcome_text+'\n图片加载不出来记得挂梯子！！\n  ◆◆◆◆◆◆ \n '+'本网站中所有的内容（中/英）均接入wiseflow \n 如果要引用内容，请注意使用正确的引用格式\n (如果一直弹出这条消息，那么需要在浏览器设置中允许本站的保存cookie权限) \n click on right corner to switch English version powered by Google Translater.',//欢迎文本，可自行修改
             imageUrl: "/img/welcome.jpg",//图片，自行修改位置对应source下文件
             timer: 30000,//弹出时间
             showConfirmButton: true
