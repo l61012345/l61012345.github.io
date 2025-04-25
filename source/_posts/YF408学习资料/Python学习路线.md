@@ -4,6 +4,7 @@ category_bar: true
 author: Yushen Chen
 date: 2022/05/07
 categories: 
+- 学习笔记
 - YF408实验室培训资料
 ---
 # Python学习路线
