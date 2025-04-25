@@ -10,7 +10,7 @@ categories:
 ---
 # 02. GEP的实体
 {% note info %}  
-这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第一章： Chapter 2： The Entities of Gene Expression Programming
+这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第2章： Chapter 2： The Entities of Gene Expression Programming
   
 本书可以在斯普林格购买纸质版或者电子版：https://link.springer.com/book/10.1007/3-540-32849-1
 {% endnote %}  

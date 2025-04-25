@@ -10,7 +10,7 @@ categories:
 ---
 # 05. 随机常数
 {% note info %}  
-这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第一章： Chapter 5： Numerical Constants and the GEP-RNC Algorithm
+这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第5章： Chapter 5： Numerical Constants and the GEP-RNC Algorithm
 本书可以在斯普林格购买纸质版或者电子版：https://link.springer.com/book/10.1007/3-540-32849-1
 {% endnote %}  
 在GP中引入常数是一种增大信息密度的方式：因为使用非常数的function来拼凑出一个常数（尤其是非整数）非常困难，且在结构上非常长，按照交叉的偏向性，常数节点很容易代替他们，从而减少个体的大小。  
