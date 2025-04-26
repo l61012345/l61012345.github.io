@@ -1,0 +1,38 @@
+---
+title: 06. GEP的自动定义函数
+date: 2025/4/26
+category_bar: true
+categories: 
+- 研究
+- 进化计算
+- 遗传编程
+- 基因表达式编程：通过人工智能的数学建模
+---
+# 06. GEP的自动定义函数
+{% note info %}  
+这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第6章： Chapter 6： Automatically Defined Functions in Problem Solving  
+本书可以在斯普林格购买纸质版或者电子版：https://link.springer.com/book/10.1007/3-540-32849-1  
+{% endnote %}  
+
+GP中的自动定义函数（ADF）是一种让GP实现代码复用的方法。最初的GP中的ADF中的结构由Function Defining Branch和Value Returning Branch两部分组成，Function Defining Branch负责定义ADF的具体结构，Value Returning Branching相当于程序的主函数，用于自行决定何时何处调用这些ADF。   
+在GEP中，只要对多基因GEP的linking function稍加改造，让其可以自我进化，就可以让GEP支持自主调节何时何处使用chromosome中的基因。这时候chromosome中每一个基因就相当于一个ADF。ADF何时何处被主程序调用、以及ADF之间的相互关系取决于一个特殊基因，称为Hox基因。Hox基因可以看作是支持自我寻找关系的linking function，决定了ADF在程序中被如何调用。  
+带有ADF的GEP中，种群的进化不单纯的依赖对**基本building blocks(ADFs)**形状和语义的替换，同时也有新的子程序的生成和关系调整。  
+在ADF-GEP中，Hox基因被添加在chromosome的最后一位，和其他普通基因（ADF）一样，Hox基因有头部和尾部。但是Hox基因的端点集仅包含前面ADF的引用。并且一个个体中不一定只存在一个Hox基因，在单输出的情况下，Hox基因可以被linking function或者是更高层级的Hox基因连接。和GP-ADF的主程序一样，进化过程可以自行决定Hox基因中 何时何地几次调用ADF。  
+比如在本章的第一个例子中，作者在解决多项式符号回归问题中使用了两个Hox基因（一个Hox基因和其全部引用编译的结果称为一个Cell），最终个体选择两个Cell中表现更好的那个：  
+$$Output_i = Max(Cell_{i1}(ADF_1,...,ADF_n),...,Cell_{im}(ADF_1,...,ADF_n))$$
+
+## ADF对GEP的影响
+实验发现在ADF加入之后，整个个体的复杂度会上升，但是并不代表这样的个体的适应度会更高。事实上，ADF这样的高密度信息节点进入种群之后其内部结构在主程序中是不可调整的，主程序在利用信息密度大的节点进行精度上的微调时容易出现bloat，这可能是本章所写的大部分实验结果的主程序都有为“0”的多项式结构存在的原因。  
+ADF-GEP由于复杂度的提升，在简单的回归问题上的性能表现反而不如基本GEP，但是如果给予足够大的种群和更长的进化代数，ADF-GEP仍然可以找到最优解。  
+此外，在这一章使用的linking function（Max函数）之下，作者发现点突变等等变异对基因带来的微小改变可能会翻转原来的Cell的表现，从而让原有表现不那么好的Cell变成现在chromosome中最好的Cell而表现出来。  
+另外一点是ADF-GEP可能会从多个表示方向同时逼近最优解，即种群中可能出现fitness相同，但是个体表示差异非常大的个体，这意味着(ADF-)GEP在最优解上产生了结构的多样性，尽管可能在当前种群中这些改变结构不改变语义的变异对个体不太会有影响，但是这些影响可能会在未来通过积累表现出来。  
+
+### ADF的解释
+在第四章中，作者介绍了UDF（User Defined Function），即用户提前讲一些已经知道的经验模型作为函数引入到GEP中。ADF发现building blocks的过程并不像UDF这样简洁明了，进化过程自身可以发现大量的building blocks，这些building blocks可能和人类经验构筑的模型相当不同。但是实验说明，ADF确实可以发掘出系统中潜在的规律性。进化过程会自己尝试将挖掘出的大量的ADF进行复用和修改。  
+
+### 带随机常数的ADF
+在对开普勒第三定律的符号回归实验中，作者发现ADF-GEP的进化速度比多基因GEP和基本GEP更快，因此ADF-GEP还可以继续增加复杂度，比如引入前一章节提到的随机常数机制。实验结果说明在这个实验中有RNC的RNC-ADF-GEP的表现会比ADF-GEP的表现更好。有RNC的ADF结构更加紧凑。  
+
+### 多输出的ADF-GEP
+在鸢尾花数据集分类实验中，作者使用的是多输出的ADF-GEP：有多少个类别就有多少个Hox基因。这种方法和使用多基因进行分类是不同的：在多基因GEP任务中，有多少个分类类别就对应多少个基因，此处由于进化粒度的下降，在Multi-Cellular GEP中，每个类别允许使用的基因数量更多。Cell会根据每个二分类任务的复杂程度来自行决定使用多少个ADF（基因）。  
+实验说明Multi-Cellular GEP在这个任务中的性能比多基因GEP更好。  
