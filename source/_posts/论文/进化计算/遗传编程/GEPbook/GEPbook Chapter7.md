@@ -1,0 +1,86 @@
+---
+title: 07. 多项式推理和时间序列预测
+date: 2025/4/30
+category_bar: true
+categories: 
+- 研究
+- 进化计算
+- 遗传编程
+- 基因表达式编程：通过人工智能的数学建模
+---
+# 07. 多项式推理和时间序列预测
+这一章当中将研究使用更高密度更紧凑的函数作为Function Set中的函数对进化所造成的影响。以及GEP在时间序列预测任务上的一些特殊设置。  
+
+## Kolmogorov-Garbor多项式的进化
+Kolmogorov-Gabor多项式是一种万能逼近器，理论上可以通过调整Kolmogorov-Gabor多项式的阶数和参数的设置逼近任何一个系统函数。STROGANOFF系统就是这样一个利用Kolmogorov-Gabor多项式拟合目标函数的系统。  
+最初的STROGANOFF系统只包含一个两参数的多项式：  
+$$F_9(x_1,x_2)=a_0+a_1x_1+a_2x_2+a_3x_1x_2+a_4x_1^2+x_5x_2^2$$
+在Enhanced STROGANOFF系统中，可以使用用来逼近目标函数的多项式有16个。  
+| $F_i$  | 表达式                      |
+|--------|-----------------------------|
+| $F_1$   | $a_0+a_1x_1+a_2x_2+a_3x_1x_2$                         |
+| $F_2$   | $a_0 + a_1 x_1+a_2x_2$                  |
+| $F_3$   | $a_0 + a_1 x_1 + a_2 x_2+a_3x_1^2+a_4x_2^2$           |
+| $F_4$   | $a_0 + a_1 x_1 + a_2 x_1x_2+a_3x_1^2$          |
+| $F_5$   | $a_0 + a_1 x_1 + a_2x_2^2$   |
+| $F_6$   | $a_0 + a_1 x_1 + a_2 x_2 + a_3 x_1^2$   |
+| $F_7$   | $a_0 + a_1 x_1 + a_2 x_1^2 + a_3 x_2^2$  |
+| $F_8$   | $a_0 + a_1 x_1^2 + a_2 x_2^2$ |
+| $F_9$   | $a_0 + a_1 x_1 + a_2 x_2 + a_3 x_1x_2 + a_4 x_1^2+a_5 x_2^2$ |
+| $F_{10}$  | $a_0 + a_1 x_1 + a_2 x_2 + a_3 x_1x_2 + a_4 x_1^2$ |
+| $F_{11}$  | $a_0 + a_1 x_1 + a_2 x_2 + a_3 x_1x_2 + a_4 x_2^2$ |
+| $F_{12}$  | $a_0 + a_1 x_1x_2 + a_2 x_1^2 + a_3 x_2^2$ |
+| $F_{13}$  | $a_0 + a_1 x_1 + a_2 x_1x_2 + a_3 x_2^2$ |
+| $F_{14}$  | $a_0 + a_1 x_1 + a_2x_1 x_2$ |
+| $F_{15}$  | $a_0 + a_1 x_1x_2$ |
+| $F_{16}$  | $a_0 + a_1 x_1 x_2 + a_2 x_1^2$  |
+
+作者分别用Original STROGANOFF和Enhanced STROGANOFF系统中的原始多项式作为GEP的Function Set，其中STROGANOFF多项式的系数由第五章提到的RNC来寻找。作者将这样的GEP系统命名为GEP-KG。    
+作者用上述提出的方法来拟合太阳黑子的观测数据。这个观测数据是一个时间序列，对时间序列的分析理论上是寻找当前时间点的数据和过去时间点上数据之间的关系，因此如此定义时间序列预测任务：  
+$$f(t)=f(f(t-1),f(t-2),...,f(t-d))$$
+在本章的任务中，设置$d=10$，因此Terminal Set为$t-10,t-9,...,t-1$所对应的观测数据$a,b,c,...,j$。  
+作者在第一组实验中使用了如下的算法设置：  
+- GEP-OS：单基因GEP-RNC，Function Set为$F_9$(STROGANOFF)  
+- GEP-ESU：单基因GEP-RNC，Function Set为 Enhanced STROGANOFF
+- GEP-ESM：多基因GEP-RNC，Function Set为Enhanced STROGANOFF  
+
+其中每个函数有6个RNC，大于函数所需要的参数数量的RNC部分为RNC的非编码区段。  
+结果表明：任务的性能表现：GEP-ESM>GEP-ESU>GEP-OS.  
+多基因GEP对STROGANOFF系统的模拟更加有效。并且作者认为GP不能具有多个语法树（其实是可以的，参见ADF-GP或者是Multi-gene GP）；同时GP无法处理如此庞大的常数集合和以进化的形式调整常数的能力。  
+  
+为了验证常数在该实验中起到的重要性，作者将Enhanced STROGANOFF系统中的所有系数全部设置为1，重新做上述实验。结果发现100次实验中每一次实验中最佳个体的fitness和$R^2$完全相同。且算法的性能$R^2$介于GEP-ESU和GEP-OS，fitness最低。这样的现象意味着在没有Dc域的情况下，算法将非常容易陷入局部最优值。  
+
+事实上，时序预测任务中的一个难点就是系统很容易被一些attractor吸引，从而陷入局部最优。事实上，在这种情况下，创建的简单模型通常具有出色的统计数据，但预测能力为零。比如在这个问题中,$y=j$的适应度已经达到 2.38177，$R^2$为 0.6961811429，因此要使用一些强制措施避免系统收敛到这样的解当中。事实上在这一章所有的STROGANOFF系统的模拟实验中使用了一个检查器，它会检查每个表达式树中不同Terminal的总数（使用的参数个数），并将使用的参数个数小于5的解标记为不可达。不过，这种方法并没有在使用基本运算符作为function set的GEP中实现，因为它们非常灵活，可以轻松找到摆脱所有这些局部最优的方法。使用Kolmogorov-Gabor多项式作为GEP的function set时，理论上搜索空间中attractor的点被Kolmogorov-Gabor函数所表示的概率非常的低，这也是本章中为什么会使用Kolmogorov-Gabor函数作为GEP的Function Set中的理由。  
+紧接着作者分析了上面实验中前三个算法的最优解的结构，发现$F_2$在三个算法的最优解个体中的出现频率都非常高，这表明在这个问题当中进化系统倾向于选择更短的Function来构成个体。  
+另外，由Kolmogorov-Gabor多项式构成的最终个体的形态十分复杂（因为Kolmogorov-Gabor本身就已经很复杂了），缺乏解释性。  
+
+## 标准GEP的进化
+接下来，为了对比性能，作者使用了更加简单的GEP系统完成太阳黑子的预测任务。在这些GEP系统中，Function Set被设定为基本四则运算$(+,-,×,÷)$而非Kolmogorov-Gabor多项式，这些设置包括：  
+- GEA-B：多基因GEP算法（GEA），不使用RNC。   
+- GEP-RNC：多基因GEP算法，使用RNC。  
+- MCS：Multicellular GEP，有多个主程序，不使用RNC  
+- MCS-RNC：Multicellular GEP，有多个主程序，使用RNC  
+  
+所有的算法测试性能排序如下：  
+Average Fitness of Best Invidual：  
+Unif-Enhanced < GEP-OS < MCS < GEP-ESU < GEP-B < GEP-ESM < MCS-RNC < GEP-RNC  
+Average $R^2$  of Best Invidual：  
+GEP-OS < Unif-Enhanced < GEP-ESU < GEP-ESM < MCS < MSC-RNC < GEP-B < GEP-RNC  
+结果可以总结如下：  
+- 基础运算组成的函数集表现比STROGANOFF组成的函数集更好  
+- 添加了RNC的GEP表现比没有添加RNC的GEP的表现更好  
+  
+更进一步地观察GEA-B,GEP-RNC等等更简单系统的最优解（公式7.9b-7.11b），比如公式7.11b是MCS的最优解（括号表示ADF）：  
+$$y=\frac{2(\frac{h+c}{j+i}a+j)(\frac{b}{b-f}+j)}{2(i)+(\frac{h+c}{j+i}a+j)}$$
+可以发现这个太阳黑子序列的最优解根本就不含有多项式，因此在这个问题中Kolmogorov-Gabor的表示是多余的，如此进化系统会更加倾向于选择自由度更高的Function来自己凑成目标表示，这可能是GEP模拟STROGANOFF系统中的最优解中大量出现$F_2$的原因。  
+  
+这两个结果可以说明当进化使用STROGANOFF系统来表示最优解时，由于Kolmogorov-Gabor多项式的自由度低于四则运算，因此个体的表示精度和表示能力下降，因此使用STROGANOFF系统的GEP在这个任务中的表现更加低效。另外，由Kolmogorov-Gabor多项式构成的最终个体的形态十分复杂（因为Kolmogorov-Gabor本身就已经很复杂了），缺乏解释性。  
+相比之下，以基础函数作为Primitive Set的GEP由于自由度更高，在这个问题中的表现更好，产生的解也跟简单。  
+
+## GEP在时间序列分析上的应用
+在写前面的段落的时候已经提到了，在此进行一个小总结：时间序列分析找的是过去的观测结果和现在的观测结果之间的关系，因此构建的模型应当表示为：  
+$$f(t)=f(f(t-1),f(t-2),...,f(t-d))$$
+其中$d$表示embedding dimension，表示最远需要探索的时间点的关联关系。  
+对于数据集的处理，自然是留出一部分时间点作为测试集不加入训练。  
+在本章的太阳黑子回归问题中作者还用到了一个技巧：  
+当进化陷入停滞之后，**将一个中性基因添加到系统中**（可能的实现方式是在每个个体的后面再增加一个基因），让系统的进化可以再次重启，依此类推，直到引入另一个中性基因不再伴随基因创新的爆发。理论上，如果项数足够多，这种程序可以将任何连续函数近似到任意精度。在这里，添加的中性基因是潜在的新项。
