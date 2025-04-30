@@ -115,7 +115,7 @@
 <meta property="og:description" content="07. 多项式推理和时间序列预测 这一章当中将研究使用更高密度更紧凑的函数作为Function Set中的函数对进化所造成的影响。以及GEP在时间序列预测任务上的一些特殊设置。 Kolmogorov-Garbor多项式的进化 Kolmogorov-Gabor多项式是一种万能逼近器，理论上可以通过调整Kolmogorov-Gabor多项式的阶数和参数的设置逼近任何一个系统函数。STROGANO">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-30T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-30T15:26:40.037Z">
+<meta property="article:modified_time" content="2025-04-30T15:55:43.590Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -406,7 +406,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          2.8k 字
         
       </span>
     
@@ -417,7 +417,7 @@ p.spoiler {
         
         
         
-          17 分钟
+          24 分钟
         
       </span>
     
@@ -534,8 +534,6 @@ GEP-OS &lt; Unif-Enhanced &lt; GEP-ESU &lt; GEP-ESM &lt; MCS &lt; MSC-RNC &lt; G
 </li>
 <li>添加了RNC的GEP表现比没有添加RNC的GEP的表现更好</li>
 </ul>
-<p>更进一步地观察GEA-B,GEP-RNC等等更简单系统的最优解（公式7.9b-7.11b），比如公式7.11b是MCS的最优解（括号表示ADF）：<br />
-<span class="math display">\[y=\frac{2(\frac{h+c}{j+i}a+j)(\frac{b}{b-f}+j)}{2(i)+(\frac{h+c}{j+i}a+j)}\]</span> 可以发现这个太阳黑子序列的最优解根本就不含有多项式，因此在这个问题中Kolmogorov-Gabor的表示是多余的，如此进化系统会更加倾向于选择自由度更高的Function来自己凑成目标表示，这可能是GEP模拟STROGANOFF系统中的最优解中大量出现<span class="math inline">\(F_2\)</span>的原因。</p>
 <p>这两个结果可以说明当进化使用STROGANOFF系统来表示最优解时，由于Kolmogorov-Gabor多项式的自由度低于四则运算，因此个体的表示精度和表示能力下降，因此使用STROGANOFF系统的GEP在这个任务中的表现更加低效。另外，由Kolmogorov-Gabor多项式构成的最终个体的形态十分复杂（因为Kolmogorov-Gabor本身就已经很复杂了），缺乏解释性。<br />
 相比之下，以基础函数作为Primitive Set的GEP由于自由度更高，在这个问题中的表现更好，产生的解也跟简单。</p>
 <h2 id="gep在时间序列分析上的应用">GEP在时间序列分析上的应用</h2>
@@ -544,6 +542,16 @@ GEP-OS &lt; Unif-Enhanced &lt; GEP-ESU &lt; GEP-ESM &lt; MCS &lt; MSC-RNC &lt; G
 对于数据集的处理，自然是留出一部分时间点作为测试集不加入训练。<br />
 在本章的太阳黑子回归问题中作者还用到了一个技巧：<br />
 当进化陷入停滞之后，<strong>将一个中性基因添加到系统中</strong>（可能的实现方式是在每个个体的后面再增加一个基因），让系统的进化可以再次重启，依此类推，直到引入另一个中性基因不再伴随基因创新的爆发。理论上，如果项数足够多，这种程序可以将任何连续函数近似到任意精度。在这里，添加的中性基因是潜在的新项。</p>
+<h2 id="讨论">讨论</h2>
+<h3 id="讨论1可表示粒度">讨论1：可表示粒度</h3>
+<p>本章中最终的结论是“KG函数的加入会让GEP的性能效率降低”，这个结论建立在本章用到的太阳黑子观测结果的预测上，但是如果我们更进一步地观察GEA-B,GEP-RNC等等更简单系统的最优解（公式7.9b-7.11b），比如公式7.11b是MCS的最优解（括号表示ADF）：<br />
+<span class="math display">\[y=\frac{2(\frac{h+c}{j+i}a+j)(\frac{b}{b-f}+j)}{2(i)+(\frac{h+c}{j+i}a+j)}\]</span> 可以发现这个太阳黑子序列的最优解很有可能根本就不含有多项式，因此在这个问题中Kolmogorov-Gabor的表示是多余的，如此进化系统的动力学特性可能会退化到第五章和没有使用常数的GEP的搜索特性相似的性质。也就是说，在Function set的精度不足以描述目标最优解时，进化过程会更加倾向于选择自由度更高的Function来自己凑成目标表示，这可能是GEP模拟STROGANOFF系统中的最优解中大量出现<span class="math inline">\(F_2\)</span>的原因。<br />
+但是本章的实验还有进一步的可探讨空间：如果将分式函数加入到function set中（因为可以发现最优解含有大量的分式），或者是在加入分式函数的同时也加入四则运算，GEP的性能表现又是如何的。<br />
+至少我在GP的实验中可以发现，如果函数集中加入了确实和目标解相似的部分，甚至是完全一样的部分，这个函数集由于含有的关于目标解的信息密度高，且结构长度为1而被快速扩散。但是如果加入和目标相似，但是相似程度不是那么高的部分，进化会在中期首先扩散这部分，但是过一段代数之后这些节点便不被进化所使用了。</p>
+<h3 id="讨论2激活函数">讨论2：“激活函数”</h3>
+<p>在这一章当中，作者使用Kolmogorov-Gabor多项式作为Function set的其中一个初衷是Kolmogorov-Gabor多项式可以作为非线性激活器拟合几乎所有的函数。这种作用让人联想到神经网络中的激活函数：在神经网络中，激活函数的作用是让神经元具有表示非线性系统的能力，在神经网络中，来自一个激活函数的输出成为下一个激活函数的输入，当激活函数是非线性函数时，整个堆叠的模型具有非线性表示能力。<br />
+在树形结构中出现的Kolmogorov-Gabor多项式也有可能出现堆叠的情况，即一个多项式的输出是另一个多项式的输入，GEP的RNC系统赋予了GEP可以根据反馈来自适应调节多项式内部系数的权重，从这个角度看这两者似乎存在一丝相似性。但是GEP中高复杂度函数引入到函数集中的作用不止局限于“激活函数”，因此进化不仅在探索这些函数的层级性关系，同样也在探索这些函数在同一层的关联关系。因此个人认为GEP引入高级函数的特性相比于神经网络而言可能会更好。<br />
+所以，是否存在一种可能，可以将神经网络中使用的ReLu等简单激活函数加入到函数集（当然也要包括四则运算）以提高GEP的性能。总而言之这种非线性激活器函数在GEP中的作用还有待讨论。</p>
 
                 
               </div>
@@ -1731,5 +1739,20 @@ GEP-OS &lt; Unif-Enhanced &lt; GEP-ESU &lt; GEP-ESM &lt; MCS &lt; MSC-RNC &lt; G
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
