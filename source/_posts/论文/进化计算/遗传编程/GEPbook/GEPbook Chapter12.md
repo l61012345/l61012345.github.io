@@ -1,5 +1,5 @@
 ---
-title: 12. 进化动力学分析
+title: 12. 进化成分分析
 date: 2025/5/1
 category_bar: true
 categories: 
@@ -8,7 +8,7 @@ categories:
 - 遗传编程
 - 基因表达式编程：通过人工智能的数学建模
 ---
-# 12. 进化动力学分析
+# 12. 进化成分分析
 
 {% note info %}  
 这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第12章： Chapter 12： Evolutionary Studies
