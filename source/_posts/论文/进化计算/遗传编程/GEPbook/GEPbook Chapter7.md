@@ -9,6 +9,12 @@ categories:
 - 基因表达式编程：通过人工智能的数学建模
 ---
 # 07. 多项式推理和时间序列预测
+
+{% note info %}  
+这是对《Gene Expression Programming: Mathematical Modeling by an Artificial Intelligence》的笔记，本页对应第7章： Chapter 7： Polynomial Induction and Time Series Prediction
+本书可以在斯普林格购买纸质版或者电子版：https://link.springer.com/book/10.1007/3-540-32849-1
+{% endnote %}  
+
 这一章当中将研究使用更高密度更紧凑的函数作为Function Set中的函数对进化所造成的影响。以及GEP在时间序列预测任务上的一些特殊设置。  
 
 ## Kolmogorov-Garbor多项式的进化
@@ -16,8 +22,9 @@ Kolmogorov-Gabor多项式是一种万能逼近器，理论上可以通过调整K
 最初的STROGANOFF系统只包含一个两参数的多项式：  
 $$F_9(x_1,x_2)=a_0+a_1x_1+a_2x_2+a_3x_1x_2+a_4x_1^2+x_5x_2^2$$
 在Enhanced STROGANOFF系统中，可以使用用来逼近目标函数的多项式有16个。  
+
 | $F_i$  | 表达式                      |
-|--------|-----------------------------|
+|:-|:-|
 | $F_1$   | $a_0+a_1x_1+a_2x_2+a_3x_1x_2$                         |
 | $F_2$   | $a_0 + a_1 x_1+a_2x_2$                  |
 | $F_3$   | $a_0 + a_1 x_1 + a_2 x_2+a_3x_1^2+a_4x_2^2$           |
