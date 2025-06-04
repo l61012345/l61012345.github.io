@@ -494,8 +494,9 @@ p.spoiler {
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211118084917.png width=60%></p>
 <p>PCM信号在经过数字基带系统之后生成数字基带系统的输入信号<span class="math inline">\(S(t)\)</span>，输入信号与载波<span class="math inline">\(c(t)\)</span>相乘进行调制。在信道中，存在加性高斯白噪声<span class="math inline">\(n(t)\)</span>。在接收端，经过带通滤波器后，噪声的频谱收到限制，转变为窄带噪声<span class="math inline">\(n_R(t)\)</span>。信号进行相干解调或者非相干解调（包络检波法），通过低通滤波器过滤出高频分量，最后在抽样判决器处还原为数字信号<span class="math inline">\(m(t)\)</span>。</p>
 <h2 id="ask">2ASK</h2>
-<p>2ASK(Binary amplitude shift keying)是一种针对数字信号的调幅方法。<br />
-### 调制方法 进入调制模块的输入信号由两部分组成：周期方波脉冲信号<span class="math inline">\(g(t-nT_s)\)</span>和需要传输的信息<span class="math inline">\(a_n=\begin{cases}
+<p>2ASK(Binary amplitude shift keying)是一种针对数字信号的调幅方法。</p>
+<h3 id="调制方法">调制方法</h3>
+<p>进入调制模块的输入信号由两部分组成：周期方波脉冲信号<span class="math inline">\(g(t-nT_s)\)</span>和需要传输的信息<span class="math inline">\(a_n=\begin{cases}
     1,以概率P\\
     0,以概率1-P\\
 \end{cases}\)</span>整个信号表达为：<span class="math inline">\(S(t)=∑_na_ng(t-nT_s)\)</span>。<br />
@@ -552,7 +553,7 @@ p.spoiler {
             <p>由于多径传播会造成波形的振荡，影响电磁波的幅度。因此在实际通信中不会使用ASK。</p>
           </div>
 <h2 id="fsk">FSK</h2>
-<h3 id="调制方法">调制方法</h3>
+<h3 id="调制方法-1">调制方法</h3>
 <p>FSK使用两个不同频率的载波<span class="math inline">\(cos(ω_1t)\)</span>、<span class="math inline">\(cos(ω_2t)\)</span>来表示数字信号“1”和“0”。<br />
 假设原信号以<span class="math inline">\(a_n\)</span>表示（表达式和之前的相同），<span class="math inline">\(\overline{a_n}\)</span>表示其取反后的数字信号，那么原信号经过调制后的波形表示为：<br />
 <span class="math display">\[S_{FSK}=[∑_na_ng(t-nT_s)]cos(ω_1t)+[∑_n\overline{a_n}g(t-nT_s)]cos(ω_2t)\]</span> 从上式可以看出FSK其实是两个频率不同的ASK信号的叠加。</p>
@@ -601,7 +602,7 @@ p.spoiler {
 <p>最后信号通过抽样判决器，抽样判决器的最佳判决门限为<span class="math inline">\(\frac{a}{2}\)</span>。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211123133627.png width=50%></p>
 <h2 id="psk">PSK</h2>
-<h3 id="调制方法-1">调制方法</h3>
+<h3 id="调制方法-2">调制方法</h3>
 <p>PSK对数字信号的相位进行调制，其使用两个相位不同的载波（通常相位差为<span class="math inline">\(π\)</span>）<span class="math inline">\(Acosω_Ct\)</span>、<span class="math inline">\(Acos(ω_ct+π)\)</span>来表达逻辑“1”和“0”。<br />
 <span class="math display">\[S_{2PSK}=\begin{cases}
    Acosω_Ct \text{ 表示&quot;1&quot;}\\
@@ -635,7 +636,7 @@ p.spoiler {
 在相干解调中，PSK信号通过带通滤波器后和同频同向的载波相乘，表示“-1”的波形与载波相乘，得到的波形会完全在小于0的一侧，表示“1”的波形与载波相乘，得到的波形会完全在大于0的一侧。信号通过低通滤波器消除高频分量后送入抽样判决器进行判别。抽样判决器的最佳判决门限为0。<br />
 <img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20211125141819.png width=60%></p>
 <h2 id="dpsk">DPSK</h2>
-<h3 id="调制方法-2">调制方法</h3>
+<h3 id="调制方法-3">调制方法</h3>
 <p>传统的PSK在解调过程中需要依赖未调制载波<span class="math inline">\(cosω_ct\)</span>的相位，如果载波相位发生反转，调制结果会随之发生反转，这种现象称为倒π现象。为了解决倒π现象，DPSK（相对相移键控）选择使用相对码来取代PSK中使用的绝对码，以使得解调结果不依赖<span class="math inline">\(cosω_ct\)</span>的相位。<br />
 DPSK的具体做法是:假设<span class="math inline">\(b_n\)</span>为<span class="math inline">\(a_n\)</span>的差分码，有： <span class="math display">\[b_n=a_n⊕b_{n-1} \]</span> 即当前差分码<span class="math inline">\(b_n\)</span>是前一个差分码<span class="math inline">\(b_{n-1}\)</span>与当前绝对码<span class="math inline">\(a_n\)</span>的模二加法（异或）结果。<br />
 再将差分码做PSK调制即可。<br />
