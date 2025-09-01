@@ -1,0 +1,2480 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="控制器的自动综合              这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。原书的免费公开版本在作者Koza">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03. 控制器的自动综合">
+<meta property="og:url" content="https://l61012345.top/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="控制器的自动综合              这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.这一章讲述了如何使用遗传编程完成控制器的自动设计。原书的免费公开版本在作者Koza">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-19T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-01T09:36:48.342Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>03. 控制器的自动综合 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+<link rel="stylesheet" href="/css/googletranslate.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>时间线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://unsplash.com/@l61012345" target="_self">
+                <i class="iconfont icon-image"></i>
+                <span>图库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/urasekai/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>里世界</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+        <!-- 🌐 Google 翻译控件 -->
+        <li class="nav-item" id="translate-btn">
+          <div id="google_translate_element" style="padding-top: 8px;"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="03. 控制器的自动综合"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-19 00:00" pubdate>
+          2023年12月19日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          101 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">03. 控制器的自动综合</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年9月1日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="控制器的自动综合">控制器的自动综合</h1>
+<div class="note note-info">
+            <p>这是对《Genetic Programming IV: Routine Human-Competitive Machine Intelligence》的笔记，本页对应第三章： Chapter 3： Automatic Synthesis of Controllers.<br />这一章讲述了如何使用遗传编程完成控制器的自动设计。</p><p>原书的免费公开版本在作者Koza本人的Research gate主页上：https://www.researchgate.net/publication/243776894_Genetic_Programming_IV_Routine_Human-Competitive_Machine_Intelligence<br />这本书也可以在Springer 购买电子版： https://link.springer.com/book/10.1007/b137549<br />或者在亚马逊英国购买纸质版： https://www.amazon.co.uk/Genetic-Programming-IV-Human-Competitive-Intelligence/dp/0387250670</p>
+          </div>
+<p>人类工程师进行设计的过程涉及到对各种考量的权衡，因此可以说设计的过程是需要使用到人类的智能的。这一章讲自动设计控制器(controller)作为例子讲述遗传编程在设计领域的应用，这一章包括了使用遗传编程设计如下的控制器：</p>
+<ul>
+<li>二阶滞后补偿器<br />
+</li>
+<li>三阶滞后补偿器
+<ul>
+<li>带有时延的三阶滞后补偿器<br />
+</li>
+</ul></li>
+<li>非最小相位系统</li>
+</ul>
+<h2 id="控制器背景">控制器背景</h2>
+<h3 id="控制器原理">控制器原理</h3>
+<p>使用控制器的目的是为了让系统原型(plant)、也就是控制器控制的目标系统的响应能够与一个设计者所期望的响应尽可能的匹配。此后作者举了一个控制车速的巡航控制器(cruise control device)的例子来说明控制器是如何工作来控制系统的。简单来说，控制器对系统的作用不是一蹴而就的，而是需要时间让整个系统不断调整自己的输出。在控制器控制系统原型的过程中，控制器需要通过监控系统原型的输出，并且比较和参考信号(reference signal)之间的误差(error signal)来调整原型系统的输入，从而让整个系统的输出你能够更加贴近参考信号。这样通过接收输出、改进输出、再将改进后的输出作为输入的控制方法称为反馈控制(feedback control)。如果反馈控制通过误差信号作为原型的下一次输入，那么这样的反馈控制称为负反馈控制(negative feedback control)。<br />
+含有反馈的控制系统也称为闭环控制系统（closed-loop control system），输入与反馈信号比较后的差值（即误差信号）加给控制器，然后再调节受控对象的输出，从而形成闭环控制回路。所以，闭环系统又称为反馈控制系统，这种反馈称为负反馈。与开环系统相比，闭环系统具有突出的优点，包括精度高、动态性能好、抗干扰能力强等。它的缺点是结构比较复杂，价格比较贵，对维修人员要求较高。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301095016.png width=60%></p>
+<div class="note note-info">
+            <p>更多关于控制论的内容请参考学习笔记中的控制系统课程。</p>
+          </div>
+<p>现实世界当中大部分的控制器都是手动的（比如阀门、手动控制的开关等等），但是这本书中强调的控制器都是自动控制器，也就是自动根据反馈输入调整系统输出的控制器。</p>
+<h3 id="控制器的设计指标">控制器的设计指标</h3>
+<p>在设计时需要考虑的控制器的特征非常多，下面列出了常见的一些控制器的设计指标，这些指标都和系统的阶跃响应有关(step response，指系统输入为单位阶跃信号时系统的时域输出变化)。</p>
+<ul>
+<li><p>上升时间和调节时间<br />
+设计控制器的过程中最常见的考虑因素是让系统响应表现为理想响应的时间尽可能小。这一设计指标通常被诠释为上升时间<span class="math inline">\(t_r\)</span>（rise time）或者是调节时间<span class="math inline">\(t_s\)</span>(settling time)。<br />
+上升时间是指定义为阶跃响应曲线从稳态值的10%第一次上升到90%所需的时间。<br />
+调节时间是指阶跃响应达到并永远保持在一个允许误差范围(误差带：通常取±5%或±2%)内，所需的最短时间。</p></li>
+<li><p>ITAE<br />
+控制工程中喜欢使用参考信号和系统原型的响应之差的绝对值在时间上的积分(the integral of the time-weighted absolute error)来衡量控制器的性能。由于按照时间的加权中会对比较晚出现的误差有更大的惩罚、应用ITAE作为适应度有助于迅速减小误差。</p></li>
+<li><p>过冲率<br />
+过冲率<span class="math inline">\(M_p\)</span>(overshoot)是指的系统原型的响应超出参考信号的最大百分比。过冲会消耗大量能量，设计时需要尽可能的考虑减小过冲。</p></li>
+<li><p>鲁棒性<br />
+在现实中还会出现干扰（disturbance）。这种干扰对系统的影响通常被建模为在系统原型输出端的加性噪声。鲁棒性可以表示为系统对于噪声的灵敏度，即系统输出对噪声的偏微分：<br />
+<span class="math display">\[\frac{∂S_{output}}{∂N}\]</span><br />
+好的控制系统可以对噪声表现出高鲁棒性，也就是输出对噪声的灵敏度不高。</p></li>
+<li><p>稳定性<br />
+稳定性(stability)是指系统随着输入信号微小变化的响应程度。如果整个系统的性能随着系统原型的微小变化而变化很大，那么这个系统可能毫无用处甚至会有危险。</p></li>
+</ul>
+<p>这些设计指标在系统的阶跃响应图上表现如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220301212556.png width=80%></p>
+<h3 id="控制器的基本组成">控制器的基本组成</h3>
+<p>一个控制器电路通常可能会用到如下的器件：<br />
+放大器(gain)、积分器(integrator)、差分器(differentiator)、加法器(adder)、减法器(substractor)、超前补偿(laed)、滞后补偿(lag)、延时器(delay)、翻转器(invertor)、取绝对值(absolute)、限制器(limitor)、乘法器(multiplier)、分配器(divider)、开关(switch)。</p>
+<p>控制器的拓扑结构可以描述为：</p>
+<ul>
+<li>控制器内部用到的器件数</li>
+<li>用到的器件类型</li>
+<li>控制器内部器件的输入和输出的连接方式</li>
+<li>控制器的外部输入和外部输出</li>
+</ul>
+<h3 id="pid控制器">PID控制器</h3>
+<p>PID控制器是控制系统中最常用的控制器类型，它由基本的三个控制器：P控制器、I控制器、D控制器组成。<br />
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220105903.png width=60%></p>
+<p>三个部分都对PID控制器整体的输出有对应的贡献。</p>
+<ul>
+<li>P控制器(proportional controller)，又称为比例段，它的作用是将参考信号和原型系统的输出之间的误差直接反馈给系统。<br />
+</li>
+<li>I控制器(integral controller)，又被称为积分段，它的作用是使得控制器在稳态时候的误差更小。<br />
+</li>
+<li>D控制器(derivative controller)，又被称为微分段。由于比例段提供的误差补偿总是滞后的，利用这一点P控制器可以通过求误差信号的斜率来预测未来误差信号的变化情况。</li>
+</ul>
+<p>PID控制器的作用用PID控制器的发明者Callender和Stenvenson的说法是：<br />
+“本发明的一个具体目的是提供一种系统，该系统将产生一种补偿效果，该补偿效果受与偏差的总范围、偏差率和给定期间内偏差的总和成比例的因素所支配。”<br />
+&gt; A specific object of the invention is to provide a system which will produce a compensating effect governed by factors proportional to the totoal extent of the deviation, the rate of the deviation, and the summation of the deviation during a given period.</p>
+<p>尽管PID控制器在现在的工业界应用非常广泛，但是对更好的控制器的需求从来没有停止过。在Astrom和Hagglund(1995)的论文中提到，只有20%的控制器工作的比较好。</p>
+<h2 id="控制器的智能设计方法论">控制器的智能设计方法论</h2>
+<h3 id="智能设计方法总述">智能设计方法总述</h3>
+<p>对控制器的智能设计，或者说智能综合需要设同时计控制器的拓扑结构和相应的参数的值，来满足用户指定的高阶的设计需求。下面列出了一些常见的对设计需求的高阶表达：</p>
+<ul>
+<li>优化要求<br />
+比如最小化ITAE<br />
+</li>
+<li>时域要求<br />
+比如最小化过冲、最大化抗噪性等等<br />
+</li>
+<li>频域要求<br />
+比如系统带宽、随着噪声的衰减等等</li>
+<li>稳定性要求<br />
+</li>
+<li>鲁棒性要求<br />
+</li>
+<li>对特定信号的值的限制</li>
+</ul>
+<div class="note note-info">
+            <p>在后续，</p>
+          </div>
+<p>用传统的设计方法（比如说状态空间设计、根据波特图的设计等等）很难同时满足上述几个设计要求的任意组合，因此需要使用到智能算法来进行优化。下面的几种启发式的方法可能可以解决这样的设计要求：</p>
+<ul>
+<li>爬山算法 (hill climbing)和基于梯度的算法(gradient methods)</li>
+<li>模拟退火算法(simulated annealing)</li>
+<li>进化计算(*这本书写作之时还没有进化计算这个概念，原书中写的是evolutionary methods)</li>
+</ul>
+<p>上述的这些方法都是启发式学习的方法，这些方法的迭代操作都类似，高层级的语言表示如下：</p>
+<ol type="1">
+<li>从搜索空间中的一个或者几个点上开始搜索，衡量这一个或者几个点的表现<br />
+</li>
+<li>通过改变现有的搜索点的结构来创建新的备选点<br />
+</li>
+<li>衡量新的备选点的表现，并得到一个指标<br />
+</li>
+<li>用这个指标对备选点进行选择<br />
+</li>
+<li>重复上述操作</li>
+</ol>
+<div class="note note-info">
+            <p>整个人工智能算法大致可以分为两类：启发式学习（又分为构造算法和改进算法，改进算法中包括了贪心算法和非贪心算法）和精确方法(比如专家系统、统计回归等等)。</p>
+          </div>
+<p>不管是何种搜索算法，搜索行为的主要动力来源于对个体表现的衡量，用于衡量的函数以代价的形式（越低越好）或者以适应度的形式（越高越好）出现。并且通常新的个体是基于现有的个体产生的，下面将详述这几种算法的搜索行为。</p>
+<h4 id="爬山算法和基于梯度的算法">爬山算法和基于梯度的算法</h4>
+<p>爬山算法开始于整个搜索空间的一个个体，对这个个体指定适应度后再创建新的个体，指定这个新的个体的适应度，然后通过适应度的衡量决定选择原来的个体还是新创建的个体。新个体的创建方式依照问题的不同而不同。<br />
+梯度下降可以看做是使用梯度作为适应度衡量的爬山算法。<br />
+爬山算法是一种点对点的贪心算法。在每一个循环中，爬山算法会无条件拒绝没有任何改进的个体，同时也会无条件接受具有改进的个体。(*形象的形容为：猴子搬玉米)在单次尝试当中，爬山算法容易陷入局部最优。如果问题允许多次尝试，那么多次尝试可能会找到全局最优。但是每一次尝试都是独立的，新一次的搜索并不会继承原来的搜索(*找不找得到全凭运气)。<br />
+爬山算法的另一个问题是并行化，虽然有并行化的爬山算法，但是并行线程之间的工作是独立的，并没有信息交流。<br />
+<div class="note note-info">
+            <p>遗传算法并行化过程的信息交流参考<a href="https://l61012345.top/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/">并行遗传算法</a></p>
+          </div></p>
+<h4 id="模拟退火算法">模拟退火算法</h4>
+<p>模拟退火算法也是一种点对点的搜索算法。这种算法也使用了一种特定问题的修改操作来基于现有个体产生新的个体，但是与爬山算法和梯度下降算法不同的是，模拟退火算法中使用了Metropolis算法和玻尔兹曼算法来来决定是否保留那些没有任何改进的个体。<br />
+此外，模拟退火运用了一个变量温度(temperature)<span class="math inline">\(T\)</span>来控制算法的运行过程和收敛情况，<span class="math inline">\(T\)</span>在运行过程中指数单调递减，并且影响Metropolis算法和玻尔兹曼算法对个体是否保留的抉择。在<span class="math inline">\(T\)</span>很高的时候，算法更倾向于接收那些没有任何改进的个体，随着算法迭代次数的增加，<span class="math inline">\(T\)</span>很低的时候，算法更倾向于拒绝那些没有任何改进的个体，以加快算法的收敛，但是为了保证全局性，算法也不会完全拒绝任何个体。</p>
+<h4 id="进化计算">进化计算</h4>
+<p>进化计算的搜索方法并不是贪心的，而是一种全局的搜索方式。并且，进化计算的操纵对象是群，因此是一种群智能搜索方法，而非点对点的搜索方法。在运行过程中，进化计算会在一开始会产生大量的个体，但是在趋于收敛时只有一小部分的个体生成。<br />
+遗传编程对于控制器的设计方法会在之后详述。</p>
+<h3 id="使用遗传编程的自动控制器综合方法">使用遗传编程的自动控制器综合方法</h3>
+<p>这本书中的控制器设计方法包含对拓扑和器件参数两方面的设计，包括：</p>
+<ul>
+<li>建立一种可以被遗传编程逐步解读的个体表示的方法<br />
+</li>
+<li>设计一种可以诠释高层级设计需求的适应度评估方法</li>
+</ul>
+<h4 id="遗传编程中树的进化方法">遗传编程中树的进化方法</h4>
+<p>本书的作者想出了三种针对控制器设计用树形结构来表达个体的方法。</p>
+<ul>
+<li>第一种方法是每个个体代表一种指示构建的方法，也就是说个体并不直接操纵电路，而是将个体编写为操纵电路的指令或者程序，由翻译好的程序对电路进行搭建。在这种方法下，程序的不同部分的运行顺序需要有先后：ADF需要先运行，然后再运行主程序。<br />
+</li>
+<li>第二种方法是首先考虑设计出一个基板电路(embryo，*这里作者用了生物学的胚胎指代基板电路，那么个体的操作可以认为是对这个胚胎的发育过程，从而将胚胎发育成完全发育的结构)，这个基板电路上有一些可以被指令操纵的结点。遗传编程中的每个个体代表一种修改这个基板电路的方式。通过将程序树中的函数逐步应用于基板电路结构，从而将基板电路变成完整的可以实现功能的控制器电路。与第一种方法一样，程序中的函数按照指定的评估顺序分别执行。<br />
+</li>
+<li>第三种方法是每一个树代表一种控制器电路的连接方式，函数节点为各种电路器件，从而直接将树转化为整个控制器电路。这种方法没有先后运行的顺序。</li>
+</ul>
+<p>本书在设计中用到的是第三种方法。如此，进化过程中个体会被直接翻译为控制器电路，然后带入仿真软件中运行，最后将仿真的特性作为个体的适应度。</p>
+<h4 id="基函数集端点集和强类型">基函数集、端点集和强类型</h4>
+<h5 id="基函数集">基函数集</h5>
+<p>设计中用到的基函数及其功能如下表所示：</p>
+<table style="width:100%;">
+
+<thead>
+<tr>
+<th style="text-align: left;">器件</th>
+<th style="text-align: left;">功能</th>
+<th style="text-align: center;">数学表达</th>
+<th style="text-align: left;">参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>GAIN</code></td>
+<td style="text-align: left;">用一个常数放大时域信号</td>
+<td style="text-align: center;"><span class="math inline">\(Asin(ωt)\)</span></td>
+<td style="text-align: left;">1. 常数 <br> 2.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>INTEGRATOR</code></td>
+<td style="text-align: left;">时域上对一个信号进行积分<br>在频域上对信号乘<span class="math inline">\(1/s\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\int Asin(ωt) ⇔\frac{1}{s}[S]_s\)</span></td>
+<td style="text-align: left;">1.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DIFFERENTIATOR</code></td>
+<td style="text-align: left;">对时域信号作差分<br>为表示简便，在频域上对信号乘<span class="math inline">\(s\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(s[f]_s\)</span></td>
+<td style="text-align: left;">1.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ADD_SIGNAL</code> <br> <code>SUB_SIGNAL</code> <br> <code>MULT_SIGNAL</code></td>
+<td style="text-align: left;">分别对应对信号的加减乘一个常数</td>
+<td style="text-align: center;"><span class="math inline">\(f_1 [·] f_2\)</span><br><span class="math inline">\([·]∈\{+,-,×\}\)</span></td>
+<td style="text-align: left;">1. 时域信号 <br> 2. 时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ADD_3_SIGNAL</code></td>
+<td style="text-align: left;">三个时域信号相加</td>
+<td style="text-align: center;"><span class="math inline">\(f_1+f_2+f_3\)</span></td>
+<td style="text-align: left;">1. 时域信号 <br> 2. 时域信号 <br> 3.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DIFFERENTIAL_INPUT_INTEGRATOR</code></td>
+<td style="text-align: left;">时域上对两个信号的误差积分</td>
+<td style="text-align: center;"><span class="math inline">\(∫(f_1-f_2)dt\)</span></td>
+<td style="text-align: left;">1. 时域信号 <br> 2. 时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>INVERTER</code></td>
+<td style="text-align: left;">反转信号</td>
+<td style="text-align: center;"><span class="math inline">\(-f\)</span></td>
+<td style="text-align: left;">1.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LEAD</code></td>
+<td style="text-align: left;">频域上与<span class="math inline">\(1+τs\)</span>相乘</td>
+<td style="text-align: center;"><span class="math inline">\((1+τs)[f]_S\)</span></td>
+<td style="text-align: left;">1.时域信号 <br> 2.常数<span class="math inline">\(τ\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LAG</code></td>
+<td style="text-align: left;">频域上与<span class="math inline">\(1/1+τs\)</span>相乘</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{1}{1+τs}[f]_S\)</span></td>
+<td style="text-align: left;">1.时域信号 <br> 2.常数<span class="math inline">\(τ\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LAG2</code></td>
+<td style="text-align: left;">频域上与<span class="math inline">\(ω_0^2/s^2+2ζω_0s+ω_0^2\)</span>相乘</td>
+<td style="text-align: center;"><span class="math inline">\(\frac{ω_0^2}{s^2+2ζω_0s+ω_0^2}[f]_S\)</span></td>
+<td style="text-align: left;">1.时域信号 <br> 2.常数<span class="math inline">\(ω\)</span><br>3.常数<span class="math inline">\(ζ\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>ABS</code></td>
+<td style="text-align: left;">对时域信号取绝对值</td>
+<td style="text-align: center;"><span class="math inline">\(\lvert f \rvert\)</span></td>
+<td style="text-align: left;">1.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>LIMITER</code></td>
+<td style="text-align: left;">限制信号在某一区间</td>
+<td style="text-align: center;"><span class="math inline">\([f]_{capped}\)</span></td>
+<td style="text-align: left;">1.时域信号 <br> 2.下界 <br> 3.上界</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DIV</code></td>
+<td style="text-align: left;">两个时域信号相除并限制</td>
+<td style="text-align: center;"><span class="math inline">\([\frac{f_1}{f_2}]_{capped}\)</span></td>
+<td style="text-align: left;">1.时域信号 <br> 2.时域信号 <br> 3下界 <br> 4.上界</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>DELAY</code></td>
+<td style="text-align: left;">对信号进行时延</td>
+<td style="text-align: center;"><span class="math inline">\([f]_se^{-sT}\)</span></td>
+<td style="text-align: left;">1.时域信号 <br> 2.时延<span class="math inline">\(T\)</span></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>IF_POSITIVE</code></td>
+<td style="text-align: left;">开关，运算结果为正时输出某个声明，反之输出另一个声明</td>
+<td style="text-align: center;"><span class="math inline">\(\begin{cases} f_1, f_0&gt;0 \\ f_2,f_0 ≤0\end{cases}\)</span></td>
+<td style="text-align: left;">1. 时域信号 <br> 2. 时域信号 <br> 3.时域信号</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>+,-,×,÷</code></td>
+<td style="text-align: left;">数值运算</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: left;">1.常数<br>2.常数</td>
+</tr>
+</tbody>
+</table>
+<p>此外还有ADF。</p>
+<h5 id="端点集">端点集</h5>
+<p>端点集中包括了如下的端点：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">标识</th>
+<th style="text-align: center;">意义</th>
+<th style="text-align: center;">类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><code>REFERENCE_SIGNAL</code></td>
+<td style="text-align: center;">参考信号</td>
+<td style="text-align: center;">信号</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>PLANT_OUTPUT</code></td>
+<td style="text-align: center;">系统原型的输出</td>
+<td style="text-align: center;">信号</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>CONTROLLER_OUTPUT</code></td>
+<td style="text-align: center;">控制器的输出信号</td>
+<td style="text-align: center;">信号</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>STATE_0</code>,<code>STATE_1</code>,…</td>
+<td style="text-align: center;">系统的内部状态</td>
+<td style="text-align: center;">信号</td>
+</tr>
+<tr>
+<td style="text-align: center;"><code>CONSTANT_0</code></td>
+<td style="text-align: center;">恒定为0的信号，用于干扰遗传编程，展示用</td>
+<td style="text-align: center;">信号</td>
+</tr>
+<tr>
+<td style="text-align: center;"><span class="math inline">\(\mathfrak{R}\)</span></td>
+<td style="text-align: center;">实数</td>
+<td style="text-align: center;">实数</td>
+</tr>
+</tbody>
+</table>
+<h5 id="强类型">强类型</h5>
+<p>强类型是值和拓扑结构实现统一进化最关键的机制。每个个体表达的树中的函数集和端点集分类如下：</p>
+<ul>
+<li>信号处理函数</li>
+<li>ADF</li>
+<li>表示时域信号的端点</li>
+<li>用于表示算术子树的端点和函数（算术子树用于进行数值运算，在下面会详细解释）</li>
+</ul>
+<h4 id="系统原型的表示">系统原型的表示</h4>
+<p>如果系统原型的结构是设计者可以了解到的，那么控制器的行为和特点可以通过仿真系统原型和控制器一并得到。如果原型结构无法被了解（*黑盒），那么遗传编程可以根据原型的输入输出生成一个符合的系统原型，再与控制器一并仿真。</p>
+<h4 id="自动定义函数在设置控制器上的使用">自动定义函数在设置控制器上的使用</h4>
+<p>在这个设计任务中，ADF不止可以通过重用函数来节省计算量，更重要的是ADF可以表示电路的两种结构：</p>
+<ul>
+<li><p>并联结构<br />
+ADF可以视作是打包好的字电路。由于重用，ADF函数的输出信号可以传递到不同的模块中，这就相当于是电路的并联。<br />
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220145437.png width=40%></p>
+<div class="note note-info">
+            <p>如果不使用ADF的话，可以在函数集中添加一个表示并联的函数来实现并联。</p>
+          </div></li>
+<li><p>反馈结构<br />
+ADF的递归结构可以视为是将上一次ADF的输出又重新返回到ADF的输入中，这样的操作在电路中是一种内部反馈。<br />
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220151633.png width=40%></p></li>
+</ul>
+<h4 id="调试器件参数的方法">调试器件参数的方法</h4>
+<p>如之前所说，对控制器的设计包括拓扑结构的设计和器件参数调试两方面。器件之间的拓扑结构可以通过树内部的端点和函数的连接来表示，但是在进化过程中演化器件拓扑结构的同时调整器件参数却并没有那么容易做到。这本书中介绍了三种进化过程中同时达成这两个目标的方法。需要注意的是，这三种方法都需要借助强类型实现。</p>
+<h5 id="算数子树">算数子树</h5>
+<p>第一种方法是：使用一种专门进行算术演算的子树结构，书中称为算术子树(arithmetic-performing subtree)，这种子树结构包含多个数值运算的函数并以自然常数作为端点。<br />
+具体而言，第一种方法下，端点上的数值从<span class="math inline">\([-5,5]\)</span>中选择，这个值在某个个体中被确定之后，在这个个体的运行过程中将不再发生变化。这个端点的值在运行过程当中使用非线性映射(NLM,none-linear mapping)转化，并在算数子树的运行过程中表达。<br />
+对数形式的非线性映射可使相差几个数量级的常数得到有效进化。除非另有说明，本书中使用的非线性映射将-5到5之间的数值转换为超过 10 个数量级的数值。<br />
+一个非线性映射函数的例子如下：<br />
+<span class="math display">\[NLM(x)=\begin{cases}
+  10^0,\text{ if }x&lt;-100\\
+  10^{-\frac{100}{19}-\frac{1}{19}x},\text{ if }-100≤x&lt;-5\\
+  10^x,\text{ if }-5≤x≤5\\
+  10^{\frac{100}{19}-\frac{1}{19}x},\text{ if }5&lt;x≤100\\
+  10^0,\text{ if }x&gt;100\\
+\end{cases}\]</span> 从图像上可以看出，这个函数的作用是成倍放大-5到5之间的<span class="math inline">\(x\)</span>的值。<br />
+<img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231220155339.png width=40%></p>
+<div class="note note-info">
+            <p>此处使用非线性映射的原因个人认为是原本的搜索空间太过稀疏造成的。使用非线性映射可以让之前的搜索在一个较为均匀的搜索空间中进行，然后在放回到原来稀疏的空间中。</p>
+          </div>
+<div class="note note-info">
+            <p>因此目前掌握的让搜索空间更加均匀的方式有三种：</p><ol type="1"><li>从个体编码的设计上让各个信息在空间中均匀分布<br /></li><li>使用排名</li><li>使用映射函数</li></ol>
+          </div>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223103455.png width=50%></p>
+<p>使用第一种方法加上参数变换操作的控制参数设置如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">单后代交叉</td>
+<td style="text-align: center;">86.5%</td>
+</tr>
+<tr>
+<td style="text-align: center;">复制</td>
+<td style="text-align: center;">10%</td>
+</tr>
+<tr>
+<td style="text-align: center;">普通突变</td>
+<td style="text-align: center;">1%</td>
+</tr>
+<tr>
+<td style="text-align: center;">子程序复制</td>
+<td style="text-align: center;">1%</td>
+</tr>
+<tr>
+<td style="text-align: center;">子程序创建</td>
+<td style="text-align: center;">1%</td>
+</tr>
+<tr>
+<td style="text-align: center;">子程序删除</td>
+<td style="text-align: center;">0.5%</td>
+</tr>
+</tbody>
+</table>
+<p>第一种方法被认为效率较低，原因是算树子树的交叉是一种近似于随机突变的操作。</p>
+<div class="note note-info">
+            <p>需要注意的是，使用算数子树虽然搜索的进程并不是直观的，但是从结构上仍然应当是在逐步逼近期望的值的结构。但是本书的作者认为这种方法下在搜索空间中每一次搜索的跳变太大了。<br />但是究竟跳变有多大，并没有一个实际的度量。这种情况下一种个人觉得可行的方法是将每个节点看做变量对适应度函数求偏微分得到该处跳变的灵敏度。</p>
+          </div>
+<h5 id="可扰数值">可扰数值</h5>
+<p>第二种方法是，子树中直接将可扰数值(perturbable numberical value)作为一个节点。所谓可扰数值是指该数值为从某个正态分布（书中方差为1，均值跟随进化）中的一个抽样。<br />
+具体而言，在第0代中的数值端点都会随机地从<span class="math inline">\([-5,5]\)</span>中选择，然后在接下来迭代中这些值会被施加按照以该值为均值，方差为1的一个正态分布中所抽样的一个值替代。在表达时同样使用非线性映射。此后这种方法使用了一种特殊的突变方式，称为高斯突变(Gaussian mutation)。在整个搜索过程中，这个些端点的值的变化并不会非常大。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223105202.png width=50%></p>
+<div class="note note-info">
+            <p>使用可扰数值的原因个人认为是为了控制突变造成的影响。</p>
+          </div>
+<p>使用第二种方法的控制参数设置如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">对可扰数值的高斯突变</td>
+<td style="text-align: center;">20%</td>
+</tr>
+<tr>
+<td style="text-align: center;">对除了可扰数值外的子树内部节点的单后代交叉</td>
+<td style="text-align: center;">48.5%</td>
+</tr>
+<tr>
+<td style="text-align: center;">对除了可扰数值外的端点的单后代交叉</td>
+<td style="text-align: center;">9%</td>
+</tr>
+<tr>
+<td style="text-align: center;">对可扰数值的单后代交叉</td>
+<td style="text-align: center;">9%</td>
+</tr>
+<tr>
+<td style="text-align: center;">复制</td>
+<td style="text-align: center;">10%</td>
+</tr>
+<tr>
+<td style="text-align: center;">普通突变</td>
+<td style="text-align: center;">1%</td>
+</tr>
+<tr>
+<td style="text-align: center;">子程序复制</td>
+<td style="text-align: center;">1%</td>
+</tr>
+<tr>
+<td style="text-align: center;">子程序创建</td>
+<td style="text-align: center;">1%</td>
+</tr>
+<tr>
+<td style="text-align: center;">子程序删除</td>
+<td style="text-align: center;">0.5%</td>
+</tr>
+</tbody>
+</table>
+<p>第二种方法的好处是可以进行普通的交叉操作，即插入一个可扰动的数值来代替选定的其他可扰动的数值。</p>
+<h5 id="算术子树和可扰数值作为端点">算术子树和可扰数值作为端点</h5>
+<p>第三种方法是算术子树中的端点都为可扰数值，这种方法综合了前两种方法，提供了一种“中等等级”的突变造成的影响。在这种情况下，树形结构可以提供一定的突变能力，同时可扰数值限制了交叉时对个体的扰动不会过大。而且第三种方法允许自由变量加入，也因此允许引入自动定义函数机制。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223124901.png width=50%></p>
+<div class="note note-info">
+            <p>除了这三种方法外，还有GEP-GA混合架构的应用，参考<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote">&lt;span class=“hint–top hint–rounded” aria-label=“J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao,”A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS),” in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160.”&gt;[1]</span></a></sup>。大致是使用GEP或者GP先找到拓扑结构，然后对每个个体代表的拓扑结构使用GA找到器件的数值，然后再返回到GEP或者GP的个体中统一衡量。<br /><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223123903.png width=50%><br />这种方法是目前的一种权宜之计，即先把拓扑结构的空间确定，再确定值的空间。但是GA的应用无法保证每个拓扑结构中器件的值的信息分布是均匀的，因此效果有限。以原教旨主义的观点，仍然是GEP/GP中值随着进化过程一同进行才能得出最佳的搜索结果。</p>
+          </div>
+<h4 id="控制器的表示方法">控制器的表示方法</h4>
+<div class="note note-info">
+            <p>这一小节中讲了使用传递函数、LISP语言、程序树、Mathematica语言、连接清单、SPICE 网表表示控制器电路的方法。<br />这里的笔记中只介绍后面会用到的表示方法。</p>
+          </div>
+<h5 id="lisp语言和程序树">LISP语言和程序树</h5>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223133342.png width=80%></p>
+<p>在LISP语言中一个PID控制器的例子表示上图的控制器和原型电路：<br />
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs LISP">( <span class="hljs-name">PROGN</span><br>  ( <span class="hljs-name">DEFUN</span> ADF0 ()<br>    ( <span class="hljs-name">VALUES</span><br>      (<span class="hljs-name">-</span> REFERENCE_SIGNAL PLANT_OUTPUT))) <span class="hljs-comment">;表示并联区域信号的输入和输出</span><br>    ( <span class="hljs-name">VALUES</span><br>      ( <span class="hljs-name">+</span><br>        (<span class="hljs-name">GAIN</span> <span class="hljs-number">214.0</span> ADF0) <span class="hljs-comment">;P控制器</span><br>        (<span class="hljs-name">INTEGRATOR</span> (<span class="hljs-name">GAIN</span> <span class="hljs-number">1000.0</span> ADF0 )) <span class="hljs-comment">;I控制器</span><br>        (<span class="hljs-name">DERIVATIVE</span> (<span class="hljs-name">GAIN</span> <span class="hljs-number">15.5</span> ADF0 )))) <span class="hljs-comment">;D控制器</span><br>)<br></code></pre></td></tr></table></figure></p>
+<div class="note note-warning">
+            <p>此处书中有一个印刷错误，程序的第8行应该是<code>INTEGRATOR</code>，第9行应该是<code>DERIVATIVE</code>，此处已经纠正过来了。</p>
+          </div>
+<p>LISP语言采用的S-expression方法可以和程序树互转，因此上面的程序也可以表示为：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223133047.png width=80%></p>
+<h5 id="连接清单">连接清单</h5>
+<p>连接清单(connection list)是一个记录电路元件之间连接关系的列表，包括元件的名称、引脚号、连接方式等信息。在电路仿真中，连接清单可以帮助用户更好地理解电路的结构和工作原理，方便用户进行电路的设计和调试。<br />
+连接清单基本结构是一行一个器件：每一行的开头为器件的输入节点，最后一个节点编号对应输出节点。然后紧随器件模块的名称和对应的声明。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223152000.png width=80%><br />
+比如对于上面的电路，连接清单表示如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs SPICE">#输入   输出 模块<br>508 596 512 SUBTRACT<br>#输入输出 模块 声明<br>512 538 GAIN 214.0<br>512 548 GAIN 1000.0<br>548 568 INTEGRATOR<br>512 558 GAIN 15.5<br>558 578 DERIVATIVE<br>538 568 578 590 ADDITION<br>590 626 LIMITER 40.0 40.0<br>626 636 LAG 1.0<br>636 596 LAG 1.0<br></code></pre></td></tr></table></figure>
+<h5 id="spice网表">SPICE网表</h5>
+<p>在这个设计例子中，每一个个体最终都会被翻译为SPICE网表(SPICE netlist)然后进入SPICE仿真。SPICE网表的命令包括如下几个成分：</p>
+<ul>
+<li>电路器件的命名</li>
+<li>需要仿真的电路的网表</li>
+<li>让SPICE进行何种仿真的指令</li>
+<li>子电路定义</li>
+<li><code>END</code>结束符</li>
+</ul>
+<p>但是原始的SPICE仿真软件中的器件库太少，因此还需要自己对一些器件的功能和结构进行定义。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231223152000.png width=80%><br />
+下面的SPICE指令用于构建上图的电路并且进行仿真。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><code class="hljs SPICE">.PID CONTROLLER, TWO-LAG PLANT, AND ITAE CALCULATOR<br>*<br>* THE PID CONTROLLER<br>* THE OUTPUT OF CONTROLLER (CONTROL VARIABLE) IS AT 590<br>* THE REFERENCE SIGNAL IS AT 508<br>* THE PLANT OUTPUT (FEEDBACK TO CONTROLLER) IS AT 596<br>X1 508 596 512 SUBV_SUBCKT * V(512)=V(508)-V(596)<br>B2 538 0   V=V(512)*214.0  * V=V(512)-GND<br>B3 548 0   V=V(512)*1000.0<br>X4 548 0   568 DII_SUBCKT  * X表示这一行用到了Subcircuit<br>B5 558 0   V=V(512)*15.5<br>X6 558 578 DIFFB_SUBCKT<br>X7 538 568 578 590 ADD3_SUBCKT<br>*<br>* THE TWO-LAG PLANT<br>* THE PLANT INPUT IS AT 590<br>* THE PLANT OUTPUT (FEEDBACK TO CONTROLLER) IS AT 594<br>X8 590 626 622 624 LIMIT_SUBCKT<br>X9 626 632 636 LAG_SUBCKT<br>X10 636 642 594 LAG_SUBCKT<br>V11 622 0 DC 40 * V表示供电，下同<br>V12 624 0 DC 40<br>V13 632 0 DC 1.0 * 这是LAG的供电<br>V14 642 0 DC 1.0<br>*<br>* 没有积分器的器件，需要自己写一个，下同<br>* CALCULATION OF INTEGRAL OF TIME-WEIGHTED ABSOLUTE ERROR (ITAE)<br>X15 508 594 508 7 ITAE_SUBCKT<br>* 表示V(508) - V(594)的时域积分，V(508)是参考信号，V(594)是原型输出<br>*<br>* 产生的参考信号的描述<br>* REFERENCE SIGNAL 508<br>VP16 508 0 PULSE(0.0 1 0.1 0.001 0.001 10 15) <br>* 参考信号是一个持续15秒，脉宽为10秒，上升沿下降沿各0.001秒，间隔0.1秒的方波脉冲信号<br>*<br>* SPICE的仿真和画图<br>* COMMANDS TO SPICE FOR TRANSIENT ANALYSIS AND PLOT<br>.TRAN 0.08 9.6 0.0 0.04 UIC<br>* 以0-9.6秒，每0.08一个step进行时域分析<br>.PLOT TRAN V(7)<br>* 画出V(7)的时域图<br>*<br>* SUBCIRCUIT DEFINITION FOR SUBV<br>.SUBCKT SUBV 1 2 3 * 有三个输入输出端口<br>B1 3 0  V=V(1)–V(2) * B表示一个理想电压/电流源，VCC=3V，VDD=0V<br>.ENDS SUBV * 定义结束<br>* SUBCIRCUIT DEFINITION FOR TWO-ARGUMENT ADDV<br>.SUBCKT ADDV 1 2 3<br>B1 3 0 V=V(1)+V(2)<br>.ENDS ADDV<br>*<br>* SUBCIRCUIT DEFINITION FOR THREE-ARGUMENT ADD3<br>.SUBCKT ADD3 1 2 3 4<br>B1 4 0 V=V(1)+V(2)+V(3)<br>.ENDS ADD3<br>*<br>* SUBCIRCUIT DEFINITION FOR INVERTER<br>.SUBCKT INVERTER_SUBCKT 1 2<br>B1 2 0 V= V(1)<br>.ENDS INVERTER_SUBCKT<br>*<br>* SUBCIRCUIT DEFINITION FOR MULV<br>.SUBCKT MULV 1 2 3<br>B1 3 0 V=V(1)*V(2)<br>.ENDS MULV<br>*<br>* SUBCIRCUIT DEFINITION FOR DIVV<br>.SUBCKT DIVV 1 2 3<br>B1 3 0 V=V(1)/V(2)<br>.ENDS DIVV<br>*<br>* SUBCIRCUIT DEFINITION FOR ABSV<br>.SUBCKT ABSV 1 2<br>B1 2 0 V=ABS(V(1))<br>.ENDS ABSV<br>*<br>* SUBCIRCUIT DEFINITION FOR DIFFB (DERIVATIVE)<br>.SUBCKT DIFFB_SUBCKT 1 2<br>G1 4 0 1 0 1.0 * G表示VCCS<br>L1 4 0 1.0     * L表示电感<br>B1 2 0 V= V(4) * B表示电压源<br>.ENDS DIFFB_SUBCKT<br>*<br>* SUBCIRCUIT DEFINITION FOR DII<br>.SUBCKT DII_SUBCKT 1 2 3<br>G1 4 0 1 2 1.0<br>R1 4 0 1000MEG<br>C1 4 0 1.0 IC=0V<br>X1 4 3 INVERTER_SUBCKT<br>.ENDS DII_SUBCKT<br>*<br>* SUBCIRCUIT DEFINITION FOR LAG<br>.SUBCKT LAG_SUBCKT 1 2 3<br>X1 1 3 4 DII_SUBCKT<br>X2 4 5 3 MULV<br>X3 6 2 5 DIVV<br>V1 6 0 DC 1.0<br>.ENDS LAG_SUBCKT<br>*<br>* SUBCIRCUIT DEFINITION FOR LEAD<br>.SUBCKT LEAD_SUBCKT 1 2 3<br>X1 1 4 DIFFB_SUBCKT<br>X2 2 4 5 MULV<br>X3 1 5 3 ADDV<br>.ENDS LEAD_SUBCKT<br>*<br>.SUBCKT LAG2_SUBCKT 1 2 3 4<br>X1 1 4 5 DII_SUBCKT<br>B2 6 0 <br>+ V=0.5*V(5)*V(2)/V(3)<br>X3 6 7 4 LAG_SUBCKT<br>B1 7 0 V=1/(2*V(2)*V(5))<br>.ENDS LAG2_SUBCKT<br>*<br>* SUBCIRCUIT DEFINITION FOR LIMIT<br>.SUBCKT LIMIT_SUBCKT 1 2 3 4<br>B1 2 0<br>+ V=URAMP(V(1)–V(4))+V(4)-URAMP(V(1)–V(3))<br>.ENDS LIMIT_SUBCKT<br>*<br>* MODEL FOR SSW<br>.MODEL SSW SW()<br>*<br>* SUBCIRCUIT DEFINITION FOR ITAE<br>.SUBCKT ITAE_SUBCKT 31 32 34 33<br>VOSPCT 3 0 DC 0.02V<br>VOSPEN 11 0 DC 10V<br>X1 6 34 4 DIVV<br>V2 10 0 DC 1.0 <br>X3 9 12 7 MULV<br>S4 11 9 4 3 SSW<br>S5 14 13 31 0 SSW<br>V6 14 0 DC 1.0<br>X7 15 34 33 DIVV<br>X8 7 18 17 MULV<br>X9 6 12 ABSV<br>X10 32 31 6 SUBV<br>X11 13 0 18 DII_SUBCKT<br>X12 17 0 15 DII_SUBCKT<br>R13 9 10 1K<br>R14 0 13 1K<br>R15 0 33 1K<br>.ENDS ITAE_SUBCKT<br>*<br>* END COMMAND FOR SPICE INPUT FILE<br>.END<br></code></pre></td></tr></table></figure>
+<h2 id="使用遗传编程的控制器设计案例">使用遗传编程的控制器设计案例</h2>
+<h3 id="二阶滞后补偿器作为原型的设计">二阶滞后补偿器作为原型的设计</h3>
+<p>二阶滞后补偿器的传递函数可以写作：<br />
+<span class="math display">\[G(s)=\frac{K}{(1+τs)^2}\]</span> 其中<span class="math inline">\(K\)</span>是补偿器的积分增益，<span class="math inline">\(τ\)</span>是时间常数。<br />
+如果要对这个原型设计一个控制器，从高层次的设计表述可以是：</p>
+<ul>
+<li>整个系统的输出信号与参考信号的误差尽可能小。<br />
+</li>
+<li>过冲率小于2%.</li>
+<li>面对不同的<span class="math inline">\(K\)</span>和<span class="math inline">\(τ\)</span>的变化时，控制器应该有足够的鲁棒性。在这个设计问题中，设计的基准是<span class="math inline">\(K=1,τ=1\)</span>.<br />
+</li>
+<li>输入信号的振幅应该限制在<span class="math inline">\([-40,40]\)</span>之间。<br />
+</li>
+<li>系统可以限制高频噪声。</li>
+</ul>
+<p>在这个设计中遗传编程结果将会与Dorf与Bishop两人在1998年设计的低通滤波器与PID补偿器串联的控制电路结果进行对比。结果发现遗传编程设计的电路只有对比电路上升时间的56%和设置时间的32%。并且结果优于对比目标。</p>
+<h4 id="准备步骤">准备步骤</h4>
+<p>由于加入了自动定义函数机制，在运行遗传编程前的准备步骤增加了一步决定程序树结构的操作。所有的操作列在下方：</p>
+<ul>
+<li>决定程序架构</li>
+<li>指定端点集</li>
+<li>指定基函数集</li>
+<li>指定适应度衡量的方式</li>
+<li>选择合适的运行控制参数</li>
+<li>设置终止条件和最终解的选择方案</li>
+</ul>
+<h5 id="程序架构">程序架构</h5>
+<p>每一个程序树只输出一个结果，因此只有一个结果生成分支。初始化阶段的所有子树都不会有ADF，ADF将在进化过程中产生。并且设置进化过程中每个个体最多只允许拥有5个ADF。<br />
+<div class="note note-info">
+            <p>此处作者没有对超过5个ADF之后的操作会如何（比如停止ADF打包）进行具体描述。<br />另外，个人认为ADF的数量对进化的影响如下：<br />ADF的数量越多，进化的自由度越低，基因之间的交流越少。</p>
+          </div> 每个结果生成分支中只允许150个结点（函数或者端点）。每个ADF中最多只允许存在100个结点。</p>
+<h5 id="端点集-1">端点集</h5>
+<p>由于这个进化过程用到了强类型，因此需要对不同类型的分支分别讨论合适的端点集。<br />
+对于算术子树，端点集为：<br />
+<span class="math display">\[T_{aps}=\{R\},R∈[-1,1]\]</span> <div class="note note-info">
+            <p>限制范围是为了避免突变的影响过大。</p>
+          </div> 对于结果生成子树，端点集都是时域信号：<br />
+<span class="math inline">\(T=\)</span>{<code>REFERENCE_SIGNAL</code>,<code>CONTROLLER_OUTPUT</code>,<code>PLANT_OUTPUT</code>,<code>CONSTANT_0</code>}</p>
+<h5 id="基函数集-1">基函数集</h5>
+<p>同理，对于算术子树，基函数集为：<br />
+<span class="math display">\[T_{aps}=\{+,-\}\]</span> 对结果生成子树，基函数集都是对时域信号的操作：<br />
+<span class="math inline">\(T=\)</span>{<code>GAIN</code>,<code>INVERTER</code>,<code>LEAD</code>,<code>LAG</code>,<code>LAG2</code>,<code>DIFFERENTIAL_INPUT_INTEGRATOR</code>,<code>DIFFERENTIATOR</code>,<code>ADD_SIGNAL</code>,<code>SUB_SIGNAL</code>,<code>ADD_3_SIGNAL</code>,<code>ADF0</code>,<code>ADF1</code>,<code>ADF2</code>,<code>ADF3</code>,<code>ADF4</code>}<br />
+每个ADF的基函数集为<span class="math inline">\(T\)</span>和已经生成的其他ADF。</p>
+<h5 id="适应度评估">适应度评估</h5>
+<p>本书当中所有的适应度评估最终都会将不同的评价尺度转化为单个适应度。控制器设计是一个多目标优化问题，这里采用的方法是将不同评价尺度的适应度使用线性组合进行综合。这个设计案例中需要达到的设计要求如下：</p>
+<ul>
+<li>最小化ITAE<br />
+</li>
+<li>过冲率低于2%<br />
+</li>
+<li>面对不同的<span class="math inline">\(K\)</span>和<span class="math inline">\(τ\)</span>的变化时，控制器应该有足够的鲁棒性<br />
+</li>
+<li>限制系统使其不会出现极大的输入</li>
+<li>限制整个系统的带宽</li>
+</ul>
+<div class="note note-info">
+            <p>对系统输入的限制要求体现在<code>DIFFENRENTIATION</code>函数中使用了<code>DIV</code>，而<code>DIV</code>函数中使用了<code>LIMITER</code>。</p>
+          </div>
+<p>整个评估的过程描述如下：每个个体的树会表达为控制器电路，然后再将这个电路接入输入信号和系统原型。需要注意的是，作者没有预先规定遗传编程设计的电路一定需要连接输入信号<code>REFERNCE_SIGNAL</code>和系统原型，也没有预先规定连接方式。输入信号和系统原型连不连、怎么连、连几个这些问题都交给进化过程自动判断。<br />
+然后整个系统的网表会通过作者修改的SPICE模拟器自动生成，并且加入到SPICE代码中。最后运行SPICE指令，得到仿真结果。</p>
+<ul>
+<li><p>对于这个二阶补偿器原型的控制器设计，每个个体需要在8种不同环境下进行测试，这8种环境是如下设置的排列组合：</p>
+<ul>
+<li>参考信号的幅值为<span class="math inline">\(1mV\)</span>或者<span class="math inline">\(1V\)</span>.</li>
+<li>积分增益<span class="math inline">\(K\)</span>为<span class="math inline">\(1\)</span>或者<span class="math inline">\(2\)</span>.</li>
+<li>时间常数<span class="math inline">\(τ\)</span>为<span class="math inline">\(0.5\)</span>或者<span class="math inline">\(1\)</span>.</li>
+</ul>
+<p>在实际设计中不希望使用零极点对消的方法改变系统性质，多选用一些<span class="math inline">\(K\)</span>和<span class="math inline">\(τ\)</span>的取值的目的是为了避免设计出零极点对消的控制器。<br />
+个体代表的控制器电路会在上述8种情况下测量其ITAE、过冲率和鲁棒性。</p>
+<div class="note note-info">
+            <p>需要注意的是，这里的适应度是越小越好，是一种罚函数。<br />对罚函数和奖励函数而言，个人还是更偏向于使用奖励函数，因为奖励函数没有上线，可以无限制突出优秀个体的表现。不过仍然需要具体问题具体分析。</p>
+          </div>
+<p>这8中情况下的子适应度表示为：<br />
+<span class="math display">\[∫_0^{9.6}t|e(t)|A((e(t)))Bdt\]</span> 其中<span class="math inline">\(B\)</span>是一个常数，用于平衡参考信号幅值不同时的误差贡献：当参考信号的幅值为<span class="math inline">\(1V\)</span>时，<span class="math inline">\(B=1\)</span>；当参考信号幅值为<span class="math inline">\(1mV\)</span>时，<span class="math inline">\(B=10^6\)</span>.<br />
+<span class="math inline">\(A\)</span>是一个与误差<span class="math inline">\(e(t)\)</span>有关的函数，用于放大惩罚系统响应稳定后的偏移和过冲：对所有振荡幅值低于<span class="math inline">\(2\%\)</span>的部分<span class="math inline">\(A=1\)</span>，对稳定后大于<span class="math inline">\(2\%\)</span>的过冲部分<span class="math inline">\(A=10\)</span>.<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225113031.png width=50%></p></li>
+<li><p>除此之外，为了让控制器对冲激信号不会有过度响应，在<span class="math inline">\(K=1,τ=1\)</span>下额外测试当输入的参考信号为脉冲时的系统响应。具体做法是输入一个<span class="math inline">\(10^{-9}V\)</span>的脉冲信号，仿真时长为120毫秒，在这121个采样点中，对原型输出的绝对值低于<span class="math inline">\(10^{-8}V\)</span>的样本不进行惩罚。对输出的绝对值高于<span class="math inline">\(10^{-8}V\)</span>的样本，惩罚为<span class="math inline">\(500(0.00012-t)\)</span>。</p>
+<div class="note note-warning">
+            <p>此处本书出现了错误，书中的描述是如此在<span class="math inline">\(t=0\)</span>时惩罚最小，<span class="math inline">\(t=1.2\)</span>时惩罚最大，但是根据上述函数的特征并非如此。事实上这里需要达成的目的系统对于脉冲的响应持续时间越长应该惩罚越大。</p>
+          </div></li>
+<li><p>最后，为了保证系统的频率响应是合理的，通过频率扫描检查系统的波特图和理想系统的波特图的差异。<br />
+设计期望的要求是整个系统(控制器和系统原型)必须对 100Hz以下的所有低频输入做出完全响应，并对 100Hz以上的输入逐渐降低响应。具体来说，1000Hz的响应不应超过 100Hz的 1/100；10000Hz的响应不应超过 10000Hz的 1/10000，以此类推。<br />
+上面的表述换算为波特图表示如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225131121.png width=50%><br />
+整个适应度函数衡量的过程中会均匀抽取121个频点，对于0.01Hz到100Hz的80个频点：如果增益在0dB（误差在±3dB以内）附近，这 80 个频率值中每个频率值对适应度的贡献都是0，否则每个频点的适应度贡献都是18/121。对100Hz到10000Hz的41个频点：如果设计好的频点增益在(100,-3dB)与(10000,-83dB)连接的直线上或者直线下方，那么每个频点的适应度贡献为0，否则为18/121.</p></li>
+</ul>
+<p>最终整个个体的适应度表示为这10个分量的和。</p>
+<ul>
+<li>对进化过程的适应度控制如下：<br />
+所有无法仿真的个体给予最大的适应度惩罚(<span class="math inline">\(10^8\)</span>)。<br />
+此外还考虑了对个体复杂度的限制：如果个体的仿真运行时间超过了20秒，也给予最大惩罚。由此可以看出这个设计问题的复杂度比较高，作者强调此处复杂度高并不是遗传编程造成的，而是多目标任务本身的复杂度就比较高。</li>
+</ul>
+<h5 id="运行控制">运行控制</h5>
+<p>设置初始种群大小为66000.</p>
+<h5 id="终止条件和最终解的选择方案">终止条件和最终解的选择方案</h5>
+<p>由于无法得知遗传编程在什么时候会产生一个满意的解，所以本书中的解决办法是通过设置一个非常大的停止代数，并且监控每一代最好个体的适应度来实现。当最好个体连续若干代的适应度都在满意的范围内时，停止进化。</p>
+<h4 id="该设计任务的人类知识参与">该设计任务的人类知识参与</h4>
+<p>人类知识在这个设计任务中的参与可以分成如下几项：</p>
+<ul>
+<li>端点集和函数集不需要过多的对系统的理解，信号的连接方式也没有预设。并且进化过程中遗传编程无从得知系统原型的结构和参考信号的样子——对于遗传编程而言，这些都是黑盒。初始化的过程并不需要由人类告诉遗传编程如何连接这些信号或者器件，也没有指定必须使用负反馈设计——一切都由进化过程决定。但是需要人类使用者告诉遗传编程有关控制器的基本组成部分。此外，这个端点集和函数集在其他控制器设计任务中也可以使用。<br />
+此外，端点集中还有一些冗余的元素，比如这个任务中的<code>CONSTANT_0</code>，结果可以发现，遗传编程自身的鲁棒性允许人类使用者添加这些冗余，进化过程会自动决定它们的去留。加入冗余元素的另一个作用是可以提升端点集/函数集的泛用性，让它们也可以在别的任务中使用。此外，冗余元素的加入还有可能促使遗传编程发现那些并不符合人类直觉的结构。<br />
+</li>
+<li>适应度评估的过程中，人类做的只是将自己期望的设计标准从自然语言改写为数学语言，这个过程遗传编程自身无法完成，转换过后也屏蔽了遗传编程对专业知识的接触。<br />
+</li>
+<li>这个设计任务中使用SPICE作为评价的介质——这并不是必须的，使用SPICE只是为了自动和高效地让程序收敛到最优解，在理想状态下甚至可以由人类去实现所有个体的电路然后再测量得到适应度。SPICE本身是一个通用电路设计软件，因此其中不具备任何的有关控制器的专家知识。同时SPICE软件没有任何预设。写SPICE所加入的人类知识只是为了让SPICE程序合法。</li>
+<li>控制参数的选择是和任务无关的，并且在几乎所有的任务中通用。</li>
+</ul>
+<p>从此可以推断出，这个设计任务的AI比非常高。</p>
+<h4 id="结果分析">结果分析</h4>
+<p>最初生成的第一代个体中对于设计要求基本上没有任何的感知：有些个体没有用到<code>PLANT_OUTPUT</code>/<code>REFERENCE_SIGNAL</code>，或者是使用了冗余的<code>CONSTANT_0</code>：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs LISP">(<span class="hljs-name">LEAD</span> (<span class="hljs-name">LAG</span> (<span class="hljs-name">LAG2</span> (<span class="hljs-name">CONSTANT_0</span>) <span class="hljs-number">0.991705</span> <span class="hljs-number">0.333394</span>)<br> (<span class="hljs-name">+</span> <span class="hljs-number">0.403004</span> <span class="hljs-number">0.438887</span>)) (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">0.720283</span> <span class="hljs-number">0.273918</span>)<br> (<span class="hljs-name">+</span> <span class="hljs-number">0.482394</span> <span class="hljs-number">0.075069</span>)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">INVERTER</span> PLANT_OUTPUT)<br></code></pre></td></tr></table></figure>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LAG2</span> (<span class="hljs-name">DIFFERENTIATOR</span> (<span class="hljs-name">DIFFERENTIATOR</span> CONTROLLER_<br> OUTPUT))( (<span class="hljs-name">+</span> <span class="hljs-number">0.335119</span> <span class="hljs-number">0.720933</span>)( <span class="hljs-number">0.724019</span> <span class="hljs-number">0.773270</span>))<br> <span class="hljs-number">0.194707</span>)<br></code></pre></td></tr></table></figure>
+<p>虽然是盲选，但是第一代中最优秀的个体的适应度已经有8.26，这是因为这个个体的结构中都考虑了<code>PLANT_OUTPUT</code>和<code>REFERENCE_SIGNAL</code>，但是还没有形成负反馈结构：<br />
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">GAIN</span><br> (<span class="hljs-name">DIFFERENTIATOR</span> (<span class="hljs-name">DIFFERENTIAL_INPUT_INTEGRATOR</span><br> (<span class="hljs-name">LAG</span> REFERENCE_SIGNAL <span class="hljs-number">0.708707</span>) PLANT_OUTPUT))<br> <span class="hljs-number">62.8637</span>)<br></code></pre></td></tr></table></figure> （此处为了简便表示把一个具有29个结点的算术子树浓缩为了62.8637。）</p>
+<p>第一代会在随机初始化搜索的基础上进行进一步的搜寻，结果是当前种群中不能仿真的个体占比从60%下降到了14%。初始化搜索为后续的搜索提供了一个基线。<br />
+在第32代中，最好的个体的适应度已经达到了0.1639，遂停止搜索。这个个体的10个子适应度表现如下，整个个体表示的控制器框图如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225164026.png width=60%></p>
+<p>相比于Dorf和Bishop设计的控制器，用遗传编程设计的控制器在各方面的表现都更优秀：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">GP的方法</th>
+<th style="text-align: center;">Dorf和Bishop的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ITAE</td>
+<td style="text-align: center;"><span class="math inline">\(19mVs^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(46mVs^2\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">干扰敏感度</td>
+<td style="text-align: center;"><span class="math inline">\(644mV/V\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(5775mV/V\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">上升时间</td>
+<td style="text-align: center;"><span class="math inline">\(296ms\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(465ms\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">设置时间</td>
+<td style="text-align: center;"><span class="math inline">\(304ms\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(944ms\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">系统带宽<br>3dB</td>
+<td style="text-align: center;">1.5Hz</td>
+<td style="text-align: center;">1Hz</td>
+</tr>
+</tbody>
+</table>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231225164610.png width=50%></p>
+<p>传递函数表示如下：<br />
+<span class="math display">\[G(s)=\frac{(1+0.1262s)(1+0.2029s)}{(1+.03851s)(1+.05146s)(1+.08375)(1+.1561s)(1+.1680s)}\]</span></p>
+<p>在进化的过程中，最早的初始个体中是没有ADF的，在第32代，最终种群产生了3个ADF。<br />
+ADF0的表示如下：<br />
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">ADF2</span>)<br></code></pre></td></tr></table></figure> <div class="note note-info">
+            <p>相当于ADF0收敛到了ADF2。</p>
+          </div> ADF1的表示如下：<br />
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LAG</span> REFERENCE_SIGNAL (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.390529</span> <br>  (<span class="hljs-name">+</span> (<span class="hljs-name">-</span> <span class="hljs-number">-0.382748</span> <span class="hljs-number">-0.853353</span>) (<span class="hljs-name">-</span> <span class="hljs-number">-0.558397</span> <span class="hljs-number">-0.021241</span>))) <span class="hljs-number">-0.349639</span>))<br></code></pre></td></tr></table></figure> ADF1在最好的个体中没有被调用过。<br />
+ADF2中调用了ADF0，虽然存在了三个<code>PLANT_OUTPUT</code>（其中一个在ADF0中）但是有两个<code>PLANT_OUTPUT</code>相互减掉了。<br />
+<div class="note note-info">
+            <p>出现种情况的原因是因为遗传编程找到了全局最优解的近似，但是由于精度限制始终无法进一步逼近。</p>
+          </div><br />
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">(<span class="hljs-name">LEAD</span> (<span class="hljs-name">ADD_SIGNAL</span> (<span class="hljs-name">GAIN</span> (<span class="hljs-name">DIFFERENTIAL_INPUT_INTEGRATOR</span> (<span class="hljs-name">LEAD</span>(<span class="hljs-name">LEAD</span> PLANT_OUTPUT (<span class="hljs-name">+</span> (<span class="hljs-name">+</span> <span class="hljs-number">0.331753</span> <span class="hljs-number">-0.813045</span>) (<span class="hljs-name">-</span> <span class="hljs-number">-0.448149</span> <span class="hljs-number">0.359068</span>))) (<span class="hljs-name">+</span> <span class="hljs-number">-0.719664</span> <span class="hljs-number">-0.357372</span>)) (<span class="hljs-name">ADF1</span>)) (<span class="hljs-name">-</span> (<span class="hljs-name">-0</span>.<span class="hljs-number">773578</span> <span class="hljs-number">0.059952</span>) <span class="hljs-number">-0.197462</span>)) (<span class="hljs-name">CONSTANT_0</span>) (<span class="hljs-name">+</span> <span class="hljs-number">-0.961429</span> (<span class="hljs-name">-</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.629573</span> <span class="hljs-number">0.801392</span>) (<span class="hljs-name">+</span> <span class="hljs-number">-0.495284</span> (<span class="hljs-name">-</span> <span class="hljs-number">-0.130435</span>) (<span class="hljs-name">-</span> (<span class="hljs-name">+</span> <span class="hljs-number">-0.310777</span> <span class="hljs-number">-0.988344</span>) (<span class="hljs-name">+</span> <span class="hljs-number">0.601379</span> <span class="hljs-number">-0.649952</span>)))))))<br></code></pre></td></tr></table></figure></p>
+<p>从上面的结果可以发现，由于较少的人类知识的投入，遗传编程甚至发现了比Dorf和Bishop解决方案更好的2D-PID架构。这足以证明在这个设计问题中遗传编程是可以比拟人类的。</p>
+<h3 id="三阶补偿器为原型的设计">三阶补偿器为原型的设计</h3>
+<p>三阶补偿器的原型系统的传递函数表示如下：<br />
+<span class="math display">\[G(s)=\frac{K}{(1+τs)^3}\]</span> 如果要对这个原型设计一个控制器，从高层次的设计表述可以是：</p>
+<ul>
+<li>整个系统的输出信号与参考信号的误差尽可能小。<br />
+</li>
+<li>过冲率小于2%.</li>
+<li>面对不同的<span class="math inline">\(K\)</span>和<span class="math inline">\(τ\)</span>的变化时，控制器应该有足够的鲁棒性。在这个设计问题中，设计的基准是<span class="math inline">\(K=1,τ=1\)</span>.<br />
+</li>
+<li>输入信号的振幅应该限制在<span class="math inline">\([-10,10]\)</span>之间。</li>
+</ul>
+<p>为了说明适应度函数的设计可以非常灵活地整合各种设计要求，此处没有对高频噪声的限制。</p>
+<h4 id="准备步骤-1">准备步骤</h4>
+<h5 id="端点集和基函数集">端点集和基函数集</h5>
+<p>此处采用的是直接用可扰数值来挖掘器件参数的方式，这里寻找数值的子树对应的端点集为实数范围内的可扰动化的数值。<br />
+<span class="math display">\[T_{VSS}=\{R_p\}\]</span> 其他子树的端点集、基函数集保持与上一个设计任务相同。</p>
+<h5 id="适应度评估-1">适应度评估</h5>
+<p>适应度的组成部分如下：</p>
+<ul>
+<li>每个个体仍然在上述的8种不同环境下进行测试其ITAE、过冲率和鲁棒性。<br />
+</li>
+<li>为了让控制器对冲激信号不会有过度响应，在<span class="math inline">\(K=1,τ=1\)</span>下额外测试当输入的参考信号为脉冲时的系统响应。<br />
+</li>
+<li>为了测量控制器的抗干扰性，在<span class="math inline">\(t=0\)</span>时对控制器的输出信号添加一个加性噪声，再变为反馈输入。</li>
+</ul>
+<h5 id="运行控制-1">运行控制</h5>
+<p>设置初始种群大小为66000.<br />
+其他的控制参数和上一个任务比略有不同。</p>
+<h4 id="结果分析-1">结果分析</h4>
+<p>遗传编程在第31代的个体中找到最优，适应度为1.14，其系统框图表示如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227110314.png width=50%></p>
+<p>这个结果与Astrom和Hagglund设计的控制器进行对比：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"></th>
+<th style="text-align: center;">GP的方法</th>
+<th style="text-align: center;">Astrom和Hagglund的方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ITAE</td>
+<td style="text-align: center;"><span class="math inline">\(0.36Vs^2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2.6Vs^2\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">干扰敏感度</td>
+<td style="text-align: center;"><span class="math inline">\(4.3μV/V\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(186000μV/V\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">上升时间</td>
+<td style="text-align: center;"><span class="math inline">\(1.25s\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(2.49s\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">设置时间</td>
+<td style="text-align: center;"><span class="math inline">\(1.87s\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(6.46s\)</span></td>
+</tr>
+<tr>
+<td style="text-align: center;">系统带宽<br>3dB</td>
+<td style="text-align: center;">0.72Hz</td>
+<td style="text-align: center;">0.248Hz</td>
+</tr>
+</tbody>
+</table>
+<p>可以发现GP的方法所设计的控制器的抗干扰性要远远好于Astrom和Hagglund设计的控制器。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227110823.png width=50%></p>
+<h4 id="例程化分析">例程化分析</h4>
+<p>如果将以二阶滞后补偿器为原型的设计和以三阶滞后补偿器为原型的设计流程进行对比，可以总结出如下两个结论：</p>
+<ul>
+<li>适应度的设计可以直接迁移到其他的控制器设计的问题上</li>
+<li>即使换了寻找数值的方法，对于遗传编程的搜索过程也没有较大的影响，最终遗传编程仍然可以找到最优解</li>
+</ul>
+<h3 id="有5秒滞后的三阶补偿器为原型的设计">有5秒滞后的三阶补偿器为原型的设计</h3>
+<p>有5秒滞后三阶补偿器的原型系统的传递函数表示如下：<br />
+<span class="math display">\[G(s)=\frac{K}{(1+τs)^3}e^{-5s}\]</span></p>
+<h4 id="准备步骤-2">准备步骤</h4>
+<p>准备步骤中，个体的结构和端点集的设置和三阶补偿器为原型的设计任务完全相同。</p>
+<h5 id="基函数集-2">基函数集</h5>
+<p>基函数集中增加了<code>DELAY</code>函数，其余保持不变。</p>
+<h5 id="适应度评估-2">适应度评估</h5>
+<p>适应度评估包括13个子项，其中前12个子项对应在如下设置的排列组合情况的测试：</p>
+<ul>
+<li>参考信号的幅值为<span class="math inline">\(1mV\)</span>或者<span class="math inline">\(1V\)</span>.</li>
+<li>积分增益<span class="math inline">\(K\)</span>为<span class="math inline">\(0.9\)</span>，<span class="math inline">\(1\)</span>或者<span class="math inline">\(1.1\)</span>.</li>
+<li>时间常数<span class="math inline">\(τ\)</span>为<span class="math inline">\(0.5\)</span>或者<span class="math inline">\(1\)</span>.</li>
+</ul>
+<p>这12个子项的子适应度函数为：<br />
+<span class="math display">\[\int_5^{36}(t-5)|e(t)|A(e(t))BCdt\]</span> 新增加的系数<span class="math inline">\(C\)</span>用于增加标准情况下偏离理想位置的惩罚，当<span class="math inline">\(τ=1\)</span>,<span class="math inline">\(K=1\)</span>时，<span class="math inline">\(C=5\)</span>，其余情况为<span class="math inline">\(C=1\)</span>。</p>
+<p>单个个体子适应度的仿真时间跨度从9.6秒拉长到了5-36秒。</p>
+<h5 id="控制参数">控制参数</h5>
+<p>由于单个个体的适应度评估更复杂、仿真时间更长，因此初始种群的大小比之前的两个任务都小，为500000.</p>
+<h4 id="结果分析-2">结果分析</h4>
+<p>遗传编程在第129代找到最佳个体，其适应度为522.605.其系统框图如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227125034.png width=70%></p>
+<p>与Atrom和Hagglund所设计的控制器（下图中的方点线）的性能对比如下：</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227125225.png width=50%><br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20231227125540.png width=50%></p>
+<p>可以看出虽然遗传编程的最佳个体的适应度并不是非常高，但是最终控制器的效果仍然要优于经典方法。</p>
+<h3 id="非最小相位系统为原型的设计">非最小相位系统为原型的设计</h3>
+<p>非最小相位系统的传递函数表示如下：<br />
+<span class="math display">\[G(s)\frac{K(1-0.5s)}{(1+τs)^2}\]</span> 这个设计任务与之前的几个设计任务并无不同，因此在这里略过。</p>
+<h4 id="总结和分析">总结和分析</h4>
+<p>从上面的设计任务中可以看出，只需要花费一点点修改，就可以让遗传编程适用于其他的多种不同的设计任务，说明了遗传编程的可例程化程度高。并且这些设计任务中所需要的人类经验和知识非常少，但是得到的结果确实可以比拟人类的，因此可以说遗传编程的AI比非常高。</p>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1" class="footnote-text"><span>J. Wan, H. Yin, K. Liu, C. Zhu, X. Guan and J. Yao, “A Hybrid Genetic Expression Programming and Genetic Algorithm (GEP-GA) of Auto-Modeling Electrical Equivalent Circuit for Particle Structure Measurement With Electrochemical Impedance Spectroscopy (EIS),” in IEEE Sensors Journal, vol. 23, no. 5, pp. 4344-4351, 1 March1, 2023, doi: 10.1109/JSEN.2021.3106160. <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" class="category-chain-item">遗传编程</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B-IV%EF%BC%9A-%E4%BE%8B%E7%A8%8B%E5%8C%96%E7%9A%84%E5%8F%AF%E6%AF%94%E6%8B%9F%E4%BA%BA%E7%B1%BB%E7%9A%84%E6%9C%BA%E5%99%A8%E6%99%BA%E8%83%BD/" class="category-chain-item">遗传编程 IV： 例程化的可比拟人类的机器智能</a>
+  
+  
+
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>03. 控制器的自动综合</div>
+      <div>https://l61012345.top/2023/12/19/论文/进化计算/遗传编程/GPbook/GP book chapter 3/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月19日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年9月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/12/19/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%BC%80%E5%90%AF%E7%83%AD%E7%82%B9/" title="树莓派4b开启热点功能">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">树莓派4b开启热点功能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作">
+                        <span class="hidden-mobile">结构变换操作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="研究"
+        id="heading-2d46537e724fa604c205eea6cfc26083" role="tab" data-toggle="collapse" href="#collapse-2d46537e724fa604c205eea6cfc26083"
+        aria-expanded="true"
+      >
+        研究
+        <span class="list-group-count">(48)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2d46537e724fa604c205eea6cfc26083"
+           role="tabpanel" aria-labelledby="heading-2d46537e724fa604c205eea6cfc26083">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="神经网络"
+        id="heading-40850ccab8cdabc6868888fd85808d0e" role="tab" data-toggle="collapse" href="#collapse-40850ccab8cdabc6868888fd85808d0e"
+        aria-expanded="false"
+      >
+        神经网络
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-40850ccab8cdabc6868888fd85808d0e"
+           role="tabpanel" aria-labelledby="heading-40850ccab8cdabc6868888fd85808d0e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" title="TensorFlow 入门项目：训练一个VGG模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">TensorFlow 入门项目：训练一个VGG模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" title="卷积神经网络简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">卷积神经网络简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" title="深度卷积生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">深度卷积生成对抗网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" title="生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">生成对抗网络</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统工程"
+        id="heading-20662cd9022948e3fc8b6c3a81b6107e" role="tab" data-toggle="collapse" href="#collapse-20662cd9022948e3fc8b6c3a81b6107e"
+        aria-expanded="false"
+      >
+        系统工程
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-20662cd9022948e3fc8b6c3a81b6107e"
+           role="tabpanel" aria-labelledby="heading-20662cd9022948e3fc8b6c3a81b6107e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="各类系统"
+        id="heading-588aa3ee8bda6c2f94ead12b3332d921" role="tab" data-toggle="collapse" href="#collapse-588aa3ee8bda6c2f94ead12b3332d921"
+        aria-expanded="false"
+      >
+        各类系统
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-588aa3ee8bda6c2f94ead12b3332d921"
+           role="tabpanel" aria-labelledby="heading-588aa3ee8bda6c2f94ead12b3332d921">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" title="CNC铣床基本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CNC铣床基本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电力线缆的寿命预测模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">钢铁淬火的简单仿真</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统分析理论"
+        id="heading-5d5b60b74e73d4405eebcb4bb7170ee0" role="tab" data-toggle="collapse" href="#collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+        aria-expanded="false"
+      >
+        系统分析理论
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+           role="tabpanel" aria-labelledby="heading-5d5b60b74e73d4405eebcb4bb7170ee0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/07/10/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/EventiC/" title="EventiC——一种无偏的复杂系统实时事件建模器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">EventiC——一种无偏的复杂系统实时事件建模器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/01/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/ROC/" title="ROC聚类算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROC聚类算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/19/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E4%B8%80%E7%A7%8D%E5%BA%94%E7%94%A8%E4%BA%8E%E7%BB%86%E8%83%9E%E5%BC%8F%E7%94%9F%E4%BA%A7%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="一种应用于细胞式生产的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种应用于细胞式生产的聚类方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/" title="无序变量的基本相关性分析方法和Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无序变量的基本相关性分析方法和Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/16/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%81%B5%E6%95%8F%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="灵敏度分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">灵敏度分析方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/11/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E9%92%88%E5%AF%B9%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="针对基因表达数据的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">针对基因表达数据的聚类方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="进化计算"
+        id="heading-393d3b280ef394972e740c7191996f04" role="tab" data-toggle="collapse" href="#collapse-393d3b280ef394972e740c7191996f04"
+        aria-expanded="true"
+      >
+        进化计算
+        <span class="list-group-count">(35)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-393d3b280ef394972e740c7191996f04"
+           role="tabpanel" aria-labelledby="heading-393d3b280ef394972e740c7191996f04">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/20/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/evolution%20everthing/" title="从进化计算到万物进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从进化计算到万物进化</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="false"
+      >
+        遗传算法
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/06/03/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E6%B6%8C%E7%8E%B0_%E4%BB%8E%E6%B7%B7%E4%B9%B1%E5%88%B0%E7%A7%A9%E5%BA%8F/" title="笔记摘要-涌现：从混乱到秩序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">笔记摘要-涌现：从混乱到秩序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="true"
+      >
+        遗传编程
+        <span class="list-group-count">(26)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/building%20blocks%EF%BC%9A%E6%8F%90%E5%8F%96%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%BA%94%E7%94%A8/" title="GP模块化的再讨论——Building Blocks：探测、提取、应用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP模块化的再讨论——Building Blocks：探测、提取、应用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/02/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/Geometric%20Semantic%20Genetic%20Programming%20-%20%E5%87%A0%E4%BD%95%E8%AF%AD%E4%B9%89GP/" title="Geometric Semantic Genetic Programming：基于几何信息的GP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Geometric Semantic Genetic Programming：基于几何信息的GP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/" title="交叉算子的建模和比较"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">交叉算子的建模和比较</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/What%20we%20can%20get%20in%20schema%20thoeries/" title="可以从既有的schema theory中得到什么"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可以从既有的schema theory中得到什么</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/schema%20thoery%20for%20homologous%20crossover/" title="同源交叉的模式定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">同源交叉的模式定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%BC%BA%E7%B1%BB%E5%9E%8BGP/" title="强类型遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">强类型遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/11/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/The%20Evolution%20of%20Evolvability%20in%20Genetic%20Programming/" title="遗传编程中Evolvability的进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中Evolvability的进化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/28/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E6%A8%A1%E5%9D%97%E5%8C%96GP/" title="遗传编程中的模块化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的模块化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%BF%90%E8%A1%8C%E6%89%8B%E8%AE%B0/" title="遗传编程运行Tricks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程运行Tricks</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基因表达式编程：通过人工智能的数学建模"
+        id="heading-c320aec9ed76d69f5bcc1ca10786135e" role="tab" data-toggle="collapse" href="#collapse-c320aec9ed76d69f5bcc1ca10786135e"
+        aria-expanded="false"
+      >
+        基因表达式编程：通过人工智能的数学建模
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c320aec9ed76d69f5bcc1ca10786135e"
+           role="tabpanel" aria-labelledby="heading-c320aec9ed76d69f5bcc1ca10786135e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 简介：生物遗传学背景</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter2/" title="02. GEP的实体"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. GEP的实体</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter3/" title="03. 基因表达式算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 基因表达式算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 随机常数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/26/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter6/" title="06. GEP的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. GEP的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter7/" title="07. 多项式推理和时间序列预测"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 多项式推理和时间序列预测</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/05/01/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter12/" title="12. 进化成分分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 进化成分分析</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程 IV： 例程化的可比拟人类的机器智能"
+        id="heading-cdf5b5baa87b8f9df335b10065b8eadb" role="tab" data-toggle="collapse" href="#collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+        aria-expanded="true"
+      >
+        遗传编程 IV： 例程化的可比拟人类的机器智能
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+           role="tabpanel" aria-labelledby="heading-cdf5b5baa87b8f9df335b10065b8eadb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 绪论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 背景·遗传编程基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" title="03. 控制器的自动综合"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">03. 控制器的自动综合</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/" title="04. 电路的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 电路的自动综合</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2025 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+<!-- 将谷歌翻译控件的脚本放在这里 -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'zh-CN', // 默认语言是中文
+      includedLanguages: 'en,zh-CN', // 只允许切换中英文
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // 等待一点时间，确保 Google Translate 加载完成
+    setTimeout(() => {
+      const combo = document.querySelector(".goog-te-combo");
+      if (combo) {
+        // 设置默认显示内容
+        combo.options[0].text = "切换语言";
+      }
+    }, 1000);
+  });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>

@@ -1,0 +1,56 @@
+<h1 id="freecdn-js">freecdn-js</h1>
+<p><a href="https://www.npmjs.com/package/freecdn-js"><img src="https://img.shields.io/npm/v/freecdn-js.svg?style=flat" alt="npm version" /></a></p>
+<p><a href="https://github.com/EtherDream/freecdn">freecdn</a> 前端脚本。</p>
+<h1 id="结构">结构</h1>
+<ul>
+<li><p>core-lib：核心库（可脱离 Service Worker 运行，方便开发和测试）</p></li>
+<li><p>main-js：主程序（静态链接 core-lib）</p></li>
+<li><p>loader-js：加载器（体积极小，动态加载 main-js）</p></li>
+<li><p>fail-js：异常处理</p></li>
+</ul>
+<h1 id="特性">特性</h1>
+<h2 id="体积">体积</h2>
+<p>loader-js 仅保留 Service Worker 基本功能，压缩后只有几百字节，从而能更快加载，尽早开启请求拦截。</p>
+<p>完整功能放在 main-js，该脚本默认从公共 CDN 加载，最大程度节省当前站点流量。</p>
+<h2 id="安全">安全</h2>
+<p>loader-js 加载 main-js 时会校验其 Hash 值，如果和预期不一致则拒绝执行，避免 CDN 风险。</p>
+<p>Hash 值是硬编码在 loader-js 中的，因此不存在热更新的现象。即使脚本有升级，开发者必须主动更新才会生效。</p>
+<h2 id="稳定">稳定</h2>
+<p>为了避免公共 CDN 不稳定因素，loader-js 同时从多个 CDN 加载 main-js，哪个先完成运行哪个，用流量换时间。如果 CDN 都不可用，则从当前站点加载 main-js。</p>
+<p>这些额外的流量也不是完全浪费。因为提前和多个 CDN 进行预热，之后访问会更快。并且这几个文件的加载时间，还会用于各个 CDN 的性能评估。</p>
+<h2 id="兼容">兼容</h2>
+<p>loader-js 生成 ES3 语法，可兼容所有浏览器。运行时会检测浏览器是否支持 ES2020，支持则加载 main-js，否则加载 fail-js，做一些不支持的处理。</p>
+<p>如果 CSP 策略导致 Service Worker 无法执行 eval，loader-js 也会加载 fail-js。（页面存在 CSP 无影响）</p>
+<h2 id="复用">复用</h2>
+<p>loader-js 既能在页面中运行，也能在 Service Worker 中运行。在控制台网络栏中可见该脚本会出现两次。</p>
+<h2 id="安装过程">安装过程</h2>
+<p><img src="design.png" height="335"></p>
+<p>如果 Service Worker 安装成功，页面会立即刷新；如果浏览器不支持或安装超时，页面会加载 fail-js 进一步处理异常情况。</p>
+<p>Service Worker 安装后，页面加载 loader-js 得到的不再是原先内容，而是被拦截替换成 freecdn 页面层的功能代码。该模块目前未开发，之后会用于 WebRTC 等 Service Worker 无法实现的功能。</p>
+<h1 id="使用">使用</h1>
+<p>实际使用时通过工具生成前端脚本：</p>
+<pre><code>freecdn js --make</code></pre>
+<p>因为 loader-js 包含公钥信息，所以文件内容是不固定的。通过工具生成可自动写入公钥。</p>
+<h1 id="调试">调试</h1>
+<p>为本项目创建全局链接：</p>
+<pre><code>npm link</code></pre>
+<p>进入 freecdn 项目，使用本地 freecdn-js 包代替远程版本：</p>
+<pre><code>npm link freecdn-js</code></pre>
+<p>同时 freecdn 项目也可通过 <code>npm link</code> 创建全局链接，之后执行 <code>freecdn</code> 命令时直接使用本地版本。</p>
+<h1 id="编译">编译</h1>
+<p>本项目所有模块都使用 TypeScript 开发。执行：</p>
+<pre><code>npm run dev</code></pre>
+<p>之后源文件有变化时会自动编译相应的模块，生成的 JS 位于 dist 目录。</p>
+<p>配合调试的站点，使用开发模式创建前端文件：</p>
+<pre><code>freecdn js --make --dev</code></pre>
+<p>开发模式有如下特征：</p>
+<ul>
+<li><p>前端文件创建在 <code>freecdn-internal/dev</code> 目录，而不是 <code>freecdn-internal/$VER</code> 目录</p></li>
+<li><p><code>freecdn-internal/dev</code> 中的文件使用 <code>link</code> 的方式和本项目 dist 中的文件保持同步</p></li>
+<li><p>前端脚本不会加载外部站点的资源，总是从当前站点 <code>freecdn-internal/dev</code> 加载</p></li>
+<li><p>前端脚本使用未压缩的版本，方便调试</p></li>
+<li><p>前端源码中 <code>IS_DEBUG</code> 条件变量为 true</p></li>
+</ul>
+<h1 id="压缩">压缩</h1>
+<pre><code>npm run build</code></pre>
+<p>本项目使用 <a href="https://github.com/terser/terser">terser</a> 对 JS 进行压缩，生成相应的 .min.js 文件。</p>

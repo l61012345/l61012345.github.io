@@ -1,0 +1,1819 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="GP模块化的再讨论——Building Blocks：探测、提取、应用 Building Blocks的两种搜索方法是模块化和迁移：模块化的目的是为了将进化过程中进化过程自己产生的可能有用的遗传碎块给保护起来。研究迁移学习的目的是从别的什么地方将building blocks转移到当前的任务上。无论是哪一种研究，核心是将自己或者是其他任务中可能存在的这个任务中的building blocks给识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GP模块化的再讨论——Building Blocks：探测、提取、应用">
+<meta property="og:url" content="https://l61012345.top/2024/12/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/building%20blocks%EF%BC%9A%E6%8F%90%E5%8F%96%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="GP模块化的再讨论——Building Blocks：探测、提取、应用 Building Blocks的两种搜索方法是模块化和迁移：模块化的目的是为了将进化过程中进化过程自己产生的可能有用的遗传碎块给保护起来。研究迁移学习的目的是从别的什么地方将building blocks转移到当前的任务上。无论是哪一种研究，核心是将自己或者是其他任务中可能存在的这个任务中的building blocks给识">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-18T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-01T09:36:48.351Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>GP模块化的再讨论——Building Blocks：探测、提取、应用 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+<link rel="stylesheet" href="/css/googletranslate.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>时间线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://unsplash.com/@l61012345" target="_self">
+                <i class="iconfont icon-image"></i>
+                <span>图库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/urasekai/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>里世界</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+        <!-- 🌐 Google 翻译控件 -->
+        <li class="nav-item" id="translate-btn">
+          <div id="google_translate_element" style="padding-top: 8px;"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="GP模块化的再讨论——Building Blocks：探测、提取、应用"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-18 00:00" pubdate>
+          2024年12月18日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">GP模块化的再讨论——Building Blocks：探测、提取、应用</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年9月1日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="gp模块化的再讨论building-blocks探测提取应用">GP模块化的再讨论——Building Blocks：探测、提取、应用</h1>
+<p>Building Blocks的两种搜索方法是模块化和迁移：模块化的目的是为了将进化过程中进化过程自己产生的可能有用的遗传碎块给保护起来。研究迁移学习的目的是从别的什么地方将building blocks转移到当前的任务上。无论是哪一种研究，核心是将自己或者是其他任务中可能存在的这个任务中的building blocks给识别和保护起来，并且通过某种方法重新加入到现在的进化过程中，以引导进化过程重视对识别到的building blocks的区域的搜索。由于Building blocks是“关于最终解信息的一部分”[^Zojaji, Z., Ebadzadeh, M. Semantic ,2018]，因此重视Building blocks区域的搜索可以直接引导GP搜索含有最终解信息的区域（这个过程中带有对最终解精度的可接受的损失），加速GP的搜索进程。</p>
+<p>化用Prototype Probability Tree (PPT)[^M. A. Ardeh, Y. Mei and M. Zhang, 2020]一篇中对于知识迁移的描述，关于Building blocks的研究中的关键问题可以分成三个：Building Blocks的表示, 提取和应用。 和[^M. A. Ardeh, Y. Mei and M. Zhang, 2020]一篇不同的是，在Knowledge Presentation在技术上的表示表现为Knowledge Detection：找到合适的Building blocks的表示的过程就是一种对于building blocks的探测。因此这篇评论将使用Building blocks的探测而不是表示一词。</p>
+<h3 id="什么是building-blocks">什么是Building blocks</h3>
+<h4 id="schema">Schema</h4>
+<p>Schema是一种搜索空间中子空间的划分方式。可以依据各种各样的分类标准将个体归纳为子空间。对于Schema的归纳方式可以分为按照语义和按照语构进行划分。目前大部分对于schema的定义都是基于语构的，也就是拓扑结构相似的一组子树。这也是最早的对GP中schema的定义。这样定义的原因是，交叉和突变都完全基于语构进行，采用语义的schema无法清楚的描述交叉产生的后代和亲本之间的关系[^O’Reilly, Una-May and Franz Oppacher,1994]。[^Z. Zojaji et al,2022] 中采用了一种强制限定语义值的方式才能勉强实现在保证亲本和后代关系的前提下对语义进行归纳。</p>
+<h4 id="building-blocks">Building Blocks</h4>
+<p>[^O’Reilly, Una-May and Franz Oppacher,1994]中对GP的Building Blocks的认知基本上照搬GA：“building blocks是低阶、受扰乱程度低、并且可以存活数代的schema”。Poli则认为Building Blocks是交叉过程中两个亲本必须各自持有、才能在后代中产生某个更高阶的Schema[^R. Poli et al,2004]。[^Zojaji, Z., Ebadzadeh, M. Semantic ,2018]中认为Building Blocks是对应语义值出现频率高的子树。前两者都是基于语构定义的building blocks，最后一个则是基于语义的Building blocks。不管对于Building Blocks具体的定义为何，GP中对Building Blocks存在两点共识：</p>
+<ul>
+<li>Building Blocks是比Schema粒度更细的进化单元，它既是Schema又是其他的高阶Schema的一部分。<br />
+</li>
+<li>Building Blocks上携带了Schema/个体的遗传信息。这些遗传信息有利于子种群进化。</li>
+</ul>
+<h3 id="building-blocks的探测">Building blocks的探测</h3>
+<p>当Building blocks的定义是一种大多数关于Modularity的研究也认为Building blocks应该是某种抽象的/或者是具象的子树或者是子树的合集。探测building blocks也就是如何判断某些子树具有设计者所期望的building blocks所具有的特征。[^Dessi, Antonello et al, 1999]中已经介绍了一部分探测building blocks的方法，这里对其评论进行补充。对于Building blocks的探测，这里大概可以分成几种：</p>
+<ul>
+<li><p>利用自身在进化中的表现</p>
+<p>一个子树在进化中最直接的表现就是fitness，但是一般而言，子树的fitness和整体fitness之间的关系需要进行界定。最简单的方式认为，如果这个个体的表现很好，那么有概率可以从表现好的个体中提取到有用的信息，比如[^T. T. Huong Dinh, T. H. Chu and Q. U. Nguyen,2015]中的<em>Best Gen</em>和<em>FullTree</em>，但是GP的schema具有高方差的特性[^O’Reilly, Una-May and Franz Oppacher,1994]，整体的fitness不能够反映局部的表现[^Kinnear,1994]，个体中到底哪一个子树对于个体起到了至关重要的贡献迄今没有一个明确的结论和探测方法。为了确保个体中的携带了对目标有用的遗传信息的子树被提取，后续的[^Brandon Muller, Harith Al-Sahaf, Bing Xue, and Mengjie Zhang,2019]甚至提取了源问题域中表现好的个体中的所有的子树，这种方法需要划分提取所有的子树。在种群中个体表示非常复杂的情况之下，这种方法的开销非常大。</p>
+<p>另一种更好的方法是采用局部的fitness来衡量：即采用另一种设计的evaluation方法来衡量子树的表现，比如Adaptive Representation(AR)[^Justinian Rosca, 1997]中采用的fit block方法：每个building blocks用和全局一样的fitness function，但是只衡量一部分数据集。局部fitness的研究围绕着如何设计局部评估的方式，包括：使用降维的fitness function或者是降维的数据集[^Justinian Rosca, 1997]、利用先验知识区分子问题和全局问题之间的评估 [^]、以及co-ADF/EDF中每个子树解决的fitness cases的个数等等，这些研究试图寻找子问题和全局问题之间的关系，并依赖这种关系设计出局部评估的方式。对于降维的方法，某个问题的最优解可以从同一问题中规模较小的完整解中建立的假设受到质疑，而另一种方法则由于专业知识的需要而无法做到domain dependent[^Dessi, Antonello et al, 1999]。</p>
+<p>除了使用fitness作为提取子树的标准之外，频率是一种building blocks贡献程度的间接体现方式。以子树在种群中的出现频率作为探测building blocks的依据是Holland提出的Schema Theory[^John. Holland, 1992]：如果一个schema是有用的，那么其采样率下界会在数代之内呈指数上升，也就是在进化过程中的出现频率升高。这种方法的问题在于，如果在进化的过程中根据频率提取building blocks，对于当前代数而言frequency是一个局部的指标：倘若在进化过程还没有稳定的情况下，完全有可能后续突然出现的新的building blocks其迅速地占据生态位，当前的进化过程无法感知到这种情况是否会在未来发生。这可能是对[^Justinian Rosca, 1997]观察到的进化过程中期frequency高的building blocks很少可以出现在最后一代的个体中的现象的一个解释。在迁移学习中这种问题可以通过迁移源问题最后一代的解来缓解这种局部性[^M. A. Ardeh, Y. Mei and M. Zhang,2019]，这种方法的可行性应当建立在源问题的最终解和目标问题的最终解具有结构上的相似度的基础上。Frequency的另一个问题是，由于高frequency的schema在现在的种群中占有主要的生态位，倘若使用了不当的植入building blocks到种群中的方法使得进化丧失了进一步挖掘潜在更好个体的能力（比如过度地创建个体来替代原来种群），这种方法会容易使进化陷入局部最优解。不过一些基于frequency的延伸参数仍然可以帮助引导进化，比如[^Anil Kumar Saini and Lee Spector,2019]中提出的Reuse和Repetition在有限的实验中说明在可能是一种有效的引导进化以更加模块化的方式进行的方法。</p>
+<p>另外一种可能可行的方法是以植入building blocks之后的个体行为变化来判断其是否有用，比如知识驱动合成[^He, Yifan,2023]中使用的用植入前后个体fitness有无改进来判断知识是否有用的方法，或者是hGP中比较某个module存在和不存在时候的个体fitness差异[^Banscherus, Dirk et al,2001]。与之类似的是Adaptive Representation Learning(ARL)[^Justinian Rosca, 1997]中使用的DiffFitness：观察交叉后子代和亲本之间的fitness的改进来确定潜在的提取building blocks的个体，这种方法其实观察的是隐性基因在交叉后转变成显性基因的程度。另一种利用交叉来识别building blocks的方式是由于building blocks具有稳定性，因此[^O’Reilly, Una-May and Franz Oppacher,1994]认为数代交叉之后还能够保持不变的子树部分为building blocks.</p></li>
+<li><p>统计学方法</p>
+<p>许多研究利用子树的统计特征来识别哪些子树可能是潜在的building blocks。这个领域中的许多研究潜在的表明，数据的分布才是反映子树和目标之间的强相关的特征。因此，若干的研究都是计算的子树产生的数据和数据集中的真实数据之间的统计量，比如相关性、灵敏度[^Dessi, Antonello et al, 1999]和互信息[^Zojaji, Z., Ebadzadeh, M. Semantic ,2018]。这种方法的合理性在于个体可能携带不同的关于最终解的数据分布重合的部分（或者说相关性强的部分）有可能拼凑出最终的数据分布。相比于frequency，由于真实数据分布和全局解具有非常强的关系，这种方法的全局性更高，因此在很多场景下这些方法的效果都比探测frequency更好。使用统计学方法存在的问题是，无论是相关性还是互信息，这些都是对于个体的高层次描述，这些描述因为完全忽略了个体的结构而变得过度抽象。这样的描述使得我们无法得知两个同时具有高统计特征量的building blocks它们对目标信息的覆盖情况：在有用信息分布不均匀的情况下，或许有个子树的互信息很高，但是其并没有覆盖到关键信息；又或者我们无从得知是两个高互信息的子树对目标信息的覆盖其实是完全相同或者是完全不同。一个building blocks<span class="math inline">\(f_i\)</span>和已经选择到的building blocks的集合<span class="math inline">\(S\)</span>、以及真实输出数据(<span class="math inline">\(C\)</span>)的条件互信息<span class="math inline">\(I(f_i;C|S)\)</span>虽然可以从理论上进一步的探测building blocks提供信息的冗余，但是根据理论推演无论是直接计算三项互信息还是利用二项互信息进行近似，其所需要的计算量都是巨大的[^Vergara, J.R., Estévez, P.A.,2014]。</p></li>
+<li><p>先验知识</p>
+<p>上面的想法都是利用启发式的方法自行搜索和提取可能的building blocks，人类预知的先验知识也可以作为一种building blocks被利用，如果我们知道某个系统的一部分子系统的表达，那么将这部分子系统以building blocks的方式进行植入或许也是一种可行的方案，一个早期的尝试是[^Tackett, Walter Alden,1993]中直接利用设计好的一些features的组合来演化提取图像特征的程序。先验知识的一种具象化的表现是指人类提前知道目标解中的一部分的结构，比如知道主系统中某个子系统的表示。如果将这部分视为一个schema，根据building blocks hypothesis，如果满足如下的几个条件：1) size较小 2)恰当的评估手段（子系统对主系统的贡献是可分辨的）下，携带这部分schema的个体始终保持较高的fitness，因此可以有较大概率存活并且在种群中快速扩散。然而先验知识构建出的子系统很有可能长度非常长，在这种情况下，如果选择使用定义函数（类ADF的方式）将整个子系统浓缩成一个节点，其受到交叉和突变被扰乱的概率为0，条件1)即可被满足。那么再来看条件2)，但是GP具有高方差的特性，携带schema的个体的fitness分布过于广泛，因此即便是携带和目标最相关的那部分信息，其个体表现也有可能不好，因此也有可能提前消散。前述将先验知识的部分打包为函数的方法也可以缓解这种问题，但根本上对这个schema的评估问题仍然没有解决。</p>
+<p>另一个问题是先验知识也有可能并非完全正确，解决这个问题的方法是：1）设定评估指标来衡量和选择使用哪些先验知识[^He, Yifan,2023]，2）采用适应的方法通过进化对先验知识进行微调，比如koza在ADF-GP中提出的一系列architecture altering operation（AAO）结构变换方法[^Koza, John R. and Andre, David. 1995]，或者是植入种群成为个体的一部分，具体的方式还会在“Building blocks的应用”一章中介绍。</p></li>
+</ul>
+<h2 id="building-blocks的提取">Building blocks的提取</h2>
+<p>前文所属的大部分Building blocks的提取方法都是直接提取的子树。对于另一些building blocks的方法而言，识别到building blocks之后还需要对其进行泛化。泛化可以理解为是对遗传信息的进一步纯化和浓缩。泛化的方法一般是采用一些更高维度的表述语言来描述building blocks的结构特征。那么泛化结果，即浓缩的知识中必然带有对building blocks上携带的不同信息类型的注意力分配，也就是强调个体上的某一部分信息，象征性忽略结构上的另一部分信息：比如提取中层子树的时候往往需要将实际参数变成形式参数就是一种非常基本的泛化，只关注某一个部分的具体结构而不关注输入变量的具体值。 再比如PPT建立了节点的概率分布[^M. A. Ardeh, Y. Mei and M. Zhang, 2020]：对于个体树上的每个节点和端点集中的每个primitives，这个节点的位置上有多少概率是某个primitive，这个定义中将具体树节点的意义进行了泛化，而强调种群中节点的整体分布。不过这个泛化方法存在诸多问题：比如它忽略了节点之间存在的相互作用，以及当种群缺乏diversity时，PPT其实已经和某个具体的个体没有太大的区别，由于GP天生的节点固化性质[^Whiate David Robert et al, 2019]，这种情况下引入实例化的PPT可能因为过分强调在种群中固化的节点反而为加重局部收敛。另一种可能可行的方法是化用各种Schema Theory当中对于buidling blocks的去参数化方法，比如[^R. Poli et al,2004]中的upper building blocks和lower building blocks的定义，upper building blocks的下端参数被“=”通配符化为形式参数、lower building blocks用”*“和“=”将上端函数的形态结构进行了固定。可以发现，虽然两种不同的building blocks都共同含有位置和表现两种信息，但是lower building blocks更强调子树和整个个体中的相对位置（因为GP中改变了植入子树的位置之后子树的行为表现会发生巨大变化），upper building blocks则更强调表现（因为个体上端对树的影响更大）。引入这两种building blocks可能会适度缓解子树迁移之后的context-dependent的问题。</p>
+<h2 id="building-blocks的应用">Building blocks的应用</h2>
+<p>Building blocks的应用是指提取到的building blocks如何去抽象地还原到种群当中。目前较多的三种方法是作为函数集中的一部分引入、实例化个体、作为突变时随机生成子树时可用的函数/或者是直接植入。这些方法在引入的时候需要考虑：1）对原有问题搜索空间的影响，2）对当前搜索进程的影响。</p>
+<ul>
+<li><p>实例化的个体</p>
+<p>实例化个体是将子树添加一些其他的部分成为个体（或者是用子树替换掉随机生成的个体的一部分）。对这种方法而言，进一步的可以按照时机来细分。一种是在进化的最开头生成初始个体的时候就强制让一部分个体携带子树，称为initial population biasing[^D. O’Neill, H. Al-Sahaf, B. Xue and M. Zhang,2017]。这种方法的好处是，如果将搜索空间定义为”size-frequency-fitness”构成的空间[^Langdon, W.B., Poli, R.,2002]，那么这种引入的方法并不会更改搜索空间中解的分布，而是在一开始让搜索的注意力放在某些包含目标building blocks的高维空间当中。这种方法的缺点也在于限制了初始搜索的随机性，有一些通过随机初始化可能可以探索到的子空间因为刻意地引导导致进化可能需要相当多的精力才能找到、或者永远也找不到，使用者无法知道这些无法探测到的子空间对于最终解的搜索是否重要。并且[^M. A. Ardeh, Y. Mei and M. Zhang,2019]认为由于这种方法只修改了初始种群，完全不关心后续的搜索，因此无法对进化做到持续的改进，因此初始种群中具有的优势极有可能在后续的进化中丧失。这篇论文的依据是提取出来的building blocks没有一个出现在最后种群中，问题的原因有可能有三个方面:1）进化本身就会适应地修改迁移的结构、2）fitness function无法正确识别building blocks的价值、3）提取的子树本来就并不是真正的building blocks。</p>
+<p>采用initial population biasing的方法有[^T. T. Huong Dinh, T. H. Chu and Q. U. Nguyen,2015],[^M. A. Ardeh, Y. Mei and M. Zhang,2019]等等。</p>
+<p>另一种方法则是在进化过程中（比如在进化中探测到Loss Diverisity[^Justinian Rosca, 1997]）将一部分表现差的个体替换为实例化的个体。这种方法类似于精英主义。和精英主义一样，这种方法破坏了表现差的个体中可能含有的隐性基因，牺牲了算法全局性。和精英主义不同的是，实例化个体除了目标子树以外的部分很多时候是通过随机生成的，也就是说搜索进度上很有可能落后于现有的种群而并非领先，因此其促进收敛速度的效果可能不如使用最佳个体替换的精英主义。进一步的来说，相比于精英主义，击毁后部分重建随机重建对全局性的牺牲更小，但是收敛速度也会减慢。Semantic Buidling blocks GP (SBGP) [^Zahra et al., 2022]在缺少diverisity时引入实例化的个体，但是原有种群中的个体和实例化后的个体由于采用的genetic operator的类型不同而分别进化，实例化的个体参与锦标赛选择，以选择的方式概率性替换种群中表现得差的个体，这种方法比前述更加温和。（虽然SBGP更大的贡献在于从“基因型”（语义）的角度上进行了进化）</p></li>
+<li><p>作为函数</p>
+<p>另一种方式是将building blocks作为函数添加到function set中，这种方法相当于将building blocks作为更高阶的Primitives来使用。那么有一个问题是”如何保证进化过程一定会使用这些节点？“如果将GA式的Schema thoery[^O’Reilly, Una-May and Franz Oppacher,1994]中的schema的节点数量退回到1，那么答案是总体上进化会倾向于信息密度（‘fitness’/size）高的节点进行进化。因为根据building blocks hypothesis，fitness越高的单个节点其在进化过程中的扩散速度和采样率将会越来越高。但是如同[^O’Reilly, Una-May and Franz Oppacher,1994]所说，GA式的schema thoery的问题在于schema下的个体的fitness 方差太高，换言之并不能根据fitness识别到底哪些schema对于进化是有用的。所以如前“先验知识”一小节所述，当满足fitness function是schema对个体的贡献是可分辨的时候，上述结论是成立的。那么在当下无法设计这种贡献的角度下，适当的（保证不大面积损毁遗传信息的前提下）结合其他的植入方法强制让函数节点在进化中扩散或许是一个方法。 另有批评作为函数虽然表面上简化了结构（这很重要，因为size减少了），但是计算量并没有得到简化[^M. A. Ardeh, Y. Mei and M. Zhang,2019]。</p>
+<p>有关作为函数引入的另一个需要探究的地方是这种机制对搜索空间的影响，[^Justinian Rosca, 1997]中对koza的ADF机制对搜索空间的影响做了一些研究，结论是ADF可以拉长搜索空间的分布（引入ADF可以增加在size较小的时候某些子空间被采样到的概率），但是不会改变搜索空间的分布特性。作为函数植入的building blocks相当于有定向起点、不再/可以有进化的ADF，在这种情况下对于搜索空间的影响仍待研究。</p></li>
+<li><p>突变</p>
+<p>突变是指提取到的子树作为突变所生成子树的端点集，或者直接将某个个体的某个节点下的子树替换为提取到的building blocks。比如[^He, Yifan,2023]的知识驱动合成中所使用的ARM则是随机选择PushGP中的一段，然后用提取到的知识进行替换。这样的问题在于GP上下文的结构导致我们无法得知被替换丢失的内容对于进化的价值，以及随机插入的building blocks对于进化的价值。如果将提取到的子树作为突变所生成子树的端点集，则不太能保证移植的个体数量可否满足进化的最低的可以留存的量。</p></li>
+</ul>
+<h2 id="open-problem">Open Problem</h2>
+<h3 id="building-blocks-为何物">Building blocks 为何物</h3>
+<p>迄今为止学界就Building blocks是否以有效的方式存在，或者说building blocks的存在形式仍然有争议。大部分关于Building blocks的定义都认为Building blocks应当携带两类信息：Building blocks内部的拓扑结构和其在个体中的位置。</p>
+<ul>
+<li><p>Building Blocks的拓扑结构由内部有意义的部分确定，这部分的拓扑不允许修改，这部分确定了Building blocks自身的语义；</p></li>
+<li><p>Building blocks在个体当中的哪个位置则由通配符来提供。Building blocks当中的通配符部分描述了Building blocks和树当中的其他部分的相对位置关系。这其中关于Building blocks的定义又分为两种：building blocks的根节点为通配符和非通配符的定义。</p>
+<ul>
+<li>当building blocks的根节点是通配符时，building blocks在个体中的位置并没有被固定下来，它可以连接一个树的任何一个部分 [^O’Reilly, Una-May and Franz Oppacher,1994]。事实上， [^O’Reilly, Una-May and Franz Oppacher,1994]认为的building blocks完全和相对位置无关，其对building blocks的定义是语法树和其需要出现一个个体当中必须的出现次数。<br />
+这种定义的根据是认为GP的搜索动力学特性与GA的搜索动力学特性相似：第一阶段找到Building blocks，第二阶段通过Crossover将building blocks整合到高阶的schema中，第三阶段将高阶的Schema扩散到整个种群中 [^Forrest S. and M. Mitchell, 1992] 。在这个过程中，在前两个阶段crossover的作用都只是把building blocks凑齐，这个过程并没有考虑位置关系。<br />
+这样定义的问题是，由于搜索中语义和语构的非统一，Fitness Function对个体的语构非常敏感，因此凑齐了building blocks的高阶Schema中的个体未必具有高fitness可以让这个schema扩散到种群当中。（很有可能在很短的数代之内就已经消散了）。<br />
+</li>
+<li>当building blocks的根节点不是通配符时，代表着building blocks描绘了一整个个体和building blocks之间的相对位置关系，比如[^R. Poli et al,2004]中提出的Hyper schema和[^Whiate David Robert et al, 2019]当中的结点schema。</li>
+</ul></li>
+</ul>
+<p>因此本身building blocks的有效存在就不确定的前提下，识别、提取和应用building blocks的理论根基出现动摇，因此很难去说识别到的东西是不是就是building blocks，即真正对进化有用的遗传信息的结构载体。那么对于理论共识的部分，如上面的介绍所说，building blocks应该同时携带结构和位置两类信息，但是现在基于直接子树迁移的方法基本上都忽略了位置信息，即building blocks相对于整个个体的位置，因此哪怕识别到的就是真的building blocks，由于在植入的时候缺乏位置信息（当然，这个部分可以通过植入方式中含有的随机性进行补正），移植进入个体的子树到底还是不是移植前的子树这个问题无法得到回答。</p>
+<h3 id="搜索进程干预和schema-theory">搜索进程干预和Schema Theory</h3>
+<p>任何的提取和应用方式都应当遵循Holland提出的Schema Theory[^John. Holland, 1992]，才能够从理论上说明这些building blocks在种群中具有快速扩散的能力。换言之，手动干预，比如替换最差个体和初始种群引导搜索等等，这些改变搜索途径的方式对于GP的适应过程的影响超出了schema thoery的解释范畴，由于适应过程本身的随机性（Koza认为是模拟的人类的非逻辑化的灵光一闪[^John. R Koza, 1992]），这些篡改搜索过程的方法对于进化过程/适应过程的影响难以解释。那么对于前述的应用方法，剩下的只有加入函数集和并行实例化没有人工干预搜索过程。下表中列出了笔者认为的一些building blocks的应用方式符合/超过schema thoery的解释范畴的具体理由。</p>
+<table>
+
+<thead>
+<tr>
+<th>方法</th>
+<th>标记</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>强制替换最差个体</td>
+<td>超过</td>
+<td>损失了搜索过程中潜在的隐性基因（当前代中没有表现出来优秀，但是后续会表现出优秀的片段）</td>
+</tr>
+<tr>
+<td>初始种群偏置</td>
+<td>超过</td>
+<td>人为缩小了初始搜索的范围</td>
+</tr>
+<tr>
+<td>ARM[^He, Yifan,2023]</td>
+<td>超过</td>
+<td>损害了原始突变具有的全局性</td>
+</tr>
+<tr>
+<td>加入突变生成子树的函数集</td>
+<td>符合</td>
+<td>没有干预原本的搜索过程，只是扩大了原始突变的全局性，让原始突变可以在允许的size limit下搜索到更广的子空间</td>
+</tr>
+<tr>
+<td>加入初始函数集</td>
+<td>符合</td>
+<td>没有干预原本的搜索过程，只是改变了对问题基本表述的定义</td>
+</tr>
+<tr>
+<td>并行的实例化种群<br />后加入轮盘赌选择</td>
+<td>符合</td>
+<td>GP本身的原种群进化没有受到干预，只是额外的增加了搜索的通道</td>
+</tr>
+</tbody>
+</table>
+<p>但是，具体问题具体分析，超过schema解释范围的方法也不一定性能就差，反之亦是如此。超过解释范围的方法大多数通过干预简化了适应过程，因此很有可能可以进一步加速搜索，但是搜索速度的加快和相对应地牺牲的准确度是否值得，还需要具体问题具体分析。</p>
+<h3 id="语义空间和语构空间的混乱映射表现型和基因型">语义空间和语构空间的混乱映射、表现型和基因型</h3>
+<p>GP中Building blocks的移植存在语境关联的问题，同一个building blocks在不同的个体中的表现非常不一致。如前所述，提取到和移植后的building blocks究竟还是否是同一个“building blocks”？这样的问题是因为在GP中同一个schema实例化得到的个体的fitness差距非常大。GP的个体结构和个体行为之间的映射是混乱的，既不是一对一的，也不是均匀的。如果我们把个体的表面结构视为表现型，个体的行为视为基因型。在基因型和表现型完全分离的条件下，对基因型做building blocks的保护，再实例化为表现型进行应用才可以回答上面的这个问题。</p>
+<p>那么，如何将基因型和表现型进行一对一地统一？前人的不少工作是重新设计GP的结构，让GP的结构以GA一样的线性方式出现，比如linear GP，PushGP等等，这些重新设计的GP可以简化语义和语构空间的映射，但是笔者认为并没有完全分离表现型和基因型。</p>
+<p>如果返回到基因型的定义上来，基因型应当是个体含有的所有的遗传物质的总和。更深层次地，真正影响个体行为的那些结构可以被视为基因型。因此，[^Justinian Rosca, 1997]认为如果把进化中的一个个体结构视为表现型，基因型应当是个体的最简化。[^Zojaji, Z., Ebadzadeh, M. Semantic ,2018]认为基因型应当是一个个体含有的若干互信息值的片段。对building blocks的提取和实例化应当建立在基因型之上而非对表现型进行提取，这样的工作才可以从理论上（而非实验证明）说明是有效的。</p>
+<p>[^M. A. Ardeh, Y. Mei and M. Zhang, 2020]: M. A. Ardeh, Y. Mei and M. Zhang, “Genetic Programming Hyper-Heuristics with Probabilistic Prototype Tree Knowledge Transfer for Uncertain Capacitated Arc Routing Problems,” 2020 IEEE Congress on Evolutionary Computation (CEC), Glasgow, UK, 2020, pp. 1-8 [^Zojaji, Z., Ebadzadeh, M. Semantic ,2018]: Zojaji, Z., Ebadzadeh, M. Semantic schema modeling for genetic programming using clustering of building blocks. <em>Appl Intell</em> <strong>48</strong>, 1442–1460 (2018). [^Vergara, J.R., Estévez, P.A.,2014]: Vergara, J.R., Estévez, P.A. A review of feature selection methods based on mutual information. <em>Neural Comput &amp; Applic</em> <strong>24</strong>, 175–186 (2014). [^T. T. Huong Dinh, T. H. Chu and Q. U. Nguyen,2015]: T. T. Huong Dinh, T. H. Chu and Q. U. Nguyen, “Transfer learning in genetic programming,” <em>2015 IEEE Congress on Evolutionary Computation (CEC)</em>, Sendai, Japan, 2015 [^Brandon Muller, Harith Al-Sahaf, Bing Xue, and Mengjie Zhang,2019]: Brandon Muller, Harith Al-Sahaf, Bing Xue, and Mengjie Zhang. 2019. Transfer learning: a building block selection mechanism in genetic programming for symbolic regression. In Proceedings of the Genetic and Evolutionary Computation Conference Companion (GECCO ’19). [^O’Reilly, Una-May and Franz Oppacher,1994]: O’Reilly, Una-May and Franz Oppacher. “The Troubling Aspects of a Building Block Hypothesis for Genetic Programming.” <em>Foundations of Genetic Algorithms</em> (1994). [^John. Holland, 1992]: John. Holland, Adaptation in Natural and Artificial Systems, MIT Press, 1992 [^Dessi, Antonello et al, 1999]: Dessi, Antonello et al. “An Analysis of Automatic Subroutine Discovery in Genetic Programming.” <em>Annual Conference on Genetic and Evolutionary Computation</em> (1999). [^M. A. Ardeh, Y. Mei and M. Zhang,2019]: M. A. Ardeh, Y. Mei and M. Zhang, “Transfer Learning in Genetic Programming Hyper-heuristic for Solving Uncertain Capacitated Arc Routing Problem,” <em>2019 IEEE Congress on Evolutionary Computation (CEC)</em>, Wellington, New Zealand, 2019 [^Justinian Rosca, 1997]: J. Rosca, Hierarchical Learning with Procedural Abstraction Mechanisms, 1997. [^R. Poli et al,2004]:R. Poli et al. Exact Schema Theory and Markov Chain Models for Genetic Programming with Homologous Crossover, 2004.<br />
+[^Z. Zojaji et al,2022]: Z. Zojaji et al, Semantic Schema based genentic programming for symbolic regression, 2022. [^Whiate David Robert et al, 2019]: Whiate David Robert et al., Modeling Genetic Programming as a Simple Sampling Algorithm, 2019. [^Forrest S. and M. Mitchell, 1992]: Forrest S. and M. Mitchell, Relative Building-Block Fitness and the Building Block Hypothesis, 1992. [^He, Yifan,2023]: He, Yifan. (2023). Adaptive Transfer of Genetic Knowledge in Evolutionary Optimization and Program Synthesis. 10.13140/RG.2.2.20098.86724. [^Banscherus, Dirk et al,2001]: Banscherus, Dirk et al. “Hierarchical Genetic Programming using Local Modules.” (2001). [^Kinnear,1994]: Kinnear K E, Advances in Genetic Programming, MIT Press, 1994. [^Tackett, Walter Alden,1993]: Tackett, Walter Alden. “Genetic Programming for Feature Discovery and Image Discrimination.” <em>International Conference on Genetic Algorithms</em> (1993). [^Anil Kumar Saini and Lee Spector,2019]: Anil Kumar Saini and Lee Spector. 2019. Modularity metrics for genetic programming. In Proceedings of the Genetic and Evolutionary Computation Conference Companion (GECCO ’19) [^Koza, John R. and Andre, David. 1995]: Koza, John R. and Andre, David. 1995. Evolution of both the architecture and the sequence of work-performing steps of a computer program using genetic programming with architecture-altering operations. In Siegel, Eric (editor). <em>Proceedings of AAAI-95 Fall Symposium Series - Genetic Programming</em>. Menlo Park, CA: AAAI Press. [^Langdon, W.B., Poli, R.,2002]: Langdon, W.B., Poli, R. (2002). The Genetic Programming Search Space. In: Foundations of Genetic Programming. Springer, Berlin, Heidelberg. [^D. O’Neill, H. Al-Sahaf, B. Xue and M. Zhang,2017]: D. O’Neill, H. Al-Sahaf, B. Xue and M. Zhang, “Common subtrees in related problems: A novel transfer learning approach for genetic programming,” <em>2017 IEEE Congress on Evolutionary Computation (CEC)</em>, Donostia, Spain, 2017. [^Zahra et al., 2022]: Zahra et al., Semantic schema based genetic programming for symbolic regreSion, Applied Soft Computing, 2022. [^John. R Koza, 1992]: Genetic Programming, MIT Press, 1992</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" class="category-chain-item">遗传编程</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>GP模块化的再讨论——Building Blocks：探测、提取、应用</div>
+      <div>https://l61012345.top/2024/12/18/论文/进化计算/遗传编程/building blocks：提取保护和应用/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年9月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/What%20we%20can%20get%20in%20schema%20thoeries/" title="可以从既有的schema theory中得到什么">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">可以从既有的schema theory中得到什么</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo">
+                        <span class="hidden-mobile">GP Memo</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="研究"
+        id="heading-2d46537e724fa604c205eea6cfc26083" role="tab" data-toggle="collapse" href="#collapse-2d46537e724fa604c205eea6cfc26083"
+        aria-expanded="true"
+      >
+        研究
+        <span class="list-group-count">(48)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2d46537e724fa604c205eea6cfc26083"
+           role="tabpanel" aria-labelledby="heading-2d46537e724fa604c205eea6cfc26083">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="神经网络"
+        id="heading-40850ccab8cdabc6868888fd85808d0e" role="tab" data-toggle="collapse" href="#collapse-40850ccab8cdabc6868888fd85808d0e"
+        aria-expanded="false"
+      >
+        神经网络
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-40850ccab8cdabc6868888fd85808d0e"
+           role="tabpanel" aria-labelledby="heading-40850ccab8cdabc6868888fd85808d0e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" title="TensorFlow 入门项目：训练一个VGG模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">TensorFlow 入门项目：训练一个VGG模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" title="卷积神经网络简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">卷积神经网络简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" title="深度卷积生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">深度卷积生成对抗网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" title="生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">生成对抗网络</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统工程"
+        id="heading-20662cd9022948e3fc8b6c3a81b6107e" role="tab" data-toggle="collapse" href="#collapse-20662cd9022948e3fc8b6c3a81b6107e"
+        aria-expanded="false"
+      >
+        系统工程
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-20662cd9022948e3fc8b6c3a81b6107e"
+           role="tabpanel" aria-labelledby="heading-20662cd9022948e3fc8b6c3a81b6107e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="各类系统"
+        id="heading-588aa3ee8bda6c2f94ead12b3332d921" role="tab" data-toggle="collapse" href="#collapse-588aa3ee8bda6c2f94ead12b3332d921"
+        aria-expanded="false"
+      >
+        各类系统
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-588aa3ee8bda6c2f94ead12b3332d921"
+           role="tabpanel" aria-labelledby="heading-588aa3ee8bda6c2f94ead12b3332d921">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" title="CNC铣床基本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CNC铣床基本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电力线缆的寿命预测模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">钢铁淬火的简单仿真</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统分析理论"
+        id="heading-5d5b60b74e73d4405eebcb4bb7170ee0" role="tab" data-toggle="collapse" href="#collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+        aria-expanded="false"
+      >
+        系统分析理论
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+           role="tabpanel" aria-labelledby="heading-5d5b60b74e73d4405eebcb4bb7170ee0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/07/10/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/EventiC/" title="EventiC——一种无偏的复杂系统实时事件建模器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">EventiC——一种无偏的复杂系统实时事件建模器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/01/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/ROC/" title="ROC聚类算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROC聚类算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/19/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E4%B8%80%E7%A7%8D%E5%BA%94%E7%94%A8%E4%BA%8E%E7%BB%86%E8%83%9E%E5%BC%8F%E7%94%9F%E4%BA%A7%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="一种应用于细胞式生产的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种应用于细胞式生产的聚类方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/" title="无序变量的基本相关性分析方法和Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无序变量的基本相关性分析方法和Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/16/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%81%B5%E6%95%8F%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="灵敏度分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">灵敏度分析方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/11/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E9%92%88%E5%AF%B9%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="针对基因表达数据的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">针对基因表达数据的聚类方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="进化计算"
+        id="heading-393d3b280ef394972e740c7191996f04" role="tab" data-toggle="collapse" href="#collapse-393d3b280ef394972e740c7191996f04"
+        aria-expanded="true"
+      >
+        进化计算
+        <span class="list-group-count">(35)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-393d3b280ef394972e740c7191996f04"
+           role="tabpanel" aria-labelledby="heading-393d3b280ef394972e740c7191996f04">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/20/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/evolution%20everthing/" title="从进化计算到万物进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从进化计算到万物进化</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="false"
+      >
+        遗传算法
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/06/03/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E6%B6%8C%E7%8E%B0_%E4%BB%8E%E6%B7%B7%E4%B9%B1%E5%88%B0%E7%A7%A9%E5%BA%8F/" title="笔记摘要-涌现：从混乱到秩序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">笔记摘要-涌现：从混乱到秩序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="true"
+      >
+        遗传编程
+        <span class="list-group-count">(26)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/building%20blocks%EF%BC%9A%E6%8F%90%E5%8F%96%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%BA%94%E7%94%A8/" title="GP模块化的再讨论——Building Blocks：探测、提取、应用"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">GP模块化的再讨论——Building Blocks：探测、提取、应用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/02/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/Geometric%20Semantic%20Genetic%20Programming%20-%20%E5%87%A0%E4%BD%95%E8%AF%AD%E4%B9%89GP/" title="Geometric Semantic Genetic Programming：基于几何信息的GP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Geometric Semantic Genetic Programming：基于几何信息的GP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/" title="交叉算子的建模和比较"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">交叉算子的建模和比较</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/What%20we%20can%20get%20in%20schema%20thoeries/" title="可以从既有的schema theory中得到什么"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可以从既有的schema theory中得到什么</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/schema%20thoery%20for%20homologous%20crossover/" title="同源交叉的模式定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">同源交叉的模式定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%BC%BA%E7%B1%BB%E5%9E%8BGP/" title="强类型遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">强类型遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/11/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/The%20Evolution%20of%20Evolvability%20in%20Genetic%20Programming/" title="遗传编程中Evolvability的进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中Evolvability的进化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/28/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E6%A8%A1%E5%9D%97%E5%8C%96GP/" title="遗传编程中的模块化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的模块化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%BF%90%E8%A1%8C%E6%89%8B%E8%AE%B0/" title="遗传编程运行Tricks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程运行Tricks</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基因表达式编程：通过人工智能的数学建模"
+        id="heading-c320aec9ed76d69f5bcc1ca10786135e" role="tab" data-toggle="collapse" href="#collapse-c320aec9ed76d69f5bcc1ca10786135e"
+        aria-expanded="false"
+      >
+        基因表达式编程：通过人工智能的数学建模
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c320aec9ed76d69f5bcc1ca10786135e"
+           role="tabpanel" aria-labelledby="heading-c320aec9ed76d69f5bcc1ca10786135e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 简介：生物遗传学背景</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter2/" title="02. GEP的实体"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. GEP的实体</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter3/" title="03. 基因表达式算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 基因表达式算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 随机常数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/26/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter6/" title="06. GEP的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. GEP的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter7/" title="07. 多项式推理和时间序列预测"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 多项式推理和时间序列预测</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/05/01/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter12/" title="12. 进化成分分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 进化成分分析</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程 IV： 例程化的可比拟人类的机器智能"
+        id="heading-cdf5b5baa87b8f9df335b10065b8eadb" role="tab" data-toggle="collapse" href="#collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+        aria-expanded="false"
+      >
+        遗传编程 IV： 例程化的可比拟人类的机器智能
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+           role="tabpanel" aria-labelledby="heading-cdf5b5baa87b8f9df335b10065b8eadb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 绪论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 背景·遗传编程基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" title="03. 控制器的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 控制器的自动综合</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/" title="04. 电路的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 电路的自动综合</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2025 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+<!-- 将谷歌翻译控件的脚本放在这里 -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'zh-CN', // 默认语言是中文
+      includedLanguages: 'en,zh-CN', // 只允许切换中英文
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // 等待一点时间，确保 Google Translate 加载完成
+    setTimeout(() => {
+      const combo = document.querySelector(".goog-te-combo");
+      if (combo) {
+        // 设置默认显示内容
+        combo.options[0].text = "切换语言";
+      }
+    }, 1000);
+  });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>

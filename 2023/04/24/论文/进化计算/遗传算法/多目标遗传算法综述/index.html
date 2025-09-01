@@ -1,0 +1,2116 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="多目标优化遗传算法综述  Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, et al.  帕累托最优理论 在数学上，多目标优化问题可以被公式化为如下表述： 如果多目标问题的每一种解都可以使用\(n\)维空间\(X\)中的一个的向量进行表示：\(\boldsymbol{x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多目标优化遗传算法综述">
+<meta property="og:url" content="https://l61012345.top/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="多目标优化遗传算法综述  Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, et al.  帕累托最优理论 在数学上，多目标优化问题可以被公式化为如下表述： 如果多目标问题的每一种解都可以使用\(n\)维空间\(X\)中的一个的向量进行表示：\(\boldsymbol{x">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-24T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-01T09:36:48.315Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>多目标优化遗传算法综述 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+<link rel="stylesheet" href="/css/googletranslate.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>时间线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://unsplash.com/@l61012345" target="_self">
+                <i class="iconfont icon-image"></i>
+                <span>图库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/urasekai/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>里世界</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+        <!-- 🌐 Google 翻译控件 -->
+        <li class="nav-item" id="translate-btn">
+          <div id="google_translate_element" style="padding-top: 8px;"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="多目标优化遗传算法综述"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-04-24 00:00" pubdate>
+          2023年4月24日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">多目标优化遗传算法综述</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年9月1日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="多目标优化遗传算法综述">多目标优化遗传算法综述</h1>
+<blockquote>
+<p>Multi-objective optimization using genetic algorithms: A tutorial. Abdullah Konak, <em>et al</em>.</p>
+</blockquote>
+<h2 id="帕累托最优理论">帕累托最优理论</h2>
+<p>在数学上，多目标优化问题可以被公式化为如下表述：<br />
+如果多目标问题的每一种解都可以使用<span class="math inline">\(n\)</span>维空间<span class="math inline">\(X\)</span>中的一个的向量进行表示：<span class="math inline">\(\boldsymbol{x}=\{x_1,x_2,...,x_n\}\)</span>，那么多目标优化就是找到一个解<span class="math inline">\(\boldsymbol{x^*}\)</span>使得<span class="math inline">\(K\)</span>个目标函数(objective function)<span class="math inline">\(z_i(\boldsymbol{x})\)</span>具有最小值:<br />
+<span class="math display">\[z(x^*)=\{z_1(\boldsymbol{x^*}),z_2(\boldsymbol{x^*}),...,z_n(\boldsymbol{x^*})\}\]</span></p>
+<p>同时，搜索空间<span class="math inline">\(X\)</span>受到一系列的约束条件(constrain)<span class="math inline">\(g\)</span>的限制：<span class="math inline">\(g_j(\boldsymbol{x^*})=b_j\)</span>，<span class="math inline">\(j=1,...,m\)</span>.</p>
+<p>实际情况是，许多约束的满足条件彼此之间会冲突，因此<strong>实际上想要找到一个多目标解使得所有目标函数同时达到最优解几乎是不可能的</strong>。因此，事实上多目标优化是寻找一组最优化的近似解，这个解在每一个目标函数中的结果都在可以接受的范围内，而且没有其他的解可以比这个解至少在一个目标函数中更好。</p>
+<h3 id="支配和帕累托最优解">支配和帕累托最优解</h3>
+<p>假设优化问题为最小值优化，<strong>如果一个解<span class="math inline">\(\boldsymbol{x}\)</span>至少在一个目标函数中的结果比另一个解<span class="math inline">\(\boldsymbol{y}\)</span>好</strong>：<span class="math inline">\(z_i(\boldsymbol{x})&lt;z_i(\boldsymbol{y}), i=1,2,...,K\)</span>，<strong>且在其他目标函数中的结果不比<span class="math inline">\(\boldsymbol{y}\)</span>差：<span class="math inline">\(z_j(\boldsymbol{x})≤z_j(\boldsymbol{y}),j=1,2,...,K\)</span>，那么称解<span class="math inline">\(\boldsymbol{x}\)</span>支配(dominate)另一个解<span class="math inline">\(\boldsymbol{y}\)</span></strong>(<span class="math inline">\(\boldsymbol{x}≻\boldsymbol{y}\)</span>).<br />
+进一步地，如果一个解<span class="math inline">\(\boldsymbol{x}\)</span>在搜索空间中不被其他任何一个解支配，那么这个解被称为帕累托最优解(Pareto optimal，以下简称帕累托解)或者帕累托效率(Pareto efficiency)。</p>
+<div class="note note-info">
+            <p>在搜索空间中存在多个帕累托最优解，比如对于目标函数<span class="math inline">\(f_1(x),f_2(x)\)</span>，<span class="math inline">\([1,2]\)</span>和<span class="math inline">\([2,1]\)</span>相互之间不被支配。</p>
+          </div>
+<p>所有的帕累托最优解构成的集合称为帕累托最优解集合(Pareto optimal set)，这些帕累托最优解带入到每一个目标函数中得到的结果所构成的集合称为帕累托前沿(PF, Pareto Front).</p>
+<p>因此，多目标优化的关键是在于找到帕累托最优解集合。<br />
+但是，随着搜索空间<span class="math inline">\(X\)</span>维度的升高，帕累托集合的数量会越来越大。对于大多数问题而言，帕累托解的数量巨大甚至是无穷多的。实际要想找完所有的帕累托最优解是不可能的。并且证明这些解的最优性在计算上也是无法实现的。因此<strong>实际的多目标优化是找到最接近全解的帕累托最优解集合</strong>。要想逼近完整的帕累托最优解集合，最优化算法需要尽可能地达到三个相互制约的目标：</p>
+<ol type="1">
+<li>找到的帕累托前沿的近似需要尽可能地接近多目标问题真正的帕累托前沿。<br />
+</li>
+<li>找到的帕累托近似最优解集合中，解在搜索空间中的分布是尽可能均匀的，如此近似最优解的集合中的解具有丰富的多样性，不会偏向于任何一个特定的目标函数而是整体地达到近似最优。这样可以让决策者无偏地在这些帕累托解中权衡。<br />
+</li>
+<li>找到的帕累托前沿的近似需要尽可能的捕捉真正帕累托前沿的分布特性。也就是说，最优化算法需要尽可能的找到帕累托最优解集合中那些可能分布在搜索空间角落的极端帕累托解。</li>
+</ol>
+<p>对于给定的计算和时间限制，第一个目标可以通过将搜索聚焦在帕累托前沿的某一个部分达成；但是相对地，第二个目标要求算法的搜索需要均匀无偏；第三个目标要求算法尽可能地扩展已经找到的帕累托前沿的两侧，继续寻找新的解。</p>
+<h2 id="多目标遗传算法">多目标遗传算法</h2>
+<p>遗传算法(Genetic Algorithm)相比于其他的经典算法在多目标优化问题上的优点主要如下：</p>
+<ul>
+<li>由于遗传算法是一种基于群体的搜索优化算法，它可以在一次运行中产生多个帕累托解，而类似于神经网络的算法则需要多次运行才能够生成足够的帕累托解。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote">&lt;span class=“hint–top hint–rounded” aria-label=“C. A. C. Coello,”Evolutionary multi-objective optimization: a historical view of the field,” IEEE Computational Intelligence Magazine, vol. 1, no. 1, pp. 28-36, 2006, doi: https://doi.org/10.1109/MCI.2006.1597059.”&gt;[1]</span></a></sup><br />
+</li>
+<li>相较于其他算法，遗传算法本身的搜索能力对帕累托前沿的形状不敏感。<sup id="fnref:1" class="footnote-ref"><a href="#fn:1" rel="footnote">&lt;span class=“hint–top hint–rounded” aria-label=“C. A. C. Coello,”Evolutionary multi-objective optimization: a historical view of the field,” IEEE Computational Intelligence Magazine, vol. 1, no. 1, pp. 28-36, 2006, doi: https://doi.org/10.1109/MCI.2006.1597059.”&gt;[1]</span></a></sup><br />
+</li>
+<li>面对不同的目标函数，遗传算法可以通过交叉不断发掘新的帕累托解以延伸已经发现的帕累托前沿近似。<br />
+</li>
+<li>大多数时候，多目标的遗传算法不需要对目标确定优先级(prioritize)、缩放(scale)、或者设置权重(weight)。</li>
+</ul>
+<p>综上所述，使用遗传算法对多目标问题进行优化已经成为一种流行的使用方法。第一个多目标遗传算法(Multi-objective GA)是由Schaffer提出的VEGA(Vector Evalutated GA). 之后陆陆续续有更多的遗传算法的改进被应用于多目标优化中，它们的评述在文中总结在本文文末。</p>
+<h2 id="多目标遗传算法的设计">多目标遗传算法的设计</h2>
+<h3 id="适应度函数">适应度函数</h3>
+<h4 id="线性组合和赋权">线性组合和赋权</h4>
+<p>最经典的一种设计多目标遗传算法适应度函数的方法是将所有的适应度函数进行线性组合，并分别赋予权重<span class="math inline">\(w_i\)</span>。如此多目标优化将通过线性组合转化为一种近似于单目标优化问题的求解方式：<br />
+<span class="math display">\[min [z] = w_1z_1(\boldsymbol{x})+w_2z_2(\boldsymbol{x})+...+w_kz_k(\boldsymbol{x})\]</span> 通常所有的权重和为1：<span class="math inline">\(∑w_i=1\)</span>。这种方法通常需要使用者通过某种方式给出权重<span class="math inline">\(\boldsymbol{w_i}=\{w_1,w_2,...,w_k\}\)</span>，常见的赋权方式为按照优先级赋权，因此这种方法被称为优先级方法(priori approach)。<br />
+在这种方法下，算法需要使用不同的权重多次运行进行测试，如何设置不同的权重是该方法中的一个重要问题。WBGA中使用了一种自动化赋权的方式：WBGA中，权重与个体的染色体绑定，跟随个体一同被选择和进化。 另一种基于MOGA的多目标遗传算法RWGA则在选择阶段为每一个个体使用随机生成的不同的权重向量<span class="math inline">\(\boldsymbol{w_i}\)</span>。使用随机赋权的目的是通过随机的权重可以在一次算法运行中规定不同的搜索方向而不需要添加和设置其他参数。</p>
+<div class="note note-info">
+            <p>Procedure RWGA:<br /><span class="math inline">\(E\)</span>: external archive to store non-dominated solutions found during the search so far;<br /><span class="math inline">\(n_E\)</span>: number of elitist solutions immigrating from <span class="math inline">\(E\)</span> to <span class="math inline">\(P\)</span> in each generation.</p><ul><li>Step 1: Generate a random population.<br /></li><li>Step 2: Assign a fitness value to each solution <span class="math inline">\(x∈P_t\)</span> by performing the following steps:<ul><li>Step 2.1: Generate a random number uk in <span class="math inline">\([0,1]\)</span> for each objective <span class="math inline">\(k, k=1,...,K\)</span>.<br /></li><li>Step 2.2: Calculate the random weight of each objective <span class="math inline">\(k\)</span> as <span class="math inline">\(w_k=(1/u_k)\sum_{i=1}^Ku_i\)</span>.<br /></li><li>Step 2.3: Calculate the fitness of the solution as <span class="math inline">\(f(\boldsymbol{x})=\sum_{i=1}^Kw_kz_k(\boldsymbol{x})\)</span>.</li></ul></li><li>Step 3: Calculate the selection probability of each solution <span class="math inline">\(x∈P_t\)</span> as follows: <span class="math inline">\(p(\boldsymbol{x})=(f(\boldsymbol{x})-f^{min})^{-1}\sum_{\boldsymbol{y}∈P_t}(f(\boldsymbol{y})-f^{min})\)</span><br />where <span class="math inline">\(f^{min}=min\{f(\boldsymbol{x})|\boldsymbol{x}∈P_t\}\)</span>.<br /></li><li>Step 4: Select parents using the selection probabilities calculated in Step 3. Apply crossover on the selected parent pairs to create <span class="math inline">\(N\)</span> offspring. Mutate offspring with a predefined mutation rate.<br />Copy all offspring to <span class="math inline">\(P_{t+1}\)</span>.<br />Update <span class="math inline">\(E\)</span> if necessary.<br /></li><li>Step 5: Randomly remove nE solutions from <span class="math inline">\(P_{t+1}\)</span> and add the same number of solutions from <span class="math inline">\(E\)</span> to <span class="math inline">\(P_{t+1}\)</span>.<br /></li><li>Step 6: If the stopping condition is not satisfied, set <span class="math inline">\(t=t+1\)</span> and go to Step 2. Otherwise, return to <span class="math inline">\(E\)</span>.</li></ul>
+          </div>
+<p>线性组合的主要优点是这种方法非常简单而且易于实现。相对地，线性组合的方式查找对非凸的目标函数性能较差。因此，如果真正的帕累托前沿是非凸函数，按照线性组合并不能完全找到帕累托最优解，而且找到的最优解很难做到均匀分布。</p>
+<h4 id="改变目标函数">改变目标函数</h4>
+<p>在最初的多目标遗传算法VEGA中，使用了另一种适应度函数。VEGA根据目标函数的个数将整个种群分成了若干个子种群:<span class="math inline">\(P_1,P_2,...,P_K\)</span>。每个子种群<span class="math inline">\(P_i\)</span>对应一个特定的目标函数<span class="math inline">\(z_i\)</span>，每一代中按照该目标函数赋予适应度、进行选择后再综合进行交叉和变异等遗传操作。</p>
+<div class="note note-info">
+            <p>Procedure VEGA:<br /><span class="math inline">\(N_S\)</span>: subpopulation size (<span class="math inline">\(N_S=N/K\)</span>).</p><ul><li>Step 1: Start with a random initial population <span class="math inline">\(P_0\)</span>. Set <span class="math inline">\(t = 0\)</span>.<br /></li><li>Step 2: If the stopping criterion is satisfied, return <span class="math inline">\(P_t\)</span>.</li><li>Step 3: Randomly sort population <span class="math inline">\(P_t\)</span>.<br /></li><li>Step 4: For each objective <span class="math inline">\(k, k= 1,...,K\)</span>, perform the following steps:<ul><li>Step 4.1: For <span class="math inline">\(i = 1+(k-1)N_S, ... ,kN_S\)</span>, assign fitness value <span class="math inline">\(f(\boldsymbol{x}_i) = z_k(\boldsymbol{x}_i)\)</span> to the ith solution in the sorted population.<br /></li><li>Step 4.2: Based on the fitness values assigned in Step 4.1, select <span class="math inline">\(N_S\)</span> solutions between the <span class="math inline">\((1+(k-1)N_S)\)</span>th and <span class="math inline">\((kN_S)\)</span>th solutions of the sorted population to create subpopulation <span class="math inline">\(P_k\)</span>.</li></ul></li><li>Step 5: Combine all subpopulations <span class="math inline">\(P_1,...,P_k\)</span> and apply crossover and mutation on the combined population to create <span class="math inline">\(P_{t+1}\)</span> of size <span class="math inline">\(N\)</span>. Set <span class="math inline">\(t = t + 1\)</span>, go to Step 2.</li></ul>
+          </div>
+<p>这种方法主要的优点是易于实现，而且VEGA的计算效率几乎和单目标遗传算法相同。事实上除了评估一步，其余步骤VEGA的行为和单目标传统遗传算法是相同的。<br />
+不过，种群对于不同的目标函数的敏感程度不同，也就是说，不同目标函数主导进化方向的能力是不同的，且在VEGA这样的方法中存在竞争关系。因此种群的进化方向可能会偏向于其中一个对其敏感的目标函数，对其他目标函数的收敛性相对更差。</p>
+<h4 id="帕累托排序">帕累托排序</h4>
+<p>帕累托排序(Pareto ranking)利用了帕累托最优理论中“支配”的概念来为不同的个体赋予适应度。简单来说，种群中的个体适应度表示为排序。具有更高支配地位的个体会具有更好的适应度。在本文中，越好的个体具有更低的适应度，排名更小更靠前。<br />
+Goldberg <sup id="fnref:2" class="footnote-ref"><a href="#fn:2" rel="footnote"><span class="hint--top hint--rounded" aria-label="Goldberg DE. Genetic algorithms in search, optimization, and machine learning. Reading, MA: Addison-Wesley; 1989.">[2]</span></a></sup> 提出了第一种帕累托排序方法，简单来说就是对于当前种群中的所有个体，选择出其中的帕累托解并移入另一个列表中，然后再筛选剩余个体中的新的帕累托解。（即去掉上一次的帕累托解后现有集合中新的不受其他种群支配的个体），如此往复。<br />
+其过程详细描述如下：</p>
+<ul>
+<li>Step 1: Set <span class="math inline">\(i=1\)</span> and <span class="math inline">\(TP=P\)</span>.<br />
+</li>
+<li>Step 2: Identify none-dominated solutions in <span class="math inline">\(TP\)</span> and assigned them set to <span class="math inline">\(F_i\)</span>.<br />
+</li>
+<li>Step 3: Set <span class="math inline">\(TP=TPF_i\)</span>. If <span class="math inline">\(TP=∅\)</span> go to Step 4, else set <span class="math inline">\(i=i+1\)</span> and go to Step 2.<br />
+</li>
+<li>For every solution <span class="math inline">\(\boldsymbol{x}∈P\)</span> at generation <span class="math inline">\(t\)</span>, assign <span class="math inline">\(r(\boldsymbol{x},t)=i\text{ if }\boldsymbol{x}∈F_i\)</span>.</li>
+</ul>
+<p>如此排序的结果最终会生成若干个具有支配层级关系的每次基于当前个体集合的帕累托前沿<span class="math inline">\(F_1,F_2,...\)</span>，称为非支配前沿(none-dominated fronts). <span class="math inline">\(F_1\)</span>是当前种群中所有个体的帕累托前沿。<br />
+并且可以发现，<span class="math inline">\(F_i\)</span>的支配程度要高于<span class="math inline">\(F_{i+1}\)</span>中的个体。NSGA使用了这种排序方法，并且还是用了冗余的适应度(dummy fitness)使得<span class="math inline">\(F_i\)</span>中最差个体的适应度/排名仍然优于<span class="math inline">\(F_{i+1}\)</span>中最好个体的适应度/排名。<br />
+在NSGA-II中使用了更快速的帕累托排序算法，每个个体的排名表示如下：<br />
+<span class="math display">\[r(\boldsymbol{x},t)=1+nq(\boldsymbol{x},t)\]</span> 其中<span class="math inline">\(nq(\boldsymbol{x},t)\)</span>表示的是第<span class="math inline">\(t\)</span>代中个体<span class="math inline">\(\boldsymbol{x}\)</span>受支配的个体数。<span class="math inline">\(\boldsymbol{x}\)</span>被越多的个体支配，其适应度越差。<br />
+可以发现，这种排名的设置惩罚了在帕累托前沿近似密集区域的个体。比如下图中个体<span class="math inline">\(i\)</span>的排名要低于同一个非支配前沿<span class="math inline">\(F_2\)</span>的其他个体<span class="math inline">\(f,g,h\)</span>，因为<span class="math inline">\(i\)</span>受到更多的个体支配。这表示支配<span class="math inline">\(i\)</span>的个体<span class="math inline">\(c,d,e\)</span>在上一个非支配前沿<span class="math inline">\(F_1\)</span>中是紧密分布的。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230424173757.png width=50%></p>
+<p>SPEA增添了一个外置列表<span class="math inline">\(E\)</span>用于存储历史上所有的非支配个体。对于在<span class="math inline">\(E\)</span>中的每一个个体<span class="math inline">\(\boldsymbol{y}∈E\)</span>，定义：<br />
+<span class="math display">\[s(\boldsymbol{y},t)=\frac{np(\boldsymbol{y},t)}{N_P+1}\]</span> 其中<span class="math inline">\(np(\boldsymbol{y},t)\)</span>是第<span class="math inline">\(t\)</span>代，种群<span class="math inline">\(P\)</span>中<span class="math inline">\(\boldsymbol{y}\)</span>支配的个体数量。现有种群<span class="math inline">\(P\)</span>中个体<span class="math inline">\(\boldsymbol{x}∈P\)</span>的排名表示为<span class="math inline">\(\boldsymbol{x}\)</span>受支配的每一个<span class="math inline">\(\boldsymbol{y}\)</span>的<span class="math inline">\(s\)</span>之和：<br />
+<span class="math display">\[r(\boldsymbol{x},t)=1+\sum_{\boldsymbol{y}∈E,\boldsymbol{y}≻\boldsymbol{x}}s(\boldsymbol{y},t)\]</span> 这种排名下，支配越少个体的非支配解具有更优的适应度，使得整个帕累托前沿中的帕累托解更容易分布均匀。<br />
+比如下图中的个体<span class="math inline">\(a\)</span>就具有更优的适应度，因为它在15个个体中只支配了2个个体。而<span class="math inline">\(b\)</span>支配了7个个体，<span class="math inline">\(c,d,e\)</span>分别支配了5，4，3个个体。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230424174756.png width=50%></p>
+<h4 id="积累排序密度策略">积累排序密度策略</h4>
+<p>积累排序密度策略(Accumulated Ranking Density Strategy)同样旨在惩罚稠密区的个体，其中的排名表示为：<br />
+<span class="math display">\[r(\boldsymbol{x},t)=1+\sum_{\boldsymbol{y}∈P,\boldsymbol{y}≻\boldsymbol{x}}r(\boldsymbol{y},t)\]</span> 这种排名避免了使用外置列表<span class="math inline">\(E\)</span>。但是，其排名计算存在先后顺序：要想计算<span class="math inline">\(\boldsymbol{x}\)</span>的排名，就必须先求出支配<span class="math inline">\(\boldsymbol{x}\)</span>的全部个体<span class="math inline">\(\boldsymbol{y}\)</span>的排名。<br />
+在这种排名下，受到之前非支配前沿中稠密个体支配的个体在本非支配前沿中具有更差的适应度。比如下图中受到<span class="math inline">\(F_1\)</span>中个体<span class="math inline">\(c,d,e\)</span>支配的个体<span class="math inline">\(i,l,n\)</span>在它们各自的非支配前沿中都具有更低的排名。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230424175501.png width=50%></p>
+<p>总而言之，上述的排序策略得到的排名都可以直接作为个体的适应度进行使用。它们通常结合下面提到的适应度共享(fitenss sharing)方法来得到更为广泛和均匀的帕累托前沿近似 （满足目标2和3）。</p>
+<h2 id="多样性适应度共享和小生境">多样性：适应度共享和小生境</h2>
+<p>为了要得到均匀分布的帕累托前沿近似，始终保证当前种群中的解要具有多样性，即涵盖帕累托前沿的不同区域。如果没有采取保护种群多样性的方法，种群总是倾向于形成若干个内部个体彼此相似的子种群，这种现象成为基因漂变(Genetic Drift)。这些子种群被称为小生境(niche)。有如下的方式可以解决基因漂变的问题。</p>
+<h3 id="适应度共享">适应度共享</h3>
+<p>适应度共享(fitness sharing)的目的是为了找到没有探索过的帕累托前沿的部分，同时减少帕累托前沿稠密区（dense area, 指个体分布非常密集的区域）个体的适应度，它通常通过设置惩罚函数(penalty function)来降低（或者称为惩罚）那些位于稠密区个体的适应度。要做到这一点，就必须要给出明确的对于稠密的定义。<br />
+Fonseca和Fleming使用了一种类似于归一化的欧氏距离来衡量个体之间的距离，并根据此来给出对稠密的定义。在他们提出的方法中，现有种群中的每个个体都与其他所有个体两两配对一次，在每个配对中，个体<span class="math inline">\(\boldsymbol{x}\)</span>和<span class="math inline">\(\boldsymbol{y}\)</span>的距离表示为：<br />
+<span class="math display">\[dz(\boldsymbol{x},\boldsymbol{y})=\sqrt{\sum_{k=1}^K\left(\frac{z_k(\boldsymbol{x})-z_k(\boldsymbol{y})}{z_k^{max}-z_k^{min}}\right)^2}\]</span> 其中<span class="math inline">\(z_k^{max}\)</span>和<span class="math inline">\(z_k^{min}\)</span>分别是迄今为止被探索到的目标函数<span class="math inline">\(z_k(·)\)</span>的最大值和最小值。<br />
+对个体<span class="math inline">\(\boldsymbol{x}\)</span>其适应度<span class="math inline">\(f(\boldsymbol{x},t)\)</span>会被附近的个体稀释：<br />
+<span class="math display">\[f&#39;(\boldsymbol{x},t)=\frac{f(\boldsymbol{x},t)}{nc(\boldsymbol{x},t)}\]</span> 其中<span class="math inline">\(nc(\boldsymbol{x},t)\)</span>被称为<span class="math inline">\(\boldsymbol{x}\)</span>的小生境距离(niche count)：<br />
+<span class="math display">\[nc(\boldsymbol{x},t)=\sum_{\boldsymbol{y}∈P,r(\boldsymbol{y},t)=r(\boldsymbol{x},t)}max\left\{\frac{σ_{share}-dz(\boldsymbol{x},\boldsymbol{y})}{σ_{share}},0\right\}\]</span> 其中<span class="math inline">\(σ_{share}\)</span>是一个预先决定的参数，称为小生境大小，决定了需要考虑的个体范围。 如此，<span class="math inline">\(nc(\boldsymbol{x},t)\)</span>越大，<span class="math inline">\(\boldsymbol{x}\)</span>附近越稠密，<span class="math inline">\(f&#39;(\boldsymbol{x},t)\)</span>越小。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230425204637.png width=50%></p>
+<p>因此，小生境限制了查找个体数在某个特定的帕累托前沿区域的激增。<br />
+另一种替代的距离度量是：<br />
+<span class="math display">\[dx(\boldsymbol{x},\boldsymbol{y})=\sqrt{\frac{1}{M}\sum_{i=1}^M(x_i-y_i)^2}\]</span></p>
+<p>许多研究都观察到使用适应度共享的多目标优化策略往往要比不使用适应度共享的多目标优化更好。</p>
+<p>但是，适应度共享的其中一个问题是在查找前需要确定小生境大小<span class="math inline">\(σ_{share}\)</span>。Fonseca和Flemin<sup id="fnref:3" class="footnote-ref"><a href="#fn:3" rel="footnote"><span class="hint--top hint--rounded" aria-label="Fonseca CM, Fleming PJ. Multiobjective genetic algorithms. In: IEEE colloquium on ‘Genetic Algorithms for Control Systems Engineering’ (Digest No. 1993/130), 28 May 1993. London, UK: IEE; 1993.">[3]</span></a></sup> 提出了一种动态调整<span class="math inline">\(σ_{share}\)</span>的方法。另一个问题是引入<span class="math inline">\(σ_{share}\)</span>所增加的计算量。</p>
+<p>MOGA是第一个同时使用帕累托排序和小生境的多目标优化算法。</p>
+<div class="note note-info">
+            <ul><li>Step 1: Start with a random initial population <span class="math inline">\(P_0\)</span>. Set <span class="math inline">\(t = 0\)</span>.<br /></li><li>Step 2: If the stopping criterion is satisfied, return <span class="math inline">\(P_t\)</span>.<br /></li><li>Step 3: Evaluate fitness of the population as follows:<ul><li>Step 3.1: Assign a rank <span class="math inline">\(r(x,t)\)</span> to each solution <span class="math inline">\(\boldsymbol{x}∈P_t\)</span> using the ranking scheme: <span class="math inline">\(r(\boldsymbol{x},t)=1+nq(\boldsymbol{x},t)\)</span>.<br /></li><li>Step 3.2: Assign a fitness values to each solution based on the solution’s rank as follows: <span class="math display">\[f(\boldsymbol{x},t)=N-\sum_{k=1}^{r(\boldsymbol{x},t)}n_k-0.5(n_{r(\boldsymbol{x},t)}-1)\]</span> 其中<span class="math inline">\(n_k\)</span>是具有排名<span class="math inline">\(k\)</span>的个体的数目。<br /></li><li>Step 3.3: Calculate the niche count <span class="math inline">\(nc(\boldsymbol{x}, t)\)</span> of each solution <span class="math inline">\(\boldsymbol{x}∈P_t\)</span>.<br /></li><li>Step 3.4: Calculate the shared fitness value of each solution <span class="math inline">\(\boldsymbol{x}∈P_t\)</span> as follows:<br /><span class="math display">\[f&#39;(\boldsymbol{x},t)=f(\boldsymbol{x},t)/nc(\boldsymbol{x},t)\]</span></li><li>Step 3.5: Normalize the fitness values by using the shared fitness values:<br /><span class="math display">\[f^{&#39;&#39;}(\boldsymbol{x},t)=\frac{f^{&#39;}(\boldsymbol{x},t)n_r(\boldsymbol{x},t)}{∑_{\boldsymbol{y}∈P_t,r(\boldsymbol{y},t)=r(\boldsymbol{x},t)}f&#39;(\boldsymbol{x},t)}f(\boldsymbol{x},t)\]</span></li></ul></li><li>Step 4: Use a stochastic selection method based on <span class="math inline">\(f^{&#39;&#39;}\)</span> to select parents for the mating pool. Apply crossover and mutation on the mating pool until offspring population <span class="math inline">\(Q_t\)</span> of size <span class="math inline">\(N\)</span> is filled. Set <span class="math inline">\(P_{t+1} = Q_t\)</span>.</li><li>Step 5: Set <span class="math inline">\(t =t +1\)</span>, go to Step 2.</li></ul>
+          </div>
+<p>SPEA2中使用了一种方法来区分具有相同排名的个体：一个个体周围的密度被定义为与其最近的第<span class="math inline">\(k\)</span>个个体的距离的相反数。设置<span class="math inline">\(k\)</span>比设置小生境大小<span class="math inline">\(σ_{share}\)</span>更为直接。</p>
+<h3 id="拥挤距离">拥挤距离</h3>
+<p>拥挤距离(crowding distance)旨在不使用适应度共享方法的参数就可以从最优的帕累托前沿近似中得到均匀的个体分布。NSGA-II中使用了一种拥挤距离的方法：<br />
+对于使用帕累托排序生成的若干个非支配前沿<span class="math inline">\(F_1,...,F_R\)</span>，对于每一个目标函数<span class="math inline">\(k\)</span>，对<span class="math inline">\(F_j\)</span>中的每一个解升序排序。设<span class="math inline">\(l=|F_j|\)</span>，<span class="math inline">\(\boldsymbol{x}_{[i,k]}\)</span>表示对<span class="math inline">\(k\)</span>个目标函数排序列表中的第<span class="math inline">\(i\)</span>个个体。令<span class="math inline">\(cd_k(\boldsymbol{x}_{[1,k]})=∞\)</span>, <span class="math inline">\(cd_k(\boldsymbol{x}_{[l,k]})=∞\)</span>，对剩下的<span class="math inline">\(i=2,3,...,l-1\)</span>:<br />
+<span class="math display">\[cd_k(\boldsymbol{x}_{[i,k]})=\frac{z_k(\boldsymbol{x}_{[i+1,k]}-\boldsymbol{x}_{[i-1,k]})}{z_k^{max}-z_k^{min}}\]</span></p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230425204758.png width=50%></p>
+<p>可以发现，<span class="math inline">\(cd\)</span>越大，相邻个体之间的间距就越大。<br />
+最后，对每个<span class="math inline">\(\boldsymbol{x}\)</span>,对所有目标函数的<span class="math inline">\(cd_k(\boldsymbol{x})\)</span>全部求和:<br />
+<span class="math display">\[cd(\boldsymbol{x})=∑_kcd_k(\boldsymbol{x})\]</span></p>
+<p>NSGA-II中使用拥挤距离作为稠密度参考来进行选择，称为拥挤锦标赛选择(crowed tournament selection). 在拥挤锦标赛选择中，随机配对的两个个体<span class="math inline">\(\boldsymbol{x}\)</span>,<span class="math inline">\(\boldsymbol{y}\)</span>。如果两个个体位于同样的非支配前沿，有更高<span class="math inline">\(cd\)</span>的个体将被选择；如果两个个体在不同的非支配前沿，具有更低排名的个体将被选择。</p>
+<p>使用拥挤距离好处是这种衡量个体稠密度的方法不需要使用者提前设置参数<span class="math inline">\(σ_{share}\)</span>或者是<span class="math inline">\(k\)</span>.</p>
+<h3 id="基于网格的稠密度">基于网格的稠密度</h3>
+<p>在基于网格的稠密度(cell-based density)方法中，搜索空间被划分为若干个<span class="math inline">\(K\)</span>维的超立方网格。每个网格中个体的数量称为该网格的密度，并且定义一个个体的密度就是该个体所在网格的密度。这样的稠密度信息可以辅助实现适应度共享。<br />
+比如在PESA中，具有更低稠密度的个体更受欢迎。</p>
+<div class="note note-info">
+            <ul><li>Step 1: Start with a random initial population P0 and set external achieve <span class="math inline">\(E_0 = ∅, t = 0\)</span>.<br /></li><li>Step 2: Divide the normalized objective space into <span class="math inline">\(n^K\)</span> hyper-cubes where <span class="math inline">\(n\)</span> is the number of grids along a single objective axis and <span class="math inline">\(K\)</span> is the number of objectives.<br /></li><li>Step 3: Update non-dominated archive <span class="math inline">\(E_t\)</span> by incorporating new solutions from <span class="math inline">\(P_t\)</span> one by one as follows:<ul><li>Case 1: If a new solution is dominated by at least a solution in <span class="math inline">\(E_t\)</span>, discard the new solution.</li><li>Case 2: If a new solution dominates some solutions in <span class="math inline">\(E_t\)</span>, remove those dominated solutions from <span class="math inline">\(E_t\)</span> and add to the new solution to <span class="math inline">\(E_t\)</span>. Update the membership of the hyper-cubes.<br /></li><li>Case 3: If a new solution is not dominated by and does not dominate any solution in <span class="math inline">\(E_t\)</span>, add this solution to <span class="math inline">\(E_t\)</span>. If <span class="math inline">\(|E_t|=N_E+1\)</span>, randomly choose a solution from the most crowded hyper-cubes to be removed. Update the membership of the hyper-cubes.<br /></li></ul></li><li>Step 4: If the stopping criterion is satisfied, stop and return <span class="math inline">\(E_t\)</span>.</li><li>Step 5: Set <span class="math inline">\(P_t = ∅\)</span>, and select solutions from <span class="math inline">\(E_t\)</span> for crossover and mutation based on the density information of the hyper-cubes. For example, if binary tournament selection is used, the winner is the solution located in the less crowded hyper-cubes. Apply crossover and mutation to generate <span class="math inline">\(N_P\)</span> offspring and copy them to <span class="math inline">\(P_{t+1}\)</span>.</li><li>Step 6: Set <span class="math inline">\(t = t + 1\)</span> and go to Step 3.</li></ul>
+          </div>
+<p>PESA-II使用了一种更为直接的方式，称为基于区域的选择(region-based selection)。这种选择直接作用于每一个网格而并非选择个体，具有更低稠密度的网格比高密度的网格更有机会被选择。被选择的一个网格中的个体会被随机选择参加交叉和突变。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20230425212207.png width=50%></p>
+<p>使用基于网格的稠密度的好处有二：其一是这种方法分区域地描述了整个搜索空间中个体的稠密分布。第二，相比于小生境和基于相邻的稠密度方法，基于网格的稠密度计算方法的计算量更低。</p>
+<h2 id="精英主义">精英主义</h2>
+<p>精英主义(Elitisim)一词在遗传算法中指传统遗传算法中所采用的一种进化策略：迄今为止找到的最优个体总是能够在下一代中存活。在多目标遗传算法中， 迄今为止搜索到的所有的非支配解可以被认为是精英个体。 精英主义在多目标遗传算法中的实现方式有两种：</p>
+<ul>
+<li>在种群中采用某种机制始终保留精英个体。<br />
+</li>
+<li>使用一个外置存储列表保存精英个体，在适当的时候将它们重新引入种群。</li>
+</ul>
+<h3 id="种群内保留精英个体">种群内保留精英个体</h3>
+<p>随机选择无法保证精英个体总是能够被选择到中间种群和下一代种群中，因此需要设计一些机制来保证精英个体总是能被选择进入下一代。<br />
+一种简单的实现保留精英个体的方式是：假设种群大小始终保持为<span class="math inline">\(N_P\)</span>，复制当前种群<span class="math inline">\(P_t\)</span>中所有的精英个体到下一代<span class="math inline">\(P_{t+1}\)</span>中，然后再对<span class="math inline">\(P_t\)</span>中的支配解，也就是非精英个体进行选择，直到填满<span class="math inline">\(P_{t+1}\)</span>。然而，当所有的非支配亲本和子代数量都超过<span class="math inline">\(N_P\)</span>时，这种方法便不再其作用。有如下几种方式可以解决这个问题：</p>
+<ul>
+<li><p>Konak和Smith<sup id="fnref:4" class="footnote-ref"><a href="#fn:4" rel="footnote"><span class="hint--top hint--rounded" aria-label="Konak A, Smith AE. Multiobjective optimization of survivable networks considering reliability. In: Proceedings of the 10th international conference on telecommunication systems. Monterey, CA: Naval Postgraduate School; 2002.">[4]</span></a></sup>提出了一种可以动态调整种群大小，并且使用精英策略的多目标遗传算法。在这种算法中，如果种群大小达到上限<span class="math inline">\(N_{max}\)</span>，<span class="math inline">\((N_{max}-N_{min})\)</span>个个体会被移出当前种群以保证当前非支配前沿中个体的多样性。<br />
+具体的移出策略称为帕累托支配锦标赛选择(Pareto domination tournament selection)：种群中随机配对的两个个体比较相互之间的小生境距离，移出具有较高小生境距离的那个个体（假定现在种群中所有的个体都是非支配个体）。</p></li>
+<li><p>NSGA-II使用了固定的种群大小，在第<span class="math inline">\(t\)</span>代，亲本种群<span class="math inline">\(P_t\)</span>产生一个具有大小<span class="math inline">\(N\)</span>的子代种群<span class="math inline">\(Q_t\)</span>. 若干个非支配前沿<span class="math inline">\(F_1,F_2,...,F_R\)</span>从<span class="math inline">\(P_t∪Q_t\)</span>中产生。紧接着，按非支配前沿的顺序将各非支配前沿中的个体填充到下一代种群<span class="math inline">\(P_{t+1}\)</span>，最后一个填入的非支配前沿中的个体按照其拥挤距离<span class="math inline">\(cd\)</span>从小到大填入下一代种群<span class="math inline">\(P_{t+1}\)</span>。具体而言可以将上述过程用符号化语言表达为：令<span class="math inline">\(F_k\)</span>代表的非支配前沿具有如下性质： <span class="math inline">\(|F_1 ∪ F_2 ∪ ... ∪ F_k|≤N\)</span> 且 <span class="math inline">\(|F_1 \cap F_2 ∩ ... ∩ F_k|&gt;N\)</span> (<span class="math inline">\(|·|\)</span>表示集合的大小)。首先，<span class="math inline">\(F_1,...,F_k\)</span>中所有的个体都被复制到<span class="math inline">\(P_{k+1}\)</span>中，然后再将<span class="math inline">\(F_{k+1}\)</span>中最不密集(least-crowded)的<span class="math inline">\((N-|P_{t+1}|)\)</span>个个体移动到<span class="math inline">\(P_{k+1}\)</span>中。<br />
+这种方法可以保证当前种群中最优的那一部分——第一非支配前沿<span class="math inline">\(F_1\)</span>中所有的非支配解都能够在下一代中，如果<span class="math inline">\(|F_1|≤N\)</span>，那么<span class="math inline">\(F_1\)</span>中具有更小的拥挤距离的个体将被加入下一代中。</p></li>
+</ul>
+<div class="note note-info">
+            <p>Procedure NSGA-II:</p><ul><li>Step 1: Create a random parent population <span class="math inline">\(P_0\)</span> of size <span class="math inline">\(N\)</span>. Set <span class="math inline">\(t =0\)</span>.<br /></li><li>Step 2: Apply crossover and mutation to <span class="math inline">\(P_0\)</span> to create offspring population <span class="math inline">\(Q_0\)</span> of size <span class="math inline">\(N\)</span>.<br /></li><li>Step 3: If the stopping criterion is satisfied, stop and return to <span class="math inline">\(P_t\)</span>.<br /></li><li>Step 4: Set <span class="math inline">\(R_t =P_t ∪ Q_t\)</span>.<br /></li><li>Step 5: Using the fast non-dominated sorting algorithm, identify the non-dominated fronts <span class="math inline">\(F_1, F_2, ...,F_k\)</span> in <span class="math inline">\(R_t\)</span>.<br /></li><li>Step 6: For <span class="math inline">\(i =1,...,k\)</span> do following steps:<ul><li>Step 6.1: Calculate crowding distance of the solutions in <span class="math inline">\(F_i\)</span>.<br /></li><li>Step 6.2: Create <span class="math inline">\(P_{t+1}\)</span> as follows:<ul><li>Case 1: If <span class="math inline">\(| P_{t+1} | + | F_i | ≤ N\)</span>, then set <span class="math inline">\(P_{t+1}=P_{t+1}∪F_i\)</span>;</li><li>Case 2: If <span class="math inline">\(| P_{t+1} | + | F_i | &gt;N\)</span>, then add the least crowded <span class="math inline">\(N- | P_{t+1} |\)</span> solutions from <span class="math inline">\(F_i\)</span> to <span class="math inline">\(P_{t+1}\)</span>.<br /></li></ul></li></ul></li><li>Step 7: Use binary tournament selection based on the crowding distance to select parents from <span class="math inline">\(P_{t+1}\)</span>. Apply crossover and mutation to <span class="math inline">\(P_{t+1}\)</span> to create offspring population <span class="math inline">\(Q_{t+1}\)</span> of size <span class="math inline">\(N\)</span>.</li><li>Step 8: Set <span class="math inline">\(t =t + 1\)</span>, and go to Step 3.</li></ul>
+          </div>
+<p>需要注意的是，当<span class="math inline">\(|R_t| =|P_t ∪ Q_t|&gt;N\)</span>时，NSGA-II的表现是纯粹的精英选择：只有非支配解可以参与选择和交叉。</p>
+<p>种群内保留精英个体(maintaining elitist solutions in the population)的好处是这种方法非常容易实现。由于没有外部存储，在这种方法中，种群大小<span class="math inline">\(N\)</span>是一个重要的超参数。</p>
+<h3 id="外置列表保存精英个体">外置列表保存精英个体</h3>
+<p>如果使用外置列表<span class="math inline">\(E\)</span>来保存精英个体，有三个问题是需要考虑的：</p>
+<ul>
+<li>哪些个体会被存储在<span class="math inline">\(E\)</span>中？<br />
+大多数的多目标遗传算法中，迄今为止找到的所有的非支配解都会存储在外置列表<span class="math inline">\(E\)</span>中。与此同时，<span class="math inline">\(E\)</span>这个列表也会进行动态更新，加入新的非支配解；用查找到的更高级的非支配解替代现有<span class="math inline">\(E\)</span>中受其支配的“非支配解”。<br />
+需要注意的是，这样的决策过程需要额外的计算量。<br />
+</li>
+<li>外置列表<span class="math inline">\(E\)</span>的大小<br />
+随着搜索过程的进行，找到的非支配解会越来越多，因此最后<span class="math inline">\(E\)</span>的大小会相当大。有一些修剪(pruning)技术可以控制<span class="math inline">\(E\)</span>的大小，比如SPEA中使用了一种平均连接聚类来限制<span class="math inline">\(E\)</span>的大小始终在一个上限<span class="math inline">\(N^E_{max}\)</span>以内。<br />
+具体而言，这种平均连接聚类(average linkage clustering)的过程如下：
+<ol type="1">
+<li>Initially, assign each solution <span class="math inline">\(x∈E\)</span> to a cluster <span class="math inline">\(c_i\)</span>, <span class="math inline">\(C = \{c_1, c_2, ... , c_M\}\)</span>.<br />
+</li>
+<li>Calculate the distance between all pairs of clusters <span class="math inline">\(c_i\)</span> and <span class="math inline">\(c_j\)</span> as follows: <span class="math display">\[d(c_i,c_j)=\frac{1}{|c_i||c_j|}∑_{\boldsymbol{x}∈c_i,\boldsymbol{y}∈c_j}d(\boldsymbol{x},\boldsymbol{y})\]</span> 其中<span class="math inline">\(d(\boldsymbol{x},\boldsymbol{y})\)</span>可以通过之前的<span class="math inline">\(dz(\boldsymbol{x},\boldsymbol{y})\)</span>或者<span class="math inline">\(dx(\boldsymbol{x},\boldsymbol{y})\)</span>的计算方法得到。<br />
+</li>
+<li>Merge the cluster pair <span class="math inline">\(c_i\)</span> and <span class="math inline">\(c_j\)</span> with the minimum distance among all clusters into a new cluster.</li>
+<li>If <span class="math inline">\(| C | ≤N\)</span>, go to Step 5, else go to Step 2.<br />
+</li>
+<li>For each cluster, determine a solution with the minimum average distance to all other solutions in the same cluster (called the centroid solution). Keep the centroid solutions for every cluster and remove other solutions from <span class="math inline">\(E\)</span>.（只保留每个聚类中心的个体）</li>
+</ol></li>
+<li>如何引入<span class="math inline">\(E\)</span>中的个体回到种群？<br />
+在这个问题上有两种策略，其一是可以直接综合<span class="math inline">\(P_t\)</span>和<span class="math inline">\(E\)</span>：<span class="math inline">\(P_t∪E\)</span>，再一同进入选择和遗传操作。<br />
+另一种策略是在<span class="math inline">\(P_{t+1}\)</span>中为<span class="math inline">\(E\)</span>保留空间：先将<span class="math inline">\(E\)</span>的所有个体（大小：<span class="math inline">\(N_E\)</span>）移动到<span class="math inline">\(P_{t+1}\)</span>，再从<span class="math inline">\(P_t\)</span>中选择<span class="math inline">\(N-N_E\)</span>个个体移动到<span class="math inline">\(P_{t+1}\)</span>.</li>
+</ul>
+<p>SPEA和SPEA2两种算法都使用了外置列表来保存精英个体。其他使用外置列表的多目标遗传算法有PESA，RDGA，RWGA，和DMOEA.</p>
+<div class="note note-info">
+            <p>Procedure SPEA2:<br /><span class="math inline">\(N_E\)</span> : the maximum size of the non-dominated archive <span class="math inline">\(E\)</span>,<br /><span class="math inline">\(N_P\)</span> =the population size,<br /><span class="math inline">\(k =\sqrt{N_E + N_P}\)</span>: parameter for density calculation</p><ul><li>Step 1: Randomly generate an initial solution <span class="math inline">\(P_0\)</span> and set <span class="math inline">\(E_0 =∅\)</span>.<br /></li><li>Step 2: Calculate the fitness of each solution <span class="math inline">\(\boldsymbol{x}\)</span> in <span class="math inline">\(P_t ∪ E_t\)</span> as follows:<ul><li>Step 2.1: <span class="math inline">\(r(\boldsymbol{x}, t) =∑_{\boldsymbol{y}∈(P_t∪E_t),\boldsymbol{y}≻\boldsymbol{x}}s(\boldsymbol{y},t)\)</span> where <span class="math inline">\(s(\boldsymbol{y},t)\)</span> is the number of solutions in <span class="math inline">\(P_t ∪ E_t\)</span> dominated by solution <span class="math inline">\(\boldsymbol{y}\)</span>.<br /></li><li>Step 2.2: Calculate the density as: <span class="math display">\[m(\boldsymbol{x}, t)=(σ^k_{\boldsymbol{x}} + 1)^{-1}\]</span><br />where <span class="math inline">\(σ^k_{\boldsymbol{x}}\)</span> is the distance between solution x and its <span class="math inline">\(k\)</span> th nearest neighbor.<br /></li><li>Step 2.3: Assign a fitness value as: <span class="math display">\[f (\boldsymbol{x},t) =r(\boldsymbol{x},t) + m(\boldsymbol{x}, t)\]</span></li></ul></li><li>Step 3: Copy all non-dominated solutions in <span class="math inline">\(P_t ∪ E_t\)</span> to <span class="math inline">\(E_{t+1}\)</span>. Two cases are possible:<ul><li>Case 1: If <span class="math inline">\(| E_{t+1} | &gt;N_E\)</span>, then truncate <span class="math inline">\((| E_{t+1} | -N_E)\)</span> solutions by iteratively removing solutions with the maximum <span class="math inline">\(\sigma ^k\)</span> distances. Break any tie by examining <span class="math inline">\(\sigma ^l\)</span> for <span class="math inline">\(l=k-1,...,1\)</span> sequentially.<br /></li><li>Case 2: If <span class="math inline">\(| E_{t+1} | ≤N_E\)</span>, copy the best <span class="math inline">\((N_E- | E_{t+1} |)\)</span> dominated solutions according to their fitness values from <span class="math inline">\(P_t ∪ E_t\)</span> to <span class="math inline">\(E_{t+1}\)</span>.<br /></li></ul></li><li>Step 4: If the stopping criterion is satisfied, stop and return non-dominated solutions in <span class="math inline">\(E_{t+1}\)</span>.<br /></li><li>Step 5: Select parents from Etþ1 using binary tournament selection with replacement.<br /></li><li>Step 6: Apply crossover and mutation operators to the parents to create NP offspring solutions. Copy offspring to <span class="math inline">\(P_{t+1}\)</span>, <span class="math inline">\(t = t + 1\)</span>, and go to Step 2.</li></ul>
+          </div>
+<h2 id="条件限制">条件限制</h2>
+<p>大多数真实的多目标优化问题中，优化目标常常有各种各样的限制(constraint)。在单目标遗传算法中，用来进行条件限制的策略有四种：</p>
+<ul>
+<li>I. 舍弃不可能实现的解决方案（又称为“Death Penalty”）<br />
+</li>
+<li><ol start="2" type="I">
+<li>使用惩罚函数降低不可能实现个体的适应度<br />
+</li>
+</ol></li>
+<li><ol start="3" type="I">
+<li>设计遗传操作使得种群总是可以产生可行的个体</li>
+</ol></li>
+<li><ol start="4" type="I">
+<li>设计某种机制使得不可能个体变成可行的个体（又称为“repair”）</li>
+</ol></li>
+</ul>
+<p>目前，对多目标遗传算法中条件限制问题的研究并不充分，大多数的多目标遗传算法并不考虑条件限制。不过，策略I, III,IV可以直接应用于多目标遗传算法。<br />
+Jimenez等人<sup id="fnref:5" class="footnote-ref"><a href="#fn:5" rel="footnote"><span class="hint--top hint--rounded" aria-label="Jimenez F, Gomez-Skarmeta AF, Sanchez G, Deb K. An evolutionary algorithm for constrained multi-objective optimization. In: Proceedings of the 2002 world congress on computational intelligence—WCCI’02, 12–17 May, 2002. Honolulu, HI, USA: IEEE; 2002.">[5]</span></a></sup>提出了一种基于小生境的选择策略来实现条件限制，过程如下：</p>
+<ul>
+<li>Step 1: Randomly chose two solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> from the population.<br />
+</li>
+<li>Step 2: If one of the solutions is feasible and the other one is infeasible, the winner is the feasible solution, and stop. Otherwise, if both solutions are infeasible go to Step 3, else go to Step 4.<br />
+</li>
+<li>Step 3: In this case, solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> are both infeasible.<br />
+Then, select a random reference set <span class="math inline">\(C\)</span> among infeasible solutions in the population. Compare solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> to the solutions in reference set <span class="math inline">\(C\)</span> with respect to their degree of infeasibility. In order to achieve this, calculate a measure of infeasibility (e.g., the number of constraints violated or total constraint violation) for solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span>, and those in set <span class="math inline">\(C\)</span>. If one of solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> is better and the other one is worse than the best solution in <span class="math inline">\(C\)</span>, with respect to the calculated infeasibility measure, then the winner is the least infeasible solution.<br />
+However, if there is a tie, that is, both solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> are either better or worse than the best solution in <span class="math inline">\(C\)</span>, then their niche count in decision variable space is used for selection. In this case, the solution with the lower niche count is the winner.<br />
+</li>
+<li>Step 4: In the case that solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> are both feasible, select a random reference set <span class="math inline">\(C\)</span> among feasible solutions in the population. Compare solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> to the solutions in set <span class="math inline">\(C\)</span>. If one of them is non-dominated in set <span class="math inline">\(C\)</span>, and the other is dominated by at least one solution, the winner is the former. Otherwise, there is a tie between solutions <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span>, and the niche count of the solutions is calculated in decision variable space. The solution with the smaller niche count is the winner of the tournament selection.</li>
+</ul>
+<p>简单来说，该方法使用了一个参考集合<span class="math inline">\(C\)</span>，该参考集合中的所有个体都是可行的。然后随机配对种群中的两个个体<span class="math inline">\(\boldsymbol{x}\)</span> 和 <span class="math inline">\(\boldsymbol{y}\)</span> 以 <span class="math inline">\(C\)</span>为参照对比可行性，可行性更高的个体胜出。如果这两个个体本身都是可行的，则比较两者的小生境距离，小生境距离更小的个体胜出。</p>
+<p>上述的这种方法是一种较为综合的处理限制条件的方法，在处理过程中还可以有效地保证个体多样性。这种方法的缺点是计算复杂度以及引入了例如小生境距离和参考种群<span class="math inline">\(C\)</span>相关的超参数。</p>
+<p>不过上述方法仍然许多可以改进的地方，比如第三步中<span class="math inline">\(\boldsymbol{x}\)</span> 和 <span class="math inline">\(\boldsymbol{y}\)</span>的可行性可以直接比较而不需要实用一个参考集合<span class="math inline">\(C\)</span>;再比如第四步中小生境距离可以在目标函数的空间中直接得出，不需要回到变量的空间(decision variable space)中再进行计算。</p>
+<p>Deb等人提出的NSGA-II中<sup id="fnref:6" class="footnote-ref"><a href="#fn:6" rel="footnote"><span class="hint--top hint--rounded" aria-label="Deb K, Pratap A, Agarwal S, Meyarivan T. A fast and elitist multiobjective genetic algorithm: NSGA-II. IEEE Trans Evol Comput 2002;6(2):182–97.">[6]</span></a></sup>提出了有限制的锦标赛选择机制(constrained tournament selection)。在这种机制中，如果个体<span class="math inline">\(\boldsymbol{x}\)</span>满足如下任何一个条件，称个体<span class="math inline">\(\boldsymbol{x}\)</span>有条件地支配(constrain-dominate)个体<span class="math inline">\(\boldsymbol{y}\)</span>：</p>
+<ul>
+<li><span class="math inline">\(\boldsymbol{x}\)</span>可行，<span class="math inline">\(\boldsymbol{y}\)</span>不可行</li>
+<li><span class="math inline">\(\boldsymbol{x}\)</span>和<span class="math inline">\(\boldsymbol{y}\)</span>都不可行，但是<span class="math inline">\(\boldsymbol{x}\)</span>对条件的破坏低于<span class="math inline">\(\boldsymbol{y}\)</span></li>
+<li><span class="math inline">\(\boldsymbol{x}\)</span>和<span class="math inline">\(\boldsymbol{y}\)</span>都可行，<span class="math inline">\(\boldsymbol{x}\)</span>支配<span class="math inline">\(\boldsymbol{y}\)</span></li>
+</ul>
+<p>首先，若干个条件限制的非支配前沿<span class="math inline">\(F_1,...,F_R\)</span>可以通过使用上述的“有条件支配”的定义进行帕累托排序得出。在这样的选择机制中，随机选择两个个体<span class="math inline">\(\boldsymbol{x}\)</span> 和 <span class="math inline">\(\boldsymbol{y}\)</span>，然后比较两者在条件限制的非支配前沿中的地位。<br />
+这种方式的优点是只需要引入非常少的超参数，而且对原本多目标遗传算法的改动也比较小。</p>
+<h2 id="并行多目标">并行多目标</h2>
+<p>并行化单目标遗传算法的一种方法是通过局部搜索进行的，这种算法通常被称为Memetic算法，使用Memetic算法的并行化步骤如下：</p>
+<ul>
+<li>Step 1: Start with an initial solution <span class="math inline">\(\boldsymbol{x}\)</span>.<br />
+</li>
+<li>Step 2: Generate a set of neighbor solutions around solution <span class="math inline">\(\boldsymbol{x}\)</span> using a simple perturbation rule.</li>
+<li>Step 3: If the best solution in the neighborhood set is better than <span class="math inline">\(\boldsymbol{x}\)</span>, replace <span class="math inline">\(\boldsymbol{x}\)</span> with this solution and go to Step 2, else stop.</li>
+</ul>
+<p>局部搜索的算法总是在初始个体附近是凸函数(convex)时具有很好的搜索性能。然而这种条件对于使用标准遗传算子的进化算法是很难达到的。并行化多目标遗传算法需要解决的问题有：</p>
+<ul>
+<li>如何选择一个解以在其周围开始局部搜索<br />
+</li>
+<li>当多个局部非支配的解(none-dominated local solution)存在时，如何定义一个解周围的解比这个解更好</li>
+</ul>
+<p>有非常多的方法旨在解决上述问题：</p>
+<ul>
+<li><p>Ishibuchi和Murata <sup id="fnref:7" class="footnote-ref"><a href="#fn:7" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ishibuchi H, Murata T. Multi-objective genetic local search algorithm. In: Proceedings of the IEEE international conference on evolutionary computation, 20–22 May, 1996. Nagoya, Japan: IEEE;1996.">[7]</span></a></sup> 提出了一种基于交叉的局部搜索方式，这种方式使用与子代的亲本相同的权重向量来衡量领域的个体。相似地，Ishibuchi等人<sup id="fnref:8" class="footnote-ref"><a href="#fn:8" rel="footnote"><span class="hint--top hint--rounded" aria-label="Ishibuchi H, Yoshida T, Murata T. Balance between genetic search and local search in memetic algorithms for multiobjective permutation flowshop scheduling. IEEE Trans Evol Comput 2003;7(2): 204–23.">[8]</span></a></sup>在局部搜索中同样使用了有权的目标函数线性组合来衡量个体，但是局部搜索只能选择性地用于有希望的解决方案，并使用随机生成的权重而不与子代的亲本相同。</p></li>
+<li><p>Konwles和Conrne <sup id="fnref:9" class="footnote-ref"><a href="#fn:9" rel="footnote"><span class="hint--top hint--rounded" aria-label="Knowles JD, Corne DW. M-PAES: a memetic algorithm for multiobjective optimization. In: Proceedings of the 2000 congress on evolutionary computation, 16–19 July, 2000. La Jolla, CA, USA: IEEE; 2000.">[9]</span></a></sup> 提出了一种基于Memetic算法的PAES算法改进，称为M-PAES。在M-PAES中，基于之前个体的相邻区域搜索到的个体只会与局部非支配解集合比较表现，然后决定是否更新这个解集。<br />
+这种方法中局部搜索的终止条件有二：搜索的个体数达到上限或者搜索路线经历了最大数量的局部移动但是没有任何改进。</p></li>
+<li><p>Tan等人 <sup id="fnref:10" class="footnote-ref"><a href="#fn:10" rel="footnote"><span class="hint--top hint--rounded" aria-label="Tan KC, Lee TH, Khor EF. Evolutionary algorithms with dynamic population size and local exploration for multiobjective optimization. IEEE Trans Evol Comput 2001;5(6):565–88.">[10]</span></a></sup> 提出一种基于相邻个体的搜索方法。这种方法中，局部搜索的邻域大小取决于解决方案的稠密度或拥挤程度。由于在应用局部搜索时具有选择性，这种策略在保持多样性的同时也具有计算效率。</p></li>
+</ul>
+<h2 id="总结不同的多目标遗传算法以及评述">总结：不同的多目标遗传算法以及评述</h2>
+<table>
+
+<thead>
+<tr>
+<th style="text-align: center;">Algorithm</th>
+<th style="text-align: left;">Fitness Assignment</th>
+<th style="text-align: left;">Diversity Mechanism</th>
+<th style="text-align: center;">Elitism</th>
+<th style="text-align: center;">External Population</th>
+<th style="text-align: left;">Advantages</th>
+<th style="text-align: left;">Disadvantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">VEGA</td>
+<td style="text-align: left;">Each subpopulation is evaluated with respect to a different objective</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;">First MOGA Straightforward implementation</td>
+<td style="text-align: left;">Tend converge to the extreme of each objective</td>
+</tr>
+<tr>
+<td style="text-align: center;">MOGA</td>
+<td style="text-align: left;">Pareto ranking Fitness sharing by niching</td>
+<td style="text-align: left;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">Simple extension of single objective GA</td>
+<td style="text-align: left;">Usually slow convergence</td>
+<td style="text-align: left;">Problems related to niche size parameter</td>
+</tr>
+<tr>
+<td style="text-align: center;">WBGA</td>
+<td style="text-align: left;">Weighted average of normalized objectives</td>
+<td style="text-align: left;">Niching</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;">Simple extension of single objective GA</td>
+<td style="text-align: left;">Difficulties in nonconvex</td>
+</tr>
+<tr>
+<td style="text-align: center;">NPGA</td>
+<td style="text-align: left;">No fitness assignment, tournament selection</td>
+<td style="text-align: left;">Niche count as tie breaker in tournament selection</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;">Very simple selection process with tournament selection</td>
+<td style="text-align: left;">- Problems related to niche size parameter <br> - Extra parameter for tournament selection</td>
+</tr>
+<tr>
+<td style="text-align: center;">RWGA</td>
+<td style="text-align: left;">Weighted average of normalized objectives</td>
+<td style="text-align: left;">Randomly assigned weights</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;">Efficient and easy implement</td>
+<td style="text-align: left;">Difficulties in nonconvex objective function space</td>
+</tr>
+<tr>
+<td style="text-align: center;">PESA</td>
+<td style="text-align: left;">No fitness assignment</td>
+<td style="text-align: left;">Cell-based density</td>
+<td style="text-align: center;">Pure elitist</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;">- Easy to implement Performance depends on <br> - Computationally efficient cell size s</td>
+<td style="text-align: left;">Prior information needed about objective space</td>
+</tr>
+<tr>
+<td style="text-align: center;">PAES</td>
+<td style="text-align: left;">Pareto dominance is used to replace a parent if offspring dominates</td>
+<td style="text-align: left;">Cell-based density as tie breaker between offspring and parent</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;">- Random mutation hill climbing strategy<br> - Easy to implement Performance depends on</td>
+<td style="text-align: left;">- Not a population based approach <br> - Computationally efficient cell sizes</td>
+</tr>
+<tr>
+<td style="text-align: center;">NSGA</td>
+<td style="text-align: left;">Ranking based on non-domination sorting</td>
+<td style="text-align: left;">Fitness sharing by niching</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;">Fast convergence</td>
+<td style="text-align: left;">Problems related to niche size parameter</td>
+</tr>
+<tr>
+<td style="text-align: center;">NSGA-II</td>
+<td style="text-align: left;">Ranking based on non-domination sorting</td>
+<td style="text-align: left;">Crowding distance</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;">- Single parameter (<span class="math inline">\(N\)</span>) <br> - Well tested <br> - Efficient</td>
+<td style="text-align: left;">Crowding distance works in objective space only</td>
+</tr>
+<tr>
+<td style="text-align: center;">SPEA</td>
+<td style="text-align: left;">Ranking based on the external archive of non-dominated solutions</td>
+<td style="text-align: left;">Clustering to truncateexternal population</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;">- Well tested <br> - No parameter for clustering</td>
+<td style="text-align: left;">Complex clustering algorithm</td>
+</tr>
+<tr>
+<td style="text-align: center;">SPEA-2</td>
+<td style="text-align: left;">Strength of dominators</td>
+<td style="text-align: left;">Density based on the k-th nearest neighbor</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;">- Improved SPEA <br> - Make sure extreme points are preserved</td>
+<td style="text-align: left;">Computationally expensive fitness and density calculation</td>
+</tr>
+<tr>
+<td style="text-align: center;">RDGA</td>
+<td style="text-align: left;">The problem reduced to bi-objective problem with solution rank and density as objectives</td>
+<td style="text-align: left;">Forbidden region cell based density</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: center;">Yes</td>
+<td style="text-align: left;">- Dynamic cell update <br>- Robust with respect to the number of objectives</td>
+<td style="text-align: left;">More difficult to implement than others</td>
+</tr>
+<tr>
+<td style="text-align: center;">DMOEA</td>
+<td style="text-align: left;">Cell-based ranking</td>
+<td style="text-align: left;">Adaptive cell-based density</td>
+<td style="text-align: center;">Yes (implicitly)</td>
+<td style="text-align: center;">No</td>
+<td style="text-align: left;">- Includes efficient techniques to update cell densities<br> - Adaptive approaches to set GA parameter</td>
+<td style="text-align: left;">More difficult to implement than others</td>
+</tr>
+</tbody>
+</table>
+<section class="footnotes">
+<div class="footnote-list">
+<ol>
+<li>
+<span id="fn:1" class="footnote-text"><span>C. A. C. Coello, “Evolutionary multi-objective optimization: a historical view of the field,” IEEE Computational Intelligence Magazine, vol. 1, no. 1, pp. 28-36, 2006, doi: https://doi.org/10.1109/MCI.2006.1597059. <a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:2" class="footnote-text"><span>Goldberg DE. Genetic algorithms in search, optimization, and machine learning. Reading, MA: Addison-Wesley; 1989. <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:3" class="footnote-text"><span>Fonseca CM, Fleming PJ. Multiobjective genetic algorithms. In: IEEE colloquium on ‘Genetic Algorithms for Control Systems Engineering’ (Digest No. 1993/130), 28 May 1993. London, UK: IEE; 1993. <a href="#fnref:3" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:4" class="footnote-text"><span>Konak A, Smith AE. Multiobjective optimization of survivable networks considering reliability. In: Proceedings of the 10th international conference on telecommunication systems. Monterey, CA: Naval Postgraduate School; 2002. <a href="#fnref:4" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:5" class="footnote-text"><span>Jimenez F, Gomez-Skarmeta AF, Sanchez G, Deb K. An evolutionary algorithm for constrained multi-objective optimization. In: Proceedings of the 2002 world congress on computational intelligence—WCCI’02, 12–17 May, 2002. Honolulu, HI, USA: IEEE; 2002. <a href="#fnref:5" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:6" class="footnote-text"><span>Deb K, Pratap A, Agarwal S, Meyarivan T. A fast and elitist multiobjective genetic algorithm: NSGA-II. IEEE Trans Evol Comput 2002;6(2):182–97. <a href="#fnref:6" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:7" class="footnote-text"><span>Ishibuchi H, Murata T. Multi-objective genetic local search algorithm. In: Proceedings of the IEEE international conference on evolutionary computation, 20–22 May, 1996. Nagoya, Japan: IEEE;1996. <a href="#fnref:7" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:8" class="footnote-text"><span>Ishibuchi H, Yoshida T, Murata T. Balance between genetic search and local search in memetic algorithms for multiobjective permutation flowshop scheduling. IEEE Trans Evol Comput 2003;7(2): 204–23. <a href="#fnref:8" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:9" class="footnote-text"><span>Knowles JD, Corne DW. M-PAES: a memetic algorithm for multiobjective optimization. In: Proceedings of the 2000 congress on evolutionary computation, 16–19 July, 2000. La Jolla, CA, USA: IEEE; 2000. <a href="#fnref:9" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+<li>
+<span id="fn:10" class="footnote-text"><span>Tan KC, Lee TH, Khor EF. Evolutionary algorithms with dynamic population size and local exploration for multiobjective optimization. IEEE Trans Evol Comput 2001;5(6):565–88. <a href="#fnref:10" rev="footnote" class="footnote-backref"> ↩︎</a></span></span>
+</li>
+</ol>
+</div>
+</section>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" class="category-chain-item">遗传算法</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>多目标优化遗传算法综述</div>
+      <div>https://l61012345.top/2023/04/24/论文/进化计算/遗传算法/多目标遗传算法综述/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年4月24日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年9月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/05/10/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/7.%20Sequential%20Logic%202/" title="7. 时序逻辑2：时序逻辑电路的设计[英]">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">7. 时序逻辑2：时序逻辑电路的设计[英]</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法">
+                        <span class="hidden-mobile">并行遗传算法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="研究"
+        id="heading-2d46537e724fa604c205eea6cfc26083" role="tab" data-toggle="collapse" href="#collapse-2d46537e724fa604c205eea6cfc26083"
+        aria-expanded="true"
+      >
+        研究
+        <span class="list-group-count">(48)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2d46537e724fa604c205eea6cfc26083"
+           role="tabpanel" aria-labelledby="heading-2d46537e724fa604c205eea6cfc26083">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="神经网络"
+        id="heading-40850ccab8cdabc6868888fd85808d0e" role="tab" data-toggle="collapse" href="#collapse-40850ccab8cdabc6868888fd85808d0e"
+        aria-expanded="false"
+      >
+        神经网络
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-40850ccab8cdabc6868888fd85808d0e"
+           role="tabpanel" aria-labelledby="heading-40850ccab8cdabc6868888fd85808d0e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" title="TensorFlow 入门项目：训练一个VGG模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">TensorFlow 入门项目：训练一个VGG模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" title="卷积神经网络简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">卷积神经网络简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" title="深度卷积生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">深度卷积生成对抗网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" title="生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">生成对抗网络</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统工程"
+        id="heading-20662cd9022948e3fc8b6c3a81b6107e" role="tab" data-toggle="collapse" href="#collapse-20662cd9022948e3fc8b6c3a81b6107e"
+        aria-expanded="false"
+      >
+        系统工程
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-20662cd9022948e3fc8b6c3a81b6107e"
+           role="tabpanel" aria-labelledby="heading-20662cd9022948e3fc8b6c3a81b6107e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="各类系统"
+        id="heading-588aa3ee8bda6c2f94ead12b3332d921" role="tab" data-toggle="collapse" href="#collapse-588aa3ee8bda6c2f94ead12b3332d921"
+        aria-expanded="false"
+      >
+        各类系统
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-588aa3ee8bda6c2f94ead12b3332d921"
+           role="tabpanel" aria-labelledby="heading-588aa3ee8bda6c2f94ead12b3332d921">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" title="CNC铣床基本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CNC铣床基本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电力线缆的寿命预测模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">钢铁淬火的简单仿真</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统分析理论"
+        id="heading-5d5b60b74e73d4405eebcb4bb7170ee0" role="tab" data-toggle="collapse" href="#collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+        aria-expanded="false"
+      >
+        系统分析理论
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+           role="tabpanel" aria-labelledby="heading-5d5b60b74e73d4405eebcb4bb7170ee0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/07/10/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/EventiC/" title="EventiC——一种无偏的复杂系统实时事件建模器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">EventiC——一种无偏的复杂系统实时事件建模器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/01/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/ROC/" title="ROC聚类算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROC聚类算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/19/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E4%B8%80%E7%A7%8D%E5%BA%94%E7%94%A8%E4%BA%8E%E7%BB%86%E8%83%9E%E5%BC%8F%E7%94%9F%E4%BA%A7%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="一种应用于细胞式生产的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种应用于细胞式生产的聚类方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/" title="无序变量的基本相关性分析方法和Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无序变量的基本相关性分析方法和Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/16/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%81%B5%E6%95%8F%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="灵敏度分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">灵敏度分析方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/11/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E9%92%88%E5%AF%B9%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="针对基因表达数据的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">针对基因表达数据的聚类方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="进化计算"
+        id="heading-393d3b280ef394972e740c7191996f04" role="tab" data-toggle="collapse" href="#collapse-393d3b280ef394972e740c7191996f04"
+        aria-expanded="true"
+      >
+        进化计算
+        <span class="list-group-count">(35)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-393d3b280ef394972e740c7191996f04"
+           role="tabpanel" aria-labelledby="heading-393d3b280ef394972e740c7191996f04">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/20/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/evolution%20everthing/" title="从进化计算到万物进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从进化计算到万物进化</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="true"
+      >
+        遗传算法
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/06/03/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E6%B6%8C%E7%8E%B0_%E4%BB%8E%E6%B7%B7%E4%B9%B1%E5%88%B0%E7%A7%A9%E5%BA%8F/" title="笔记摘要-涌现：从混乱到秩序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">笔记摘要-涌现：从混乱到秩序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="false"
+      >
+        遗传编程
+        <span class="list-group-count">(26)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/building%20blocks%EF%BC%9A%E6%8F%90%E5%8F%96%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%BA%94%E7%94%A8/" title="GP模块化的再讨论——Building Blocks：探测、提取、应用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP模块化的再讨论——Building Blocks：探测、提取、应用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/02/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/Geometric%20Semantic%20Genetic%20Programming%20-%20%E5%87%A0%E4%BD%95%E8%AF%AD%E4%B9%89GP/" title="Geometric Semantic Genetic Programming：基于几何信息的GP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Geometric Semantic Genetic Programming：基于几何信息的GP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/" title="交叉算子的建模和比较"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">交叉算子的建模和比较</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/What%20we%20can%20get%20in%20schema%20thoeries/" title="可以从既有的schema theory中得到什么"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可以从既有的schema theory中得到什么</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/schema%20thoery%20for%20homologous%20crossover/" title="同源交叉的模式定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">同源交叉的模式定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%BC%BA%E7%B1%BB%E5%9E%8BGP/" title="强类型遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">强类型遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/11/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/The%20Evolution%20of%20Evolvability%20in%20Genetic%20Programming/" title="遗传编程中Evolvability的进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中Evolvability的进化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/28/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E6%A8%A1%E5%9D%97%E5%8C%96GP/" title="遗传编程中的模块化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的模块化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%BF%90%E8%A1%8C%E6%89%8B%E8%AE%B0/" title="遗传编程运行Tricks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程运行Tricks</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基因表达式编程：通过人工智能的数学建模"
+        id="heading-c320aec9ed76d69f5bcc1ca10786135e" role="tab" data-toggle="collapse" href="#collapse-c320aec9ed76d69f5bcc1ca10786135e"
+        aria-expanded="false"
+      >
+        基因表达式编程：通过人工智能的数学建模
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c320aec9ed76d69f5bcc1ca10786135e"
+           role="tabpanel" aria-labelledby="heading-c320aec9ed76d69f5bcc1ca10786135e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 简介：生物遗传学背景</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter2/" title="02. GEP的实体"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. GEP的实体</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter3/" title="03. 基因表达式算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 基因表达式算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 随机常数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/26/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter6/" title="06. GEP的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. GEP的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter7/" title="07. 多项式推理和时间序列预测"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 多项式推理和时间序列预测</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/05/01/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter12/" title="12. 进化成分分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 进化成分分析</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程 IV： 例程化的可比拟人类的机器智能"
+        id="heading-cdf5b5baa87b8f9df335b10065b8eadb" role="tab" data-toggle="collapse" href="#collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+        aria-expanded="false"
+      >
+        遗传编程 IV： 例程化的可比拟人类的机器智能
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+           role="tabpanel" aria-labelledby="heading-cdf5b5baa87b8f9df335b10065b8eadb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 绪论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 背景·遗传编程基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" title="03. 控制器的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 控制器的自动综合</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/" title="04. 电路的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 电路的自动综合</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2025 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+<!-- 将谷歌翻译控件的脚本放在这里 -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'zh-CN', // 默认语言是中文
+      includedLanguages: 'en,zh-CN', // 只允许切换中英文
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // 等待一点时间，确保 Google Translate 加载完成
+    setTimeout(() => {
+      const combo = document.querySelector(".goog-te-combo");
+      if (combo) {
+        // 设置默认显示内容
+        combo.options[0].text = "切换语言";
+      }
+    }, 1000);
+  });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>

@@ -1,0 +1,1844 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="经典遗传算法的Python实现 理论 遗传算法(Genetic Algorithm, GA)由Prof.Holland 提出，是一种模拟生物染色体遗传行为结合达尔文生物进化理论的进化算法。它可以在给定的有限的搜索空间中找到全局最优解。 其运行过程如下图所示：  其运行的主要过程分为：种群初始化(population initialization)、评估(evaluation)、复制&#x2F;选择">
+<meta property="og:type" content="article">
+<meta property="og:title" content="经典遗传算法的Python实现">
+<meta property="og:url" content="https://l61012345.top/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="经典遗传算法的Python实现 理论 遗传算法(Genetic Algorithm, GA)由Prof.Holland 提出，是一种模拟生物染色体遗传行为结合达尔文生物进化理论的进化算法。它可以在给定的有限的搜索空间中找到全局最优解。 其运行过程如下图所示：  其运行的主要过程分为：种群初始化(population initialization)、评估(evaluation)、复制&#x2F;选择">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+<meta property="article:published_time" content="2022-11-25T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-01T09:36:48.325Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>经典遗传算法的Python实现 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+<link rel="stylesheet" href="/css/googletranslate.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>时间线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://unsplash.com/@l61012345" target="_self">
+                <i class="iconfont icon-image"></i>
+                <span>图库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/urasekai/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>里世界</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+        <!-- 🌐 Google 翻译控件 -->
+        <li class="nav-item" id="translate-btn">
+          <div id="google_translate_element" style="padding-top: 8px;"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="经典遗传算法的Python实现"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-25 00:00" pubdate>
+          2022年11月25日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          54 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">经典遗传算法的Python实现</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年9月1日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="经典遗传算法的python实现">经典遗传算法的Python实现</h1>
+<h2 id="理论">理论</h2>
+<p>遗传算法(Genetic Algorithm, GA)由Prof.Holland 提出，是一种模拟生物染色体遗传行为结合达尔文生物进化理论的进化算法。它可以在给定的有限的搜索空间中找到全局最优解。<br />
+其运行过程如下图所示：<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221125133029.png width=80%></p>
+<p>其运行的主要过程分为：种群初始化(population initialization)、评估(evaluation)、复制/选择(production)、遗传操作(genetic operation)四个模块，在Holland提出的经典遗传算法中遗传操作包括单点交叉(single point crossover)和突变(mutation)两步。</p>
+<h3 id="概念">概念</h3>
+<p>遗传算法中一个问题的可能解是目标函数包括的所有自变量的对应的一个特定值的集合，称为个体(individual)。在遗传算法中，这些值被线性排列，称为一条染色体(chromosome)。一个个体对应一条染色体，所有个体的染色体长度应当是相等的。染色体上描述某个变量对应值的区域被称为该变量在这个染色体上对应的基因(gene)。<br />
+遗传算法中，个体的集合被称为种群(population)，所有可能个体的集合是遗传算法的搜索空间(searching space)。</p>
+<h3 id="运行遗传算法前的准备搜索空间的确定">运行遗传算法前的准备：搜索空间的确定</h3>
+<p>搜索空间主要是通过为目标问题的所有可能解决方案确定一种通用的编码方式来实现。在经典遗传算法中，这一编码机制为二进制字符串，称为位串(string)。每一个个体都通过某种方式转化为唯一的一个位串。<br />
+这种转化的方式要求：</p>
+<ul>
+<li>搜索空间内的个体数量是有限的。<br />
+</li>
+<li>编码后所有个体在搜索空间中都是均匀分布的。<br />
+</li>
+<li>对位串中对每个基因的一次改变的对搜索进度的影响程度是相同的。</li>
+</ul>
+<h3 id="种群初始化">种群初始化</h3>
+<p>由于实际问题中遗传算法要面临的状态编码数量非常庞大，算法需要给定一些个体以便从它们开始查找最优解。通常，这些个体通过随机抽样的方式被确定，随机抽样得到的个体集合称为初始种群(initial population)。</p>
+<h3 id="评估">评估</h3>
+<p>评估是量化个体优劣性的方式。所谓个体的优劣性即个体对应的目标问题的一个解对目标问题解决程度的描述。评估是通过将编码后的个体进行解码，然后送入一个可以量化个体优劣性的函数中实现的。这个函数被称为适应度函数(fitness function)。每个个体经过适应度函数后会得到一个表征其性能的值，称为适应度(fitness)，<span class="math inline">\(f\)</span>。<br />
+种群中个体<span class="math inline">\(i\)</span>的正规化适应度(normalized fitness)定义为：<br />
+<span class="math display">\[\frac{f_i}{\overline{f}}\]</span><br />
+其中，<span class="math inline">\(f_i\)</span>表示评估函数对第<span class="math inline">\(i\)</span>个个体的评估结果，<span class="math inline">\(\overline{f}\)</span>表示种群的平均评估。<br />
+个体的适应度越高，表明这个状态对应的系统结果越能够符合我们的要求。</p>
+<h3 id="复制选择随机余数采样">复制·选择（随机余数采样）</h3>
+<p>选择后的每个个体的适应度格式为x.xx，即有小数部分和整数部分。适应度的整数部分表示该个体会被复制多少次。 复制中的选择机制：<br />
+这样就能直接地让优秀的个体获得更多被复制的机会，而适应度整数部分为0的个体因为不会被复制而被淘汰。<br />
+但是，那些适应度比较低的个体中仍然可能有对系统有益的部分，为了尽可能地保留这些部分，遗传算法在选择阶段还规定：<br />
+对所有的个体，适应度的小数部分表示额外被复制的概率。<br />
+如此，每一个个体中对系统有益的部分都能够被尽可能地复制。<br />
+比如，适应度2.3的个体能够获得2次复制，并且有0.3的概率能获得第三次复制的机会。<br />
+这样的机制能够用数学表示为：<br />
+<span class="math display">\[M(H,t+1)=M(H,t)\frac{f(H,t)}{\overline{f}}\]</span><br />
+其中M表示的是种群中的一个亚种(Sub-populations)。</p>
+<p>总结：<br />
+选择的过程即为有概率地对种群中的个体进行复制，可以发现，适应度越高的个体被复制的概率就越大。</p>
+<p>原始种群经过复制后形成<strong>中间种</strong>（Intermediate Generation）。</p>
+<h3 id="重组单点交叉">重组（单点交叉）</h3>
+<p><strong>遗传算法中重组的本质是杂交（Crossover）</strong>，其过程主要有两步：</p>
+<ol type="1">
+<li>随机地使得个体间两两配对。<br />
+</li>
+<li>随机地选取一对个体，两者在某个随机且相同的比特位处断开，前后的两段基因型进行交叉互换。</li>
+</ol>
+<p><img src="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center" srcset="/img/loading.gif" lazyload /></p>
+<p>新生成的两个个体称为后代（Offspring），后代能够插入到下一代的概率计作<span class="math inline">\(p_c\)</span>。</p>
+<h3 id="突变反转突变">突变（反转突变）</h3>
+重组之后利用突变算子对后代作突变处理，对于种群中的所有比特位，其有<span class="math inline">\(p_m\)</span>的概率发生比特反转。同遗传学一样，突变概率一个非常小的概率，通常小于1%。<br />
+中间种经过重组和突变，最终能称为新的种群。
+<div data-align="center">
+<p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210718132905.png width=50% /></p>
+</div>
+<h2 id="python-代码实现">Python 代码实现</h2>
+<p>在Python中，设计每一个只含有0和1的列表(list)表示一个个体，一个种群对应一个二维列表。</p>
+<h3 id="初始种群生成">初始种群生成</h3>
+<p>初始种群生成的函数能够完成的功能是：对于给定的初始种群数量和染色体长度，可以随机地生成一些个体。<br />
+基本思路是利用嵌套的<code>for</code>循环实现这一功能：内层的<code>for</code>循环用于为每一个个体列表随机填满0和1（<code>random.randint(0, 1)</code>），外层的<code>for</code>循环用于将生成好的个体放入种群中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">initia_population</span>(<span class="hljs-params">population_size: <span class="hljs-string">&#x27;int&gt;0&#x27;</span>,</span><br><span class="hljs-params">                      chromosome_length: <span class="hljs-string">&#x27;int&gt;0&#x27;</span></span>) -&gt; <span class="hljs-string">&#x27;list&#x27;</span>:<br>    population = [[]] <span class="hljs-comment"># 初始化二维列表，用于存放个体</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;initializing the population&#x27;</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(population_size):<br>        indiv = [] <span class="hljs-comment"># 初始化一维列表，代表一个个体</span><br>        <span class="hljs-comment"># 随机生成一个个体</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(chromosome_length):<br>            indiv.append(random.randint(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>))<br><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:*&#x27;</span>, i, <span class="hljs-string">&#x27;   chromesome:&#x27;</span>, indiv)<br>        population.append(indiv)  <span class="hljs-comment"># append to the population</span><br>    <span class="hljs-keyword">return</span> population[<span class="hljs-number">1</span>:]<br></code></pre></td></tr></table></figure>
+<h3 id="转义和评估">转义和评估</h3>
+<h4 id="转义">转义</h4>
+<p>要想评估每一个个体的优劣性，需要按照模板将位串对应区域的比特转换为十进制数，如下图所示，这一步称为转义(translation)。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221125141729.png width=70%></p>
+<p>转义的基因模板可以通过给定一个数组<code>gene_pattern</code>，其中标有每个基因的截断位置实现。例如：<code>gene_pattern = [3,6]</code>表示<code>indiv[1]</code>到<code>indiv[3]</code>视为一个基因；<code>indiv[4]</code>到<code>indiv[6]</code>视为另一个基因。<br />
+使用<code>for</code>循环和列表切片将位串按照<code>gene_pattern</code>给定的位置进行划分，并手动去除掉[]，’,’和空格。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 根据gene_pattern划分基因</span><br><span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gene_pattern)):<br>    string.append((<span class="hljs-string">&#x27;&#x27;</span>.join(<br>        <span class="hljs-built_in">str</span>(population[i][gene_pattern[k - <span class="hljs-number">1</span>]:gene_pattern[k]]))<br>        ).replace(<span class="hljs-string">&#x27;[&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<br>            <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>))<br></code></pre></td></tr></table></figure> 此外，由于<code>gene_pattern[k - 1]:gene_pattern[k]</code>对<code>k=0</code>不适用，因此还需要手动将第一个基因替换为<code>0：gene_pattern[0]</code>的切片。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 第一个基因转义后为&#x27;[]&#x27;，需要手动替换为0：gene_pattern[0]的切片</span><br>string[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;&#x27;</span>.join(<span class="hljs-built_in">str</span>(population[i][<span class="hljs-number">0</span>:gene_pattern[<span class="hljs-number">0</span>]])<br>                    .replace(<span class="hljs-string">&#x27;[&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<br>                    <span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>))<br></code></pre></td></tr></table></figure></p>
+<p>最后使用<code>int</code>函数将每个基因转化为对应的十进制。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">gene_trans = <span class="hljs-built_in">int</span>(string[m], <span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure> <div class="note note-warning">
+            <p>强烈建议基因的长度应当相等，如此目标问题可能解在整个搜索空间中的分布才是均匀的，这样才满足模式定理(schema theory)的基本成立条件。</p>
+          </div></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">translation</span>(<span class="hljs-params">population: <span class="hljs-string">&#x27;list&#x27;</span>, gene_pattern: <span class="hljs-string">&#x27;list&#x27;</span></span>) -&gt; <span class="hljs-string">&#x27;list&#x27;</span>:<br>    population_trans = [[]]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;translation&#x27;</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(population)):<br>        indiv_trans = []<br>        string = []<br>        gene_trans = <span class="hljs-number">0</span><br><br>        <span class="hljs-comment"># 根据gene_pattern划分基因</span><br>        <span class="hljs-keyword">for</span> k <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(gene_pattern)):<br>            string.append((<span class="hljs-string">&#x27;&#x27;</span>.join(<br>                <span class="hljs-built_in">str</span>(population[i][gene_pattern[k - <span class="hljs-number">1</span>]:gene_pattern[k]]))<br>                           ).replace(<span class="hljs-string">&#x27;[&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<br>                               <span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>))  <br>                <span class="hljs-comment"># 划分好的基因字符串形如&#x27;[1 , 0]&#x27;，</span><br>                <span class="hljs-comment"># 还需要手动去除掉[]，&#x27;,&#x27;和空格</span><br>        <span class="hljs-comment"># 第一个基因转义后为&#x27;[]&#x27;，需要手动替换为0：gene_pattern[0]的切片</span><br>        string[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;&#x27;</span>.join(<br>            <span class="hljs-built_in">str</span>(population[i][<span class="hljs-number">0</span>:gene_pattern[<span class="hljs-number">0</span>]]).replace(<span class="hljs-string">&#x27;[&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<br>                <span class="hljs-string">&#x27;]&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>).replace(<span class="hljs-string">&#x27; &#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>))<br><br>        <span class="hljs-comment"># 将划分好的基因位串转换为十进制</span><br>        <span class="hljs-keyword">for</span> m <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(string)):<br>            gene_trans = <span class="hljs-built_in">int</span>(string[m], <span class="hljs-number">2</span>)<br>            indiv_trans.append(gene_trans)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, indiv_trans)<br>        population_trans.append(indiv_trans)<br>    <span class="hljs-keyword">return</span> population_trans[<span class="hljs-number">1</span>:]<br></code></pre></td></tr></table></figure>
+<h4 id="评估-1">评估</h4>
+<p>将转义后的个体带入到适应度函数中就可以得到该个体所对应的适应度。 其中，适应度函数使用<code>fitness_func</code>进行定义。<br />
+传入该函数的是一个列表，函数中各变量的值通过访问列表中对应的元素获取。下面给出了一个适应度函数<span class="math inline">\(f(x_0,x_1,x_2,x_3)=x_0+x_1+(2x_2+3x_3)^2\)</span>的例子：<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># fitness_function.py</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fitness_func</span>(<span class="hljs-params">x</span>):<br>    y= x[<span class="hljs-number">0</span>] + x[<span class="hljs-number">1</span>]+ <span class="hljs-built_in">pow</span>((<span class="hljs-number">2</span>*(x[<span class="hljs-number">2</span>]))+(<span class="hljs-number">3</span>*(x[<span class="hljs-number">3</span>])),<span class="hljs-number">2</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">float</span>(y)<br></code></pre></td></tr></table></figure> 将获得的个体适应度存入一个列表<code>fitness</code>，该列表的序号和种群中<code>population</code>个体对应的序号相同，因此可以根据序号查询到每个个体对应的适应度。<br />
+获得适应度后，需要对每个个体适应度除以当前种群适应度的均值以正规化每个个体的适应度：<code>indiv_fitness_norm = fitness[j] / avg_fitness</code>.<br />
+其中<code>avg_fitness = sum(fitness) / float(len(fitness))</code>是当前种群的适应度的平均值，该值也会被该函数返回以便在主函数中观察进化过程。</p>
+<p>在实现中，加入了其他几个调试参数，比如用于是否输出正规化适应度的<code>fitness_normalization</code>，以及是否打印调试输出的<code>debug_print</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">evaluation</span>(<span class="hljs-params">population_tran: <span class="hljs-string">&#x27;list&#x27;</span>,</span><br><span class="hljs-params">               fitness_func:<span class="hljs-string">&#x27;function&#x27;</span>,</span><br><span class="hljs-params">               fitness_normalization = <span class="hljs-literal">True</span>,</span><br><span class="hljs-params">               debug_print=<span class="hljs-literal">True</span></span>) -&gt; [<span class="hljs-string">&#x27;list&#x27;</span>, <span class="hljs-string">&#x27;float&#x27;</span>, <span class="hljs-string">&#x27;float&#x27;</span>]:<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Function:</span><br><span class="hljs-string">    evaluate each indiv based on the fitness function.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Parameters:</span><br><span class="hljs-string">    population_tran - two dimension list</span><br><span class="hljs-string">    fitness_func - fitness function</span><br><span class="hljs-string">    fitness_normalization - bool, whether to normalize the fitness</span><br><span class="hljs-string">    debug_print - bool, whether to print the result</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    fitness_norm - list, nomalized fitness list</span><br><span class="hljs-string">    fitness - list, unnomalized fitness list</span><br><span class="hljs-string">    avg_fitness - float</span><br><span class="hljs-string">    max_fitness - float, the max fitness (unnomalized) in the current population</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;evaluation&#x27;</span>)<br>    fitness = []<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(population_tran)):<br>        <span class="hljs-comment"># calculate fitness function for each indiv</span><br>        indiv_fitness = fitness_func(population_tran[i])<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">print</span> == <span class="hljs-literal">True</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   fitness:&#x27;</span>, indiv_fitness)<br><br>        fitness.append(indiv_fitness)  <span class="hljs-comment"># obtain the fitness list</span><br>        max_fitness = <span class="hljs-built_in">max</span>(fitness)<br><br>    avg_fitness = <span class="hljs-built_in">sum</span>(fitness) / <span class="hljs-built_in">float</span>(<span class="hljs-built_in">len</span>(fitness))  <span class="hljs-comment"># calculate avg fitness</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;average fitness:&#x27;</span>, avg_fitness)<br><br>    <span class="hljs-keyword">if</span> fitness_normalization == <span class="hljs-literal">True</span>:<br>        fitness_norm = []<br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(fitness)):<br>            indiv_fitness_norm = fitness[j] / avg_fitness  <span class="hljs-comment"># normalized fitness</span><br><br>            <span class="hljs-keyword">if</span> debug_print == <span class="hljs-literal">True</span>:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, j, <span class="hljs-string">&#x27;   normal fitness:&#x27;</span>, indiv_fitness_norm)<br>            fitness_norm.append(indiv_fitness_norm)<br>        <span class="hljs-keyword">return</span> fitness_norm, avg_fitness, max_fitness<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> fitness, avg_fitness, max_fitness<br></code></pre></td></tr></table></figure>
+<h3 id="选择">选择</h3>
+<p>根据经典遗传算法提到的理论，每个个体正规化后的适应度的整数部分代表个体出现在下一轮的种群中的次数。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">int</span>(fitness_norm[i])):<br>    population_inter.append(population[i])<br>    copy_times = copy_times + <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure> 个体适应度的小数部分代表个体在下一轮的种群中额外出现一次的概率。<br />
+概率以随机生成一个<span class="math inline">\([0,1]\)</span>的随机数与其小数部分比较来表示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> random.random() &lt; (fitness_norm[i] - <span class="hljs-built_in">int</span>(fitness_norm[i])):<br>    population_inter.append(population[i])<br>    copy_times = copy_times + <span class="hljs-number">1</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:*&#x27;</span>, i, <span class="hljs-string">&#x27;   normal fitness:&#x27;</span>, fitness_norm[i],<br>            <span class="hljs-string">&#x27;   Copy times:&#x27;</span>, copy_times, <span class="hljs-string">&#x27;   extra&#x27;</span>)<br>    <span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:*&#x27;</span>, i, <span class="hljs-string">&#x27;   normal fitness:&#x27;</span>, fitness_norm[i],<br>            <span class="hljs-string">&#x27;   No extra copy&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">selection</span>(<span class="hljs-params">population: <span class="hljs-string">&#x27;list&#x27;</span>, fitness_norm: <span class="hljs-string">&#x27;list&#x27;</span></span>) -&gt; <span class="hljs-string">&#x27;list&#x27;</span>:<br>    population_inter = [[]]<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;selection&#x27;</span>)<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(population)):<br>        <span class="hljs-comment"># 基于适应度的整数部分，复制多次</span><br>        copy_times = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">int</span>(fitness_norm[i])):<br>            population_inter.append(population[i])<br>            copy_times = copy_times + <span class="hljs-number">1</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:*&#x27;</span>, i, <span class="hljs-string">&#x27;   normal fitness:&#x27;</span>, fitness_norm[i],<br>                  <span class="hljs-string">&#x27;   Copy times:&#x27;</span>, copy_times)<br>        <span class="hljs-comment"># 基于适应度的小数部分，额外复制一次</span><br>        <span class="hljs-keyword">if</span> random.random() &lt; (fitness_norm[i] - <span class="hljs-built_in">int</span>(fitness_norm[i])):<br>            population_inter.append(population[i])<br>            copy_times = copy_times + <span class="hljs-number">1</span><br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:*&#x27;</span>, i, <span class="hljs-string">&#x27;   normal fitness:&#x27;</span>, fitness_norm[i],<br>                  <span class="hljs-string">&#x27;   Copy times:&#x27;</span>, copy_times, <span class="hljs-string">&#x27;   extra&#x27;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:*&#x27;</span>, i, <span class="hljs-string">&#x27;   normal fitness:&#x27;</span>, fitness_norm[i],<br>                  <span class="hljs-string">&#x27;   No extra copy&#x27;</span>)<br>    <span class="hljs-keyword">return</span> population_inter[<span class="hljs-number">1</span>:]<br></code></pre></td></tr></table></figure>
+<h3 id="单点交叉">单点交叉</h3>
+<p>在进行单点交叉之前，首先需要检查当前种群中的个体数是否大于1，如果当前种群里面只有1个个体，那么交叉将不会进行，并且返回一个布尔值<code>False</code>以便让主程序终止进化过程。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> population_size == <span class="hljs-number">1</span>:  <span class="hljs-comment"># 检查当前种群中是否只有一个个体</span><br>        <span class="hljs-comment"># 输出告警</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;【Warning】only one indiv in current population&#x27;</span>)<br>        <span class="hljs-keyword">return</span> population, <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;single crossover   crossover rate:&#x27;</span>, crossover_rate)<br></code></pre></td></tr></table></figure></p>
+<p>然后对当前种群中的所有个体两两配对，这个概念通过<code>shuffle</code>打乱所有个体的序号和在<code>for</code>循环处设置<code>range(0, population_size - 1, 2)</code>以每两个一组实现。<br />
+对于每一组个体，使用<code>cross_point = random.randint(0,chromesome_length - 1)</code>随机选择一个交叉点。<br />
+然后进行单点交叉，其基本思路是创建两个列表<code>parent1</code>和<code>parent2</code>，对于每个列表，分别放入其中一个个体交叉点前的位串和另一个个体交叉点后的位串。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">crossover</span>(<span class="hljs-params">list1: <span class="hljs-string">&#x27;list&#x27;</span>, list2: <span class="hljs-string">&#x27;list&#x27;</span></span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Function:</span><br><span class="hljs-string">    random crossover 2 list.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Parameters:</span><br><span class="hljs-string">    list1 - list</span><br><span class="hljs-string">    list2 - list</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Returns:</span><br><span class="hljs-string">    Offspring1 - list</span><br><span class="hljs-string">    Offspring2 - list</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(list1) == <span class="hljs-built_in">len</span>(list2):<br>        chromesome_length = <span class="hljs-built_in">len</span>(list1)<br>        <span class="hljs-comment"># random select the crossover point</span><br>        cross_point = random.randint(<span class="hljs-number">0</span>, chromesome_length - <span class="hljs-number">1</span>)<br>        offspring1 = []<br>        offspring2 = []<br><br>        <span class="hljs-comment"># for offspring1, it combind with 0-cp for (i)th indiv and cp-final for (i+1)th indiv</span><br>        offspring1.extend(list1[<span class="hljs-number">0</span>:cross_point])<br>        offspring1.extend(list2[cross_point:chromesome_length])<br><br>        <span class="hljs-comment"># for offspring2, it combind with 0-cp for (i+1)th indiv and cp-final for (i)th indiv</span><br>        offspring2.extend(list2[<span class="hljs-number">0</span>:cross_point])<br>        offspring2.extend(list1[cross_point:chromesome_length])<br>        <span class="hljs-keyword">return</span> offspring1, offspring2<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;【Warning】length not matched&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">single_crossover</span>(<span class="hljs-params">population: <span class="hljs-string">&#x27;list&#x27;</span>,</span><br><span class="hljs-params">                     crossover_rate: <span class="hljs-string">&#x27;0&lt;= float&lt;= 1&#x27;</span></span>) -&gt; [<span class="hljs-string">&#x27;list&#x27;</span>, <span class="hljs-string">&#x27;bool&#x27;</span>]:<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Function:</span><br><span class="hljs-string">    do the single crossover based on the crossover rate.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Parameters:</span><br><span class="hljs-string">    population - two dimension list</span><br><span class="hljs-string">    crossover_rate - 0&lt;=float&lt;=1, the rate of crossover. </span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    population - two dimension list</span><br><span class="hljs-string">    True or False - bool value</span><br><span class="hljs-string">                    if there is only one indiv in current population, the function will return False</span><br><span class="hljs-string">                    otherwise, it will return True</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    population_size = <span class="hljs-built_in">len</span>(population)<br>    <span class="hljs-keyword">if</span> population_size == <span class="hljs-number">1</span>:  <span class="hljs-comment"># check whether there is only one indiv in the population</span><br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;【Warning】only one indiv in current population&#x27;</span>)<br>        <span class="hljs-keyword">return</span> population, <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;single crossover   crossover rate:&#x27;</span>, crossover_rate)<br><br>        random.shuffle(population)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;shuffle&#x27;</span>)<br><br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, population_size - <span class="hljs-number">1</span>, <span class="hljs-number">2</span>):<br>            <span class="hljs-comment"># check each indiv with crossover rate</span><br>            <span class="hljs-keyword">if</span> random.random() &lt; crossover_rate:<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;========&#x27;</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i],<br>                      <span class="hljs-string">&#x27;   crossovered: yes&#x27;</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i + <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i + <span class="hljs-number">1</span>],<br>                      <span class="hljs-string">&#x27;   crossovered: yes&#x27;</span>)<br>                population[i], population[i + <span class="hljs-number">1</span>] = crossover(<br>                    population[i], population[i + <span class="hljs-number">1</span>])<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;---after crossover---&#x27;</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i],<br>                      <span class="hljs-string">&#x27;   crossovered: yes&#x27;</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i + <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i + <span class="hljs-number">1</span>],<br>                      <span class="hljs-string">&#x27;   crossovered: yes&#x27;</span>)<br><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-comment"># keep origin</span><br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;========&#x27;</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i],<br>                      <span class="hljs-string">&#x27;   crossovered: not&#x27;</span>)<br>                <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i + <span class="hljs-number">1</span>, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i + <span class="hljs-number">1</span>],<br>                      <span class="hljs-string">&#x27;   crossovered: not&#x27;</span>)<br>        <span class="hljs-keyword">return</span> population, <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure>
+<h3 id="突变">突变</h3>
+<p>突变的基本思路与交叉基本相同：遍历每个个体，并用<code>random.random() &lt; mutation_rate</code>模拟突变概率。对于每个个体，随机选择一个突变点的位置：<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">mutation_point = random.randint(<span class="hljs-number">0</span>, chromesome_length - <span class="hljs-number">1</span>)<br></code></pre></td></tr></table></figure> 对于选择的突变点，进行比特反转：<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">bit_inverse</span>(<span class="hljs-params">b: <span class="hljs-string">&#x27;int&#x27;</span></span>):<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Function:</span><br><span class="hljs-string">    inverse the bit.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Parameters:</span><br><span class="hljs-string">    b - int</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    <span class="hljs-comment"># if this element is 1, then change to be 0.</span><br>    <span class="hljs-keyword">if</span> b == <span class="hljs-number">1</span>:<br>        b = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># if this element is 0, then change to be 1.</span><br>        b = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">return</span> b<br></code></pre></td></tr></table></figure> 完整代码如下：<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">mutation</span>(<span class="hljs-params">population: <span class="hljs-string">&#x27;list&#x27;</span>, mutation_rate: <span class="hljs-string">&#x27;0&lt;= float&lt;= 1&#x27;</span></span>) -&gt; <span class="hljs-string">&#x27;list&#x27;</span>:<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Function:</span><br><span class="hljs-string">    do the mutation based on the mutation rate.</span><br><span class="hljs-string"></span><br><span class="hljs-string">    Parameters:</span><br><span class="hljs-string">    population - two dimension list</span><br><span class="hljs-string">    mutation_rate - 0&lt;=float&lt;=1, the rate of crossover. </span><br><span class="hljs-string"></span><br><span class="hljs-string">    Return:</span><br><span class="hljs-string">    population - two dimension list</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    population_size = <span class="hljs-built_in">len</span>(population)<br>    chromesome_length = <span class="hljs-built_in">len</span>(population[<span class="hljs-number">0</span>])<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;mutation  mutation rate:&#x27;</span>, mutation_rate)<br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(population_size):<br>        <span class="hljs-comment"># chech each indiv with mutation rate</span><br>        <span class="hljs-keyword">if</span> random.random() &lt; mutation_rate:<br>            <span class="hljs-comment"># random select the mutation point</span><br>            mutation_point = random.randint(<span class="hljs-number">0</span>, chromesome_length - <span class="hljs-number">1</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i],<br>                  <span class="hljs-string">&#x27;   mutated: yes&#x27;</span>, <span class="hljs-string">&#x27;   mutation point:&#x27;</span>, mutation_point)<br>            population[i][mutation_point] = bit_inverse(population[i][mutation_point])<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;---after mutation---&#x27;</span>)<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i],<br>                  <span class="hljs-string">&#x27;   mutated: yes&#x27;</span>)<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:&#x27;</span>, i, <span class="hljs-string">&#x27;   chromosome:&#x27;</span>, population[i],<br>                  <span class="hljs-string">&#x27;   mutated: not&#x27;</span>)<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;========&#x27;</span>)<br>    <span class="hljs-keyword">return</span> population<br></code></pre></td></tr></table></figure></p>
+<h2 id="示例程序">示例程序</h2>
+<p>调用写好的GA库：<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> GeneticAlgorithm <span class="hljs-keyword">as</span> GA<br><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt<br></code></pre></td></tr></table></figure> 初始化种群个体，初始种群中有10个个体，并且指定每个个体的染色体长度为10.<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">m = GA.initia_population(<span class="hljs-number">10</span>, <span class="hljs-number">10</span>)<br></code></pre></td></tr></table></figure> 初始化调试参数，由于后续的循环迭代中有设置如果当前种群的平均适应度<code>avg_fitness</code>为0则停止迭代，因此<code>avg_fitness</code>初始化为1.<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">avg_fitness = <span class="hljs-number">1</span><br>epoches = <span class="hljs-number">0</span><br>fitness = []<br>flag = <span class="hljs-literal">True</span><br></code></pre></td></tr></table></figure></p>
+<p>设置迭代，根据算法的运行流程每个迭代中需要完成：</p>
+<ul>
+<li>将当前种群中的所有个体进行转义，得到种群<code>m_t</code></li>
+<li>评估每个个体，并且得到对应的适应度列表<code>m_f</code>以及当前种群的平均适应度<code>avg_fitness</code></li>
+<li>根据适应度列表<code>m_f</code>对种群<code>m</code>进行选择</li>
+<li>对选择后的个体进行单点交叉，单点交叉的发生概率为0.9</li>
+<li>对选择后的个体进行突变，突变的发生概率为0.1</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">while</span> avg_fitness&lt;<span class="hljs-number">1200</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;======Round:&#x27;</span>,epoches,<span class="hljs-string">&#x27;==============&#x27;</span>)<br>    m_t = GA.translation(m,[<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">7</span>,<span class="hljs-number">10</span>])<br>    m_f,avg_fitness = GA.evaluation(m_t)<br>    m = GA.selection(m, m_f)<br>    m,flag = GA.single_crossover(m,<span class="hljs-number">0.9</span>)<br>    m = GA.mutation(m,<span class="hljs-number">0.1</span>)<br>    fitness.append(avg_fitness)<br>    epoches = epoches + <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p>整个程序的终止条件有2个：</p>
+<ul>
+<li>算法无法找到适应度大于1200的个体，在这种情况下设置算法运行1000轮迭代后自行停止，<code>epoches == 1000</code>。<br />
+</li>
+<li>在某次选择后种群只剩下一个个体，无法完成交叉，利用<code>single_crossover</code>函数中的判断条件，设置<code>flag == False</code>时终止运行。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> epoches == <span class="hljs-number">1000</span>:<br>    <span class="hljs-keyword">break</span><br><span class="hljs-keyword">elif</span> flag == <span class="hljs-literal">False</span>:<br>    <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
+<p>算法结束后打印<code>epoches</code>等变量以及最后一代的全部个体。并绘制整个运行过程中的<code>avg_fitness</code>与<code>epoches</code>的变化图，以便检查程序的运行情况。<br />
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;finish&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;=============================&#x27;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;epoches:   &#x27;</span>, epoches)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;max fitness:   &#x27;</span>, <span class="hljs-built_in">max</span>(fitness))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;winners:&#x27;</span>)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(m)):<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;indiv:   &#x27;</span>,i,<span class="hljs-string">&#x27;   chromosome:&#x27;</span>,m[i])<br>plt.plot(fitness)<br>plt.show()<br></code></pre></td></tr></table></figure></p>
+<h3 id="运行结果">运行结果</h3>
+<p>程序每一轮的输出如下所示：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br></pre></td><td class="code"><pre><code class="hljs bash">initializing the population<br>indiv:* 0    chromesome: [0, 1, 1, 1, 1, 0, 0, 0, 0, 1]<br>indiv:* 1    chromesome: [0, 0, 0, 1, 1, 1, 0, 0, 1, 1]<br>indiv:* 2    chromesome: [0, 0, 1, 1, 0, 0, 1, 1, 0, 0]<br>indiv:* 3    chromesome: [1, 1, 1, 0, 1, 1, 1, 1, 0, 0]<br>indiv:* 4    chromesome: [1, 0, 1, 0, 1, 0, 0, 0, 1, 1]<br>indiv:* 5    chromesome: [1, 1, 0, 1, 1, 0, 0, 0, 0, 1]<br>indiv:* 6    chromesome: [0, 0, 0, 0, 1, 1, 0, 1, 0, 1]<br>indiv:* 7    chromesome: [0, 1, 0, 0, 0, 1, 1, 1, 1, 1]<br>indiv:* 8    chromesome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]<br>indiv:* 9    chromesome: [1, 0, 1, 0, 1, 1, 1, 0, 1, 0]<br>indiv:* 10    chromesome: [1, 1, 1, 0, 0, 1, 1, 0, 0, 0]<br>indiv:* 11    chromesome: [0, 0, 1, 1, 1, 1, 1, 1, 0, 1]<br>indiv:* 12    chromesome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]<br>indiv:* 13    chromesome: [0, 1, 0, 0, 0, 1, 1, 0, 1, 0]<br>indiv:* 14    chromesome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 0]<br>indiv:* 15    chromesome: [1, 1, 1, 0, 1, 1, 1, 1, 0, 1]<br>indiv:* 16    chromesome: [0, 1, 1, 1, 0, 0, 1, 1, 1, 1]<br>indiv:* 17    chromesome: [1, 0, 0, 0, 1, 1, 0, 1, 0, 0]<br>indiv:* 18    chromesome: [0, 1, 0, 0, 1, 1, 0, 0, 1, 1]<br>indiv:* 19    chromesome: [0, 0, 1, 1, 0, 0, 1, 0, 1, 1]<br>======Round: 0 ==============<br>translation<br>indiv: 0    chromosome: [1, 3, 4, 1]<br>indiv: 1    chromosome: [0, 1, 6, 3]<br>indiv: 2    chromosome: [0, 3, 1, 4]<br>indiv: 3    chromosome: [3, 2, 7, 4]<br>indiv: 4    chromosome: [2, 2, 4, 3]<br>indiv: 5    chromosome: [3, 1, 4, 1]<br>indiv: 6    chromosome: [0, 0, 6, 5]<br>indiv: 7    chromosome: [1, 0, 3, 7]<br>indiv: 8    chromosome: [3, 3, 7, 4]<br>indiv: 9    chromosome: [2, 2, 7, 2]<br>indiv: 10    chromosome: [3, 2, 3, 0]<br>indiv: 11    chromosome: [0, 3, 7, 5]<br>indiv: 12    chromosome: [3, 3, 7, 4]<br>indiv: 13    chromosome: [1, 0, 3, 2]<br>indiv: 14    chromosome: [3, 1, 7, 6]<br>indiv: 15    chromosome: [3, 2, 7, 5]<br>indiv: 16    chromosome: [1, 3, 1, 7]<br>indiv: 17    chromosome: [2, 0, 6, 4]<br>indiv: 18    chromosome: [1, 0, 6, 3]<br>indiv: 19    chromosome: [0, 3, 1, 3]<br>evaluation<br>successfully load fitness <span class="hljs-keyword">function</span><br>indiv: 0    fitness: 125.0<br>indiv: 1    fitness: 442.0<br>indiv: 2    fitness: 199.0<br>indiv: 3    fitness: 681.0<br>indiv: 4    fitness: 293.0<br>indiv: 5    fitness: 125.0<br>indiv: 6    fitness: 729.0<br>indiv: 7    fitness: 730.0<br>indiv: 8    fitness: 682.0<br>indiv: 9    fitness: 404.0<br>indiv: 10    fitness: 41.0<br>indiv: 11    fitness: 844.0<br>indiv: 12    fitness: 682.0<br>indiv: 13    fitness: 145.0<br>indiv: 14    fitness: 1028.0<br>indiv: 15    fitness: 846.0<br>indiv: 16    fitness: 533.0<br>indiv: 17    fitness: 578.0<br>indiv: 18    fitness: 442.0<br>indiv: 19    fitness: 124.0<br>average fitness: 483.65<br>indiv: 0    normal fitness: 0.25845135945415076<br>indiv: 1    normal fitness: 0.913884007029877<br>indiv: 2    normal fitness: 0.41145456425100796<br>indiv: 3    normal fitness: 1.4080430063062133<br>indiv: 4    normal fitness: 0.6058099865605293<br>indiv: 5    normal fitness: 0.25845135945415076<br>indiv: 6    normal fitness: 1.5072883283366072<br>indiv: 7    normal fitness: 1.5093559392122404<br>indiv: 8    normal fitness: 1.4101106171818465<br>indiv: 9    normal fitness: 0.8353147937558152<br>indiv: 10    normal fitness: 0.08477204590096145<br>indiv: 11    normal fitness: 1.7450635790344258<br>indiv: 12    normal fitness: 1.4101106171818465<br>indiv: 13    normal fitness: 0.29980357696681487<br>indiv: 14    normal fitness: 2.1255039801509357<br>indiv: 15    normal fitness: 1.7491988007856922<br>indiv: 16    normal fitness: 1.1020365967124988<br>indiv: 17    normal fitness: 1.195079086115993<br>indiv: 18    normal fitness: 0.913884007029877<br>indiv: 19    normal fitness: 0.25638374857851753<br>selection<br>indiv:* 0    normal fitness: 0.25845135945415076    No extra copy<br>indiv:* 1    normal fitness: 0.913884007029877    Copy <span class="hljs-built_in">times</span>: 1    extra<br>indiv:* 2    normal fitness: 0.41145456425100796    Copy <span class="hljs-built_in">times</span>: 1    extra<br>indiv:* 3    normal fitness: 1.4080430063062133    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 3    normal fitness: 1.4080430063062133    Copy <span class="hljs-built_in">times</span>: 2    extra<br>indiv:* 4    normal fitness: 0.6058099865605293    No extra copy<br>indiv:* 5    normal fitness: 0.25845135945415076    No extra copy<br>indiv:* 6    normal fitness: 1.5072883283366072    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 6    normal fitness: 1.5072883283366072    Copy <span class="hljs-built_in">times</span>: 2    extra<br>indiv:* 7    normal fitness: 1.5093559392122404    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 7    normal fitness: 1.5093559392122404    No extra copy<br>indiv:* 8    normal fitness: 1.4101106171818465    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 8    normal fitness: 1.4101106171818465    No extra copy<br>indiv:* 9    normal fitness: 0.8353147937558152    Copy <span class="hljs-built_in">times</span>: 1    extra<br>indiv:* 10    normal fitness: 0.08477204590096145    No extra copy<br>indiv:* 11    normal fitness: 1.7450635790344258    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 11    normal fitness: 1.7450635790344258    Copy <span class="hljs-built_in">times</span>: 2    extra<br>indiv:* 12    normal fitness: 1.4101106171818465    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 12    normal fitness: 1.4101106171818465    Copy <span class="hljs-built_in">times</span>: 2    extra<br>indiv:* 13    normal fitness: 0.29980357696681487    No extra copy<br>indiv:* 14    normal fitness: 2.1255039801509357    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 14    normal fitness: 2.1255039801509357    Copy <span class="hljs-built_in">times</span>: 2<br>indiv:* 14    normal fitness: 2.1255039801509357    No extra copy<br>indiv:* 15    normal fitness: 1.7491988007856922    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 15    normal fitness: 1.7491988007856922    No extra copy<br>indiv:* 16    normal fitness: 1.1020365967124988    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 16    normal fitness: 1.1020365967124988    No extra copy<br>indiv:* 17    normal fitness: 1.195079086115993    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 17    normal fitness: 1.195079086115993    No extra copy<br>indiv:* 18    normal fitness: 0.913884007029877    Copy <span class="hljs-built_in">times</span>: 1    extra<br>indiv:* 19    normal fitness: 0.25638374857851753    Copy <span class="hljs-built_in">times</span>: 1    extra<br>single crossover   crossover rate: 0.9<br>shuffle<br>========<br>indiv: 0    chromosome: [1, 0, 1, 0, 1, 1, 1, 0, 1, 0]    crossovered: not<br>indiv: 1    chromosome: [0, 0, 1, 1, 1, 1, 1, 1, 0, 1]    crossovered: not<br>========<br>indiv: 2    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 3    chromosome: [0, 0, 0, 1, 1, 1, 0, 0, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 2    chromosome: [1, 1, 0, 1, 1, 1, 1, 0, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 3    chromosome: [0, 0, 0, 1, 1, 1, 0, 1, 1, 0]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 4    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 5    chromosome: [0, 0, 0, 0, 1, 1, 0, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 4    chromosome: [1, 0, 0, 0, 1, 1, 0, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 5    chromosome: [0, 1, 1, 0, 1, 1, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 6    chromosome: [0, 1, 0, 0, 1, 1, 0, 0, 1, 1]    crossovered: not<br>indiv: 7    chromosome: [0, 0, 1, 1, 1, 1, 1, 1, 0, 1]    crossovered: not<br>========<br>indiv: 8    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 0]    crossovered: not<br>indiv: 9    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]    crossovered: not<br>========<br>indiv: 10    chromosome: [0, 1, 1, 1, 0, 0, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 11    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 10    chromosome: [0, 1, 1, 1, 0, 0, 1, 1, 1, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 11    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 12    chromosome: [0, 0, 1, 1, 0, 0, 1, 0, 1, 1]    crossovered: not<br>indiv: 13    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]    crossovered: not<br>========<br>indiv: 14    chromosome: [0, 1, 0, 0, 0, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 15    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 14    chromosome: [0, 1, 0, 0, 0, 1, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 15    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 16    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 17    chromosome: [0, 0, 0, 0, 1, 1, 0, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 16    chromosome: [1, 1, 1, 0, 1, 1, 0, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 17    chromosome: [0, 0, 0, 0, 1, 1, 1, 1, 0, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 18    chromosome: [0, 0, 1, 1, 0, 0, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 19    chromosome: [1, 0, 0, 0, 1, 1, 0, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 18    chromosome: [0, 0, 0, 0, 1, 1, 0, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 19    chromosome: [1, 0, 1, 1, 0, 0, 1, 1, 0, 0]    crossovered: <span class="hljs-built_in">yes</span><br>mutation  mutation rate: 0.1<br>indiv: 0    chromosome: [1, 0, 1, 0, 1, 1, 1, 0, 1, 0]    mutated: not<br>========<br>indiv: 1    chromosome: [0, 0, 1, 1, 1, 1, 1, 1, 0, 1]    mutated: not<br>========<br>indiv: 2    chromosome: [1, 1, 0, 1, 1, 1, 1, 0, 1, 1]    mutated: not<br>========<br>indiv: 3    chromosome: [0, 0, 0, 1, 1, 1, 0, 1, 1, 0]    mutated: not<br>========<br>indiv: 4    chromosome: [1, 0, 0, 0, 1, 1, 0, 1, 0, 1]    mutated: not<br>========<br>indiv: 5    chromosome: [0, 1, 1, 0, 1, 1, 1, 1, 0, 0]    mutated: not<br>========<br>indiv: 6    chromosome: [0, 1, 0, 0, 1, 1, 0, 0, 1, 1]    mutated: not<br>========<br>indiv: 7    chromosome: [0, 0, 1, 1, 1, 1, 1, 1, 0, 1]    mutated: not<br>========<br>indiv: 8    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 0]    mutated: not<br>========<br>indiv: 9    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]    mutated: not<br>========<br>indiv: 10    chromosome: [0, 1, 1, 1, 0, 0, 1, 1, 1, 0]    mutated: not<br>========<br>indiv: 11    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 1]    mutated: not<br>========<br>indiv: 12    chromosome: [0, 0, 1, 1, 0, 0, 1, 0, 1, 1]    mutated: not<br>========<br>indiv: 13    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 0, 0]    mutated: not<br>========<br>indiv: 14    chromosome: [0, 1, 0, 0, 0, 1, 1, 1, 0, 0]    mutated: not<br>========<br>indiv: 15    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 16    chromosome: [1, 1, 1, 0, 1, 1, 0, 1, 0, 1]    mutated: not<br>========<br>indiv: 17    chromosome: [0, 0, 0, 0, 1, 1, 1, 1, 0, 1]    mutated: not<br>========<br>indiv: 18    chromosome: [0, 0, 0, 0, 1, 1, 0, 1, 0, 0]    mutated: not<br>========<br>indiv: 19    chromosome: [1, 0, 1, 1, 0, 0, 1, 1, 0, 0]    mutated: not<br>========<br></code></pre></td></tr></table></figure></p>
+<p>最后一轮的输出如下：<br />
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br></pre></td><td class="code"><pre><code class="hljs bash">======Round: 30 ==============<br>translation<br>indiv: 0    chromosome: [2, 1, 7, 7]<br>indiv: 1    chromosome: [3, 2, 7, 7]<br>indiv: 2    chromosome: [1, 2, 6, 7]<br>indiv: 3    chromosome: [3, 0, 7, 7]<br>indiv: 4    chromosome: [3, 2, 7, 7]<br>indiv: 5    chromosome: [3, 0, 7, 6]<br>indiv: 6    chromosome: [1, 3, 7, 7]<br>indiv: 7    chromosome: [3, 1, 7, 7]<br>indiv: 8    chromosome: [1, 3, 7, 7]<br>indiv: 9    chromosome: [3, 1, 7, 7]<br>indiv: 10    chromosome: [1, 3, 7, 7]<br>indiv: 11    chromosome: [1, 3, 7, 7]<br>indiv: 12    chromosome: [1, 3, 7, 7]<br>evaluation<br>successfully load fitness <span class="hljs-keyword">function</span><br>indiv: 0    fitness: 1228.0<br>indiv: 1    fitness: 1230.0<br>indiv: 2    fitness: 1092.0<br>indiv: 3    fitness: 1228.0<br>indiv: 4    fitness: 1230.0<br>indiv: 5    fitness: 1027.0<br>indiv: 6    fitness: 1229.0<br>indiv: 7    fitness: 1229.0<br>indiv: 8    fitness: 1229.0<br>indiv: 9    fitness: 1229.0<br>indiv: 10    fitness: 1229.0<br>indiv: 11    fitness: 1229.0<br>indiv: 12    fitness: 1229.0<br>average fitness: 1202.923076923077<br>indiv: 0    normal fitness: 1.0208466555825553<br>indiv: 1    normal fitness: 1.0225092722854585<br>indiv: 2    normal fitness: 0.9077887197851388<br>indiv: 3    normal fitness: 1.0208466555825553<br>indiv: 4    normal fitness: 1.0225092722854585<br>indiv: 5    normal fitness: 0.8537536769407853<br>indiv: 6    normal fitness: 1.021677963934007<br>indiv: 7    normal fitness: 1.021677963934007<br>indiv: 8    normal fitness: 1.021677963934007<br>indiv: 9    normal fitness: 1.021677963934007<br>indiv: 10    normal fitness: 1.021677963934007<br>indiv: 11    normal fitness: 1.021677963934007<br>indiv: 12    normal fitness: 1.021677963934007<br>selection<br>indiv:* 0    normal fitness: 1.0208466555825553    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 0    normal fitness: 1.0208466555825553    No extra copy<br>indiv:* 1    normal fitness: 1.0225092722854585    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 1    normal fitness: 1.0225092722854585    No extra copy<br>indiv:* 2    normal fitness: 0.9077887197851388    Copy <span class="hljs-built_in">times</span>: 1    extra<br>indiv:* 3    normal fitness: 1.0208466555825553    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 3    normal fitness: 1.0208466555825553    No extra copy<br>indiv:* 4    normal fitness: 1.0225092722854585    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 4    normal fitness: 1.0225092722854585    No extra copy<br>indiv:* 5    normal fitness: 0.8537536769407853    Copy <span class="hljs-built_in">times</span>: 1    extra<br>indiv:* 6    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 6    normal fitness: 1.021677963934007    No extra copy<br>indiv:* 7    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 7    normal fitness: 1.021677963934007    No extra copy<br>indiv:* 8    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 8    normal fitness: 1.021677963934007    No extra copy<br>indiv:* 9    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 9    normal fitness: 1.021677963934007    No extra copy<br>indiv:* 10    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 10    normal fitness: 1.021677963934007    No extra copy<br>indiv:* 11    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 11    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 2    extra<br>indiv:* 12    normal fitness: 1.021677963934007    Copy <span class="hljs-built_in">times</span>: 1<br>indiv:* 12    normal fitness: 1.021677963934007    No extra copy<br>single crossover   crossover rate: 0.9<br>shuffle<br>========<br>indiv: 0    chromosome: [0, 1, 1, 0, 1, 1, 0, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 1    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 0    chromosome: [0, 1, 1, 0, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 1    chromosome: [0, 1, 1, 1, 1, 1, 0, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 2    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 3    chromosome: [1, 0, 0, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 2    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 3    chromosome: [1, 0, 0, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 4    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 5    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 4    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 5    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 6    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: not<br>indiv: 7    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: not<br>========<br>indiv: 8    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 9    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 0]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 8    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 0]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 9    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 10    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 11    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>---after crossover---<br>indiv: 10    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>indiv: 11    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]    crossovered: <span class="hljs-built_in">yes</span><br>========<br>indiv: 12    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 1]    crossovered: not<br>indiv: 13    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 1, 1]    crossovered: not<br>mutation  mutation rate: 0.1<br>indiv: 0    chromosome: [0, 1, 1, 0, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 1    chromosome: [0, 1, 1, 1, 1, 1, 0, 1, 1, 1]    mutated: not<br>========<br>indiv: 2    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 3    chromosome: [1, 0, 0, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 4    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 5    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 6    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 7    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 8    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 0]    mutated: not<br>========<br>indiv: 9    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 10    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 11    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 12    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>indiv: 13    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 1, 1]    mutated: not<br>========<br>finish<br>=============================<br>epoches:    31<br>max fitness:    1202.923076923077<br>winners:<br>indiv:    0    chromosome: [0, 1, 1, 0, 1, 1, 1, 1, 1, 1]<br>indiv:    1    chromosome: [0, 1, 1, 1, 1, 1, 0, 1, 1, 1]<br>indiv:    2    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    3    chromosome: [1, 0, 0, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    4    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    5    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    6    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    7    chromosome: [0, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    8    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 0]<br>indiv:    9    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]<br>indiv:    10    chromosome: [1, 1, 0, 0, 1, 1, 1, 1, 1, 1]<br>indiv:    11    chromosome: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    12    chromosome: [1, 1, 0, 1, 1, 1, 1, 1, 1, 1]<br>indiv:    13    chromosome: [1, 1, 1, 0, 1, 1, 1, 1, 1, 1]<br></code></pre></td></tr></table></figure></p>
+<p>运行过程中的<code>avg_fitness</code>与<code>epoches</code>关系如下：<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221126184856.png width=70%></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A0%94%E7%A9%B6/" class="category-chain-item">研究</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/" class="category-chain-item">进化计算</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E7%A0%94%E7%A9%B6/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" class="category-chain-item">遗传算法</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>经典遗传算法的Python实现</div>
+      <div>https://l61012345.top/2022/11/25/论文/进化计算/遗传算法/遗传算法库/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月25日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年9月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/4.%20%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" title="04.数字图像">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">04.数字图像</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真">
+                        <span class="hidden-mobile">钢铁淬火的简单仿真</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="研究"
+        id="heading-2d46537e724fa604c205eea6cfc26083" role="tab" data-toggle="collapse" href="#collapse-2d46537e724fa604c205eea6cfc26083"
+        aria-expanded="true"
+      >
+        研究
+        <span class="list-group-count">(48)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-2d46537e724fa604c205eea6cfc26083"
+           role="tabpanel" aria-labelledby="heading-2d46537e724fa604c205eea6cfc26083">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="神经网络"
+        id="heading-40850ccab8cdabc6868888fd85808d0e" role="tab" data-toggle="collapse" href="#collapse-40850ccab8cdabc6868888fd85808d0e"
+        aria-expanded="false"
+      >
+        神经网络
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-40850ccab8cdabc6868888fd85808d0e"
+           role="tabpanel" aria-labelledby="heading-40850ccab8cdabc6868888fd85808d0e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/25/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E4%BD%BF%E7%94%A8tensorflow/" title="TensorFlow 入门项目：训练一个VGG模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">TensorFlow 入门项目：训练一个VGG模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%80%E4%BB%8B/" title="卷积神经网络简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">卷积神经网络简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/19/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/DCGAN/" title="深度卷积生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">深度卷积生成对抗网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/04/%E8%AE%BA%E6%96%87/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/GAN/" title="生成对抗网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">生成对抗网络</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统工程"
+        id="heading-20662cd9022948e3fc8b6c3a81b6107e" role="tab" data-toggle="collapse" href="#collapse-20662cd9022948e3fc8b6c3a81b6107e"
+        aria-expanded="false"
+      >
+        系统工程
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-20662cd9022948e3fc8b6c3a81b6107e"
+           role="tabpanel" aria-labelledby="heading-20662cd9022948e3fc8b6c3a81b6107e">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="各类系统"
+        id="heading-588aa3ee8bda6c2f94ead12b3332d921" role="tab" data-toggle="collapse" href="#collapse-588aa3ee8bda6c2f94ead12b3332d921"
+        aria-expanded="false"
+      >
+        各类系统
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-588aa3ee8bda6c2f94ead12b3332d921"
+           role="tabpanel" aria-labelledby="heading-588aa3ee8bda6c2f94ead12b3332d921">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/CNC%E9%93%A3%E5%BA%8A%E8%BF%87%E7%A8%8B/" title="CNC铣床基本"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">CNC铣床基本</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/29/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E7%BA%BF%E7%BC%86%E7%9A%84%E5%AF%BF%E5%91%BD%E6%A8%A1%E5%9E%8B/" title="电力线缆的寿命预测模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电力线缆的寿命预测模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/14/%E8%AE%BA%E6%96%87/%E7%B3%BB%E7%BB%9F%E5%B7%A5%E7%A8%8B/%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="钢铁淬火的简单仿真"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">钢铁淬火的简单仿真</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="系统分析理论"
+        id="heading-5d5b60b74e73d4405eebcb4bb7170ee0" role="tab" data-toggle="collapse" href="#collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+        aria-expanded="false"
+      >
+        系统分析理论
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5d5b60b74e73d4405eebcb4bb7170ee0"
+           role="tabpanel" aria-labelledby="heading-5d5b60b74e73d4405eebcb4bb7170ee0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/07/10/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/EventiC/" title="EventiC——一种无偏的复杂系统实时事件建模器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">EventiC——一种无偏的复杂系统实时事件建模器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/01/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/ROC/" title="ROC聚类算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROC聚类算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/19/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E4%B8%80%E7%A7%8D%E5%BA%94%E7%94%A8%E4%BA%8E%E7%BB%86%E8%83%9E%E5%BC%8F%E7%94%9F%E4%BA%A7%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="一种应用于细胞式生产的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">一种应用于细胞式生产的聚类方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%88%86%E6%9E%90/" title="无序变量的基本相关性分析方法和Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">无序变量的基本相关性分析方法和Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/16/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E7%81%B5%E6%95%8F%E5%BA%A6%E7%9A%84%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95/" title="灵敏度分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">灵敏度分析方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/11/%E8%AE%BA%E6%96%87/%E4%BA%8B%E4%BB%B6%E5%BB%BA%E6%A8%A1/%E9%92%88%E5%AF%B9%E5%9F%BA%E5%9B%A0%E8%A1%A8%E8%BE%BE%E6%95%B0%E6%8D%AE%E7%9A%84%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/" title="针对基因表达数据的聚类方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">针对基因表达数据的聚类方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="进化计算"
+        id="heading-393d3b280ef394972e740c7191996f04" role="tab" data-toggle="collapse" href="#collapse-393d3b280ef394972e740c7191996f04"
+        aria-expanded="true"
+      >
+        进化计算
+        <span class="list-group-count">(35)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-393d3b280ef394972e740c7191996f04"
+           role="tabpanel" aria-labelledby="heading-393d3b280ef394972e740c7191996f04">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/10/20/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/evolution%20everthing/" title="从进化计算到万物进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">从进化计算到万物进化</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传算法"
+        id="heading-0c01e483903e8768ff2908dfd1d9afb5" role="tab" data-toggle="collapse" href="#collapse-0c01e483903e8768ff2908dfd1d9afb5"
+        aria-expanded="true"
+      >
+        遗传算法
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-0c01e483903e8768ff2908dfd1d9afb5"
+           role="tabpanel" aria-labelledby="heading-0c01e483903e8768ff2908dfd1d9afb5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%A4%9A%E7%9B%AE%E6%A0%87%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%BB%BC%E8%BF%B0/" title="多目标优化遗传算法综述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标优化遗传算法综述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/16/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/NSGA%E5%92%8CNSGA-II/" title="多目标遗传算法：NSGA和NSGA-II"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">多目标遗传算法：NSGA和NSGA-II</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E5%B9%B6%E8%A1%8C%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="并行遗传算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">并行遗传算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/06/03/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E6%B6%8C%E7%8E%B0_%E4%BB%8E%E6%B7%B7%E4%B9%B1%E5%88%B0%E7%A7%A9%E5%BA%8F/" title="笔记摘要-涌现：从混乱到秩序"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">笔记摘要-涌现：从混乱到秩序</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%BA%93/" title="经典遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">经典遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/21/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%87%AA%E9%80%82%E5%BA%94%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E7%9A%84Python%E5%AE%9E%E7%8E%B0/" title="自适应遗传算法的Python实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">自适应遗传算法的Python实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E8%AE%B2%E4%B9%89%EF%BC%9A%E4%BB%80%E4%B9%88%E6%98%AF%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/" title="讲义：什么是遗传算法（GA）？"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">讲义：什么是遗传算法（GA）？</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95/%E9%81%97%E4%BC%A0%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA/" title="遗传算法（GA）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传算法（GA）导论</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程"
+        id="heading-5eaf1cc72385b8dd3193d401a42f52a3" role="tab" data-toggle="collapse" href="#collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+        aria-expanded="false"
+      >
+        遗传编程
+        <span class="list-group-count">(26)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-5eaf1cc72385b8dd3193d401a42f52a3"
+           role="tabpanel" aria-labelledby="heading-5eaf1cc72385b8dd3193d401a42f52a3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/05/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPmemo/" title="GP Memo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP Memo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/12/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/building%20blocks%EF%BC%9A%E6%8F%90%E5%8F%96%E4%BF%9D%E6%8A%A4%E5%92%8C%E5%BA%94%E7%94%A8/" title="GP模块化的再讨论——Building Blocks：探测、提取、应用"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">GP模块化的再讨论——Building Blocks：探测、提取、应用</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/02/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/Geometric%20Semantic%20Genetic%20Programming%20-%20%E5%87%A0%E4%BD%95%E8%AF%AD%E4%B9%89GP/" title="Geometric Semantic Genetic Programming：基于几何信息的GP"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Geometric Semantic Genetic Programming：基于几何信息的GP</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/02/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%A4%9A%E6%80%81%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="PolyGP：一种多态遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PolyGP：一种多态遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/08/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E4%B8%AD%E4%BA%A4%E5%8F%89%E7%AE%97%E5%AD%90%E7%9A%84%E5%BB%BA%E6%A8%A1%E5%92%8C%E6%AF%94%E8%BE%83/" title="交叉算子的建模和比较"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">交叉算子的建模和比较</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/01/25/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/What%20we%20can%20get%20in%20schema%20thoeries/" title="可以从既有的schema theory中得到什么"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可以从既有的schema theory中得到什么</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/schema%20thoery%20for%20homologous%20crossover/" title="同源交叉的模式定理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">同源交叉的模式定理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/03/02/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%9F%BA%E4%BA%8E%E4%BA%92%E4%BF%A1%E6%81%AF%E7%9A%84%E8%AF%AD%E4%B9%89%E6%A8%A1%E5%BC%8F%E5%AE%9A%E7%90%86%E5%92%8C%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/" title="基于互信息的语义模式定理和遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">基于互信息的语义模式定理和遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E5%BC%BA%E7%B1%BB%E5%9E%8BGP/" title="强类型遗传编程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">强类型遗传编程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/12/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E7%BB%93%E6%9E%84%E5%8F%98%E6%8D%A2/" title="结构变换操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">结构变换操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/11/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/The%20Evolution%20of%20Evolvability%20in%20Genetic%20Programming/" title="遗传编程中Evolvability的进化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中Evolvability的进化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/04/28/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E6%A8%A1%E5%9D%97%E5%8C%96GP/" title="遗传编程中的模块化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的模块化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/07/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%87%AA%E5%8A%A8%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0/" title="遗传编程中的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程中的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/18/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E8%BF%90%E8%A1%8C%E6%89%8B%E8%AE%B0/" title="遗传编程运行Tricks"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程运行Tricks</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/01/13/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B%E5%AF%BC%E8%AE%BA/" title="遗传编程（GP）导论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">遗传编程（GP）导论</span>
+        </a>
+      
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="基因表达式编程：通过人工智能的数学建模"
+        id="heading-c320aec9ed76d69f5bcc1ca10786135e" role="tab" data-toggle="collapse" href="#collapse-c320aec9ed76d69f5bcc1ca10786135e"
+        aria-expanded="false"
+      >
+        基因表达式编程：通过人工智能的数学建模
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-c320aec9ed76d69f5bcc1ca10786135e"
+           role="tabpanel" aria-labelledby="heading-c320aec9ed76d69f5bcc1ca10786135e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20chapter1/" title="01. 简介：生物遗传学背景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 简介：生物遗传学背景</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/23/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter2/" title="02. GEP的实体"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. GEP的实体</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter3/" title="03. 基因表达式算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 基因表达式算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/24/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter5/" title="05. 随机常数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 随机常数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/26/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter6/" title="06. GEP的自动定义函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. GEP的自动定义函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/04/30/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter7/" title="07. 多项式推理和时间序列预测"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 多项式推理和时间序列预测</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2025/05/01/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GEPbook/GEPbook%20Chapter12/" title="12. 进化成分分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 进化成分分析</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="遗传编程 IV： 例程化的可比拟人类的机器智能"
+        id="heading-cdf5b5baa87b8f9df335b10065b8eadb" role="tab" data-toggle="collapse" href="#collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+        aria-expanded="false"
+      >
+        遗传编程 IV： 例程化的可比拟人类的机器智能
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-cdf5b5baa87b8f9df335b10065b8eadb"
+           role="tabpanel" aria-labelledby="heading-cdf5b5baa87b8f9df335b10065b8eadb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/12/04/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%201/" title="01. 绪论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 绪论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/09/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%202/" title="02. 背景·遗传编程基础"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 背景·遗传编程基础</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/19/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%203/" title="03. 控制器的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 控制器的自动综合</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/10/%E8%AE%BA%E6%96%87/%E8%BF%9B%E5%8C%96%E8%AE%A1%E7%AE%97/%E9%81%97%E4%BC%A0%E7%BC%96%E7%A8%8B/GPbook/GP%20book%20chapter%204/" title="04. 电路的自动综合"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 电路的自动综合</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2025 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+<!-- 将谷歌翻译控件的脚本放在这里 -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'zh-CN', // 默认语言是中文
+      includedLanguages: 'en,zh-CN', // 只允许切换中英文
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // 等待一点时间，确保 Google Translate 加载完成
+    setTimeout(() => {
+      const combo = document.querySelector(".goog-te-combo");
+      if (combo) {
+        // 设置默认显示内容
+        combo.options[0].text = "切换语言";
+      }
+    }, 1000);
+  });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>

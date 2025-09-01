@@ -1,0 +1,4495 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head><!-- hexo injector head_begin start --><style type="text/css">.douban-card-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-height: 400px;
+}
+
+.douban-card {
+    display: flex;
+    margin: 30px 10px;
+    padding: 15px;
+    border-radius: 15px;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: antiquewhite;
+    text-decoration: none;
+}
+
+.douban-card:hover {
+    text-decoration: none;
+}
+
+.douban-card-bgimg {
+    position: absolute;
+    width: 115%;
+    height: 115%;
+    filter: blur(15px) brightness(0.6);
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-img {
+    position: relative;
+    height: 130px;
+    width: 80px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.douban-card-left:hover .douban-card-img {
+    filter: blur(5px) brightness(0.6);
+    transform: perspective(800px) rotateX(180deg);
+}
+
+.douban-card-left .douban-card-img {
+    transition: all 500ms ease;
+}
+
+.douban-card-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.douban-card-left .douban-card-status {
+    height: 130px;
+    width: 80px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    top: 30%;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    transition: all 500ms ease;
+}
+
+.douban-card-left:hover .douban-card-status {
+    transform: perspective(800px) rotateX(0deg);
+}
+
+.douban-card-right {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 1.3;
+    color: antiquewhite;
+}
+
+.douban-card-item {
+    margin-top: 4px;
+}
+</style><!-- hexo injector head_begin end -->
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Oreki Kigiha">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="智能系统部分-知识点总结 机器学习包括了四种类型：     监督学习(supervised learning) 机器学习数据及其对应的标签&#x2F;输出，从而生成模型。   无监督学习(unsupervised learning) 机器根据输入的数据自动挖掘数据特征，以此建模，不需要输入数据对应的标签。   半监督学习(semi-supervised learning) 监督">
+<meta property="og:type" content="article">
+<meta property="og:title" content="智能系统部分-知识点总结">
+<meta property="og:url" content="https://l61012345.top/2022/12/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
+<meta property="og:site_name" content="Mirror">
+<meta property="og:description" content="智能系统部分-知识点总结 机器学习包括了四种类型：     监督学习(supervised learning) 机器学习数据及其对应的标签&#x2F;输出，从而生成模型。   无监督学习(unsupervised learning) 机器根据输入的数据自动挖掘数据特征，以此建模，不需要输入数据对应的标签。   半监督学习(semi-supervised learning) 监督">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+<meta property="article:published_time" content="2022-12-27T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-01T09:36:48.184Z">
+<meta property="article:author" content="Oreki Kigiha">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>智能系统部分-知识点总结 - Mirror</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/sweetalert.css">
+<link rel="stylesheet" href="/css/googletranslate.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"l61012345.top","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"§"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":false},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":6},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":"ture","follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<style type="text/css">
+.spoiler {
+  display: inline-flex;
+}
+p.spoiler {
+  display: flex;
+}
+.spoiler a {
+  pointer-events: none;
+}
+.spoiler-blur, .spoiler-blur > * {
+  transition: text-shadow .5s ease;
+}
+.spoiler .spoiler-blur, .spoiler .spoiler-blur > * {
+  color: rgba(0, 0, 0, 0);
+  background-color: rgba(0, 0, 0, 0);
+  text-shadow: 0 0 10px grey;
+  cursor: pointer;
+}
+.spoiler .spoiler-blur:hover, .spoiler .spoiler-blur:hover > * {
+  text-shadow: 0 0 5px grey;
+}
+.spoiler-box, .spoiler-box > * {
+  transition: color .5s ease,
+  background-color .5s ease;
+}
+.spoiler .spoiler-box, .spoiler .spoiler-box > * {
+  color: black;
+  background-color: black;
+  text-shadow: none;
+}</style><meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Mirror</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>时间线</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://unsplash.com/@l61012345" target="_self">
+                <i class="iconfont icon-image"></i>
+                <span>图库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/urasekai/" target="_self">
+                <i class="iconfont icon-th-large"></i>
+                <span>里世界</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于我</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+        <!-- 🌐 Google 翻译控件 -->
+        <li class="nav-item" id="translate-btn">
+          <div id="google_translate_element" style="padding-top: 8px;"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/homepage.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="智能系统部分-知识点总结"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        Oreki Kigiha
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-27 00:00" pubdate>
+          2022年12月27日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          70 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">智能系统部分-知识点总结</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2025年9月1日 上午
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="智能系统部分-知识点总结">智能系统部分-知识点总结</h1>
+<p>机器学习包括了四种类型：</p>
+<table>
+
+<tbody>
+<tr>
+<td style="text-align: center;">监督学习<br>(supervised learning)</td>
+<td style="text-align: left;">机器学习数据及其对应的标签/输出，从而生成模型。</td>
+</tr>
+<tr>
+<td style="text-align: center;">无监督学习<br>(unsupervised learning)</td>
+<td style="text-align: left;">机器根据输入的数据自动挖掘数据特征，以此建模，不需要输入数据对应的标签。</td>
+</tr>
+<tr>
+<td style="text-align: center;">半监督学习<br>(semi-supervised learning)</td>
+<td style="text-align: left;">监督学习与无监督学习相结合的一种学习方法。半监督学习使用大量的未标记数据，以及同时使用标记数据，来进行模式识别工作。</td>
+</tr>
+<tr>
+<td style="text-align: center;">增强学习<br>(reinforcement learning)</td>
+<td style="text-align: left;">一种反馈学习系统。由智能体（Agent）、环境（Environment）、状态（State）、动作（Action）、奖励（Reward）组成。智能体执行了某个动作后，环境将会转换到一个新的状态，对于该新的状态环境会给出奖励信号（正奖励或者负奖励）。随后，智能体根据新的状态和环境反馈的奖励，按照一定的策略执行新的动作。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="神经网络">神经网络</h2>
+<h3 id="感知机">感知机</h3>
+<p>下图展示了神经网络中一个神经元的结构：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220915145155.png width=50%><br />
+如上图所示，假设对一个神经元，其输入为来自若干其他神经元的输出<span class="math inline">\(x_i\)</span>，那么该神经元的输出<span class="math inline">\(y\)</span>可以用数学公式表达为：<br />
+<span class="math display">\[y=f\left[(∑_{i=0}w_ix_i)+b_i\right]\]</span> 其中<span class="math inline">\(b_i\)</span>表示该神经元的偏置(offset)，用于线性修正；<span class="math inline">\(f[·]\)</span>是该神经元的激活函数。每一个神经元中的激活函数承担了对数据进行简单处理的任务。激活函数可以是线性的，也可以是非线性的。</p>
+<p>这样的由一个神经元构成的神经网络称为感知机(perceptron)。通过选择合适的激活函数和权重，这样的单层神经网络可以实现一些基本的逻辑函数功能、例如逻辑与(AND)、逻辑或(OR)、逻辑非(NOT)等。<br />
+感知机的问题是<strong>无法提取数据的非线性特征</strong>。<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220912172724.png width=60%><br />
+<strong>可以发现AND和OR在样本空间中的表示都可以用一条直线对其进行划分，而对XNOR无法找到一条直线将其进行区分。对于感知机而言，由于其输出表示为多个神经元的线性组合，通过Sigmoid函数，只能找到数据的线性边界。</strong> 对于这样的非线性逻辑函数，需要添加多层神经元才能完成逻辑函数的功能。</p>
+<h3 id="多层神经网络">多层神经网络</h3>
+<p>整个神经网络的学习过程包括：</p>
+<ul>
+<li>随机初始化连接权重<br />
+</li>
+<li>当均方差非常大，或者数代均方差变化很大时，执行如下的循环：
+<ul>
+<li>前向传播：带入每一个数据<span class="math inline">\((x_i,y_i)\)</span>中的<span class="math inline">\(x_i\)</span>到神经网络中，计算神经网络中每一个神经元对每一个数据的输出<span class="math inline">\(a_{jk}\)</span>和神经网络对每一个数据的预测值<span class="math inline">\(\hat{y}\)</span>，并整理为向量。<br />
+</li>
+<li>计算真实值<span class="math inline">\(y\)</span>与预测值<span class="math inline">\(\hat{y}\)</span>之间的差距。<br />
+</li>
+<li>使用验证集对神经网络的准确率进行测试。</li>
+<li>反向传播：计算<span class="math inline">\(δ\)</span>并更新每一层每一条连接的权重。<br />
+</li>
+</ul></li>
+<li>使用测试集对训练好的神经网络的准确率进行测试。</li>
+</ul>
+<h4 id="前向传播">前向传播</h4>
+<p>简单来说，前向传播的过程即将数据<span class="math inline">\(x\)</span>带入到神经网络的表示中，得到输出的过程：<br />
+<span class="math display">\[\hat{y}=a^{(N)}=f(z^{(N)})\]</span><br />
+<span class="math inline">\(N\)</span>表示神经网络最后一层的标识。<br />
+在前向传播的过程中，会得到每一个神经元的输出<span class="math inline">\(a_{jk}\)</span></p>
+<h4 id="反向传播">反向传播</h4>
+<p>反向传播的过程是根据实际值和预测值之间的误差，从输出层开始，逐层调整各层神经元连接权重的过程。<br />
+在输出层第<span class="math inline">\(N\)</span>层，根据得到的预测结果<span class="math inline">\(\hat{y}\)</span>，使用如下式子来衡量与实际结果<span class="math inline">\(y\)</span>之间的差距：<br />
+<span class="math display">\[δ^N_{jk}=(y_j-\hat{y}_j)\hat{y_j}(1-\hat{y_j})\]</span> （<span class="math inline">\(\hat{y}_j\)</span>和<span class="math inline">\(y_j\)</span>都是向量，其维度等于数据集大小）<br />
+对于隐藏层的神经元，如下式子表示了其神经网络单元输出的修正：<br />
+<span class="math display">\[δ^i_{jk}=a^i_j(1-a^i_j)∑_{m}δ^{i+1}_{mj}w^{i+1}_{mj}\]</span> 简单来说即<span class="math inline">\(a^i_j(1-a^i_j)\)</span>后一层中与该神经元相连的神经元的权重和修正的乘积。<br />
+权值的修正过程表示为：<br />
+<span class="math display">\[Δw_{jk}=ηδ_{jk}a^i_j\]</span> <span class="math display">\[w_{jk}:=w_{jk}+Δw_{jk}\]</span> 其中，<span class="math inline">\(η\)</span>是一个可以调整的参数，称为学习率(learning rate)。通过学习率可以控制权值一次性更新的幅度，换言之，即学习的快慢。学习率越大，权重更新的幅度越大，学习速度越快。<br />
+上面所示的这个权重修正的方法称为梯度下降算法(gradient desent)。<br />
+如此，神经网络在反复的前向传播和反向传播迭代（每一次迭代称为一轮，epoch）中不断地修正各连接的权重，直到使得真实值<span class="math inline">\(y\)</span>与预测值<span class="math inline">\(\hat{y}\)</span>之间的差距小到可以接受或者一直不变。这种情况称算法运行达到了收敛(convergence)。 通常，真实值<span class="math inline">\(y\)</span>与预测值<span class="math inline">\(\hat{y}\)</span>之间的差距是通过均方差(MSE,Mean Square Error)进行衡量的:<br />
+<span class="math display">\[MSE=\frac{1}{n}∑_{i=0}^{n-1}(\hat{y}_i-y_i)^2\]</span></p>
+<h3 id="调试">调试</h3>
+<h4 id="动量">动量*</h4>
+<p>为了避免算法陷入局部最小值，目标函数中使用了动量(momentum)，该动量项<span class="math inline">\(α\)</span>是介于0和1之间的值，该值通过尝试从局部最小值跳到最小值而增加了步长。如此，修正后的权重应当为：<br />
+<span class="math display">\[Δw_{ij}:=ηδ_ja^i_j+αΔw_{ij}\]</span> 如果动量项较大，则学习率应该保持较小。动量值很大也意味着收敛将很快发生。但是如果将动量和学习率都保持在较高的值，那么算法可能会大步跳过最小值。<br />
+较小的动量值不能可靠地避免局部最小值，并且还可能减慢系统的训练速度。如果梯度不断改变方向，动量也有助于平滑变化。<br />
+正确的动量值可以通过命中和试验来学习，也可以通过交叉验证来学习。</p>
+<h4 id="过拟合">过拟合</h4>
+<p>过拟合(overfitting)指神经网络的模型对数据的拟合的程度过高，过拟合意味着模型泛化能力低。模型能够很好的拟合当前的数据集，但是并不适应新的数据。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917134821.png width=40%></p>
+<p>过拟合的模型波动较大、具有高方差的性质。</p>
+<p>过拟合可以通过如下方法解决：</p>
+<ul>
+<li>使用验证集，实时监控训练过程中准确率/方差的变化，当准确率达到要求时停止训练。<br />
+</li>
+<li>设置训练轮数，达到轮数后停止训练。<br />
+</li>
+<li>设置方差阈值，训练过程中方差达到阈值时停止训练。</li>
+</ul>
+<h4 id="超参数">超参数</h4>
+<p>像学习率和动量这样的并非通过反向传播调整、而是在训练的开始就设置好的参数称为超参数(hyper-parameter)。对超参数进行调整的目的是为了改进学习过程的准确率和收敛速度。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">参数</th>
+<th style="text-align: center;">过大结果</th>
+<th style="text-align: center;">过小结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">训练轮次</td>
+<td style="text-align: center;">过拟合</td>
+<td style="text-align: center;">欠拟合</td>
+</tr>
+<tr>
+<td style="text-align: center;">学习率</td>
+<td style="text-align: center;">学习过程不稳定</td>
+<td style="text-align: center;">收敛缓慢</td>
+</tr>
+<tr>
+<td style="text-align: center;">动量系数</td>
+<td style="text-align: center;">过拟合</td>
+<td style="text-align: center;">陷入局部最小值</td>
+</tr>
+<tr>
+<td style="text-align: center;">神经元数量</td>
+<td style="text-align: center;">过拟合</td>
+<td style="text-align: center;">无法充分提取特征</td>
+</tr>
+</tbody>
+</table>
+<h4 id="迁移学习">迁移学习</h4>
+<p>迁移学习(transfer learning)是一种学习方式，其使用用某个数据集训练好的权重神经网络，冻结训练好的某些层中的权重，再用这个网络训练另一组全新类型的数据集，这次训练中冻结的权重将不会发生任何改变。<br />
+迁移学习可以改进数据集数据量小导致的问题。</p>
+<h3 id="其他类型的神经网络">其他类型的神经网络</h3>
+<p>除了基于反向传播的神经网络外，神经网络还有其他的几种类型。</p>
+<h4 id="自组织映射">自组织映射</h4>
+<p>自组织映射(SOM,self-organizing map)是一种只有两层的无监督学习神经网络。通过学习输入空间中的数据，生成一个低维、离散的映射(Map)，从某种程度上也可看成一种降维算法。它最重要的应用是用于聚类(clustering)。<br />
+不同于一般神经网络基于损失函数的反向传播来训练，它运用竞争学习(competitive learning)策略，依靠神经元之间互相竞争逐步优化网络。且使用近邻关系函数(neighborhood function)来维持输入空间的拓扑结构。<br />
+SOM的结构如下：<br />
+<img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220812094845.png width=50%></p>
+<p>SOM只有两层，第一层为输入层，第二层为输出层，也称为竞争层(computational layer)。<br />
+输入层神经元的数量是由输入向量的维度决定的，一个神经元对应一个特征。</p>
+<h5 id="竞争学习策略">竞争学习策略</h5>
+<p>对于SOM而言，神经网络中的权重仍然要进行随机初始化。其后权重的更新仍然基于权重更新算法：<br />
+<span class="math display">\[w:=w+ηδa\]</span> 然而，由于其是一个无监督学习算法，无法对网络输入数据集的标签，因此此处的<span class="math inline">\(δ\)</span>采用数据点<span class="math inline">\(\boldsymbol{X}\)</span>到每一个神经元的权重之间的欧氏距离进行衡量：<br />
+<span class="math display">\[d=||\boldsymbol{X}-\boldsymbol{W}||=\sqrt{∑(x_i-w_i)^2}\]</span> 与基于反向传播的神经网络不同的是，此处需要计算数据点到所有神经元的欧氏距离，并且找到到该数据点欧氏距离最短的神经元<span class="math inline">\(\boldsymbol{W_{win}}\)</span>。然后使用该输入对该神经元的权重进行更新：<br />
+<span class="math display">\[\boldsymbol{W_{win}}:=\boldsymbol{W}+η(\boldsymbol{X}-\boldsymbol{W_{win}})\]</span> 此外，这个神经元的权重<span class="math inline">\(\boldsymbol{W_{win}}\)</span>还会对周围的神经元的权重造成影响，影响的大小服从近邻关系函数<span class="math inline">\(θ(N)\)</span>，其中<span class="math inline">\(N\)</span>表示的是影响范围内某个神经元距离赢家的神经元距离，下图表示了<span class="math inline">\(N=1\)</span>和<span class="math inline">\(N=2\)</span>时赢家（编号为13的神经元）对周围神经元的影响；<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220917143055.png width=50%></p>
+<p><span class="math inline">\(θ(N)∈[0,1]\)</span>，表示该距离所对应的对其权重的影响与原来的百分比。赢家周围的神经元的权重更新表示为：<br />
+<span class="math display">\[\boldsymbol{W_{neigh}}:=\boldsymbol{W}+η(\boldsymbol{X}-\boldsymbol{W_{neigh}})θ(N)\]</span></p>
+<p>训练完成后，所有的数据点都被映射到竞争层的神经元，在竞争层观察到竞争层的神经元移动到输入层数据密集的区域，从而自发地形成数据簇，完成聚类。</p>
+<h4 id="循环神经网络">循环神经网络</h4>
+<p>循环神经网络(Recurrent Neural Network, RNN)是一种专用于设计处理时序数据的神经网络，其结构上与普通的多层神经网络不同的是，它的隐含层具有自循环的结构，通过这样的自循环，当前的隐含层神经元的输出与上一个时刻神经元的输出建立联系。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221226154349.png width=50%></p>
+<p>循环神经网络的前向传播过程类似于普通的神经网络，它每个神经元的输出可以表示为：<br />
+<span class="math display">\[y(t)=f\left[(∑_{i=0}w_ix_i(t))+b_i+y(t-1)\right]\]</span> 反向传播过程和普通的神经网络相同，但是需要更新自循环的权重。</p>
+<h4 id="卷积神经网络深度学习">卷积神经网络·深度学习</h4>
+<p>卷积神经网络(Convolutional Neural Network, CNN)是一种最初设计用于处理图像的神经网络。它可以看做是一组自适应图像滤波器，其每一层的神经元是用于处理图像的卷积核，卷积核内的参数通过反向传播进行修正。</p>
+<p>卷积神经网络属于深度学习(deep learning)的范畴，相比于一般的神经网络，它们具有如下特点：</p>
+<ul>
+<li>通过设置一系列的、更加复杂的级联网络结构可以深度挖掘数据的非线性特征。<br />
+</li>
+<li>深度学习网络通常具有分层级的表示和结构。<br />
+</li>
+<li>可以是监督学习也可以是非监督学习。</li>
+</ul>
+<h2 id="模糊系统">模糊系统</h2>
+<p>模糊逻辑基于模糊集论(fuzzy set theory)，它试图使用近似和不确定的信息来模仿人类的直觉推理。模糊集论使用数学表达来描述这样的不确定和模糊。</p>
+<h3 id="基本定义">基本定义</h3>
+<h4 id="隶属度">隶属度</h4>
+<p>对于传统的布尔逻辑，对某件个事件的描述分类是非黑即白的，即是二值的(crisp)。而在模糊逻辑中，对于某个事件的描述分类是基于概率分布的，称为隶属度(DoM,Degree of Membership)，这是一种多值逻辑。</p>
+<h4 id="模糊集和隶属度函数">模糊集和隶属度函数</h4>
+<p>模糊集(fuzzy set)表示隶属于某个类别的所有个体。模糊集中所有个体各自的某一属性的所有可能取值(称为论域，univsersal of discourse)以及这个属性值对应该属性的隶属度可以被可视化为一条曲线，其值域范围为<span class="math inline">\([0,1]\)</span>。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918133039.png width=50%></p>
+<p>模糊逻辑的实质是<strong>通过一个映射将具体的数值映射为概率表示的隶属度，从而实现对数值的模糊化。</strong> 在模糊集论中，这个映射被称为隶属度函数(membership function)<span class="math inline">\(μ_A(x)\)</span>，表示了属性数值<span class="math inline">\(x\)</span>，称为模糊变量(fuzzy variable)与隶属某一类概率的映射关系。这样的隶属关系表示为：<br />
+<span class="math display">\[μ_A(x)=1,x\text{ totally in }A\]</span> <span class="math display">\[0&lt;μ_A(x)&lt;1,x\text{ partially in }A\]</span> <span class="math display">\[μ_A(x)=0,x\text{ not in }A\]</span></p>
+<p>模糊集可以由隶属度函数和模糊变量定义，用扎德表示法(Zadeh presentation)写成：<br />
+<span class="math display">\[A=\frac{μ_A(x_i)}{x_i}+...+\frac{μ_A(x_n)}{x_n}\]</span> 其中一个<span class="math inline">\(\frac{μ_A(x_i)}{x_i}\)</span>称为一个单例类（singleton），它不是一个分数，表示模糊变量<span class="math inline">\(x\)</span>的个体<span class="math inline">\(x_i\)</span>的隶属度为<span class="math inline">\(μ_A(x_i)\)</span>。</p>
+<h3 id="模糊推理">模糊推理</h3>
+<p>知道模糊规则中蕴涵的模糊关系后，就可以根据模糊关系和输入情况，来确定输出情况，这就叫做模糊推理（fuzzy inference）。</p>
+<h4 id="mamdani模糊推理">Mamdani模糊推理</h4>
+<p>模糊推理技术中最常用的方法是Mamdani方法。 Mandani模糊推理的过程有4步：</p>
+<ul>
+<li><p>对输入变量进行模糊化<br />
+在取得精确输入<span class="math inline">\(x\)</span>和输出<span class="math inline">\(y\)</span>(project funding and project staffing)的前提下决定这些精确(crisp)数据属于每个适合模糊集的程度。<br />
+例如将某个精确的输入<span class="math inline">\(x_1\)</span>和其精确输出<span class="math inline">\(y_1\)</span>应用到如下的规则中：<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918155157.png width=50%><br />
+得到：<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918154432.png width=50%></p></li>
+<li><p>评估规则<br />
+取得上一步中的模糊输入（比如例子中的：<span class="math inline">\(μ_{A_1}(x)=0.5，μ_{A_2}(x)=0.2,μ_{B_1}(x)=0.1,μ_{B_2}(x)=0.7\)</span>），并将它们应用到模糊规则的前项(antecendents，即模糊规则中的IF表述)。如果已知的模糊规则存在多个前项，则使用逻辑关系符(AND或者OR)得到最终的一个输出值。并将得到的输出值使用α截剪切(clipping)后项对应的规则中。<br />
+<div class="note note-info">
+            <p>除了剪切外，有时也会使用缩放(scaling)。缩放提供了保持模糊集原始形状的更好的方法。这种方法损失的信息较少，在模糊专业系统中非常有用。<br /><img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918155801.png width=50%></p>
+          </div><br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918155040.png width=50%></p></li>
+<li><p>聚合规则<br />
+将剪切好的多个后项规则合并到一起，拼合后的规则称为聚合集。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918160031.png width=50%></p></li>
+<li><p>逆模糊化<br />
+模糊系统最终的输出是一个数值，因此有必要将拼合好的规则通过某种方式聚合为一个数值。常见的方法有三种：</p>
+<ul>
+<li>质心<br />
+质心表示了已知精确值对应模糊集的期望，这是最常用的逆模糊化方法。其垂线刚好可以将拼合好的规则面积分为两部分，质心的计算公式如下：<br />
+<span class="math display">\[COG=\frac{∑xμ_A(x)dx}{∑μ_A(x)}\]</span></li>
+<li>Max-in和Min-in<br />
+这两种方式表示了精确值对应模糊集的上下限，当聚合集具有多个最大值和最小值点时，有：<br />
+<span class="math display">\[Max-in=\frac{∑Max_iμ_A(x)dx}{∑μ_A(x)}\]</span> <span class="math display">\[Min-in=\frac{∑Min_iμ_A(x)dx}{∑μ_A(x)}\]</span></li>
+</ul></li>
+</ul>
+<h4 id="sugeno模糊推理">Sugeno模糊推理</h4>
+<p>Mamdani模糊推理需要通过整合连续变化的函数来逆模糊化，计算效率通常不高。而Sugeno在聚合规则时只会聚合每个规则下对应的一个单例类。整合时每个规则在该单例类下有值，其他区域的值均为0。因此Sugeno方法聚合规则并不需要聚合一个区域，只用聚合几个值即可，计算量大幅度减小。因此Sugeno模糊推理常常用于模糊神经网络（下文会详细介绍）的反向传播中。<br />
+最常用的是零阶-Sugeno模糊推理模型，它的规则表示为：<br />
+IF <span class="math inline">\(x\)</span> IS <span class="math inline">\(A\)</span> AND <span class="math inline">\(y\)</span> IS <span class="math inline">\(B\)</span><br />
+THEN <span class="math inline">\(z\)</span> IS <span class="math inline">\(k\)</span><br />
+其中<span class="math inline">\(k\)</span>是一个常数。<br />
+在这样的规则表示下，每一个模糊规则的输出都是一个常数。所有规则的输出通过单例类表示。<br />
+Sugeno模糊推理的第二步评估规则表示如下:<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918161540.png width=50%><br />
+第三步聚合表示为：<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918161624.png width=50%></p>
+<p>Sugeno模糊推理常常使用加权平均值来进行逆模糊化：<br />
+<span class="math display">\[WA=\frac{∑k_i×μ_Z(K_i)}{∑μ_Z(k_i)}\]</span></p>
+<h4 id="方法评价">方法评价</h4>
+<p>在获取专家知识时常常使用Mamdani方法，这种方法可以用更加直接、更加符合人类直觉的方式来描述专家的意见。但是其计算量更大。<br />
+Sugeno方法的计算效率高，可以与优化算法和自适应技术协同工作。这种方法在控制问题、尤其是在动态非线性系统研究领域比较有吸引力。</p>
+<h3 id="模糊运算">模糊运算</h3>
+<h4 id="模糊集间的四则运算">模糊集间的四则运算</h4>
+<p>对于两个模糊集<span class="math inline">\(A\)</span>和<span class="math inline">\(B\)</span>，分别对应模糊变量<span class="math inline">\(X\)</span>和<span class="math inline">\(Y\)</span>，其四则运算<span class="math inline">\(∘\)</span>(<span class="math inline">\(∘∈\{+,-,×,÷\}\)</span>)的结果表示为：<br />
+<span class="math display">\[\begin{aligned}
+F(A∘B)=&amp;\left[\frac{min[μ_A(x_1),μ_B(y_1)]}{x_1∘y_1}+\frac{min[μ_A(x_1),μ_B(y_2)]}{x_1∘y_2}+...+\frac{min[μ_A(x_1),μ_B(y_n)]}{x_1∘y_n}\right]\\&amp;+\left[\frac{min[μ_A(x_2),μ_B(y_1)]}{x_2∘y_1}+...+\frac{min[μ_A(x_2),μ_B(y_n)]}{x_2∘y_n}\right]+...+\left[\frac{min[μ_A(x_n),μ_B(y_1)]}{x_n∘y_1}+...+\frac{min[μ_A(x_n),μ_B(y_n)]}{x_n∘y_n}\right]
+\end{aligned}\]</span> 简单来说即“两两配对，下面相加/减/乘/除，上面取最小”。<br />
+如果计算后存在有<span class="math inline">\(x_i∘y_j\)</span>值相同的项，那么该<span class="math inline">\(x_i∘y_j\)</span>值对应的隶属值为这些项中最大的隶属值：<br />
+<span class="math display">\[μ_F(x_i∘y_j)=max\{min[μ_A(x_i),μ_B(y_j)]\}\]</span> 下图展示了一个计算例子：</p>
+<h4 id="展开原则">展开原则</h4>
+<p>展开原则(principle)描述了从一个模糊集<span class="math inline">\(A\)</span>到另一个模糊集<span class="math inline">\(B\)</span>的映射。<br />
+假设存在映射关系<span class="math inline">\(A→B:f(x)\)</span>，<span class="math inline">\(A=\frac{μ_A(x_1)}{x_1}+\frac{μ_A(x_2)}{x_2}+...+\frac{μ_A(x_n)}{x_n}\)</span>，有<span class="math inline">\(y_i=f(x_i)\)</span>，那么有：<br />
+<span class="math display">\[B=f(A)=\frac{μ_A(x_1)}{y_1}+\frac{μ_A(x_2)}{y_2}+...+\frac{μ_A(x_n)}{y_n}\]</span> 如果计算后存在有<span class="math inline">\(y\)</span>值相同的项，那么该<span class="math inline">\(y\)</span>值对应的隶属值为这些项中最大的隶属值：<br />
+<span class="math display">\[μ_B(y)=maxμ_A(x)\]</span></p>
+<h4 id="笛卡尔积">笛卡尔积</h4>
+<p>模糊关系用于表示两个模糊变量之间的关系强度。假设模糊变量<span class="math inline">\(X\)</span>对应模糊集<span class="math inline">\(A\)</span>,模糊变量<span class="math inline">\(Y\)</span>对应模糊集<span class="math inline">\(B\)</span>，两者之间的关系强度可以用笛卡尔积(Cartesian Product)表示：<br />
+<span class="math display">\[μ_{A×B}(x_i,y_j)=min(μ_A(x_i),μ_B(y_j))\]</span> <img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918163544.png width=60%></p>
+<h4 id="间接关系">间接关系</h4>
+<p>如果模糊变量<span class="math inline">\(X\)</span>与<span class="math inline">\(Y\)</span>存在模糊关系<span class="math inline">\(R\)</span>,模糊变量<span class="math inline">\(Y\)</span>与<span class="math inline">\(Z\)</span>存在模糊关系<span class="math inline">\(S\)</span>，那么可以借助模糊变量<span class="math inline">\(Y\)</span>推导出模糊变量<span class="math inline">\(X\)</span>与<span class="math inline">\(Z\)</span>的关系<span class="math inline">\(F\)</span>:<br />
+<span class="math display">\[F=R∘S\]</span> 其中的<span class="math inline">\(∘\)</span>代表了两种算子：</p>
+<ul>
+<li>max-min算子<br />
+<span class="math display">\[μ_F(x_i,z_k)=max[min(μ_R(x_i,y_j),μ_S(y_j,z_k))]\]</span> 即关系矩阵<span class="math inline">\(R\)</span>的每一行与关系矩阵的<span class="math inline">\(S\)</span>每一列对应元素取最小值后再取行列计算结果中的最大值。<br />
+</li>
+<li>max-product算子<br />
+<span class="math display">\[μ_F(x_i,z_k)=max[μ_R(x_i,y_j)·μ_S(y_j,z_k)]\]</span> 即关系矩阵<span class="math inline">\(R\)</span>的每一行与关系矩阵的<span class="math inline">\(S\)</span>每一列对应元素相乘后再取行列计算结果中的最大值。</li>
+</ul>
+<h3 id="自适应神经模糊系统">自适应神经模糊系统</h3>
+<p>模糊推理系统非常适于表示模糊的经验和知识，但缺乏有效的学习机制；神经网络虽然具有自学习功能，却又不能很好的表达人脑的推理功能。基于自适应神经网络的模糊推理系统ANFIS(ANFIS，Adaptive Network-based Fuzzy Inference System)将二者有机的结合起来，既发挥了二者的优点，又弥补了各自的不足。自适应神经网络模糊系统其中一个十分重要的应用，就是在信号处理和控制中消除噪声或干扰。<br />
+自适应神经模糊系统只有5层结构，如下图所示：<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220918171953.png width=60%></p>
+<h4 id="模糊层">模糊层</h4>
+<p>第一层是模糊层，模糊层的每个节点带有一个隶属值函数：<br />
+<span class="math display">\[O_{1,i}=μ_{A_i}(x),i=1,2\]</span> <span class="math display">\[O_{1,i}=μ_{B_i}(y),i=3,4\]</span> 输入变量进入第一层后通过每个节点后将被各节点的隶属值函数转换为隶属值。<br />
+原始的自适应神经模糊系统第一层采用Sigmoid函数作为隶属值函数：<br />
+<span class="math display">\[μ_A(x)=\frac{1}{1+|\frac{x-c_i}{a_i}|^{2b_i}}\]</span> <span class="math display">\[μ_B(y)=\frac{1}{1+|\frac{y-c_i}{a_i}|^{2b_i}}\]</span></p>
+<h4 id="运算层">运算层</h4>
+<p>这一层实现前提部分的模糊集的运算。在这一层中的每个结点都是固定结点，它的输出是所有输入信号的代数积。<br />
+每个结点的输出表示一条规则的激励强度，本层的结点函数还可以采用取小、有界积或强积的形式。通常采用AND运算。<br />
+<span class="math display">\[O_{2,i}=∏_{j=1}^nμ(x_j)=w_i\]</span></p>
+<h4 id="归一化层">归一化层</h4>
+<p>第三层将第二层的输出<span class="math inline">\(w_i\)</span>进行和归一化处理：<br />
+<span class="math display">\[O_{3,i}= \overline{w_i} =\frac{w_i}{∑_jw_j}\]</span></p>
+<h4 id="结果层">结果层</h4>
+<p>这一层将归一化的权重应用到结合的单例项<span class="math inline">\(f_i\)</span>中：<br />
+<span class="math display">\[O_{4,i}=\overline{w_i}f_i=\overline{w_i}(p_ix+q_iy+r_i)\]</span> 其中的两个单例项合并的结果：<span class="math inline">\(p_ix+q_iy+r_i\)</span>中的系数需要通过反向传播找到。</p>
+<h4 id="逆模糊层">逆模糊层</h4>
+<p>第五层是输出层，其将第四层的输出进行逆模糊化。逆模糊化的方法常常采用质心：<br />
+<span class="math display">\[\hat{F}=O_{5,i}=∑_i\overline{w_i}f_i=\frac{∑_iw_if_i}{\sum_iw_i}\]</span></p>
+<h4 id="反向传播-1">反向传播*</h4>
+<p>自适应神经模糊系统的学习过程同样使用了基于梯度下降的反向传播。这是一种监督学习方法。<br />
+在ANIFS中，真实值和预测值的差表示为： <span class="math display">\[δ=(\hat{F}-F)^2\]</span> 其中<span class="math inline">\(F\)</span>为真实值。<br />
+ANIFS系统中的参数<span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span>、<span class="math inline">\(c\)</span>的更新公式为：<br />
+<span class="math display">\[a:=a-η\frac{∂δ}{∂a}\]</span> 输出层的梯度表示为：<br />
+<span class="math display">\[δ_o=\frac{∂δ}{∂(x,y,...)}\]</span></p>
+<h2 id="遗传算法">遗传算法</h2>
+<div class="note note-info">
+            <p>本章节的具体内容可以参考网站中全部有关于遗传算法的部分，这里只列出了智能系统设计课程对于遗传算法要求掌握的知识点。</p>
+          </div>
+<p>遗传算法(genetic algorithm)是一类将特定问题潜在的解决方案编码，然后应用进化理论对解决方案进行优胜劣汰式的反复筛选的算法。</p>
+<h3 id="算法流程">算法流程</h3>
+<p>经典遗传算法通过对当前种群的<strong>评估（evaluation）</strong>，<strong>选择（selection）</strong>，<strong>重组（recombination）</strong>和<strong>突变（mutation）</strong> 后，能够在现有种群的基础上产生下一代种群。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221230144124.png width=50%></p>
+<h4 id="原始种群initial-population">原始种群（initial population）</h4>
+<p>在遗传算法中，定义<strong>种群中编码后的一条固定长度为L的字节串称为一个个体，这样的个体称为基因型（genotype）或者是染色体（chromosome）</strong>。 在大多数情况下，原始种群被随机的产生出来。<br />
+&gt; 此处的随机指在空间内随机的取出一些编码的组合（当然也受制于编码机制等）。</p>
+<h4 id="评估和适应度">评估和适应度</h4>
+<p>原始种群被生成后，每一个个体会通过评估函数和适应度函数（Fitness funtion）生成其对种群的适应度（fitness），从而量化每个个体的表现优劣：<br />
+<span class="math display">\[F(x_i)=f_i\]</span> 其中<span class="math inline">\(F(·)\)</span>是适应度函数，<span class="math inline">\(x_i\)</span>是一个个体。<br />
+适应度函数的选择<strong>可以是个体表现越好，其适应度越高；也可以是个体表现越好，适应度越低</strong>。常见的适应度函数是均方差函数。<br />
+种群中个体<span class="math inline">\(i\)</span>的适应度定义为：<br />
+<span class="math display">\[\frac{f_i}{\overline{f}}\]</span><br />
+其中，<span class="math inline">\(f_i\)</span>表示评估函数对第<span class="math inline">\(i\)</span>个个体的评估结果，<span class="math inline">\(\overline{f}\)</span>表示种群的平均评估。</p>
+<h4 id="选择">选择</h4>
+<p>定义在<strong>现种群经过选择后保留的种群称为中间种（Imermediate population），中间种经过突变和重组后会成为下一代种群。</strong><br />
+在遗传算法中，<strong>选择的本质是概率性地将现种群中的个体进行复制，最终得到中间种的过程。</strong><br />
+选择机制有非常多种，其中最为常见的是轮盘赌(Roulette wheel)和余数随机采样(Reminder stochastic sampling).</p>
+<ul>
+<li>轮盘赌<br />
+如果整个轮盘表示整个种群，每个个体所占面积与适应度成正比，每一次转动就能随机地抽取一个个体复制，更高效的办法是轮盘外围上均匀地分布着N个均等间距的指针，每一次转动就能随机抽取N个个体进行复制。 经过若干次转动后，结果的集合构成中间种。<br />
+</li>
+<li>余数随机采样<br />
+具体而言，对于适应度大于1的个体，适应度的整数部分表示该个体会被复制多少次。对所有的个体，适应度的小数部分表示额外被复制的概率。 比如，适应度2.3的个体能够获得2次复制，并且有0.3的概率能获得第三次复制的机会。</li>
+</ul>
+<h4 id="重组">重组</h4>
+<p><strong>遗传算法依赖于重组来挖掘新的潜在个体，其本质是通过部分交换两个个体的信息来有概率地继承两个个体中有用的信息，抛弃两个个体中无用的信息</strong>。</p>
+<ul>
+<li>单点交叉(single crossover)<br />
+单点交叉的过程主要有两步：
+<ol type="1">
+<li>随机地使得个体间两两配对。<br />
+</li>
+<li>随机地选取一对个体，两者在某个随机且相同的比特位处断开，前后的两段基因型进行交叉互换。<br />
+<img src="https://img-blog.csdnimg.cn/20191202151959116.gif#pic_center" srcset="/img/loading.gif" lazyload /></li>
+</ol></li>
+<li>两点交叉(two-point crossover)<br />
+两点交叉是指在个体染色体中随机设置了两个交叉点，然后再进行部分基因交换。两点交叉的具体操作过程是：
+<ol type="1">
+<li>在相互配对的两个个体编码串中随机设置两个交叉点；<br />
+</li>
+<li>交换两个个体在所设定的两个交叉点之间的部分染色体。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20191202152133536.gif width=100%></li>
+</ol></li>
+</ul>
+<p>新生成的两个个体称为后代（Offspring），后代能够插入到下一代的概率计作<span class="math inline">\(p_c\)</span>。</p>
+<h4 id="突变">突变</h4>
+重组之后利用突变算子对后代作突变(mutation)处理，突变的作用是<strong>在进化过程中为当前种群随机地施加干扰，增大选择压力，防止遗传算法陷入局部最优解</strong>。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221230150046.png width=50%><br />
+比如上图中红圈的位置表明了遗传算法通过突变经历了两次跳出局部最优解的过程，最终达到全局最优解。<br />
+对于种群中的所有比特位，其突变的概率计作<span class="math inline">\(p_m\)</span>，这是一个非常小的值，通常小于1%。 <strong>突变有可能随机地产生一些比特（并且有50%的可能性改变原本的比特值），也有可能反转原有的比特（一定能改变原本的比特值）。</strong><br />
+中间种经过重组和突变，最终能称为新的种群。
+<div data-align="center">
+<p><img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20210718132905.png width=40% /></p>
+</div>
+<center>
+▲ 经典遗传算法的选择和重组过程
+</center>
+<div data-align="center">
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20220118134224.png width=80%></p>
+</div>
+<center>
+▲ 整个经典遗传算法的运行图
+</center>
+<p>伪代码如下：<br />
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Pseudo">Input: pop_size, pc, pm, dataset<br>Output: best solution<br><br>Begin<br>  i=0;<br>  set pop_size, pc, pm;<br>  initialize M(0) with pop_size;<br>  while (not terminal condition) do<br>     M_f(i) = evaluate M(i);<br>     inter_M(i) = select M(i) with M_f(i); <br>     \\注：evaluation和selection可以放在循环最后或者最前<br>     random_pair inter_M(i);<br>     M_c(i) = crossover inter_M(i) with pc;<br>     M_m(i) = mutation M_c(i) with pm;<br>     i = i + 1;<br>  end<br>  output best solution;<br>End<br></code></pre></td></tr></table></figure></p>
+<h3 id="遗传算法中的设置">遗传算法中的设置</h3>
+<h4 id="超参数设置">超参数设置</h4>
+<p>遗传算法中的超参数有三个：初始种群大小、重组概率和突变概率。</p>
+<ul>
+<li><p>初始种群大小<br />
+初始种群大小的典型值在100左右，过小的初始种群大小会使算法的收敛速度减慢，而过大的初始种群大小会使得计算量成倍增长。<br />
+<img src= https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20221230144904.png width=50%></p></li>
+<li><p>重组概率<br />
+<strong>由于遗传算法依赖于重组来挖掘新的潜在个体</strong>，因此一般认为，重组概率应当设置的相对大一些，才能不断地寻找新个体，典型值在<strong>0.5-1</strong>。<br />
+<strong>过小的重组概率使得非常容易算法无法找到全局最优解就提前收敛，而过大的重组概率会使得算法持续振荡而无法收敛</strong>。</p></li>
+<li><p>突变概率<br />
+文献中通常认为突变存在消极和积极两方面的影响，所谓积极是指算法可以通过突变跳出局部最优解；但是与此同时，突变也会破坏掉原本找到的有用信息——这是突变消极的一面。因此，突变的概率应当设置的相对小一些，才能保证对现有种群的干扰是微小的，不会破坏现在已经查找到的有用信息，突变概率的典型值在<strong>0.005-0.05</strong>。<br />
+<strong>过小的突变概率使得非常容易算法无法找到全局最优解就提前收敛，而过大的突变概率会使得遗传算法因为无法继承有用信息而退化为随机搜索</strong>。</p></li>
+</ul>
+<h4 id="终止条件">终止条件</h4>
+<p>遗传算法的在何时收敛是目前学界研究的一个重要问题，与神经网络不同，倘若不设置任何条件，在某些超参数的设置下遗传算法可以一直运行下去，因此遗传算法往往需要人为地添加终止条件，强制终止算法的运行，通常使用的终止条件有：</p>
+<ul>
+<li>当前种群中有个体的适应度达到了设置的阈值标准，比如均方差小于某个数值。<br />
+</li>
+<li>CPU的运行时间(elapsed times)。<br />
+</li>
+<li>当前种群的平均适应度不发生明显变化。<br />
+</li>
+<li>算法运行的代数达到设置的阈值，比如算法运行3000代后自动停止。<br />
+</li>
+<li>对于种群大小不固定的进化策略，当前种群中的个体数量小于某个阈值，比如个体数量只有一个时由于无法进行交叉而自动停止。</li>
+</ul>
+<h4 id="选择机制">选择机制</h4>
+<p>选择机制是指如何选择个体进行交叉和突变等遗传操作。选择策略除了上文中介绍过的轮盘赌和余数随机抽样之外，还有排名算法和锦标赛算法。</p>
+<ul>
+<li><p>轮盘赌/余数随机抽样<br />
+这两种方法的优点是都是基于概率的随机抽样，因此，适应度较低的个体也有可能被选择进行遗传操作，这样的好处是适应度较低的个体中仍然具有少量有用信息，概率抽样可以利用这些信息可以帮助收敛到全局最优；缺点是适应度较低的个体中的无用信息在进行遗传操作时可能破坏其他个体的有用信息；对于轮盘赌选择，当适应度值差别很大时，极优秀的个体会在轮盘上占据相当大的面积，导致其他个体被选择的概率很低，陷入局部最优解。</p></li>
+<li><p>排序算法(rank)<br />
+将选择概率依据适应度排名重新分配给每个个体。比如如下的例子：<br />
+设三个个体的适应度评估为：<span class="math inline">\(h_1,h_2,h_3\)</span>.首先对所有个体按照适应度从小到大排序，比如：<span class="math inline">\(h_2,h_1,h_3\)</span>; 按照上面的顺序重新赋予适应度，即<span class="math inline">\(f(h_2)=1,f(h_1)=2,f(h_3)=3\)</span>，计算选择概率:<span class="math inline">\(p(h_2)=\frac{1}{1+2+3}=\frac{1}{6},p(h_1)=\frac{2}{6},p(h_3)=\frac{3}{6}\)</span>。<br />
+排序算法的优点是由于取消了适应度和选择概率的直接关系，当前种群中适应度极大的个体不会完全占据进化的主导优势，避免算法迅速陷入局部最优解。</p></li>
+<li><p>锦标赛算法(tournament)<br />
+将整个种群分为<span class="math inline">\(K\)</span>组，每组内部选择适应度最好的一个或者几个个体加入到下一组。锦标赛算法为遗传算法提供了并行计算的可能性。</p></li>
+</ul>
+<h4 id="繁殖策略">繁殖策略</h4>
+<p>繁殖策略是指决定哪些个体可以进入到下一代的策略，主要有两种：</p>
+<ul>
+<li>Generational策略<br />
+经典GA中所使用的策略，即<strong>不保留亲本</strong>，经过选择后的亲本通过交叉和突变直接生成下一代个体。<br />
+Generational策略的优点是进化速度快，但是由于不保留亲本，因此亲本中的有用信息可能被丢失。<br />
+</li>
+<li>稳态策略(steady-state)<br />
+亲本和子代按比例加入到下一代，通常是50%：50%，这样的好处是亲本的信息被完全保留，但是进化速度较慢。<br />
+</li>
+<li>精英策略(elite)<br />
+总是将当前适应度最好的一个或者多个个体保存到下一代。</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E5%92%8C%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E5%BA%94%E7%94%A8/" class="category-chain-item">智能系统和数字图像处理应用</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>智能系统部分-知识点总结</div>
+      <div>https://l61012345.top/2022/12/27/学习笔记/智能系统设计/智能系统设计-知识点总结/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Oreki Kigiha</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月27日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年9月1日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="数字图像处理部分-知识点总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数字图像处理部分-知识点总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/24/%E6%8A%80%E6%9C%AF%E6%9D%82%E8%B0%88/2022%20%E6%8E%A8%E7%90%86%E5%B0%8F%E8%AF%B4%E4%B9%A6%E5%8D%95/" title="2022 推理小说短评">
+                        <span class="hidden-mobile">2022 推理小说短评</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-left: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="学习笔记"
+        id="heading-078425eaf316a180b0989442e53f920b" role="tab" data-toggle="collapse" href="#collapse-078425eaf316a180b0989442e53f920b"
+        aria-expanded="true"
+      >
+        学习笔记
+        <span class="list-group-count">(228)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-078425eaf316a180b0989442e53f920b"
+           role="tabpanel" aria-labelledby="heading-078425eaf316a180b0989442e53f920b">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="Machine Learning-NUS 2021"
+        id="heading-229f2c544b7735bf4fb467b0adb884d3" role="tab" data-toggle="collapse" href="#collapse-229f2c544b7735bf4fb467b0adb884d3"
+        aria-expanded="false"
+      >
+        Machine Learning-NUS 2021
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-229f2c544b7735bf4fb467b0adb884d3"
+           role="tabpanel" aria-labelledby="heading-229f2c544b7735bf4fb467b0adb884d3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="讲义"
+        id="heading-4bb6ceae5ca5d272488e84ea50fdb3da" role="tab" data-toggle="collapse" href="#collapse-4bb6ceae5ca5d272488e84ea50fdb3da"
+        aria-expanded="false"
+      >
+        讲义
+        <span class="list-group-count">(8)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4bb6ceae5ca5d272488e84ea50fdb3da"
+           role="tabpanel" aria-labelledby="heading-4bb6ceae5ca5d272488e84ea50fdb3da">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/22/Machine%20Learning-NAU/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="0. 课程简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0. 课程简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/23/Machine%20Learning-NAU/1.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%80%E4%BB%8B%E5%92%8CPython%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="1. 机器学习简介和Python的基本操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1. 机器学习简介和Python的基本操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/25/Machine%20Learning-NAU/2.%20%E6%95%B0%E5%AD%A6%E6%96%B9%E6%B3%95/" title="2. 数学方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 数学方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/26/Machine%20Learning-NAU/3.%20%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/" title="3. 图像处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3. 图像处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/27/Machine%20Learning-NAU/4.%20%E5%88%86%E7%B1%BB%E5%99%A8/" title="4. 分类器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4. 分类器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/28/Machine%20Learning-NAU/5.%20%E7%89%B9%E5%BE%81/" title="5. 特征"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5. 特征</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/29/Machine%20Learning-NAU/6.%20%E4%BA%BA%E8%84%B8%E8%AF%86%E5%88%AB%E4%B8%8E%E6%84%9F%E7%9F%A5%E6%9C%BA/" title="6. 人脸识别与感知机"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6. 人脸识别与感知机</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/30/Machine%20Learning-NAU/7.%20%E6%80%BB%E7%BB%93/" title="7. 总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7. 总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="课后练习"
+        id="heading-4516f239970182ca33cbbd2ff23dd1c6" role="tab" data-toggle="collapse" href="#collapse-4516f239970182ca33cbbd2ff23dd1c6"
+        aria-expanded="false"
+      >
+        课后练习
+        <span class="list-group-count">(6)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-4516f239970182ca33cbbd2ff23dd1c6"
+           role="tabpanel" aria-labelledby="heading-4516f239970182ca33cbbd2ff23dd1c6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/01/23/Machine%20Learning-NAU/1.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/" title="1. 课后练习-机器学习简介和Python的基本操作"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1. 课后练习-机器学习简介和Python的基本操作</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/25/Machine%20Learning-NAU/2.%20a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/" title="2. 课后练习-数学方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 课后练习-数学方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/26/Machine%20Learning-NAU/3.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0/" title="3. 课后练习-图像处理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3. 课后练习-图像处理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/27/Machine%20Learning-NAU/4.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0-MNIST/" title="4. 课后练习-MNIST 手写训练集"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4. 课后练习-MNIST 手写训练集</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/28/Machine%20Learning-NAU/5.a%20%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0-%E6%89%8B%E5%86%99%E5%AD%97%E7%AC%A6%E8%AF%86%E5%88%AB/" title="5. 课后练习-使用更多的分类器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5. 课后练习-使用更多的分类器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/01/29/Machine%20Learning-NAU/6.%20%E6%9C%80%E5%90%8E%E5%A4%A7%E4%BD%9C%E4%B8%9A/" title="6. 大作业-创建一个交通标志分类器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6. 大作业-创建一个交通标志分类器</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="YF408实验室培训资料"
+        id="heading-bdbef337686f094d26a3d40da5634e2e" role="tab" data-toggle="collapse" href="#collapse-bdbef337686f094d26a3d40da5634e2e"
+        aria-expanded="false"
+      >
+        YF408实验室培训资料
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-bdbef337686f094d26a3d40da5634e2e"
+           role="tabpanel" aria-labelledby="heading-bdbef337686f094d26a3d40da5634e2e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/05/07/YF408%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/Python%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/" title="Python学习路线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python学习路线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/07/YF408%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/%E5%89%8D%E7%AB%AF%E6%96%B9%E5%90%91/" title="前端方向"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">前端方向</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/07/YF408%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/%E5%90%8E%E7%AB%AF%E6%96%B9%E5%90%91/" title="后端方向"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">后端方向</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/08/YF408%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" title="微信小程序开发入门"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">微信小程序开发入门</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="中国近代史纲要"
+        id="heading-d474a6b11410e33c4c7e29850c8a29f5" role="tab" data-toggle="collapse" href="#collapse-d474a6b11410e33c4c7e29850c8a29f5"
+        aria-expanded="false"
+      >
+        中国近代史纲要
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-d474a6b11410e33c4c7e29850c8a29f5"
+           role="tabpanel" aria-labelledby="heading-d474a6b11410e33c4c7e29850c8a29f5">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/07/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%BF%91%E4%BB%A3%E5%8F%B2%E7%BA%B2%E8%A6%81/" title="中国近代史纲要-总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">中国近代史纲要-总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="信号与系统"
+        id="heading-a689289a45acd89c65bfc841fd6791cc" role="tab" data-toggle="collapse" href="#collapse-a689289a45acd89c65bfc841fd6791cc"
+        aria-expanded="false"
+      >
+        信号与系统
+        <span class="list-group-count">(15)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a689289a45acd89c65bfc841fd6791cc"
+           role="tabpanel" aria-labelledby="heading-a689289a45acd89c65bfc841fd6791cc">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/03/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="0. 课程简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0. 课程简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/1.%20%E4%BF%A1%E5%8F%B7%E6%A6%82%E8%BF%B0/" title="01. 信号概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 信号概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/2.%20%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0/" title="02. 系统概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 系统概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/3.%20%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0/" title="03. 信号的傅里叶级数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 信号的傅里叶级数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/4.%20%E9%9D%9E%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="04. 频谱·非周期信号的傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 频谱·非周期信号的傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/5.%20%E7%A6%BB%E6%95%A3%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%97%B6%E5%9F%9F%E5%88%86%E6%9E%90%E6%B3%95/" title="05. 时域分析方法（微分/差分方程·卷积）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 时域分析方法（微分/差分方程·卷积）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/6.%20%E5%91%A8%E6%9C%9F%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="06. 能量·周期信号的傅里叶变换·采样"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 能量·周期信号的傅里叶变换·采样</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/7.%20%E6%8B%89%E6%99%AE%E6%8B%89%E6%96%AF%E5%8F%98%E6%8D%A2/" title="07. 拉普拉斯变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 拉普拉斯变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/8.%20z%E5%8F%98%E6%8D%A2/" title="08. Z变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. Z变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/9.%20%E7%B3%BB%E7%BB%9F%E6%96%B9%E7%A8%8B/" title="09. 系统方程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 系统方程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/10.%20%E5%8F%8D%E9%A6%88%E7%B3%BB%E7%BB%9F/" title="10. 反馈系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 反馈系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/11.%20%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="11. 滤波器设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. 滤波器设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%B8%B8%E8%80%83%E7%9F%A5%E8%AF%86%E7%82%B9/" title="常考知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">常考知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E9%99%84%E5%BD%951%EF%BC%9A%E5%B8%B8%E8%A7%81%E4%BF%A1%E5%8F%B7%E7%9A%84%E5%8F%98%E6%8D%A2/" title="附录1：冲激函数的特性·常见信号的傅里叶/拉普拉斯/Z变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录1：冲激函数的特性·常见信号的傅里叶/拉普拉斯/Z变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BF%A1%E5%8F%B7%E4%B8%8E%E7%B3%BB%E7%BB%9F/%E9%99%84%E5%BD%952%EF%BC%9A%E5%8D%B7%E7%A7%AF%E3%80%81%E4%B8%89%E5%A4%A7%E5%8F%98%E6%8D%A2%E7%9A%84%E8%BF%90%E7%AE%97%E6%80%A7%E8%B4%A8/" title="附录2：冲激信号·卷积·傅里叶/拉普拉斯/Z变换的运算性质"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录2：冲激信号·卷积·傅里叶/拉普拉斯/Z变换的运算性质</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="天线与通信传输原理"
+        id="heading-72fd57eeea52f7cf2a10c13025f6195b" role="tab" data-toggle="collapse" href="#collapse-72fd57eeea52f7cf2a10c13025f6195b"
+        aria-expanded="false"
+      >
+        天线与通信传输原理
+        <span class="list-group-count">(14)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-72fd57eeea52f7cf2a10c13025f6195b"
+           role="tabpanel" aria-labelledby="heading-72fd57eeea52f7cf2a10c13025f6195b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/1.%20%E7%94%B5%E7%A3%81%E5%9C%BA/" title="Lecture 01 电磁场"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 01 电磁场</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/2.%20%E4%BC%A0%E8%BE%93%E7%BA%BF%E6%A8%A1%E5%9E%8B/" title="Lecture 02 传输线模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 02 传输线模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/3.%20%E5%A4%A9%E7%BA%BF%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%8F%82%E6%95%B0/" title="Lecture 03 天线的类型与参数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 03 天线的类型与参数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/4.%20%E5%81%B6%E6%9E%81%E5%AD%90%E5%A4%A9%E7%BA%BF/" title="Lecture 04 偶极子天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 04 偶极子天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/5.%20%E6%88%90%E5%83%8F%E7%90%86%E8%AE%BA/" title="Lecture 05 成像理论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 05 成像理论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/6.%20%E5%A4%A9%E7%BA%BF%E9%98%B5%E5%88%97/" title="Lecture 06 天线阵列"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 06 天线阵列</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/06/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/7.%20%E7%8E%AF%E5%BD%A2%E5%A4%A9%E7%BA%BF/" title="Lecture 07 环形天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 07 环形天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/8.%20%E9%9D%9E%E9%A2%91%E5%8F%98%E5%A4%A9%E7%BA%BF/" title="Lecture 08 非频变天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 08 非频变天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/9.%20%E5%BE%AE%E5%B8%A6%E5%A4%A9%E7%BA%BF/" title="Lecture 09 微带天线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 09 微带天线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/06/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/10.%20%E7%94%B5%E6%B3%A2%E4%BC%A0%E6%92%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" title="Lecture 10 电波传播的基本原理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 10 电波传播的基本原理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/11.%20%E5%A4%A9%E6%B3%A2%E4%BC%A0%E6%92%AD/" title="Lecture 11 天波传播"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 11 天波传播</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/12.%20%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E4%B8%AD%E7%9A%84%E6%97%A0%E7%BA%BF%E7%94%B5%E4%BC%A0%E6%92%AD/" title="Lecture 12 移动通信中的无线电传播"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Lecture 12 移动通信中的无线电传播</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/%E5%A4%A9%E7%BA%BF%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="天线知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">天线知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A9%E7%BA%BF%E4%B8%8E%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E5%8E%9F%E7%90%86/%E4%BC%A0%E6%92%AD%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="天线知识点总结-刘旭康版"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">天线知识点总结-刘旭康版</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="控制系统"
+        id="heading-e06b713f684e011d7f3fd352234f4fe4" role="tab" data-toggle="collapse" href="#collapse-e06b713f684e011d7f3fd352234f4fe4"
+        aria-expanded="false"
+      >
+        控制系统
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e06b713f684e011d7f3fd352234f4fe4"
+           role="tabpanel" aria-labelledby="heading-e06b713f684e011d7f3fd352234f4fe4">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/02/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/1.%20%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90/" title="01. 控制系统的组成和模型表示"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 控制系统的组成和模型表示</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/2.%20%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="02. 控制系统的瞬态和稳态响应分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 控制系统的瞬态和稳态响应分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/3.%20%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E5%8F%8A%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="03. 极坐标图/奈奎斯特图的绘制和分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 极坐标图/奈奎斯特图的绘制和分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/4.%20%E6%B3%A2%E7%89%B9%E5%9B%BE/" title="04. 波特图的绘制和分析·电路实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 波特图的绘制和分析·电路实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/5.%20%E5%B0%BC%E6%9F%AF%E5%B0%94%E6%96%AF%E5%9B%BE/" title="05. 尼柯尔斯图的绘制和分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 尼柯尔斯图的绘制和分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/6.%20%E7%89%B9%E6%AE%8A%E7%B3%BB%E7%BB%9F%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B3%BB%E7%BB%9F%E8%BF%91%E4%BC%BC/" title="06. 时延·非最小相位·系统近似方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 时延·非最小相位·系统近似方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/7.%20PID%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" title="07. PID 控制系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. PID 控制系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/8.%20%E9%80%9A%E8%BF%87%E9%A2%91%E7%8E%87%E5%93%8D%E5%BA%94%E8%AE%BE%E8%AE%A1/" title="08. 通过频率响应对PID控制系统进行改进"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 通过频率响应对PID控制系统进行改进</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/9.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4/" title="09. 连续系统的状态空间表示和分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 连续系统的状态空间表示和分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/03/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/10.%20%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4%E8%AE%BE%E8%AE%A1/" title="10. 连续系统状态空间的补偿器设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 连续系统状态空间的补偿器设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/11.%20%E6%95%B0%E5%AD%97%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/" title="11. 数字控制系统概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. 数字控制系统概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/12.%20%E7%A8%B3%E5%AE%9A%E6%80%A7%E6%8E%A7%E5%88%B6/" title="12. 数字控制稳定性"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 数字控制稳定性</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/16/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/13.%20%E6%A0%B9%E8%BD%A8%E8%BF%B9%E5%9B%BE/" title="13. 根轨迹图·采样周期的影响"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13. 根轨迹图·采样周期的影响</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/14.%20%E6%95%B0%E5%AD%97%E6%8E%A7%E5%88%B6%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="14. 数字PID控制器和补偿器及其设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14. 数字PID控制器和补偿器及其设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/15.%20%E7%A6%BB%E6%95%A3%E7%8A%B6%E6%80%81%E7%A9%BA%E9%97%B4/" title="15. 离散系统的状态空间的表示和补偿器设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">15. 离散系统的状态空间的表示和补偿器设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="控制系统-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">控制系统-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字信号处理"
+        id="heading-e10491ffae5e895f78327ed37d3c445b" role="tab" data-toggle="collapse" href="#collapse-e10491ffae5e895f78327ed37d3c445b"
+        aria-expanded="false"
+      >
+        数字信号处理
+        <span class="list-group-count">(13)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-e10491ffae5e895f78327ed37d3c445b"
+           role="tabpanel" aria-labelledby="heading-e10491ffae5e895f78327ed37d3c445b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/0.%20%E8%AF%BE%E7%A8%8B%E7%AE%80%E4%BB%8B/" title="0. 课程简介"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0. 课程简介</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/1.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7/" title="01. 数字信号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 数字信号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/2.%20%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F/" title="02. 数字系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 数字系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/3.%20%E7%A6%BB%E6%95%A3%E6%97%B6%E9%97%B4%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="03. 离散时间傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 离散时间傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/4.%20Z%E5%8F%98%E6%8D%A2/" title="04. Z变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. Z变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/5.%20%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E7%BA%A7%E6%95%B0%C2%B7%E7%A6%BB%E6%95%A3%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="05. 离散傅里叶级数·离散傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 离散傅里叶级数·离散傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/6.%20%E5%BF%AB%E9%80%9F%E5%82%85%E9%87%8C%E5%8F%B6%E5%8F%98%E6%8D%A2/" title="06. 快速傅里叶变换"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 快速傅里叶变换</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/07/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/7.%20%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="07. 数字滤波器·数字系统的表示"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 数字滤波器·数字系统的表示</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/8.%20%E6%95%B0%E5%AD%97%E6%BB%A4%E6%B3%A2%E5%99%A8%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" title="08. 数字滤波器的结构设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 数字滤波器的结构设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/9.%20%E7%BA%BF%E6%80%A7%E7%9B%B8%E4%BD%8D%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="09. 线性相位滤波器·FIR滤波器类型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 线性相位滤波器·FIR滤波器类型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/10.%20FIR%20%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%B3%95/" title="10. FIR滤波器设计方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. FIR滤波器设计方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/11.%20IIR%E6%BB%A4%E6%B3%A2%E5%99%A8%E8%AE%BE%E8%AE%A1/" title="11. IIR滤波器设计方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. IIR滤波器设计方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" title="数字信号处理-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字信号处理-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字系统与可靠性工程"
+        id="heading-12fb5db9f76d7bdc3b0ad9424ce02181" role="tab" data-toggle="collapse" href="#collapse-12fb5db9f76d7bdc3b0ad9424ce02181"
+        aria-expanded="false"
+      >
+        数字系统与可靠性工程
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-12fb5db9f76d7bdc3b0ad9424ce02181"
+           role="tabpanel" aria-labelledby="heading-12fb5db9f76d7bdc3b0ad9424ce02181">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/12/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/" title="可靠性工程-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">可靠性工程-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%8F%AF%E9%9D%A0%E6%80%A7%E5%B7%A5%E7%A8%8B/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" title="数字系统设计-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字系统设计-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="数字逻辑电路设计"
+        id="heading-2d6e2047da2aa00f2a07c3783beebd0a" role="tab" data-toggle="collapse" href="#collapse-2d6e2047da2aa00f2a07c3783beebd0a"
+        aria-expanded="false"
+      >
+        数字逻辑电路设计
+        <span class="list-group-count">(10)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2d6e2047da2aa00f2a07c3783beebd0a"
+           role="tabpanel" aria-labelledby="heading-2d6e2047da2aa00f2a07c3783beebd0a">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/02/27/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/1.Types%20of%20signals%20and%20%20numerical%20system/" title="1. 模拟信号和数字信号·数制[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1. 模拟信号和数字信号·数制[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/01/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/2.%20Type%20of%20Code/" title="2. 码型[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 码型[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/06/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/3.%20Boolean%20Cal/" title="3. 逻辑系统·布尔代数基础[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3. 逻辑系统·布尔代数基础[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/13/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/4.%20Combinational%20Logic%201%20Canonical%20Form%20and%20Its%20Minimization/" title="4. 组合逻辑1：布尔代数的规范形式及化简[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4. 组合逻辑1：布尔代数的规范形式及化简[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/03/27/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/5.%20Combinational%20Logic%202%20implementation/" title="5. 组合逻辑2：用数字逻辑电路实现[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5. 组合逻辑2：用数字逻辑电路实现[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/04/03/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/6.%20Sequential%20Logic%201%20Types%20of%20Flip-Flops/" title="6. 时序逻辑1：触发器[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6. 时序逻辑1：触发器[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/10/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/7.%20Sequential%20Logic%202/" title="7. 时序逻辑2：时序逻辑电路的设计[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7. 时序逻辑2：时序逻辑电路的设计[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/14/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/8.%20Programmable%20Logic/" title="8. 可编程逻辑[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8. 可编程逻辑[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/05/15/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/9.%20Realization%20of%20logical%20gates/" title="9. 逻辑门实现[英]"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9. 逻辑门实现[英]</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/17/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E4%B8%8E%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8/" title="数字系统与微处理器-常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字系统与微处理器-常考知识点</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="智能系统和数字图像处理应用"
+        id="heading-e31811c07a34ba4500adf07b7cff9c75" role="tab" data-toggle="collapse" href="#collapse-e31811c07a34ba4500adf07b7cff9c75"
+        aria-expanded="true"
+      >
+        智能系统和数字图像处理应用
+        <span class="list-group-count">(9)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-e31811c07a34ba4500adf07b7cff9c75"
+           role="tabpanel" aria-labelledby="heading-e31811c07a34ba4500adf07b7cff9c75">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/09/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/1.%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%BB%8B%E7%BB%8D/" title="01.智能系统介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01.智能系统介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/2.%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" title="02.神经网络"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02.神经网络</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/3.%20%E6%A8%A1%E7%B3%8A%E7%B3%BB%E7%BB%9F/" title="03.模糊系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03.模糊系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/11/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/4.%20%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" title="04.数字图像"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04.数字图像</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/12/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/5.%20%E5%9B%BE%E5%83%8F%E5%8E%8B%E7%BC%A9/" title="05.图像压缩"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05.图像压缩</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/12/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/6.%20%E5%9B%BE%E6%BB%A4%E6%B3%A2/" title="06.图像增强"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06.图像增强</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/12/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/7.%20%E5%9B%BE%E5%83%8F%E9%99%8D%E5%99%AA/" title="07.图像复原"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07.图像复原</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/01/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%95%B0%E5%AD%97%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="数字图像处理部分-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">数字图像处理部分-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/12/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1-%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="智能系统部分-知识点总结"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">智能系统部分-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="机器学习基础课程——吴恩达"
+        id="heading-2b33bc4f9a87f350cc982c8a283b4cb3" role="tab" data-toggle="collapse" href="#collapse-2b33bc4f9a87f350cc982c8a283b4cb3"
+        aria-expanded="false"
+      >
+        机器学习基础课程——吴恩达
+        <span class="list-group-count">(58)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2b33bc4f9a87f350cc982c8a283b4cb3"
+           role="tabpanel" aria-labelledby="heading-2b33bc4f9a87f350cc982c8a283b4cb3">
+        
+        
+          
+          
+  <div class="category-post-list">
+    
+    
+  </div>
+
+          
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="01. 线性回归"
+        id="heading-dc642ac1c66d63729996e51b3e237ffa" role="tab" data-toggle="collapse" href="#collapse-dc642ac1c66d63729996e51b3e237ffa"
+        aria-expanded="false"
+      >
+        01. 线性回归
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-dc642ac1c66d63729996e51b3e237ffa"
+           role="tabpanel" aria-labelledby="heading-dc642ac1c66d63729996e51b3e237ffa">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.1.%20%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" title="1.1. 什么是机器学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.1. 什么是机器学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.2.%20%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" title="1.2. 梯度下降算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.2. 梯度下降算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.3.%20%E5%A4%9A%E5%8F%98%E9%87%8F%E9%A2%84%E6%B5%8B/" title="1.3. 多变量线性回归"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.3. 多变量线性回归</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.4.%20%E8%B0%83%E8%AF%95%E6%96%B9%E6%B3%95/" title="1.4. 优化和调试方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.4. 优化和调试方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/1.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/1.5.%20%E5%A4%9A%E9%A1%B9%E5%BC%8F%E6%8B%9F%E5%90%88%E5%92%8C%E6%AD%A3%E8%A7%84%E6%96%B9%E7%A8%8B/" title="1.5. 多项式拟合和正规方程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.5. 多项式拟合和正规方程</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="02. Octave语言初步"
+        id="heading-bcc95dcde8fc4271ced855841cdcadfa" role="tab" data-toggle="collapse" href="#collapse-bcc95dcde8fc4271ced855841cdcadfa"
+        aria-expanded="false"
+      >
+        02. Octave语言初步
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-bcc95dcde8fc4271ced855841cdcadfa"
+           role="tabpanel" aria-labelledby="heading-bcc95dcde8fc4271ced855841cdcadfa">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.1.%20%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" title="2.1. 基本命令"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.1. 基本命令</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.2.%20%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E5%92%8C%E7%BB%98%E5%88%B6%E5%9B%BE%E5%83%8F/" title="2.2. 数据计算和绘制"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.2. 数据计算和绘制</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.3.%20%E6%8E%A7%E5%88%B6%E5%92%8C%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5/" title="2.3. 控制和定义语句"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.3. 控制和定义语句</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/02/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/2.%20Octave%E8%AF%AD%E8%A8%80%E5%88%9D%E6%AD%A5/2.4.%20%E5%90%91%E9%87%8F%E5%8C%96/" title="2.4. 向量化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.4. 向量化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="03. 逻辑回归与正则化"
+        id="heading-85021a7efd571d26ace2edd1294772fb" role="tab" data-toggle="collapse" href="#collapse-85021a7efd571d26ace2edd1294772fb"
+        aria-expanded="false"
+      >
+        03. 逻辑回归与正则化
+        <span class="list-group-count">(2)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-85021a7efd571d26ace2edd1294772fb"
+           role="tabpanel" aria-labelledby="heading-85021a7efd571d26ace2edd1294772fb">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/03/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/3.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E5%92%8C%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0/" title="3.1. 激活函数和代价函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.1. 激活函数和代价函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/30/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/3.%20%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92/3.2.%20%E5%88%86%E7%B1%BB%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8C%96/" title="3.2. 分类算法的优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.2. 分类算法的优化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="04. 正则化"
+        id="heading-dbf7b1a5c451b2b2c962f913c29a3d2f" role="tab" data-toggle="collapse" href="#collapse-dbf7b1a5c451b2b2c962f913c29a3d2f"
+        aria-expanded="false"
+      >
+        04. 正则化
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-dbf7b1a5c451b2b2c962f913c29a3d2f"
+           role="tabpanel" aria-labelledby="heading-dbf7b1a5c451b2b2c962f913c29a3d2f">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.1.%20%E8%BF%87%E6%8B%9F%E5%90%88%E9%97%AE%E9%A2%98/" title="4.1. 过拟合问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.1. 过拟合问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.2.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E7%9A%84%E6%AD%A3%E5%88%99%E5%8C%96/" title="4.2. 代价函数的正则化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.2. 代价函数的正则化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/4.%20%E6%AD%A3%E5%88%99%E5%8C%96/4.3.%20%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92%E7%9A%84%E6%AD%A3%E5%88%99%E5%8C%96/" title="4.3. 线性回归的正则化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.3. 线性回归的正则化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="05. 神经网络"
+        id="heading-8f241e583714ed65cd3a5af9153f2477" role="tab" data-toggle="collapse" href="#collapse-8f241e583714ed65cd3a5af9153f2477"
+        aria-expanded="false"
+      >
+        05. 神经网络
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-8f241e583714ed65cd3a5af9153f2477"
+           role="tabpanel" aria-labelledby="heading-8f241e583714ed65cd3a5af9153f2477">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/03/18/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.1.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E8%83%8C%E6%99%AF/" title="5.1. 神经网络的背景"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.1. 神经网络的背景</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/19/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.2.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%9F%BA%E6%9C%AC%E6%A8%A1%E5%9E%8B/" title="5.2. 前向传播模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.2. 前向传播模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/20/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.3.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E9%80%BB%E8%BE%91%E5%87%BD%E6%95%B0/" title="5.3. 感知机"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.3. 感知机</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.4.%20%E5%A4%9A%E5%85%83%E5%88%86%E7%B1%BB/" title="5.4. 多元分类"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.4. 多元分类</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.5.%20%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0.%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD/" title="5.5. 神经网络的代价函数·反向传播"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.5. 神经网络的代价函数·反向传播</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/23/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.6.%20%E6%95%B4%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7/" title="5.6. 回顾：神经网络的实现与梯度下降算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.6. 回顾：神经网络的实现与梯度下降算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/5.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/5.7.%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E4%BC%98%E5%8C%96/" title="5.7. 神经网络的优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.7. 神经网络的优化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="06. 诊断与调试"
+        id="heading-00d2d530b8b88bd4f127d79e5aa7f18d" role="tab" data-toggle="collapse" href="#collapse-00d2d530b8b88bd4f127d79e5aa7f18d"
+        aria-expanded="false"
+      >
+        06. 诊断与调试
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-00d2d530b8b88bd4f127d79e5aa7f18d"
+           role="tabpanel" aria-labelledby="heading-00d2d530b8b88bd4f127d79e5aa7f18d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.1.%20%E6%80%A7%E8%83%BD%E8%AF%84%E4%BC%B0/" title="6.1. 性能评估"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.1. 性能评估</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.2.%20%E6%96%B9%E5%B7%AE%E5%92%8C%E5%81%8F%E5%B7%AE/" title="6.2. 方差与偏差"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.2. 方差与偏差</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.3.%20%E5%AD%A6%E4%B9%A0%E6%9B%B2%E7%BA%BF/" title="6.3. 学习曲线"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.3. 学习曲线</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/6.%20%E8%AF%8A%E6%96%AD%E4%B8%8E%E8%B0%83%E8%AF%95/6.4.%20%E6%9C%AC%E7%AB%A0%E5%9B%9E%E9%A1%BE/" title="6.4. 总结：诊断与调试"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.4. 总结：诊断与调试</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="07. 机器学习系统设计"
+        id="heading-bacfb0d0714bf3ed8869da7b391dacf2" role="tab" data-toggle="collapse" href="#collapse-bacfb0d0714bf3ed8869da7b391dacf2"
+        aria-expanded="false"
+      >
+        07. 机器学习系统设计
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-bacfb0d0714bf3ed8869da7b391dacf2"
+           role="tabpanel" aria-labelledby="heading-bacfb0d0714bf3ed8869da7b391dacf2">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/7.%20%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98/7.1.%20%E7%B3%BB%E7%BB%9F%E6%9E%84%E5%BB%BA%E6%96%B9%E6%B3%95/" title="7.1. 学习系统构建方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.1. 学习系统构建方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/7.%20%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98/7.2.%20%E6%9F%A5%E5%87%86%E7%8E%87%E5%92%8C%E5%8F%AC%E5%9B%9E%E7%8E%87/" title="7.2. 查准率和召回率"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.2. 查准率和召回率</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/7.%20%E5%AD%A6%E4%B9%A0%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E4%B8%AD%E7%9A%84%E5%AE%9E%E9%99%85%E9%97%AE%E9%A2%98/7.3.%20%E6%95%B0%E6%8D%AE%E9%87%8F/" title="7.3. 数据量与学习性能"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7.3. 数据量与学习性能</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="08. 支持向量机"
+        id="heading-1f63b885cb54d88cf1030413c3c7548e" role="tab" data-toggle="collapse" href="#collapse-1f63b885cb54d88cf1030413c3c7548e"
+        aria-expanded="false"
+      >
+        08. 支持向量机
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-1f63b885cb54d88cf1030413c3c7548e"
+           role="tabpanel" aria-labelledby="heading-1f63b885cb54d88cf1030413c3c7548e">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.1.%20%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0%E3%80%81%E4%BB%A3%E4%BB%B7%E5%87%BD%E6%95%B0%E5%92%8C%E5%86%B3%E7%AD%96%E8%BE%B9%E7%95%8C/" title="8.1. 激活函数、代价函数和决策边界"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.1. 激活函数、代价函数和决策边界</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.2.%20%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86/" title="8.2. 数学原理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.2. 数学原理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.3.%20%E6%A0%B8%E5%87%BD%E6%95%B0/" title="8.3. 核函数"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.3. 核函数</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/05/11/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/8.%20%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/8.4.%20%E4%BD%BF%E7%94%A8SVM/" title="8.4. 使用支持向量机"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8.4. 使用支持向量机</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="09. K均值算法"
+        id="heading-7648209ddcccfede8f28ed947b527d2b" role="tab" data-toggle="collapse" href="#collapse-7648209ddcccfede8f28ed947b527d2b"
+        aria-expanded="false"
+      >
+        09. K均值算法
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-7648209ddcccfede8f28ed947b527d2b"
+           role="tabpanel" aria-labelledby="heading-7648209ddcccfede8f28ed947b527d2b">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/07/25/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20K-Means%E7%AE%97%E6%B3%95/9.1.%20%E9%9D%9E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%A6%82%E5%BF%B5/" title="9.1. 非监督学习的概念"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.1. 非监督学习的概念</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20K-Means%E7%AE%97%E6%B3%95/9.2.%20Kmeans%E7%AE%97%E6%B3%95/" title="9.2. K均值算法的过程与实现"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.2. K均值算法的过程与实现</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/07/27/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/9.%20K-Means%E7%AE%97%E6%B3%95/9.3.%20Kmeans%E7%AE%97%E6%B3%95%E4%BC%98%E5%8C%96/" title="9.3. K均值算法的优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">9.3. K均值算法的优化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="10. 主成分分析"
+        id="heading-2b6d14716687407d66e4e17051174d16" role="tab" data-toggle="collapse" href="#collapse-2b6d14716687407d66e4e17051174d16"
+        aria-expanded="false"
+      >
+        10. 主成分分析
+        <span class="list-group-count">(3)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-2b6d14716687407d66e4e17051174d16"
+           role="tabpanel" aria-labelledby="heading-2b6d14716687407d66e4e17051174d16">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/10.%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/10.1.%20%E9%99%8D%E7%BB%B4/" title="10.1. 降维的目的"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.1. 降维的目的</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/10.%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/10.2.%20PCA/" title="10.2. 算法思路和流程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.2. 算法思路和流程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/10.%20%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90/10.3.%20PCA%E4%BC%98%E5%8C%96/" title="10.3. 主成分分析算法的优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10.3. 主成分分析算法的优化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="11. 异常检测算法"
+        id="heading-04c8cf50cfe6ccb054d148014e8e7047" role="tab" data-toggle="collapse" href="#collapse-04c8cf50cfe6ccb054d148014e8e7047"
+        aria-expanded="false"
+      >
+        11. 异常检测算法
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-04c8cf50cfe6ccb054d148014e8e7047"
+           role="tabpanel" aria-labelledby="heading-04c8cf50cfe6ccb054d148014e8e7047">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.1.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" title="11.1. 异常检测问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.1. 异常检测问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.2.%20%E9%AB%98%E6%96%AF%E5%88%86%E5%B8%83%E5%92%8C%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/" title="11.2. 异常检测算法的原始模型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.2. 异常检测算法的原始模型</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.3.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95%E7%9A%84%E8%AF%84%E4%BB%B7/" title="11.3. 异常检测算法的评价·关键变量"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.3. 异常检测算法的评价·关键变量</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.4.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E4%B8%8E%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0/" title="11.4. 比较异常检测与监督学习算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.4. 比较异常检测与监督学习算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/11.%20%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B%E7%AE%97%E6%B3%95/11.5.%20%E5%A4%9A%E5%85%83%E5%BC%82%E5%B8%B8%E6%A3%80%E6%B5%8B/" title="11.5. 多元异常检测算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11.5. 多元异常检测算法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="12. 内容推荐"
+        id="heading-aa8c7d4838f1f557bd22d686ce574e10" role="tab" data-toggle="collapse" href="#collapse-aa8c7d4838f1f557bd22d686ce574e10"
+        aria-expanded="false"
+      >
+        12. 内容推荐
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-aa8c7d4838f1f557bd22d686ce574e10"
+           role="tabpanel" aria-labelledby="heading-aa8c7d4838f1f557bd22d686ce574e10">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.1.%20%E9%97%AE%E9%A2%98%E8%A7%84%E5%88%92/" title="12.1. 内容推荐问题"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.1. 内容推荐问题</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.2.%20%E5%9F%BA%E4%BA%8E%E5%86%85%E5%AE%B9%E7%9A%84%E6%8E%A8%E8%8D%90%E7%AE%97%E6%B3%95/" title="12.2. 基于内容的推荐算法·内容的特征"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.2. 基于内容的推荐算法·内容的特征</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.3.%20%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95/" title="12.3. 协同过滤算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.3. 协同过滤算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/12.%20%E5%86%85%E5%AE%B9%E6%8E%A8%E8%8D%90/12.4.%20%E5%8D%8F%E5%90%8C%E8%BF%87%E6%BB%A4%E7%AE%97%E6%B3%95%E7%9A%84%E4%BC%98%E5%8C%96/" title="12.4. 协同过滤算法的优化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12.4. 协同过滤算法的优化</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="13. 大规模机器学习"
+        id="heading-a942f9775fd09139d2f187f6b039bf8c" role="tab" data-toggle="collapse" href="#collapse-a942f9775fd09139d2f187f6b039bf8c"
+        aria-expanded="false"
+      >
+        13. 大规模机器学习
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-a942f9775fd09139d2f187f6b039bf8c"
+           role="tabpanel" aria-labelledby="heading-a942f9775fd09139d2f187f6b039bf8c">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.1.%20%E5%A4%A7%E6%95%B0%E6%8D%AE%E9%9B%86/" title="13.1. 大规模学习的计算问题·预学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.1. 大规模学习的计算问题·预学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.2.%20%E9%9A%8F%E6%9C%BA%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D%E7%AE%97%E6%B3%95/" title="13.2. 随机梯度下降算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.2. 随机梯度下降算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.3.%20%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A2%AF%E5%BA%A6%E4%B8%8B%E9%99%8D/" title="13.3. 小批量梯度下降算法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.3. 小批量梯度下降算法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.4.%20%E5%9C%A8%E7%BA%BF%E5%AD%A6%E4%B9%A0/" title="13.4. 在线学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.4. 在线学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/22/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/13.%20%E5%A4%A7%E8%A7%84%E6%A8%A1%E5%AD%A6%E4%B9%A0/13.5.%20%E5%87%8F%E5%B0%91%E6%98%A0%E5%B0%84/" title="13.5. 并行计算（减少映射）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13.5. 并行计算（减少映射）</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="14. 机器学习实例：光学字符识别（OCR）"
+        id="heading-6a317962e55be06bf5af1ab070d88c11" role="tab" data-toggle="collapse" href="#collapse-6a317962e55be06bf5af1ab070d88c11"
+        aria-expanded="false"
+      >
+        14. 机器学习实例：光学字符识别（OCR）
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6a317962e55be06bf5af1ab070d88c11"
+           role="tabpanel" aria-labelledby="heading-6a317962e55be06bf5af1ab070d88c11">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.1.%20%E6%A1%86%E6%9E%B6%E8%AE%BE%E8%AE%A1/" title="14.1. 问题背景与框架设计"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.1. 问题背景与框架设计</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.2.%20%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/" title="14.2. 滑动窗口分类器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.2. 滑动窗口分类器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.3.%20%E6%96%87%E5%AD%97%E5%88%86%E7%A6%BB/" title="14.3. 文字分离·字符识别"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.3. 文字分离·字符识别</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.4.%20%E8%8E%B7%E5%BE%97%E5%A4%A7%E9%87%8F%E6%95%B0%E6%8D%AE/" title="14.4. 人工数据合成"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.4. 人工数据合成</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/14.%20%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E4%BE%8B%EF%BC%9AOCR/14.5.%20%E4%B8%8B%E4%B8%80%E6%AD%A5%E9%9C%80%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88/" title="14.5. 上限分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">14.5. 上限分析</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="15. 总结和感谢"
+        id="heading-6f87da922293c9c4ae1866ccee1fdb00" role="tab" data-toggle="collapse" href="#collapse-6f87da922293c9c4ae1866ccee1fdb00"
+        aria-expanded="false"
+      >
+        15. 总结和感谢
+        <span class="list-group-count">(1)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6f87da922293c9c4ae1866ccee1fdb00"
+           role="tabpanel" aria-labelledby="heading-6f87da922293c9c4ae1866ccee1fdb00">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/08/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E2%80%94%E2%80%94%E5%90%B4%E6%81%A9%E8%BE%BE/15.%20%E6%80%BB%E7%BB%93%E5%92%8C%E6%84%9F%E8%B0%A2/15.1.%20%E6%80%BB%E7%BB%93%E5%92%8C%E6%84%9F%E8%B0%A2/" title="15.1. 吴恩达：总结和感谢"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">15.1. 吴恩达：总结和感谢</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="物理和数学"
+        id="heading-33c494a1fb0df6f0e247adff28ced681" role="tab" data-toggle="collapse" href="#collapse-33c494a1fb0df6f0e247adff28ced681"
+        aria-expanded="false"
+      >
+        物理和数学
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-33c494a1fb0df6f0e247adff28ced681"
+           role="tabpanel" aria-labelledby="heading-33c494a1fb0df6f0e247adff28ced681">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/06/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6%E5%92%8C%E7%89%A9%E7%90%86/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86/" title="大学物理【Onenote笔记】"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大学物理【Onenote笔记】</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86(%E4%B8%8B)/" title="大学物理下-常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">大学物理下-常考知识点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/06/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6%E5%92%8C%E7%89%A9%E7%90%86/%E5%BA%94%E7%94%A8%E9%9A%8F%E6%9C%BA%E8%BF%87%E7%A8%8B%E6%9C%9F%E6%9C%AB%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" title="应用随机过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">应用随机过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/04/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" title="概率论与数理统计-常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率论与数理统计-常考知识点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6%E5%92%8C%E7%89%A9%E7%90%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/" title="概率论和数理统计 【Onenote笔记】"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">概率论和数理统计 【Onenote笔记】</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6%E5%92%8C%E7%89%A9%E7%90%86/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/" title="线性代数 【Onenote笔记】"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">线性代数 【Onenote笔记】</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%95%B0%E5%AD%A6%E5%92%8C%E7%89%A9%E7%90%86/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" title="高等数学 【Onenote笔记】"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">高等数学 【Onenote笔记】</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电信传输理论与工程"
+        id="heading-28ac311000f78573e3c3db6feaa45caf" role="tab" data-toggle="collapse" href="#collapse-28ac311000f78573e3c3db6feaa45caf"
+        aria-expanded="false"
+      >
+        电信传输理论与工程
+        <span class="list-group-count">(5)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-28ac311000f78573e3c3db6feaa45caf"
+           role="tabpanel" aria-labelledby="heading-28ac311000f78573e3c3db6feaa45caf">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/04/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E4%BC%A0%E8%BE%93%E7%90%86%E8%AE%BA/" title="1.传输理论概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.传输理论概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/24/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E9%87%91%E5%B1%9E%E4%BC%A0%E8%BE%93%E7%BA%BF%E7%90%86%E8%AE%BA/" title="2.金属线传输理论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.金属线传输理论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E4%BB%8B%E8%B4%A8%E4%BC%A0%E8%BE%93%E7%BA%BF%E7%90%86%E8%AE%BA/" title="3.介质传输理论"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.介质传输理论</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E9%99%84%E5%BD%95%EF%BC%9A%E4%BC%A0%E8%BE%93%E7%BA%BF%E5%B7%A5%E7%A8%8B%E6%A6%82%E8%A6%81/" title="4.传输线工程与施工概要"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.传输线工程与施工概要</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E4%BC%A0%E8%BE%93%E7%BA%BF/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" title="电信传输理论-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电信传输理论-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电子系统"
+        id="heading-b39c3b04dc208f383088f6021a0ee899" role="tab" data-toggle="collapse" href="#collapse-b39c3b04dc208f383088f6021a0ee899"
+        aria-expanded="false"
+      >
+        电子系统
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-b39c3b04dc208f383088f6021a0ee899"
+           role="tabpanel" aria-labelledby="heading-b39c3b04dc208f383088f6021a0ee899">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/08/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/1.%20OpAmp/" title="01. 运算放大器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 运算放大器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/01/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/2.%20Filter/" title="02. 滤波器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 滤波器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/3.%20Feedbacks/" title="03. 反馈放大器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 反馈放大器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/4.%20Osillator/" title="04. 振荡器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 振荡器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/5.%20timers/" title="05. 定时器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 定时器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/6.%20foundamentals%20of%20BJT/" title="06. 晶体管的结构和直流工作状态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 晶体管的结构和直流工作状态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/7.%20BJT_Biasing/" title="07. 晶体管的直流偏置状态"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 晶体管的直流偏置状态</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/8.%20BJT%20models/" title="08. 晶体管的交流工作分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 晶体管的交流工作分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/9.%20ICamplifier/" title="09. 晶体管单级放大电路"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 晶体管单级放大电路</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/10.%20IC_buildingblocks/" title="10. 双晶体管电路·多级放大电路"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 双晶体管电路·多级放大电路</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E5%AD%90%E7%B3%BB%E7%BB%9F/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="电子系统-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电子系统-知识点总结</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="电路与器件"
+        id="heading-1db9ff3a105b52dc9499ceb9f5e5356d" role="tab" data-toggle="collapse" href="#collapse-1db9ff3a105b52dc9499ceb9f5e5356d"
+        aria-expanded="false"
+      >
+        电路与器件
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-1db9ff3a105b52dc9499ceb9f5e5356d"
+           role="tabpanel" aria-labelledby="heading-1db9ff3a105b52dc9499ceb9f5e5356d">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E5%8D%8A%E5%AF%BC%E4%BD%93%E5%85%83%E4%BB%B6%E6%8E%A8%E5%AF%BC/" title="半导体电路推导"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">半导体电路推导</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/03/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/" title="常考知识点"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">常考知识点</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E6%BB%A4%E6%B3%A2%E5%99%A8/" title="滤波器"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">滤波器</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%94%B5%E8%B7%AF%E4%B8%8E%E5%99%A8%E4%BB%B6/%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E6%96%B9%E6%B3%95/" title="电路分析方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">电路分析方法</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="移动通信"
+        id="heading-cf1e837e555de079ca221a731a82cfa6" role="tab" data-toggle="collapse" href="#collapse-cf1e837e555de079ca221a731a82cfa6"
+        aria-expanded="false"
+      >
+        移动通信
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-cf1e837e555de079ca221a731a82cfa6"
+           role="tabpanel" aria-labelledby="heading-cf1e837e555de079ca221a731a82cfa6">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/04/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/1.%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/" title="1.移动通信概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.移动通信概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/2.%E7%A7%BB%E5%8A%A8%E4%BF%A1%E9%81%93/" title="2.无线信道"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.无线信道</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/31/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/3.%20%E6%8A%97%E8%A1%B0%E8%90%BD%E6%8A%80%E6%9C%AF/" title="3.移动通信关键技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.移动通信关键技术</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/4.%20%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E6%8A%80%E6%9C%AF%E6%BC%94%E8%BF%9B/" title="4.蜂窝移动电话网演进·卫星定位系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.蜂窝移动电话网演进·卫星定位系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/20/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/5.%20%E6%A0%B8%E5%BF%83%E7%BD%91%E7%9A%84%E8%BF%9B%E4%B8%80%E6%AD%A5%E6%BC%94%E8%BF%9B/" title="5.核心网的进一步演进和云化*"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.核心网的进一步演进和云化*</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/22/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="移动通信-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">移动通信-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1/%E9%99%84%E5%BD%95%EF%BC%9A%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E6%BC%94%E8%BF%9B/" title="附录：蜂窝移动电话网演进"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录：蜂窝移动电话网演进</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="计算机结构与接口"
+        id="heading-ba239b57c06107ef37236e10fecae7db" role="tab" data-toggle="collapse" href="#collapse-ba239b57c06107ef37236e10fecae7db"
+        aria-expanded="false"
+      >
+        计算机结构与接口
+        <span class="list-group-count">(4)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-ba239b57c06107ef37236e10fecae7db"
+           role="tabpanel" aria-labelledby="heading-ba239b57c06107ef37236e10fecae7db">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/06/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/3.%20%E7%BB%8F%E5%85%B8PIC16F%E5%8D%95%E7%89%87%E6%9C%BA%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1%E6%A1%88%E4%BE%8B/" title="PIC16F系列单片机接口程序设计经典案例"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">PIC16F系列单片机接口程序设计经典案例</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/16/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/2.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%8E%A5%E5%8F%A3%E7%A8%8B%E5%BA%8F/" title="计算机接口程序（C语言）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机接口程序（C语言）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/4.%20%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%8E%E9%A2%98%E7%9B%AE%E6%80%BB%E7%BB%93/" title="计算机结构-知识点与题型总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机结构-知识点与题型总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/06/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E4%B8%8E%E6%8E%A5%E5%8F%A3/1.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" title="计算机结构基础-课堂笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">计算机结构基础-课堂笔记</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信原理"
+        id="heading-21bcb4ca3640cc59985ea60fa9875fd8" role="tab" data-toggle="collapse" href="#collapse-21bcb4ca3640cc59985ea60fa9875fd8"
+        aria-expanded="false"
+      >
+        通信原理
+        <span class="list-group-count">(16)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-21bcb4ca3640cc59985ea60fa9875fd8"
+           role="tabpanel" aria-labelledby="heading-21bcb4ca3640cc59985ea60fa9875fd8">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2021/09/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/1.%20%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9F%E5%8F%82%E6%95%B0%E3%80%81%E4%BF%A1%E6%81%AF/" title="01. 通信系统·信息"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">01. 通信系统·信息</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/13/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/2.%20%E4%BF%A1%E5%8F%B7/" title="02. 信号"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">02. 信号</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/3.%20%E6%A6%82%E7%8E%87%E4%B8%8E%E9%9A%8F%E6%9C%BA/" title="03. 随机变量和随机过程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">03. 随机变量和随机过程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/4.%20%E9%AB%98%E6%96%AF%E5%99%AA%E5%A3%B0/" title="04. 高斯噪声"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">04. 高斯噪声</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/09/30/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/5.%20%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6/" title="05. 模拟基带信号的线性调制方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">05. 模拟基带信号的线性调制方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/14/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/6.%20%E7%BA%BF%E6%80%A7%E8%A7%A3%E8%B0%83/" title="06. 线性调制的解调方法·抗噪性"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">06. 线性调制的解调方法·抗噪性</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/7.%20%E9%9D%9E%E7%BA%BF%E6%80%A7%E8%B0%83%E5%88%B6%C2%B7%E8%A7%A3%E8%B0%83/" title="07. 模拟基带信号的非线性调制和解调方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">07. 模拟基带信号的非线性调制和解调方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/10/23/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/8.%20%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93/" title="08. 模拟信号的数字化/信源编码"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">08. 模拟信号的数字化/信源编码</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/9.%20%E7%A0%81%E5%9E%8B%E5%92%8C%E6%B3%A2%E5%BD%A2%E5%88%86%E6%9E%90/" title="09. 数字基带传输系统中信号的码型、波形和频谱"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">09. 数字基带传输系统中信号的码型、波形和频谱</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/09/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/10.%20%E7%A0%81%E9%97%B4%E4%B8%B2%E6%89%B0/" title="10. 无码间串扰的数字基带传输系统"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">10. 无码间串扰的数字基带传输系统</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/12/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/11.%E6%95%B0%E5%AD%97%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/" title="11. 数字基带系统的抗噪性分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">11. 数字基带系统的抗噪性分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/18/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/12.%20%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BF%A1%E5%8F%B7%E4%BC%A0%E8%BE%93/" title="12. 数字带通系统的调制解调方法"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">12. 数字带通系统的调制解调方法</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/11/27/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/13.%20%E6%95%B0%E5%AD%97%E5%B8%A6%E9%80%9A%E4%BC%A0%E8%BE%93%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8A%97%E5%99%AA%E6%80%A7%E5%88%86%E6%9E%90/" title="13. 数字带通系统的抗噪性分析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">13. 数字带通系统的抗噪性分析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="通信原理-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">通信原理-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/%E8%AE%A1%E7%AE%97%E5%8F%AF%E8%83%BD%E7%94%A8%E5%88%B0%E7%9A%84%E5%85%AC%E5%BC%8F/" title="附录1：其他数学公式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录1：其他数学公式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/10/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/ASKFSKPSK%E6%B3%A2%E5%BD%A2/" title="附录2：ASK/FSK/PSK/DPSK 解调过程及波形"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录2：ASK/FSK/PSK/DPSK 解调过程及波形</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="通信和计算机网络"
+        id="heading-00696fa5a068c4786e804147ec4a31e0" role="tab" data-toggle="collapse" href="#collapse-00696fa5a068c4786e804147ec4a31e0"
+        aria-expanded="false"
+      >
+        通信和计算机网络
+        <span class="list-group-count">(11)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-00696fa5a068c4786e804147ec4a31e0"
+           role="tabpanel" aria-labelledby="heading-00696fa5a068c4786e804147ec4a31e0">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2022/03/25/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/0.%E9%80%9A%E4%BF%A1%E7%BD%91/" title="0.通信网络概述"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">0.通信网络概述</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/1.%E7%89%A9%E7%90%86%E5%B1%82%E6%8A%80%E6%9C%AF/" title="1.物理层技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1.物理层技术</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/2.%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82/" title="2.数据链路层技术"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2.数据链路层技术</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/04/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/3.%E7%BD%91%E7%BB%9C%E5%B1%82/" title="3.网络层技术：路由选择"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3.网络层技术：路由选择</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/4.LAN/" title="4.计算机局域网"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4.计算机局域网</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/05/26/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/5.ip%E5%8D%8F%E8%AE%AE/" title="5.计算机互联网：IP协议群"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5.计算机互联网：IP协议群</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/15/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/6.%20%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%EF%BC%9A%E8%BF%90%E8%BE%93%E5%B1%82/" title="6.计算机网络：运输层"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6.计算机网络：运输层</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/7.%E9%80%9A%E4%BF%A1%E7%BD%91%E7%BB%9C%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%BF%B0/" title="7. 新型通信网网络类型概述*"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7. 新型通信网网络类型概述*</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/02/19/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/8.%20%E9%80%9A%E4%BF%A1%E7%BD%91%E4%BA%91%E5%8C%96/" title="8. 云服务技术*"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">8. 云服务技术*</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="通信与计算机网络-知识点总结"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">通信与计算机网络-知识点总结</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/17/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E9%80%9A%E4%BF%A1%E7%BD%91/%E9%99%84%E5%BD%95%EF%BC%9A%E5%85%B3%E9%94%AE%E5%8D%8F%E8%AE%AE%E5%A4%B4%E9%83%A8%E7%BB%93%E6%9E%84/" title="附录：关键协议头部结构"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">附录：关键协议头部结构</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+    
+    
+    
+    <div class="category-sub row nomargin-x">
+      <a class="category-subitem collapsed
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="面向对象设计C++"
+        id="heading-6eeae6fdfdcb1a7bfc4d958fa33436ab" role="tab" data-toggle="collapse" href="#collapse-6eeae6fdfdcb1a7bfc4d958fa33436ab"
+        aria-expanded="false"
+      >
+        面向对象设计C++
+        <span class="list-group-count">(7)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse " id="collapse-6eeae6fdfdcb1a7bfc4d958fa33436ab"
+           role="tabpanel" aria-labelledby="heading-6eeae6fdfdcb1a7bfc4d958fa33436ab">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2023/11/29/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/1.%E7%AC%AC%E4%B8%80%E4%B8%AAC++%E7%A8%8B%E5%BA%8F/" title="1. 面向对象的基本概念"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">1. 面向对象的基本概念</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/2.C++%E5%B7%A5%E7%A8%8B/" title="2. 对象工程"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">2. 对象工程</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/12/11/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/3.%20%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F/" title="3. 类的特性和初始化"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">3. 类的特性和初始化</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/03/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/4.%20%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86/" title="4. 对象的管理"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">4. 对象的管理</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/04/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/5.%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF/" title="5. 软件重用的方式"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">5. 软件重用的方式</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/05/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/6.%20%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD/" title="6. 函数重载·内联函数·const"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">6. 函数重载·内联函数·const</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/01/28/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/C++%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1/7.%20%E5%BC%95%E7%94%A8%E5%92%8C%E5%90%91%E4%B8%8A%E9%80%A0%E5%9E%8B/" title="7. 引用·向上造型"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">7. 引用·向上造型</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       如果您发现任何错误，可以通过邮箱1017179431@qq.com告知我，谢谢。<br> 本博客所有文章全部为我手工编写。请尊重我的劳动成果，转载请注明出处。 <br> 基于<a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo©</span></a> 和 <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>搭建的博客。<br> ©OrekiKigiha 2025 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+<!-- 将谷歌翻译控件的脚本放在这里 -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'zh-CN', // 默认语言是中文
+      includedLanguages: 'en,zh-CN', // 只允许切换中英文
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // 等待一点时间，确保 Google Translate 加载完成
+    setTimeout(() => {
+      const combo = document.querySelector(".goog-te-combo");
+      if (combo) {
+        // 设置默认显示内容
+        combo.options[0].text = "切换语言";
+      }
+    }, 1000);
+  });
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  
+<script src="/js/sweetalert.js"></script>
+<script src="/js/welcome.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
+</html>
