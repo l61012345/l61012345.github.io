@@ -1,15 +1,15 @@
 import { __assign, __extends } from "tslib";
-import { Matcher } from "./matcher";
-import { alphaNumericAndMarksCharsStr, domainNameCharRegex } from "../regex-lib";
-import { EmailMatch } from "../match/email-match";
+import { Matcher } from './matcher';
+import { alphaNumericAndMarksCharsStr, domainNameCharRegex } from '../regex-lib';
+import { EmailMatch } from '../match/email-match';
 import { throwUnhandledCaseError } from '../utils';
-import { tldRegex } from "./tld-regex";
+import { tldRegex } from './tld-regex';
 // For debugging: search for other "For debugging" lines
 // import CliTable from 'cli-table';
 // RegExp objects which are shared by all instances of EmailMatcher. These are
 // here to avoid re-instantiating the RegExp objects if `Autolinker.link()` is
-// called multiple times, thus instantiating EmailMatcher and its RegExp 
-// objects each time (which is very expensive - see https://github.com/gregjacobs/Autolinker.js/issues/314). 
+// called multiple times, thus instantiating EmailMatcher and its RegExp
+// objects each time (which is very expensive - see https://github.com/gregjacobs/Autolinker.js/issues/314).
 // See descriptions of the properties where they are used for details about them
 var localPartCharRegex = new RegExp("[".concat(alphaNumericAndMarksCharsStr, "!#$%&'*+/=?^_`{|}~-]"));
 var strictTldRegex = new RegExp("^".concat(tldRegex.source, "$"));
@@ -44,12 +44,12 @@ var EmailMatcher = /** @class */ (function (_super) {
         var tagBuilder = this.tagBuilder, localPartCharRegex = this.localPartCharRegex, strictTldRegex = this.strictTldRegex, matches = [], len = text.length, noCurrentEmailMatch = new CurrentEmailMatch();
         // for matching a 'mailto:' prefix
         var mailtoTransitions = {
-            'm': 'a',
-            'a': 'i',
-            'i': 'l',
-            'l': 't',
-            't': 'o',
-            'o': ':',
+            m: 'a',
+            a: 'i',
+            i: 'l',
+            l: 't',
+            t: 'o',
+            o: ':',
         };
         var charIdx = 0, state = 0 /* NonEmailMatch */, currentEmailMatch = noCurrentEmailMatch;
         // For debugging: search for other "For debugging" lines
@@ -59,8 +59,8 @@ var EmailMatcher = /** @class */ (function (_super) {
         while (charIdx < len) {
             var char = text.charAt(charIdx);
             // For debugging: search for other "For debugging" lines
-            // table.push( 
-            // 	[ charIdx, char, State[ state ], charIdx, currentEmailAddress.idx, currentEmailAddress.hasDomainDot ] 
+            // table.push(
+            // 	[ charIdx, char, State[ state ], charIdx, currentEmailAddress.idx, currentEmailAddress.hasDomainDot ]
             // );
             switch (state) {
                 case 0 /* NonEmailMatch */:
@@ -91,8 +91,8 @@ var EmailMatcher = /** @class */ (function (_super) {
                     throwUnhandledCaseError(state);
             }
             // For debugging: search for other "For debugging" lines
-            // table.push( 
-            // 	[ charIdx, char, State[ state ], charIdx, currentEmailAddress.idx, currentEmailAddress.hasDomainDot ] 
+            // table.push(
+            // 	[ charIdx, char, State[ state ], charIdx, currentEmailAddress.idx, currentEmailAddress.hasDomainDot ]
             // );
             charIdx++;
         }
@@ -123,7 +123,7 @@ var EmailMatcher = /** @class */ (function (_super) {
                 }
                 else {
                     // we've matched 'mailto:' but didn't get anything meaningful
-                    // immediately afterwards (for example, we encountered a 
+                    // immediately afterwards (for example, we encountered a
                     // space character, or an '@' character which formed 'mailto:@'
                     resetToNonEmailMatchState();
                 }
@@ -152,7 +152,7 @@ var EmailMatcher = /** @class */ (function (_super) {
                 resetToNonEmailMatchState();
             }
         }
-        // Handles the state when we're currently in the "local part" of an 
+        // Handles the state when we're currently in the "local part" of an
         // email address (as opposed to the "domain part")
         function stateLocalPart(char) {
             if (char === '.') {
@@ -169,15 +169,15 @@ var EmailMatcher = /** @class */ (function (_super) {
                 resetToNonEmailMatchState();
             }
         }
-        // Handles the state where we've read 
+        // Handles the state where we've read
         function stateLocalPartDot(char) {
             if (char === '.') {
-                // We read a second '.' in a row, not a valid email address 
+                // We read a second '.' in a row, not a valid email address
                 // local part
                 resetToNonEmailMatchState();
             }
             else if (char === '@') {
-                // We read the '@' character immediately after a dot ('.'), not 
+                // We read the '@' character immediately after a dot ('.'), not
                 // an email address
                 resetToNonEmailMatchState();
             }
@@ -259,11 +259,12 @@ var EmailMatcher = /** @class */ (function (_super) {
          * and resets the state to read another email address.
          */
         function captureMatchIfValidAndReset() {
-            if (currentEmailMatch.hasDomainDot) { // we need at least one dot in the domain to be considered a valid email address
+            if (currentEmailMatch.hasDomainDot) {
+                // we need at least one dot in the domain to be considered a valid email address
                 var matchedText = text.slice(currentEmailMatch.idx, charIdx);
                 // If we read a '.' or '-' char that ended the email address
                 // (valid domain name characters, but only valid email address
-                // characters if they are followed by something else), strip 
+                // characters if they are followed by something else), strip
                 // it off now
                 if (/[-.]$/.test(matchedText)) {
                     matchedText = matchedText.slice(0, -1);
@@ -277,7 +278,7 @@ var EmailMatcher = /** @class */ (function (_super) {
                         tagBuilder: tagBuilder,
                         matchedText: matchedText,
                         offset: currentEmailMatch.idx,
-                        email: emailAddress
+                        email: emailAddress,
                     }));
                 }
             }
@@ -307,5 +308,4 @@ var CurrentEmailMatch = /** @class */ (function () {
     }
     return CurrentEmailMatch;
 }());
-
 //# sourceMappingURL=email-matcher.js.map

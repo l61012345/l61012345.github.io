@@ -1,5 +1,5 @@
 import { __extends } from "tslib";
-import { Match } from "./match";
+import { Match } from './match';
 /**
  * @class Autolinker.match.Phone
  * @extends Autolinker.match.Match
@@ -92,5 +92,4 @@ var PhoneMatch = /** @class */ (function (_super) {
     return PhoneMatch;
 }(Match));
 export { PhoneMatch };
-
 //# sourceMappingURL=phone-match.js.map

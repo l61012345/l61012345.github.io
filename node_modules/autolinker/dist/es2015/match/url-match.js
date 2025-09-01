@@ -1,5 +1,5 @@
 import { __extends } from "tslib";
-import { Match } from "./match";
+import { Match } from './match';
 /**
  * @class Autolinker.match.Url
  * @extends Autolinker.match.Match
@@ -52,7 +52,10 @@ var UrlMatch = /** @class */ (function (_super) {
          *
          * The Object form of {@link Autolinker#cfg-stripPrefix}.
          */
-        _this.stripPrefix = { scheme: true, www: true }; // default value just to get the above doc comment in the ES5 output and documentation generator
+        _this.stripPrefix = {
+            scheme: true,
+            www: true,
+        }; // default value just to get the above doc comment in the ES5 output and documentation generator
         /**
          * @cfg {Boolean} stripTrailingSlash (required)
          * @inheritdoc Autolinker#cfg-stripTrailingSlash
@@ -249,12 +252,12 @@ var UrlMatch = /** @class */ (function (_super) {
             // Now attempt to decode the rest of the anchor text
             return decodeURIComponent(preProcessedEntityAnchorText);
         }
-        catch (e) { // Invalid % escape sequence in the anchor text
+        catch (e) {
+            // Invalid % escape sequence in the anchor text
             return preProcessedEntityAnchorText;
         }
     };
     return UrlMatch;
 }(Match));
 export { UrlMatch };
-
 //# sourceMappingURL=url-match.js.map

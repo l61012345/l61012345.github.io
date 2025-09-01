@@ -1,6 +1,6 @@
 import { __extends } from "tslib";
-import { Matcher } from "./matcher";
-import { PhoneMatch } from "../match/phone-match";
+import { Matcher } from './matcher';
+import { PhoneMatch } from '../match/phone-match';
 import { nonDigitRe } from '../regex-lib';
 // RegExp objects which are shared by all instances of PhoneMatcher. These are
 // here to avoid re-instantiating the RegExp objects if `Autolinker.link()` is
@@ -64,7 +64,7 @@ var PhoneMatcher = /** @class */ (function (_super) {
                     matchedText: matchedText,
                     offset: match.index,
                     number: cleanNumber,
-                    plusSign: plusSign
+                    plusSign: plusSign,
                 }));
             }
         }
@@ -76,5 +76,4 @@ var PhoneMatcher = /** @class */ (function (_super) {
     return PhoneMatcher;
 }(Matcher));
 export { PhoneMatcher };
-
 //# sourceMappingURL=phone-matcher.js.map

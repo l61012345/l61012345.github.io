@@ -1,5 +1,5 @@
-import { Matcher } from "./matcher";
-import { Match } from "../match/match";
+import { Matcher } from './matcher';
+import { Match } from '../match/match';
 /**
  * @class Autolinker.matcher.Phone
  * @extends Autolinker.matcher.Matcher

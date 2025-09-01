@@ -1,6 +1,6 @@
-import { Match } from "./match/match";
-import { HtmlTag } from "./html-tag";
-import { TruncateConfigObj } from "./autolinker";
+import { Match } from './match/match';
+import { HtmlTag } from './html-tag';
+import { TruncateConfigObj } from './autolinker';
 /**
  * @protected
  * @class Autolinker.AnchorTagBuilder

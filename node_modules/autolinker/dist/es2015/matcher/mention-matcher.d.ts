@@ -1,6 +1,6 @@
-import { Matcher, MatcherConfig } from "./matcher";
-import { MentionServices } from "../autolinker";
-import { Match } from "../match/match";
+import { Matcher, MatcherConfig } from './matcher';
+import { MentionServices } from '../autolinker';
+import { Match } from '../match/match';
 /**
  * @class Autolinker.matcher.Mention
  * @extends Autolinker.matcher.Matcher

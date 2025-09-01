@@ -1,5 +1,5 @@
-import { AnchorTagBuilder } from "../anchor-tag-builder";
-import { Match } from "../match/match";
+import { AnchorTagBuilder } from '../anchor-tag-builder';
+import { Match } from '../match/match';
 /**
  * @abstract
  * @class Autolinker.matcher.Matcher

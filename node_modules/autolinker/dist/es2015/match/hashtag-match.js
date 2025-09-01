@@ -1,5 +1,5 @@
 import { __extends } from "tslib";
-import { Match } from "./match";
+import { Match } from './match';
 /**
  * @class Autolinker.match.Hashtag
  * @extends Autolinker.match.Match
@@ -78,7 +78,8 @@ var HashtagMatch = /** @class */ (function (_super) {
                 return 'https://instagram.com/explore/tags/' + hashtag;
             case 'tiktok':
                 return 'https://www.tiktok.com/tag/' + hashtag;
-            default: // Shouldn't happen because Autolinker's constructor should block any invalid values, but just in case.
+            default:
+                // Shouldn't happen because Autolinker's constructor should block any invalid values, but just in case.
                 throw new Error('Unknown service name to point hashtag to: ' + serviceName);
         }
     };
@@ -93,5 +94,4 @@ var HashtagMatch = /** @class */ (function (_super) {
     return HashtagMatch;
 }(Match));
 export { HashtagMatch };
-
 //# sourceMappingURL=hashtag-match.js.map

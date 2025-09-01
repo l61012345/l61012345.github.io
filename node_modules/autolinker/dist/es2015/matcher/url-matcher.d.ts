@@ -1,6 +1,6 @@
-import { Matcher, MatcherConfig } from "./matcher";
-import { StripPrefixConfigObj } from "../autolinker";
-import { Match } from "../match/match";
+import { Matcher, MatcherConfig } from './matcher';
+import { StripPrefixConfigObj } from '../autolinker';
+import { Match } from '../match/match';
 /**
  * @class Autolinker.matcher.Url
  * @extends Autolinker.matcher.Matcher

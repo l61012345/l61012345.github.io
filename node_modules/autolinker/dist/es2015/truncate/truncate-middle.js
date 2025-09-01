@@ -25,11 +25,10 @@ export function truncateMiddle(url, truncateLen, ellipsisChars) {
         ellipsisLength = ellipsisChars.length;
     }
     var availableLength = truncateLen - ellipsisLength;
-    var end = "";
+    var end = '';
     if (availableLength > 0) {
-        end = url.substr((-1) * Math.floor(availableLength / 2));
+        end = url.substr(-1 * Math.floor(availableLength / 2));
     }
     return (url.substr(0, Math.ceil(availableLength / 2)) + ellipsisChars + end).substr(0, availableLength + ellipsisLengthBeforeParsing);
 }
-
 //# sourceMappingURL=truncate-middle.js.map

@@ -108,7 +108,7 @@ export function splitAndCapture(str, splitRegex) {
     if (!splitRegex.global)
         throw new Error("`splitRegex` must have the 'g' flag set");
     var result = [], lastIdx = 0, match;
-    while (match = splitRegex.exec(str)) {
+    while ((match = splitRegex.exec(str))) {
         result.push(str.substring(lastIdx, match.index));
         result.push(match[0]); // push the splitting char(s)
         lastIdx = match.index + match[0].length;
@@ -123,5 +123,4 @@ export function splitAndCapture(str, splitRegex) {
 export function throwUnhandledCaseError(theValue) {
     throw new Error("Unhandled case for value: '".concat(theValue, "'"));
 }
-
 //# sourceMappingURL=utils.js.map

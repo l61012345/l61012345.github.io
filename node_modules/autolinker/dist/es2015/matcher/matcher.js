@@ -21,11 +21,11 @@ var Matcher = /** @class */ (function () {
          * Reference to the AnchorTagBuilder instance to use to generate HTML tags
          * for {@link Autolinker.match.Match Matches}.
          */
+        // @ts-ignore
         this.__jsduckDummyDocProp = null; // property used just to get the above doc comment into the ES5 output and documentation generator
         this.tagBuilder = cfg.tagBuilder;
     }
     return Matcher;
 }());
 export { Matcher };
-
 //# sourceMappingURL=matcher.js.map

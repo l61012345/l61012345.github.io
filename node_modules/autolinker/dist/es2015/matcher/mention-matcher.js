@@ -1,11 +1,11 @@
 import { __extends } from "tslib";
-import { Matcher } from "./matcher";
-import { alphaNumericAndMarksCharsStr } from "../regex-lib";
-import { MentionMatch } from "../match/mention-match";
+import { Matcher } from './matcher';
+import { alphaNumericAndMarksCharsStr } from '../regex-lib';
+import { MentionMatch } from '../match/mention-match';
 // RegExp objects which are shared by all instances of MentionMatcher. These are
 // here to avoid re-instantiating the RegExp objects if `Autolinker.link()` is
-// called multiple times, thus instantiating MentionMatcher and its RegExp 
-// objects each time (which is very expensive - see https://github.com/gregjacobs/Autolinker.js/issues/314). 
+// called multiple times, thus instantiating MentionMatcher and its RegExp
+// objects each time (which is very expensive - see https://github.com/gregjacobs/Autolinker.js/issues/314).
 // See descriptions of the properties where they are used for details about them
 var twitterRegex = new RegExp("@[_".concat(alphaNumericAndMarksCharsStr, "]{1,50}(?![_").concat(alphaNumericAndMarksCharsStr, "])"), 'g'); // lookahead used to make sure we don't match something above 50 characters
 var instagramRegex = new RegExp("@[_.".concat(alphaNumericAndMarksCharsStr, "]{1,30}(?![_").concat(alphaNumericAndMarksCharsStr, "])"), 'g'); // lookahead used to make sure we don't match something above 30 characters
@@ -46,10 +46,10 @@ var MentionMatcher = /** @class */ (function (_super) {
          * @property {Object} matcherRegexes
          */
         _this.matcherRegexes = {
-            'twitter': twitterRegex,
-            'instagram': instagramRegex,
-            'soundcloud': soundcloudRegex,
-            'tiktok': tiktokRegex
+            twitter: twitterRegex,
+            instagram: instagramRegex,
+            soundcloud: soundcloudRegex,
+            tiktok: tiktokRegex,
         };
         /**
          * The regular expression to use to check the character before a username match to
@@ -85,7 +85,7 @@ var MentionMatcher = /** @class */ (function (_super) {
                     matchedText: matchedText,
                     offset: offset,
                     serviceName: serviceName,
-                    mention: mention
+                    mention: mention,
                 }));
             }
         }
@@ -94,5 +94,4 @@ var MentionMatcher = /** @class */ (function (_super) {
     return MentionMatcher;
 }(Matcher));
 export { MentionMatcher };
-
 //# sourceMappingURL=mention-matcher.js.map

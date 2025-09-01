@@ -49,7 +49,7 @@
  *   not an HTML tag) is parsed. Called with the text (string) as its first
  *   argument, and offset (number) into the string as its second.
  */
-export declare function parseHtml(html: string, { onOpenTag, onCloseTag, onText, onComment, onDoctype }: {
+export declare function parseHtml(html: string, { onOpenTag, onCloseTag, onText, onComment, onDoctype, }: {
     onOpenTag: (tagName: string, offset: number) => void;
     onCloseTag: (tagName: string, offset: number) => void;
     onText: (text: string, offset: number) => void;

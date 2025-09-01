@@ -14,5 +14,4 @@ function truncateEnd(anchorText, truncateLen, ellipsisChars) {
     return (0, utils_1.ellipsis)(anchorText, truncateLen, ellipsisChars);
 }
 exports.truncateEnd = truncateEnd;
-
 //# sourceMappingURL=truncate-end.js.map

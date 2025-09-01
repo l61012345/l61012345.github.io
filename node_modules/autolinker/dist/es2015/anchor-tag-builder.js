@@ -1,7 +1,7 @@
-import { HtmlTag } from "./html-tag";
-import { truncateSmart } from "./truncate/truncate-smart";
-import { truncateMiddle } from "./truncate/truncate-middle";
-import { truncateEnd } from "./truncate/truncate-end";
+import { HtmlTag } from './html-tag';
+import { truncateSmart } from './truncate/truncate-smart';
+import { truncateMiddle } from './truncate/truncate-middle';
+import { truncateEnd } from './truncate/truncate-end';
 /**
  * @protected
  * @class Autolinker.AnchorTagBuilder
@@ -66,7 +66,7 @@ var AnchorTagBuilder = /** @class */ (function () {
         return new HtmlTag({
             tagName: 'a',
             attrs: this.createAttrs(match),
-            innerHtml: this.processAnchorText(match.getAnchorText())
+            innerHtml: this.processAnchorText(match.getAnchorText()),
         });
     };
     /**
@@ -80,15 +80,15 @@ var AnchorTagBuilder = /** @class */ (function () {
      */
     AnchorTagBuilder.prototype.createAttrs = function (match) {
         var attrs = {
-            'href': match.getAnchorHref() // we'll always have the `href` attribute
+            href: match.getAnchorHref(), // we'll always have the `href` attribute
         };
         var cssClass = this.createCssClass(match);
         if (cssClass) {
             attrs['class'] = cssClass;
         }
         if (this.newWindow) {
-            attrs['target'] = "_blank";
-            attrs['rel'] = "noopener noreferrer"; // Issue #149. See https://mathiasbynens.github.io/rel-noopener/
+            attrs['target'] = '_blank';
+            attrs['rel'] = 'noopener noreferrer'; // Issue #149. See https://mathiasbynens.github.io/rel-noopener/
         }
         if (this.truncate) {
             if (this.truncate.length && this.truncate.length < match.getAnchorText().length) {
@@ -120,7 +120,7 @@ var AnchorTagBuilder = /** @class */ (function () {
     AnchorTagBuilder.prototype.createCssClass = function (match) {
         var className = this.className;
         if (!className) {
-            return "";
+            return '';
         }
         else {
             var returnClasses = [className], cssClassSuffixes = match.getCssClassSuffixes();
@@ -172,5 +172,4 @@ var AnchorTagBuilder = /** @class */ (function () {
     return AnchorTagBuilder;
 }());
 export { AnchorTagBuilder };
-
 //# sourceMappingURL=anchor-tag-builder.js.map

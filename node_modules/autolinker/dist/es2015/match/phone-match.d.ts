@@ -1,4 +1,4 @@
-import { Match, MatchConfig } from "./match";
+import { Match, MatchConfig } from './match';
 /**
  * @class Autolinker.match.Phone
  * @extends Autolinker.match.Match

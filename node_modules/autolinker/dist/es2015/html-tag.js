@@ -1,4 +1,4 @@
-import { indexOf } from "./utils";
+import { indexOf } from './utils';
 /**
  * @class Autolinker.HtmlTag
  * @extends Object
@@ -186,13 +186,13 @@ var HtmlTag = /** @class */ (function () {
      * @return {Autolinker.HtmlTag} This HtmlTag instance, so that method calls may be chained.
      */
     HtmlTag.prototype.addClass = function (cssClass) {
-        var classAttr = this.getClass(), whitespaceRegex = this.whitespaceRegex, classes = (!classAttr) ? [] : classAttr.split(whitespaceRegex), newClasses = cssClass.split(whitespaceRegex), newClass;
-        while (newClass = newClasses.shift()) {
+        var classAttr = this.getClass(), whitespaceRegex = this.whitespaceRegex, classes = !classAttr ? [] : classAttr.split(whitespaceRegex), newClasses = cssClass.split(whitespaceRegex), newClass;
+        while ((newClass = newClasses.shift())) {
             if (indexOf(classes, newClass) === -1) {
                 classes.push(newClass);
             }
         }
-        this.getAttrs()['class'] = classes.join(" ");
+        this.getAttrs()['class'] = classes.join(' ');
         return this;
     };
     /**
@@ -202,14 +202,14 @@ var HtmlTag = /** @class */ (function () {
      * @return {Autolinker.HtmlTag} This HtmlTag instance, so that method calls may be chained.
      */
     HtmlTag.prototype.removeClass = function (cssClass) {
-        var classAttr = this.getClass(), whitespaceRegex = this.whitespaceRegex, classes = (!classAttr) ? [] : classAttr.split(whitespaceRegex), removeClasses = cssClass.split(whitespaceRegex), removeClass;
+        var classAttr = this.getClass(), whitespaceRegex = this.whitespaceRegex, classes = !classAttr ? [] : classAttr.split(whitespaceRegex), removeClasses = cssClass.split(whitespaceRegex), removeClass;
         while (classes.length && (removeClass = removeClasses.shift())) {
             var idx = indexOf(classes, removeClass);
             if (idx !== -1) {
                 classes.splice(idx, 1);
             }
         }
-        this.getAttrs()['class'] = classes.join(" ");
+        this.getAttrs()['class'] = classes.join(' ');
         return this;
     };
     /**
@@ -219,7 +219,7 @@ var HtmlTag = /** @class */ (function () {
      * @return {String}
      */
     HtmlTag.prototype.getClass = function () {
-        return this.getAttrs()['class'] || "";
+        return this.getAttrs()['class'] || '';
     };
     /**
      * Convenience method to check if the tag has a CSS class or not.
@@ -255,7 +255,7 @@ var HtmlTag = /** @class */ (function () {
      * @return {String}
      */
     HtmlTag.prototype.getInnerHTML = function () {
-        return this.innerHTML || "";
+        return this.innerHTML || '';
     };
     /**
      * Backward compatibility method name.
@@ -272,8 +272,8 @@ var HtmlTag = /** @class */ (function () {
      */
     HtmlTag.prototype.toAnchorString = function () {
         var tagName = this.getTagName(), attrsStr = this.buildAttrsStr();
-        attrsStr = (attrsStr) ? ' ' + attrsStr : ''; // prepend a space if there are actually attributes
-        return ['<', tagName, attrsStr, '>', this.getInnerHtml(), '</', tagName, '>'].join("");
+        attrsStr = attrsStr ? ' ' + attrsStr : ''; // prepend a space if there are actually attributes
+        return ['<', tagName, attrsStr, '>', this.getInnerHtml(), '</', tagName, '>'].join('');
     };
     /**
      * Support method for {@link #toAnchorString}, returns the string space-separated key="value" pairs, used to populate
@@ -284,17 +284,16 @@ var HtmlTag = /** @class */ (function () {
      */
     HtmlTag.prototype.buildAttrsStr = function () {
         if (!this.attrs)
-            return ""; // no `attrs` Object (map) has been set, return empty string
+            return ''; // no `attrs` Object (map) has been set, return empty string
         var attrs = this.getAttrs(), attrsArr = [];
         for (var prop in attrs) {
             if (attrs.hasOwnProperty(prop)) {
                 attrsArr.push(prop + '="' + attrs[prop] + '"');
             }
         }
-        return attrsArr.join(" ");
+        return attrsArr.join(' ');
     };
     return HtmlTag;
 }());
 export { HtmlTag };
-
 //# sourceMappingURL=html-tag.js.map

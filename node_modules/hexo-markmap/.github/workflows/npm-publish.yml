@@ -5,8 +5,8 @@ name: Node.js Package
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "v*"
 
 jobs:
   publish-npm:
@@ -17,6 +17,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - run: npm install husky
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}

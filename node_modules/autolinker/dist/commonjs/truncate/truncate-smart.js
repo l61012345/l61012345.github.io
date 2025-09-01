@@ -26,6 +26,7 @@ function truncateSmart(url, truncateLen, ellipsisChars) {
         ellipsisLengthBeforeParsing = ellipsisChars.length;
     }
     var parse_url = function (url) {
+        // Functionality inspired by PHP function of same name
         var urlObj = {};
         var urlSub = url;
         var match = urlSub.match(/^([a-z]+):\/\//i);
@@ -56,26 +57,26 @@ function truncateSmart(url, truncateLen, ellipsisChars) {
         return urlObj;
     };
     var buildUrl = function (urlObj) {
-        var url = "";
+        var url = '';
         if (urlObj.scheme && urlObj.host) {
-            url += urlObj.scheme + "://";
+            url += urlObj.scheme + '://';
         }
         if (urlObj.host) {
             url += urlObj.host;
         }
         if (urlObj.path) {
-            url += "/" + urlObj.path;
+            url += '/' + urlObj.path;
         }
         if (urlObj.query) {
-            url += "?" + urlObj.query;
+            url += '?' + urlObj.query;
         }
         if (urlObj.fragment) {
-            url += "#" + urlObj.fragment;
+            url += '#' + urlObj.fragment;
         }
         return url;
     };
     var buildSegment = function (segment, remainingAvailableLength) {
-        var remainingAvailableLengthHalf = remainingAvailableLength / 2, startOffset = Math.ceil(remainingAvailableLengthHalf), endOffset = (-1) * Math.floor(remainingAvailableLengthHalf), end = "";
+        var remainingAvailableLengthHalf = remainingAvailableLength / 2, startOffset = Math.ceil(remainingAvailableLengthHalf), endOffset = -1 * Math.floor(remainingAvailableLengthHalf), end = '';
         if (endOffset < 0) {
             end = segment.substr(endOffset);
         }
@@ -99,29 +100,29 @@ function truncateSmart(url, truncateLen, ellipsisChars) {
         return url;
     }
     if (urlObj.host) {
-        urlObj.host = urlObj.host.replace(/^www\./, "");
+        urlObj.host = urlObj.host.replace(/^www\./, '');
         url = buildUrl(urlObj);
     }
     if (url.length <= truncateLen) {
         return url;
     }
     // Process and build the URL
-    var str = "";
+    var str = '';
     if (urlObj.host) {
         str += urlObj.host;
     }
     if (str.length >= availableLength) {
         if (urlObj.host.length == truncateLen) {
-            return (urlObj.host.substr(0, (truncateLen - ellipsisLength)) + ellipsisChars).substr(0, availableLength + ellipsisLengthBeforeParsing);
+            return (urlObj.host.substr(0, truncateLen - ellipsisLength) + ellipsisChars).substr(0, availableLength + ellipsisLengthBeforeParsing);
         }
         return buildSegment(str, availableLength).substr(0, availableLength + ellipsisLengthBeforeParsing);
     }
-    var pathAndQuery = "";
+    var pathAndQuery = '';
     if (urlObj.path) {
-        pathAndQuery += "/" + urlObj.path;
+        pathAndQuery += '/' + urlObj.path;
     }
     if (urlObj.query) {
-        pathAndQuery += "?" + urlObj.query;
+        pathAndQuery += '?' + urlObj.query;
     }
     if (pathAndQuery) {
         if ((str + pathAndQuery).length >= availableLength) {
@@ -136,7 +137,7 @@ function truncateSmart(url, truncateLen, ellipsisChars) {
         }
     }
     if (urlObj.fragment) {
-        var fragment = "#" + urlObj.fragment;
+        var fragment = '#' + urlObj.fragment;
         if ((str + fragment).length >= availableLength) {
             if ((str + fragment).length == truncateLen) {
                 return (str + fragment).substr(0, truncateLen);
@@ -149,7 +150,7 @@ function truncateSmart(url, truncateLen, ellipsisChars) {
         }
     }
     if (urlObj.scheme && urlObj.host) {
-        var scheme = urlObj.scheme + "://";
+        var scheme = urlObj.scheme + '://';
         if ((str + scheme).length < availableLength) {
             return (scheme + str).substr(0, truncateLen);
         }
@@ -157,12 +158,11 @@ function truncateSmart(url, truncateLen, ellipsisChars) {
     if (str.length <= truncateLen) {
         return str;
     }
-    var end = "";
+    var end = '';
     if (availableLength > 0) {
-        end = str.substr((-1) * Math.floor(availableLength / 2));
+        end = str.substr(-1 * Math.floor(availableLength / 2));
     }
     return (str.substr(0, Math.ceil(availableLength / 2)) + ellipsisChars + end).substr(0, availableLength + ellipsisLengthBeforeParsing);
 }
 exports.truncateSmart = truncateSmart;
-
 //# sourceMappingURL=truncate-smart.js.map

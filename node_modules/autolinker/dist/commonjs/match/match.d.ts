@@ -1,4 +1,4 @@
-import { AnchorTagBuilder } from "../anchor-tag-builder";
+import { AnchorTagBuilder } from '../anchor-tag-builder';
 /**
  * @abstract
  * @class Autolinker.match.Match

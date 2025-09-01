@@ -1,5 +1,5 @@
 import { __extends } from "tslib";
-import { Match } from "./match";
+import { Match } from './match';
 /**
  * @class Autolinker.match.Email
  * @extends Autolinker.match.Match
@@ -62,5 +62,4 @@ var EmailMatch = /** @class */ (function (_super) {
     return EmailMatch;
 }(Match));
 export { EmailMatch };
-
 //# sourceMappingURL=email-match.js.map
