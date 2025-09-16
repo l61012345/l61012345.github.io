@@ -115,7 +115,7 @@
 <meta property="og:description" content="非线性逻辑结构：树和图 树 数组、链表、栈、队列都是线性数据结构，树和图是非线性结构。在选择不同数据结构的时候应当考虑：  存储对象的类型 基本操作的开销 内存使用情况 实现的难易程度  术语 树是单向链接在一起的节点的集合，具有层级结构。 树中的基本数据单元是节点，节点和节点之间通过连结相连。树的最顶端的节点称为根节点。对于每个节点，与其相连接的节点称为这个节点的子节点；这">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-09-01T00:00:00.000Z">
-<meta property="article:modified_time" content="2025-09-01T10:04:21.612Z">
+<meta property="article:modified_time" content="2025-09-16T09:03:27.621Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -480,7 +480,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2025年9月1日 上午
+                    本文最后更新于 2025年9月16日 上午
                   
                 
               </p>
@@ -535,7 +535,9 @@ p.spoiler {
 <h4 id="二叉搜索树的接口">二叉搜索树的接口</h4>
 <h5 id="创建">创建</h5>
 <p>创建一个二叉搜索树的操作如下：<br />
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BstNode</span>&#123;<br>    <span class="hljs-type">int</span> data;<br>    BstNode* left;<br>    BstNode* right;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    BstNode* root;<br>    root = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 创建了一个空树</span><br>&#125;<br></code></pre></td></tr></table></figure> ##### 添加 设计一个函数<code>Inset</code>来添加节点：<br />
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br> <br><span class="hljs-keyword">struct</span> <span class="hljs-title class_">BstNode</span>&#123;<br>    <span class="hljs-type">int</span> data;<br>    BstNode* left;<br>    BstNode* right;<br>&#125;;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    BstNode* root;<br>    root = <span class="hljs-literal">NULL</span>; <span class="hljs-comment">// 创建了一个空树</span><br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h5 id="添加">添加</h5>
+<p>设计一个函数<code>Inset</code>来添加节点：<br />
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">BstNode* <span class="hljs-title">GetNewNode</span><span class="hljs-params">(<span class="hljs-type">int</span> data)</span></span><br><span class="hljs-function"></span>&#123;<br>    BstNode* newNode = <span class="hljs-keyword">new</span> BstNode;<br>    newNode.data=data;<br>    newNode.left = <span class="hljs-literal">NULL</span>;<br>    newNode.right = <span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">return</span> newNode; <span class="hljs-comment">// 创建了一个新的节点</span><br>&#125;<br> <br><span class="hljs-function">BstNode* <span class="hljs-title">Insert</span><span class="hljs-params">(BstNode* root,<span class="hljs-type">int</span> data)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">NULL</span>) <span class="hljs-comment">//如果现在的树是空树</span><br>    &#123;<br>        root = <span class="hljs-built_in">GetNewNode</span>(data);<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(data&lt;=root.data) <span class="hljs-comment">//如果这个输入的树小于等于节点的值，那么应该放在左子树</span><br>    &#123;<br>        root.left = <span class="hljs-built_in">Insert</span>(root.left,data);<br>    &#125;<span class="hljs-keyword">else</span>&#123; <span class="hljs-comment">//如果这个输入的树大于节点的值，那么应该放在右子树</span><br>        root.right = <span class="hljs-built_in">Insert</span>(root.right,data);<br>    &#125;<br>    <span class="hljs-keyword">return</span> root;<br>&#125;<br></code></pre></td></tr></table></figure> 关于这个<code>Insert</code>函数有几点需要注意：</p>
 <ul>
 <li><code>Insert</code>函数中的<code>* root</code>应该是一个全局变量，或者设置输入为指针的指针，才能保持<code>Insert</code>中调整的root和主程序中递归处理的子树是同一个子树<br />
@@ -808,7 +810,7 @@ A_{i,j}=\begin{cases}
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2025年9月1日</div>
+          <div>2025年9月16日</div>
         </div>
       
       
@@ -4391,20 +4393,5 @@ A_{i,j}=\begin{cases}
   <noscript>
     <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-            processEscapes: true
-        }
-    });
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax();
-        for (var i = 0; i < all.length; ++i)
-            all[i].SourceElement().parentNode.className += ' has-jax';
-    });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <script>(function(w,d, s, id) {w.webpushr=w.webpushr||function(){(w.webpushr.q=w.webpushr.q||[]).push(arguments)};var js, fjs = d.getElementsByTagName(s)[0];js = d.createElement(s); js.id = id;js.src = 'https://cdn.webpushr.com/app.min.js';fjs.parentNode.appendChild(js);}(window,document, 'script', 'webpushr-jssdk'));webpushr('init','BA4FeZAJwJea338EQcZFIUBgtc3JCf3trLucnlAP9vp-VyDv0l8HK26MRAZgXrPTgNL3VGdLsPcMYDxFgGQjVwU');</script></body>
 </html>
