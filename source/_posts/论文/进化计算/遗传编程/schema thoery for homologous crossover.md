@@ -41,7 +41,7 @@ $$α(H,t) = (1-p_c)p(H,t)+p_cα_c(H,t) \tag{0-2}$$
 
 **如果交叉发生在最大相似区域中，整个schema的多样性将不会发生任何变化**。  
 下图展示了最大相似区域的定义以及这个理论在单点交叉上成立的图示：   
-  
+
 <img src=https://cdn.jsdelivr.net/gh/l61012345/Pic/img/20240319115753.png width=60%>   
 
 因此，**要想保证schema不会受到破坏，两个亲本的交叉应当发生在它们的最大相似区域中**。  
@@ -81,7 +81,7 @@ shape指一个schema中所有的节点都被$=$替代，它代表只关心schema
 这篇论文中没有对building blocks给出非常详细的定义，但是通过公式可以判断，作者认为building blocks是schema的进一步抽象，并且组成schema。具体的，作者认为schema按照一定的方式划分为两半并且抽象得到的结果称为building blocks。交叉的亲本应该各持有一部分这两部分building blocks。  
 
 
-## Schema的视角 - Exact Schema Thoery
+## Schema的视角 - Exact Schema Theory
 ### 单点交叉的模拟
 #### upper build blocks和lower building blocks
 作者认为，单点交叉的building blocks为schema在交叉点处划分的上下两部分的抽象，分为upper building blocks和lower building blocks， 亲本应当各持有这两个building blocks。  
@@ -294,7 +294,7 @@ $$p_i(y)=∑_{m,n}^{r-1}s_{m,i}s_{n,i}rec_{m,n}(y) \tag{2-1}$$
   $$\begin{aligned}
     α(y,t) = & (1-p_c)p(y,t)\\
     &+p_c[∑_j∑_k∑_{l∈χ(G_j,G_k)}p_l^{C(G_j,G_k)}p(Γ(y,l)∩G_j,t)p(Γ(y,\overline{l})∩G_k,t)]
-\end{aligned}$$
+  \end{aligned}$$
 
 有：  
 $$\begin{aligned}
