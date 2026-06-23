@@ -118,7 +118,7 @@
 <meta property="og:description" content="Chapter 1 网络模型 随机图 图论的基本概念 在开始介绍有关网络的概念之前，首先需要介绍的是有关图论的相关内容。  顶点度(Degrees of a Vertex) 一个图由\(N\)个顶点相互连接构成，其中每个顶点的度数定义为与某个这个顶点连接的边的个数。  配位数(Corrdination Number) 配位数指的是整张图的平均顶点度。  在这里，我们引入随机图">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-22T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-22T17:02:05.490Z">
+<meta property="article:modified_time" content="2026-06-23T10:42:54.089Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -530,7 +530,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          6.2k 字
         
       </span>
     
@@ -541,7 +541,7 @@ p.spoiler {
         
         
         
-          17 分钟
+          53 分钟
         
       </span>
     
@@ -607,7 +607,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年6月22日 下午
+                    本文最后更新于 2026年6月23日 上午
                   
                 
               </p>
@@ -713,6 +713,116 @@ p_k=e^{-z}\frac{z^k}{k!}
 \overline{p_k}=\frac{\alpha-1}{2-\alpha}(1+k)^{2-\alpha}|^K_0-1
 \]</span> 当<span class="math inline">\(\alpha\leq2\)</span>的时候该式子不成立，当<span class="math inline">\(\alpha&gt;2\)</span>时<span class="math inline">\(\overline{p}=\frac{1}{\alpha-2}\)</span>, <span class="math inline">\(\alpha &gt;3\)</span>时方差为无穷大。</p>
 <p>从上面的式子中可以推出，无论<span class="math inline">\(k\)</span>再增加多少倍，增加的倍数<span class="math inline">\(a\)</span>都可以被归一化吸收，其性质仍然保持不变。称<span class="math inline">\(p_k\)</span>符合幂律分布的随机图为无尺度图。</p>
+<h3 id="谱分析">谱分析</h3>
+<p>下面我们进一步对随机图的性质进行谱分析。 #### 随机图的邻接矩阵和特征值 首先要做的事情是将整个图以矩阵的形式描绘出来，以便进行线性代数域的分析。对于一个具有<span class="math inline">\(N\)</span>个结点的图，定义其邻接矩阵为大小为<span class="math inline">\(N×N\)</span>的矩阵，对于矩阵内部的每个元素<span class="math inline">\(A_{i,j}\)</span>，如果对应的结点<span class="math inline">\(i\)</span>和<span class="math inline">\(j\)</span>相连，则<span class="math inline">\(A_{i,j}=1\)</span>，否则为0.</p>
+<p>设随机图 <span class="math inline">\(G=(V,E)\)</span> 的邻接矩阵为 <span class="math display">\[
+A_{ij}=
+\begin{cases}
+1,&amp; (i,j)\in E\\
+0,&amp; \text{otherwise}
+\end{cases}
+\]</span> 邻接矩阵可以看作网络上的传播算子（propagation operator），对于某个利用这个传播的定义在每个结点上的信号<span class="math inline">\(x\)</span>，<span class="math inline">\(x\)</span>的符号表示信号的相位，其传播一轮之后的在图上这个信号在图上每个结点的强度为矩阵乘积 <span class="math inline">\(Ax\)</span> ： <span class="math display">\[
+x(t+1)=Ax(t)
+\]</span> 邻接矩阵的特征向量描述网络天然支持的传播模式，而对应特征值则描述该传播模式在传播过程中的放大率，其满足： <span class="math display">\[
+A\mathbf{x}=\lambda \mathbf{x}
+\]</span> 因为<span class="math inline">\((A^k)_{ij}\)</span>表示从 <span class="math inline">\(i\)</span> 到 <span class="math inline">\(j\)</span> 长度为 <span class="math inline">\(k\)</span> 的路径数，当 <span class="math inline">\(k\)</span> 很大时由最大特征值主导： <span class="math display">\[
+A^k \approx \lambda_1^k
+\]</span> 所以<strong>主特征值对应网络中最容易扩散和维持的传播模式，并决定网络整体的传播能力：主特征值越大，说明图中路径增长越快，信息传播越容易</strong>。</p>
+<p>邻接矩阵的特征向量描述网络天然支持的传播模式，而对应特征值则描述该传播模式在传播过程中的放大率。因此，主特征值对应网络中最容易扩散和维持的传播模式，并决定网络整体的传播能力。</p>
+<p>因此这个邻接矩阵的特征值表示了若干组强连接的结点之间的连接强度，主特征值表示了强链接的一群互相连接并相互强化的节点所形成的主导结构的连接强度。换言之，从传播的角度来看，邻接矩阵的特征向量描述了网络中可能存在的传播模式（propagation modes），而对应的特征值则描述了这些传播模式在传播过程中的增长率或放大能力。</p>
+<p>对于动力学过程<span class="math inline">\(x(t+1)=Ax(t)\)</span>，沿着特征向量方向 <span class="math inline">\(\mathbf v_i\)</span> 的扰动将以<span class="math inline">\(\lambda_i^t\)</span>的速率传播。因此，特征值越大，对应模式在网络中的传播和扩散能力越强。</p>
+<p>其中，最大特征值（主特征值）对应网络中最容易被放大和维持的传播模式，因此反映了网络整体的信息传播能力和连接强度。</p>
+<h4 id="谱密度函数与半圆律">谱密度函数与半圆律</h4>
+<p>设随机图邻接矩阵的特征值为</p>
+<p><span class="math display">\[
+\lambda_1,\lambda_2,\cdots,\lambda_N
+\]</span></p>
+<p>其谱密度函数定义为：</p>
+<p>$$ () =</p>
+<p>_{i=1}^{N} (-<em>i),  </em>{-}^{}(),d. $$</p>
+<p>谱密度函数描述了特征值在实轴上的统计分布情况。对于足够大的均匀随机图（例如 Erdős–Rényi 随机图，在 <span class="math inline">\(N\to\infty\)</span> 且平均度 <span class="math inline">\(z\gg1\)</span> 的条件下），利用格林函数（Green’s Function）方法，可以求得随机图邻接矩阵的渐近谱密度：</p>
+<p><span class="math display">\[
+\rho(\lambda)=\begin{cases} \sqrt{4z-\lambda^2}/(2\pi z), \lambda^2&lt;4z\\ 0,\lambda^2&gt;4z \end{cases}
+\]</span></p>
+<p>其中 <span class="math inline">\(z\)</span> 为网络的平均度。</p>
+<p>该结果表明，大多数特征值集中分布于区间</p>
+<p><span class="math display">\[
+[-2\sqrt z,;2\sqrt z]
+\]</span></p>
+<p>内，其谱密度呈现半圆形分布，因此称为半圆律（Semicircle Law）。</p>
+<p>从几何上看，谱密度曲线在 <span class="math inline">\((\lambda,\rho)\)</span> 平面中的轨迹对应于一个椭圆的上半部分，因此表现为半圆形状。半圆律表明：对于足够大的随机图，除去反映整体平均连接结构的主特征值之外，其余特征值主要来源于网络连接中的随机涨落。换言之，半圆部分对应随机背景（noise bulk），而偏离半圆分布的孤立特征值则往往对应网络中的真实结构，例如社区、模块、层级结构或 Hub 节点等。</p>
+<p>因此，谱分析的一个重要思想是：</p>
+<blockquote>
+<p>半圆律给出了“纯随机网络”的谱基线（spectral baseline）；任何显著偏离该基线的特征值，都可能反映网络中的非随机结构。</p>
+</blockquote>
+<h4 id="图的拉普拉斯矩阵">图的拉普拉斯矩阵</h4>
+<h5 id="离散的拉普拉斯算子">离散的拉普拉斯算子</h5>
+<p>在连续域中，多元函数<span class="math inline">\(f(x_1,...,x_n)\)</span>的拉普拉斯算子是所有自变量的混合二阶偏导数之和： <span class="math display">\[
+\Delta f=\sum_{i=1}^n\frac{\partial^2f}{\partial x_i^2}
+\]</span> 二元函数的拉普拉斯算子可以采用如下方法近似计算： <span class="math display">\[
+\begin{align}
+\Delta f&amp;=\frac{\partial^2f}{\partial x^2}+\frac{\partial^2f}{\partial y^2}\\
+&amp;\approx \frac{f(x+\Delta x,y)+f(x-\Delta x,y)-2f(x,y)}{(\Delta x)^2}+ \frac{f(x,y + \Delta y)+f(x,y - \Delta y)-2f(x,y)}{(\Delta x)^2}
+\end{align}
+\]</span></p>
+<p>对一个二元函数进行离散化采样，得到下面的矩阵： <span class="math display">\[
+\begin{bmatrix}
+f(x_1,y_1) &amp; f(x_2,y_2) &amp; \cdots &amp; f(x_n,y_1)\\
+\cdots &amp; \cdots  &amp; \cdots &amp; \cdots \\
+f(x_n,y_1) &amp; f(x_n,y_2) &amp; \cdots &amp; f(x_n,y_n)\\
+\end{bmatrix}
+\]</span> 点<span class="math inline">\((x_i,y_j)\)</span>处的拉普拉斯算子可以通过离散化二元拉普拉斯算子的方法得到：<br />
+$$ <span class="math display">\[\begin{align}
+\Delta f&amp;\approx \frac{f(x+\Delta x,y)+f(x-\Delta x,y)-2f(x,y)}{(\Delta x)^2}+ \frac{f(x,y + \Delta y)+f(x,y - \Delta y)-2f(x,y)}{(\Delta x)^2}\\
+&amp;= f(x_{i+1},y_j)+f(x_{i-1},y_j)+f(x_i,y_{j+1})+f(x_i,y_{j-1})-4f(x_i,y_j)
+
+\end{align}\]</span> $$</p>
+<p>即<span class="math inline">\((x_i,y_j)\)</span>相邻结点的值减去四倍的自身。</p>
+<h5 id="图拉普拉斯矩阵和特征值">图拉普拉斯矩阵和特征值</h5>
+<p>即一个函数<span class="math inline">\(f_i\)</span>表示一个具有<span class="math inline">\(N\)</span>个结点的图，定义图拉普拉斯矩阵为： <span class="math display">\[
+\Lambda_{ij}=(\sum_lA_{il})\delta_{ij}-A_{ij}=\begin{cases}
+k_i, i=j\\
+-1, i\text{ and }j\text{ are connected}\\
+0,\text{otherwise}\\
+\end{cases}
+\]</span> 其中<span class="math inline">\(k_i=\sum_jA_{ij}\)</span>为顶点<span class="math inline">\(i\)</span>的度数。</p>
+<p>将上述式子进行归一化，得到归一化的拉普拉斯算子：<br />
+<span class="math display">\[
+L_{ij}=\begin{cases}
+1,i=j\\
+-\frac{1}{\sqrt{k_ik_j}},i\text{ and }j\text{ are connected}\\
+0,\text{otherwise}\\
+\end{cases}
+\]</span> 归⼀化图拉普拉斯算⼦的特征值可以从底层图拓扑的⻆度进⾏直观解释。不过，首先需要从图中移除所有孤⽴节点，因为这些节点不会产⽣邻接矩阵的元素，相应的<span class="math inline">\(L_{ij}\)</span> 值将定义不明确。</p>
+<p>对于归一化拉普拉斯矩阵可以简写为： <span class="math display">\[
+L = I - D^{-1/2} A D^{-1/2}= I-S
+\]</span> 其中<span class="math inline">\(D^{-1/2}\)</span>为归一化的度矩阵，其中内部的每个元素都是<span class="math inline">\(1/\sqrt{k_i}\)</span>；<span class="math inline">\(I\)</span>是单位矩阵。</p>
+<p>令<span class="math inline">\(S\)</span>的特征值为<span class="math inline">\(\mu\)</span>，对于利用图传播的某个信号<span class="math inline">\(x\)</span>，那么有<span class="math inline">\(Lx=(1-\mu)x\)</span>，从而<span class="math inline">\(\lambda=1-\mu\)</span>，利用Rayleigh Quotient (<span class="math inline">\(|x^TSx|\leq x^Tx\)</span>)可以求得<span class="math inline">\(S\)</span>的特征值满足<span class="math inline">\(|\mu|\leq1\)</span>, 因此有<span class="math inline">\(\lambda\in[0,2]\)</span>,并对其排序： <span class="math display">\[
+0=\lambda_0\le \lambda_1\le \cdots \le \lambda_{N-1}\le 2
+\]</span></p>
+<p>下面我们对归一化的拉普拉斯矩阵的特征值进行讨论：</p>
+<ul>
+<li><p>零特征值 其中最小的特征值被称为零特征值<span class="math inline">\(\lambda_0=0\)</span>，<strong>零特征值说明了图中存在不连通的部分</strong>。零特征值的特征向量为：<br />
+<span class="math display">\[
+  \mathbf{e}(\lambda_0)=\frac{1}{\sqrt{Const}}\begin{bmatrix}\sqrt{k_1}\\ \cdots \\\sqrt{k_N}\end{bmatrix}
+ \]</span> 其中<span class="math inline">\(Const\)</span>是一个归一化的常数。 需要注意的是，特征向量中的负号表示反相。</p>
+<p>因此，对于归一化的图拉普拉斯矩阵，其<strong>零特征值的数量说明了图中有多少个相互不连通的子图</strong>，且对于一个包含 <span class="math inline">\(a\)</span> 个互不连通连通分量的图，其拉普拉斯矩阵具有 <span class="math inline">\(a\)</span> 个线性无关的零特征向量。每个零特征对应的特征向量只在它自己的子图上非零，而在其它所有相互不连通的子图上均为零。</p></li>
+<li><p>特征值为1</p></li>
+</ul>
+<p>在高度均匀且稠密的图中，除了少数描述整体结构的模态之外，大多数模式经过邻居平均后都会被迅速抵消，因此对应的归一化邻接矩阵<span class="math inline">\(S\)</span>的特征值<span class="math inline">\(\mu\)</span>接近 0，从而归一化拉普拉斯的大部分特征值聚集在 1 附近。</p>
+<ul>
+<li><p>最大特征值（2）</p>
+<p>对于<span class="math inline">\(L=I-S\)</span>，如果存在归一化拉普拉斯矩阵达到最大特征值 <span class="math inline">\(λ=2\)</span>，有： <span class="math display">\[
+Lx=2x,
+\]</span> 则<span class="math inline">\((I-S)x=2x\)</span>, 得到<span class="math inline">\(Sx=-x\)</span>，即经过一次邻居加权平均之后，图信号 <span class="math inline">\(x\)</span>​ 整体翻转符号。也就是说，若某个节点的值是正的，那么它的邻居平均必须是负的；若某个节点的值是负的，那么它的邻居平均必须是正的。</p>
+<p>因此，每条边两端都必须倾向于取相反符号。只有二部图能够在整个网络上实现这种完全交替的符号分布，因此</p></li>
+</ul>
+<p><span class="math display">\[
+\lambda=2
+\iff
+\text{图为二部图}.
+\]</span></p>
+<p>​ 从图信号处理的角度看，<span class="math inline">\(λ=2\)</span> 对应图上能够存在的最高频振荡模式。</p>
 
                 
               </div>
@@ -784,7 +894,7 @@ p_k=e^{-z}\frac{z^k}{k!}
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年6月22日</div>
+          <div>2026年6月23日</div>
         </div>
       
       
