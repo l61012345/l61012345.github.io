@@ -118,7 +118,7 @@
 <meta property="og:description" content="Chapter 1 随机图和网络模型 图论的基本概念 在开始介绍有关网络的概念之前，首先需要介绍的是有关图论的相关内容。  顶点度(Degrees of a Vertex) 一个图由\(N\)个顶点相互连接构成，其中每个顶点的度数定义为与某个这个顶点连接的边的个数。  配位数(Corrdination Number) 配位数指的是整张图的平均顶点度。  在这里，我们引入随机图（">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-22T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-23T15:05:25.771Z">
+<meta property="article:modified_time" content="2026-06-23T16:11:45.325Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -530,7 +530,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          10k 字
+          12k 字
         
       </span>
     
@@ -541,7 +541,7 @@ p.spoiler {
         
         
         
-          87 分钟
+          99 分钟
         
       </span>
     
@@ -637,8 +637,8 @@ p=\frac{Nz}{2}\frac{2}{N(N-1)}=\frac{z}{N-1}
 z^D\approx N
 \]</span> 也就是说，<span class="math inline">\(D\)</span>正比于<span class="math inline">\(logN\)</span>。称这样的图/网络具有小世界效应，具有小世界效应的网络往往可以通过几个顶点就能够遍历绝大部分的其他结点。</p>
 <ul>
-<li><p>网络中的聚类<br />
-在网络中，称聚类系数（Clustering Coefficient） 为相邻结点之间有边的概率，对于随机图而言，其中的一个结点通常具有<span class="math inline">\(z(z-1)/2\)</span>对相邻的结点，根据之前的推导，那么随机图聚类系数同等于Erdos-Renyi图的连接概率，即为：<br />
+<li><p>网络中的连通分量<br />
+在网络中，称一组连接的结点为这个网络的连通分量(cluster)，聚类系数（Clustering Coefficient） 为相邻结点之间有边的概率，对于随机图而言，其中的一个结点通常具有<span class="math inline">\(z(z-1)/2\)</span>对相邻的结点，根据之前的推导，那么随机图聚类系数同等于Erdos-Renyi图的连接概率，即为：<br />
 <span class="math display">\[
 C_{rand}=\frac{z}{N-1}\approx \frac{z}{N}
 \]</span> ​ 聚类系数越大表明网络的连通性越强。</p></li>
@@ -962,7 +962,8 @@ C\rightarrow0
 \]</span></p>
 <p>这说明配置模型虽然能够准确保持给定的度分布，但无法产生真实复杂网络中常见的大量三角形结构，因此其聚类系数通常远低于现实网络。</p>
 <h3 id="子图的大小">子图的大小</h3>
-<p>对于低于渗流阈值之下的情况，我们更关心这个图内部的每个子图的大小。在推导这个部分之前我们需要先介绍这一小节使用到的工具函数：概率生成函数。</p>
+<p>对于低于渗流阈值（Percolation Threshold）的情况，网络中不存在巨型连通分量（Giant Component），因此所有连通分量均为有限大小。此时我们关心的是随机图中有限连通分量的大小分布。</p>
+<p>为了进行推导，需要先引入概率生成函数（Probability Generating Function）。</p>
 <h4 id="概率生成函数">概率生成函数</h4>
 <p>定义， <span class="math display">\[
 G_0(x)=\sum_{k=0}^\infty p_kx^k
@@ -971,6 +972,39 @@ p_k=\frac{1}{k!}\frac{d^kG_0}{dx^k}|_{x=0}
 \]</span> 那么对于一阶剩余度分布<span class="math inline">\(q_k=(k+1)p_{k+1}/z\)</span>也同样可以如此定义，那么就可以得到： <span class="math display">\[
 G_1(x)=\sum_{k=0}^\infty q_kx^k=\frac{G&#39;_0(x)}{z}
 \]</span></p>
+<p>在低于渗流阈值时，定义：</p>
+<p><span class="math display">\[
+H_1(x)=\sum_m h^{(1)}_m x^m
+\]</span></p>
+<p>表示沿一条指定边到达顶点 <span class="math inline">\(j\)</span> 后，其所属有限连通分量大小的概率生成函数。其中 <span class="math inline">\(h^{(1)}_m\)</span> 表示该有限连通分量恰好包含 <span class="math inline">\(m\)</span> 个节点的概率。</p>
+<p>从顶点 <span class="math inline">\(j\)</span> 伸出的剩余边数 <span class="math inline">\(k\)</span> 由剩余度分布 <span class="math inline">\(q_k\)</span> 描述。由于配置模型在大规模极限下局部近似为树状结构（Locally Tree-like Approximation），有限连通分量中闭环出现的概率极低，因此从顶点 <span class="math inline">\(j\)</span> 出发的不同剩余边通常通向彼此独立的分支。</p>
+<p>若每个分支的大小分布均由 <span class="math inline">\(H_1(x)\)</span> 描述，则根据概率生成函数的乘法性质，<span class="math inline">\(k\)</span> 个独立分支大小之和的生成函数为</p>
+<p><span class="math display">\[
+[H_1(x)]^k
+\]</span></p>
+<p>因此，局部树状结构是该推导成立的关键：正因为不存在闭环，不同分支不会重新汇合到同一节点，从而可以视为相互独立，并直接利用生成函数的乘法性质计算整个连通分量的大小分布。</p>
+<p>我们实际上想要知道的是我们进入的这个结点<span class="math inline">\(j\)</span>所属的连通分量的大小的分布情况，在这里我们做如下的推论：</p>
+<ul>
+<li>从随机一个结点发出的边的数量服从度分布<span class="math inline">\(p_k\)</span></li>
+<li>每个边最后都会连接到一个符合由<span class="math inline">\(H_1(x)\)</span>生成的大小分布的连通分量</li>
+</ul>
+<p>因此定义对于一个完整的连通分量，其大小分布的概率生成函数为：<br />
+<span class="math display">\[
+H_0(x)=x\sum_{k=0}^\infty p_k[H_1(x)]^k=xG_0(H_1(x))
+\]</span> 这个连通分量的平均大小可以通过这个函数导出： <span class="math display">\[
+\langle s\rangle = H_0&#39;(1)=1+G&#39;_0(1)H&#39;_1(1)
+\]</span> 其中<span class="math inline">\(G_0(1)=H_1(1)=H_0(1)=1\)</span>，且<span class="math inline">\(H&#39;_1(1)\)</span>可以通过复合函数求导得到为<span class="math inline">\(H&#39;_1(1)=\frac{1}{1-G&#39;_1(1)}\)</span>，那么上面的式子可以改写为： <span class="math display">\[
+\langle s\rangle=1+\frac{G&#39;_0(1)}{1-G_1&#39;(1)}=1+\frac{z_1^2}{z_1-z_2}
+\]</span> 可以发现这个式子会在渗流条件<span class="math inline">\(z_1=z_2\)</span>时，平均有限连通分量大小发散。这表明系统到达渗流临界点。</p>
+<h3 id="巨型连通分量的大小">巨型连通分量的大小</h3>
+<p>那么相应地，在高于渗流阈值的情况下，我们对巨型连通分量占据整个网络结点数的比例<span class="math inline">\(S\)</span>更感兴趣。在这种情况下我们可以把概率生成函数分成两部分，一部分描述巨型连通分量的生成，另一部分描述其他连通分量： <span class="math display">\[
+H_0(x)\rightarrow H^*_0(x)+H_0(x)， H_0^*(1)=S,H_0(1)=1-S=G_0(u)
+\]</span> 描述其他连通分量的部分和之前的推导不变，有<span class="math inline">\(u=H_1(1)=G_1(u)\)</span>.</p>
+<p>对于Erdös–Rényi而言，有<span class="math inline">\(G_1(x)=G_0(x)=exp(z(x-1))\)</span>, 那么： <span class="math display">\[
+ 1-S=u=e^{z(u-1)}=e^{-zS},S=1-e^{-zS}
+\]</span> 对上面的式子进行泰勒展开，有： <span class="math display">\[
+S\approx zS-\frac{(eS)^2}{2}, S(z)\approx \frac{2(z-1)}{z^2}
+\]</span> 可以发现，在渗流区域内<span class="math inline">\(S(z)\)</span>线性增长，当度数<span class="math inline">\(z\)</span>很大时，巨型分量会以指数级的速度吞噬整个网络，有<span class="math inline">\(\lim_{z\rightarrow \infty}S\rightarrow 1\)</span>.</p>
 
                 
               </div>
