@@ -17,7 +17,6 @@ layout: about
 
 - Yilin Liu and Zhengwen Huang. Semantic Valued Schema Theory of Genetic Programming in Symbolic Regression. under review. 2025. {% spoiler （这篇是我的心头好） %}   
 - Yilin Liu and Gareth Taylor and Zhengwen Huang. Novel Application of Mutual Information in Transfer Learning for Genetic Programming. In Aniko Ekart and Nelishia Pillay editors, Proceedings of the 2025 Genetic and Evolutionary Computation Conference Companion, pages 635-638, Malaga, Spain, 2025. Association for Computing Machinery.    
-
 - Yilin Liu and Daniil Hulak and Zhengwen Huang and Gareth Taylor. Novel Forecasting for Photovoltaic Installation Output Using Transfer Learning Genetic Programming. In 60th International Universities Power Engineering Conference, UPEC 2025, London, 2025. 
 
 ## 关于这个博客  
