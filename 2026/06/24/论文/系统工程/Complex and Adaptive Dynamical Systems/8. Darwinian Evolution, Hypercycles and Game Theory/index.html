@@ -118,7 +118,7 @@
 <meta property="og:description" content="Chapter 8 达尔文进化、超周期和博弈论  这是对Claudius Gros的教材《Complex and Adaptive Dynamical Systems: A Comprehensive Introduction》© 2024的笔记，完整的图书可以从斯普林格购买：Complex and Adaptive Dynamical Systems: A Comprehensive Int">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-24T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-25T13:11:29.618Z">
+<meta property="article:modified_time" content="2026-06-26T10:27:16.737Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -530,7 +530,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          15k 字
         
       </span>
     
@@ -541,7 +541,7 @@ p.spoiler {
         
         
         
-          92 分钟
+          127 分钟
         
       </span>
     
@@ -607,7 +607,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年6月25日 下午
+                    本文最后更新于 2026年6月26日 上午
                   
                 
               </p>
@@ -896,6 +896,79 @@ x_1^*=\frac{u}{1-\sigma(1-x^*_0)-(1-u)(1-\sigma)}x_0^*
 \]</span> 同理可以得到<span class="math inline">\(x_k\)</span>的稳定状态： <span class="math display">\[
 x_k^*=\frac{(1-\sigma)u}{1-\sigma(1-x^*_0)-(1-u)(1-\sigma)}x_{k-1}^*
 \]</span></p>
+<h5 id="准物种的形成">准物种的形成</h5>
+<p>当突变概率很小(<span class="math inline">\(u&lt;\sigma\)</span>)的时候，<span class="math inline">\(x_0^*&gt;0\)</span>,所有的基因组与<span class="math inline">\(\mathbf{s}\)</span>的距离都是有限的，有： <span class="math display">\[
+\sigma(1-x_0^*)=\sigma(1-1+u/\sigma)=u
+\]</span> 那么<span class="math inline">\(x_k^*\)</span>的系数： <span class="math display">\[
+\frac{(1-\sigma)u}{1-\sigma(1-x^*_0)-(1-u)(1-\sigma)}=\frac{(1-\sigma)u}{1-u-(1-u)(1-\sigma)}=\frac{u}{\sigma}\left(\frac{1-\sigma}{1-u}\right)\leq 1, \text{for } u&lt;\sigma
+\]</span> 那么<span class="math inline">\(x_k^*\)</span>则是一个几何级数： <span class="math display">\[
+x_k^*\sim\big(\frac{u}{\sigma}\left(\frac{1-\sigma}{1-u}\right)\big)^k
+\]</span> 在这种适应性状态下，种群形成了曼弗雷德·艾根所称的“准物种”(quasispecies)：种群中的个体基因型会非常相似，但是不完全相同。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic//img/20260625162543922.png width=60%></p>
+<h5 id="随机游走">随机游走</h5>
+<p>上一小节讨论了在很小突变概率的情况下，现在讨论在大突变概率（<span class="math inline">\(\mu&gt;\sigma\)</span>）下的动力学，此时对于任意<span class="math inline">\(k\)</span>都有<span class="math inline">\(x^*_k=0\)</span>,也就是说最优基因型在稳态中彻底消失，整个种群都远离最优基因型，适应度将降⾄极低⽔平，种群规模也将随之减少，直到上述分析的先决条件不再成⽴， 并进⼊“随机游走”。 在此状态下，有限种群规模的影响⾮常明显。遗传学中将进化从适应区间到随机游走区间的切换称为错误灾难(Error Catastrophe)：当突变率过⾼时，准物种将⽆法适应。 在⼤多数情况下，错误灾难在现实世界中意味着灭绝。</p>
+<h3 id="漂移屏障假说">漂移屏障假说</h3>
+<p>到目前为止，我们的论证一直基于短期适应压力，即基于与静态环境相关联的适应度景观。在这种情况下，拥有最优基因组的个体越多越好。然而，环境会在更长的时间尺度上发生变化，这对适应良好的物种来说是个坏消息。现存基因库中的变异过少，会严重限制其对新环境压力的适应能力。为了能够适应不断变化的环境，一个物种关键的是需要大量拥有合适基因组的个体，而不是种群中有限的比例。因此，总体遗传变异程度与： <span class="math display">\[
+uM=\frac{M}{N}\mu
+\]</span> 成正比，如果假设不同物种之间的遗传变异性大致相当，那么最优突变率与<span class="math inline">\(1/M\)</span>成正比，即与种群规模成反比。这一现象在多细胞真核生物中确实存在。然而有一个关键问题：当种群规模<span class="math inline">\(M\)</span>变得过小时，<span class="math inline">\(u∼1/M\)</span>将跨越“漂移屏障”——即在此语境下所称的误差阈值。这就是“漂移屏障假说”，可视为Kauffman“混沌边缘的生命”概念的一个实例。这两个概念都涉及短期与长期生存能力之间的权衡。</p>
+<h2 id="适应性爬升和随机逃逸">适应性爬升和随机逃逸</h2>
+<p>进化并非一个始终平稳的过程，而是通常表现为适应度快速增长与长期停滞交替出现的动态行为，这种现象称为<strong>间断平衡（Punctuated Equilibrium）</strong>。快速增长阶段主要由自然选择驱动，而停滞阶段则对应于适应度景观中的中性区域（Neutral Region），此时种群的平均适应度几乎不再发生变化。</p>
+<p>在中性区域内，不同基因型之间的适应度差异极小，选择作用显著减弱，进化过程主要由随机突变驱动。此时，准物种模型所采用的无限种群近似不再适用，有限种群中的随机涨落（Genetic Drift）必须被考虑。随机逃逸（Stochastic Escape）正是在这种背景下发生的：由于有限种群中个体繁殖具有随机性，即使某些突变会降低适应度，它们仍可能因随机漂变而逐渐积累，甚至最终在整个种群中固定下来。因此，种群能够在随机漂变的作用下离开原有的局部适应峰，并进一步探索新的基因型空间，为后续进入更高适应度区域提供可能。</p>
+<p>下面的这一小节的内容将基于一个通常的情况来进行分析：有限种群、强选择压力、低突变率。</p>
+<h3 id="强选择压力下的适应性爬升">强选择压力下的适应性爬升</h3>
+<p>进化的适应性过程主要由三个步骤组成：</p>
+<ul>
+<li>每代每个基因只能突变一次，确保每次突变的结果都会在下一次选择中被检验：
+<ul>
+<li>如果新的基因的适应度更高，那么它会非常迅速地在种群中扩散。</li>
+<li>如果新的基因的适应度更低，那么它会在之后被进化淘汰，且突变前的基因会在种群中得到保留。</li>
+</ul></li>
+</ul>
+<p>这种动态过程在物理学中被称为零度蒙特卡洛过程。</p>
+<h4 id="突变的爬升">突变的爬升</h4>
+<h5 id="随机能量模型的局部最优">随机能量模型的局部最优</h5>
+<p>下面将探究突变为进化带来的动态性，作为第⼀步，调查局部最优解的统计特性⾮常重要，这些特性取 决于适应度景观的特性。⼀种合适的⽅法是假设适应度值是随机分布的，这种适应度景观被称为随机能量模型：<span class="math inline">\(F(\mathbf{s})=U(0,1)\)</span>.</p>
+<p>假设一个基因组<span class="math inline">\(\mathbf{s}\)</span>，其周围某个距离其汉明距离为1的邻居<span class="math inline">\(\mathbf{s}_i\)</span>，由于<span class="math inline">\(\mathbf{s}_i\)</span>的适应度<span class="math inline">\(F_i\)</span>也服从随机分布，有<span class="math inline">\(P(F_i&lt;F)=F\)</span>，那么<span class="math inline">\(\mathbf{s}\)</span>比其周围的汉明距离为1的<span class="math inline">\(N\)</span>个邻居的适应度更高的概率应当为： <span class="math display">\[
+P(\text{local}|F)=F^N=F^N(\mathbf{s})
+\]</span> 此时<span class="math inline">\(\mathbf{s}\)</span>应当被视为一个局部最优解. 对<span class="math inline">\(F\)</span>的所有可能取值积分，得到在随机能量模型下随机一个基因组在基因组空间中为局部最优的概率为： <span class="math display">\[
+P(\text{local})=\int_0^1F^NdF=\frac{1}{N+1}
+\]</span> 由于基因组空间的大小为<span class="math inline">\(2^N\)</span>,随机能量模型中局部最优解的数量的期望为<span class="math inline">\(2^N/(N+1)\)</span>.</p>
+<p>那么根据贝叶斯公式，可以得到如果一个基因组为局部最优解，那么其适应度<span class="math inline">\(F\)</span>的期望为： <span class="math display">\[
+E(F|\text{local})=\frac{\int_0^1FP(\text{local}|F)dF}{P(\text{local})}=\frac{N+1}{N+2}\approx1-\frac{1}{N}
+\]</span> 可以发现当个体的长度/基因组包含的位点数量<span class="math inline">\(N\)</span>很长的时候，局部最优解的适应度的期望值会接近全局最优，即1.</p>
+<h5 id="成功突变的次数">成功突变的次数</h5>
+<p>现在记从<span class="math inline">\(F=\frac{1}{2}\)</span>开始经过<span class="math inline">\(\mathcal{l}\)</span>步得到的适应度的典型值为： <span class="math display">\[
+1-\frac{1}{2^{l+1}}
+\]</span> 如果说每一次突变都能让基因型更加靠近局部最优解，称这次突变是成功的。那么带入这个典型值可以得到： <span class="math display">\[
+F_{type}=1-\frac{1}{N}\approx1-\frac{1}{2^{l_{type}+1}} \rightarrow l_{type}+1=\frac{logN}{log2}
+\]</span> 也就是说平均需要<span class="math inline">\(logN/log2\)</span>步才能够达到局部最优解。尽管根据上面的式子，达到局部最优解所需要的成功的突变次数很少，但是由于突变的随机性并不能保证每次突变都一定会提高适应度，因此实际上达到局部最优解所需要的时间可能会很长：</p>
+<p>记<span class="math inline">\(t_F=\sum_nnP_n\)</span>为对适应度<span class="math inline">\(F\)</span>的个体其可以获得一次“成功的突变”所需要的平均代数，由于在随机景观中<span class="math inline">\(F\sim U(0,1)\)</span>，那么一次突变后适应度比前一次更好的概率应当为<span class="math inline">\(1-F\)</span>，那么恰好在第<span class="math inline">\(n\)</span>代成功突变的概率为： <span class="math display">\[
+P_n=(1-F)F^{n-1}
+\]</span> 带入<span class="math inline">\(t_F\)</span>得到： <span class="math display">\[
+t_F=\frac{1-F}{F}\sum_{n=0}^\infty n F^n=\frac{1}{1-F}
+\]</span> 可以得知，总的爬升时间为： <span class="math display">\[
+\begin{align}
+T_{opt}=&amp;t_F\sum_{l=0}^{l_{type} }2^l\approx t_F2^{l_{type}+1}=t_fe^{(l_{type}+1)log2}\\
+\approx&amp;t_Fe^{logN}=\frac{N}{1-F}\approx2N
+\end{align}
+\]</span> 也就是说，在随机景观中，通过突变进行爬升所需要的总时间和个体长度成正比关系。</p>
+<h4 id="随机逃逸">随机逃逸</h4>
+<p>上一节的重点在于适应性攀升的平均特性。我们现在将繁殖过程中的波动纳入考虑。现在我们来看发生随机逃逸所需要的时间，在我们模型所假设的 强选择极限条件下，有利突变会瞬间扩散到整个种群中。因此，在一阶近似下，只需将分析范围限制在种群规模为<span class="math inline">\(M\)</span>且所有个体适应度完全相同的种群中即可。 由于每个基因组发生突变的概率为<span class="math inline">\(u\)</span>，这导致后代适应度降低的概率为<span class="math inline">\(F\)</span>。这种情况发生的概率，即随机逃逸的概率，因此为: <span class="math display">\[
+p_{esc}\propto (Fu)^M\approx u^M,F\approx 1
+\]</span> 也就是说，在进化达到局部最优后，种群中几乎所有的突变对个体适应度都是负面影响，在这种情况下，未发生突变的个体由于适应度不会下降反而被保留。那么现在记对单个个体其发生突变后适应度不会被改进的概率为<span class="math inline">\(a=1-(1-F)u\)</span>，那么整个种群在一代中至少发生一次改进的概率为： <span class="math display">\[
+q_{pos}=1-a^M
+\]</span> 可以发现，此时进化中存在两种截然不同的动态策略：</p>
+<ul>
+<li>当逃逸概率远小于改进概率(<span class="math inline">\(q_{pos}\gg p_{esc}\)</span>)时，种群会持续通过突变改进种群的适应度，呈现适应性爬升。</li>
+<li>当种群逐渐进入局部最优的附近的时候，<span class="math inline">\(q_{pos}\)</span>会减小，而<span class="math inline">\(p_{esc}\)</span>会逐渐增大从而<span class="math inline">\(q_{pos}\approx p_{esc}\)</span>，呈现随机游走。</li>
+</ul>
+<p>但是如果进化能够通过随机游走逃离当前的局部最优，那么会开启新一轮的适应性爬升：</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic//img/20260626111956094.png width=50%></p>
+<p>开启随机游走的临界条件是<span class="math inline">\(q_{pos}= p_{esc}\)</span>，可以解出此时的适应度： <span class="math display">\[
+1-F_{esc}=u^{M-1}/M
+\]</span> ⼀般⽽⾔，当种群处于局部最优解或接近局部最优解时，就会发⽣随机逃逸。将典型攀升过程所达到的局部最优解的典型适应度<span class="math inline">\(F_{type}\)</span> 与逃逸过程变得重 要所需的典型适应度 <span class="math inline">\(F_{esc}\)</span> 进⾏⽐较，来估算逃逸过程相对于适应性爬升过程的重要性，有： <span class="math display">\[
+F_{type}=F_{esc}\rightarrow\frac{1}{N}=\frac{u^{M-1}}{M}
+\]</span> 也就是说，只有当个体数<span class="math inline">\(M\)</span> 远⼩于基因组⻓度 <span class="math inline">\(N\)</span> 时 （即 <span class="math inline">\(u &lt; 1\)</span>），这⼀条件才能成⽴，因此随机逃逸 现象仅在种群规模⾮常⼩的情况下才会发⽣。</p>
 
                 
               </div>
@@ -967,7 +1040,7 @@ x_k^*=\frac{(1-\sigma)u}{1-\sigma(1-x^*_0)-(1-u)(1-\sigma)}x_{k-1}^*
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2026年6月25日</div>
+          <div>2026年6月26日</div>
         </div>
       
       
