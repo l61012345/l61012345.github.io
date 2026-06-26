@@ -118,7 +118,7 @@
 <meta property="og:description" content="Chapter 8 达尔文进化、超周期和博弈论  这是对Claudius Gros的教材《Complex and Adaptive Dynamical Systems: A Comprehensive Introduction》© 2024的笔记，完整的图书可以从斯普林格购买：Complex and Adaptive Dynamical Systems: A Comprehensive Int">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2026-06-24T00:00:00.000Z">
-<meta property="article:modified_time" content="2026-06-26T12:16:58.408Z">
+<meta property="article:modified_time" content="2026-06-26T15:50:53.089Z">
 <meta property="article:author" content="Oreki Kigiha">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -530,7 +530,7 @@ p.spoiler {
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          17k 字
+          19k 字
         
       </span>
     
@@ -541,7 +541,7 @@ p.spoiler {
         
         
         
-          142 分钟
+          160 分钟
         
       </span>
     
@@ -607,7 +607,7 @@ p.spoiler {
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2026年6月26日 中午
+                    本文最后更新于 2026年6月26日 下午
                   
                 
               </p>
@@ -986,7 +986,7 @@ C=\sum_i x_i
 \]</span> 其中<span class="math inline">\(\mathbf{x}=[x_1,...,x_N]^T\)</span>，<span class="math inline">\(W\)</span>的每个元素是<span class="math inline">\(W_{ij}\)</span>，上式的解与<span class="math inline">\(W\)</span>的特征向量<span class="math inline">\(\mathbf{e}_\lambda\)</span>有关，有： <span class="math display">\[
 \mathbf{x}(t)=\sum_\lambda a_\lambda(t)\mathbf{e}_\lambda, \dot{a}_\lambda=[\lambda-\phi(t)]a_\lambda
 \]</span> 当<span class="math inline">\(t\rightarrow\infty\)</span>时，最大的特征向量将主导上述微分方程，此时<span class="math inline">\(\phi\rightarrow\lambda_{max}\)</span>有<span class="math inline">\(\dot{x}=0\)</span>达到稳态。</p>
-<h4 id="准物种">准物种</h4>
+<h4 id="准物种的形成-1">准物种的形成</h4>
 <p>当复制–突变矩阵 <span class="math inline">\(W\)</span> 为对角矩阵时，即不存在突变时，其特征向量 <span class="math inline">\(\mathbf e_\lambda\)</span> 仅包含一个非零元素，例如</p>
 <p><span class="math display">\[
 (0,\cdots,1,\cdots,0)^T.
@@ -1005,8 +1005,115 @@ C=\sum_i x_i
 W_{ij},\qquad i\neq j,
 \]</span></p>
 <p>为零或虽然非零但远小于对角元。此时，种群主要集中在少数几个相互接近的基因型附近，而不会均匀分布于整个基因型空间。</p>
-<h4 id="错误灾难">错误灾难</h4>
+<h4 id="错误灾难的形成">错误灾难的形成</h4>
 <p>当<span class="math inline">\(W\)</span>非对角性质越来越强的时候，最大特征值对应的特征向量 <span class="math inline">\(\mathbf e_{\lambda_{\max}}\)</span> 逐渐从强度向量变为广延向量，同时, <span class="math inline">\(\phi\)</span> 也发散，结果是总质量守恒不再成⽴，此时更有可能发生错误灾难。</p>
+<h3 id="遗传物质的交互">遗传物质的交互</h3>
+<p>上面的过程中都没有考虑遗传物质和遗传物质之间的交互，遗传物质之间的交互过程可以由如下的动力学方程描述： <span class="math display">\[
+\dot{x}_i=x_i\big(\lambda_i+\sum_j\mathcal{K}_{ij}x_j-\phi\big)
+\]</span> 其中<span class="math inline">\(x_i\)</span>为遗传物质<span class="math inline">\(i\)</span>在种群中的含量；<span class="math inline">\(\lambda_i\)</span>是其自增长率；<span class="math inline">\(\mathcal{K}_{ij}\)</span>描述的是<span class="math inline">\(x_j\)</span>与<span class="math inline">\(x_i\)</span>之间的相互转化率，在<span class="math inline">\(\phi\)</span>的设置为： <span class="math display">\[
+\phi=\sum_kx_k\big(\lambda_i+\sum_j\mathcal{K}_{ij}x_j\big)
+\]</span></p>
+<p>的时候，遗传物质的总量维持守恒：<span class="math inline">\(C=\sum_ix_i\)</span>.</p>
+<p>下面假定所有遗传物质之间的转化率是一定的<span class="math inline">\(\mathcal{K}_{ij}=\kappa\)</span>，且<span class="math inline">\(\mathcal{K}_{ii}=0\)</span>，遗传物质自身扩散速度为线性：<span class="math inline">\(\lambda_i=\alpha i\)</span>，这种情况下遗传物质之间的转换是同质的(homologous)，那么有： <span class="math display">\[
+\dot{x}_i=x_i\big(\lambda_i+\sum_j\mathcal{K}_{ij}x_j-\phi\big)=x_i\big(\lambda_i+\kappa-\kappa x_i-\phi\big)
+\]</span> 利用<span class="math inline">\(C=1\)</span>，得到上述方程的稳定解： <span class="math display">\[
+x^*_i=\begin{cases}(\lambda_i+\kappa-\phi)/\kappa\\0\end{cases},\lambda_i=\alpha,2\alpha,...,N\alpha
+\]</span> 其中，当相应的 <span class="math inline">\(x^∗_i\)</span> 为正值时，即当<span class="math inline">\(λ_i−\kappa−\phi&gt; 0\)</span> 时，非零解成立。</p>
+<p><img src = https://cdn.jsdelivr.net/gh/l61012345/Pic//img/20260626164045352.png width=50%></p>
+<p>现在假设存在一个<span class="math inline">\(N^*\in[1,N]\)</span>使得： <span class="math display">\[
+x^*_i=\begin{cases}(\lambda_i+\kappa-\phi)/\kappa,N^*\leq i\leq N\\
+0,1\leq i&lt;N\end{cases}
+\]</span> 其中<span class="math inline">\(N^*\)</span>和<span class="math inline">\(\phi\)</span>​的具体取值和质量守恒条件有关。上面的式子说明，遗传物质的反应网络的自组织过程出现了明显的区分：部分遗传物质逐渐消失，另一部分遗传物质则形成一个稳定且相互支撑的催化网络。</p>
+<h4 id="终止条件">终止条件</h4>
+<p>下面我们就来求<span class="math inline">\(N^*\)</span>分析其与哪些因素有关。</p>
+<p>根据质量守恒条件，稳态下所有存活反应物的浓度之和应满足<span class="math inline">\(\sum_i x_i^*=1\)</span>. 由上一节得到的稳态解<span class="math inline">\(x_i^*=\frac{\lambda_i+\kappa-\phi}{\kappa}\)</span>可得： <span class="math display">\[
+1
+=
+\sum_{i=N^*}^{N}
+x_i^*
+=
+\sum_{i=N^*}^{N}
+\frac{\lambda_i+\kappa-\phi}{\kappa}.
+\]</span></p>
+<p>若进一步假设适应度满足线性关系<span class="math inline">\(\lambda_i=\alpha i\)</span>，则上式可写为</p>
+<p><span class="math display">\[
+1
+=
+\frac{\alpha}{\kappa}
+\sum_{i=N^*}^{N}i
++
+\frac{\kappa-\phi}{\kappa}
+\left(
+N+1-N^*
+\right).
+\]</span></p>
+<p>利用等差数列求和公式，</p>
+<p><span class="math display">\[
+\sum_{i=N^*}^{N}i
+=
+\frac{
+N(N+1)-N^*(N^*-1)
+}{2},
+\]</span></p>
+<p>于是得到</p>
+<p><span class="math display">\[
+1
+=
+\frac{\alpha}{2\kappa}
+\left[
+N(N+1)-N^*(N^*-1)
+\right]
++
+\frac{\kappa-\phi}{\kappa}
+\left(
+N+1-N^*
+\right).
+\]</span></p>
+<p>另一方面，由终止条件可知，第一个灭绝的反应物满足</p>
+<p><span class="math display">\[
+x_{N^*-1}^*=0,
+\]</span></p>
+<p>因此</p>
+<p><span class="math display">\[
+0
+=
+\frac{\lambda_{N^*-1}+\kappa-\phi}{\kappa}
+=
+\frac{\alpha(N^*-1)}{\kappa}
++
+\frac{\kappa-\phi}{\kappa}.
+\]</span></p>
+<p>利用该式可以消去<span class="math inline">\(\frac{\kappa-\phi}{\kappa}\)</span>，从而得到仅含有 <span class="math inline">\(N\)</span> 与 <span class="math inline">\(N^*\)</span> 的关系：对于大量反应物（Large Number of Reactants）的情况，即<span class="math inline">\(N,N^*\gg1\)</span>，忽略低阶项后可得</p>
+<p><span class="math display">\[
+\frac{2\kappa}{\alpha}
+\simeq
+N^2
+-
+2NN^*
++
+(N^*)^2
+=
+(N-N^*)^2.
+\]</span></p>
+<p>因此，最终能够存活的反应物数量为</p>
+<p><span class="math display">\[
+N-N^*
+\simeq
+\sqrt{\frac{2\kappa}{\alpha}}.
+\]</span></p>
+<p>因此，最终存活的反应物数量仅与竞争强度 <span class="math inline">\(\kappa\)</span> 和适应度梯度 <span class="math inline">\(\alpha\)</span> 有关，其满足</p>
+<p><span class="math display">\[
+N_{\mathrm{survive}}
+=
+N-N^*
+\simeq
+\sqrt{\frac{2\kappa}{\alpha}}.
+\]</span></p>
+<p>因此：</p>
+<ul>
+<li>竞争越强（<span class="math inline">\(\kappa\)</span> 越大），最终能够共存的反应物越多；</li>
+<li>适应度梯度越陡（<span class="math inline">\(\alpha\)</span> 越大），竞争越激烈，最终能够存活的反应物越少。</li>
+</ul>
 
                 
               </div>
